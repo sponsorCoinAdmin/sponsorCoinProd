@@ -2,14 +2,9 @@
 pragma solidity ^0.8.6;
 // use latest solidity version at time of writing, need not worry about overflow and underflow
 
-/// @title ERC20 Contract
+/// @title ERC20 Contract 
 
-contract SPC_Token {
-    // My Variables
-    string public defaultName = "SPCoin0009";
-    string public defaultSymbol = "SC0009";
-    uint256 public defaultDecimals = 18;
-    uint256 public defaultTotalSupply = 100000000000000000000000000;
+contract Token {
 
     // My Variables
     string public name;
@@ -17,21 +12,7 @@ contract SPC_Token {
     uint256 public decimals;
     uint256 public totalSupply;
 
-    // Robin Added New
-    address[] public accountKeys;
-    mapping(address => uint)  indexOf;
-    mapping(address => bool)  inserted;
-
-    struct account {
-        uint256 balance;
-        address sponsor;
-        address agent;
-        uint sponsoredTime;
-    }
-
     // Keep track balances and allowances approved
-    mapping(address => account)  accounts;
-    // ToDo Remove Next Line
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;
 
@@ -39,25 +20,26 @@ contract SPC_Token {
     event Transfer(address indexed from, address indexed to, uint256 value);
     event Approval(address indexed owner, address indexed spender, uint256 value);
 
-//    constructor(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) {
-    constructor() {
-        name = defaultName;
-        symbol = defaultSymbol;
-        decimals = defaultDecimals;
-        totalSupply = defaultTotalSupply; 
-        initToken(name, symbol, decimals, totalSupply);
-    }
-
-       function initToken(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) internal{
+/*
+    constructor(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) {
         name = _name;
         symbol = _symbol;
         decimals = _decimals;
-        totalSupply = _totalSupply;
+        totalSupply = _totalSupply; 
         balanceOf[msg.sender] = totalSupply;
-//        setBalance(msg.sender, totalSupply);
     }
+*/
+       constructor() {
+        name = "Test";
+        symbol = "Test0001";
+        decimals = 18;
+        totalSupply = 100000000000000000000000000; 
+        balanceOf[msg.sender] = totalSupply;
+ //       initToken(name, symbol, decimals, totalSupply);
+   }
 
-   /// @notice transfer amount of tokens to an address
+
+    /// @notice transfer amount of tokens to an address
     /// @param _to receiver of token
     /// @param _value amount value of token to send
     /// @return success as true, for transfer 
@@ -110,3 +92,4 @@ contract SPC_Token {
     }
 
 }
+
