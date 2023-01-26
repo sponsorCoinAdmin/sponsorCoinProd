@@ -6,8 +6,8 @@ pragma solidity ^0.8.6;
 
 contract SPC_Token {
     // My Variables
-    string public defaultName = "SPCoin0009";
-    string public defaultSymbol = "SC0009";
+    string public defaultName = "SPCoin0010";
+    string public defaultSymbol = "SC0010";
     uint256 public defaultDecimals = 18;
     uint256 public defaultTotalSupply = 100000000000000000000000000;
 
@@ -48,7 +48,7 @@ contract SPC_Token {
         initToken(name, symbol, decimals, totalSupply);
     }
 
-       function initToken(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) internal{
+    function initToken(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) internal{
         name = _name;
         symbol = _symbol;
         decimals = _decimals;
@@ -62,7 +62,7 @@ contract SPC_Token {
     /// @param _value amount value of token to send
     /// @return success as true, for transfer 
     function transfer(address _to, uint256 _value) external returns (bool success) {
-        require(balanceOf[msg.sender] >= _value);
+        require(accounts[msg.sender].balance >= _value);
         _transfer(msg.sender, _to, _value);
         return true;
     }
@@ -72,7 +72,8 @@ contract SPC_Token {
     /// @param _to receiver of token
     /// @param _value amount value of token to send
     // Internal function transfer can only be called by this contract
-    //  Emit Transfer Event event 
+    //  Emit Transfer Event event
+
     function _transfer(address _from, address _to, uint256 _value) internal {
         // Ensure sending is to valid address! 0x0 address cane be used to burn() 
         require(_to != address(0));
@@ -81,7 +82,17 @@ contract SPC_Token {
         emit Transfer(_from, _to, _value);
     }
 
-    /// @notice Approve other to spend on your behalf eg an exchange 
+    /*
+   function _transfer(address _from, address _to, uint256 _value) internal {
+        // Ensure sending is to valid address! 0x0 address cane be used to burn() 
+        require(_to != address(0));
+        setBalance(_from, accounts[_from].balance - _value);
+        setBalance(_to,  accounts[_to].balance + _value);
+        emit Transfer(_from, _to, _value);
+    }
+    */
+
+       /// @notice Approve other to spend on your behalf eg an exchange 
     /// @param _spender allowed to spend and a max amount allowed to spend
     /// @param _value amount value of token to send
     /// @return true, success once address approved
@@ -110,3 +121,4 @@ contract SPC_Token {
     }
 
 }
+
