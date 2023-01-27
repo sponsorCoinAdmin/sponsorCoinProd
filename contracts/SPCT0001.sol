@@ -6,8 +6,8 @@ pragma solidity ^0.8.6;
 
 contract SPC_Token {
     // My Variables
-    string public defaultName = "SPCoin0010";
-    string public defaultSymbol = "SC0010";
+    string public defaultName = "SPCoin0012";
+    string public defaultSymbol = "SC0012";
     uint256 public defaultDecimals = 18;
     uint256 public defaultTotalSupply = 100000000000000000000000000;
 
@@ -92,18 +92,6 @@ contract SPC_Token {
     }
     */
 
-       /// @notice Approve other to spend on your behalf eg an exchange 
-    /// @param _spender allowed to spend and a max amount allowed to spend
-    /// @param _value amount value of token to send
-    /// @return true, success once address approved
-    //  Emit the Approval event  
-    // Allow _spender to spend up to _value on your behalf
-    function approve(address _spender, uint256 _value) external returns (bool) {
-        require(_spender != address(0));
-        allowance[msg.sender][_spender] = _value;
-        emit Approval(msg.sender, _spender, _value);
-        return true;
-    }
 
     /// @notice transfer by approved person from original address of an amount within approved limit 
     /// @param _from, address sending to and the amount to send
@@ -120,5 +108,81 @@ contract SPC_Token {
         return true;
     }
 
+    /// @notice Approve other to spend on your behalf eg an exchange 
+    /// @param _spender allowed to spend and a max amount allowed to spend
+    /// @param _value amount value of token to send
+    /// @return true, success once address approved
+    //  Emit the Approval event  
+    // Allow _spender to spend up to _value on your behalf
+    /*
+    function approve(address _spender, uint256 _value) external returns (bool) {
+        require(_spender != address(0));
+        allowance[msg.sender][_spender] = _value;
+        emit Approval(msg.sender, _spender, _value);
+        return true;
+    }
+    */
+
+    function approve(address _spender, uint256 _value) external returns (bool) {
+        require(_spender != address(0));
+        allowance[msg.sender][_spender] = _value;
+        emit Approval(msg.sender, _spender, _value);
+        return true;
+    }
+/*
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                               Robin Added New Code Area                                              //
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /// @notice set amount of tokens for a specified address
+    /// @param _accountKey public account key to set new balance
+    /// @param _newBalance amount value to set for new balance of account identified by accountKey
+    /// @return true if balance is set, false otherwise
+    function setBalance(address _accountKey, uint _newBalance ) internal returns (bool) {
+         accounts[_accountKey].balance = _newBalance;
+         accounts[_accountKey].sponsoredTime = block.timestamp;
+         if (!inserted[_accountKey]) {
+            inserted[_accountKey] = true;
+            accountKeys.push(_accountKey);
+            indexOf[_accountKey] = accountKeys.length;
+
+            return true;
+         }
+         else
+            return false;
+     }
+
+    /// @notice determines if address is inserted in account array
+    /// @param _accountKey public account key to set new balance
+    function isInserted(address _accountKey) public view returns (bool) {
+        if (!inserted[_accountKey])
+            return false;
+        else
+            return true;
+      }
+
+    /// @notice retreives the array index of a specific address.
+    /// @param _accountKey public account key to set new balance
+     function getIndexOf(address _accountKey) public view returns (uint) {
+        if (isInserted(_accountKey))
+            return indexOf[_accountKey];
+        else
+            return 0;
+      }
+
+    /// @notice retreives the account balance of a specific address.
+    /// @param _accountKey public account key to set new balance
+    function balanceOf(address _accountKey) public view returns (uint) {
+        require (isInserted(_accountKey));
+        return accounts[_accountKey].balance;
+    }
+
+    /// @notice retreives the account balance of a specific address.
+    /// @param _accountKey public account key to set new balance
+    function getAccount(address _accountKey) public view returns (account memory) {
+        require (isInserted(_accountKey));
+        return accounts[_accountKey];
+    }
+*/
 }
 
