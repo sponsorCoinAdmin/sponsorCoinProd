@@ -1,15 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.6;
-// use latest solidity version at time of writing, need not worry about overflow and underflow
 
-/// @title ERC20 Contract
+import "./Token.sol";
 
-contract SPC_Token {
+contract SPC_Token is Token{
     // My Variables
-    string public name;
-    string public symbol;
-    uint256 public decimals;
-    uint256 public totalSupply;
+    string public defaultName = "sponsorCoin";
+    string public defaultSymbol = "SPCoin";
+    uint256 public defaultDecimals = 18;
+    uint256 public defaultTotalSupply = 1000000000000000000000000;
 
     // Robin Added New
     address[] public accountKeys;
@@ -17,7 +16,6 @@ contract SPC_Token {
     mapping(address => bool)  inserted;
 
     struct account {
-        uint256 balance;
         address sponsor;
         address agent;
         uint sponsoredTime;
@@ -25,35 +23,22 @@ contract SPC_Token {
 
     // Keep track balances and allowances approved
     mapping(address => account)  accounts;
-    mapping(address => mapping(address => uint256)) public allowance;
 
-    // Events - fire events on state changes etc
-    event Transfer(address indexed from, address indexed to, uint256 value);
-    event Approval(address indexed owner, address indexed spender, uint256 value);
-
-    constructor() {
-        name = "sponsorCoin";
-        symbol = "SPCoin";
-        decimals = 18;
-        totalSupply = 1000000000000000000000000; 
-        initToken(name, symbol, decimals, totalSupply);
-    }
-
-    function initToken(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) internal{
-        name = _name;
-        symbol = _symbol;
-        decimals = _decimals;
-        totalSupply = _totalSupply; 
-        setBalance(msg.sender, totalSupply);
+    constructor() { 
+        initToken(defaultName, defaultSymbol, defaultDecimals, defaultTotalSupply);
     }
 
     /// @notice transfer amount of tokens to an address
     /// @param _to receiver of token
     /// @param _value amount value of token to send
     /// @return success as true, for transfer 
-    function transfer(address _to, uint256 _value) external returns (bool success) {
+    function transfer(address _to, uint256 _value) public  view override returns (bool success) {
+        Token zz = new Token();
+        super.transfer(_to, _value);
+        /* Performed by Super
         require(accounts[msg.sender].balance >= _value);
         _transfer(msg.sender, _to, _value);
+        */
         return true;
     }
 
@@ -63,7 +48,7 @@ contract SPC_Token {
     /// @param _value amount value of token to send
     // Internal function transfer can only be called by this contract
     //  Emit Transfer Event event 
-   function _transfer(address _from, address _to, uint256 _value) internal {
+   function _transfer(address _from, address _to, uint256 _value)  view override internal {
         // Ensure sending is to valid address! 0x0 address cane be used to burn() 
         require(_to != address(0));
         setBalance(_from, accounts[_from].balance - _value);
@@ -77,7 +62,7 @@ contract SPC_Token {
     /// @return true, success once address approved
     //  Emit the Approval event  
     // Allow _spender to spend up to _value on your behalf
-    function approve(address _spender, uint256 _value) external returns (bool) {
+    function approve(address _spender, uint256 _value) view override external returns (bool) {
         require(_spender != address(0));
         allowance[msg.sender][_spender] = _value;
         emit Approval(msg.sender, _spender, _value);
@@ -91,7 +76,7 @@ contract SPC_Token {
     /// @dev internal helper transfer function with required safety checks
     /// @return true, success once transfered from original account    
     // Allow _spender to spend up to _value on your behalf
-    function transferFrom(address _from, address _to, uint256 _value) external returns (bool) {
+    function transferFrom(address _from, address _to, uint256 _value) view override external returns (bool) {
         require(_value <= accounts[_from].balance);
         require(_value <= allowance[_from][msg.sender]);
         allowance[_from][msg.sender] = allowance[_from][msg.sender] - (_value);
@@ -139,12 +124,14 @@ contract SPC_Token {
             return 0;
       }
 
+/*
     /// @notice retreives the account balance of a specific address.
     /// @param _accountKey public account key to set new balance
     function balanceOf(address _accountKey) public view returns (uint) {
         require (isInserted(_accountKey));
         return accounts[_accountKey].balance;
     }
+*/
 
     /// @notice retreives the account balance of a specific address.
     /// @param _accountKey public account key to set new balance

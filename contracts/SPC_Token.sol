@@ -1,7 +1,5 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.6;
-// use latest solidity version at time of writing, need not worry about overflow and underflow
-
 /// @title ERC20 Contract
 
 contract SPC_Token {

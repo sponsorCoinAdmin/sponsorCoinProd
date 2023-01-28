@@ -20,17 +20,30 @@ contract Token {
     event Transfer(address indexed from, address indexed to, uint256 value);
     event Approval(address indexed owner, address indexed spender, uint256 value);
 
-
+/*
     constructor(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) {
-        initToken(_name, _symbol, _decimals, _totalSupply);
+        name = _name;
+        symbol = _symbol;
+        decimals = _decimals;
+        totalSupply = _totalSupply; 
+        balanceOf[msg.sender] = totalSupply;
     }
+*/
+    constructor() {
+        name = "Test";
+        symbol = "Test0001";
+        decimals = 18;
+        totalSupply = 100000000000000000000000000; 
+        initToken(name, symbol, decimals, totalSupply);
+   }
 
-   function initToken(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) private {
+   function initToken(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) internal{
         name = _name;
         symbol = _symbol;
         decimals = _decimals;
         totalSupply = _totalSupply;
         balanceOf[msg.sender] = totalSupply;
+//        setBalance(msg.sender, totalSupply);
     }
 
 
@@ -38,7 +51,7 @@ contract Token {
     /// @param _to receiver of token
     /// @param _value amount value of token to send
     /// @return success as true, for transfer 
-    function transfer(address _to, uint256 _value) external virtual returns (bool success) {
+    function transfer(address _to, uint256 _value) external returns (bool success) {
         require(balanceOf[msg.sender] >= _value);
         _transfer(msg.sender, _to, _value);
         return true;
