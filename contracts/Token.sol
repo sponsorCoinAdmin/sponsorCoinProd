@@ -1,12 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.6;
-// use latest solidity version at time of writing, need not worry about overflow and underflow
-
 /// @title ERC20 Contract
 
-import "./MapManager.sol";
+import "./AccountManager.sol";
 
-contract Token is MapManager{
+contract Token is AccountManager{
 
     // My Variables
     string public name;
@@ -32,7 +30,7 @@ contract Token is MapManager{
         initToken("Test", "Test0001", 18, 100000000000000000000000000);
    }
 
-   function initToken(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) private {
+   function initToken(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) internal {
         name = _name;
         symbol = _symbol;
         decimals = _decimals;

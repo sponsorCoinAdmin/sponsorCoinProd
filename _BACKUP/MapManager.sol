@@ -2,7 +2,7 @@
 pragma solidity ^0.8.6;
 /// @title ERC20 Contract
 
-    contract MapManager{
+    contract AccountManager{
 
     // Robin Added New
     address[] public accountKeys;

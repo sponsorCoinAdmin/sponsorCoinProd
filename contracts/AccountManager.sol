@@ -1,16 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.6;
 /// @title ERC20 Contract
+import "./AccountRecords.sol";
 
-contract MapManager{
-
-    address[] public accountIndex;
-    mapping(uint => address)  addressOf;
+contract AccountManager is AccountRecords{
 
    // Keep track of account insertions
+   address[] public accountIndex;
    struct account {
+        uint index;
         uint insertionTime;
-        uint indexOf;
         bool inserted;
     }
     mapping(address => account)  accounts;
@@ -25,19 +24,17 @@ contract MapManager{
             return true;
         else
             return false;
-      }
+    }
 
-    /// @notice set amount of tokens for a specified address
+    /// @notice insert address for later recall
     /// @param _accountKey public account key to set new balance
     /// @return true if balance is set, false otherwise
     function insertAccount(address _accountKey) public returns (bool) {
          if (!isInserted(_accountKey)) {
-            uint index = accountIndex.length;
             accounts[_accountKey].insertionTime = block.timestamp;
             accounts[_accountKey].inserted = true;
+            accounts[_accountKey].index = accountIndex.length;
             accountIndex.push(_accountKey);
-            accounts[_accountKey].indexOf = index;
-            addressOf[index] = _accountKey;
             return true;
          }
          else
@@ -46,9 +43,9 @@ contract MapManager{
 
     /// @notice retreives the array index of a specific address.
     /// @param _accountKey public account key to set new balance
-     function getIndexOf(address _accountKey) public view returns (uint) {
+     function getindex(address _accountKey) public view returns (uint) {
         if (isInserted(_accountKey))
-            return accounts[_accountKey].indexOf;
+            return accounts[_accountKey].index;
         else
             return 0;
       }
@@ -60,7 +57,7 @@ contract MapManager{
 
     /// @notice retreives the account balance of a specific address.
     /// @param _accountKey public account key to set new balance
-    function getAccount(address _accountKey) public view returns (account memory) {
+    function getActRec(address _accountKey) public view returns (account memory) {
         require (isInserted(_accountKey));
         return accounts[_accountKey];
     }

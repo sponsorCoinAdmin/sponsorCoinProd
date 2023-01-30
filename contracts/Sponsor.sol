@@ -2,9 +2,9 @@
 pragma solidity ^0.8.6;
 /// @title ERC20 Contract
 
-import "./Details.sol";
+import "./AccountRecords.sol";
 
-contract Sponsor is Details{
+contract Sponsor is AccountRecords{
 
     constructor(){
     }
