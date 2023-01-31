@@ -2,9 +2,13 @@
 pragma solidity ^0.8.6;
 /// @title ERC20 Contract
 
-import "./AccountRecords.sol";
+contract Agent {
 
-contract Agent is AccountRecords{
+    struct agentRec {
+       address addr;
+       uint rate;
+       bool verified;
+    }
 
     constructor(){
     }

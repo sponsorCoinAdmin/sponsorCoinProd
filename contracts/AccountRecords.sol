@@ -2,7 +2,9 @@
 pragma solidity ^0.8.6;
 /// @title ERC20 Contract
 
-contract AccountRecords {
+import "./Sponsor.sol";
+
+contract AccountRecords is Sponsor{
 
     address key;
     bool authorized;
@@ -11,19 +13,6 @@ contract AccountRecords {
        address addr;
        sponsorRec[] sponsor;
        kyc kyc;
-    }
-
-    struct sponsorRec {
-       address addr;
-       uint rate;
-       bool verified;
-       agentRec[] agent;
-    }
-
-    struct agentRec {
-       address addr;
-       uint rate;
-       bool verified;
     }
 
     struct kyc {
