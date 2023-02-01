@@ -1,41 +1,69 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.6;
 /// @title ERC20 Contract
+import "./KYC.sol";
 
-import "./Sponsor.sol";
+contract AccountRecords is KYC, Sponsor{
 
-contract AccountRecords is Sponsor{
-
-    address key;
-    bool authorized;
-
-    struct accountRec {
+   // Keep track of account insertions
+   address[] public accountIndex;
+   struct account {
        address addr;
-       sponsorRec[] sponsor;
-       kyc kyc;
+       uint index;
+       uint insertionTime;
+       bool inserted;
+       uint rate;
+       bool verified;
+       sponsorRec[] sponsorAccounts;
+       kyc KYC;
     }
-
-    struct kyc {
-       string name;
-       string email;
-       string address1;
-       string address2;
-       string zipPostalCode;
-       string homePhone;
-       string mobilePhone;
-    }
-
-     // Keep track balances and allowances approved
-    mapping(address => accountRec)  detailMap;
+    mapping(address => account)  accounts;
 
     constructor(){
     }
 
-    /// @notice gets Account Details
-    /// @param _key receiver of token
-    /// @return account Record 
-    function getaccountRec( address _key) external view returns (accountRec memory) {
-        accountRec memory map = detailMap[_key];
-        return(map);
+    /// @notice determines if address is inserted in account array
+    /// @param _accountKey public account key validate Insertion
+    function isInserted(address _accountKey) public view returns (bool) {
+        if (accounts[_accountKey].inserted)
+            return true;
+        else
+            return false;
+    }
+
+    /// @notice insert address for later recall
+    /// @param _accountKey public account key to set new balance
+    /// @return true if balance is set, false otherwise
+    function insertAccount(address _accountKey) public returns (bool) {
+         if (!isInserted(_accountKey)) {
+            accounts[_accountKey].insertionTime = block.timestamp;
+            accounts[_accountKey].inserted = true;
+            accounts[_accountKey].index = accountIndex.length;
+            accountIndex.push(_accountKey);
+            return true;
+         }
+         else
+            return false;
+    }
+
+    /// @notice retreives the array index of a specific address.
+    /// @param _accountKey public account key to set new balance
+     function getindex(address _accountKey) public view returns (uint) {
+        if (isInserted(_accountKey))
+            return accounts[_accountKey].index;
+        else
+            return 0;
+      }
+
+    /// @notice retreives the array index of a specific address.
+     function getRecCount() public view returns (uint) {
+        return accountIndex.length;
+      }
+
+    /// @notice retreives the account balance of a specific address.
+    /// @param _accountKey public account key to set new balance
+    function getActRec(address _accountKey) public view returns (account memory) {
+        require (isInserted(_accountKey));
+        return accounts[_accountKey];
     }
 }

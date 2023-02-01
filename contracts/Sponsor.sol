@@ -10,7 +10,7 @@ contract Sponsor is Agent{
        address addr;
        uint rate;
        bool verified;
-       agentRec[] agent;
+       agentRec[] agentAccounts;
     }
 
     constructor(){

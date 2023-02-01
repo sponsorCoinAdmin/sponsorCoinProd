@@ -4,57 +4,54 @@ pragma solidity ^0.8.6;
 
 // ###  ALGORITHMIC ARCHITECTURAL DESIGN FOR STAKING REWARDS ALLOCATION ###
 // allocateStakingRewards()
-//    1. Get the Sponsors Staking Rewards Interest Rate, (annualSponsorRewardsRate), (Default Initialized to 10%).
-//    2. Get the last update date, (lastUpdateDate), should be yesterday.
-//    3. Set rewardsMultiplier = calcStakingRewardsMultiplier(lastUpdateDate, annualSponsorRewardsRate)
-//    4. Get a list of the sponsors accounts (sponsorAccountList)
-//    5. For each sponsorAccount in sponsorAccountLists calculate the Staking Rewards as:
-//       stakingRewards = calcSponsorStakingRewards(sponsorAccount, rewardsMultiplier)
+// 1. Get the sponsors accounts Array as (sponsorAccountArray)
+// 2. Set totalRewards = calcAllSponsorsStakingRewards(sponsorAccountArray)
+// 3. Update all account balances updateAllSponsorsStakingRewards()
+
+// ### CALCULATE TIME DIFFERENCE IN SECONDS SINCE LAST UPDATE ###
+// getAccountTimeInSecondeSinceUpdate(account)
+//     1. Get the lastUpdateDate from the account
+//     2. Get the current date in seconds(currentDate = block.timestamp).
+//     3. Set timeInSecondsSinceLastUpdate = currentDate - lastUpdateDate
+
+/// ### CALCULATE PRORATED STAKING REWARDS MULTIPLIER SINCE LAST UPDATE ###
+// calcStakingRewardsMultiplier(account)
+//    1. Set seconds in yearSeconds = 31,557,600, (@365.25 Days in Actual Year)
+//    2. Get the rewardsRate from the account
+//    3. Set secondsElapsed = getAccountTimeInSecondeSinceUpdate(account)
+//    4. Prorate Seconds over a year proratedRate = secondsElapsed/yearSeconds
+//    5. rewardsMultiplier = proratedRate * annualRewardsRate
+//    6. return rewardsMultiplier
 
 // ### CALCULATE PRORATED STAKING REWARDS SINCE LAST UPDATE ###
 // calculateAccountSteakingReward(account)
-//    1. Get the lastUpdateDate from the account
-//    2. Get the rewardsRate from the account
-//    3. Set rewardsMultiplier = calcStakingRewardsMultiplier(lastUpdateDate, rewardsRate)
-//    4. Get the balance from the account = balancOf(account)
-//    5. Set stakingRewards = balancOf * rewardsMultiplier
-//    6. return stakingRewards
-
-// ### CALCULATE PRORATED STAKING REWARDS MULTIPLIER SINCE LAST UPDATE ###
-// calcStakingRewardsMultiplier(lastUpdateDate, annualRewardsRate)
-//    1. Set seconds in yearSeconds = 31,557,600, (@365.25 Days in Actual Year)
-//    1. Get the current date in seconds(currentDate = block.timestamp).
-//    4. Calculate the elapsed seconds as:
-//          secondsElapsed = currentDate - lastUpdateDate
-//    5. if days  == 0 return 0
-//    6. Prorate Seconds over a year as.
-//          elapsedProrated = secondsElapsed/yearSeconds
-//    6. rewardsMultiplier = elapsedProrated * annualRewardsRate
-//    7. return rewardsMultiplier
+//    1. Set rewardsMultiplier = calcStakingRewardsMultiplier(account)
+//    2. Get the balance from the account = accountBalance = balancOf(account)
+//    3. Set stakingRewards = accountBalance * rewardsMultiplier
+//    4. Update account.balanceOf = accountBalance + stakingRewards
+//    5. return stakingRewards
 
 // ### CALCULATE STAKING REWARDS FOR ALL SPONSORS ###
-// calcAllSponsorsStakingRewards(sponsorAccountList)
+// calcAllSponsorsStakingRewards(sponsorAccountArray)
 //    1. Set totalSponsorRewards = 0
-//    2. For each sponsorAccount in sponsorAccountList calculate the Staking Rewards as:
-//    2.1   Set  totalSponsorRewards += calcSponsorStakingRewards(sponsorAccount)
+//    2. For each sponsorAccount in sponsorAccountArray calculate the Staking Rewards as:
+//    2.1   Increment totalSponsorRewards += calcSponsorStakingRewards(sponsorAccount)
 //    3. return totalSponsorRewards
-
-//*****************************************************************************************************
 
 // ### CALCULATE INDIVIDUAL SPONSOR STAKING REWARDS FOR ACCOUNT ###
 // calcSponsorStakingRewards(sponsorAccount)
 //    1. Set sponsorRewards = calculateAccountSteakingReward(sponsorAccount)
-//    2. Get a list of the agents accounts (agentAccountList)
-//    3. Set agentRewards = calcAllAgentsStakingRewards(agentAccountList)
-//    3. Set sponsorRewards -= agentRewards
+//    2. agentAccountArray = sponsorAccount.
+//    3. Set agentRewards = calcAllAgentsStakingRewards(agentAccountArray)
+//    3. Decrement sponsorRewards -= agentRewards
 //    4. addAccountsToUpdateStakingRewards(sponsorAccount, sponsorRewards)
 //    5. return sponsorRewards
 
 // ### CALCULATE STAKING REWARDS FOR ALL AGENTS ###
-// calcAllAgentsStakingRewards(agentAccountList)
+// calcAllAgentsStakingRewards(agentAccountArray)
 //    1. Set totalAgentsRewards = 0
-//    3. For each agentAccount in agentAccountList calculate the Staking Rewards as:
-//    4. totalAgentsRewards += calculateAccountSteakingReward(agentAccount)
+//    3. For each agentAccount in agentAccountArray calculate the Staking Rewards as:
+//    4.    Increment totalAgentsRewards += calculateAccountSteakingReward(agentAccount)
 //    5. addAccountsToUpdateStakingRewards(sponsorAccount, sponsorRewards)
 //    6. return totalAgentsRewards
 
@@ -64,13 +61,13 @@ pragma solidity ^0.8.6;
 
 // ### CALCULATE INDIVIDUAL SPONSOR STAKING REWARDS FOR ACCOUNT ###
 // calcSponsorStakingRewards(sponsorAccount, rewardsMultiplier)
-//    1. Get a list of the agents accounts (agentAccountList)
+//    1. Get a list of the agents accounts (agentAccountArray)
 //    2. Get the current currBalance with balanceOf() ERC20 function;
 //    3. Get the lastUpdate for the sponsors Account
-//    4. Calculate the Sponsors Reward as 
+//    4. Update Balances of all accounts updateBalances()
 //          
 
-//    3. For each agentAccount in agentAccountList calculate the Staking Rewards as:
+//    3. For each agentAccount in agentAccountArray calculate the Staking Rewards as:
 //       accountStakingReward = calcAgentStakingRewards(agentAccount)
 
 //    3. Add new elementto Array accountsToBeUpdated(account, "Sponsor", StakingRewards, currBalance, newBalance)
