@@ -2,42 +2,98 @@
 pragma solidity ^0.8.6;
 /// @title ERC20 Contract
 
-// This is an Architectural Layout Design Only
-//  call calcStakingRewards()
+// ###  ALGORITHMIC ARCHITECTURAL DESIGN FOR STAKING REWARDS ALLOCATION ###
+// allocateStakingRewards()
+//    1. Get the Sponsors Staking Rewards Interest Rate, (annualSponsorRewardsRate), (Default Initialized to 10%).
+//    2. Get the last update date, (lastUpdateDate), should be yesterday.
+//    3. Set rewardsMultiplier = calcStakingRewardsMultiplier(lastUpdateDate, annualSponsorRewardsRate)
+//    4. Get a list of the sponsors accounts (sponsorAccountList)
+//    5. For each sponsorAccount in sponsorAccountLists calculate the Staking Rewards as:
+//       stakingRewards = calcSponsorStakingRewards(sponsorAccount, rewardsMultiplier)
 
-// calcStakingRewards()
-// ### CALCULATE STAKING REWARDS FOR ALL ACCOUNTS ###
-// 1. Get a list of the SPCoin Wallet accounts (accounts)
-// 2. call calcAccountStakingRewards(accounts)*
+// ### CALCULATE PRORATED STAKING REWARDS SINCE LAST UPDATE ###
+// calculateAccountSteakingReward(account)
+//    1. Get the lastUpdateDate from the account
+//    2. Get the rewardsRate from the account
+//    3. Set rewardsMultiplier = calcStakingRewardsMultiplier(lastUpdateDate, rewardsRate)
+//    4. Get the balance from the account = balancOf(account)
+//    5. Set stakingRewards = balancOf * rewardsMultiplier
+//    6. return stakingRewards
 
-// *calcAccountStakingRewards(accounts)
-// ### FOR EACH ACCOUNT PROCESS AS FOLLOWS ###
-// 2.1. Get a list of the SPCoin Wallet accounts (accounts)
-// 2.2. call calcAccountStakingRewards(accounts)**
+// ### CALCULATE PRORATED STAKING REWARDS MULTIPLIER SINCE LAST UPDATE ###
+// calcStakingRewardsMultiplier(lastUpdateDate, annualRewardsRate)
+//    1. Set seconds in yearSeconds = 31,557,600, (@365.25 Days in Actual Year)
+//    1. Get the current date in seconds(currentDate = block.timestamp).
+//    4. Calculate the elapsed seconds as:
+//          secondsElapsed = currentDate - lastUpdateDate
+//    5. if days  == 0 return 0
+//    6. Prorate Seconds over a year as.
+//          elapsedProrated = secondsElapsed/yearSeconds
+//    6. rewardsMultiplier = elapsedProrated * annualRewardsRate
+//    7. return rewardsMultiplier
 
-// **calcSponsorsStakingRewards(sponsorList)
-// ### FOR EACH SPONSOR PROCESS AS FOLLOWS ###
-// 2.1.1. Get the sponsors account, (sponsorsAccount).
-// 2.1.2. Get the Sponsors Staking Rewards Interest Rate, (sponsorsRewardsRate), (Default Initialized to 10%).
-// 2.1.3. Get the Sponsors SPCoin Quantity (sponsorSCoinQty)
-// 2.1.4. Calculate the anually prorated Sponsors SPCoin staking rewards as:
-//           sponsorsRewards = (sponsorSCoinQty) * ((Days since sponsored)/365) * sponsorsRewardsRate
-// 2.1.5. Get a list of the Sponsors Agent (sponsorsAgent)
-// 2.1.6. totalAgentsReward = calcAgentsStakingRewards(sponsorsRewards, agentList)
-// 2.1.7. decrement agents fee from sponsors Rewards as follows
-//           sponsorsRewards -= totalAgentsReward
-// 2.1.8. set the new sponsors account balance to sPCoinQuanty + sponsorsRewards
+// ### CALCULATE STAKING REWARDS FOR ALL SPONSORS ###
+// calcAllSponsorsStakingRewards(sponsorAccountList)
+//    1. Set totalSponsorRewards = 0
+//    2. For each sponsorAccount in sponsorAccountList calculate the Staking Rewards as:
+//    2.1   Set  totalSponsorRewards += calcSponsorStakingRewards(sponsorAccount)
+//    3. return totalSponsorRewards
+
+//*****************************************************************************************************
+
+// ### CALCULATE INDIVIDUAL SPONSOR STAKING REWARDS FOR ACCOUNT ###
+// calcSponsorStakingRewards(sponsorAccount)
+//    1. Set sponsorRewards = calculateAccountSteakingReward(sponsorAccount)
+//    2. Get a list of the agents accounts (agentAccountList)
+//    3. Set agentRewards = calcAllAgentsStakingRewards(agentAccountList)
+//    3. Set sponsorRewards -= agentRewards
+//    4. addAccountsToUpdateStakingRewards(sponsorAccount, sponsorRewards)
+//    5. return sponsorRewards
+
+// ### CALCULATE STAKING REWARDS FOR ALL AGENTS ###
+// calcAllAgentsStakingRewards(agentAccountList)
+//    1. Set totalAgentsRewards = 0
+//    3. For each agentAccount in agentAccountList calculate the Staking Rewards as:
+//    4. totalAgentsRewards += calculateAccountSteakingReward(agentAccount)
+//    5. addAccountsToUpdateStakingRewards(sponsorAccount, sponsorRewards)
+//    6. return totalAgentsRewards
+
+//*****************************************************************************************************
+
+
+
+// ### CALCULATE INDIVIDUAL SPONSOR STAKING REWARDS FOR ACCOUNT ###
+// calcSponsorStakingRewards(sponsorAccount, rewardsMultiplier)
+//    1. Get a list of the agents accounts (agentAccountList)
+//    2. Get the current currBalance with balanceOf() ERC20 function;
+//    3. Get the lastUpdate for the sponsors Account
+//    4. Calculate the Sponsors Reward as 
+//          
+
+//    3. For each agentAccount in agentAccountList calculate the Staking Rewards as:
+//       accountStakingReward = calcAgentStakingRewards(agentAccount)
+
+//    3. Add new elementto Array accountsToBeUpdated(account, "Sponsor", StakingRewards, currBalance, newBalance)
+//    4. Calculate newBalance as currBalance + stakingRewards 
+//    3. return accountStakingReward;
+
+
+
+
+
+
+
 
 // calcAgentsStakingRewards(sponsorsRewards, agentList)
-// 2.1.6.1. Initialize local totalAgentsReward to zero (0).
+//    1. Initialize local totalAgentsReward to zero (0).
 // ### FOR EACH AGENT PROCESS AS FOLLOWS ###
-// 2.1.6.2. Get the agents account, (agentsAccount).
-// 2.1.6.3. Get the agents Staking Rewards Interest Rate, (agentsRewardsRate), (between 2% and and 20% of sponsorsRewards).
-// 2.1.3. Get the Agents SPCoin Quantity (agentSCoinQty)
-// 2.1.6.4. Calculate the agents SPCoin staking rewards as:
-//             agentsReward = (SPCoin Sponsor Quanty) * ((Days since sponsored)/365) * sponsorsRewardsRate
-// 2.1.6.5. Increment totalAgentsReward = totalAgentsReward + agentsReward
-// 2.1.6.6. return totalAgentsReward
+//    2. Get the agents account, (agentsAccount).
+//    3. Get the agents Staking Rewards Interest Rate, (agentsRewardsRate), (between 2% and and 20% of sponsorsRewards).
+//    4. Get the Agents SPCoin Quantity (agentSCoinQty)
+//    5. Calculate the agents SPCoin staking rewards as:
+//             agentsReward = (SPCoin Sponsor Quanty) * elapsedProratedDays * sponsorsRewardsRate
+//    6. Increment totalAgentsReward = totalAgentsReward + agentsReward
+//    7. return totalAgentsReward
 
 
 
