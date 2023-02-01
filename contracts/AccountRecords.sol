@@ -7,17 +7,14 @@ contract AccountRecords is KYC, Sponsor{
 
    // Keep track of account insertions
    address[] public accountIndex;
-   struct account {
-       address addr;
+   struct accountRec {
        uint index;
        uint insertionTime;
        bool inserted;
-       uint rate;
-       bool verified;
        sponsorRec[] sponsorAccounts;
        kyc KYC;
     }
-    mapping(address => account)  accounts;
+    mapping(address => accountRec)  accounts;
 
     constructor(){
     }
@@ -62,7 +59,7 @@ contract AccountRecords is KYC, Sponsor{
 
     /// @notice retreives the account balance of a specific address.
     /// @param _accountKey public account key to set new balance
-    function getActRec(address _accountKey) public view returns (account memory) {
+    function getActRec(address _accountKey) public view returns (accountRec memory) {
         require (isInserted(_accountKey));
         return accounts[_accountKey];
     }

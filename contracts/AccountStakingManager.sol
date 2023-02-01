@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.6;
 /// @title ERC20 Contract
-import "./AccountRecords.sol";
+import "./Utils.sol";
 
-contract AccountStakingManager is AccountRecords{
+contract AccountStakingManager is Utils{
 
 // ###  ALGORITHMIC ARCHITECTURAL DESIGN FOR STAKING REWARDS ALLOCATION ###
 // allocateStakingRewards()
