@@ -7,6 +7,7 @@ contract AccountRecords is KYC, Sponsor{
 
    // Keep track of account insertions
    address[] public accountIndex;
+   uint public lastStakingUpdateTime = block.timestamp;
    struct accountRec {
        uint index;
        uint insertionTime;

@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.6;
 /// @title ERC20 Contract
+import "./AccountRecords.sol";
 import "./Utils.sol";
 
-contract AccountStakingManager is Utils{
+contract AccountStakingManager is AccountRecords, Utils{
 
 // ###  ALGORITHMIC ARCHITECTURAL DESIGN FOR STAKING REWARDS ALLOCATION ###
 // allocateStakingRewards()
@@ -60,15 +61,12 @@ contract AccountStakingManager is Utils{
 
 //*****************************************************************************************************
 
-
-
 // ### CALCULATE INDIVIDUAL SPONSOR STAKING REWARDS FOR ACCOUNT ###
 // calcSponsorStakingRewards(sponsorAccount, rewardsMultiplier)
 //    1. Get a list of the agents accounts (agentAccountArray)
 //    2. Get the current currBalance with balanceOf() ERC20 function;
 //    3. Get the lastUpdate for the sponsors Account
 //    4. Update Balances of all accounts updateBalances()
-//          
 
 //    3. For each agentAccount in agentAccountArray calculate the Staking Rewards as:
 //       accountStakingReward = calcAgentStakingRewards(agentAccount)
