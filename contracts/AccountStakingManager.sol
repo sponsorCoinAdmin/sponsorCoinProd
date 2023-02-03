@@ -12,28 +12,37 @@ contract AccountStakingManager is AccountRecords, Utils{
 // 2. Set totalRewards = calcAllSponsorsStakingRewards(sponsorAccountArray)
 // 3. Update all account balances updateAllSponsorsStakingRewards()
 
+function allocateStakingRewards() external view returns(  sponsorRec[] memory ){
+   
+   sponsorRec[] memory sponsorAccountArray = getSponsorRecords(msg.sender);
+   return sponsorAccountArray;
+}
+
+function gitAddressThis() external view returns(address){
+   
+   return (address(this));
+}
+
 // ### CALCULATE TIME DIFFERENCE IN SECONDS SINCE LAST UPDATE ###
-// getAccountTimeInSecondeSinceUpdate(account)
-//     1. Get the lastUpdateDate from the account
-//     2. Get the current date in seconds(currentDate = block.timestamp).
-//     3. Set timeInSecondsSinceLastUpdate = currentDate - lastUpdateDate
+// getAccountTimeInSecondeSinceUpdate(lastUpdateDate)
+//     1. Get the current date in seconds(currentDate = block.timestamp).
+//     2. Set timeInSecondsSinceLastUpdate = currentDate - lastUpdateDate
 
 /// ### CALCULATE PRORATED STAKING REWARDS MULTIPLIER SINCE LAST UPDATE ###
-// calcStakingRewardsMultiplier(account)
+// calcStakingRewardsMultiplier(rewardsRate, lastUpdateDate)
 //    1. Set seconds in yearSeconds = 31,557,600, (@365.25 Days in Actual Year)
 //    2. Get the rewardsRate from the account
-//    3. Set secondsElapsed = getAccountTimeInSecondeSinceUpdate(account)
+//    3. Set secondsElapsed = getAccountTimeInSecondeSinceUpdate(lastUpdateDate)
 //    4. Prorate Seconds over a year proratedRate = secondsElapsed/yearSeconds
 //    5. rewardsMultiplier = proratedRate * annualRewardsRate
 //    6. return rewardsMultiplier
 
 // ### CALCULATE PRORATED STAKING REWARDS SINCE LAST UPDATE ###
-// calculateAccountSteakingReward(account)
-//    1. Set rewardsMultiplier = calcStakingRewardsMultiplier(account)
+// calculateAccountSteakingReward(balance, rewardsRate, lastUpdateDate)
+//    1. Set rewardsMultiplier = calcStakingRewardsMultiplier(account.rewardsRate, account.lastUpdateDate)
 //    2. Get the balance from the account = accountBalance = balancOf(account)
 //    3. Set stakingRewards = accountBalance * rewardsMultiplier
-//    4. Update account.balanceOf = accountBalance + stakingRewards
-//    5. return stakingRewards
+//    4. return stakingRewards
 
 // ### CALCULATE STAKING REWARDS FOR ALL SPONSORS ###
 // calcAllSponsorsStakingRewards(sponsorAccountArray)
@@ -44,12 +53,13 @@ contract AccountStakingManager is AccountRecords, Utils{
 
 // ### CALCULATE INDIVIDUAL SPONSOR STAKING REWARDS FOR ACCOUNT ###
 // calcSponsorStakingRewards(sponsorAccount)
-//    1. Set sponsorRewards = calculateAccountSteakingReward(sponsorAccount)
-//    2. agentAccountArray = sponsorAccount.
-//    3. Set agentRewards = calcAllAgentsStakingRewards(agentAccountArray)
-//    3. Decrement sponsorRewards -= agentRewards
-//    4. addAccountsToUpdateStakingRewards(sponsorAccount, sponsorRewards)
-//    5. return sponsorRewards
+//    1. Set sponsorRewards = calculateAccountSteakingReward(sponsorAccount.balanceOf, sponsorAccount.rewardsRate, sponsorAccount.lastUpdateDate)
+//    2. Update balance= accountBalance + stakingRewards
+//    3. agentAccountArray = sponsorAccount.
+//    4. Set agentRewards = calcAllAgentsStakingRewards(agentAccountArray)
+//    5. Decrement sponsorRewards -= agentRewards
+//    6. addAccountsToUpdateStakingRewards(sponsorAccount, sponsorRewards)
+//    7. return sponsorRewards
 
 // ### CALCULATE STAKING REWARDS FOR ALL AGENTS ###
 // calcAllAgentsStakingRewards(agentAccountArray)

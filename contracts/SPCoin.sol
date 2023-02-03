@@ -6,10 +6,10 @@ import "./Sponsor.sol";
 import "./Agent.sol";
 
 contract SPCoin is Token{
-    string public defaultName = "sponsorCoin";
-    string public defaultSymbol = "SPCoin";
-    uint256 public defaultDecimals = 18;
-    uint256 public defaultTotalSupply = 1000000000 * 10**defaultDecimals;
+    string private defaultName         = "sponsorCoin";
+    string private defaultSymbol       = "SPCoin";
+    uint256 private defaultDecimals    = 18;
+    uint256 private defaultTotalSupply = 1000000000 * 10**defaultDecimals;
 
     constructor()  {
         initToken(defaultName,  defaultSymbol, defaultDecimals, defaultTotalSupply);

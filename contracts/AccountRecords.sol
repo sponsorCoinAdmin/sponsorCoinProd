@@ -64,4 +64,11 @@ contract AccountRecords is KYC, Sponsor{
         require (isInserted(_accountKey));
         return accounts[_accountKey];
     }
+
+   /// @notice retreives the account balance of a specific address.
+    /// @param _accountKey public account key to set new balance
+    function getSponsorRecords(address _accountKey) public view returns (sponsorRec[] memory) {
+         sponsorRec[] memory sponsorAccountArray = accounts[_accountKey].sponsorAccounts;
+        return sponsorAccountArray;
+    }
 }

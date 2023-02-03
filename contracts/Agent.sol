@@ -2,7 +2,9 @@
 pragma solidity ^0.8.6;
 /// @title ERC20 Contract
 
-contract Agent {
+import "./Security.sol";
+
+contract Agent is Security {
 
     struct agentRec {
        address addr;
