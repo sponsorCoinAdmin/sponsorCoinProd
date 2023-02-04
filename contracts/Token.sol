@@ -30,7 +30,7 @@ contract Token is AccountStakingManager{
         initToken("Test", "Test0001", 18, 100000000000000000000000000);
    }
 
-   function initToken(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) public onlyRootAdmin {
+   function initToken(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) internal onlyRootAdmin {
         name = _name;
         symbol = _symbol;
         decimals = _decimals;
