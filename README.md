@@ -13,3 +13,5 @@ Add the following code snippet at the top of your hardhat.config.js file require
 npm audit fix --force
 
 // IMPORTANT HARDHAT GLOBAL COMMANDS npx hardhat help Hardhat version 2.12.6
+
+npx hardhat help
