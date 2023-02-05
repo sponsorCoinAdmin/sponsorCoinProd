@@ -19,4 +19,3 @@ npm audit fix --force
 
 // IMPORTANT HARDHAT GLOBAL COMMANDS
 npx hardhat help
-Hardhat version 2.12.6
