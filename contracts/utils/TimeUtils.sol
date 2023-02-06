@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.6;
-/// @title ERC20 Contract
+
+import "hardhat/console.sol";
 
 contract TimeUtils {
    function getAccountTimeInSecondeSinceUpdate(uint TokenLastUpdate) external view returns(uint) {
@@ -9,9 +10,6 @@ contract TimeUtils {
     }
 
 }
-
-contract Utils is TimeUtils{
- }
 
 contract Countdown {
 

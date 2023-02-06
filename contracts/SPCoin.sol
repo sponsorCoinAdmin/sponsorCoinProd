@@ -2,8 +2,6 @@
 pragma solidity ^0.8.6;
 
 import "./Token.sol";
-import "./Sponsor.sol";
-import "./Agent.sol";
 
 contract SPCoin is Token{
     string private defaultName         = "sponsorCoin";

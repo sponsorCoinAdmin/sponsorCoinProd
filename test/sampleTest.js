@@ -1,23 +1,23 @@
 const { expect } = require("chai");
-describe("MyContract", function() {
+describe("TestContract", function() {
 
     it("should return correct name and symbol", async function () {
 
-        console.log("JAVASCRIPT => MyContract retreived from Factory");
-        const MyContract = await hre.ethers.getContractFactory("TestContract");
+        console.log("JAVASCRIPT => TestContract retreived from Factory");
+        const TestContract = await hre.ethers.getContractFactory("TestContract");
 
-        console.log("JAVASCRIPT => Deploying MyContract to Network");
-        const myContractDeployed = await MyContract.deploy("TestContractName", "TEST_SYM");
-        console.log("JAVASCRIPT => MyContract is being mined");
+        console.log("JAVASCRIPT => Deploying TestContract to Network");
+        const TestContractDeployed = await TestContract.deploy("TestContractName", "TEST_SYM");
+        console.log("JAVASCRIPT => TestContract is being mined");
 
-        await myContractDeployed.deployed();
-        console.log("JAVASCRIPT => MyContract Deployed to Network");
+        await TestContractDeployed.deployed();
+        console.log("JAVASCRIPT => TestContract Deployed to Network");
 
-        console.log("JAVASCRIPT => Name   = " + await myContractDeployed.name());
-        console.log("JAVASCRIPT => Symbol = " + await myContractDeployed.symbol());
+        console.log("JAVASCRIPT => Name   = " + await TestContractDeployed.name());
+        console.log("JAVASCRIPT => Symbol = " + await TestContractDeployed.symbol());
 
-        expect(await myContractDeployed.name()).to.equal("TestContractName");
-        expect(await myContractDeployed.symbol()).to.equal("TEST_SYM");
+        expect(await TestContractDeployed.name()).to.equal("TestContractName");
+        expect(await TestContractDeployed.symbol()).to.equal("TEST_SYM");
     });
 
 });
