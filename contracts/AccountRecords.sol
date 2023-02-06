@@ -58,6 +58,12 @@ contract AccountRecords is Accounts{
         return accountIndex.length;
       }
 
+    /// @notice retreives a specified account address from accountIndex.
+    /// @param _idx index of a specific account in accountIndex
+     function getAccount(uint _idx) public view returns (address) {
+        return accountIndex[_idx];
+      }
+
     /// @notice retreives the account balance of a specific address.
     /// @param _accountKey public account key to set new balance
     function getActRec(address _accountKey) public view returns (accountRec memory) {
@@ -65,7 +71,7 @@ contract AccountRecords is Accounts{
         return accounts[_accountKey];
     }
 
-   /// @notice retreives the account balance of a specific address.
+    /// @notice retreives the account balance of a specific address.
     /// @param _accountKey public account key to set new balance
     function getSponsorRecords(address _accountKey) public view returns (sponsorRec[] memory) {
          sponsorRec[] memory sponsorAccountArray = accounts[_accountKey].sponsorAccounts;

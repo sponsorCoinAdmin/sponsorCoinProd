@@ -18,7 +18,6 @@ function allocateStakingRewards() external view returns(  sponsorRec[] memory ){
 }
 
 function gitAddressThis() external view returns(address){
-   
    return (address(this));
 }
 
