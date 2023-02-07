@@ -38,9 +38,10 @@ contract AccountRecords is Accounts{
             accounts[_accountKey].inserted = true;
             accounts[_accountKey].index = accountIndex.length;
             accountIndex.push(_accountKey);
+            console.log("Returning TRUE");
             return true;
          }
-         else
+            console.log("Returning FALSE");
             return false;
     }
 
