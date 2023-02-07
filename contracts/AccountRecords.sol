@@ -22,7 +22,7 @@ contract AccountRecords is Accounts{
 
     /// @notice determines if address is inserted in account array
     /// @param _accountKey public account key validate Insertion
-    function isInserted(address _accountKey) public view returns (bool) {
+    function isInserted(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (bool) {
         if (accounts[_accountKey].inserted)
             return true;
         else
@@ -32,7 +32,17 @@ contract AccountRecords is Accounts{
     /// @notice insert address for later recall
     /// @param _accountKey public account key to set new balance
     /// @return true if balance is set, false otherwise
-    function insertAccount(address _accountKey) public returns (bool) {
+    function insertAccountSponsor(address _accountKey, address _sponsorKey) public onlyOwnerOrRootAdmin(_accountKey) returns (bool) {
+        insertAccount(_accountKey);
+        insertAccount(_sponsorKey);
+        accountRec memory actRec  = getAccountRecord(_accountKey);
+        // ToDo Attach Sponsor to account
+    }
+
+    /// @notice insert address for later recall
+    /// @param _accountKey public account key to set new balance
+    /// @return true if balance is set, false otherwise
+    function insertAccount(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) returns (bool) {
          if (!isInserted(_accountKey)) {
             accounts[_accountKey].insertionTime = block.timestamp;
             accounts[_accountKey].inserted = true;
@@ -47,7 +57,7 @@ contract AccountRecords is Accounts{
 
     /// @notice retreives the array index of a specific address.
     /// @param _accountKey public account key to set new balance
-     function getindex(address _accountKey) public view returns (uint) {
+     function getindex(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (uint) {
         if (isInserted(_accountKey))
             return accounts[_accountKey].index;
         else
@@ -55,7 +65,7 @@ contract AccountRecords is Accounts{
       }
 
     /// @notice retreives the array index of a specific address.
-     function getRecCount() public view returns (uint) {
+     function getRecordCount() public view returns (uint) {
         return accountIndex.length;
       }
 
@@ -67,15 +77,19 @@ contract AccountRecords is Accounts{
 
     /// @notice retreives the account balance of a specific address.
     /// @param _accountKey public account key to set new balance
-    function getActRec(address _accountKey) public view returns (accountRec memory) {
+    function getAccountRecord(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (accountRec memory) {
         require (isInserted(_accountKey));
         return accounts[_accountKey];
     }
 
     /// @notice retreives the account balance of a specific address.
+    function getSponsorRecords() public view returns (sponsorRec[] memory) {
+        return getSponsorRecords(msg.sender);
+    }
+    /// @notice retreives the account balance of a specific address.
     /// @param _accountKey public account key to set new balance
-    function getSponsorRecords(address _accountKey) public view returns (sponsorRec[] memory) {
-         sponsorRec[] memory sponsorAccountArray = accounts[_accountKey].sponsorAccounts;
+    function getSponsorRecords(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (sponsorRec[] memory) {
+           sponsorRec[] memory sponsorAccountArray = accounts[_accountKey].sponsorAccounts;
         return sponsorAccountArray;
     }
 }

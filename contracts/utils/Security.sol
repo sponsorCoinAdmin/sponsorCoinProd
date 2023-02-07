@@ -12,7 +12,17 @@ contract Security {
     }
 
     modifier onlyRootAdmin () {
-        require (msg.sender == rootAdmin, "Security Access Violation");
+        require (msg.sender == rootAdmin, "Root Admin Security Access Violation");
+        _;
+    }
+
+    modifier onlyOwner (address _account) {
+        require (msg.sender == _account, "Owner Security Access Violation");
+        _;
+    }
+
+    modifier onlyOwnerOrRootAdmin (address _account) {
+        require (msg.sender == rootAdmin || msg.sender == _account, "Owner or Root Admin Security Access Violation");
         _;
     }
 }

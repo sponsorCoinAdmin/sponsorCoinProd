@@ -40,7 +40,7 @@ describe("spCoinContract", function() {
     it("Account Insertion Validation", async function () {
         console.log ("*** TEST ACCOUNT INSERTION ***");
         let addr = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
-        let recCount = await spCoinContractDeployed.getRecCount();
+        let recCount = await spCoinContractDeployed.getRecordCount();
         expect(recCount).to.equal(0);
         console.log("JAVASCRIPT => ** Before Inserted Record Count = " + recCount);
         let isInserted = await spCoinContractDeployed.isInserted(addr);
@@ -48,7 +48,7 @@ describe("spCoinContract", function() {
         await spCoinContractDeployed.insertAccount(addr);
         isInserted = await spCoinContractDeployed.isInserted(addr);
         console.log("JAVASCRIPT => Address "+ addr + " After Inserted = " + isInserted);
-        recCount = await spCoinContractDeployed.getRecCount();
+        recCount = await spCoinContractDeployed.getRecordCount();
         console.log("JAVASCRIPT => ** After Inserted Record Count = " + await recCount);        
         expect(recCount).to.equal(1);
     });
@@ -90,7 +90,7 @@ insertHHArrayAccounts = async(spCoinContractDeployed) => {
 
 getInsertedArrayAccounts = async(spCoinContractDeployed) => {
     console.log("getInsertedArrayAccounts = async(spCoinContractDeployed)");
-    let maxCount = await spCoinContractDeployed.getRecCount();
+    let maxCount = await spCoinContractDeployed.getRecordCount();
 
     var insertedArrayAccounts = [];
     for(idx = 0; idx < maxCount; idx++){
