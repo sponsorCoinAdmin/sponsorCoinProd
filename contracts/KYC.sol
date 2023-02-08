@@ -5,7 +5,6 @@ pragma solidity ^0.8.6;
 contract KYC{
 
     address key;
-    bool authorized;
 
     struct kyc {
        string name;

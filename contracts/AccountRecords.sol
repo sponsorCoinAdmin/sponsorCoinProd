@@ -74,8 +74,12 @@ contract AccountRecords is KYC, Utils{
             return false;
     }
 
-    function getAccountSponsors(address _accountKey, address _sponsorKey) public onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
-        return sponsorIndex.length;
+    function getAccountSponsorCount(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
+        return getAccountSponsors(_accountKey).length;
+    }
+
+   function getAccountSponsors(address _accountKey) internal view onlyOwnerOrRootAdmin(_accountKey) returns (sponsorRec[] memory) {
+        return accounts[_accountKey].sponsors;
     }
  
 

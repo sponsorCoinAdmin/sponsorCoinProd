@@ -1,8 +1,29 @@
 const { expect } = require("chai");
 
+let spCoinContractDeployed;
+const testHHAccounts = ["0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+                        "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+                        "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+                        "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+                        "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+                        "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+                        "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f",
+                        "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+                        "0xBcd4042DE499D14e55001CcbB24a551F3b954096",
+                        "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+                        "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+                        "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+                        "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+                        "0xcd3B766CCDd6AE721141F452C550Ca635964ce71",
+                        "0x2546BcD3c84621e976D8185a91A922aE77ECEc30",
+                        "0xbDA5747bFD65F08deb54cb465eB87D40e51B197E",
+                        "0xdD2FD4581271e230360230F9337D5c0430Bf44C0",
+                        "0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199"];
+
 describe("spCoinContract", function() {
     let spCoinContract;
-    let spCoinContractDeployed;
     let msgSender;
     beforeEach(async() =>  {
         spCoinContract = await hre.ethers.getContractFactory("SPCoin");
@@ -55,11 +76,10 @@ describe("spCoinContract", function() {
 
     it("Insertion 20 Hardhat Accounts for Validation", async function () {
         console.log("*** ADD MORE HARDHAT ACCOUNTS ***")
-        await insertHHArrayAccounts(spCoinContractDeployed);
+        await insertHHArrayAccounts();
 
         console.log("*** RETRIEVE ALL INSERTED RECORDS FROM THE BLOCKCHAIN ***")
-        let insertedArrayAccounts = await getInsertedArrayAccounts(spCoinContractDeployed);
-        let testHHAccounts = getTestHHAccounts();
+        let insertedArrayAccounts = await getInsertedArrayAccounts();
         let testRecCount = testHHAccounts.length;
         let insertedRecCount = insertedArrayAccounts.length;
         expect(testRecCount).to.equal(insertedRecCount);
@@ -72,29 +92,32 @@ describe("spCoinContract", function() {
     });
     
     it("Insertion SponsorRecords Hardhat Accounts for Validation", async function () {
-        console.log("*** TEST MORE HARDHAT SPONSOR RECORD INSERTION ***")
-        let testHHAccounts = await insertHHArrayAccounts(spCoinContractDeployed);
+        console.log("*** TEST MORE HARDHAT SPONSOR RECORD INSERTIONS ***")
+        await insertHHArrayAccounts();
 
         console.log("*** Insert Sponsor to AccountRecord[2] as AccountRecord[5] ***")
-        let AccountRec = testHHAccounts[2];
-        let SponsorRec = testHHAccounts[5];
-        let insertedArrayAccounts = await getInsertedArrayAccounts(spCoinContractDeployed);
-        await spCoinContractDeployed.insertAccountSponsor(AccountRec, SponsorRec);
-
-        console.log("*** Get The SponsorList For AccountRecord[2] ***")
-        await spCoinContractDeployed.getAccountSponsors(AccountRec, AccountRec);
-
-
-
-
-
-
+        await insertSponsorRecords(0, 4, 15);
     });
 });
 
-insertHHArrayAccounts = async(spCoinContractDeployed) => {
-    console.log("insertHHArrayAccounts = async(spCoinContractDeployed");
-    let testHHAccounts = getTestHHAccounts();
+insertSponsorRecords = async(accountRecIdx, startSpRec, lastSpRec ) => {
+    console.log("insertSponsorRecords = async(" + accountRecIdx + ", " + startSpRec + ", " + lastSpRec + ")");
+    let accountRec = testHHAccounts[accountRecIdx];
+
+    console.log("For account: = " + accountRec + ")");
+    let recCount = 0;
+    for (let i = startSpRec; i <= lastSpRec; i++) {
+        let sponsorRec = testHHAccounts[i];
+        console.log("   " + ++recCount + " Inserting Sponsor Record = " + sponsorRec + ")");
+        await spCoinContractDeployed.insertAccountSponsor(accountRec, sponsorRec);
+    }
+    let sponsorCount = await spCoinContractDeployed.getAccountSponsorCount(accountRec);
+    console.log("SponsorCount = " + sponsorCount);
+    return sponsorCount;
+}
+
+insertHHArrayAccounts = async() => {
+    console.log("insertHHArrayAccounts = async()");
     let recCount = testHHAccounts.length;
     console.log("Inserting " + recCount + " Records to Blockchain");
 
@@ -107,8 +130,8 @@ insertHHArrayAccounts = async(spCoinContractDeployed) => {
     return testHHAccounts;
 }
 
-getInsertedArrayAccounts = async(spCoinContractDeployed) => {
-    console.log("getInsertedArrayAccounts = async(spCoinContractDeployed)");
+getInsertedArrayAccounts = async() => {
+    console.log("getInsertedArrayAccounts = async()");
     let maxCount = await spCoinContractDeployed.getRecordCount();
 
     var insertedArrayAccounts = [];
@@ -118,33 +141,4 @@ getInsertedArrayAccounts = async(spCoinContractDeployed) => {
        insertedArrayAccounts.push(addr);
     }
     return insertedArrayAccounts;
-}
-
-getTestHHAccounts = (spCoinContractDeployed, maxCount) => {
-
-    let idx = 0;
-    var testAccountArray = [];
-    testAccountArray[idx++] = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
-    testAccountArray[idx++] = "0x70997970C51812dc3A010C7d01b50e0d17dc79C8";
-    testAccountArray[idx++] = "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC";
-    testAccountArray[idx++] = "0x90F79bf6EB2c4f870365E785982E1f101E93b906";
-    testAccountArray[idx++] = "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65";
-    testAccountArray[idx++] = "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc";
-    testAccountArray[idx++] = "0x976EA74026E726554dB657fA54763abd0C3a0aa9";
-    testAccountArray[idx++] = "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955";
-    testAccountArray[idx++] = "0x23618e81E3f5cdF7f54C3d65f7FBc0aBf5B21E8f";
-    testAccountArray[idx++] = "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720";
-    testAccountArray[idx++] = "0xBcd4042DE499D14e55001CcbB24a551F3b954096";
-    testAccountArray[idx++] = "0x71bE63f3384f5fb98995898A86B02Fb2426c5788";
-    testAccountArray[idx++] = "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a";
-    testAccountArray[idx++] = "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec";
-    testAccountArray[idx++] = "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097";
-    testAccountArray[idx++] = "0xcd3B766CCDd6AE721141F452C550Ca635964ce71";
-    testAccountArray[idx++] = "0x2546BcD3c84621e976D8185a91A922aE77ECEc30";
-    testAccountArray[idx++] = "0xbDA5747bFD65F08deb54cb465eB87D40e51B197E";
-    testAccountArray[idx++] = "0xdD2FD4581271e230360230F9337D5c0430Bf44C0";
-    testAccountArray[idx++] = "0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199";
-    console.log("getTestHHAccounts = " + idx + ")");
-
-    return testAccountArray;
 }
