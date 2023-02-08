@@ -27,30 +27,30 @@ describe("spCoinContract", function() {
     let msgSender;
     beforeEach(async() =>  {
         spCoinContract = await hre.ethers.getContractFactory("SPCoin");
-        console.log("JAVASCRIPT => spCoinContract retreived from Factory");
+        logSetup("JAVASCRIPT => spCoinContract retreived from Factory");
 
-        console.log("JAVASCRIPT => Deploying spCoinContract to Network");
+        logSetup("JAVASCRIPT => Deploying spCoinContract to Network");
         spCoinContractDeployed = await spCoinContract.deploy();
-        console.log("JAVASCRIPT => spCoinContract is being mined");
+        logSetup("JAVASCRIPT => spCoinContract is being mined");
 
         await spCoinContractDeployed.deployed();
-        console.log("JAVASCRIPT => spCoinContract Deployed to Network");
+        logSetup("JAVASCRIPT => spCoinContract Deployed to Network");
         msgSender = await spCoinContractDeployed.msgSender();
     });
 
     it("Deployment should return correct parameter settings", async function () {
-        console.log ("*** TEST ACCOUNT DEPLOYMENT ***");
+        logTestHeader("TEST ACCOUNT DEPLOYMENT");
         let testName         = "sponsorTestCoin";
         let testSymbol       = "SPTest";
         let testDecimals    = 3;
         let testTotalSupply = 10 * 10**testDecimals;
         let testMsgSender   = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
         await spCoinContractDeployed.initToken(testName,  testSymbol, testDecimals, testTotalSupply);
-        console.log("JAVASCRIPT => MsgSender = " + msgSender);
-        console.log("JAVASCRIPT => Name      = " + await spCoinContractDeployed.name());
-        console.log("JAVASCRIPT => Symbol    = " + await spCoinContractDeployed.symbol());
-        console.log("JAVASCRIPT => Decimals  = " + await spCoinContractDeployed.decimals());
-        console.log("JAVASCRIPT => balanceOf = " + await spCoinContractDeployed.balanceOf(msgSender));
+        logDetails("JAVASCRIPT => MsgSender = " + msgSender);
+        logDetails("JAVASCRIPT => Name      = " + await spCoinContractDeployed.name());
+        logDetails("JAVASCRIPT => Symbol    = " + await spCoinContractDeployed.symbol());
+        logDetails("JAVASCRIPT => Decimals  = " + await spCoinContractDeployed.decimals());
+        logDetails("JAVASCRIPT => balanceOf = " + await spCoinContractDeployed.balanceOf(msgSender));
         expect(await spCoinContractDeployed.msgSender()).to.equal(testMsgSender);
         expect(await spCoinContractDeployed.name()).to.equal(testName);
         expect(await spCoinContractDeployed.symbol()).to.equal(testSymbol);
@@ -59,26 +59,26 @@ describe("spCoinContract", function() {
     });
 
     it("Account Insertion Validation", async function () {
-        console.log ("*** TEST ACCOUNT INSERTION ***");
+        logTestHeader("TEST ACCOUNT INSERTION");
         let addr = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
         let recCount = await spCoinContractDeployed.getRecordCount();
         expect(recCount).to.equal(0);
-        console.log("JAVASCRIPT => ** Before Inserted Record Count = " + recCount);
+        logDetails("JAVASCRIPT => ** Before Inserted Record Count = " + recCount);
         let isInserted = await spCoinContractDeployed.isInserted(addr);
-        console.log("JAVASCRIPT => Address "+ addr + " Before Inserted Record Found = " + isInserted);
+        logDetails("JAVASCRIPT => Address "+ addr + " Before Inserted Record Found = " + isInserted);
         await spCoinContractDeployed.insertAccount(addr);
         isInserted = await spCoinContractDeployed.isInserted(addr);
-        console.log("JAVASCRIPT => Address "+ addr + " After Inserted Record Found = " + isInserted);
+        logDetails("JAVASCRIPT => Address "+ addr + " After Inserted Record Found = " + isInserted);
         recCount = await spCoinContractDeployed.getRecordCount();
-        console.log("JAVASCRIPT => ** After Inserted Record Count = " + await recCount);        
+        logDetails("JAVASCRIPT => ** After Inserted Record Count = " + await recCount);        
         expect(recCount).to.equal(1);
     });
 
     it("Insertion 20 Hardhat Accounts for Validation", async function () {
-        console.log("*** ADD MORE HARDHAT ACCOUNTS ***")
-        await insertHHArrayAccounts();
+        logTestHeader("ADD MORE HARDHAT ACCOUNTS")
+        await insertHHTestAccounts();
 
-        console.log("*** RETRIEVE ALL INSERTED RECORDS FROM THE BLOCKCHAIN ***")
+        logDetails("*** RETRIEVE ALL INSERTED RECORDS FROM THE BLOCKCHAIN ***")
         let insertedArrayAccounts = await getInsertedArrayAccounts();
         let testRecCount = testHHAccounts.length;
         let insertedRecCount = insertedArrayAccounts.length;
@@ -87,58 +87,129 @@ describe("spCoinContract", function() {
         for(idx = 0; idx < insertedRecCount; idx++) {
             expect(testHHAccounts[idx]).to.equal(insertedArrayAccounts[idx]);
             addr = insertedArrayAccounts[idx];
-            console.log("JAVASCRIPT => Address Retrieved from Block Chain at Index " + idx + "  = "+ addr );
+            logDetails("JAVASCRIPT => Address Retrieved from Block Chain at Index " + idx + "  = "+ addr );
         }
     });
     
-    it("Insertion SponsorRecords Hardhat Accounts for Validation", async function () {
-        console.log("*** TEST MORE HARDHAT SPONSOR RECORD INSERTIONS ***")
-        await insertHHArrayAccounts();
+    it("Insertion Sponsor Coin Records Hardhat Accounts for Validation", async function () {
+        logTestHeader("TEST MORE HARDHAT SPONSOR RECORD INSERTIONS")
+        await insertHHTestAccounts();
 
-        console.log("*** Insert Sponsor to AccountRecord[2] as AccountRecord[5] ***")
-        await insertSponsorRecords(0, 4, 15);
+        logDetails("*** Insert Sponsor to AccountRecord[2] as AccountRecord[5] ***")
+        let startRec = 4;
+        let endRec = 15;
+        let insertCount = await insertSponsorRecords(0, 4, 15);
+        expect(insertCount).to.equal(endRec-startRec+1);
+    });
+
+    it("Dump Sponsor Coin Records", async function () {
+        logTestHeader("DUMP Sponsor Coin Records");
+        await dumpSCAccounts();
     });
 });
 
 insertSponsorRecords = async(accountRecIdx, startSpRec, lastSpRec ) => {
-    console.log("insertSponsorRecords = async(" + accountRecIdx + ", " + startSpRec + ", " + lastSpRec + ")");
+    logTestHeader("insertSponsorRecords = async(" + accountRecIdx + ", " + startSpRec + ", " + lastSpRec + ")");
     let accountRec = testHHAccounts[accountRecIdx];
 
-    console.log("For account: = " + accountRec + ")");
+    logDetails("For account: = " + accountRec + ")");
     let recCount = 0;
     for (let i = startSpRec; i <= lastSpRec; i++) {
         let sponsorRec = testHHAccounts[i];
-        console.log("   " + ++recCount + " Inserting Sponsor Record = " + sponsorRec + ")");
+        logDetails("   Inserting Sponsor Record " + ++recCount + ": " + sponsorRec + ")");
         await spCoinContractDeployed.insertAccountSponsor(accountRec, sponsorRec);
     }
     let sponsorCount = await spCoinContractDeployed.getAccountSponsorCount(accountRec);
-    console.log("SponsorCount = " + sponsorCount);
+    logDetails("Inserted = " + sponsorCount + "Sponsor Records");
     return sponsorCount;
 }
 
-insertHHArrayAccounts = async() => {
-    console.log("insertHHArrayAccounts = async()");
+insertHHTestAccounts = async() => {
+    logFunctionHeader("insertHHTestAccounts = async()");
+    return await insertArrayAccounts(testHHAccounts);
+}
+
+insertArrayAccounts = async(arrayAccounts) => {
+    logFunctionHeader("insertArrayAccounts = async(arrayAccounts)");
     let recCount = testHHAccounts.length;
-    console.log("Inserting " + recCount + " Records to Blockchain");
+    logDetails("Inserting " + recCount + " Records to Blockchain");
 
     for(idx = 0; idx < recCount; idx++){
         let addr = testHHAccounts[idx];
-        console.log("Inserting " + idx + ", " + addr);
+//        logDetails("Inserting " + idx + ", " + addr);
         await spCoinContractDeployed.insertAccount(addr);
     }
-    console.log("JAVASCRIPT => ** Finally Inserted Record Count = " + recCount);
+    logDetails("JAVASCRIPT => ** Finally Inserted Record Count = " + recCount);
     return testHHAccounts;
 }
 
+
 getInsertedArrayAccounts = async() => {
-    console.log("getInsertedArrayAccounts = async()");
+    logFunctionHeader("getInsertedArrayAccounts = async()");
     let maxCount = await spCoinContractDeployed.getRecordCount();
 
     var insertedArrayAccounts = [];
     for(idx = 0; idx < maxCount; idx++){
        let addr = await spCoinContractDeployed.getAccount(idx);
-//       console.log("JAVASCRIPT => Address at Index " + idx + "  = "+ addr );
+//       logDetails("JAVASCRIPT => Address at Index " + idx + "  = "+ addr );
        insertedArrayAccounts.push(addr);
     }
     return insertedArrayAccounts;
+}
+
+dumpSCAccounts = async() => {
+    logFunctionHeader("dumpSCAccounts = async()");
+    await insertHHTestAccounts();
+    let insertedArrayAccounts = await getInsertedArrayAccounts();
+    dumpArray("Record ", insertedArrayAccounts);
+    return insertedArrayAccounts;
+}
+
+dumpArray = (prefix, insertedArrayAccounts) => {
+    logFunctionHeader("dumpSCAccountArray = async(insertedArrayAccounts)");
+    let maxCount = insertedArrayAccounts.length;
+    logDetails("DUMPING " + maxCount + " RECORDS");
+    for(idx = 0; idx < maxCount; idx++) {
+        let addr = insertedArrayAccounts[idx];
+        console.log(prefix + idx + ": " + addr );
+      }
+}
+
+// ************************* LOGGING SECTION ******************************/
+let LOGGING = true;
+let LOG_DETAILS = true;
+let LOG_TEST_HEADER = true;
+let LOG_FUNCTION_HEADER = true;
+let LOG_SETUP = false;
+
+logSetup = (details) => {
+    if (LOG_SETUP) {
+        log(details);
+    }
+}
+
+logTestHeader = (testHeader) => {
+    if (LOG_TEST_HEADER) {
+        log("==============================================================================");
+        log("************** " + testHeader + " **************");
+    }
+}
+
+logFunctionHeader = (functionHeader) => {
+    if (LOG_FUNCTION_HEADER) {
+        log("******************************************************************************");
+        log("************** " + functionHeader + " **************");
+    }
+}
+
+logDetails = (details) => {
+    if (LOG_DETAILS) {
+        log(details);
+    }
+}
+
+log = (text) => {
+    if (LOGGING) {
+        console.log(text);
+    }
 }
