@@ -44,10 +44,10 @@ describe("spCoinContract", function() {
         expect(recCount).to.equal(0);
         console.log("JAVASCRIPT => ** Before Inserted Record Count = " + recCount);
         let isInserted = await spCoinContractDeployed.isInserted(addr);
-        console.log("JAVASCRIPT => Address "+ addr + " Before Inserted = " + isInserted);
+        console.log("JAVASCRIPT => Address "+ addr + " Before Inserted Record Found = " + isInserted);
         await spCoinContractDeployed.insertAccount(addr);
         isInserted = await spCoinContractDeployed.isInserted(addr);
-        console.log("JAVASCRIPT => Address "+ addr + " After Inserted = " + isInserted);
+        console.log("JAVASCRIPT => Address "+ addr + " After Inserted Record Found = " + isInserted);
         recCount = await spCoinContractDeployed.getRecordCount();
         console.log("JAVASCRIPT => ** After Inserted Record Count = " + await recCount);        
         expect(recCount).to.equal(1);
@@ -69,7 +69,25 @@ describe("spCoinContract", function() {
             addr = insertedArrayAccounts[idx];
             console.log("JAVASCRIPT => Address Retrieved from Block Chain at Index " + idx + "  = "+ addr );
         }
-        let scInsertedArray = getInsertedArrayAccounts(spCoinContractDeployed, insertedRecCount);
+    });
+    
+    it("Insertion SponsorRecords Hardhat Accounts for Validation", async function () {
+        console.log("*** TEST MORE HARDHAT SPONSOR RECORD INSERTION ***")
+        let testHHAccounts = await insertHHArrayAccounts(spCoinContractDeployed);
+
+        console.log("*** Insert Sponsor to AccountRecord[2] as AccountRecord[5] ***")
+        let AccountRec = testHHAccounts[2];
+        let SponsorRec = testHHAccounts[5];
+        let insertedArrayAccounts = await getInsertedArrayAccounts(spCoinContractDeployed);
+        await spCoinContractDeployed.insertAccountSponsor(AccountRec, SponsorRec);
+
+        console.log("*** Get The SponsorList For AccountRecord[2] ***")
+        await spCoinContractDeployed.getAccountSponsors(AccountRec, AccountRec);
+
+
+
+
+
 
     });
 });
@@ -86,6 +104,7 @@ insertHHArrayAccounts = async(spCoinContractDeployed) => {
         await spCoinContractDeployed.insertAccount(addr);
     }
     console.log("JAVASCRIPT => ** Finally Inserted Record Count = " + recCount);
+    return testHHAccounts;
 }
 
 getInsertedArrayAccounts = async(spCoinContractDeployed) => {

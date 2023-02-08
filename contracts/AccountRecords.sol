@@ -1,21 +1,36 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.6;
 /// @title ERC20 Contract
-import "./accounts/Accounts.sol";
+import "./KYC.sol";
+import "./utils/Utils.sol";
 
-contract AccountRecords is Accounts{
+contract AccountRecords is KYC, Utils{
 
    // Keep track of account insertions
    address[] public accountIndex;
+   address[] public sponsorIndex;
+   address[] public agentIndex;
    uint public lastStakingUpdateTime = block.timestamp;
+
    struct accountRec {
+       sponsorRec[] sponsors;
        uint index;
        uint insertionTime;
        bool inserted;
-       sponsorRec[] sponsorAccounts;
        kyc KYC;
     }
+  struct sponsorRec {
+       address addr;
+       uint rate;
+       bool verified;
+    }
+  struct agentRec {
+       uint rate;
+       bool verified;
+    }
     mapping(address => accountRec)  accounts;
+    // mapping(address => sponsorRec)  sponsors;
+    // mapping(address => agentRec)  agents;
 
     constructor(){
     }
@@ -30,13 +45,17 @@ contract AccountRecords is Accounts{
     }
 
     /// @notice insert address for later recall
-    /// @param _accountKey public account key to set new balance
-    /// @return true if balance is set, false otherwise
+    /// @param _accountKey public account key to get sponsor array
+    /// @param _sponsorKey new sponsor to add to account list
     function insertAccountSponsor(address _accountKey, address _sponsorKey) public onlyOwnerOrRootAdmin(_accountKey) returns (bool) {
         insertAccount(_accountKey);
         insertAccount(_sponsorKey);
-        accountRec memory actRec  = getAccountRecord(_accountKey);
-        // ToDo Attach Sponsor to account
+
+        sponsorRec memory newSponsor;
+        newSponsor.rate = 10;
+        newSponsor.verified = false;
+
+        accounts[_accountKey].sponsors.push(newSponsor);
     }
 
     /// @notice insert address for later recall
@@ -48,12 +67,17 @@ contract AccountRecords is Accounts{
             accounts[_accountKey].inserted = true;
             accounts[_accountKey].index = accountIndex.length;
             accountIndex.push(_accountKey);
-            console.log("Returning TRUE");
+            // console.log("Returning TRUE");
             return true;
          }
-            console.log("Returning FALSE");
+            // console.log("Returning FALSE");
             return false;
     }
+
+    function getAccountSponsors(address _accountKey, address _sponsorKey) public onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
+        return sponsorIndex.length;
+    }
+ 
 
     /// @notice retreives the array index of a specific address.
     /// @param _accountKey public account key to set new balance
@@ -75,21 +99,27 @@ contract AccountRecords is Accounts{
         return accountIndex[_idx];
       }
 
-    /// @notice retreives the account balance of a specific address.
+    /// @notice retreives the account record of a specific account address.
     /// @param _accountKey public account key to set new balance
-    function getAccountRecord(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (accountRec memory) {
+    function getAccountRecord(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (accountRec memory) {
         require (isInserted(_accountKey));
         return accounts[_accountKey];
     }
 
     /// @notice retreives the account balance of a specific address.
-    function getSponsorRecords() public view returns (sponsorRec[] memory) {
+    function getSponsorRecordCount() public view returns (uint) {
+        return getSponsorRecords().length;
+    }
+    
+   /// @notice retreives the account balance of a specific address.
+    function getSponsorRecords() internal view returns (sponsorRec[] memory) {
         return getSponsorRecords(msg.sender);
     }
+    
     /// @notice retreives the account balance of a specific address.
     /// @param _accountKey public account key to set new balance
-    function getSponsorRecords(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (sponsorRec[] memory) {
-           sponsorRec[] memory sponsorAccountArray = accounts[_accountKey].sponsorAccounts;
-        return sponsorAccountArray;
+    function getSponsorRecords(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (sponsorRec[] memory) {
+        sponsorRec[] storage actSponsor = accounts[_accountKey].sponsors;
+        return actSponsor;
     }
 }

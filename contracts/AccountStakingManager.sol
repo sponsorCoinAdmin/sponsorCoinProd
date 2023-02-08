@@ -11,12 +11,15 @@ contract AccountStakingManager is AccountRecords{
 // 2. Set totalRewards = calcAllSponsorsStakingRewards(sponsorAccountArray)
 // 3. Update all account balances updateAllSponsorsStakingRewards()
 
-function allocateStakingRewards() external view returns(  sponsorRec[] memory ){
+/*
+function allocateStakingRewards() internal view returns(  accountRec[] memory ){
    
-   sponsorRec[] memory sponsorAccountArray = getSponsorRecords(msg.sender);
+   accountRec[] memory sponsorAccountArray = getSponsorRecords(msg.sender);
    return sponsorAccountArray;
 }
-
+*/// @title A title that should describe the contract/interface
+/// @notice Explain to an end user what this does
+/// @dev Explain to a developer any extra details
 function gitAddressThis() external view returns(address){
    return (address(this));
 }
