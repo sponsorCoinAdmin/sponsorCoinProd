@@ -8,7 +8,6 @@ contract Security {
  
     constructor()  {
         rootAdmin = msg.sender;
-        console.log("HARDHAT LOGGING WORKS");
     }
 
     modifier onlyRootAdmin () {

@@ -52,10 +52,20 @@ contract AccountRecords is KYC, Utils{
         insertAccount(_sponsorKey);
 
         sponsorRec memory newSponsor;
+        newSponsor.addr = _sponsorKey;
         newSponsor.rate = 10;
         newSponsor.verified = false;
 
         accounts[_accountKey].sponsors.push(newSponsor);
+        return true;
+    }
+
+    /// @notice get address for an account sponsor
+    /// @param _accountKey public account key to get sponsor array
+    /// @param _sponsorIdx new sponsor to add to account list
+    function getAccountSponsorKey(address _accountKey, uint _sponsorIdx) public view onlyOwnerOrRootAdmin(_accountKey) returns (address) {
+        address sponsoraddr = accounts[_accountKey].sponsors[_sponsorIdx].addr;
+        return sponsoraddr;
     }
 
     /// @notice insert address for later recall
@@ -74,14 +84,16 @@ contract AccountRecords is KYC, Utils{
             return false;
     }
 
-    function getAccountSponsorCount(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
+    /// @notice retreives the array record size a specific address.
+    /// @param _accountKey public account key to get Sponsor Record Length
+    function getSponsorRecordCount(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
         return getAccountSponsors(_accountKey).length;
     }
 
    function getAccountSponsors(address _accountKey) internal view onlyOwnerOrRootAdmin(_accountKey) returns (sponsorRec[] memory) {
         return accounts[_accountKey].sponsors;
     }
- 
+
 
     /// @notice retreives the array index of a specific address.
     /// @param _accountKey public account key to set new balance
@@ -93,7 +105,7 @@ contract AccountRecords is KYC, Utils{
       }
 
     /// @notice retreives the array index of a specific address.
-     function getRecordCount() public view returns (uint) {
+     function getAccountRecordCount() public view returns (uint) {
         return accountIndex.length;
       }
 
@@ -111,7 +123,7 @@ contract AccountRecords is KYC, Utils{
     }
 
     /// @notice retreives the account balance of a specific address.
-    function getSponsorRecordCount() public view returns (uint) {
+    function getSponsorRecCount() public view returns (uint) {
         return getSponsorRecords().length;
     }
     

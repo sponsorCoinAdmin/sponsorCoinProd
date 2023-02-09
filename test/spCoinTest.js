@@ -1,4 +1,5 @@
 const { expect } = require("chai");
+const { loggers } = require("./lib/logging");
 
 let spCoinContractDeployed;
 const testHHAccounts = ["0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
@@ -61,7 +62,7 @@ describe("spCoinContract", function() {
     it("Account Insertion Validation", async function () {
         logTestHeader("TEST ACCOUNT INSERTION");
         let addr = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
-        let recCount = await spCoinContractDeployed.getRecordCount();
+        let recCount = await spCoinContractDeployed.getAccountRecordCount();
         expect(recCount).to.equal(0);
         logDetails("JAVASCRIPT => ** Before Inserted Record Count = " + recCount);
         let isInserted = await spCoinContractDeployed.isInserted(addr);
@@ -69,7 +70,7 @@ describe("spCoinContract", function() {
         await spCoinContractDeployed.insertAccount(addr);
         isInserted = await spCoinContractDeployed.isInserted(addr);
         logDetails("JAVASCRIPT => Address "+ addr + " After Inserted Record Found = " + isInserted);
-        recCount = await spCoinContractDeployed.getRecordCount();
+        recCount = await spCoinContractDeployed.getAccountRecordCount();
         logDetails("JAVASCRIPT => ** After Inserted Record Count = " + await recCount);        
         expect(recCount).to.equal(1);
     });
@@ -79,7 +80,7 @@ describe("spCoinContract", function() {
         await insertHHTestAccounts();
 
         logDetails("*** RETRIEVE ALL INSERTED RECORDS FROM THE BLOCKCHAIN ***")
-        let insertedArrayAccounts = await getInsertedArrayAccounts();
+        let insertedArrayAccounts = await getInsertedAccounts();
         let testRecCount = testHHAccounts.length;
         let insertedRecCount = insertedArrayAccounts.length;
         expect(testRecCount).to.equal(insertedRecCount);
@@ -104,7 +105,15 @@ describe("spCoinContract", function() {
 
     it("Dump Sponsor Coin Records", async function () {
         logTestHeader("DUMP Sponsor Coin Records");
-        await dumpSCAccounts();
+        await insertHHTestAccounts();
+        insertSponsorRecords(1,2,5);
+        insertSponsorRecords(2,1,7);
+        insertSponsorRecords(3,6,17);
+        insertSponsorRecords(1,5,7);
+        insertSponsorRecords(11,18,19);
+        await dumpAccounts("Account");
+        console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+
     });
 });
 
@@ -119,8 +128,8 @@ insertSponsorRecords = async(accountRecIdx, startSpRec, lastSpRec ) => {
         logDetails("   Inserting Sponsor Record " + ++recCount + ": " + sponsorRec + ")");
         await spCoinContractDeployed.insertAccountSponsor(accountRec, sponsorRec);
     }
-    let sponsorCount = await spCoinContractDeployed.getAccountSponsorCount(accountRec);
-    logDetails("Inserted = " + sponsorCount + "Sponsor Records");
+    let sponsorCount = await spCoinContractDeployed.getSponsorRecordCount(accountRec);
+    logDetails("Inserted = " + sponsorCount + " Sponsor Records");
     return sponsorCount;
 }
 
@@ -143,34 +152,65 @@ insertArrayAccounts = async(arrayAccounts) => {
     return testHHAccounts;
 }
 
-
-getInsertedArrayAccounts = async() => {
-    logFunctionHeader("getInsertedArrayAccounts = async()");
-    let maxCount = await spCoinContractDeployed.getRecordCount();
+getInsertedAccounts = async() => {
+    logFunctionHeader("getInsertedAccounts = async()");
+    let maxCount = await spCoinContractDeployed.getAccountRecordCount();
 
     var insertedArrayAccounts = [];
     for(idx = 0; idx < maxCount; idx++){
        let addr = await spCoinContractDeployed.getAccount(idx);
-//       logDetails("JAVASCRIPT => Address at Index " + idx + "  = "+ addr );
+       logDetails("JAVASCRIPT => Address at Index " + idx + "  = "+ addr );
        insertedArrayAccounts.push(addr);
     }
     return insertedArrayAccounts;
 }
 
-dumpSCAccounts = async() => {
-    logFunctionHeader("dumpSCAccounts = async()");
-    await insertHHTestAccounts();
-    let insertedArrayAccounts = await getInsertedArrayAccounts();
-    dumpArray("Record ", insertedArrayAccounts);
+getInsertedAccountSponsors = async(account) => {
+    logFunctionHeader("getInsertedAccountSponsors = async(" + account + ")");
+    let maxCount = await spCoinContractDeployed.getSponsorRecordCount(account);
+    var insertedAccountSponsors = [];
+    for(let idx = 0; idx < maxCount; idx++) {
+       let addr = await getAccountSponsorKey(_accountKey, _sponsorIdx);
+//     console.log(prefix + "[" + idx + "]: " + addr );
+       insertedAccountSponsors.push(addr);
+    }
+    return insertedAccountSponsors;
+}
+
+dumpAccounts = async(prefix) => {
+    logFunctionHeader("dumpAccounts = async()");
+    let insertedArrayAccounts = await getInsertedAccounts();
+//    dumpArray("Record ", insertedArrayAccounts);
+    let maxCount = insertedArrayAccounts.length;
+    logDetails("DUMPING " + maxCount + " ACCOUNT RECORDS");
+    for(let idx = 0; idx < maxCount; idx++) {
+        let addr = insertedArrayAccounts[idx];
+        console.log(prefix + "[" + idx + "]: " + addr );
+        await dumpAccountSponsors("   Sponsor", addr);
+    }
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
     return insertedArrayAccounts;
 }
 
-dumpArray = (prefix, insertedArrayAccounts) => {
-    logFunctionHeader("dumpSCAccountArray = async(insertedArrayAccounts)");
-    let maxCount = insertedArrayAccounts.length;
+dumpAccountSponsors = async(prefix, account) => {
+//    logFunctionHeader("dumpAccountSponsors = async(" + account + ")");
+    insertedAccountSponsors = await getInsertedAccountSponsors(account);
+    let maxCount = insertedAccountSponsors.length;
+//    logDetails("   DUMPING " + maxCount + " SPONSOR RECORDS");
+    for(let idx = 0; idx < maxCount; idx++) {
+        let addr = insertedAccountSponsors[idx];
+        console.log(prefix + "[" + idx + "]: " + addr );
+    }
+    return insertedAccountSponsors;
+}
+
+dumpArray = (prefix, arr) => {
+    logFunctionHeader("dumpArray = async(" + prefix + ", arr)");
+    let maxCount = arr.length;
     logDetails("DUMPING " + maxCount + " RECORDS");
     for(idx = 0; idx < maxCount; idx++) {
-        let addr = insertedArrayAccounts[idx];
+        let addr = arr[idx];
         console.log(prefix + idx + ": " + addr );
       }
 }
