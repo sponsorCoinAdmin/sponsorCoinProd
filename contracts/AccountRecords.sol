@@ -26,6 +26,10 @@ contract AccountRecords is KYC, Utils{
        uint lastUpdateTime;
        uint256 quantity;
     }
+    struct sponsorRec {
+       address addr;
+       uint rate;
+    }
     struct agentRec {
        address addr;
        uint rate;
@@ -53,7 +57,7 @@ contract AccountRecords is KYC, Utils{
         insertAccount(_accountKey);
         insertAccount(_sponsorKey);
         accountRec storage account = accounts[_accountKey];
-        uint256 insertionTime = block.timestamp;
+//        uint256 insertionTime = block.timestamp;
 
         sponsorRec memory newSponsor;
         newSponsor.addr = _sponsorKey;
