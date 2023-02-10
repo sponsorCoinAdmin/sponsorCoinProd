@@ -16,6 +16,7 @@ contract Logging is StringUtils{
    function setLogStatus(bool _logStatus )  public {
         logStatus = _logStatus;
         string memory boolToString = boolTostring(_logStatus);
+        console.log(boolToString);
  //       string memory concat = string.concat("Setting Logging ", "boolToString");
  //       scLog(string.concat("Setting Logging ", boolTostring(_logStatus)));
     }

@@ -1,6 +1,38 @@
 const { expect } = require("chai");
 const { loggers } = require("./lib/logging");
 
+
+class accountRec {
+    constructor(address) {
+        this.address = address;
+        this.sponsors;
+        this.index;
+        this.insertionTime;
+        this.inserted;
+        this.KYC;   
+      }
+ }
+ class sponsorRec {
+    constructor(address) {
+        this.address = address;
+        this.rate;
+        this.verified;
+    }
+ }
+ class agentRec {
+    constructor(address) {
+        this.address = address;
+        this.rate;
+        this.verified;
+    }
+ }
+
+let account;
+let sponsor;
+let agent;
+//let scTree[] = {account, sponsor, agent};
+
+
 let spCoinContractDeployed;
 const testHHAccounts = ["0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
                         "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
@@ -112,8 +144,6 @@ describe("spCoinContract", function() {
         await insertSponsorRecords(1,5,7);
         await insertSponsorRecords(11,18,19);
         await dumpAccounts("Account");
-        console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
-
     });
 });
 
@@ -165,42 +195,41 @@ getInsertedAccounts = async() => {
     return insertedArrayAccounts;
 }
 
-getInsertedAccountSponsors = async(account) => {
-    logFunctionHeader("getInsertedAccountSponsors = async(" + account + ")");
-    let maxCount = await spCoinContractDeployed.getSponsorRecordCount(account);
-    var insertedAccountSponsors = [];
+getInsertedAccountSponsors = async(prefix, _accountKey) => {
+//    logFunctionHeader("getInsertedAccountSponsors = async(" + prefix + ", " + _accountKey + ")");
+    let maxCount = await spCoinContractDeployed.getSponsorRecordCount(_accountKey);
+
+    let insertedAccountSponsors = [];
     for(let idx = 0; idx < maxCount; idx++) {
-       let addr = await getAccountSponsorKey(_accountKey, _sponsorIdx);
-//     console.log(prefix + "[" + idx + "]: " + addr );
+       let addr = await spCoinContractDeployed.getAccountSponsorKey(_accountKey, idx);
+//       console.log(prefix + "[" + idx + "]: " + addr );
        insertedAccountSponsors.push(addr);
     }
     return insertedAccountSponsors;
 }
 
 dumpAccounts = async(prefix) => {
-    logFunctionHeader("dumpAccounts = async()");
+//    logFunctionHeader("dumpAccounts = async()");
     let insertedArrayAccounts = await getInsertedAccounts();
 //    dumpArray("Record ", insertedArrayAccounts);
     let maxCount = insertedArrayAccounts.length;
-    logDetails("DUMPING " + maxCount + " ACCOUNT RECORDS");
+//    logDetails("DUMPING " + maxCount + " ACCOUNT RECORDS");
     for(let idx = 0; idx < maxCount; idx++) {
         let addr = insertedArrayAccounts[idx];
         console.log(prefix + "[" + idx + "]: " + addr );
         await dumpAccountSponsors("   Sponsor", addr);
     }
-    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
     return insertedArrayAccounts;
 }
 
 dumpAccountSponsors = async(prefix, account) => {
 //    logFunctionHeader("dumpAccountSponsors = async(" + account + ")");
-    insertedAccountSponsors = await getInsertedAccountSponsors(account);
+    insertedAccountSponsors = await getInsertedAccountSponsors("Sponsor", account);
     let maxCount = insertedAccountSponsors.length;
 //    logDetails("   DUMPING " + maxCount + " SPONSOR RECORDS");
     for(let idx = 0; idx < maxCount; idx++) {
         let addr = insertedAccountSponsors[idx];
-        console.log(prefix + "[" + idx + "]: " + addr );
+        log(prefix + "[" + idx + "]: " + addr );
     }
     return insertedAccountSponsors;
 }
@@ -208,18 +237,18 @@ dumpAccountSponsors = async(prefix, account) => {
 dumpArray = (prefix, arr) => {
     logFunctionHeader("dumpArray = async(" + prefix + ", arr)");
     let maxCount = arr.length;
-    logDetails("DUMPING " + maxCount + " RECORDS");
+//    logDetails("DUMPING " + maxCount + " RECORDS");
     for(idx = 0; idx < maxCount; idx++) {
         let addr = arr[idx];
-        console.log(prefix + idx + ": " + addr );
+        log(prefix + idx + ": " + addr );
       }
 }
 
 // ************************* LOGGING SECTION ******************************/
 let LOGGING = true;
-let LOG_DETAILS = true;
-let LOG_TEST_HEADER = true;
-let LOG_FUNCTION_HEADER = true;
+let LOG_DETAILS = false;
+let LOG_TEST_HEADER = false;
+let LOG_FUNCTION_HEADER = false;
 let LOG_SETUP = false;
 
 logSetup = (details) => {

@@ -13,20 +13,22 @@ contract AccountRecords is KYC, Utils{
    uint public lastStakingUpdateTime = block.timestamp;
 
    struct accountRec {
+       mapping(uint256 => sponsorRec) sponsorMap;
        sponsorRec[] sponsors;
+       uint[] sponsorKeys;
        uint index;
        uint insertionTime;
        bool inserted;
        kyc KYC;
+       bool verified;
     }
-  struct sponsorRec {
+    struct sponsorRec {
        address addr;
        uint rate;
-       bool verified;
     }
-  struct agentRec {
+    struct agentRec {
+       address addr;
        uint rate;
-       bool verified;
     }
     mapping(address => accountRec)  accounts;
     // mapping(address => sponsorRec)  sponsors;
@@ -50,20 +52,31 @@ contract AccountRecords is KYC, Utils{
     function insertAccountSponsor(address _accountKey, address _sponsorKey) public onlyOwnerOrRootAdmin(_accountKey) returns (bool) {
         insertAccount(_accountKey);
         insertAccount(_sponsorKey);
+        accountRec storage account = accounts[_accountKey];
+        uint256 insertionTime = block.timestamp;
+        account.sponsorMap[insertionTime].addr = _sponsorKey;
+        account.sponsorMap[insertionTime].rate = 10;
+        account.sponsorKeys.push(insertionTime);
 
         sponsorRec memory newSponsor;
         newSponsor.addr = _sponsorKey;
         newSponsor.rate = 10;
-        newSponsor.verified = false;
 
-        accounts[_accountKey].sponsors.push(newSponsor);
+        account.sponsors.push(newSponsor);
         return true;
     }
 
     /// @notice get address for an account sponsor
     /// @param _accountKey public account key to get sponsor array
     /// @param _sponsorIdx new sponsor to add to account list
-    function getAccountSponsorKey(address _accountKey, uint _sponsorIdx) public view onlyOwnerOrRootAdmin(_accountKey) returns (address) {
+    function getAccountSponsorKey(address _accountKey, uint _sponsorIdx ) public view onlyOwnerOrRootAdmin(_accountKey) returns (address) {
+        // console.log("getAccountSponsorKey(");
+        // console.log("_accountKey = ");
+        // console.log(_accountKey);
+        // console.log("_sponsorIdx = ");
+        // console.log(_sponsorIdx);
+        // console.log(")");
+
         address sponsoraddr = accounts[_accountKey].sponsors[_sponsorIdx].addr;
         return sponsoraddr;
     }
@@ -97,12 +110,12 @@ contract AccountRecords is KYC, Utils{
 
     /// @notice retreives the array index of a specific address.
     /// @param _accountKey public account key to set new balance
-     function getindex(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (uint) {
+    function getindex(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (uint) {
         if (isInserted(_accountKey))
             return accounts[_accountKey].index;
         else
             return 0;
-      }
+    }
 
     /// @notice retreives the array index of a specific address.
      function getAccountRecordCount() public view returns (uint) {
@@ -117,7 +130,7 @@ contract AccountRecords is KYC, Utils{
 
     /// @notice retreives the account record of a specific account address.
     /// @param _accountKey public account key to set new balance
-    function getAccountRecord(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (accountRec memory) {
+    function getAccountRecord(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (accountRec storage) {
         require (isInserted(_accountKey));
         return accounts[_accountKey];
     }
