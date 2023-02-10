@@ -20,9 +20,11 @@ contract AccountRecords is KYC, Utils{
        kyc KYC;
        bool verified;
     }
-    struct sponsorRec {
-       address addr;
+    struct rateRec {
        uint rate;
+       uint insertionTime;
+       uint lastUpdateTime;
+       uint256 quantity;
     }
     struct agentRec {
        address addr;
