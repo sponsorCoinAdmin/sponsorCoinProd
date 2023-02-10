@@ -13,9 +13,7 @@ contract AccountRecords is KYC, Utils{
    uint public lastStakingUpdateTime = block.timestamp;
 
    struct accountRec {
-       mapping(uint256 => sponsorRec) sponsorMap;
        sponsorRec[] sponsors;
-       uint[] sponsorKeys;
        uint index;
        uint insertionTime;
        bool inserted;
@@ -54,9 +52,6 @@ contract AccountRecords is KYC, Utils{
         insertAccount(_sponsorKey);
         accountRec storage account = accounts[_accountKey];
         uint256 insertionTime = block.timestamp;
-        account.sponsorMap[insertionTime].addr = _sponsorKey;
-        account.sponsorMap[insertionTime].rate = 10;
-        account.sponsorKeys.push(insertionTime);
 
         sponsorRec memory newSponsor;
         newSponsor.addr = _sponsorKey;
