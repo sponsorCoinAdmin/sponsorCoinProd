@@ -2,9 +2,8 @@
 pragma solidity ^0.8.7;
 /// @title ERC20 Contract
 import "./KYC.sol";
-import "./utils/Utils.sol";
 
-contract AccountRecords is KYC, Utils{
+contract AccountRecords is KYC {
 
    // Keep track of account insertions
    address[] public accountIndex;
@@ -19,7 +18,7 @@ contract AccountRecords is KYC, Utils{
        uint index;
        uint insertionTime;
        bool inserted;
-       kyc KYC;
+       KYC kyc ;
        bool verified;
     }
     struct rateRec {
@@ -93,7 +92,7 @@ contract AccountRecords is KYC, Utils{
         // console.log(_agentIdx);
         // console.log(")");
 
-        address agentaddr = accounts[_sponsorKey].sponsors[_agentIdx].addr;
+        address agentaddr = accounts[_sponsorKey].agents[_agentIdx].addr;
         return agentaddr;
     }
 
