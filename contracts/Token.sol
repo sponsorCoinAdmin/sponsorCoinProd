@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.6;
-// use latest solidity version at time of writing, need not worry about overflow and underflow
+/// @title ERC20 Contract
 
-/// @title ERC20 Contract 
+import "./AccountStakingManager.sol";
 
-contract Token {
+contract Token is AccountStakingManager{
 
     // My Variables
     string public name;
@@ -22,28 +22,27 @@ contract Token {
 
 /*
     constructor(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) {
+        initToken(_name, _symbol, _decimals, _totalSupply);
+    }
+*/
+
+    constructor() {
+        initToken("Test", "Test0001", 18, 100000000000000000000000000);
+   }
+
+   function initToken(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) public onlyRootAdmin {
         name = _name;
         symbol = _symbol;
         decimals = _decimals;
-        totalSupply = _totalSupply; 
+        totalSupply = _totalSupply;
         balanceOf[msg.sender] = totalSupply;
     }
-*/
-       constructor() {
-        name = "Test";
-        symbol = "Test0001";
-        decimals = 18;
-        totalSupply = 100000000000000000000000000; 
-        balanceOf[msg.sender] = totalSupply;
- //       initToken(name, symbol, decimals, totalSupply);
-   }
-
 
     /// @notice transfer amount of tokens to an address
     /// @param _to receiver of token
     /// @param _value amount value of token to send
     /// @return success as true, for transfer 
-    function transfer(address _to, uint256 _value) external returns (bool success) {
+    function transfer(address _to, uint256 _value) external virtual returns (bool success) {
         require(balanceOf[msg.sender] >= _value);
         _transfer(msg.sender, _to, _value);
         return true;
@@ -58,6 +57,7 @@ contract Token {
     function _transfer(address _from, address _to, uint256 _value) internal {
         // Ensure sending is to valid address! 0x0 address cane be used to burn() 
         require(_to != address(0));
+        insertAccount(_to);
         balanceOf[_from] = balanceOf[_from] - (_value);
         balanceOf[_to] = balanceOf[_to] + (_value);
         emit Transfer(_from, _to, _value);
@@ -92,4 +92,3 @@ contract Token {
     }
 
 }
-
