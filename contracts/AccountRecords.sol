@@ -50,6 +50,22 @@ contract AccountRecords is KYC, Utils{
             return false;
     }
 
+    /// @notice insert sponsors Agent
+    /// @param _sponsorKey public account key to get sponsor array
+    /// @param _agentKey new sponsor to add to account list
+    function insertSponsorAgent(address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(msg.sender) returns (bool) {
+        insertAccount(_sponsorKey);
+        insertAccount(_agentKey);
+        accountRec storage account = accounts[_sponsorKey];
+//      uint256 insertionTime = block.timestamp;
+
+        addressRec memory newAgent;
+        newAgent.addr = _agentKey;
+        account.agents.push(newAgent);
+
+        return true;
+    }
+
     /// @notice insert address for later recall
     /// @param _accountKey public account key to get sponsor array
     /// @param _sponsorKey new sponsor to add to account list
@@ -69,7 +85,7 @@ contract AccountRecords is KYC, Utils{
     /// @notice get address for an account sponsor
     /// @param _accountKey public account key to get sponsor array
     /// @param _sponsorIdx new sponsor to add to account list
-    function getAccountSponsorKey(address _accountKey, uint _sponsorIdx ) public view onlyOwnerOrRootAdmin(_accountKey) returns (address) {
+    function getAccountSponsorKey(address _accountKey, uint _sponsorIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         // console.log("getAccountSponsorKey(");
         // console.log("_accountKey = ");
         // console.log(_accountKey);

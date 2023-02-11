@@ -1,7 +1,6 @@
 const { expect } = require("chai");
 const { loggers } = require("./lib/logging");
 
-
 class accountRec {
     constructor(address) {
         this.address = address;
