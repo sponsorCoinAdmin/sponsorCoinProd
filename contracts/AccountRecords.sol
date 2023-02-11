@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.6;
+pragma solidity ^0.8.7;
 /// @title ERC20 Contract
 import "./KYC.sol";
 import "./utils/Utils.sol";
@@ -8,12 +8,14 @@ contract AccountRecords is KYC, Utils{
 
    // Keep track of account insertions
    address[] public accountIndex;
-   address[] public sponsorIndex;
-   address[] public agentIndex;
+//    address[] public sponsorIndex;
+//    address[] public agentIndex;
    uint public lastStakingUpdateTime = block.timestamp;
 
    struct accountRec {
-       sponsorRec[] sponsors;
+       addressRec[] sponsors;
+       addressRec[] agents;
+       rateRec[] rateEntries;
        uint index;
        uint insertionTime;
        bool inserted;
@@ -21,21 +23,19 @@ contract AccountRecords is KYC, Utils{
        bool verified;
     }
     struct rateRec {
-       uint rate;
+       uint[] rate;
        uint insertionTime;
        uint lastUpdateTime;
        uint256 quantity;
     }
-    struct sponsorRec {
+    struct addressRec {
+       address[] child;
        address addr;
-       uint rate;
+       rateRec next;
     }
-    struct agentRec {
-       address addr;
-       uint rate;
-    }
+
     mapping(address => accountRec)  accounts;
-    // mapping(address => sponsorRec)  sponsors;
+    // mapping(address => addressRec)  sponsors;
     // mapping(address => agentRec)  agents;
 
     constructor(){
@@ -59,11 +59,10 @@ contract AccountRecords is KYC, Utils{
         accountRec storage account = accounts[_accountKey];
 //        uint256 insertionTime = block.timestamp;
 
-        sponsorRec memory newSponsor;
+        addressRec memory newSponsor;
         newSponsor.addr = _sponsorKey;
-        newSponsor.rate = 10;
-
         account.sponsors.push(newSponsor);
+
         return true;
     }
 
@@ -104,7 +103,7 @@ contract AccountRecords is KYC, Utils{
         return getAccountSponsors(_accountKey).length;
     }
 
-   function getAccountSponsors(address _accountKey) internal view onlyOwnerOrRootAdmin(_accountKey) returns (sponsorRec[] memory) {
+   function getAccountSponsors(address _accountKey) internal view onlyOwnerOrRootAdmin(_accountKey) returns (addressRec[] memory) {
         return accounts[_accountKey].sponsors;
     }
 
@@ -142,14 +141,14 @@ contract AccountRecords is KYC, Utils{
     }
     
    /// @notice retreives the account balance of a specific address.
-    function getSponsorRecords() internal view returns (sponsorRec[] memory) {
+    function getSponsorRecords() internal view returns (addressRec[] memory) {
         return getSponsorRecords(msg.sender);
     }
     
     /// @notice retreives the account balance of a specific address.
     /// @param _accountKey public account key to set new balance
-    function getSponsorRecords(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (sponsorRec[] memory) {
-        sponsorRec[] storage actSponsor = accounts[_accountKey].sponsors;
+    function getSponsorRecords(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (addressRec[] memory) {
+        addressRec[] storage actSponsor = accounts[_accountKey].sponsors;
         return actSponsor;
     }
 }
