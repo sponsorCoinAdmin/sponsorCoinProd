@@ -83,6 +83,21 @@ contract AccountRecords is KYC, Utils{
     }
 
     /// @notice get address for an account sponsor
+    /// @param _sponsorKey public account key to get agent array
+    /// @param _agentIdx new agent to add to account list
+    function getSponsorAgentKey(address _sponsorKey, uint _agentIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
+        // console.log("getAccountSponsorKey(");
+        // console.log("_sponsorKey = ");
+        // console.log(_sponsorKey);
+        // console.log("_agentIdx = ");
+        // console.log(_agentIdx);
+        // console.log(")");
+
+        address agentaddr = accounts[_sponsorKey].sponsors[_agentIdx].addr;
+        return agentaddr;
+    }
+
+    /// @notice get address for an account sponsor
     /// @param _accountKey public account key to get sponsor array
     /// @param _sponsorIdx new sponsor to add to account list
     function getAccountSponsorKey(address _accountKey, uint _sponsorIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
@@ -113,14 +128,28 @@ contract AccountRecords is KYC, Utils{
             return false;
     }
 
-    /// @notice retreives the array record size a specific address.
+    /// @notice retreives the sponsor array record size a specific address.
     /// @param _accountKey public account key to get Sponsor Record Length
     function getSponsorRecordCount(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
         return getAccountSponsors(_accountKey).length;
     }
 
+    /// @notice retreives the sponsor array records from a specific account address.
+    /// @param _accountKey public account key to get Sponsors
    function getAccountSponsors(address _accountKey) internal view onlyOwnerOrRootAdmin(_accountKey) returns (addressRec[] memory) {
         return accounts[_accountKey].sponsors;
+    }
+
+   /// @notice retreives the sponsor array record size a specific address.
+    /// @param _sponsorKey public account key to get Sponsor Record Length
+    function getAgentRecordCount(address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
+        return getAccountAgents(_sponsorKey).length;
+    }
+
+    /// @notice retreives the sponsor array records from a specific account address.
+    /// @param _sponsorKey public account key to get Sponsors
+   function getAccountAgents(address _sponsorKey) internal view onlyOwnerOrRootAdmin(_sponsorKey) returns (addressRec[] memory) {
+        return accounts[_sponsorKey].agents;
     }
 
 
