@@ -107,6 +107,11 @@ contract AccountRecords is KYC {
         // console.log(_sponsorIdx);
         // console.log(")");
 
+        // console.log("#########################################################################");
+        // console.log(concat(_accountKey, 15));
+        // console.log("#########################################################################");
+//        concat("", "");
+
         address sponsoraddr = accounts[_accountKey].sponsors[_sponsorIdx].addr;
         return sponsoraddr;
     }

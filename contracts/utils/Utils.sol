@@ -8,4 +8,4 @@ import "./TimeUtils.sol";
 import "./Logging.sol";
 
 contract Utils is Security, TimeUtils, Logging {
- }
+}
