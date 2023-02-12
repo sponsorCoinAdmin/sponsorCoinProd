@@ -3,7 +3,7 @@ pragma solidity ^0.8.6;
 /// @title ERC20 Contract
 import "./Agents.sol";
 
-contract AccountStakingManager is AccountRecords{
+contract AccountStakingManager is Accounts{
 
 // ###  ALGORITHMIC ARCHITECTURAL DESIGN FOR STAKING REWARDS ALLOCATION ###
 // allocateStakingRewards()

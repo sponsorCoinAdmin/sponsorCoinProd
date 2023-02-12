@@ -3,7 +3,7 @@ pragma solidity ^0.8.7;
 /// @title ERC20 Contract
 import "./KYC.sol";
 
-contract AccountRecords is KYC {
+contract Accounts is KYC {
 
    address burnAddress = 0x0000000000000000000000000000000000000000;
    // Keep track of account insertions
