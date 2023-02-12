@@ -14,7 +14,8 @@ contract Sponsors is Accounts {
     function insertAccountSponsor(address _accountKey, address _sponsorKey) public onlyOwnerOrRootAdmin(_accountKey) returns (bool) {
         insertAccount(_accountKey);
         insertAccount(_sponsorKey);
-        accountRec storage account = accounts[_accountKey];
+        accountRec storage account = accountMap[_accountKey];
+        account.sponsorAddrArr.push(_sponsorKey);
 //        uint256 insertionTime = block.timestamp;
 
         addressRec memory newSponsor;
@@ -33,7 +34,7 @@ contract Sponsors is Accounts {
     /// @notice retreives the sponsor array records from a specific account address.
     /// @param _accountKey public account key to get Sponsors
    function getAccountSponsors(address _accountKey) internal view onlyOwnerOrRootAdmin(_accountKey) returns (addressRec[] memory) {
-        return accounts[_accountKey].sponsors;
+        return accountMap[_accountKey].sponsors;
     }
 
 
@@ -53,7 +54,7 @@ contract Sponsors is Accounts {
         // console.log("#########################################################################");
 //        concat("", "");
 
-        address sponsoraddr = accounts[_accountKey].sponsors[_sponsorIdx].addr;
+        address sponsoraddr = accountMap[_accountKey].sponsors[_sponsorIdx].addr;
         return sponsoraddr;
     }
 
@@ -70,7 +71,7 @@ contract Sponsors is Accounts {
     /// @notice retreives the account balance of a specific address.
     /// @param _accountKey public account key to set new balance
     function getSponsorRecords(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (addressRec[] memory) {
-        addressRec[] storage actSponsor = accounts[_accountKey].sponsors;
+        addressRec[] storage actSponsor = accountMap[_accountKey].sponsors;
         return actSponsor;
     }
 

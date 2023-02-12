@@ -6,13 +6,10 @@ import "../utils/KYC.sol";
 contract DataTypes is KYC {
 
    address burnAddress = 0x0000000000000000000000000000000000000000;
-   // Keep track of account insertions
-   address[] public accountIndex;
-//    address[] public sponsorIndex;
-//    address[] public agentIndex;
    uint public lastStakingUpdateTime = block.timestamp;
 
    struct accountRec {
+       address[] sponsorAddrArr;
        addressRec[] sponsors;
        addressRec[] agents;
        address parentAccount;
@@ -30,10 +27,14 @@ contract DataTypes is KYC {
        uint256 quantity;
     }
     struct addressRec {
-       address[] child;
        address addr;
        rateRec next;
     }
 
-    mapping(address => accountRec)  accounts;
+// Keep track of account insertions
+   address[] public accountIndex;
+   mapping(address => accountRec)  accountMap;
+   mapping(string => rateRec[])  sponsorRates;
+//    address[] public sponsorIndex;
+//    address[] public agentIndex;
 }

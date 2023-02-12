@@ -14,7 +14,7 @@ contract Agents is Sponsors {
     function insertSponsorAgent(address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(msg.sender) returns (bool) {
         insertAccount(_sponsorKey);
         insertAccount(_agentKey);
-        accountRec storage account = accounts[_sponsorKey];
+        accountRec storage account = accountMap[_sponsorKey];
 //      uint256 insertionTime = block.timestamp;
 
         addressRec memory newAgent;
@@ -35,7 +35,7 @@ contract Agents is Sponsors {
         // console.log(_agentIdx);
         // console.log(")");
 
-        address agentaddr = accounts[_sponsorKey].agents[_agentIdx].addr;
+        address agentaddr = accountMap[_sponsorKey].agents[_agentIdx].addr;
         return agentaddr;
     }
 
@@ -49,7 +49,7 @@ contract Agents is Sponsors {
     /// @notice retreives the sponsor array records from a specific account address.
     /// @param _sponsorKey public account key to get Sponsors
    function getAccountAgents(address _sponsorKey) internal view onlyOwnerOrRootAdmin(_sponsorKey) returns (addressRec[] memory) {
-        return accounts[_sponsorKey].agents;
+        return accountMap[_sponsorKey].agents;
     }
 
 }
