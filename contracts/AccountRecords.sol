@@ -5,6 +5,7 @@ import "./KYC.sol";
 
 contract AccountRecords is KYC {
 
+   address burnAddress = 0x0000000000000000000000000000000000000000;
    // Keep track of account insertions
    address[] public accountIndex;
 //    address[] public sponsorIndex;
@@ -14,6 +15,7 @@ contract AccountRecords is KYC {
    struct accountRec {
        addressRec[] sponsors;
        addressRec[] agents;
+       address parentAccount;
        rateRec[] rateEntries;
        uint index;
        uint insertionTime;
@@ -124,6 +126,7 @@ contract AccountRecords is KYC {
             accounts[_accountKey].insertionTime = block.timestamp;
             accounts[_accountKey].inserted = true;
             accounts[_accountKey].index = accountIndex.length;
+            accounts[_accountKey].parentAccount = burnAddress;
             accountIndex.push(_accountKey);
             // console.log("Returning TRUE");
             return true;
