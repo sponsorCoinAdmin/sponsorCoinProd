@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 /// @title ERC20 Contract
-import "./KYC.sol";
+import "../utils/KYC.sol";
 
 contract Accounts is KYC {
 
