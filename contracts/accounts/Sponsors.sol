@@ -16,11 +16,16 @@ contract Sponsors is Accounts {
         accountRec storage account = accountMap[_accountKey];
         account.parentAccount = _accountKey;
         account.sponsors.push(_sponsorKey);
-        // string memory accountSponsor =  concat(_accountKey, _sponsorKey);
-        // console.log("Account Sponsor =");
-        // console.log(accountSponsor);
 
-//        account.sponsors.push(accountSponsor);
+        
+        string memory accountSponsorKey =  concat(_accountKey, _sponsorKey);
+        console.log("Account Sponsor =");
+        console.log(accountSponsorKey);
+
+        accountSponsorRecs storage  accountSponsors = sponsorAccountMap[accountSponsorKey];
+        accountSponsors.account = _accountKey;
+        accountSponsors.sponsor = _sponsorKey;
+        account.sponsorKeys.push(accountSponsorKey);
         return true;
     }
 
