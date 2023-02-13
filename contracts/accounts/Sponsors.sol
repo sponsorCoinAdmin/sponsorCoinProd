@@ -4,8 +4,7 @@ pragma solidity ^0.8.7;
 import "./Accounts.sol";
 
 contract Sponsors is Accounts {
-
-    constructor() {
+        constructor() {
     }
 
     /// @notice insert address for later recall
@@ -15,28 +14,9 @@ contract Sponsors is Accounts {
         insertAccount(_accountKey);
         insertAccount(_sponsorKey);
         accountRec storage account = accountMap[_accountKey];
-        account.sponsorAddrArr.push(_sponsorKey);
-//        uint256 insertionTime = block.timestamp;
-
-        addressRec memory newSponsor;
-        newSponsor.addr = _sponsorKey;
-        account.sponsors.push(newSponsor);
-
+        account.sponsors.push(_sponsorKey);
         return true;
     }
-
-    /// @notice retreives the sponsor array record size a specific address.
-    /// @param _accountKey public account key to get Sponsor Record Length
-    function getSponsorRecordCount(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
-        return getAccountSponsors(_accountKey).length;
-    }
-
-    /// @notice retreives the sponsor array records from a specific account address.
-    /// @param _accountKey public account key to get Sponsors
-   function getAccountSponsors(address _accountKey) internal view onlyOwnerOrRootAdmin(_accountKey) returns (addressRec[] memory) {
-        return accountMap[_accountKey].sponsors;
-    }
-
 
     /// @notice get address for an account sponsor
     /// @param _accountKey public account key to get sponsor array
@@ -52,26 +32,22 @@ contract Sponsors is Accounts {
         // console.log("#########################################################################");
         // console.log(concat(_accountKey, 15));
         // console.log("#########################################################################");
-//        concat("", "");
+        // concat("", "");
 
-        address sponsoraddr = accountMap[_accountKey].sponsors[_sponsorIdx].addr;
+        address sponsoraddr = accountMap[_accountKey].sponsors[_sponsorIdx];
         return sponsoraddr;
     }
 
-    /// @notice retreives the account balance of a specific address.
-    function getSponsorRecCount() public view returns (uint) {
-        return getSponsorRecords().length;
+    /// @notice retreives the sponsor array record size a specific address.
+    /// @param _accountKey public account key to get Sponsor Record Length
+    function getSponsorRecordCount(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
+        return getSponsors(_accountKey).length;
     }
-    
-   /// @notice retreives the account balance of a specific address.
-    function getSponsorRecords() internal view returns (addressRec[] memory) {
-        return getSponsorRecords(msg.sender);
-    }
-    
-    /// @notice retreives the account balance of a specific address.
+
+    /// @notice retreives the sponsors of a specific address.
     /// @param _accountKey public account key to set new balance
-    function getSponsorRecords(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (addressRec[] memory) {
-        addressRec[] storage actSponsor = accountMap[_accountKey].sponsors;
+    function getSponsors(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
+        address[] storage actSponsor = accountMap[_accountKey].sponsors;
         return actSponsor;
     }
 

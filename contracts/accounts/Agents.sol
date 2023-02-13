@@ -4,7 +4,6 @@ pragma solidity ^0.8.7;
 import "./Sponsors.sol";
 
 contract Agents is Sponsors {
-
         constructor(){
     }
 
@@ -15,16 +14,11 @@ contract Agents is Sponsors {
         insertAccount(_sponsorKey);
         insertAccount(_agentKey);
         accountRec storage account = accountMap[_sponsorKey];
-//      uint256 insertionTime = block.timestamp;
-
-        addressRec memory newAgent;
-        newAgent.addr = _agentKey;
-        account.agents.push(newAgent);
-
+        account.agents.push(_agentKey);
         return true;
     }
 
-        /// @notice get address for an account sponsor
+    /// @notice get address for an account sponsor
     /// @param _sponsorKey public account key to get agent array
     /// @param _agentIdx new agent to add to account list
     function getSponsorAgentKey(address _sponsorKey, uint _agentIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
@@ -35,21 +29,26 @@ contract Agents is Sponsors {
         // console.log(_agentIdx);
         // console.log(")");
 
-        address agentaddr = accountMap[_sponsorKey].agents[_agentIdx].addr;
+        // console.log("#########################################################################");
+        // console.log(concat(_sponsorKey, 15));
+        // console.log("#########################################################################");
+        // concat("", "");
+
+        address agentaddr = accountMap[_sponsorKey].agents[_agentIdx];
         return agentaddr;
     }
-
 
     /// @notice retreives the sponsor array record size a specific address.
     /// @param _sponsorKey public account key to get Sponsor Record Length
     function getAgentRecordCount(address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
-        return getAccountAgents(_sponsorKey).length;
+        return getAgents(_sponsorKey).length;
     }
 
     /// @notice retreives the sponsor array records from a specific account address.
     /// @param _sponsorKey public account key to get Sponsors
-   function getAccountAgents(address _sponsorKey) internal view onlyOwnerOrRootAdmin(_sponsorKey) returns (addressRec[] memory) {
-        return accountMap[_sponsorKey].agents;
+   function getAgents(address _sponsorKey) internal view onlyOwnerOrRootAdmin(_sponsorKey) returns (address[] memory) {
+        address[] storage actAgent = accountMap[_sponsorKey].agents;
+        return actAgent;
     }
 
 }
