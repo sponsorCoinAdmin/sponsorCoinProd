@@ -18,9 +18,6 @@ contract Sponsors is Accounts {
 
         string memory accountSponsorKey =  concat(_accountKey, _sponsorKey);
         accountSponsorRecs storage  accountSponsors = sponsorAccountMap[accountSponsorKey];
-        console.log("ZZZZZZZZZZZZZZZZZZZZZZZ accountSponsors.account = ");
-        console.log(accountSponsorKey);
-        console.log(accountSponsors.account);
         if (accountSponsors.account == burnAddress) {
            accountSponsors.account = _accountKey;
            accountSponsors.sponsor = _sponsorKey;
