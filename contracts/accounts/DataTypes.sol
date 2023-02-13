@@ -9,7 +9,6 @@ contract DataTypes is KYC {
    uint public lastStakingUpdateTime = block.timestamp;
 
    struct accountRec {
-       address[] sponsors;
        string[] sponsorKeys;
 
        address[] agents;
@@ -25,12 +24,13 @@ contract DataTypes is KYC {
     struct accountSponsorRecs {
       address account;
       address sponsor;
+      rateRec[] rates;
     }
 
-struct sponsorAccountAgentRecs {
+    struct sponsorAccountAgentRecs {
       address account;
       address sponsor;
-      address agent;
+      rateRec[] rates;
     }
 
     struct rateRec {

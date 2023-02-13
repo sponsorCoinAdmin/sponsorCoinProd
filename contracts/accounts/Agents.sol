@@ -21,8 +21,8 @@ contract Agents is Sponsors {
     /// @notice get address for an account sponsor
     /// @param _sponsorKey public account key to get agent array
     /// @param _agentIdx new agent to add to account list
-    function getSponsorAgentKey(address _sponsorKey, uint _agentIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
-        // console.log("getAccountSponsorKey(");
+    function getSponsorAgentAddress(address _sponsorKey, uint _agentIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
+        // console.log("getSponsorAgentAddress(");
         // console.log("_sponsorKey = ");
         // console.log(_sponsorKey);
         // console.log("_agentIdx = ");
