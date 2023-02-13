@@ -10,10 +10,15 @@ contract Agents is Sponsors {
     /// @notice insert sponsors Agent
     /// @param _sponsorKey public account key to get sponsor array
     /// @param _agentKey new sponsor to add to account list
-    function insertSponsorAgent(address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(msg.sender) returns (bool) {
+    function insertSponsorAgent(address _accountKey, address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(msg.sender) returns (bool) {
         insertAccount(_sponsorKey);
         insertAccount(_agentKey);
         accountRec storage account = accountMap[_sponsorKey];
+        account.parentAccount = _sponsorKey;
+
+        string memory accountSponsorAgentKey =  concat(_accountKey, _sponsorKey, _agentKey);
+
+
         account.agents.push(_agentKey);
         return true;
     }

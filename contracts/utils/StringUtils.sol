@@ -12,6 +12,13 @@ string public text;
        return string(abi.encodePacked(a, ",", b, "", ""));
    }
 
+   function concat(address addr1, address addr2, address addr3) internal pure returns (string memory) {
+       string memory a  = toString(addr1);
+       string memory b = toString(addr2);
+       string memory c = toString(addr3);
+       return string(abi.encodePacked(a, ",", b, ",", c));
+   }
+
    function concat(string memory a, string memory b) internal pure returns (string memory) {
        return string(abi.encodePacked(a, b, "", "", ""));
    }
