@@ -11,23 +11,25 @@ contract DataTypes is KYC {
    struct accountRec {
        address[] sponsors;
        address[] agents;
+
        address parentAccount;
-       rateRec[] rateEntries;
        uint index;
        uint insertionTime;
        bool inserted;
        KYC kyc ;
        bool verified;
     }
+
+    struct sponsorAccountAgent {
+      address account;
+      address sponsor;
+      address agent;
+    }
     struct rateRec {
        uint[] rate;
        uint insertionTime;
        uint lastUpdateTime;
        uint256 quantity;
-    }
-    struct addressRec {
-       address addr;
-       rateRec next;
     }
 
 // Keep track of account insertions

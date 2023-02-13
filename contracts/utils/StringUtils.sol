@@ -6,10 +6,10 @@ import "hardhat/console.sol";
 contract StringUtils {
 string public text;
 
-   function concat(address addr1, uint256 intType) internal pure returns (string memory) {
+   function concat(address addr1, address addr2) internal pure returns (string memory) {
        string memory a  = toString(addr1);
-       string memory b = toString(intType);
-       return string(abi.encodePacked(a, b, "", "", ""));
+       string memory b = toString(addr2);
+       return string(abi.encodePacked(a, ",", b, "", ""));
    }
 
    function concat(string memory a, string memory b) internal pure returns (string memory) {
