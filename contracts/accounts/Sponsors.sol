@@ -16,8 +16,13 @@ contract Sponsors is Accounts {
         accountRec storage account = accountMap[_accountKey];
         account.parentAccount = _accountKey;
 
-        string memory accountSponsorKey =  concat(_accountKey, _sponsorKey);
-        accountSponsorRecs storage  accountSponsors = sponsorAccountMap[accountSponsorKey];
+        string memory accountSponsorKey =  getAccountSponsorKey(_accountKey, _sponsorKey);
+        console.log ("*** insertAccountSponsor ****");
+        console.log ("insertAccountSponsor AccountSponsorKey = ", accountSponsorKey);
+        console.log ("accountSponsors.account = ", _accountKey);
+        console.log ("accountSponsors.sponsor = ", _sponsorKey);
+
+        accountSponsorRecs memory  accountSponsors = getAccountSponsorRec(_accountKey, _sponsorKey);
         if (accountSponsors.account == burnAddress) {
            accountSponsors.account = _accountKey;
            accountSponsors.sponsor = _sponsorKey;
@@ -27,13 +32,28 @@ contract Sponsors is Accounts {
         return false;
     }
 
+     function getAccountSponsorKey(address _accountKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (string memory) {
+        string memory accountSponsorKey =  concat(_accountKey, _sponsorKey);
+        return accountSponsorKey;
+     }
+
+     function getAccountSponsorRec(address _accountKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (accountSponsorRecs memory) {
+        string memory accountSponsorKey =  getAccountSponsorKey(_accountKey, _sponsorKey);
+        accountSponsorRecs storage  accountSponsors = accountSponsorMap[accountSponsorKey];
+        return accountSponsors;
+     }
+
     /// @notice get address for an account sponsor
     /// @param _accountKey public account key to get sponsor array
     /// @param _sponsorIdx new sponsor to add to account list
     function getAccountSponsorAddress(address _accountKey, uint _sponsorIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
+        console.log("$$$$$$$$ getAccountSponsorAddress KEY(_accountKey, _sponsorIdx)");
+        console.log("getAccountSponsorAddress KEY ", _accountKey, ",", _sponsorIdx);
         accountRec storage account = accountMap[_accountKey];
         string memory accountSponsorKey = account.sponsorKeys[_sponsorIdx];
-        address sponsoraddr = sponsorAccountMap[accountSponsorKey].sponsor;
+        console.log("getAccountSponsorAddress accountSponsorKey = ", accountSponsorKey);
+        address sponsoraddr = accountSponsorMap[accountSponsorKey].sponsor;
+        console.log("returning sponsoraddr", sponsoraddr);
 
         return sponsoraddr;
     }
