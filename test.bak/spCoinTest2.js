@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const { loggers } = require("./lib/logging");
+const { loggers } = require("../test/lib/logging");
 
 class accountRec {
     constructor(address) {
