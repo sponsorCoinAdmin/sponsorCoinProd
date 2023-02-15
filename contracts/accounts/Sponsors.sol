@@ -27,6 +27,8 @@ contract Sponsors is Accounts {
            accountSponsors.account = _accountKey;
            accountSponsors.sponsor = _sponsorKey;
            account.sponsorKeys.push(accountSponsorKey);
+                   console.log("accountSponsorMap[", accountSponsorKey, "] = ", accountSponsorMap[accountSponsorKey].sponsor);
+
            return true;
         }
         return false;
@@ -51,7 +53,7 @@ contract Sponsors is Accounts {
         console.log("getAccountSponsorAddress KEY ", _accountKey, ",", _sponsorIdx);
         accountRec storage account = accountMap[_accountKey];
         string memory accountSponsorKey = account.sponsorKeys[_sponsorIdx];
-        console.log("getAccountSponsorAddress accountSponsorKey = ", accountSponsorKey);
+        console.log("accountSponsorMap[", accountSponsorKey, "] = ", accountSponsorMap[accountSponsorKey].sponsor);
         address sponsoraddr = accountSponsorMap[accountSponsorKey].sponsor;
         console.log("returning sponsoraddr", sponsoraddr);
 
