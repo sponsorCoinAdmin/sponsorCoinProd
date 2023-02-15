@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const { loggers } = require("./lib/logging");
+const { loggers } = require("../test/lib/logging");
 
 class accountRec {
     constructor(address) {
@@ -99,7 +99,6 @@ describe("spCoinContract", function() {
 //        expect(await spCoinContractDeployed.balanceOf(msgSender)).to.equal(testTotalSupply);
         log(6);
     });
-/*
     it("Account Insertion Validation", async function () {
         logTestHeader("TEST ACCOUNT INSERTION");
         let account = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
@@ -144,7 +143,6 @@ describe("spCoinContract", function() {
         let insertCount = await insertHHTestAccounts(0, 4, 15);
         expect(insertCount).to.equal(endRec-startRec+1);
     });
-     */
 });
 
 insertAgentRecords = async(_accountRecIdx, _sponsorRecIdx, _startAgIdx, _lastAgIdx ) => {

@@ -78,7 +78,7 @@ describe("spCoinContract", function() {
                         "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
                         "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65"];
 
-        let accountsInserted = await insertArrayAccounts(testHHAccounts)
+        let accountsInserted = await insertArrayAccounts(JUNKTestAccounts)
 
         // USAGE: insertHHTestAccounts(_accountRecIdx, _startSpIdx, _lastSpIdx);
         // await insertHHTestAccounts(2, 1, 7);
@@ -107,11 +107,11 @@ insertAgentRecords = async(_accountRecIdx, _sponsorRecIdx, _startAgIdx, _lastAgI
     let recCount = 0;
     for (let i = _startAgIdx; i <= _lastAgIdx; i++) {
         let agentRec = testHHAccounts[i];
-        log(prefix + ++recCount + ". " + "Inserting Agent[" + i + "]: " + agentRec);
+        logDetails(prefix + ++recCount + ". " + "Inserting Agent[" + i + "]: " + agentRec);
         await spCoinContractDeployed.insertSponsorAgent(accountRec, sponsorRec, agentRec);
     }
     let agentCount = await spCoinContractDeployed.getAgentRecordCount(accountRec, sponsorRec);
-    logDetails(prefix + "Inserted = " + agentCount + " Agent Records");
+    logDetail(prefix + "Inserted = " + agentCount + " Agent Records");
     return agentCount;
 }
 
@@ -119,26 +119,26 @@ insertHHTestAccounts = async(_accountRecIdx, _startSpIdx, _lastSpIdx ) => {
     logFunctionHeader("insertHHTestAccounts = async(" + _accountRecIdx + ", " + _startSpIdx + ", " + _lastSpIdx + ")");
     let accountRec = testHHAccounts[_accountRecIdx];
 
-    logDetails("For Account[" + _accountRecIdx + "]: " + accountRec + ")");
+    logDetail("For Account[" + _accountRecIdx + "]: " + accountRec + ")");
     let recCount = 0;
     for (let i = _startSpIdx; i <= _lastSpIdx; i++) {
         let sponsorRec = testHHAccounts[i];
-        log("   "+ ++recCount + ". " + "Inserting Sponsor[" + i + "]: " + sponsorRec);
+        logDetail("   "+ ++recCount + ". " + "Inserting Sponsor[" + i + "]: " + sponsorRec);
         await spCoinContractDeployed.insertAccountSponsor(accountRec, sponsorRec);
     }
     let sponsorCount = await spCoinContractDeployed.getSponsorRecordCount(accountRec);
-    logDetails("Inserted = " + sponsorCount + " Sponsor Records");
+    logDetail("Inserted = " + sponsorCount + " Sponsor Records");
     return sponsorCount;
 }
 
 insertArrayAccounts = async(_arrayAccounts) => {
     logFunctionHeader("insertArrayAccounts = async(arrayAccounts)");
     let recCount = testHHAccounts.length;
-    logDetails("Inserting " + recCount + " Records to Blockchain");
+    logDetail("Inserting " + recCount + " Records to Blockchain");
 
     for(idx = 0; idx < recCount; idx++){
         let account = testHHAccounts[idx];
-        logDetails("Inserting " + idx + ", " + account);
+        logDetail("Inserting " + idx + ", " + account);
         await spCoinContractDeployed.insertAccount(account);
     }
     log("JAVASCRIPT => ** Inserted " + recCount + " Accounts");
@@ -152,7 +152,7 @@ getInsertedAccounts = async() => {
     var insertedArrayAccounts = [];
     for(idx = 0; idx < maxCount; idx++){
        let account = await spCoinContractDeployed.getAccount(idx);
-       logDetails("JAVASCRIPT => Address at Index " + idx + "  = "+ account );
+       logDetail("JAVASCRIPT => Address at Index " + idx + "  = "+ account );
        insertedArrayAccounts.push(account);
     }
     return insertedArrayAccounts;
@@ -166,7 +166,7 @@ getInsertedAccountSponsors = async(_prefix, _accountKey) => {
         let insertedAccountSponsors = [];
         for(let idx = 0; idx < maxCount; idx++) {
            let sponsor = await spCoinContractDeployed.getAccountSponsorAddress(_accountKey, idx);
-           log(_prefix + "[" + idx + "]: " + sponsor );
+           logDetail(_prefix + "[" + idx + "]: " + sponsor );
            insertedAccountSponsors.push(sponsor);
         }
         return insertedAccountSponsors;
@@ -190,10 +190,10 @@ dumpAccounts = async(_prefix) => {
     let insertedArrayAccounts = await getInsertedAccounts();
 //    dumpArray("Record ", insertedArrayAccounts);
     let maxCount = insertedArrayAccounts.length;
-//    logDetails("DUMPING " + maxCount + " ACCOUNT RECORDS");
+//    logDetail("DUMPING " + maxCount + " ACCOUNT RECORDS");
     for(let idx = 0; idx < maxCount; idx++) {
         let account = insertedArrayAccounts[idx];
-        console.log(_prefix + "[" + idx + "]: " + account );
+        log(_prefix + "[" + idx + "]: " + account );
         await dumpAccountSponsors("   Sponsor", account);
     }
     return insertedArrayAccounts;
@@ -203,7 +203,7 @@ dumpAccountSponsors = async(_prefix, _accountKey) => {
         logFunctionHeader("dumpAccountSponsors = async(" + _accountKey + ")");
         insertedAccountSponsors = await getInsertedAccountSponsors("Sponsor", _accountKey);
         let maxCount = insertedAccountSponsors.length;
-        logDetails("   DUMPING " + maxCount + " SPONSOR RECORDS");
+        logDetail("   DUMPING " + maxCount + " SPONSOR RECORDS");
         for(let idx = 0; idx < maxCount; idx++) {
             let sponsor = insertedAccountSponsors[idx];
             log(_prefix + "[" + idx + "]: " + sponsor );
@@ -227,7 +227,7 @@ dumpSponsorAgents = async(_prefix, _accountKey, _sponsorKey) => {
     dumpArray = (_prefix, _arr) => {
     logFunctionHeader("dumpArray = async(" + _prefix + ", _arr)");
     let maxCount = _arr.length;
-//    logDetails("DUMPING " + maxCount + " RECORDS");
+//    logDetail("DUMPING " + maxCount + " RECORDS");
     for(idx = 0; idx < maxCount; idx++) {
         let element = _arr[idx];
         log(_prefix + idx + ": " + element );
@@ -236,7 +236,7 @@ dumpSponsorAgents = async(_prefix, _accountKey, _sponsorKey) => {
 
 // ************************* LOGGING SECTION ******************************/
 let LOGGING = false;
-let LOG_DETAILS = false;
+let LOG_DETAIL = false;
 let LOG_TEST_HEADER = false;
 let LOG_FUNCTION_HEADER = false;
 let LOG_SETUP = false;
@@ -259,8 +259,8 @@ logFunctionHeader = (functionHeader) => {
     }
 }
 
-logDetails = (details) => {
-    if (LOG_DETAILS) {
+logDetail = (details) => {
+    if (LOG_DETAIL) {
         log(details);
     }
 }
