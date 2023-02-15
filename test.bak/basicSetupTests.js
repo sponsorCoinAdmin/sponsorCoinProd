@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const { loggers } = require("../test/lib/logging");
 
-class accountRec {
+class accountStruct {
     constructor(address) {
         this.address = address;
         this.sponsors;
@@ -145,7 +145,7 @@ describe("spCoinContract", function() {
     });
 });
 
-insertAgentRecords = async(_accountRecIdx, _sponsorRecIdx, _startAgIdx, _lastAgIdx ) => {
+insertAgentRecords = async(_accountStructIdx, _sponsorRecIdx, _startAgIdx, _lastAgIdx ) => {
     logFunctionHeader("insertAgentRecords = async(" + _sponsorRecIdx + ", " + _startAgIdx + ", " + _lastAgIdx + ")");
     let accountRec = testHHAccounts[_accountRecIdx];
     let sponsorRec = testHHAccounts[_sponsorRecIdx];

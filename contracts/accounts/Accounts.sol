@@ -55,7 +55,7 @@ contract Accounts is DataTypes {
 
     /// @notice retreives the account record of a specific account address.
     /// @param _accountKey public account key to set new balance
-    function getAccountRecord(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (accountRec storage) {
+    function getAccountRecord(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (accountStruct storage) {
         require (isInserted(_accountKey));
         return accountMap[_accountKey];
     }

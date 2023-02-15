@@ -8,7 +8,7 @@ contract DataTypes is KYC {
    address burnAddress = 0x0000000000000000000000000000000000000000;
    uint public lastStakingUpdateTime = block.timestamp;
 
-   struct accountRec {
+   struct accountStruct {
       string[] sponsorKeys;
 
 //      address[] agents;
@@ -22,7 +22,7 @@ contract DataTypes is KYC {
       bool verified;
     }
 
-    struct accountSponsorRecs {
+    struct accountSponsorStruct {
       address account;
       address sponsor;
       string[] agentKeys;
@@ -45,10 +45,10 @@ contract DataTypes is KYC {
 
 // Keep track of account insertions
    address[] public accountIndex;
-   mapping(address => accountRec)  accountMap;
+   mapping(address => accountStruct)  accountMap;
 //   mapping(string => rateStruct[])  rateMap;
 
-   mapping(string => accountSponsorRecs)  accountSponsorMap;
+   mapping(string => accountSponsorStruct)  accountSponsorMap;
    mapping(string => accountSponsorAgentStruct)  accountSponsorAgentMap;
 
 //    address[] public sponsorIndex;

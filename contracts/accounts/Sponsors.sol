@@ -13,7 +13,7 @@ contract Sponsors is Accounts {
     function insertAccountSponsor(address _accountKey, address _sponsorKey) public onlyOwnerOrRootAdmin(_accountKey) returns (bool) {
         insertAccount(_accountKey);
         insertAccount(_sponsorKey);
-        accountRec storage account = accountMap[_accountKey];
+        accountStruct storage account = accountMap[_accountKey];
         account.parentAccount = _accountKey;
 
         string memory accountSponsorKey =  getAccountSponsorKey(_accountKey, _sponsorKey);
@@ -22,7 +22,7 @@ contract Sponsors is Accounts {
         console.log ("accountSponsors.account = ", _accountKey);
         console.log ("accountSponsors.sponsor = ", _sponsorKey);
 
-        accountSponsorRecs memory  accountSponsors = getAccountSponsorRec(_accountKey, _sponsorKey);
+        accountSponsorStruct memory  accountSponsors = getAccountSponsorRec(_accountKey, _sponsorKey);
         if (accountSponsors.account == burnAddress) {
             accountSponsorMap[accountSponsorKey].account = _accountKey;
             accountSponsorMap[accountSponsorKey].sponsor = _sponsorKey;
@@ -38,9 +38,9 @@ contract Sponsors is Accounts {
         return accountSponsorKey;
      }
 
-     function getAccountSponsorRec(address _accountKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (accountSponsorRecs memory) {
+     function getAccountSponsorRec(address _accountKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (accountSponsorStruct memory) {
         string memory accountSponsorKey =  getAccountSponsorKey(_accountKey, _sponsorKey);
-        accountSponsorRecs storage  accountSponsors = accountSponsorMap[accountSponsorKey];
+        accountSponsorStruct storage  accountSponsors = accountSponsorMap[accountSponsorKey];
         return accountSponsors;
      }
 
@@ -50,7 +50,7 @@ contract Sponsors is Accounts {
     function getAccountSponsorAddress(address _accountKey, uint _sponsorIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         console.log("Sponsors.sol =>  getAccountSponsorAddress KEY(_accountKey, _sponsorIdx)");
         console.log("getAccountSponsorAddress KEY ", _accountKey, ",", _sponsorIdx);
-        accountRec storage account = accountMap[_accountKey];
+        accountStruct storage account = accountMap[_accountKey];
         string memory accountSponsorKey = account.sponsorKeys[_sponsorIdx];
         console.log("accountSponsorMap[", accountSponsorKey, "] = ", accountSponsorMap[accountSponsorKey].sponsor);
         address sponsoraddr = accountSponsorMap[accountSponsorKey].sponsor;
@@ -68,7 +68,7 @@ contract Sponsors is Accounts {
     /// @notice retreives the sponsors of a specific address.
     /// @param _accountKey public account key to set new balance
     function getSponsors(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (string[] memory) {
-        accountRec storage account = accountMap[_accountKey];
+        accountStruct storage account = accountMap[_accountKey];
 
         string[] storage sponsorKeys = account.sponsorKeys;
         return sponsorKeys;
