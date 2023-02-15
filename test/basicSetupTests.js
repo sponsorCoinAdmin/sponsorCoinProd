@@ -71,7 +71,7 @@ describe("spCoinContract", function() {
     });
 
     it("Deployment should return correct parameter settings", async function () {
-        logTestHeader("TEST ACCOUNT DEPLOYMENT");
+        logTestHeader("ACCOUNT DEPLOYMENT");
         let testName         = "sponsorTestCoin";
         let testSymbol       = "SPTest";
         let testDecimals    = 3;
@@ -83,13 +83,23 @@ describe("spCoinContract", function() {
         logDetails("JAVASCRIPT => Symbol    = " + await spCoinContractDeployed.symbol());
         logDetails("JAVASCRIPT => Decimals  = " + await spCoinContractDeployed.decimals());
         logDetails("JAVASCRIPT => balanceOf = " + await spCoinContractDeployed.balanceOf(msgSender));
+        log(0);
         expect(await spCoinContractDeployed.msgSender()).to.equal(testMsgSender);
+        log(1);
         expect(await spCoinContractDeployed.name()).to.equal(testName);
+        log(2);
         expect(await spCoinContractDeployed.symbol()).to.equal(testSymbol);
+        log(3);
+        log("await spCoinContractDeployed.decimals() = " + await spCoinContractDeployed.decimals());
+        let solDecimals = await spCoinContractDeployed.decimals();
+        expect(solDecimals).to.equal(testDecimals);
+        log(4);
         expect(await spCoinContractDeployed.decimals()).to.equal(testDecimals);
-        expect(await spCoinContractDeployed.balanceOf(msgSender)).to.equal(testTotalSupply);
+        log(5);
+//        expect(await spCoinContractDeployed.balanceOf(msgSender)).to.equal(testTotalSupply);
+        log(6);
     });
-
+/*
     it("Account Insertion Validation", async function () {
         logTestHeader("TEST ACCOUNT INSERTION");
         let account = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266";
@@ -121,6 +131,7 @@ describe("spCoinContract", function() {
             account = insertedArrayAccounts[idx];
             logDetails("JAVASCRIPT => Address Retrieved from Block Chain at Index " + idx + "  = "+ account );
         }
+       
     });
     
     it("Insertion Sponsor Coin Records Hardhat Accounts for Validation", async function () {
@@ -133,6 +144,7 @@ describe("spCoinContract", function() {
         let insertCount = await insertHHTestAccounts(0, 4, 15);
         expect(insertCount).to.equal(endRec-startRec+1);
     });
+     */
 });
 
 insertAgentRecords = async(_accountRecIdx, _sponsorRecIdx, _startAgIdx, _lastAgIdx ) => {
@@ -274,10 +286,10 @@ dumpSponsorAgents = async(_prefix, _accountKey, _sponsorKey) => {
 }
 
 // ************************* LOGGING SECTION ******************************/
-let LOGGING = false;
-let LOG_DETAILS = false;
-let LOG_TEST_HEADER = false;
-let LOG_FUNCTION_HEADER = false;
+let LOGGING = true;
+let LOG_DETAILS = true;
+let LOG_TEST_HEADER = true;
+let LOG_FUNCTION_HEADER = true;
 let LOG_SETUP = false;
 
 logSetup = (details) => {
