@@ -26,17 +26,17 @@ contract DataTypes is KYC {
       address account;
       address sponsor;
       string[] agentKeys;
-      rateRec[] rates;
+      rateStruct[] rates;
      }
     
-    struct accountSponsorAgentRecs {
+    struct accountSponsorAgentStruct {
       address account;
       address sponsor;
       address agent;
-      rateRec[] rates;
+      rateStruct[] rates;
     }
 
-    struct rateRec {
+    struct rateStruct {
        uint[] rate;
        uint insertionTime;
        uint lastUpdateTime;
@@ -46,10 +46,10 @@ contract DataTypes is KYC {
 // Keep track of account insertions
    address[] public accountIndex;
    mapping(address => accountRec)  accountMap;
-//   mapping(string => rateRec[])  rateMap;
+//   mapping(string => rateStruct[])  rateMap;
 
    mapping(string => accountSponsorRecs)  accountSponsorMap;
-   mapping(string => accountSponsorAgentRecs)  accountSponsorAgentMap;
+   mapping(string => accountSponsorAgentStruct)  accountSponsorAgentMap;
 
 //    address[] public sponsorIndex;
 //    address[] public agentIndex;

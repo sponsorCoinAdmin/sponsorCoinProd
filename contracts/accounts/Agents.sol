@@ -20,13 +20,13 @@ contract Agents is Sponsors {
         accountSponsorRecs storage  accountSponsors = accountSponsorMap[accountSponsorKey];
 
         string memory accountSponsorAgentKey =  getAccountSponsorAgentKey(_accountKey, _sponsorKey, _agentKey);
-        accountSponsorAgentRecs storage  accountSponsorAgents = accountSponsorAgentMap[accountSponsorAgentKey];
+        accountSponsorAgentStruct storage  accountSponsorAgents = accountSponsorAgentMap[accountSponsorAgentKey];
         
 //        string storage accountSponsorAgent = accountSponsorAgentMap[accountSponsorAgentKey];
 
         // console.log("accountSponsorAgentKey = ");
         // console.log(accountSponsorAgentKey);
-        //accountSponsorAgentRecs memory accountSponsorAgents = getAccountSponsorAgentRec(_accountKey, _sponsorKey, _agentKey);
+        //accountSponsorAgentStruct memory accountSponsorAgents = getAccountSponsorAgentRec(_accountKey, _sponsorKey, _agentKey);
         if (accountSponsorAgents.account == burnAddress) {
            accountSponsorAgents.account = _accountKey;
            accountSponsorAgents.sponsor = _sponsorKey;
@@ -44,9 +44,9 @@ contract Agents is Sponsors {
         return accountSponsorAgentKey;
      }
 
-     function getAccountSponsorAgentRec(address _accountKey, address _sponsorKey, address _agentKey) internal view onlyOwnerOrRootAdmin(_accountKey) returns (accountSponsorAgentRecs memory) {
+     function getAccountSponsorAgentRec(address _accountKey, address _sponsorKey, address _agentKey) internal view onlyOwnerOrRootAdmin(_accountKey) returns (accountSponsorAgentStruct memory) {
         string memory accountSponsorAgentKey =  getAccountSponsorAgentKey(_accountKey, _sponsorKey, _agentKey);
-        accountSponsorAgentRecs memory  accountSponsorAgents = accountSponsorAgentMap[accountSponsorAgentKey];
+        accountSponsorAgentStruct memory  accountSponsorAgents = accountSponsorAgentMap[accountSponsorAgentKey];
         return accountSponsorAgents;
      }
 
