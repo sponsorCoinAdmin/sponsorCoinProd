@@ -39,12 +39,12 @@ contract Agents is Sponsors {
         return true;
     }
 
-     function getAccountSponsorAgentKey(address _accountKey, address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(_accountKey) returns (string memory) {
+     function getAccountSponsorAgentKey(address _accountKey, address _sponsorKey, address _agentKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (string memory) {
         string memory accountSponsorAgentKey =  concat(_accountKey, _sponsorKey, _agentKey);
         return accountSponsorAgentKey;
      }
 
-     function getAccountSponsorAgentRec(address _accountKey, address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(_accountKey) returns (accountSponsorAgentRecs memory) {
+     function getAccountSponsorAgentRec(address _accountKey, address _sponsorKey, address _agentKey) internal view onlyOwnerOrRootAdmin(_accountKey) returns (accountSponsorAgentRecs memory) {
         string memory accountSponsorAgentKey =  getAccountSponsorAgentKey(_accountKey, _sponsorKey, _agentKey);
         accountSponsorAgentRecs memory  accountSponsorAgents = accountSponsorAgentMap[accountSponsorAgentKey];
         return accountSponsorAgents;

@@ -24,12 +24,10 @@ contract Sponsors is Accounts {
 
         accountSponsorRecs memory  accountSponsors = getAccountSponsorRec(_accountKey, _sponsorKey);
         if (accountSponsors.account == burnAddress) {
-            accountSponsors.account = _accountKey;
-            accountSponsors.sponsor = _sponsorKey;
-            account.sponsorKeys.push(accountSponsorKey);
-            *** WORKING HERE
+            accountSponsorMap[accountSponsorKey].account = _accountKey;
             accountSponsorMap[accountSponsorKey].sponsor = _sponsorKey;
-                console.log("accountSponsorMap[", accountSponsorKey, "] = ", accountSponsorMap[accountSponsorKey].sponsor);
+            account.sponsorKeys.push(accountSponsorKey);
+            console.log("accountSponsorMap[", accountSponsorKey, "] = ", accountSponsorMap[accountSponsorKey].sponsor);
             return true;
         }
         return false;
