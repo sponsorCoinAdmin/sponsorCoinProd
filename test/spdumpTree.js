@@ -81,16 +81,16 @@ describe("spCoinContract", function() {
         let accountsInserted = await insertArrayAccounts(JUNKTestAccounts)
 
         // USAGE: insertHHTestAccounts(_accountRecIdx, _startSpIdx, _lastSpIdx);
-        // await insertHHTestAccounts(2, 1, 7);
-        // await insertHHTestAccounts(3, 6, 17);
+        await insertHHTestAccounts(2, 1, 7);
+        await insertHHTestAccounts(3, 6, 17);
         await insertHHTestAccounts(1, 5, 5);
-        // await insertHHTestAccounts(11, 18, 19);
-        // await insertHHTestAccounts(1, 2, 5);
+        await insertHHTestAccounts(11, 18, 19);
+        await insertHHTestAccounts(1, 2, 5);
 
         // USAGE: insertAgentRecords(_accountRecIdx, _sponsorRecIdx, _startAgIdx, _lastAgIdx);
         await insertAgentRecords(1, 5, 6, 6);
-        // await insertAgentRecords(7, 9, 12, 12);
-        // await insertAgentRecords(14, 13, 14, 15);
+        await insertAgentRecords(7, 9, 12, 12);
+        await insertAgentRecords(14, 13, 14, 15);
 
         await dumpAccounts("Account");
     });
@@ -178,7 +178,7 @@ getInsertedSponsorAgents = async(_prefix, _accountKey, _sponsorKey) => {
 //    console.log("        JAVASCRIPT => Found " + maxCount + " Agents for Sponsor account " + _sponsorKey)
     let insertedSponsorAgents = [];
     for(let idx = 0; idx < maxCount; idx++) {
-        let agent = await spCoinContractDeployed.getAccountSponsorAgentAddress(_accountKey, _sponsorKey, idx);
+        let agent = await spCoinContractDeployed.getAgentKeyAddress(_accountKey, _sponsorKey, idx);
 //        console.log(_prefix + "[" + idx + "]: " + agent );
         insertedSponsorAgents.push(agent);
     }
@@ -212,7 +212,7 @@ dumpAccountSponsors = async(_prefix, _accountKey) => {
         return insertedAccountSponsors;
     }
     
-dumpSponsorAgents = async(_prefix, _accountKey, _sponsorKey) => {
+    dumpSponsorAgents = async(_prefix, _accountKey, _sponsorKey) => {
         logFunctionHeader("dumpSponsorAgents = async(" + _accountKey + ", " + _sponsorKey + ")");
         insertedSponsorAgents = await getInsertedSponsorAgents("Agent", _accountKey, _sponsorKey);
         let maxCount = insertedSponsorAgents.length;

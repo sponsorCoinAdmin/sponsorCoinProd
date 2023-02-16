@@ -4,7 +4,6 @@ pragma solidity ^0.8.7;
 import "../utils/KYC.sol";
 
 contract DataTypes is KYC {
-
    address burnAddress = 0x0000000000000000000000000000000000000000;
    uint public lastStakingUpdateTime = block.timestamp;
 
@@ -12,10 +11,6 @@ contract DataTypes is KYC {
       address[] sponsors;
       mapping(address => sponsorStruct)  sponsorMap;
 
-//      address[] agents;
-//      string[] agentKeys;
-
-      address parent;
       uint index;
       uint insertionTime;
       bool inserted;
@@ -27,9 +22,10 @@ contract DataTypes is KYC {
       address parent;
       address account;
       address sponsor;
-      string[] agentKeys;
+      address[] agentKeys;
+      mapping(address => agentStruct)  agentMap;
       rateStruct[] rates;
-     }
+  }
     
     struct agentStruct {
       address parent;
@@ -49,8 +45,6 @@ contract DataTypes is KYC {
 // Keep track of account insertions
    address[] public accountIndex;
    mapping(address => accountStruct)  accountMap;
-
-   mapping(string => sponsorStruct)  accountSponsorMap;
-   mapping(string => agentStruct)  accountSponsorAgentMap;
+   mapping(address => agentStruct)  agentMap;
 
 }

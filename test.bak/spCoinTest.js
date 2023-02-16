@@ -177,7 +177,7 @@ getInsertedSponsorAgents = async(_prefix, _accountKey, _sponsorKey) => {
 //    console.log("        JAVASCRIPT => Found " + maxCount + " Agents for Sponsor account " + _sponsorKey)
     let insertedSponsorAgents = [];
     for(let idx = 0; idx < maxCount; idx++) {
-        let agent = await spCoinContractDeployed.getAccountSponsorAgentAddress(_accountKey, _sponsorKey, idx);
+        let agent = await spCoinContractDeployed.getAgentKeyAddress(_accountKey, _sponsorKey, idx);
 //        console.log(_prefix + "[" + idx + "]: " + agent );
         insertedSponsorAgents.push(agent);
     }

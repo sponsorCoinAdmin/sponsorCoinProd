@@ -8,72 +8,55 @@ contract Agents is Sponsors {
     }
 
     /// @notice insert sponsors Agent
+    /// @param _accountKey public Sponsor Coin Account Key
     /// @param _sponsorKey public account key to get sponsor array
     /// @param _agentKey new sponsor to add to account list
     function insertSponsorAgent(address _accountKey, address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(msg.sender) returns (bool) {
+        insertAccount(_agentKey);
         insertAccount(_sponsorKey);
         insertAccount(_agentKey);
-        accountStruct storage account = accountMap[_sponsorKey];
-        account.parent = _sponsorKey;
-//sponsorStruct memory accountSponsors = getAccountSponsorRec(_accountKey, _sponsorKey);
-        string memory accountSponsorKey =  getAccountSponsorKey(_accountKey, _sponsorKey);
-        sponsorStruct storage  accountSponsors = accountSponsorMap[accountSponsorKey];
 
-        string memory accountSponsorAgentKey =  getAccountSponsorAgentKey(_accountKey, _sponsorKey, _agentKey);
-        agentStruct storage  accountSponsorAgents = accountSponsorAgentMap[accountSponsorAgentKey];
-        
-//        string storage accountSponsorAgent = accountSponsorAgentMap[accountSponsorAgentKey];
+        sponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorKey);
+        agentStruct storage  agentRec = getAgentRec(_accountKey, _sponsorKey, _agentKey);
 
-        // console.log("accountSponsorAgentKey = ");
-        // console.log(accountSponsorAgentKey);
-        //agentStruct memory accountSponsorAgents = getAccountSponsorAgentRec(_accountKey, _sponsorKey, _agentKey);
-        if (accountSponsorAgents.account == burnAddress) {
-           accountSponsorAgents.account = _accountKey;
-           accountSponsorAgents.sponsor = _sponsorKey;
-           accountSponsorAgents.agent = _agentKey;
-           accountSponsors.agentKeys.push(accountSponsorAgentKey);
+        if (agentRec.account == burnAddress) {
+           agentRec.account = _accountKey;
+           agentRec.sponsor = _sponsorKey;
+           agentRec.agent = _agentKey;
+           sponsorRec.agentKeys.push(_agentKey);
            return true;
         }
 
-//        account.agents.push(_agentKey);
+//        accountRec.agents.push(_agentKey);
         return true;
     }
 
-     function getAccountSponsorAgentKey(address _accountKey, address _sponsorKey, address _agentKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (string memory) {
-        string memory accountSponsorAgentKey =  concat(_accountKey, _sponsorKey, _agentKey);
-        return accountSponsorAgentKey;
-     }
-
-     function getAccountSponsorAgentRec(address _accountKey, address _sponsorKey, address _agentKey) internal view onlyOwnerOrRootAdmin(_accountKey) returns (agentStruct memory) {
-        string memory accountSponsorAgentKey =  getAccountSponsorAgentKey(_accountKey, _sponsorKey, _agentKey);
-        agentStruct memory  accountSponsorAgents = accountSponsorAgentMap[accountSponsorAgentKey];
-        return accountSponsorAgents;
+    function getAgentRec(address _accountKey, address _sponsorKey, address _agentKey) internal view onlyOwnerOrRootAdmin(_accountKey) returns (agentStruct storage) {
+        sponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorKey);
+        agentStruct storage agentRec = sponsorRec.agentMap[_agentKey];
+        return agentRec;
      }
 
     /// @notice get address for an account sponsor
     /// @param _sponsorKey public account key to get agent array
     /// @param _agentIdx new agent to add to account list
-    function getAccountSponsorAgentAddress(address _accountKey, address _sponsorKey, uint _agentIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
-        string[] memory agents = getAgents(_accountKey, _sponsorKey);
-        string memory agent = agents[_agentIdx];
-        console.log("getAccountSponsorAgentAddress Found agent Key");
-        console.log(agent);
-        return burnAddress;
+    function getAgentKeyAddress(address _accountKey, address _sponsorKey, uint _agentIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
+        address[] memory agentList = getAgentList(_accountKey, _sponsorKey);
+        address agentAddress = agentList[_agentIdx];
+        return agentAddress;
     }
 
     /// @notice retreives the sponsor array record size a specific address.
     /// @param _sponsorKey public account key to get Sponsor Record Length
     function getAgentRecordCount(address _accountKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
-        return getAgents(_accountKey, _sponsorKey).length;
+        return getAgentList(_accountKey, _sponsorKey).length;
     }
 
     /// @notice retreives the sponsor array records from a specific account address.
     /// @param _sponsorKey public account key to get Sponsors
-   function getAgents(address _accountKey, address _sponsorKey) internal view onlyOwnerOrRootAdmin(_sponsorKey) returns (string[] memory) {
-        string memory accountSponsorKey =  getAccountSponsorKey(_accountKey, _sponsorKey);
-        sponsorStruct storage  accountSponsors = accountSponsorMap[accountSponsorKey];
-
-        string[] storage agentKeys = accountSponsors.agentKeys;
+    function getAgentList(address _accountKey, address _sponsorKey) internal view onlyOwnerOrRootAdmin(_sponsorKey) returns (address[] memory) {
+        sponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorKey);
+        address[] memory agentKeys = sponsorRec.agentKeys;
         return agentKeys;
     }
 
