@@ -24,7 +24,7 @@ contract Accounts is DataTypes {
             accountMap[_accountKey].insertionTime = block.timestamp;
             accountMap[_accountKey].inserted = true;
             accountMap[_accountKey].index = accountIndex.length;
-            accountMap[_accountKey].parentAccount = burnAddress;
+            accountMap[_accountKey].parent = burnAddress;
             accountIndex.push(_accountKey);
             // console.log("Returning TRUE");
             return true;

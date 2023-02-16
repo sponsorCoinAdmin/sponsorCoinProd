@@ -9,12 +9,13 @@ contract DataTypes is KYC {
    uint public lastStakingUpdateTime = block.timestamp;
 
    struct accountStruct {
-      string[] sponsorKeys;
+      address[] sponsors;
+      mapping(address => sponsorStruct)  sponsorMap;
 
 //      address[] agents;
-      string[] agentKeys;
+//      string[] agentKeys;
 
-      address parentAccount;
+      address parent;
       uint index;
       uint insertionTime;
       bool inserted;
@@ -22,14 +23,16 @@ contract DataTypes is KYC {
       bool verified;
     }
 
-    struct accountSponsorStruct {
+    struct sponsorStruct {
+      address parent;
       address account;
       address sponsor;
       string[] agentKeys;
       rateStruct[] rates;
      }
     
-    struct accountSponsorAgentStruct {
+    struct agentStruct {
+      address parent;
       address account;
       address sponsor;
       address agent;
@@ -46,11 +49,8 @@ contract DataTypes is KYC {
 // Keep track of account insertions
    address[] public accountIndex;
    mapping(address => accountStruct)  accountMap;
-//   mapping(string => rateStruct[])  rateMap;
 
-   mapping(string => accountSponsorStruct)  accountSponsorMap;
-   mapping(string => accountSponsorAgentStruct)  accountSponsorAgentMap;
+   mapping(string => sponsorStruct)  accountSponsorMap;
+   mapping(string => agentStruct)  accountSponsorAgentMap;
 
-//    address[] public sponsorIndex;
-//    address[] public agentIndex;
 }

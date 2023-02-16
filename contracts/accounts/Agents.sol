@@ -14,19 +14,19 @@ contract Agents is Sponsors {
         insertAccount(_sponsorKey);
         insertAccount(_agentKey);
         accountStruct storage account = accountMap[_sponsorKey];
-        account.parentAccount = _sponsorKey;
-//accountSponsorStruct memory accountSponsors = getAccountSponsorRec(_accountKey, _sponsorKey);
+        account.parent = _sponsorKey;
+//sponsorStruct memory accountSponsors = getAccountSponsorRec(_accountKey, _sponsorKey);
         string memory accountSponsorKey =  getAccountSponsorKey(_accountKey, _sponsorKey);
-        accountSponsorStruct storage  accountSponsors = accountSponsorMap[accountSponsorKey];
+        sponsorStruct storage  accountSponsors = accountSponsorMap[accountSponsorKey];
 
         string memory accountSponsorAgentKey =  getAccountSponsorAgentKey(_accountKey, _sponsorKey, _agentKey);
-        accountSponsorAgentStruct storage  accountSponsorAgents = accountSponsorAgentMap[accountSponsorAgentKey];
+        agentStruct storage  accountSponsorAgents = accountSponsorAgentMap[accountSponsorAgentKey];
         
 //        string storage accountSponsorAgent = accountSponsorAgentMap[accountSponsorAgentKey];
 
         // console.log("accountSponsorAgentKey = ");
         // console.log(accountSponsorAgentKey);
-        //accountSponsorAgentStruct memory accountSponsorAgents = getAccountSponsorAgentRec(_accountKey, _sponsorKey, _agentKey);
+        //agentStruct memory accountSponsorAgents = getAccountSponsorAgentRec(_accountKey, _sponsorKey, _agentKey);
         if (accountSponsorAgents.account == burnAddress) {
            accountSponsorAgents.account = _accountKey;
            accountSponsorAgents.sponsor = _sponsorKey;
@@ -44,9 +44,9 @@ contract Agents is Sponsors {
         return accountSponsorAgentKey;
      }
 
-     function getAccountSponsorAgentRec(address _accountKey, address _sponsorKey, address _agentKey) internal view onlyOwnerOrRootAdmin(_accountKey) returns (accountSponsorAgentStruct memory) {
+     function getAccountSponsorAgentRec(address _accountKey, address _sponsorKey, address _agentKey) internal view onlyOwnerOrRootAdmin(_accountKey) returns (agentStruct memory) {
         string memory accountSponsorAgentKey =  getAccountSponsorAgentKey(_accountKey, _sponsorKey, _agentKey);
-        accountSponsorAgentStruct memory  accountSponsorAgents = accountSponsorAgentMap[accountSponsorAgentKey];
+        agentStruct memory  accountSponsorAgents = accountSponsorAgentMap[accountSponsorAgentKey];
         return accountSponsorAgents;
      }
 
@@ -71,7 +71,7 @@ contract Agents is Sponsors {
     /// @param _sponsorKey public account key to get Sponsors
    function getAgents(address _accountKey, address _sponsorKey) internal view onlyOwnerOrRootAdmin(_sponsorKey) returns (string[] memory) {
         string memory accountSponsorKey =  getAccountSponsorKey(_accountKey, _sponsorKey);
-        accountSponsorStruct storage  accountSponsors = accountSponsorMap[accountSponsorKey];
+        sponsorStruct storage  accountSponsors = accountSponsorMap[accountSponsorKey];
 
         string[] storage agentKeys = accountSponsors.agentKeys;
         return agentKeys;
