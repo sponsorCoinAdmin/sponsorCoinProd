@@ -89,7 +89,7 @@ describe("spCoinContract", function() {
 
         // USAGE: insertAgentRecords(_accountRecIdx, _sponsorRecIdx, _startAgIdx, _lastAgIdx);
         await insertAgentRecords(1, 5, 6, 6);
-        await insertAgentRecords(7, 9, 12, 12);
+        await insertAgentRecords(3, 6, 7, 12);
         await insertAgentRecords(14, 13, 14, 15);
 
         await dumpAccounts("Account");
@@ -102,12 +102,12 @@ insertAgentRecords = async(_accountRecIdx, _sponsorRecIdx, _startAgIdx, _lastAgI
     let sponsorRec = testHHAccounts[_sponsorRecIdx];
     let prefix = "        ";
 
-    log(prefix + "For Account [" + _accountRecIdx + "]: " + accountRec + ")");
-    log(prefix + "For Sponsor [" + _sponsorRecIdx + "]: " + sponsorRec + ")");
+    logDetail(prefix + "For Account [" + _accountRecIdx + "]: " + accountRec + ")");
+    logDetail(prefix + "For Sponsor [" + _sponsorRecIdx + "]: " + sponsorRec + ")");
     let recCount = 0;
     for (let i = _startAgIdx; i <= _lastAgIdx; i++) {
         let agentRec = testHHAccounts[i];
-        logDetails(prefix + ++recCount + ". " + "Inserting Agent[" + i + "]: " + agentRec);
+        logDetail(prefix + ++recCount + ". " + "Inserting Agent[" + i + "]: " + agentRec);
         await spCoinContractDeployed.insertSponsorAgent(accountRec, sponsorRec, agentRec);
     }
     let agentCount = await spCoinContractDeployed.getAgentRecordCount(accountRec, sponsorRec);
@@ -141,7 +141,7 @@ insertArrayAccounts = async(_arrayAccounts) => {
         logDetail("Inserting " + idx + ", " + account);
         await spCoinContractDeployed.insertAccount(account);
     }
-    log("JAVASCRIPT => ** Inserted " + recCount + " Accounts");
+    logDetail("JAVASCRIPT => ** Inserted " + recCount + " Accounts");
     return recCount;
 }
 
@@ -159,8 +159,7 @@ getInsertedAccounts = async() => {
 }
 
 getInsertedAccountSponsors = async(_prefix, _accountKey) => {
-//    logFunctionHeader("getInsertedAccountSponsors = async(" + _prefix + ", " + _accountKey + ")");
-    log("getInsertedAccountSponsors = async(" + _prefix + ", " + _accountKey + ")");
+    logFunctionHeader("getInsertedAccountSponsors = async(" + _prefix + ", " + _accountKey + ")");
     let maxCount = await spCoinContractDeployed.getSponsorRecordCount(_accountKey);
     
         let insertedAccountSponsors = [];
@@ -235,7 +234,7 @@ dumpAccountSponsors = async(_prefix, _accountKey) => {
 }
 
 // ************************* LOGGING SECTION ******************************/
-let LOGGING = false;
+let LOGGING = true;
 let LOG_DETAIL = false;
 let LOG_TEST_HEADER = false;
 let LOG_FUNCTION_HEADER = false;
