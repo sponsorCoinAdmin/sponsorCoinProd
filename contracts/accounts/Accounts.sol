@@ -21,9 +21,10 @@ contract Accounts is DataTypes {
     /// @return true if balance is set, false otherwise
     function insertAccount(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) returns (bool) {
          if (!isAccountInserted(_accountKey)) {
-            accountMap[_accountKey].index = accountIndex.length;
-            accountMap[_accountKey].insertionTime = block.timestamp;
-            accountMap[_accountKey].inserted = true;
+            accountStruct storage accountRec = accountMap[_accountKey];
+            accountRec.index = accountIndex.length;
+            accountRec.insertionTime = block.timestamp;
+            accountRec.inserted = true;
             accountIndex.push(_accountKey);
             // console.log("Returning TRUE");
             return true;
