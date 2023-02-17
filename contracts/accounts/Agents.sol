@@ -7,6 +7,17 @@ contract Agents is Sponsors {
         constructor(){
     }
 
+    /// @notice determines if agent address is inserted in account.sponsor.agent.map
+    /// @param _accountKey public account key validate Insertion
+    /// @param _sponsorKey public sponsor account key validate Insertion
+    /// @param _agentKey public agent account key validate Insertion
+    function isAgentInserted(address _accountKey,address _sponsorKey,address _agentKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (bool) {
+        if (getAgentRec(_accountKey, _sponsorKey, _agentKey).inserted)
+            return true;
+        else
+            return false;
+    }
+
     /// @notice insert sponsors Agent
     /// @param _accountKey public Sponsor Coin Account Key
     /// @param _sponsorKey public account key to get sponsor array
@@ -16,13 +27,14 @@ contract Agents is Sponsors {
         insertAccount(_sponsorKey);
         insertAccount(_agentKey);
 
-        sponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorKey);
+        sponsorStruct storage sponsorRec = getValidSponsorRec(_accountKey, _sponsorKey);
         agentStruct storage  agentRec = getAgentRec(_accountKey, _sponsorKey, _agentKey);
 
-        if (agentRec.account == burnAddress) {
+        if (!agentRec.inserted) {
            agentRec.account = _accountKey;
            agentRec.sponsor = _sponsorKey;
            agentRec.agent = _agentKey;
+           agentRec.inserted = true;
            sponsorRec.agentKeys.push(_agentKey);
            return true;
         }
@@ -30,6 +42,15 @@ contract Agents is Sponsors {
 //        accountRec.agents.push(_agentKey);
         return true;
     }
+
+    function getValidAgentRec(address _accountKey, address _sponsorKey, address _agentKey) internal onlyOwnerOrRootAdmin(_accountKey) returns (agentStruct storage) {
+        console.log("Agent Account ", _agentKey, " Not Found, ***INSERTING***");
+        if (!isAgentInserted(_accountKey, _sponsorKey, _agentKey)) {
+            console.log("getAgentRec Agent Not Found, ***INSERTING***");
+            insertSponsorAgent(_accountKey, _sponsorKey, _agentKey);
+        }
+        return getAgentRec(_accountKey, _sponsorKey, _agentKey);
+     }
 
     function getAgentRec(address _accountKey, address _sponsorKey, address _agentKey) internal view onlyOwnerOrRootAdmin(_accountKey) returns (agentStruct storage) {
         sponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorKey);

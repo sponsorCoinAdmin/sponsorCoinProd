@@ -96,10 +96,10 @@ describe("spCoinContract", function() {
         let recCount = await spCoinContractDeployed.getAccountRecordCount();
         expect(recCount).to.equal(0);
         logDetails("JAVASCRIPT => ** Before Inserted Record Count = " + recCount);
-        let isInserted = await spCoinContractDeployed.isInserted(addr);
-        logDetails("JAVASCRIPT => Address "+ addr + " Before Inserted Record Found = " + isInserted);
+        let isAccountInserted = await spCoinContractDeployed.isInserted(addr);
+        logDetails("JAVASCRIPT => Address "+ addr + " Before Inserted Record Found = " + isAccountInserted);
         await spCoinContractDeployed.insertAccount(addr);
-        isInserted = await spCoinContractDeployed.isInserted(addr);
+        isAccountInserted = await spCoinContractDeployed.isInserted(addr);
         logDetails("JAVASCRIPT => Address "+ addr + " After Inserted Record Found = " + isInserted);
         recCount = await spCoinContractDeployed.getAccountRecordCount();
         logDetails("JAVASCRIPT => ** After Inserted Record Count = " + await recCount);        

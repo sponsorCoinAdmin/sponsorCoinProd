@@ -80,24 +80,27 @@ describe("spCoinContract", function() {
 
         let accountsInserted = await insertArrayAccounts(JUNKTestAccounts)
 
-        // USAGE: insertHHTestAccounts(_accountRecIdx, _startSpIdx, _lastSpIdx);
-        await insertHHTestAccounts(2, 1, 7);
-        await insertHHTestAccounts(3, 6, 17);
-        await insertHHTestAccounts(1, 5, 5);
-        await insertHHTestAccounts(11, 18, 19);
-        await insertHHTestAccounts(1, 2, 5);
+        // USAGE: insertSponsorAccounts(_accountRecIdx, _startSpIdx, _lastSpIdx);
+        // await insertSponsorAccounts(2, 1, 7);
+        // await insertSponsorAccounts(3, 6, 17);
+        // await insertSponsorAccounts(1, 5, 5);
+//        await insertSponsorAccounts(14, 18, 19);
+        // await insertSponsorAccounts(1, 2, 5);
 
-        // USAGE: insertAgentRecords(_accountRecIdx, _sponsorRecIdx, _startAgIdx, _lastAgIdx);
-        await insertAgentRecords(1, 5, 6, 6);
-        await insertAgentRecords(3, 6, 7, 12);
-        await insertAgentRecords(14, 13, 14, 15);
+        // USAGE: insertAgentAccounts(_accountRecIdx, _sponsorRecIdx, _startAgIdx, _lastAgIdx);
+        // await insertAgentAccounts(1, 5, 6, 6);
+        // await insertAgentAccounts(3, 6, 7, 12);
+        // await insertAgentAccounts(11, 18, 14, 15);
+        await insertAgentAccounts(14, 7, 1, 2);
+        await insertAgentAccounts(14, 2, 3, 7);
+        await insertAgentAccounts(0, 2, 6, 7);
 
         await dumpAccounts("Account");
     });
 });
 
-insertAgentRecords = async(_accountRecIdx, _sponsorRecIdx, _startAgIdx, _lastAgIdx ) => {
-    logFunctionHeader("insertAgentRecords = async(" + _sponsorRecIdx + ", " + _startAgIdx + ", " + _lastAgIdx + ")");
+insertAgentAccounts = async(_accountRecIdx, _sponsorRecIdx, _startAgIdx, _lastAgIdx ) => {
+    logFunctionHeader("insertAgentAccounts = async(" + _sponsorRecIdx + ", " + _startAgIdx + ", " + _lastAgIdx + ")");
     let accountRec = testHHAccounts[_accountRecIdx];
     let sponsorRec = testHHAccounts[_sponsorRecIdx];
     let prefix = "        ";
@@ -115,8 +118,8 @@ insertAgentRecords = async(_accountRecIdx, _sponsorRecIdx, _startAgIdx, _lastAgI
     return agentCount;
 }
 
-insertHHTestAccounts = async(_accountRecIdx, _startSpIdx, _lastSpIdx ) => {
-    logFunctionHeader("insertHHTestAccounts = async(" + _accountRecIdx + ", " + _startSpIdx + ", " + _lastSpIdx + ")");
+insertSponsorAccounts = async(_accountRecIdx, _startSpIdx, _lastSpIdx ) => {
+    logFunctionHeader("insertSponsorAccounts = async(" + _accountRecIdx + ", " + _startSpIdx + ", " + _lastSpIdx + ")");
     let accountRec = testHHAccounts[_accountRecIdx];
 
     logDetail("For Account[" + _accountRecIdx + "]: " + accountRec + ")");
@@ -199,17 +202,17 @@ dumpAccounts = async(_prefix) => {
 }
 
 dumpAccountSponsors = async(_prefix, _accountKey) => {
-        logFunctionHeader("dumpAccountSponsors = async(" + _accountKey + ")");
-        insertedAccountSponsors = await getInsertedAccountSponsors("Sponsor", _accountKey);
-        let maxCount = insertedAccountSponsors.length;
-        logDetail("   DUMPING " + maxCount + " SPONSOR RECORDS");
-        for(let idx = 0; idx < maxCount; idx++) {
-            let sponsor = insertedAccountSponsors[idx];
-            log(_prefix + "[" + idx + "]: " + sponsor );
-            await dumpSponsorAgents("       Agent", _accountKey, sponsor);
-        }
-        return insertedAccountSponsors;
+    logFunctionHeader("dumpAccountSponsors = async(" + _accountKey + ")");
+    insertedAccountSponsors = await getInsertedAccountSponsors("Sponsor", _accountKey);
+    let maxCount = insertedAccountSponsors.length;
+    logDetail("   DUMPING " + maxCount + " SPONSOR RECORDS");
+    for(let idx = 0; idx < maxCount; idx++) {
+        let sponsor = insertedAccountSponsors[idx];
+        log(_prefix + "[" + idx + "]: " + sponsor );
+        await dumpSponsorAgents("       Agent", _accountKey, sponsor);
     }
+    return insertedAccountSponsors;
+}
     
     dumpSponsorAgents = async(_prefix, _accountKey, _sponsorKey) => {
         logFunctionHeader("dumpSponsorAgents = async(" + _accountKey + ", " + _sponsorKey + ")");
@@ -223,7 +226,7 @@ dumpAccountSponsors = async(_prefix, _accountKey) => {
         return insertedSponsorAgents;
     }
   
-    dumpArray = (_prefix, _arr) => {
+dumpArray = (_prefix, _arr) => {
     logFunctionHeader("dumpArray = async(" + _prefix + ", _arr)");
     let maxCount = _arr.length;
 //    logDetail("DUMPING " + maxCount + " RECORDS");

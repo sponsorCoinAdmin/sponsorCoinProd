@@ -9,7 +9,7 @@ contract Accounts is DataTypes {
 
     /// @notice determines if address is inserted in account array
     /// @param _accountKey public account key validate Insertion
-    function isInserted(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (bool) {
+    function isAccountInserted(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (bool) {
         if (accountMap[_accountKey].inserted)
             return true;
         else
@@ -20,10 +20,10 @@ contract Accounts is DataTypes {
     /// @param _accountKey public account key to set new balance
     /// @return true if balance is set, false otherwise
     function insertAccount(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) returns (bool) {
-         if (!isInserted(_accountKey)) {
+         if (!isAccountInserted(_accountKey)) {
             accountMap[_accountKey].insertionTime = block.timestamp;
-            accountMap[_accountKey].inserted = true;
             accountMap[_accountKey].index = accountIndex.length;
+            accountMap[_accountKey].inserted = true;
             accountIndex.push(_accountKey);
             // console.log("Returning TRUE");
             return true;
@@ -35,7 +35,7 @@ contract Accounts is DataTypes {
     /// @notice retreives the array index of a specific address.
     /// @param _accountKey public account key to set new balance
     function getindex(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (uint) {
-        if (isInserted(_accountKey))
+        if (isAccountInserted(_accountKey))
             return accountMap[_accountKey].index;
         else
             return 0;
@@ -55,7 +55,7 @@ contract Accounts is DataTypes {
     /// @notice retreives the account record of a specific account address.
     /// @param _accountKey public account key to set new balance
     function getAccountRecord(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (accountStruct storage) {
-        require (isInserted(_accountKey));
+        require (isAccountInserted(_accountKey));
         return accountMap[_accountKey];
     }
 
