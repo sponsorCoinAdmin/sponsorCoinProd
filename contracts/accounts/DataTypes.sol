@@ -13,42 +13,47 @@ contract DataTypes is KYC {
    mapping(address => agentStruct)  agentMap;
 
    struct accountStruct {
-      address[] sponsors;
-      mapping(address => sponsorStruct)  sponsorMap;
-
       uint index;
       uint insertionTime;
       bool inserted;
       bool verified;
       KYC kyc ;
+      address[] sponsors;
+      mapping(address => sponsorStruct)  sponsorMap;
    }
 
    struct sponsorStruct {
+      uint index;
       address parent;
       address account;
       address sponsor;
-      address[] agentKeys;
+      uint insertionTime;
       bool inserted;
+      bool verified;
+      address[] agentKeys;
       mapping(address => agentStruct) agentMap;
       rateStruct[] rates;
       mapping(uint256 => rateStruct) rateMap;
    }
 
    struct agentStruct {
+      uint index;
       address parent;
       address account;
       address sponsor;
       address agent;
+      uint insertionTime;
       bool inserted;
+      bool verified;
       rateStruct[] rates;
       mapping(uint256 => rateStruct) rateMap;
    }
 
    struct rateStruct {
-      uint[] rate;
       uint insertionTime;
       uint lastUpdateTime;
       uint256 totalQuantity;
+      uint[] rate;
       transactionStruct[] transactionChain;
    }
 

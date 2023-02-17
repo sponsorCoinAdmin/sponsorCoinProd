@@ -28,10 +28,13 @@ contract Sponsors is Accounts {
 
         sponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorKey);
         if (!sponsorRec.inserted) {
+            sponsorRec.index = accountIndex.length;
+            sponsorRec.insertionTime = block.timestamp;
+            sponsorRec.inserted = true;
+            sponsorRec.account = _accountKey;
+            sponsorRec.sponsor = _sponsorKey;
+            sponsorRec.inserted = true;
             accountRec.sponsors.push(_sponsorKey);
-            accountRec.sponsorMap[_sponsorKey].account = _accountKey;
-            accountRec.sponsorMap[_sponsorKey].sponsor = _sponsorKey;
-            accountRec.sponsorMap[_sponsorKey].inserted = true;
             uint256 accountSponsorCount = getAccountSponsorCount(_accountKey);
 //            console.log("accountRec.sponsors.push(", _sponsorKey, ").sponsor = ", accountRec.sponsors[accountSponsorCount - 1]);
             return true;

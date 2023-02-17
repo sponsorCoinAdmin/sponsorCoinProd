@@ -31,12 +31,15 @@ contract Agents is Sponsors {
         agentStruct storage  agentRec = getAgentRec(_accountKey, _sponsorKey, _agentKey);
 
         if (!agentRec.inserted) {
-           agentRec.account = _accountKey;
-           agentRec.sponsor = _sponsorKey;
-           agentRec.agent = _agentKey;
-           agentRec.inserted = true;
-           sponsorRec.agentKeys.push(_agentKey);
-           return true;
+            agentRec.index = accountIndex.length;
+            agentRec.insertionTime = block.timestamp;
+            agentRec.inserted = true;
+            agentRec.account = _accountKey;
+            agentRec.sponsor = _sponsorKey;
+            agentRec.agent = _agentKey;
+            agentRec.inserted = true;
+            sponsorRec.agentKeys.push(_agentKey);
+            return true;
         }
 
 //        accountRec.agents.push(_agentKey);
