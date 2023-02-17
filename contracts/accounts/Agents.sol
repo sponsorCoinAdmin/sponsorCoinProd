@@ -20,11 +20,11 @@ contract Agents is Sponsors {
         agentStruct storage  agentRec = getAgentRec(_accountKey, _sponsorKey, _agentKey);
 
         if (!agentRec.inserted) {
-            agentRec.index = accountIndex.length;
+            agentRec.index = sponsorRec.agentKeys.length;
             agentRec.insertionTime = block.timestamp;
-            agentRec.account = _accountKey;
-            agentRec.sponsor = _sponsorKey;
-            agentRec.agent = _agentKey;
+            agentRec.account  = _accountKey;
+            agentRec.sponsor  = _sponsorKey;
+            agentRec.agent    = _agentKey;
             agentRec.inserted = true;
             sponsorRec.agentKeys.push(_agentKey);
             return true;
@@ -45,9 +45,13 @@ contract Agents is Sponsors {
             return false;
     }
 
-    function getAgentindex(address _accountKey, address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (uint) {
-        if (isAgentInserted(_accountKey, _sponsorKey, _agentKey))
+    function getAgentIndex(address _accountKey, address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (uint) {
+        if (isAgentInserted(_accountKey, _sponsorKey, _agentKey)) {
+            //uint256 agentIndex = accountMap[_accountKey].sponsorMap[_sponsorKey].agentMap[_agentKey].index;
+            // console.log(_accountKey, _sponsorKey, _agentKey);
+            // console.log("Index = ", agentIndex);
             return accountMap[_accountKey].sponsorMap[_sponsorKey].agentMap[_agentKey].index;
+        }
         else
             return 0;
         }

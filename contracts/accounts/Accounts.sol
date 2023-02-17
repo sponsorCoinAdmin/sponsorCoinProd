@@ -26,7 +26,7 @@ contract Accounts is DataTypes {
             accountRec.insertionTime = block.timestamp;
             accountRec.inserted = true;
             accountIndex.push(_accountKey);
-            // console.log("Returning TRUE");
+            console.log("Inserted Account:",_accountKey);
             return true;
          }
             // console.log("Returning FALSE");
@@ -35,7 +35,7 @@ contract Accounts is DataTypes {
 
     /// @notice retreives the array index of a specific address.
     /// @param _accountKey public account key to set new balance
-    function getindex(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (uint) {
+    function getAccountIndex(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (uint) {
         if (isAccountInserted(_accountKey))
             return accountMap[_accountKey].index;
         else

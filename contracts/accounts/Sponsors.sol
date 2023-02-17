@@ -16,7 +16,7 @@ contract Sponsors is Accounts {
         accountStruct storage accountRec = accountMap[_accountKey];
         sponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorKey);
         if (!sponsorRec.inserted) {
-            sponsorRec.index = accountIndex.length;
+            sponsorRec.index = accountRec.sponsors.length;
             sponsorRec.insertionTime = block.timestamp;
             sponsorRec.account = _accountKey;
             sponsorRec.sponsor = _sponsorKey;
@@ -38,7 +38,7 @@ contract Sponsors is Accounts {
 
     /// @notice retreives the array index of a specific address.
     /// @param _accountKey public account key to set new balance
-    function getSponsorindex(address _accountKey, address _sponsorKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (uint) {
+    function getSponsorIndex(address _accountKey, address _sponsorKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (uint) {
         if (isSponsorInserted(_accountKey, _sponsorKey))
             return accountMap[_accountKey].sponsorMap[_sponsorKey].index;
         else

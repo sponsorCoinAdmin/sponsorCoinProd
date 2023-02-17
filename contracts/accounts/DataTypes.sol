@@ -17,7 +17,7 @@ contract DataTypes is KYC {
       uint insertionTime;
       bool inserted;
       bool verified;
-      KYC kyc ;
+      KYC kyc;
       address[] sponsors;
       mapping(address => sponsorStruct)  sponsorMap;
    }
