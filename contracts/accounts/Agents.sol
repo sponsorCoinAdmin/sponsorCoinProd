@@ -7,18 +7,7 @@ contract Agents is Sponsors {
         constructor(){
     }
 
-    /// @notice determines if agent address is inserted in account.sponsor.agent.map
-    /// @param _accountKey public account key validate Insertion
-    /// @param _sponsorKey public sponsor account key validate Insertion
-    /// @param _agentKey public agent account key validate Insertion
-    function isAgentInserted(address _accountKey,address _sponsorKey,address _agentKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (bool) {
-        if (getAgentRec(_accountKey, _sponsorKey, _agentKey).inserted)
-            return true;
-        else
-            return false;
-    }
-
-    /// @notice insert sponsors Agent
+     /// @notice insert sponsors Agent
     /// @param _accountKey public Sponsor Coin Account Key
     /// @param _sponsorKey public account key to get sponsor array
     /// @param _agentKey new sponsor to add to account list
@@ -33,7 +22,6 @@ contract Agents is Sponsors {
         if (!agentRec.inserted) {
             agentRec.index = accountIndex.length;
             agentRec.insertionTime = block.timestamp;
-            agentRec.inserted = true;
             agentRec.account = _accountKey;
             agentRec.sponsor = _sponsorKey;
             agentRec.agent = _agentKey;
@@ -44,6 +32,31 @@ contract Agents is Sponsors {
 
 //        accountRec.agents.push(_agentKey);
         return true;
+    }
+
+    /// @notice determines if agent address is inserted in account.sponsor.agent.map
+    /// @param _accountKey public account key validate Insertion
+    /// @param _sponsorKey public sponsor account key validate Insertion
+    /// @param _agentKey public agent account key validate Insertion
+    function isAgentInserted(address _accountKey,address _sponsorKey,address _agentKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (bool) {
+        if (getAgentRec(_accountKey, _sponsorKey, _agentKey).inserted)
+            return true;
+        else
+            return false;
+    }
+
+    function getAgentindex(address _accountKey, address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (uint) {
+        if (isAgentInserted(_accountKey, _sponsorKey, _agentKey))
+            return accountMap[_accountKey].sponsorMap[_sponsorKey].agentMap[_agentKey].index;
+        else
+            return 0;
+        }
+
+    function getAgentInsertionTime(address _accountKey, address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (uint) {
+        if (isAgentInserted(_accountKey, _sponsorKey, _agentKey))
+            return accountMap[_accountKey].sponsorMap[_sponsorKey].agentMap[_agentKey].insertionTime;
+        else
+            return 0;
     }
 
     function getValidAgentRec(address _accountKey, address _sponsorKey, address _agentKey) internal onlyOwnerOrRootAdmin(_accountKey) returns (agentStruct storage) {
