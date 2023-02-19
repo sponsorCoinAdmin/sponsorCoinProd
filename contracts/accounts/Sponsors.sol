@@ -54,7 +54,7 @@ contract Sponsors is Accounts {
 
     function getValidSponsorRec(address _accountKey, address _sponsorKey) internal onlyOwnerOrRootAdmin(_accountKey) returns (sponsorStruct storage) {
         if (!isSponsorInserted(_accountKey, _sponsorKey)) {
-            console.log("Sponsor Account ", _sponsorKey, " Not Found, ***INSERTING***");
+//            console.log("Sponsor Account ", _sponsorKey, " Not Found, ***INSERTING***");
             insertAccountSponsor(_accountKey, _sponsorKey);
         }
         return getSponsorRec(_accountKey, _sponsorKey);

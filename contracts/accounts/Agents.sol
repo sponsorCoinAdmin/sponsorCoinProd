@@ -12,11 +12,12 @@ contract Agents is Sponsors {
     /// @param _sponsorKey public account key to get sponsor array
     /// @param _agentKey new sponsor to add to account list
     function insertSponsorAgent(address _accountKey, address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(msg.sender) returns (bool) {
-        insertAccount(_agentKey);
-        insertAccount(_sponsorKey);
+        insertAccountSponsor(_accountKey, _sponsorKey);
+        // insertAccount(_agentKey);
+        // insertAccount(_sponsorKey);
         insertAccount(_agentKey);
 
-        sponsorStruct storage sponsorRec = getValidSponsorRec(_accountKey, _sponsorKey);
+        sponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorKey);
         agentStruct storage  agentRec = getAgentRec(_accountKey, _sponsorKey, _agentKey);
 
         if (!agentRec.inserted) {
@@ -64,9 +65,7 @@ contract Agents is Sponsors {
     }
 
     function getValidAgentRec(address _accountKey, address _sponsorKey, address _agentKey) internal onlyOwnerOrRootAdmin(_accountKey) returns (agentStruct storage) {
-        console.log("Agent Account ", _agentKey, " Not Found, ***INSERTING***");
         if (!isAgentInserted(_accountKey, _sponsorKey, _agentKey)) {
-            console.log("getAgentRec Agent Not Found, ***INSERTING***");
             insertSponsorAgent(_accountKey, _sponsorKey, _agentKey);
         }
         return getAgentRec(_accountKey, _sponsorKey, _agentKey);

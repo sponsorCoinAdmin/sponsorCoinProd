@@ -1,9 +1,8 @@
-
 // ************************* LOGGING SECTION ******************************/
 let LOGGING = true;
-let LOG_DETAILS = true;
-let LOG_TEST_HEADER = true;
-let LOG_FUNCTION_HEADER = true;
+let LOG_DETAIL = false;
+let LOG_TEST_HEADER = false;
+let LOG_FUNCTION_HEADER = false;
 let LOG_SETUP = false;
 
 logSetup = (details) => {
@@ -14,39 +13,36 @@ logSetup = (details) => {
 
 logTestHeader = (testHeader) => {
     if (LOG_TEST_HEADER) {
-        log("==============================================================================");
-        log("************** " + testHeader + " **************");
+        log("=============== TEST HEADER " + testHeader + " ===============");
     }
 }
 
 logFunctionHeader = (functionHeader) => {
     if (LOG_FUNCTION_HEADER) {
-        log("******************************************************************************");
-        log("************** " + functionHeader + " **************");
+        log("************** HEADER FUNCTION " + functionHeader + " **************");
     }
 }
 
-logDetails = (details) => {
-    if (LOG_DETAILS) {
+logDetail = (details) => {
+    if (LOG_DETAIL) {
         log(details);
     }
 }
 
-const log = (text) => {
+log = (text) => {
     if (LOGGING) {
         console.log(text);
     }
 }
-
 module.exports = {
     LOGGING,
-    LOG_DETAILS,
+    LOG_DETAIL,
     LOG_TEST_HEADER,
     LOG_FUNCTION_HEADER,
     LOG_SETUP,
     logSetup,
     logTestHeader,
     logFunctionHeader,
-    logDetails,
+    logDetail,
     log,
 }

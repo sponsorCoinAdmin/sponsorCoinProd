@@ -1,24 +1,35 @@
 const { expect } = require("chai");
 const { testHHAccounts } = require("./lib/hhTestAccounts");
-const { 
-        setContract,
+const { setContract,
         insertSponsorAccounts,
-        insertAgentAccounts 
+//        insertAgentAccounts 
       } = require("./lib/scMethods");
-const {     
-    LOGGING,
-    LOG_DETAILS,
-    LOG_TEST_HEADER,
-    LOG_FUNCTION_HEADER,
-    LOG_SETUP,
-    logSetup,
-    logTestHeader,
-    logFunctionHeader,
-    logDetails,
-    log, 
-} = require("./lib/logging");
+const { loggers } = require("./lib/logging");
 
-
+class accountStruct {
+    constructor(address) {
+        this.address = address;
+        this.sponsors;
+        this.index;
+        this.insertionTime;
+        this.inserted;
+        this.KYC;   
+      }
+ }
+ class sponsorRec {
+    constructor(address) {
+        this.address = address;
+        this.rate;
+        this.verified;
+    }
+ }
+ class agentRec {
+    constructor(address) {
+        this.address = address;
+        this.rate;
+        this.verified;
+    }
+ }
 
 let account;
 let sponsor;
@@ -46,26 +57,31 @@ describe("spCoinContract", function() {
 
     it("Dump Sponsor Coin Records", async function () {
         log("DUMP Sponsor Coin Records");
+        const JUNKTestAccounts = ["0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+                        "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+                        "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+                        "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+                        "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65"];
 
 //        let accountsInserted = await insertArrayAccounts(JUNKTestAccounts);
 
         // USAGE: insertSponsorAccounts(_accountRecIdx, _startSpIdx, _lastSpIdx);
-        await insertSponsorAccounts(2, [1, 7, 14, 7, 18, 9]);
-        await insertSponsorAccounts(3, [14, 17]);
-        await insertSponsorAccounts(1, [5, 11, 13,15]);
-        await insertSponsorAccounts(14, [18, 19, 7]);
-        await insertSponsorAccounts(3, [4]);
+        // await insertSponsorAccounts(2, [1, 7, 14, 7, 18, 9]);
+        // await insertSponsorAccounts(3, [14, 17]);
+        // await insertSponsorAccounts(1, [5, 11, 13,15]);
+        // await insertSponsorAccounts(14, [18, 19, 7]);
+        // await insertSponsorAccounts(3, [4]);
            await insertSponsorAccounts(1, [2, 5]);
-        await insertSponsorAccounts(11, [5, 9, 0]);
+        // await insertSponsorAccounts(11, [5, 9, 0]);
 
 //        USAGE: insertAgentAccounts(_accountRecIdx, _sponsorRecIdx, _startAgIdx, _lastAgIdx);
-        await insertAgentAccounts(1, 5, [7, 2, 17, 3, 9, 19]);
-        await insertAgentAccounts(3, 6, [1]);
-        await insertAgentAccounts(11, 18, [5, 7, 9, 6]);
-        await insertAgentAccounts(14, 7, [1, 11, 0, 12, 2]);
-        await insertAgentAccounts(14, 2, [3]);
-        await insertAgentAccounts(14, 3, [1, 2]);
-        await insertAgentAccounts(0, 2, [6, 7, 16]);
+        // await insertAgentAccounts(1, 5, [7, 2, 17, 3, 9, 19]);
+        // await insertAgentAccounts(3, 6, [1]);
+        // await insertAgentAccounts(11, 18, [5, 7, 9, 6]);
+        // await insertAgentAccounts(14, 7, [1, 11, 0, 12, 2]);
+        // await insertAgentAccounts(14, 2, [3]);
+        // await insertAgentAccounts(14, 3, [1, 2]);
+        // await insertAgentAccounts(0, 2, [6, 7, 16]);
 
         await dumpAccounts();
     });
@@ -220,3 +236,39 @@ dumpArray = (_prefix, _arr) => {
       }
 }
 
+// ************************* LOGGING SECTION ******************************/
+let LOGGING = true;
+let LOG_DETAIL = false;
+let LOG_TEST_HEADER = false;
+let LOG_FUNCTION_HEADER = false;
+let LOG_SETUP = false;
+
+logSetup = (details) => {
+    if (LOG_SETUP) {
+        log(details);
+    }
+}
+
+logTestHeader = (testHeader) => {
+    if (LOG_TEST_HEADER) {
+        log("=============== TEST HEADER " + testHeader + " ===============");
+    }
+}
+
+logFunctionHeader = (functionHeader) => {
+    if (LOG_FUNCTION_HEADER) {
+        log("************** HEADER FUNCTION " + functionHeader + " **************");
+    }
+}
+
+logDetail = (details) => {
+    if (LOG_DETAIL) {
+        log(details);
+    }
+}
+
+log = (text) => {
+    if (LOGGING) {
+        console.log(text);
+    }
+}
