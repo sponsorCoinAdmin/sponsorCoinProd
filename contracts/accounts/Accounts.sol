@@ -42,7 +42,7 @@ contract Accounts is DataTypes {
             return 0;
     }
 
-    /// @notice retreives the array index of a specific address.
+    /// @notice retreives the number of accounts inserted.
      function getAccountRecordCount() public view returns (uint) {
         return accountIndex.length;
       }
