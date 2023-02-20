@@ -22,7 +22,7 @@ contract Agents is Sponsors {
             agentRec.index = sponsorRec.agentKeys.length;
             agentRec.insertionTime = block.timestamp;
             agentRec.account  = _accountKey;
-            agentRec.sponsor  = _sponsorKey;
+            agentRec.parentSponsor  = _sponsorKey;
             agentRec.agent    = _agentKey;
             agentRec.inserted = true;
             sponsorRec.agentKeys.push(_agentKey);

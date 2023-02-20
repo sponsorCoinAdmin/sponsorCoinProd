@@ -16,12 +16,12 @@ contract Sponsors is Accounts {
         accountStruct storage accountRec = accountMap[_accountKey];
         sponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorKey);
         if (!sponsorRec.inserted) {
-            sponsorRec.index = accountRec.sponsors.length;
+            sponsorRec.index = accountRec.sponsorKeys.length;
             sponsorRec.insertionTime = block.timestamp;
-            sponsorRec.account = _accountKey;
+            sponsorRec.parentAccount = _accountKey;
             sponsorRec.sponsor = _sponsorKey;
             sponsorRec.inserted = true;
-            accountRec.sponsors.push(_sponsorKey);
+            accountRec.sponsorKeys.push(_sponsorKey);
             uint256 accountSponsorCount = getAccountSponsorCount(_accountKey);
 //            console.log("accountRec.sponsors.push(", _sponsorKey, ").sponsor = ", accountRec.sponsors[accountSponsorCount - 1]);
             return true;
@@ -76,7 +76,7 @@ contract Sponsors is Accounts {
         // console.log("Sponsors.sol =>  getAccountSponsorAddress KEY(_accountKey, _sponsorIdx)");
         // console.log("getAccountSponsorAddress KEY ", _accountKey, ",", _sponsorIdx);
         accountStruct storage accountRec = accountMap[_accountKey];
-        address sponsor = accountRec.sponsors[_sponsorIdx];
+        address sponsor = accountRec.sponsorKeys[_sponsorIdx];
         // console.log("returning sponsoraddr", sponsor);
 
         return sponsor;
@@ -92,15 +92,15 @@ contract Sponsors is Accounts {
     /// @param _accountKey public account key to get Sponsor Record Length
     function getAccountSponsorCount(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
             accountStruct storage accountRec = accountMap[_accountKey];
-        return accountRec.sponsors.length;
+        return accountRec.sponsorKeys.length;
     }
 
     /// @notice retreives the sponsors of a specific address.
     /// @param _accountKey public account key to set new balance
     function getSponsorList(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
         accountStruct storage account = accountMap[_accountKey];
-        address[] storage sponsors = account.sponsors;
-        return sponsors;
+        address[] storage sponsorKeys = account.sponsorKeys;
+        return sponsorKeys;
     }
 
 }

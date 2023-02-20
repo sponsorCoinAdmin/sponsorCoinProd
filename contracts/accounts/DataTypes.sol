@@ -13,20 +13,19 @@ contract DataTypes is KYC {
    mapping(address => agentStruct)  agentMap;
 
    struct accountStruct {
-      address account;
       uint index;
+      address account;
       uint insertionTime;
       bool inserted;
       bool verified;
       KYC kyc;
-      address[] sponsors;
+      address[] sponsorKeys;
       mapping(address => sponsorStruct)  sponsorMap;
    }
 
    struct sponsorStruct {
       uint index;
-      address parent;
-      address account;
+      address parentAccount;
       address sponsor;
       uint insertionTime;
       bool inserted;
@@ -39,9 +38,8 @@ contract DataTypes is KYC {
 
    struct agentStruct {
       uint index;
-      address parent;
       address account;
-      address sponsor;
+      address parentSponsor;
       address agent;
       uint insertionTime;
       bool inserted;
