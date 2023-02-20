@@ -13,8 +13,6 @@ contract Agents is Sponsors {
     /// @param _agentKey new sponsor to add to account list
     function insertSponsorAgent(address _accountKey, address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(msg.sender) returns (bool) {
         insertAccountSponsor(_accountKey, _sponsorKey);
-        // insertAccount(_agentKey);
-        // insertAccount(_sponsorKey);
         insertAccount(_agentKey);
 
         sponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorKey);

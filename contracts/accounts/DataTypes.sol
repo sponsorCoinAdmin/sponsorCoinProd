@@ -13,6 +13,7 @@ contract DataTypes is KYC {
    mapping(address => agentStruct)  agentMap;
 
    struct accountStruct {
+      address account;
       uint index;
       uint insertionTime;
       bool inserted;

@@ -97,7 +97,6 @@ describe("spCoinContract", function() {
             account = insertedArrayAccounts[idx];
             logDetail("JAVASCRIPT => Address Retrieved from Block Chain at Index " + idx + "  = "+ account );
         }
-       
     });
     
     it("Insert 4 Sponsor Coin Records 1 caaount, 1 sponsor and 2 Agents", async function () {

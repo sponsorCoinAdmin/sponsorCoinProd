@@ -23,6 +23,7 @@ contract Accounts is DataTypes {
          if (!isAccountInserted(_accountKey)) {
             accountStruct storage accountRec = accountMap[_accountKey];
             accountRec.index = accountIndex.length;
+            accountRec.account = _accountKey;
             accountRec.insertionTime = block.timestamp;
             accountRec.inserted = true;
             accountIndex.push(_accountKey);

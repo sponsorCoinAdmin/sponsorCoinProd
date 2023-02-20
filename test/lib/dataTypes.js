@@ -1,11 +1,14 @@
 class accountStruct {
     constructor(address) {
-        this.address = address;
-        this.sponsors;
         this.index;
         this.insertionTime;
         this.inserted;
+        this.verified;
         this.KYC;   
+
+
+        this.address = address;
+        this.sponsors;
       }
  }
  class sponsorRec {
