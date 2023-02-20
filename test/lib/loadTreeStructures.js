@@ -1,7 +1,10 @@
 const { testHHAccounts } = require("./hhTestAccounts");
+const {} = require("./dataTypes");
+
 let spCoinContractDeployed;
 
 loadTreeStructures = async(_spCoinContractDeployed) => {
+//    accountStruct actStruct
     spCoinContractDeployed = _spCoinContractDeployed;
     logFunctionHeader("dumpAccounts = async()");
     log("************************* dumpAccounts() *************************");
@@ -12,13 +15,13 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
     for(let idx = 0; idx < maxCount; idx++) {
         let account = insertedArrayAccounts[idx];
         log("Account[" + idx + "]:" + account );
-        await dumpAccountSponsors("   ", account);
+        await loadAccountSponsors("   ", account);
     }
     return insertedArrayAccounts;
 }
 
-dumpAccountSponsors = async(_prefix, _accountKey) => {
-    logFunctionHeader("dumpAccountSponsors = async(" + _accountKey + ")");
+loadAccountSponsors = async(_prefix, _accountKey) => {
+    logFunctionHeader("loadAccountSponsors = async(" + _accountKey + ")");
     insertedAccountSponsors = await getInsertedAccountSponsors("Sponsor", _accountKey);
     let maxCount = insertedAccountSponsors.length;
     logDetail("   DUMPING " + maxCount + " SPONSOR RECORDS");
@@ -27,13 +30,13 @@ dumpAccountSponsors = async(_prefix, _accountKey) => {
         let sponsorIndex = await spCoinContractDeployed.getSponsorIndex(_accountKey, sponsorKey);
         let sponsorActIdx = await spCoinContractDeployed.getAccountIndex(sponsorKey);
         log(_prefix + "Sponsor[" + sponsorIndex + "] => Account[" + sponsorActIdx + "]:" + sponsorKey );
-        await dumpSponsorAgents("       ", _accountKey, sponsorKey);
+        await loadSponsorAgents("       ", _accountKey, sponsorKey);
     }
     return insertedAccountSponsors;
 }
             
-dumpSponsorAgents = async(_prefix, _accountKey, _sponsorKey) => {
-    logFunctionHeader("dumpSponsorAgents = async(" + _accountKey + ", " + _sponsorKey + ")");
+loadSponsorAgents = async(_prefix, _accountKey, _sponsorKey) => {
+    logFunctionHeader("loadSponsorAgents = async(" + _accountKey + ", " + _sponsorKey + ")");
     let insertedSponsorAgents = await getInsertedSponsorAgents("Agent", _accountKey, _sponsorKey);
     let maxCount = insertedSponsorAgents.length;
 //    log("        DUMPING " + maxCount + " AGENT RECORDS FOR SPONSOR " + _sponsorKey);
@@ -48,6 +51,6 @@ dumpSponsorAgents = async(_prefix, _accountKey, _sponsorKey) => {
 
 module.exports = {
     loadTreeStructures,
-    dumpAccountSponsors,
-    dumpSponsorAgents
+    loadAccountSponsors,
+    loadSponsorAgents
 }

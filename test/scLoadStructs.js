@@ -1,5 +1,6 @@
 const { expect } = require("chai");
-const {loadTreeStructures} = require("./lib/loadTreeStructures");
+const {} = require("./lib/loadTreeStructures");
+const {} = require("./lib/dataTypes");
 const { 
           setContract,
           insertAccounts,
