@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const {} = require("./lib/dumpAccountTree");
+const {loadTreeStructures} = require("./lib/loadTreeStructures");
 const { 
           setContract,
           insertAccounts,
@@ -10,11 +10,14 @@ const {
           getInsertedSponsorAgents
       } = require("./lib/scAccountMethods");
 const {     
+    LOG_MODE,
+    setLogDefaults,
     logSetup,
+    setLogMode,
     logTestHeader,
     logFunctionHeader,
     logDetail,
-    log, 
+    log
 } = require("./lib/logging");
 
 let account;
@@ -22,6 +25,8 @@ let sponsor;
 let agent;
 
 let spCoinContractDeployed;
+
+logSetup("JAVASCRIPT => Setup Test");
 
 describe("spCoinContract", function() {
     let spCoinContract;
@@ -39,11 +44,11 @@ describe("spCoinContract", function() {
         msgSender = await spCoinContractDeployed.msgSender();
 
         setContract(spCoinContractDeployed);
+        setLogDefaults();
     });
 
     it("Dump Sponsor Coin Records", async function () {
         log("DUMP Sponsor Coin Records");
-
         // USAGE: insertSponsorAccounts(_accountRecIdx, _startSpIdx, _lastSpIdx);
         await insertSponsorAccounts(2, [1, 7, 14, 7, 18, 9]);
         await insertSponsorAccounts(3, [14, 17]);
@@ -62,7 +67,7 @@ describe("spCoinContract", function() {
         await insertAgentAccounts(14, 3, [1, 2]);
         await insertAgentAccounts(0, 2, [6, 7, 16]);
 
-        await dumpAccounts(spCoinContractDeployed);
+        await loadTreeStructures(spCoinContractDeployed);
     });
 });
 
