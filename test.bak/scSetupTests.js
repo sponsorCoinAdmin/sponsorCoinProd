@@ -1,24 +1,12 @@
 const { expect } = require("chai");
 const { testHHAccounts } = require("./lib/hhTestAccounts");
-const {    
-    LOG_MODE,
-    setLogDefaults,
-    logSetup,
-    setLogMode,
-    logTestHeader,
-    logFunctionHeader,
-    logDetail,
-    log
-    } = require("../test/lib/logging");
-
+const {} = require("../test/lib/logging");
 const {} = require("../test/lib/scAccountMethods");
 
 let account;
 let sponsor;
 let agent;
 //let scTree[] = {account, sponsor, agent};
-
-logSetup("JAVASCRIPT => Setup Test");
 
 let spCoinContractDeployed;
 describe("spCoinContract", function() {
@@ -37,15 +25,10 @@ describe("spCoinContract", function() {
         msgSender = await spCoinContractDeployed.msgSender();
 
         setContract(spCoinContractDeployed);
-        setLogDefaults();
+
     });
 
     it("Deployment should return correct parameter settings", async function () {
-        // setLogMode(LOG_MODE.LOG, true);
-        // setLogMode(LOG_MODE.LOG_DETAIL, true);
-        // setLogMode(LOG_MODE.LOG_TEST_HEADER, true);
-        // setLogMode(LOG_MODE.LOG_FUNCTION_HEADER, true);
-        // setLogMode(LOG_MODE.LOG_SETUP, true);
         logTestHeader("ACCOUNT DEPLOYMENT");
         let testName         = "sponsorTestCoin";
         let testSymbol       = "SPTest";
