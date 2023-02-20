@@ -10,7 +10,7 @@ class accountStruct {
         this.sponsorMap = Map;
       }
  }
- class sponsorRec {
+ class sponsorStruct {
     constructor(address) {
         this.index;
         this.parentAccount;
@@ -24,11 +24,33 @@ class accountStruct {
         this.sponsorMap = Map;
     }
  }
- class agentRec {
+
+ class agentStruct {
     constructor(address) {
         this.index;
-        this.address = address;
-        this.rate;
+        this.parentSponsor;
+        this.agent = address;
+        this.insertionTime
+        this.inserted;
         this.verified;
+        this.rates = [];
+        this.rateMap = Map;
     }
+ }
+
+class rateStruct {
+    constructor(rate) {
+        this.insertionTime;
+        this.lastUpdateTime;
+        this.totalQuantity;
+        this.rate = [];
+        this.transactionStruct = [];
+    }
+}
+
+class transactionStruct {
+    constructor(rate) {
+        this.insertionTime;
+        this.quantity;
+     }
  }
