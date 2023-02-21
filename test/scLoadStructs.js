@@ -1,8 +1,7 @@
 const { expect } = require("chai");
 const {} = require("./lib/loadTreeStructures");
 const { testHHAccounts } = require("./lib/hhTestAccounts");
-const { 
-          setContract,
+const {   setContract,
           insertAccounts,
           insertSponsorAccounts,
           insertAgentAccounts,
@@ -14,7 +13,7 @@ const {
 const { AccountStruct,
         SponsorStruct,
         AgentStruct,
-        RateStruct,
+        RateHeaderStruct,
         TransactionStruct
     } = require("./lib/dataTypes");
 
