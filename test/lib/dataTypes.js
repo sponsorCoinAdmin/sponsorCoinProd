@@ -1,4 +1,4 @@
-class accountStruct {
+class AccountStruct {
     constructor(address) {
         this.index;
         this.account = address;
@@ -10,7 +10,7 @@ class accountStruct {
         this.sponsorMap = Map;
       }
  }
- class sponsorStruct {
+ class SponsorStruct {
     constructor(address) {
         this.index;
         this.parentAccount;
@@ -25,7 +25,7 @@ class accountStruct {
     }
  }
 
- class agentStruct {
+ class AgentStruct {
     constructor(address) {
         this.index;
         this.parentSponsor;
@@ -38,19 +38,27 @@ class accountStruct {
     }
  }
 
-class rateStruct {
+class RateStruct {
     constructor(rate) {
         this.insertionTime;
         this.lastUpdateTime;
         this.totalQuantity;
         this.rate = [];
-        this.transactionStruct = [];
+        this.TransactionStruct = [];
     }
 }
 
-class transactionStruct {
+class TransactionStruct {
     constructor(rate) {
         this.insertionTime;
         this.quantity;
      }
  }
+
+module.exports = {
+    AccountStruct,
+    SponsorStruct,
+    AgentStruct,
+    RateStruct,
+    TransactionStruct
+}

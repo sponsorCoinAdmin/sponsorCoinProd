@@ -17,8 +17,8 @@ contract Rates is Transactions{
         // insertAccount(_sponsorKey);
         insertAccount(_agentKey);
 
-        sponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorKey);
-        agentStruct storage  agentRec = getAgentRec(_accountKey, _sponsorKey, _agentKey);
+        SponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorKey);
+        AgentStruct storage  agentRec = getAgentRec(_accountKey, _sponsorKey, _agentKey);
 
         if (!agentRec.inserted) {
             agentRec.index = sponsorRec.agentKeys.length;

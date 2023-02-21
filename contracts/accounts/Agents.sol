@@ -15,8 +15,8 @@ contract Agents is Sponsors {
         insertAccountSponsor(_accountKey, _sponsorKey);
         insertAccount(_agentKey);
 
-        sponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorKey);
-        agentStruct storage  agentRec = getAgentRec(_accountKey, _sponsorKey, _agentKey);
+        SponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorKey);
+        AgentStruct storage  agentRec = getAgentRec(_accountKey, _sponsorKey, _agentKey);
 
         if (!agentRec.inserted) {
             agentRec.index = sponsorRec.agentKeys.length;
@@ -62,16 +62,16 @@ contract Agents is Sponsors {
             return 0;
     }
 
-    function getValidAgentRec(address _accountKey, address _sponsorKey, address _agentKey) internal onlyOwnerOrRootAdmin(_accountKey) returns (agentStruct storage) {
+    function getValidAgentRec(address _accountKey, address _sponsorKey, address _agentKey) internal onlyOwnerOrRootAdmin(_accountKey) returns (AgentStruct storage) {
         if (!isAgentInserted(_accountKey, _sponsorKey, _agentKey)) {
             insertSponsorAgent(_accountKey, _sponsorKey, _agentKey);
         }
         return getAgentRec(_accountKey, _sponsorKey, _agentKey);
      }
 
-    function getAgentRec(address _accountKey, address _sponsorKey, address _agentKey) internal view onlyOwnerOrRootAdmin(_accountKey) returns (agentStruct storage) {
-        sponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorKey);
-        agentStruct storage agentRec = sponsorRec.agentMap[_agentKey];
+    function getAgentRec(address _accountKey, address _sponsorKey, address _agentKey) internal view onlyOwnerOrRootAdmin(_accountKey) returns (AgentStruct storage) {
+        SponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorKey);
+        AgentStruct storage agentRec = sponsorRec.agentMap[_agentKey];
         return agentRec;
      }
 
@@ -93,7 +93,7 @@ contract Agents is Sponsors {
     /// @notice retreives the sponsor array records from a specific account address.
     /// @param _sponsorKey public account key to get Sponsors
     function getAgentList(address _accountKey, address _sponsorKey) internal view onlyOwnerOrRootAdmin(_sponsorKey) returns (address[] memory) {
-        sponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorKey);
+        SponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorKey);
         address[] memory agentKeys = sponsorRec.agentKeys;
         return agentKeys;
     }

@@ -9,10 +9,10 @@ contract DataTypes is KYC {
 
    // Keep track of account insertions
    address[] public accountIndex;
-   mapping(address => accountStruct)  accountMap;
-   mapping(address => agentStruct)  agentMap;
+   mapping(address => AccountStruct)  accountMap;
+   mapping(address => AgentStruct)  agentMap;
 
-   struct accountStruct {
+   struct AccountStruct {
       uint index;
       address account;
       uint insertionTime;
@@ -20,10 +20,10 @@ contract DataTypes is KYC {
       bool verified;
       KYC kyc;
       address[] sponsorKeys;
-      mapping(address => sponsorStruct)  sponsorMap;
+      mapping(address => SponsorStruct)  sponsorMap;
    }
 
-   struct sponsorStruct {
+   struct SponsorStruct {
       uint index;
       address parentAccount;
       address sponsor;
@@ -31,12 +31,12 @@ contract DataTypes is KYC {
       bool inserted;
       bool verified;
       address[] agentKeys;
-      mapping(address => agentStruct) agentMap;
-      rateStruct[] rates;
-      mapping(uint256 => rateStruct) rateMap;
+      mapping(address => AgentStruct) agentMap;
+      RateStruct[] rates;
+      mapping(uint256 => RateStruct) rateMap;
    }
 
-   struct agentStruct {
+   struct AgentStruct {
       uint index;
       address account;
       address parentSponsor;
@@ -44,19 +44,19 @@ contract DataTypes is KYC {
       uint insertionTime;
       bool inserted;
       bool verified;
-      rateStruct[] rates;
-      mapping(uint256 => rateStruct) rateMap;
+      RateStruct[] rates;
+      mapping(uint256 => RateStruct) rateMap;
    }
 
-   struct rateStruct {
+   struct RateStruct {
       uint insertionTime;
       uint lastUpdateTime;
       uint256 totalQuantity;
       uint[] rate;
-      transactionStruct[] transactionChain;
+      TransactionStruct[] transactionChain;
    }
 
-   struct transactionStruct {
+   struct TransactionStruct {
       uint insertionTime;
       int256 quantity;
    }

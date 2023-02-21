@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 const {} = require("./lib/loadTreeStructures");
-const {} = require("./lib/dataTypes");
+const { testHHAccounts } = require("./lib/hhTestAccounts");
 const { 
           setContract,
           insertAccounts,
@@ -8,8 +8,16 @@ const {
           insertAgentAccounts,
           getInsertedAccounts,
           getInsertedAccountSponsors, 
-          getInsertedSponsorAgents
-      } = require("./lib/scAccountMethods");
+          getInsertedSponsorAgents,
+    } = require("./lib/scAccountMethods");
+
+const { AccountStruct,
+        SponsorStruct,
+        AgentStruct,
+        RateStruct,
+        TransactionStruct
+    } = require("./lib/dataTypes");
+
 const {     
     LOG_MODE,
     setLogDefaults,
@@ -68,8 +76,6 @@ describe("spCoinContract", function() {
         await insertAgentAccounts(14, 3, [1, 2]);
         await insertAgentAccounts(0, 2, [6, 7, 16]);
 
-        await loadTreeStructures(spCoinContractDeployed);
+        let accountStruct = await loadTreeStructures(spCoinContractDeployed);
     });
 });
-
- 

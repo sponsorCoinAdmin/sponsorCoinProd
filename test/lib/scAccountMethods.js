@@ -1,7 +1,7 @@
 const { testHHAccounts } = require("./hhTestAccounts");
 
 let spCoinContractDeployed
-setContract = (_spCoinContractDeployed) => {
+setContract = ( _spCoinContractDeployed ) => {
     spCoinContractDeployed = _spCoinContractDeployed
 }
 
@@ -96,7 +96,7 @@ getInsertedSponsorAgents = async(_prefix, _accountKey, _sponsorKey) => {
             insertedSponsorAgents.push(agent);
         }
         return insertedSponsorAgents;
-    }    
+    }
 
 module.exports = {
     setContract,
@@ -105,5 +105,5 @@ module.exports = {
     insertAgentAccounts,
     getInsertedAccounts,
     getInsertedAccountSponsors,
-    getInsertedSponsorAgents
+    getInsertedSponsorAgents,
 }

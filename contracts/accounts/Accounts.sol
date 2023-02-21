@@ -21,7 +21,7 @@ contract Accounts is DataTypes {
     /// @return true if balance is set, false otherwise
     function insertAccount(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) returns (bool) {
          if (!isAccountInserted(_accountKey)) {
-            accountStruct storage accountRec = accountMap[_accountKey];
+            AccountStruct storage accountRec = accountMap[_accountKey];
             accountRec.index = accountIndex.length;
             accountRec.account = _accountKey;
             accountRec.insertionTime = block.timestamp;
@@ -56,7 +56,7 @@ contract Accounts is DataTypes {
 
     /// @notice retreives the account record of a specific account address.
     /// @param _accountKey public account key to set new balance
-    function getAccountRecord(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (accountStruct storage) {
+    function getAccountRecord(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (AccountStruct storage) {
         require (isAccountInserted(_accountKey));
         return accountMap[_accountKey];
     }

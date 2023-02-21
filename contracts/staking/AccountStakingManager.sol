@@ -13,9 +13,9 @@ contract AccountStakingManager is Rates{
 // 3. Update all account balances updateAllSponsorsStakingRewards()
 
 /*
-function allocateStakingRewards() internal view returns(  accountStruct[] memory ){
+function allocateStakingRewards() internal view returns(  AccountStruct[] memory ){
    
-   accountStruct[] memory accountSponsorArray = getSponsorRecords(msg.sender);
+   AccountStruct[] memory accountSponsorArray = getSponsorRecords(msg.sender);
    return accountSponsorArray;
 }
 */// @title A title that should describe the contract/interface
