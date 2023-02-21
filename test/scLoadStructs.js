@@ -20,6 +20,7 @@ const { AccountStruct,
 const {     
     LOG_MODE,
     setLogDefaults,
+    setIndentPrefixLevel,
     logSetup,
     setLogMode,
     logTestHeader,

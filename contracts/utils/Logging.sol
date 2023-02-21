@@ -7,7 +7,6 @@ import "./StringUtils.sol";
 contract Logging is StringUtils{
     bool private logStatus = true;
     string prefix;
-    uint256 logLevel = 0;
  
     constructor()  {
         setLogStatus(true);

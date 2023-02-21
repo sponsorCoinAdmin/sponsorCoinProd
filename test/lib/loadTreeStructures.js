@@ -1,9 +1,9 @@
 const { testHHAccounts, LSA, loadJunk  } = require("./hhTestAccounts");
 const { AccountStruct,
-    SponsorStruct,
-    AgentStruct,
-    RateHeaderStruct,
-    TransactionStruct } = require("./dataTypes");
+        SponsorStruct,
+        AgentStruct,
+        RateHeaderStruct,
+        TransactionStruct } = require("./dataTypes");
 
 let spCoinContractDeployed;
 
@@ -23,6 +23,7 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
     let insertedArrayAccounts = await getInsertedAccounts();
 //    dumpArray("Record ", insertedArrayAccounts);
     let maxCount = insertedArrayAccounts.length;
+    let prefix = "";
 //    logDetail("DUMPING " + maxCount + " ACCOUNT RECORDS");
     for(let idx = 0; idx < maxCount; idx++) {
         let accountKey = insertedArrayAccounts[idx];
@@ -30,7 +31,8 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
 
         accountStruct.index = idx;
         accountStruct.accountKey = accountKey;
-        console.log("accountStruct = \n", accountStruct.toString());
+        logPrefix(prefix, "accountStruct(accountKey) = accountStruct(" + accountKey + ")");
+        logPrefix(prefix, accountStruct.toString(prefix));
 
         accountMap.set(accountKey, accountStruct);
 
@@ -46,6 +48,8 @@ loadAccountSponsors = async(_prefix, _accountKey) => {
     insertedAccountSponsors = await getInsertedAccountSponsors("Sponsor", _accountKey);
     let maxCount = insertedAccountSponsors.length;
     logDetail("   DUMPING " + maxCount + " SPONSOR RECORDS");
+
+    let prefix = setIndentPrefixLevel(_prefix, 2);
     for(let idx = 0; idx < maxCount; idx++) {
         let sponsorKey = insertedAccountSponsors[idx];
         let sponsorIndex = await spCoinContractDeployed.getSponsorIndex(_accountKey, sponsorKey);
@@ -55,11 +59,12 @@ loadAccountSponsors = async(_prefix, _accountKey) => {
         sponsorStruct.index = idx;
         sponsorStruct.parentAccountKey = _accountKey;
         sponsorStruct.sponsorKey = sponsorKey;
-        console.log("sponsorStruct = \n", sponsorStruct.toString());
+        logPrefix(prefix, "sponsorStruct(accountKey) = sponsorStruct(" + sponsorKey + ")");
+        logPrefix(prefix, sponsorStruct.toString(prefix));
 
         sponsorMap.set(sponsorKey, sponsorStruct);
-        log(_prefix + "Sponsor[" + sponsorIndex + "] => Account[" + sponsorActIdx + "]:" + sponsorKey );
-        await loadSponsorAgents("       ", _accountKey, sponsorKey);
+        logPrefix(prefix, "Sponsor[" + sponsorIndex + "] => Account[" + sponsorActIdx + "]:" + sponsorKey);
+        await loadSponsorAgents(_prefix, _accountKey, sponsorKey);
     }
     return insertedAccountSponsors;
 }
@@ -69,6 +74,7 @@ loadSponsorAgents = async(_prefix, _accountKey, _sponsorKey) => {
     let agentMap  = new Map;
     let insertedSponsorAgents = await getInsertedSponsorAgents("Agent", _accountKey, _sponsorKey);
     let maxCount = insertedSponsorAgents.length;
+    let prefix = setIndentPrefixLevel(_prefix, 4);
 //    log("        DUMPING " + maxCount + " AGENT RECORDS FOR SPONSOR " + _sponsorKey);
     for(let idx = 0; idx < maxCount; idx++) {
         let agentKey = insertedSponsorAgents[idx];
@@ -80,10 +86,10 @@ loadSponsorAgents = async(_prefix, _accountKey, _sponsorKey) => {
          agentStruct.accountKey = _accountKey;
          agentStruct.parentSponsorKey = _sponsorKey;
          agentStruct.agentKey = agentKey;
-         console.log("agentStruct = \n", await agentStruct.toString("    "));
+         logPrefix(prefix, "agentStruct = \n", agentStruct.toString(prefix));
 
         agentMap.set(agentKey, agentStruct);
-        log(_prefix + "Agent[" + agentIndex + "] => Account[" + agentActIdx + "]:" + agentKey );
+        logPrefix(_prefix + "Agent[" + agentIndex + "] => Account[" + agentActIdx + "]:" + agentKey);
     }
     return insertedSponsorAgents;
 }

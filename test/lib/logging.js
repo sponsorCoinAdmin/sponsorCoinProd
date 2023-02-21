@@ -13,7 +13,7 @@ const LOG_MODE = {
     LOG_SETUP : "LOG_SETUP"
   }
 
-  setLogDefaults = (log_mode, state) => {
+  setLogDefaults = (_log_mode, _state) => {
 
     LOG = true;
     LOG_DETAIL = false;
@@ -22,67 +22,80 @@ const LOG_MODE = {
     LOG_SETUP = false;
   }
     
-  setLogMode = (log_mode, state) => {
-        console.log("EXECUTING setLogMode = (" + log_mode + ", " + state);
+  setLogMode = (_log_mode, _state) => {
+        console.log("EXECUTING setLogMode = (" + _log_mode + ", " + _state);
 
-    switch(log_mode) {
+    switch(_log_mode) {
         case LOG_MODE.LOG:
-           console.log("Setting log_mode LOG: " + state)
-           LOG = state;
+           console.log("Setting _log_mode LOG: " + _state)
+           LOG = _state;
         break;
         case LOG_MODE.LOG_DETAIL:
-            console.log("Setting log_mode LOG_DETAIL: " + state)
-            LOG_DETAIL = state;
+            console.log("Setting _log_mode LOG_DETAIL: " + _state)
+            LOG_DETAIL = _state;
          break;
          case LOG_MODE.LOG_TEST_HEADER:
-            console.log("Setting log_mode LOG_TEST_HEADER: " + state)
-            LOG_TEST_HEADER = state;
+            console.log("Setting _log_mode LOG_TEST_HEADER: " + _state)
+            LOG_TEST_HEADER = _state;
          break;
          case LOG_MODE.LOG_FUNCTION_HEADER:
-            console.log("Setting log_mode LOG_FUNCTION_HEADER: " + state)
-            LOG_FUNCTION_HEADER = state;
+            console.log("Setting _log_mode LOG_FUNCTION_HEADER: " + _state)
+            LOG_FUNCTION_HEADER = _state;
          break;
          case LOG_MODE.LOG_SETUP:
-            console.log("Setting log_mode LOG_SETUP: " + state)
-            LOG_SETUP = state;
+            console.log("Setting _log_mode LOG_SETUP: " + _state)
+            LOG_SETUP = _state;
          break;
         default:
-        text = "Unknown log_mode " + log_mode;
+        _text = "Unknown _log_mode " + _log_mode;
     }
 }
 
-logSetup = (text) => {
+logSetup = (_text) => {
     if (LOG_SETUP) {
-        log(text);
+        log(_text);
     }
 }
 
-logTestHeader = (testHeader) => {
+logTestHeader = (_testHeader) => {
     if (LOG_TEST_HEADER) {
-        log("=============== TEST HEADER " + testHeader + " ===============");
+        log("=============== TEST HEADER " + _testHeader + " ===============");
     }
 }
 
-logFunctionHeader = (functionHeader) => {
+logFunctionHeader = (_functionHeader) => {
     if (LOG_FUNCTION_HEADER) {
-        log("************** HEADER FUNCTION " + functionHeader + " **************");
+        log("************** HEADER FUNCTION " + _functionHeader + " **************");
     }
 }
 
-logDetail = (details) => {
+logDetail = (_details) => {
     if (LOG_DETAIL) {
-        log(details);
+        log(_details);
     }
 }
 
-log = (text) => {
+log = (_text) => {
     if (LOG) {
-        console.log(text);
+        console.log(_text);
     }
 }
+
+logPrefix = (_prefix, _text) => {
+        log(_prefix + _text);
+}
+
+setIndentPrefixLevel = (_indentPrefix, _level) => {
+    let indent = "";
+    for (let i = 0; i < _level; i++)
+        indent += _indentPrefix;
+    return indent;
+}
+
 module.exports = {
     LOG_MODE,
     setLogDefaults,
+    setIndentPrefixLevel,
     logSetup,
     setLogMode,
     logTestHeader,
