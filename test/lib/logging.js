@@ -4,6 +4,7 @@ let LOG_DETAIL = false;
 let LOG_TEST_HEADER = false;
 let LOG_FUNCTION_HEADER = false;
 let LOG_SETUP = false;
+prefix = "  ";
 
 const LOG_MODE = {
     LOG : "LOG",
@@ -81,8 +82,12 @@ log = (_text) => {
     }
 }
 
+setPrefix = (_prefix) => {
+    this.prefix = _prefix;
+}
+
 logPrefix = (_prefix, _text) => {
-        log(_prefix + _text);
+    log(_prefix + _text);
 }
 
 setIndentPrefixLevel = (_indentPrefix, _level) => {
@@ -94,9 +99,10 @@ setIndentPrefixLevel = (_indentPrefix, _level) => {
 
 module.exports = {
     LOG_MODE,
+    logSetup,
     setLogDefaults,
     setIndentPrefixLevel,
-    logSetup,
+    setPrefix,
     setLogMode,
     logTestHeader,
     logFunctionHeader,

@@ -1,4 +1,4 @@
-const { testHHAccounts, LSA, loadJunk  } = require("./hhTestAccounts");
+const { testHHAccounts, LSA, dumpJunk  } = require("./hhTestAccounts");
 const { AccountStruct,
         SponsorStruct,
         AgentStruct,
@@ -17,8 +17,7 @@ console.log( RateStruct.toString() );
 console.log( TransactionStruct.toString() );
 */
 
-loadTreeStructures = async(_spCoinContractDeployed) => {
-    spCoinContractDeployed = _spCoinContractDeployed;
+dumpTreeStructures = async(accountStruct) => {
     let accountMap  = new Map;
     logFunctionHeader("dumpAccounts = async()");
     log("************************* dumpAccounts() *************************");
@@ -39,13 +38,13 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
         accountMap.set(accountKey, accountStruct);
 
         log("Account[" + idx + "]:" + accountKey );
-        accountStruct.sponsorMap = await loadAccountSponsors(2, accountKey);
+        await dumpAccountSponsors(2, accountKey);
     }
-    return accountMap;
+    return insertedArrayAccounts;
 }
 
-loadAccountSponsors = async(_logLevel, _accountKey) => {
-    logFunctionHeader("loadAccountSponsors = async(" + _accountKey + ")");
+dumpAccountSponsors = async(_logLevel, _accountKey) => {
+    logFunctionHeader("dumpAccountSponsors = async(" + _accountKey + ")");
     let prefix = setIndentPrefixLevel(prefixText, _logLevel);
     let sponsorMap = new Map;
     insertedAccountSponsors = await getInsertedAccountSponsors("Sponsor", _accountKey);
@@ -66,13 +65,13 @@ loadAccountSponsors = async(_logLevel, _accountKey) => {
 
         sponsorMap.set(sponsorKey, sponsorStruct);
         logPrefix(prefix, "Sponsor[" + sponsorIndex + "] => Account[" + sponsorActIdx + "]:" + sponsorKey);
-        sponsorStruct.agentMap = await loadSponsorAgents(_logLevel + indent, _accountKey, sponsorKey);
+        await dumpSponsorAgents(_logLevel + indent, _accountKey, sponsorKey);
     }
-    return sponsorMap;
+    return insertedAccountSponsors;
 }
 
-loadSponsorAgents = async(_logLevel, _accountKey, _sponsorKey) => {
-    logFunctionHeader("loadSponsorAgents = async(" + _accountKey + ", " + _sponsorKey + ")");
+dumpSponsorAgents = async(_logLevel, _accountKey, _sponsorKey) => {
+    logFunctionHeader("dumpSponsorAgents = async(" + _accountKey + ", " + _sponsorKey + ")");
     let prefix = setIndentPrefixLevel(prefixText, _logLevel);
     let agentMap  = new Map;
     let insertedSponsorAgents = await getInsertedSponsorAgents("Agent", _accountKey, _sponsorKey);
@@ -94,11 +93,11 @@ loadSponsorAgents = async(_logLevel, _accountKey, _sponsorKey) => {
         agentMap.set(agentKey, agentStruct);
         logPrefix(prefix, "Agent[" + agentIndex + "] => Account[" + agentActIdx + "]:" + agentKey);
     }
-    return agentMap;
+    return insertedSponsorAgents;
 }
 
 module.exports = {
-    loadTreeStructures,
-    loadAccountSponsors,
-    loadSponsorAgents
+    dumpTreeStructures,
+    dumpAccountSponsors,
+    dumpSponsorAgents
 }

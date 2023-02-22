@@ -19,9 +19,10 @@ const { AccountStruct,
 
 const {     
     LOG_MODE,
+    logSetup,
+    setPrefix,
     setLogDefaults,
     setIndentPrefixLevel,
-    logSetup,
     setLogMode,
     logTestHeader,
     logFunctionHeader,
@@ -77,5 +78,6 @@ describe("spCoinContract", function() {
         await insertAgentAccounts(0, 2, [6, 7, 16]);
 
         let accountStruct = await loadTreeStructures(spCoinContractDeployed);
+//        dumpTreeStructures(accountStruct);
     });
 });

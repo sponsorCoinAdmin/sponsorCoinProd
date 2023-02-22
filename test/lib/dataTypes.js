@@ -9,7 +9,7 @@ class AccountStruct {
         this.verified;
         this.KYC;   
         this.sponsorKeys = [];
-        this.sponsorMap = new Map;
+        this.sponsorMap;
       }
 
       toString = (_prefix) => {
@@ -18,9 +18,9 @@ class AccountStruct {
         str    += _prefix + "insertionTime = " + this.insertionTime + EOLN;
         str    += _prefix + "inserted      = " + this.inserted + EOLN;
         str    += _prefix + "verified      = " + this.verified + EOLN;
-        str    += _prefix + "KYC           = " + this.KYC + EOLN;
-        str    += _prefix + "sponsorKeys   = " + this.sponsorKeys.toString(_prefix) + EOLN;
-        str    += _prefix + "sponsorMap    = " + this.sponsorMap.toString(_prefix) + EOLN;
+        str    += _prefix + "KYC           = " + this.KYC;
+//        str    += _prefix + "sponsorKeys   = " + this.sponsorKeys.toString(_prefix) + EOLN;
+//        str    += _prefix + "sponsorMap    = " + this.sponsorMap.toString(_prefix);
         return(str);
     }
 
@@ -37,7 +37,7 @@ class AccountStruct {
         this.rates;
         this.verified;
         this.agentKeys = [];
-        this.agentMap = new Map;
+        this.agentMap;
     }
 
     toString = (_prefix) => {
@@ -48,9 +48,9 @@ class AccountStruct {
         str    += _prefix + "inserted         = " + this.inserted + EOLN;
         str    += _prefix + "verified         = " + this.verified + EOLN;
         str    += _prefix + "rates            = " + this.rates + EOLN;
-        str    += _prefix + "verified         = " + this.verified + EOLN;
-        str    += _prefix + "agentKeys        = " + this.agentKeys.toString() + EOLN;
-        str    += _prefix + "agentMap         = " + this.agentMap.toString() + EOLN;
+        str    += _prefix + "verified         = " + this.verified;
+        // str    += _prefix + "agentKeys        = " + this.agentKeys.toString() + EOLN;
+        // str    += _prefix + "agentMap         = " + this.agentMap.toString();
         return(str);
     }
 }
@@ -63,8 +63,8 @@ class AgentStruct {
         this.insertionTime
         this.inserted;
         this.verified;
-        this.rates = new Map;
-        this.rateMap = new Map;
+        this.rates;
+        this.rateMap;
     }
     toString = (_prefix) => {
         let str = _prefix + "index            = " + this.index + EOLN;
@@ -73,9 +73,8 @@ class AgentStruct {
         str    += _prefix + "insertionTime    = " + this.insertionTime + EOLN;
         str    += _prefix + "inserted         = " + this.inserted + EOLN;
         str    += _prefix + "verified         = " + this.verified + EOLN;
-        str    += _prefix + "rates            = " + this.rates + EOLN;
-        str    += _prefix + "verified         = " + this.verified + EOLN;
-        str    += _prefix + "rateMap         = " + this.rateMap.toString() + EOLN;
+        str    += _prefix + "rates            = " + this.rates;
+//        str    += _prefix + "rateMap          = " + this.rateMap;
         return(str);
     }
  }
