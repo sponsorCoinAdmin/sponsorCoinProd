@@ -19,7 +19,7 @@ dumpAccounts = async(_spCoinContractDeployed) => {
 
 dumpAccountSponsors = async(_prefix, _accountKey) => {
     logFunctionHeader("dumpAccountSponsors = async(" + _accountKey + ")");
-    insertedAccountSponsors = await getInsertedAccountSponsors("Sponsor", _accountKey);
+    insertedAccountSponsors = await getInsertedAccountSponsors(_accountKey);
     let maxCount = insertedAccountSponsors.length;
     logDetail("   DUMPING " + maxCount + " SPONSOR RECORDS");
     for(let idx = 0; idx < maxCount; idx++) {

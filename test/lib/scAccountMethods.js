@@ -71,14 +71,14 @@ getInsertedAccounts = async() => {
     return insertedArrayAccounts;
 }
 
-getInsertedAccountSponsors = async(_prefix, _accountKey) => {
-    logFunctionHeader("getInsertedAccountSponsors = async(" + _prefix + ", " + _accountKey + ")");
+getInsertedAccountSponsors = async(_accountKey) => {
+    logFunctionHeader("getInsertedAccountSponsors = async(" + _accountKey + ")");
     let maxCount = await spCoinContractDeployed.getSponsorRecordCount(_accountKey);
     
     let insertedAccountSponsors = [];
     for(let idx = 0; idx < maxCount; idx++) {
         let sponsor = await spCoinContractDeployed.getAccountSponsorAddress(_accountKey, idx);
-        logDetail(_prefix + "[" + idx + "]: " + sponsor );
+        logDetail("Sponsor[" + idx + "]: " + sponsor );
         insertedAccountSponsors.push(sponsor);
     }
     return insertedAccountSponsors;

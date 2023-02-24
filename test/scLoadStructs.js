@@ -42,7 +42,7 @@ describe("spCoinContract", function() {
     let msgSender;
     beforeEach(async() =>  {
         spCoinContract = await hre.ethers.getContractFactory("SPCoin");
-        logSetup("JAVASCRIPT => spCoinContract retreived from Factory");
+        logSetup("JAVASCRIPT => spCoinContract retrieved from Factory");
 
         logSetup("JAVASCRIPT => Deploying spCoinContract to Network");
         spCoinContractDeployed = await spCoinContract.deploy();

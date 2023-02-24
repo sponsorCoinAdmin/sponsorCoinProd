@@ -1,0 +1,23 @@
+
+
+  spCoinContract
+true
+DUMP Sponsor Coin Records
+    1) Dump Sponsor Coin Records
+
+
+  0 passing (4s)
+  1 failing
+
+  1) spCoinContract
+       Dump Sponsor Coin Records:
+     ReferenceError: getAccountSponsors is not defined
+      at loadTreeStructures (C:\Users\robin\OneDrive\Dev\gitRepo\sponsorCoin\WIP\dev-contracts-spCoin\test\lib\loadTreeStructures.js:20:31)
+      at processTicksAndRejections (node:internal/process/task_queues:95:5)
+      at runNextTicks (node:internal/process/task_queues:64:3)
+      at listOnTimeout (node:internal/timers:533:9)
+      at processTimers (node:internal/timers:507:7)
+      at Context.<anonymous> (C:\Users\robin\OneDrive\Dev\gitRepo\sponsorCoin\WIP\dev-contracts-spCoin\test\scLoadStructs.js:79:26)
+
+
+

@@ -44,7 +44,6 @@ class SponsorStruct {
     this.agentKeys = {};
     this.agentArr = [];
     this.agentMap = new Map();
-
   }
 
 //   toString = () => {

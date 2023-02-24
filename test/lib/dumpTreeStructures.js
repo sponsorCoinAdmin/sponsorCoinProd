@@ -46,7 +46,7 @@ dumpAccountSponsors = async(_logLevel, _accountKey) => {
     logFunctionHeader("dumpAccountSponsors = async(" + _accountKey + ")");
     let prefix = setIndentPrefixLevel(prefixText, _logLevel);
     let sponsorMap = new Map;
-    insertedAccountSponsors = await getInsertedAccountSponsors("Sponsor", _accountKey);
+    insertedAccountSponsors = await getInsertedAccountSponsors(_accountKey);
     let maxCount = insertedAccountSponsors.length;
     logDetail("   DUMPING " + maxCount + " SPONSOR RECORDS");
 
