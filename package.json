@@ -9,6 +9,7 @@
     "mocha": "^10.2.0"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^4.8.1"
+    "@openzeppelin/contracts": "^4.8.1",
+    "express-ejs-layouts": "^2.5.1"
   }
 }

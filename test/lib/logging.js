@@ -82,10 +82,6 @@ log = (_text) => {
     }
 }
 
-setPrefix = (_prefix) => {
-    this.prefix = _prefix;
-}
-
 logPrefix = (_prefix, _text) => {
     log(_prefix + _text);
 }
@@ -102,7 +98,6 @@ module.exports = {
     logSetup,
     setLogDefaults,
     setIndentPrefixLevel,
-    setPrefix,
     setLogMode,
     logTestHeader,
     logFunctionHeader,

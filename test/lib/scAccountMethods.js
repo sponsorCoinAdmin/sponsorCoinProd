@@ -6,7 +6,6 @@ setContract = ( _spCoinContractDeployed ) => {
 }
 
 insertSponsorAccounts = async(_accountRecIdx, _sponsorArr ) => {
-    console.log ("spCoinContractDeployed = " + spCoinContractDeployed);
     logFunctionHeader("insertSponsorAccounts = async(" + _accountRecIdx + ", " + _sponsorArr + ")");
     let accountRec = testHHAccounts[_accountRecIdx];
 
@@ -16,7 +15,7 @@ insertSponsorAccounts = async(_accountRecIdx, _sponsorArr ) => {
     logDetail ("sponsorCount.length = " + sponsorCount);
     for (let i = 0; i < sponsorCount; i++) {
         let sponsorRec = testHHAccounts[_sponsorArr[i]];
-        console.log("   "+ ++recCount + ". " + "Inserting Sponsor[" + _sponsorArr[i] + "]: " + sponsorRec);
+        logDetail("   "+ ++recCount + ". " + "Inserting Sponsor[" + _sponsorArr[i] + "]: " + sponsorRec);
         await spCoinContractDeployed.insertAccountSponsor(accountRec, sponsorRec);
     }
     sponsorCount = await spCoinContractDeployed.getSponsorRecordCount(accountRec);
@@ -88,11 +87,11 @@ getInsertedAccountSponsors = async(_prefix, _accountKey) => {
 getInsertedSponsorAgents = async(_prefix, _accountKey, _sponsorKey) => {
     //    logFunctionHeader("getInsertedSponsorAgents = async(" + _prefix + ", " + _sponsorKey + ")");
         let maxCount = await spCoinContractDeployed.getAgentRecordCount(_accountKey, _sponsorKey);
-    //    console.log("        JAVASCRIPT => Found " + maxCount + " Agents for Sponsor account " + _sponsorKey)
+    //    logDetail("        JAVASCRIPT => Found " + maxCount + " Agents for Sponsor account " + _sponsorKey)
         let insertedSponsorAgents = [];
         for(let idx = 0; idx < maxCount; idx++) {
             let agent = await spCoinContractDeployed.getAgentKeyAddress(_accountKey, _sponsorKey, idx);
-    //        console.log(_prefix + "[" + idx + "]: " + agent );
+    //        logDetail(_prefix + "[" + idx + "]: " + agent );
             insertedSponsorAgents.push(agent);
         }
         return insertedSponsorAgents;

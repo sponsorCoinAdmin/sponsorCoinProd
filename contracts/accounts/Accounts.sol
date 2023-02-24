@@ -27,10 +27,9 @@ contract Accounts is DataTypes {
             accountRec.insertionTime = block.timestamp;
             accountRec.inserted = true;
             accountIndex.push(_accountKey);
-//            console.log("Inserted Account:",_accountKey);
+//            logDetail("Inserted Account:",_accountKey);
             return true;
          }
-            // console.log("Returning FALSE");
             return false;
     }
 

@@ -20,7 +20,6 @@ const { AccountStruct,
 const {     
     LOG_MODE,
     logSetup,
-    setPrefix,
     setLogDefaults,
     setIndentPrefixLevel,
     setLogMode,
@@ -77,7 +76,113 @@ describe("spCoinContract", function() {
         await insertAgentAccounts(14, 3, [1, 2]);
         await insertAgentAccounts(0, 2, [6, 7, 16]);
 
-        let accountStruct = await loadTreeStructures(spCoinContractDeployed);
-//        dumpTreeStructures(accountStruct);
+        let accountArr = await loadTreeStructures(spCoinContractDeployed);
+        console.log(JSON.stringify(accountArr, null, 2));
+
+
+        // console.log(JSON.stringify(accountMap, null, 4));
+        // console.log ("AAAAAAAAAAAAAAAAAAAAAAAA *** TESTING *** AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        // console.log(accountMap);
+
+        // testMap = new Map;
+
+        // let accountStruct = new AccountStruct(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+        // let sponsorStruct1 = new SponsorStruct(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+        // let sponsorStruct2 = new SponsorStruct(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2);
+        // accountStruct.sponsorMap.set(123, sponsorStruct1);
+        // accountStruct.sponsorMap.set(456, sponsorStruct2);
+        // testMap.set(1, accountStruct);
+        // testMap.set(2, new AccountStruct(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2));
+        // testMap.set(3, new AccountStruct(3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3));
+        // console.log(testMap);
+
+        // console.log("0000000000000000000000000000000000000000000000000000000000000000");
+        // console.log(JSON.stringify(accountMap, null, indent));
+        // console.log("1111111111111111111111111111111111111111111111111111111111111111");
+        // console.log(JSON.stringify(accountMap.entries(), null, indent));
+        // console.log("2222222222222222222222222222222222222222222222222222222222222222");
+        // console.log(JSON.stringify(Array.from(accountMap), null, indent));
+        // console.log("3333333333333333333333333333333333333333333333333333333333333333");
+        // console.log(JSON.parse(JSON.stringify([...accountMap], null, indent)));
+        // console.log("4444444444444444444444444444444444444444444444444444444444444444");
+        // console.log(JSON.parse(JSON.stringify(Array.from(accountMap.entries())), null, indent));
+        // console.log("5555555555555555555555555555555555555555555555555555555555555555");
+        // console.log(JSON.stringify(stringifyMap(accountMap)));
+        // console.log("6666666666666666666666666666666666666666666666666666666666666666");
+        // jsonString = JSON.stringify(serialize(accountMap), null, indent);
+        // jsonString = jsonString.replace(/\\"*/g, '"');
+        // jsonString = jsonString.substring(1, jsonString.length - 1);
+        // jsonString = JSON.parse(jsonString);
+        // console.log(jsonString);
+
+    //    dumpTreeStructures(accountMap);
     });
 });
+
+function stringifyMap(myMap) {
+    function selfIterator(map) {
+        return Array.from(map).reduce((acc, [key, value]) => {
+            if (value instanceof Map) {
+                acc[key] = selfIterator(value);
+            } else {
+                acc[key] = value;
+            }
+
+            return acc;
+        }, {})
+    }
+
+    const res = selfIterator(myMap)
+    return JSON.stringify(res);
+}
+
+const serialize = (value) => JSON.stringify(value, stringifyReplacer);
+const deserialize = (text) => JSON.parse(text, parseReviver);
+
+// License: CC0
+function stringifyReplacer(key, value) {
+  if (typeof value === "object" && value !== null) {
+    if (value instanceof Map) {
+      return {
+        _meta: { type: "map" },
+        value: Array.from(value.entries()),
+      };
+    } else if (value instanceof Set) { // bonus feature!
+      return {
+        _meta: { type: "set" },
+        value: Array.from(value.values()),
+      };
+    } else if ("_meta" in value) {
+      // Escape "_meta" properties
+      return {
+        ...value,
+        _meta: {
+          type: "escaped-meta",
+          value: value["_meta"],
+        },
+      };
+    }
+  }
+  return value;
+}
+
+function parseReviver(key, value) {
+  if (typeof value === "object" && value !== null) {
+    if ("_meta" in value) {
+      if (value._meta.type === "map") {
+        return new Map(value.value);
+      } else if (value._meta.type === "set") {
+        return new Set(value.value);
+      } else if (value._meta.type === "escaped-meta") {
+        // Un-escape the "_meta" property
+        return {
+          ...value,
+          _meta: value._meta.value,
+        };
+      } else {
+        console.warn("Unexpected meta", value._meta);
+      }
+    }
+  }
+  return value;
+}

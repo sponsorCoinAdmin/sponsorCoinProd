@@ -1,26 +1,24 @@
-const { testHHAccounts, LSA, dumpJunk  } = require("./hhTestAccounts");
+const { testHHAccounts } = require("./hhTestAccounts");
 const { AccountStruct,
         SponsorStruct,
         AgentStruct,
         RateHeaderStruct,
-        TransactionStruct } = require("./dataTypes");
+        TransactionStruct,
+        dumpMap } = require("./dataTypes");
 
 let spCoinContractDeployed;
 let prefixText = "  ";
 let indent = 2;
 
-/*
-console.log( AccountStruct.toString() );
-console.log( SponsorStruct.toString() );
-console.log( AgentStruct.toString() );
-console.log( RateStruct.toString() );
-console.log( TransactionStruct.toString() );
-*/
+dumpTreeStructures = async(accountMap) => {
+    dumpMap("accountMap", accountMap);
 
-dumpTreeStructures = async(accountStruct) => {
-    let accountMap  = new Map;
-    logFunctionHeader("dumpAccounts = async()");
-    log("************************* dumpAccounts() *************************");
+    // logFunctionHeader("dumpAccounts = async()");
+    // log("****************************************** dumpAccounts() ******************************************************");
+    // for (const [key, value] of accountMap) { 
+    //     console.log(`The value for key ${key} is ${value}`);
+    // }
+    /*
     let insertedArrayAccounts = await getInsertedAccounts();
 //    dumpArray("Record ", insertedArrayAccounts);
     let maxCount = insertedArrayAccounts.length;
@@ -33,7 +31,7 @@ dumpTreeStructures = async(accountStruct) => {
         accountStruct.index = idx;
         accountStruct.accountKey = accountKey;
         logPrefix(prefix, "accountStruct(accountKey) = accountStruct(" + accountKey + ")");
-        log(accountStruct.toString(prefix + "  "));
+        log(accountStruct.toString());
 
         accountMap.set(accountKey, accountStruct);
 
@@ -41,6 +39,7 @@ dumpTreeStructures = async(accountStruct) => {
         await dumpAccountSponsors(2, accountKey);
     }
     return insertedArrayAccounts;
+    */
 }
 
 dumpAccountSponsors = async(_logLevel, _accountKey) => {
@@ -60,11 +59,11 @@ dumpAccountSponsors = async(_logLevel, _accountKey) => {
         sponsorStruct.index = idx;
         sponsorStruct.parentAccountKey = _accountKey;
         sponsorStruct.sponsorKey = sponsorKey;
-        logPrefix(prefix, "sponsorStruct(sponsorKey) = sponsorStruct(" + sponsorKey + ")");
-        log(sponsorStruct.toString(prefix + "  "));
+        // logPrefix(prefix, "sponsorStruct(sponsorKey) = sponsorStruct(" + sponsorKey + ")");
+        // log(sponsorStruct.toString());
 
         sponsorMap.set(sponsorKey, sponsorStruct);
-        logPrefix(prefix, "Sponsor[" + sponsorIndex + "] => Account[" + sponsorActIdx + "]:" + sponsorKey);
+        // logPrefix(prefix, "Sponsor[" + sponsorIndex + "] => Account[" + sponsorActIdx + "]:" + sponsorKey);
         await dumpSponsorAgents(_logLevel + indent, _accountKey, sponsorKey);
     }
     return insertedAccountSponsors;
@@ -87,11 +86,11 @@ dumpSponsorAgents = async(_logLevel, _accountKey, _sponsorKey) => {
         agentStruct.accountKey = _accountKey;
         agentStruct.parentSponsorKey = _sponsorKey;
         agentStruct.agentKey = agentKey;
-        logPrefix(prefix, "agentStruct(agentKey) = agentStruct(" + agentKey + ")");
-        log(agentStruct.toString(prefix + "  "));
+        // logPrefix(prefix, "agentStruct(agentKey) = agentStruct(" + agentKey + ")");
+        // log(agentStruct.toString();
 
         agentMap.set(agentKey, agentStruct);
-        logPrefix(prefix, "Agent[" + agentIndex + "] => Account[" + agentActIdx + "]:" + agentKey);
+        // logPrefix(prefix, "Agent[" + agentIndex + "] => Account[" + agentActIdx + "]:" + agentKey);
     }
     return insertedSponsorAgents;
 }
