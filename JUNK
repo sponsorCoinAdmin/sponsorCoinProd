@@ -3,21 +3,496 @@
   spCoinContract
 true
 DUMP Sponsor Coin Records
-    1) Dump Sponsor Coin Records
+[
+  {
+    "accountKey": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+    "sponsorKeys": [
+      "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+      "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "0xdD2FD4581271e230360230F9337D5c0430Bf44C0",
+      "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720"
+    ],
+    "sponsorArr": [
+      [
+        {
+          "sponsorKey": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+          "agentKeys": {
+            "0x70997970C51812dc3A010C7d01b50e0d17dc79C8": 0
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 0,
+          "parentAccountKey": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+        },
+        {
+          "sponsorKey": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+          "agentKeys": {
+            "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955": 1
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 1,
+          "parentAccountKey": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+        },
+        {
+          "sponsorKey": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+          "agentKeys": {
+            "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097": 2
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 2,
+          "parentAccountKey": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+        },
+        {
+          "sponsorKey": "0xdD2FD4581271e230360230F9337D5c0430Bf44C0",
+          "agentKeys": {
+            "0xdD2FD4581271e230360230F9337D5c0430Bf44C0": 3
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 3,
+          "parentAccountKey": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+        },
+        {
+          "sponsorKey": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+          "agentKeys": {
+            "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720": 4
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 4,
+          "parentAccountKey": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+        }
+      ]
+    ],
+    "sponsorMap": {},
+    "index": 0
+  },
+  {
+    "accountKey": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+    "sponsorKeys": [
+      "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+      "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+      "0xcd3B766CCDd6AE721141F452C550Ca635964ce71",
+      "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+    ],
+    "sponsorArr": [
+      [
+        {
+          "sponsorKey": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+          "agentKeys": {
+            "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc": 0
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 0,
+          "parentAccountKey": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+        },
+        {
+          "sponsorKey": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+          "agentKeys": {
+            "0x71bE63f3384f5fb98995898A86B02Fb2426c5788": 1
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 1,
+          "parentAccountKey": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+        },
+        {
+          "sponsorKey": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+          "agentKeys": {
+            "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec": 2
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 2,
+          "parentAccountKey": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+        },
+        {
+          "sponsorKey": "0xcd3B766CCDd6AE721141F452C550Ca635964ce71",
+          "agentKeys": {
+            "0xcd3B766CCDd6AE721141F452C550Ca635964ce71": 3
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 3,
+          "parentAccountKey": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+        },
+        {
+          "sponsorKey": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "agentKeys": {
+            "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": 4
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 4,
+          "parentAccountKey": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8"
+        }
+      ]
+    ],
+    "sponsorMap": {},
+    "index": 1
+  },
+  {
+    "accountKey": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+    "sponsorKeys": [],
+    "sponsorArr": [
+      []
+    ],
+    "sponsorMap": {},
+    "index": 2
+  },
+  {
+    "accountKey": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+    "sponsorKeys": [
+      "0xdD2FD4581271e230360230F9337D5c0430Bf44C0",
+      "0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199",
+      "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+      "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+      "0x90F79bf6EB2c4f870365E785982E1f101E93b906"
+    ],
+    "sponsorArr": [
+      [
+        {
+          "sponsorKey": "0xdD2FD4581271e230360230F9337D5c0430Bf44C0",
+          "agentKeys": {
+            "0xdD2FD4581271e230360230F9337D5c0430Bf44C0": 0
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 0,
+          "parentAccountKey": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097"
+        },
+        {
+          "sponsorKey": "0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199",
+          "agentKeys": {
+            "0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199": 1
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 1,
+          "parentAccountKey": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097"
+        },
+        {
+          "sponsorKey": "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955",
+          "agentKeys": {
+            "0x14dC79964da2C08b23698B3D3cc7Ca32193d9955": 2
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 2,
+          "parentAccountKey": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097"
+        },
+        {
+          "sponsorKey": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "agentKeys": {
+            "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": 3
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 3,
+          "parentAccountKey": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097"
+        },
+        {
+          "sponsorKey": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+          "agentKeys": {
+            "0x90F79bf6EB2c4f870365E785982E1f101E93b906": 4
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 4,
+          "parentAccountKey": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097"
+        }
+      ]
+    ],
+    "sponsorMap": {},
+    "index": 3
+  },
+  {
+    "accountKey": "0xdD2FD4581271e230360230F9337D5c0430Bf44C0",
+    "sponsorKeys": [],
+    "sponsorArr": [
+      []
+    ],
+    "sponsorMap": {},
+    "index": 4
+  },
+  {
+    "accountKey": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+    "sponsorKeys": [],
+    "sponsorArr": [
+      []
+    ],
+    "sponsorMap": {},
+    "index": 5
+  },
+  {
+    "accountKey": "0x90F79bf6EB2c4f870365E785982E1f101E93b906",
+    "sponsorKeys": [
+      "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+      "0xbDA5747bFD65F08deb54cb465eB87D40e51B197E",
+      "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+      "0x976EA74026E726554dB657fA54763abd0C3a0aa9"
+    ],
+    "sponsorArr": [
+      [
+        {
+          "sponsorKey": "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097",
+          "agentKeys": {
+            "0xdF3e18d64BC6A983f673Ab319CCaE4f1a57C7097": 0
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 0,
+          "parentAccountKey": "0x90F79bf6EB2c4f870365E785982E1f101E93b906"
+        },
+        {
+          "sponsorKey": "0xbDA5747bFD65F08deb54cb465eB87D40e51B197E",
+          "agentKeys": {
+            "0xbDA5747bFD65F08deb54cb465eB87D40e51B197E": 1
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 1,
+          "parentAccountKey": "0x90F79bf6EB2c4f870365E785982E1f101E93b906"
+        },
+        {
+          "sponsorKey": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+          "agentKeys": {
+            "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65": 2
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 2,
+          "parentAccountKey": "0x90F79bf6EB2c4f870365E785982E1f101E93b906"
+        },
+        {
+          "sponsorKey": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+          "agentKeys": {
+            "0x976EA74026E726554dB657fA54763abd0C3a0aa9": 3
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 3,
+          "parentAccountKey": "0x90F79bf6EB2c4f870365E785982E1f101E93b906"
+        }
+      ]
+    ],
+    "sponsorMap": {},
+    "index": 6
+  },
+  {
+    "accountKey": "0xbDA5747bFD65F08deb54cb465eB87D40e51B197E",
+    "sponsorKeys": [],
+    "sponsorArr": [
+      []
+    ],
+    "sponsorMap": {},
+    "index": 7
+  },
+  {
+    "accountKey": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+    "sponsorKeys": [],
+    "sponsorArr": [
+      []
+    ],
+    "sponsorMap": {},
+    "index": 8
+  },
+  {
+    "accountKey": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788",
+    "sponsorKeys": [
+      "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+      "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+      "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+      "0xdD2FD4581271e230360230F9337D5c0430Bf44C0"
+    ],
+    "sponsorArr": [
+      [
+        {
+          "sponsorKey": "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc",
+          "agentKeys": {
+            "0x9965507D1a55bcC2695C58ba16FB37d819B0A4dc": 0
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 0,
+          "parentAccountKey": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788"
+        },
+        {
+          "sponsorKey": "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720",
+          "agentKeys": {
+            "0xa0Ee7A142d267C1f36714E4a8F75612F20a79720": 1
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 1,
+          "parentAccountKey": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788"
+        },
+        {
+          "sponsorKey": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "agentKeys": {
+            "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266": 2
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 2,
+          "parentAccountKey": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788"
+        },
+        {
+          "sponsorKey": "0xdD2FD4581271e230360230F9337D5c0430Bf44C0",
+          "agentKeys": {
+            "0xdD2FD4581271e230360230F9337D5c0430Bf44C0": 3
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 3,
+          "parentAccountKey": "0x71bE63f3384f5fb98995898A86B02Fb2426c5788"
+        }
+      ]
+    ],
+    "sponsorMap": {},
+    "index": 9
+  },
+  {
+    "accountKey": "0x1CBd3b2770909D4e10f157cABC84C7264073C9Ec",
+    "sponsorKeys": [],
+    "sponsorArr": [
+      []
+    ],
+    "sponsorMap": {},
+    "index": 10
+  },
+  {
+    "accountKey": "0xcd3B766CCDd6AE721141F452C550Ca635964ce71",
+    "sponsorKeys": [],
+    "sponsorArr": [
+      []
+    ],
+    "sponsorMap": {},
+    "index": 11
+  },
+  {
+    "accountKey": "0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199",
+    "sponsorKeys": [],
+    "sponsorArr": [
+      []
+    ],
+    "sponsorMap": {},
+    "index": 12
+  },
+  {
+    "accountKey": "0x15d34AAf54267DB7D7c367839AAf71A00a2C6A65",
+    "sponsorKeys": [],
+    "sponsorArr": [
+      []
+    ],
+    "sponsorMap": {},
+    "index": 13
+  },
+  {
+    "accountKey": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "sponsorKeys": [
+      "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC"
+    ],
+    "sponsorArr": [
+      [
+        {
+          "sponsorKey": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+          "agentKeys": {
+            "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC": 0
+          },
+          "agentArr": [
+            null
+          ],
+          "agentMap": {},
+          "index": 0,
+          "parentAccountKey": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+        }
+      ]
+    ],
+    "sponsorMap": {},
+    "index": 14
+  },
+  {
+    "accountKey": "0x976EA74026E726554dB657fA54763abd0C3a0aa9",
+    "sponsorKeys": [],
+    "sponsorArr": [
+      []
+    ],
+    "sponsorMap": {},
+    "index": 15
+  },
+  {
+    "accountKey": "0xFABB0ac9d68B0B445fB7357272Ff202C5651694a",
+    "sponsorKeys": [],
+    "sponsorArr": [
+      []
+    ],
+    "sponsorMap": {},
+    "index": 16
+  },
+  {
+    "accountKey": "0x2546BcD3c84621e976D8185a91A922aE77ECEc30",
+    "sponsorKeys": [],
+    "sponsorArr": [
+      []
+    ],
+    "sponsorMap": {},
+    "index": 17
+  }
+]
+    √ Dump Sponsor Coin Records (5323ms)
 
 
-  0 passing (4s)
-  1 failing
-
-  1) spCoinContract
-       Dump Sponsor Coin Records:
-     ReferenceError: getAccountSponsors is not defined
-      at loadTreeStructures (C:\Users\robin\OneDrive\Dev\gitRepo\sponsorCoin\WIP\dev-contracts-spCoin\test\lib\loadTreeStructures.js:20:31)
-      at processTicksAndRejections (node:internal/process/task_queues:95:5)
-      at runNextTicks (node:internal/process/task_queues:64:3)
-      at listOnTimeout (node:internal/timers:533:9)
-      at processTimers (node:internal/timers:507:7)
-      at Context.<anonymous> (C:\Users\robin\OneDrive\Dev\gitRepo\sponsorCoin\WIP\dev-contracts-spCoin\test\scLoadStructs.js:79:26)
-
-
+  1 passing (10s)
 
