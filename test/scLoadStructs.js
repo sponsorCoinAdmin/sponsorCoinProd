@@ -1,13 +1,13 @@
 const { expect } = require("chai");
 const {} = require("./lib/loadTreeStructures");
 const { testHHAccounts } = require("./lib/hhTestAccounts");
-const {   setContract,
-          insertAccounts,
-          insertSponsorAccounts,
-          insertAgentAccounts,
-          getInsertedAccounts,
-          getInsertedAccountSponsors, 
-          getInsertedSponsorAgents,
+const { setContract,
+        insertAccounts,
+        insertSponsorAccounts,
+        insertAgentAccounts,
+        getInsertedAccounts,
+        getNetworkSponsorKeys, 
+        getNetworkAgentKeys,
     } = require("./lib/scAccountMethods");
 
 const { AccountStruct,
@@ -79,7 +79,6 @@ describe("spCoinContract", function() {
         let accountArr = await loadTreeStructures(spCoinContractDeployed);
         console.log(JSON.stringify(accountArr, null, 2));
 
-
         // console.log(JSON.stringify(accountMap, null, 4));
         // console.log ("AAAAAAAAAAAAAAAAAAAAAAAA *** TESTING *** AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         // console.log(accountMap);
@@ -115,7 +114,6 @@ describe("spCoinContract", function() {
         // jsonString = JSON.parse(jsonString);
         // console.log(jsonString);
 
-    //    dumpTreeStructures(accountMap);
     });
 });
 

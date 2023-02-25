@@ -4,7 +4,6 @@ const { AccountStruct,
         AgentStruct,
         RateHeaderStruct,
         TransactionStruct } = require("./dataTypes");
-
 let spCoinContractDeployed;
 
 loadTreeStructures = async(_spCoinContractDeployed) => {
@@ -16,12 +15,10 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
     for(let idx = 0; idx < maxCount; idx++) {
         let accountKey = insertedArrayAccounts[idx];
         let accountStruct = new AccountStruct(accountKey);
-        // WIP
-        let accountSponsors = await getNetworkSponsorKeys(accountKey);
 
         accountStruct.index = idx;
         accountStruct.accountKey = accountKey;
-        accountStruct.sponsorKeys = accountSponsors;
+        accountStruct.sponsorKeys = await getNetworkSponsorKeys(accountKey);
         accountStruct.sponsorArr.push(await loadSponsorsByAccount(accountKey));
         accountArr.push(accountStruct);
     }
@@ -35,17 +32,20 @@ loadSponsorsByAccount = async(_accountKey) => {
     return sponsorArr;
 }
 
-loadSponsorsByKeys = async(_accountKey, sponsorKeys) => {    
+loadSponsorsByKeys = async(_accountKey, _sponsorKeys) => {    
     let sponsorArr = [];
-    let maxCount = sponsorKeys.length;
+    let maxCount = _sponsorKeys.length;
     for(let idx = 0; idx < maxCount; idx++) {
-        let sponsorKey = sponsorKeys[idx];
+        let sponsorKey = _sponsorKeys[idx];
         let sponsorIndex = await spCoinContractDeployed.getSponsorIndex(_accountKey, sponsorKey);
         let sponsorActIdx = await spCoinContractDeployed.getAccountIndex(sponsorKey);
         let sponsorStruct = new SponsorStruct(sponsorKey);
         sponsorStruct.index = idx;
         sponsorStruct.parentAccountKey = _accountKey;
         sponsorStruct.sponsorKey = sponsorKey;
+
+        sponsorStruct.agentKeys = loadAgentsByKeys(_accountKey, sponsorKey, agentKeys);
+
         sponsorStruct.agentKeys[sponsorKey] = idx;
         sponsorStruct.agentArr.push(await loadAgentsByAccountSponsor(_accountKey, sponsorKey));
         sponsorArr.push(sponsorStruct);

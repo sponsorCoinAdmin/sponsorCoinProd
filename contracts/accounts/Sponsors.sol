@@ -67,7 +67,7 @@ contract Sponsors is Accounts {
     /// @notice get address for an account sponsor
     /// @param _accountKey public account key to get sponsor array
     /// @param _sponsorIdx new sponsor to add to account list
-    function getAccountSponsorAddress(address _accountKey, uint _sponsorIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
+    function getSponsorKeyAdresss(address _accountKey, uint _sponsorIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         AccountStruct storage accountRec = accountMap[_accountKey];
         address sponsor = accountRec.sponsorKeys[_sponsorIdx];
         return sponsor;

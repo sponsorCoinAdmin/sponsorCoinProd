@@ -1,6 +1,6 @@
 const { testHHAccounts } = require("./hhTestAccounts");
-
 let spCoinContractDeployed
+
 setContract = ( _spCoinContractDeployed ) => {
     spCoinContractDeployed = _spCoinContractDeployed
 }
@@ -71,31 +71,31 @@ getInsertedAccounts = async() => {
     return insertedArrayAccounts;
 }
 
-getInsertedAccountSponsors = async(_accountKey) => {
-    logFunctionHeader("getInsertedAccountSponsors = async(" + _accountKey + ")");
+getNetworkSponsorKeys = async(_accountKey) => {
+    logFunctionHeader("getNetworkSponsorKeys = async(" + _accountKey + ")");
     let maxCount = await spCoinContractDeployed.getSponsorRecordCount(_accountKey);
     
-    let insertedAccountSponsors = [];
+    let sponsorKeys = [];
     for(let idx = 0; idx < maxCount; idx++) {
-        let sponsor = await spCoinContractDeployed.getAccountSponsorAddress(_accountKey, idx);
+        let sponsor = await spCoinContractDeployed.getSponsorKeyAdresss(_accountKey, idx);
         logDetail("Sponsor[" + idx + "]: " + sponsor );
-        insertedAccountSponsors.push(sponsor);
+        sponsorKeys.push(sponsor);
     }
-    return insertedAccountSponsors;
+    return sponsorKeys;
 }
 
-getInsertedSponsorAgents = async(_prefix, _accountKey, _sponsorKey) => {
-    //    logFunctionHeader("getInsertedSponsorAgents = async(" + _prefix + ", " + _sponsorKey + ")");
-        let maxCount = await spCoinContractDeployed.getAgentRecordCount(_accountKey, _sponsorKey);
-    //    logDetail("        JAVASCRIPT => Found " + maxCount + " Agents for Sponsor account " + _sponsorKey)
-        let insertedSponsorAgents = [];
-        for(let idx = 0; idx < maxCount; idx++) {
-            let agent = await spCoinContractDeployed.getAgentKeyAddress(_accountKey, _sponsorKey, idx);
-    //        logDetail(_prefix + "[" + idx + "]: " + agent );
-            insertedSponsorAgents.push(agent);
-        }
-        return insertedSponsorAgents;
+getNetworkAgentKeys = async(_accountKey, _sponsorKey) => {
+    logFunctionHeader("getNetworkAgentKeys = async(" + _accountKey + ", " + _sponsorKey + ")");
+    let maxCount = await spCoinContractDeployed.getAgentRecordCount(_accountKey, _sponsorKey);
+    
+    let agentKeys = [];
+    for(let idx = 0; idx < maxCount; idx++) {
+        let agent = await spCoinContractDeployed.getAgentKeyAddress(_accountKey, _sponsorKey, idx);
+        logDetail("Agent[" + idx + "]: " + agent );
+        agentKeys.push(agent);
     }
+    return agentKeys;
+}
 
 module.exports = {
     setContract,
@@ -103,6 +103,6 @@ module.exports = {
     insertSponsorAccounts,
     insertAgentAccounts,
     getInsertedAccounts,
-    getInsertedAccountSponsors,
-    getInsertedSponsorAgents,
+    getNetworkSponsorKeys,
+    getNetworkAgentKeys,
 }
