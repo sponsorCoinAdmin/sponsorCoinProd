@@ -16,12 +16,11 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
     for(let idx = 0; idx < maxCount; idx++) {
         let accountKey = insertedArrayAccounts[idx];
         let accountStruct = new AccountStruct(accountKey);
-        // WIP
         let accountSponsors = await getNetworkSponsorKeys(accountKey);
 
         accountStruct.index = idx;
         accountStruct.accountKey = accountKey;
-        accountStruct.sponsorKeys = accountSponsors;
+        accountStruct.sponsorKeys = await getNetworkSponsorKeys(accountKey);
         accountStruct.sponsorArr.push(await loadSponsorsByAccount(accountKey));
         accountArr.push(accountStruct);
     }
