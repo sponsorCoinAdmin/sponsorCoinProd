@@ -59,7 +59,8 @@ describe("spCoinContract", function() {
     it("Dump Sponsor Coin Records", async function () {
         log("DUMP Sponsor Coin Records");
         // USAGE: insertSponsorAccounts(_accountRecIdx, _startSpIdx, _lastSpIdx);
-        await insertSponsorAccounts(2, [1, 7, 14, 7, 18, 9]);
+        await insertSponsorAccounts(2, [1, 7, 14, 8, 18, 9]);
+        await insertSponsorAccounts(2, [12]);
         await insertSponsorAccounts(3, [14, 17]);
         await insertSponsorAccounts(1, [5, 11, 13,15]);
         await insertSponsorAccounts(14, [18, 19, 7]);

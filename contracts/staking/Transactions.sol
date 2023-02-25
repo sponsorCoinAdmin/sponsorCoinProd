@@ -1,10 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.6;
 /// @title ERC20 Contract
-import "../accounts/DataTypes.sol";
-import "../accounts/Agents.sol";
+import "./Rates.sol";
 
-contract Transactions is Agents{
+contract Transactions is Rates{
     constructor(){
     }
 }
