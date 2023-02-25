@@ -32,7 +32,7 @@ loadSponsorsByAccount = async(_accountKey) => {
     return sponsorArr;
 }
 
-loadSponsorsByKeys = async(_accountKey, _sponsorKeys) => {    
+loadSponsorsByKeys = async(_accountKey, _sponsorKeys) => {
     let sponsorArr = [];
     let maxCount = sponsorKeys.length;
     for(let idx = 0; idx < maxCount; idx++) {
@@ -44,10 +44,9 @@ loadSponsorsByKeys = async(_accountKey, _sponsorKeys) => {
         sponsorStruct.parentAccountKey = _accountKey;
         sponsorStruct.sponsorKey = sponsorKey;
 
-        //sponsorStruct.agentKeys = loadAgentsByKeys(_accountKey, sponsorKey, agentKeys);
-        sponsorStruct.agentKeys[sponsorKey] = idx;
+        // sponsorStruct.agentKeys = loadAgentsByKeys(_accountKey, sponsorKey, agentKeys);
 
-        sponsorStruct.agentKeys[sponsorKey] = idx;
+        sponsorStruct.agentKeys = await getNetworkAgentKeys(_accountKey, sponsorKey);
         sponsorStruct.agentArr.push(await loadAgentsByAccountSponsor(_accountKey, sponsorKey));
         sponsorArr.push(sponsorStruct);
     }
@@ -78,7 +77,7 @@ loadAgentsByKeys = async(_accountKey, _sponsorKey, agentKeys) => {
 //        agentStruct.agentKeys[agentKey] = idx;
         agentArr.push(agentStruct);
     }
-    agentArr;
+    return agentArr;
 }
 
 module.exports = {
