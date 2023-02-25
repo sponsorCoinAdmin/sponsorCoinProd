@@ -3,8 +3,7 @@ const { AccountStruct,
         SponsorStruct,
         AgentStruct,
         RateHeaderStruct,
-        TransactionStruct,
-        dumpMap } = require("./dataTypes");
+        TransactionStruct} = require("./dataTypes");
 
 let spCoinContractDeployed;
 let prefixText = "  ";

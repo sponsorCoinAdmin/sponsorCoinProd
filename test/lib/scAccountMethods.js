@@ -77,7 +77,7 @@ getNetworkSponsorKeys = async(_accountKey) => {
     
     let sponsorKeys = [];
     for(let idx = 0; idx < maxCount; idx++) {
-        let sponsor = await spCoinContractDeployed.getSponsorKeyAdresss(_accountKey, idx);
+        let sponsor = await spCoinContractDeployed.getSponsorKeyAddress(_accountKey, idx);
         logDetail("Sponsor[" + idx + "]: " + sponsor );
         sponsorKeys.push(sponsor);
     }

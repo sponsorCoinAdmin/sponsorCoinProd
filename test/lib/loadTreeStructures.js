@@ -19,7 +19,7 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
         accountStruct.index = idx;
         accountStruct.accountKey = accountKey;
         accountStruct.sponsorKeys = await getNetworkSponsorKeys(accountKey);
-        accountStruct.sponsorArr.push(await loadSponsorsByAccount(accountKey));
+        accountStruct.sponsorArr = await loadSponsorsByAccount(accountKey);
         accountArr.push(accountStruct);
     }
     return accountArr;
@@ -37,6 +37,7 @@ loadSponsorsByKeys = async(_accountKey, _sponsorKeys) => {
     let maxCount = sponsorKeys.length;
     for(let idx = 0; idx < maxCount; idx++) {
         let sponsorKey = sponsorKeys[idx];
+        let agentKeys = await getNetworkAgentKeys(_accountKey, sponsorKey);
         let sponsorIndex = await spCoinContractDeployed.getSponsorIndex(_accountKey, sponsorKey);
         let sponsorActIdx = await spCoinContractDeployed.getAccountIndex(sponsorKey);
         let sponsorStruct = new SponsorStruct(sponsorKey);
@@ -44,10 +45,8 @@ loadSponsorsByKeys = async(_accountKey, _sponsorKeys) => {
         sponsorStruct.parentAccountKey = _accountKey;
         sponsorStruct.sponsorKey = sponsorKey;
 
-        // sponsorStruct.agentKeys = loadAgentsByKeys(_accountKey, sponsorKey, agentKeys);
-
-        sponsorStruct.agentKeys = await getNetworkAgentKeys(_accountKey, sponsorKey);
-        sponsorStruct.agentArr.push(await loadAgentsByAccountSponsor(_accountKey, sponsorKey));
+        sponsorStruct.agentKeys = agentKeys;
+        sponsorStruct.agentArr = await loadAgentsByKeys(_accountKey, sponsorKey, agentKeys);
         sponsorArr.push(sponsorStruct);
     }
     return sponsorArr;
