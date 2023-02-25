@@ -75,11 +75,12 @@ getNetworkSponsorKeys = async(_accountKey) => {
     logFunctionHeader("getNetworkSponsorKeys = async(" + _accountKey + ")");
     let maxCount = await spCoinContractDeployed.getSponsorRecordCount(_accountKey);
     
-    let sponsorKeys = [];
+    let sponsorKeys = {};
     for(let idx = 0; idx < maxCount; idx++) {
         let sponsor = await spCoinContractDeployed.getSponsorKeyAddress(_accountKey, idx);
         logDetail("Sponsor[" + idx + "]: " + sponsor );
-        sponsorKeys.push(sponsor);
+        sponsorKeys[sponsor] = idx;
+//        sponsorKeys.push(sponsor);
     }
     return sponsorKeys;
 }
@@ -88,11 +89,11 @@ getNetworkAgentKeys = async(_accountKey, _sponsorKey) => {
     logFunctionHeader("getNetworkAgentKeys = async(" + _accountKey + ", " + _sponsorKey + ")");
     let maxCount = await spCoinContractDeployed.getAgentRecordCount(_accountKey, _sponsorKey);
     
-    let agentKeys = [];
+    let agentKeys = {};
     for(let idx = 0; idx < maxCount; idx++) {
         let agent = await spCoinContractDeployed.getAgentKeyAddress(_accountKey, _sponsorKey, idx);
         logDetail("Agent[" + idx + "]: " + agent );
-        agentKeys.push(agent);
+        agentKeys[agent] = idx;
     }
     return agentKeys;
 }

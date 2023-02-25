@@ -35,8 +35,8 @@ loadSponsorsByAccount = async(_accountKey) => {
 loadSponsorsByKeys = async(_accountKey, _sponsorKeys) => {
     let sponsorArr = [];
     let maxCount = sponsorKeys.length;
-    for(let idx = 0; idx < maxCount; idx++) {
-        let sponsorKey = sponsorKeys[idx];
+    for (let [sponsorKey, idx] of Object.entries(_sponsorKeys)) {
+        logDetail(sponsorKey, idx);
         let agentKeys = await getNetworkAgentKeys(_accountKey, sponsorKey);
         let sponsorIndex = await spCoinContractDeployed.getSponsorIndex(_accountKey, sponsorKey);
         let sponsorActIdx = await spCoinContractDeployed.getAccountIndex(sponsorKey);
@@ -57,14 +57,13 @@ loadAgentsByAccountSponsor = async(_accountKey, _sponsorKey) => {
     let agentKeys = await getNetworkAgentKeys(_accountKey, _sponsorKey);
     let agentArr = await loadAgentsByKeys(_accountKey, _sponsorKey, agentKeys);
     return agentArr;
-
 }
 
-loadAgentsByKeys = async(_accountKey, _sponsorKey, agentKeys) => {
+loadAgentsByKeys = async(_accountKey, _sponsorKey, _agentKeys) => {
     let agentArr = [];
-    let maxCount = agentKeys.length;
-    for(let idx = 0; idx < maxCount; idx++) {
-        let agentKey = agentKeys[idx];
+    let maxCount = _agentKeys.length;
+    for (let [agentKey, idx] of Object.entries(_agentKeys)) {
+        logDetail(agentKey, idx);
         let agentIndex = await spCoinContractDeployed.getAgentIndex(_accountKey, _sponsorKey, agentKey);
         let agentActIdx = await spCoinContractDeployed.getAccountIndex(agentKey);
         agentStruct = new AgentStruct(agentKey);
