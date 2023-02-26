@@ -79,6 +79,7 @@ describe("spCoinContract", function () {
     setLogDefaults();
   });
 
+  /**/
   it("Dump Sponsor Coin Records", async function () {
     log("PRINT STRUCTURE TREE TESTS");
     // USAGE: insertSponsorAccounts(_accountRecIdx, _startSpIdx, _lastSpIdx);
@@ -104,6 +105,7 @@ describe("spCoinContract", function () {
     //        console.log(JSON.stringify(accountArr, null, 2));
     dumpStructureTree(accountArr);
   });
+/**/
 
 it("PRINT STRUCTURE ACCOUNT SPONSORS DATA", async function () {
   log("PRINT STRUCTURE ACCOUNT SPONSORS DATA");
