@@ -5,6 +5,22 @@ setContract = ( _spCoinContractDeployed ) => {
     spCoinContractDeployed = _spCoinContractDeployed
 }
 
+insertAccount = async(_accountRecIdx) => {
+    logFunctionHeader("insertAccounts = async(" + _accountRecIdx + ")");
+    let accountRec = testHHAccounts[_accountRecIdx];
+
+    logDetail("For Account[" + _accountRecIdx + "]: " + accountRec + ")");
+    let recCount = 0;
+    for (let i = 0; i < sponsorCount; i++) {
+        let sponsorRec = testHHAccounts[_sponsorArr[i]];
+        logDetail("   "+ ++recCount + ". " + "Inserting Sponsor[" + _sponsorArr[i] + "]: " + sponsorRec);
+        await spCoinContractDeployed.insertAccountSponsor(accountRec, sponsorRec);
+    }
+    sponsorCount = await spCoinContractDeployed.getSponsorRecordCount(accountRec);
+    logDetail("Inserted = " + sponsorCount + " Sponsor Records");
+    return sponsorCount;
+}
+
 insertSponsorAccounts = async(_accountRecIdx, _sponsorArr ) => {
     logFunctionHeader("insertSponsorAccounts = async(" + _accountRecIdx + ", " + _sponsorArr + ")");
     let accountRec = testHHAccounts[_accountRecIdx];
