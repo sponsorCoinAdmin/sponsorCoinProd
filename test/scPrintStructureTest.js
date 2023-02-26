@@ -3,7 +3,7 @@ const {} = require("./lib/loadTreeStructures");
 const { testHHAccounts } = require("./lib/hhTestAccounts");
 const {
   setContract,
-  insertAccounts,
+  insertAccount,
   insertSponsorAccounts,
   insertAgentAccounts,
   getInsertedAccounts,
@@ -79,7 +79,7 @@ describe("spCoinContract", function () {
     setLogDefaults();
   });
 
-  /**/
+  /**
   it("Dump Sponsor Coin Records", async function () {
     log("PRINT STRUCTURE TREE TESTS");
     // USAGE: insertSponsorAccounts(_accountRecIdx, _startSpIdx, _lastSpIdx);
@@ -105,11 +105,13 @@ describe("spCoinContract", function () {
     //        console.log(JSON.stringify(accountArr, null, 2));
     dumpStructureTree(accountArr);
   });
-/**/
+  /**/
 
-it("PRINT STRUCTURE ACCOUNT SPONSORS DATA", async function () {
-  log("PRINT STRUCTURE ACCOUNT SPONSORS DATA");
-  await insertSponsorAccounts(3, [4]);
+  it("PRINT STRUCTURE ACCOUNT SPONSORS DATA", async function () {
+    
+    log("PRINT STRUCTURE ACCOUNT SPONSORS DATA");
+    let recString = await insertAccount(1);
+    console.log("scPrintStructureTest.js, recString:");
+    console.log(recString);
   });
-
 });

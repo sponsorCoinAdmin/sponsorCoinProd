@@ -19,20 +19,28 @@ contract Accounts is DataTypes {
     /// @notice insert address for later recall
     /// @param _accountKey public account key to set new balance
     /// @return true if balance is set, false otherwise
-    function insertAccount(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) returns (bool) {
-         if (!isAccountInserted(_accountKey)) {
+    function insertAccount(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) returns (string memory) {
+        if (!isAccountInserted(_accountKey)) {
             AccountStruct storage accountRec = accountMap[_accountKey];
             accountRec.index = accountIndex.length;
             accountRec.account = _accountKey;
             accountRec.insertionTime = block.timestamp;
             accountRec.inserted = true;
             accountIndex.push(_accountKey);
-//            logDetail("Inserted Account:",_accountKey);
-            return true;
+            console.log("Account.sol: Inserting Account: " , _accountKey);
+            string memory seralizedRec  = serialize(accountRec);
+            console.log("Account.sol: seralizedRec = " , seralizedRec);
+            return seralizedRec;
          }
-            return false;
+            return "";
     }
 
+    function serialize(AccountStruct storage accountRec) private returns (string memory) {
+        // ToDo Remove Next Line and Serialize the AccountRec
+        accountRec.inserted = true;
+        return  "Accounts.sol, ToDo serialize accountRec Class Here";
+    }
+ 
     /// @notice retreives the array index of a specific address.
     /// @param _accountKey public account key to set new balance
     function getAccountIndex(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (uint) {
@@ -59,5 +67,6 @@ contract Accounts is DataTypes {
         require (isAccountInserted(_accountKey));
         return accountMap[_accountKey];
     }
+
 
 }
