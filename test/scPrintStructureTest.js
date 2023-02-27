@@ -79,7 +79,7 @@ describe("spCoinContract", function () {
     setLogDefaults();
   });
 
-  /**/
+  /*
   it("Dump Sponsor Coin Records", async function () {
     log("PRINT STRUCTURE TREE TESTS");
     // USAGE: addNetworkAccountSponsors(_accountRecIdx, _startSpIdx, _lastSpIdx);
@@ -109,8 +109,16 @@ describe("spCoinContract", function () {
 
   it("PRINT STRUCTURE ACCOUNT SPONSORS DATA", async function () {
     log("PRINT STRUCTURE ACCOUNT SPONSORS DATA");
-    let accountKey = testHHAccounts[1];
+    let accountKey = testHHAccounts[0].toLowerCase();
     let recString = await addNetworkAccount(accountKey);
+    let accountStruct = await getNetworkAccountRec(accountKey);
+    console.log(accountStruct.toString());
+    console.log(JSON.stringify(accountStruct, null, 2));
+    console.log("Passed accountKey        = " + accountKey);
+    console.log("accountStruct.accountKey = " + accountStruct.accountKey);
+    let networkAccountKey = accountStruct.accountKey;
+    expect(networkAccountKey).to.equal(accountKey);
+
 //    getAccountRecordCount();
   });
 });

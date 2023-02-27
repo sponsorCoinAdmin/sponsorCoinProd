@@ -1,4 +1,12 @@
 const { testHHAccounts } = require("./hhTestAccounts");
+const {
+  AccountStruct,
+  SponsorStruct,
+  AgentStruct,
+  RateHeaderStruct,
+  TransactionStruct,
+} = require("./dataTypes");
+const { logFunctionHeader } = require("./logging");
 let spCoinContractDeployed;
 
 setContract = (_spCoinContractDeployed) => {
@@ -6,21 +14,77 @@ setContract = (_spCoinContractDeployed) => {
 };
 
 addNetworkAccount = async (accountKey) => {
-  logFunctionHeader("scAccountMethods.js: InsertAccount = async(" + accountKey + ")");
+  logFunctionHeader(
+    "scAccountMethods.js: InsertAccount = async(" + accountKey + ")"
+  );
   console.log("Inserting Account " + accountKey);
   let recString = await spCoinContractDeployed.addNetworkAccount(accountKey);
 };
 
 getNetworkAccountRec = async (accountKey) => {
-  let serializeAccount = await spCoinContractDeployed.getSerializedAccount(accountKey);
+  logFunctionHeader("getNetworkAccountRec = async(" + accountKey + ")");
+  let serializeAccountRec =
+    await spCoinContractDeployed.getSerializedAccountRec(accountKey);
+  logDetail("serializeAccountRec = " + serializeAccountRec);
+  let accountStruct = new AccountStruct(accountKey);
+  let elements = serializeAccountRec.split(",");
+  for (let i = 0; i < elements.length; i++) {
+    let element = elements[i].trim();
+    let keyValue = element.split(":");
+    let key = keyValue[0].trim();
+    let value = keyValue[1].trim();
+    logDetail("key     = " + key);
+    logDetail("value   = " + value);
+    addAccountField(key, value, accountStruct);
+  }
 
-  console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-  console.log("scPrintStructureTest.js, serializeAccount:");
-  console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-  console.log(serializeAccount);
-  console.log("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
-  return recString;
-}
+  logDetail("scPrintStructureTest.js, accountStruct:");
+  logDetail("accountStruct               = " + JSON.stringify(accountStruct));
+  logDetail(
+    "============================================================================"
+  );
+  return accountStruct;
+};
+
+addAccountField = (key, value, accountStruct) => {
+  logFunctionHeader("addAccountField = (" + key + "," + value + ")");
+  switch (key.trim()) {
+    case "index":
+      logDetail("setting accountStruct.index = " + value);
+      accountStruct.index = value;
+      break;
+    case "accountKey":
+      logDetail("setting accountStruct.index = " + value);
+      accountStruct.accountKey = value;
+      break;
+    case "insertionTime":
+      logDetail("setting accountStruct.insertionTime = " + value);
+      accountStruct.insertionTime = value;
+      break;
+    case "inserted":
+      logDetail("setting accountStruct.inserted = " + value);
+      accountStruct.inserted = value;
+      break;
+    case "verified":
+      logDetail("setting accountStruct.verified = " + value);
+      accountStruct.verified = value;
+      break;
+    case "KYC":
+      logDetail("setting accountStruct.KYC = " + value);
+      accountStruct.KYC = value;
+      break;
+    case "sponsorKeys":
+      logDetail("setting accountStruct.sponsorKeys = " + value);
+      accountStruct.sponsorKeys = value;
+      break;
+    case "sponsorArr":
+      logDetail("setting accountStruct.sponsorArr = " + value);
+      accountStruct.sponsorArr = value;
+      break;
+    default:
+      break;
+  }
+};
 
 addNetworkAccountSponsors = async (_testAccountHHIdx, _sponsorArr) => {
   logFunctionHeader(

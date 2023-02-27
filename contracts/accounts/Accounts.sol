@@ -23,7 +23,7 @@ contract Accounts is DataTypes {
         if (!isAccountInserted(_accountKey)) {
             AccountStruct storage accountRec = accountMap[_accountKey];
             accountRec.index = accountIndex.length;
-            accountRec.account = _accountKey;
+            accountRec.accountKey = _accountKey;
             accountRec.insertionTime = block.timestamp;
             accountRec.inserted = true;
             accountIndex.push(_accountKey);
@@ -63,7 +63,7 @@ contract Accounts is DataTypes {
 
     /// @notice retreives the account record of a specific account address.
     /// @param _accountKey public account key to set new balance
-    function getSerializedAccount(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (string memory) {
+    function getSerializedAccountRec(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (string memory) {
         require (isAccountInserted(_accountKey));
         return serialize(accountMap[_accountKey]);
     }
@@ -71,15 +71,19 @@ contract Accounts is DataTypes {
     function serialize(AccountStruct storage accountRec) private view returns (string memory) {
         // ToDo Remove Next Line and Serialize the AccountRec
         string memory index = concat("index: ", toString(accountRec.index));
-        string memory addr = concat("address: ", toString(accountRec.account));
+        string memory addr = concat("accountKey: ", toString(accountRec.accountKey));
         string memory insertionTime = concat("insertionTime: ", toString(accountRec.insertionTime));
-        string memory verified = concat("verified: ", toString(accountRec.inserted));       
+        string memory verified = concat("verified: ", toString(accountRec.verified));       
         string memory seralized = concat(index, ",", addr, ",", insertionTime);
         seralized = concat(seralized, ",", verified);
         seralized = string(abi.encodePacked(index, ",\n",
                                             addr, ",\n",
                                             insertionTime, ",\n",
                                             verified));
+
+        console.log("accountRec.accountKey:", accountRec.accountKey);
+        console.log("toString(accountRec.accountKey)", toString(accountRec.accountKey));
+
         return  seralized;
         // return  "QWERTYUIOP";
     }

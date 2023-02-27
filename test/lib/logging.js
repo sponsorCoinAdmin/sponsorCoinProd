@@ -93,6 +93,11 @@ setIndentPrefixLevel = (_indentPrefix, _level) => {
     return indent;
 }
 
+logAccount = (_accountRec) => {
+    console.log("ACCOUNT RECORD DUMP");
+    console.log(JSON.stringify(_accountRec, null, 2));
+}
+
 module.exports = {
     LOG_MODE,
     logSetup,

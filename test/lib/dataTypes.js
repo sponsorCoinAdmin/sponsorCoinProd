@@ -2,9 +2,9 @@ let prefix = "";
 let indentation = 2;
 
 class AccountStruct {
-  constructor(_accountKey) {
+  constructor() {
     this.index;
-    this.accountKey = _accountKey;
+    this.accountKey;
     this.insertionTime;
     this.inserted;
     this.verified;
@@ -12,13 +12,15 @@ class AccountStruct {
     this.sponsorKeys;
     this.sponsorArr;
   }
+
+  
 }
 
 class SponsorStruct {
-  constructor(_sponsorKey) {
+  constructor() {
     this.index;
     this.parentAccountKey;
-    this.sponsorKey = _sponsorKey;
+    this.sponsorKey;
     this.insertionTime;
     this.inserted;
     this.verified;
@@ -30,10 +32,10 @@ class SponsorStruct {
 }
 
 class AgentStruct {
-  constructor(_agentKey) {
+  constructor() {
     this.index;
     this.parentSponsorKey;
-    this.agentKey = _agentKey;
+    this.agentKey;
     this.insertionTime;
     this.inserted;
     this.verified;
@@ -42,7 +44,7 @@ class AgentStruct {
 }
 
 class RateHeaderStruct {
-  constructor(_rate) {
+  constructor() {
     this.insertionTime;
     this.lastUpdateTime;
     this.totalQuantity;
@@ -51,9 +53,9 @@ class RateHeaderStruct {
 }
 
 class TransactionStruct {
-  constructor(_quantity) {
+  constructor() {
     this.insertionTime;
-    this.quantity = _quantity;
+    this.quantity;
   }
 }
 

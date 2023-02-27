@@ -14,7 +14,7 @@ contract DataTypes is KYC {
 
    struct AccountStruct {
       uint index;
-      address account;
+      address accountKey;
       uint insertionTime;
       bool inserted;
       bool verified;
