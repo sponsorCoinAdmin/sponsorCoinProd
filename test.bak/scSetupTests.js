@@ -18,7 +18,7 @@ let sponsor;
 let agent;
 //let scTree[] = {account, sponsor, agent};
 
-logSetup("JAVASCRIPT => Setup Test");
+logSetup("JS => Setup Test");
 
 let spCoinContractDeployed;
 describe("spCoinContract", function() {
@@ -26,14 +26,14 @@ describe("spCoinContract", function() {
     let msgSender;
     beforeEach(async() =>  {
         spCoinContract = await hre.ethers.getContractFactory("SPCoin");
-        logSetup("JAVASCRIPT => spCoinContract retreived from Factory");
+        logSetup("JS => spCoinContract retreived from Factory");
 
-        logSetup("JAVASCRIPT => Deploying spCoinContract to Network");
+        logSetup("JS => Deploying spCoinContract to Network");
         spCoinContractDeployed = await spCoinContract.deploy();
-        logSetup("JAVASCRIPT => spCoinContract is being mined");
+        logSetup("JS => spCoinContract is being mined");
 
         await spCoinContractDeployed.deployed();
-        logSetup("JAVASCRIPT => spCoinContract Deployed to Network");
+        logSetup("JS => spCoinContract Deployed to Network");
         msgSender = await spCoinContractDeployed.msgSender();
 
         setContract(spCoinContractDeployed);
@@ -53,11 +53,11 @@ describe("spCoinContract", function() {
         let testTotalSupply = 10 * 10**testDecimals;
         let testMsgSender   = testHHAccounts[0];
         await spCoinContractDeployed.initToken(testName,  testSymbol, testDecimals, testTotalSupply);
-        logDetail("JAVASCRIPT => MsgSender = " + msgSender);
-        logDetail("JAVASCRIPT => Name      = " + await spCoinContractDeployed.name());
-        logDetail("JAVASCRIPT => Symbol    = " + await spCoinContractDeployed.symbol());
-        logDetail("JAVASCRIPT => Decimals  = " + await spCoinContractDeployed.decimals());
-        logDetail("JAVASCRIPT => balanceOf = " + await spCoinContractDeployed.balanceOf(msgSender));
+        logDetail("JS => MsgSender = " + msgSender);
+        logDetail("JS => Name      = " + await spCoinContractDeployed.name());
+        logDetail("JS => Symbol    = " + await spCoinContractDeployed.symbol());
+        logDetail("JS => Decimals  = " + await spCoinContractDeployed.decimals());
+        logDetail("JS => balanceOf = " + await spCoinContractDeployed.balanceOf(msgSender));
         expect(await spCoinContractDeployed.msgSender()).to.equal(testMsgSender);
         expect(await spCoinContractDeployed.name()).to.equal(testName);
         expect(await spCoinContractDeployed.symbol()).to.equal(testSymbol);
@@ -71,20 +71,20 @@ describe("spCoinContract", function() {
         let account = testHHAccounts[0];
         let recCount = await spCoinContractDeployed.getAccountRecordCount();
         expect(recCount).to.equal(0);
-        logDetail("JAVASCRIPT => ** Before Inserted Record Count = " + recCount);
+        logDetail("JS => ** Before Inserted Record Count = " + recCount);
         let isAccountInserted = await spCoinContractDeployed.isAccountInserted(account);
-        logDetail("JAVASCRIPT => Address "+ account + " Before Inserted Record Found = " + isAccountInserted);
+        logDetail("JS => Address "+ account + " Before Inserted Record Found = " + isAccountInserted);
         await spCoinContractDeployed.addNetworkAccount(account);
         isAccountInserted = await spCoinContractDeployed.isAccountInserted(account);
-        logDetail("JAVASCRIPT => Address "+ account + " After Inserted Record Found = " + isAccountInserted);
+        logDetail("JS => Address "+ account + " After Inserted Record Found = " + isAccountInserted);
         recCount = await spCoinContractDeployed.getAccountRecordCount();
-        logDetail("JAVASCRIPT => ** After Inserted Record Count = " + await recCount);        
+        logDetail("JS => ** After Inserted Record Count = " + await recCount);        
         expect(recCount).to.equal(1);
     });
 
     it("Insertion 20 Hardhat Accounts for Validation", async function () {
         logTestHeader("ADD MORE HARDHAT ACCOUNTS")
-        await addNetworkAccounts(testHHAccounts);
+        await addNetworkSponsorAgents(testHHAccounts);
 
         logDetail("*** RETRIEVE ALL INSERTED RECORDS FROM THE BLOCKCHAIN ***")
         let insertedArrayAccounts = await getNetworkAccounts();
@@ -95,17 +95,17 @@ describe("spCoinContract", function() {
         for(idx = 0; idx < insertedRecCount; idx++) {
             expect(testHHAccounts[idx]).to.equal(insertedArrayAccounts[idx]);
             account = insertedArrayAccounts[idx];
-            logDetail("JAVASCRIPT => Address Retrieved from Block Chain at Index " + idx + "  = "+ account );
+            logDetail("JS => Address Retrieved from Block Chain at Index " + idx + "  = "+ account );
         }
     });
     
-    it("Insert 4 Sponsor Coin Records 1 caaount, 1 sponsor and 2 Agents", async function () {
+    it("Insert 4 Sponsor Coin Records 1 count, 1 sponsor and 2 Agents", async function () {
         logTestHeader("TEST MORE HARDHAT SPONSOR RECORD INSERTIONS")
 
         logDetail("*** Insert Sponsor to AccountRecord[2] as AccountRecord[5] ***")
         let startRec = 4;
         let endRec = 15;
-        await addNetworkAccounts(3, 6, [1, 2]);
+        await addNetworkSponsorAgents(3, 6, [1, 2]);
         let insertCount = await spCoinContractDeployed.getAccountRecordCount();
         expect(insertCount).to.equal(4);
     });

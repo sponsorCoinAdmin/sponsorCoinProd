@@ -12,7 +12,7 @@ contract Agents is Sponsors, HelloWorld {
     /// @param _accountKey public Sponsor Coin Account Key
     /// @param _sponsorKey public account key to get sponsor array
     /// @param _agentKey new sponsor to add to account list
-    function insertSponsorAgent(address _accountKey, address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(msg.sender) returns (bool) {
+    function insertSponsorAgent(address _accountKey, address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(msg.sender) {
         insertAccountSponsor(_accountKey, _sponsorKey);
         addNetworkAccount(_agentKey);
 
@@ -27,11 +27,7 @@ contract Agents is Sponsors, HelloWorld {
             agentRec.agent    = _agentKey;
             agentRec.inserted = true;
             sponsorRec.agentKeys.push(_agentKey);
-            return true;
         }
-
-//        accountRec.agents.push(_agentKey);
-        return true;
     }
 
     /// @notice determines if agent address is inserted in account.sponsor.agent.map

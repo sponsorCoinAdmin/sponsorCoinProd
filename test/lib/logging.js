@@ -24,7 +24,7 @@ const LOG_MODE = {
   }
     
   setLogMode = (_log_mode, _state) => {
-        console.log("EXECUTING setLogMode = (" + _log_mode + ", " + _state);
+    console.log("EXECUTING setLogMode = (" + _log_mode + ", " + _state + ")");
 
     switch(_log_mode) {
         case LOG_MODE.LOG:
@@ -93,13 +93,14 @@ setIndentPrefixLevel = (_indentPrefix, _level) => {
     return indent;
 }
 
-logAccount = (_accountRec) => {
+logAccountStructure = (_accountRec) => {
     console.log("ACCOUNT RECORD DUMP");
     console.log(JSON.stringify(_accountRec, null, 2));
 }
 
 module.exports = {
     LOG_MODE,
+    logAccountStructure,
     logSetup,
     setLogDefaults,
     setIndentPrefixLevel,

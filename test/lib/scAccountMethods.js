@@ -17,15 +17,15 @@ addNetworkAccount = async (accountKey) => {
   logFunctionHeader(
     "scAccountMethods.js: InsertAccount = async(" + accountKey + ")"
   );
-  console.log("Inserting Account " + accountKey);
+  logDetail("Inserting Account " + accountKey + " To Blockchain Network");
   let recString = await spCoinContractDeployed.addNetworkAccount(accountKey);
 };
 
 getNetworkAccountRec = async (accountKey) => {
   logFunctionHeader("getNetworkAccountRec = async(" + accountKey + ")");
   let serializeAccountRec =
-    await spCoinContractDeployed.getSerializedAccountRec(accountKey);
-  logDetail("serializeAccountRec = " + serializeAccountRec);
+  await spCoinContractDeployed.getSerializedAccountRec(accountKey);
+  logDetail("serializeAccountRec:\n" + serializeAccountRec);
   let accountStruct = new AccountStruct(accountKey);
   let elements = serializeAccountRec.split(",");
   for (let i = 0; i < elements.length; i++) {
@@ -33,13 +33,13 @@ getNetworkAccountRec = async (accountKey) => {
     let keyValue = element.split(":");
     let key = keyValue[0].trim();
     let value = keyValue[1].trim();
-    logDetail("key     = " + key);
-    logDetail("value   = " + value);
+    // logDetail("key     = " + key);
+    // logDetail("value   = " + value);
     addAccountField(key, value, accountStruct);
   }
 
   logDetail("scPrintStructureTest.js, accountStruct:");
-  logDetail("accountStruct               = " + JSON.stringify(accountStruct));
+  logDetail("accountStruct               = " + JSON.stringify(accountStruct,0,2));
   logDetail(
     "============================================================================"
   );
@@ -87,13 +87,7 @@ addAccountField = (key, value, accountStruct) => {
 };
 
 addNetworkAccountSponsors = async (_testAccountHHIdx, _sponsorArr) => {
-  logFunctionHeader(
-    "addNetworkAccountSponsors = async(" +
-      _testAccountHHIdx +
-      ", " +
-      _sponsorArr +
-      ")"
-  );
+  logFunctionHeader("addNetworkAccountSponsors = async(" + _testAccountHHIdx + ", " + _sponsorArr + ")" );
   let accountKey = testHHAccounts[_testAccountHHIdx];
 
   logDetail("For Account[" + _testAccountHHIdx + "]: " + accountKey + ")");
@@ -102,15 +96,7 @@ addNetworkAccountSponsors = async (_testAccountHHIdx, _sponsorArr) => {
   logDetail("sponsorCount.length = " + sponsorCount);
   for (let i = 0; i < sponsorCount; i++) {
     let sponsorRec = testHHAccounts[_sponsorArr[i]];
-    logDetail(
-      "   " +
-        ++recCount +
-        ". " +
-        "Inserting Sponsor[" +
-        _sponsorArr[i] +
-        "]: " +
-        sponsorRec
-    );
+    logDetail( "   " + ++recCount +  ". " + "Inserting Sponsor[" + _sponsorArr[i] + "]: " + sponsorRec );
     await spCoinContractDeployed.insertAccountSponsor(accountKey, sponsorRec);
   }
   sponsorCount = await spCoinContractDeployed.getSponsorRecordCount(accountKey);
@@ -118,60 +104,46 @@ addNetworkAccountSponsors = async (_testAccountHHIdx, _sponsorArr) => {
   return sponsorCount;
 };
 
-addNetworkAccounts = async (_testAccountHHIdx, _sponsorRecIdx, _agentArr) => {
-  logFunctionHeader(
-    "addNetworkAccounts = async(" + _sponsorRecIdx + ", " + _agentArr + ")"
-  );
+addNetworkSponsorAgents = async (_testAccountHHIdx, _sponsorRecIdx, _agentArr) => {
+  logFunctionHeader( "addNetworkSponsorAgents = async(" + _sponsorRecIdx + ", " + _agentArr + ")" );
   let accountRec = testHHAccounts[_testAccountHHIdx];
   let sponsorRec = testHHAccounts[_sponsorRecIdx];
   let prefix = "        ";
-  logDetail(
-    prefix + "For Account [" + _testAccountHHIdx + "]: " + accountRec + ")"
-  );
-  logDetail(
-    prefix + "For Sponsor [" + _sponsorRecIdx + "]: " + sponsorRec + ")"
-  );
+  logDetail( prefix + "For Account [" + _testAccountHHIdx + "]: " + accountRec + ")" );
+  logDetail( prefix + "For Sponsor [" + _sponsorRecIdx + "]: " + sponsorRec + ")" );
   let recCount = 0;
   let agentCount = _agentArr.length;
   logDetail("_agentArr = " + _agentArr);
   logDetail("agentCount.length = " + agentCount);
   for (let i = 0; i < agentCount; i++) {
     let agentRec = testHHAccounts[_agentArr[i]];
-    logDetail(
-      prefix +
-        ++recCount +
-        ". " +
-        "Inserting Agent[" +
-        _agentArr[i] +
-        "]: " +
-        agentRec
-    );
-    await spCoinContractDeployed.insertSponsorAgent(
-      accountRec,
-      sponsorRec,
-      agentRec
-    );
+    logDetail( prefix + ++recCount +  ". " + "Inserting Agent[" + _agentArr[i] + "]: " + agentRec );
+    await spCoinContractDeployed.insertSponsorAgent( accountRec, sponsorRec, agentRec );
   }
-  agentCount = await spCoinContractDeployed.getAgentRecordCount(
-    accountRec,
-    sponsorRec
-  );
+  agentCount = await spCoinContractDeployed.getAgentRecordCount( accountRec, sponsorRec );
   logDetail(prefix + "Inserted = " + agentCount + " Agent Records");
   return agentCount;
 };
 
 addNetworkAccounts = async (_arrayAccounts) => {
-  logFunctionHeader("addNetworkAccounts = async(arrayAccounts)");
+  logFunctionHeader("addNetworkAccount = async(arrayAccounts)");
   let recCount = _arrayAccounts.length;
-  logDetail("Inserting " + recCount + " Records to Blockchain");
+  logDetail("Inserting " + recCount + " Records to Blockchain Network");
 
   for (idx = 0; idx < recCount; idx++) {
-    let account = _arrayAccounts[idx];
+    let account = testHHAccounts[idx];
     logDetail("Inserting " + idx + ", " + account);
     await spCoinContractDeployed.addNetworkAccount(account);
   }
-  logDetail("JAVASCRIPT => ** Inserted " + recCount + " Accounts");
+  logDetail("JS => Inserted " + recCount + " Accounts to Blockchain Network");
+
   return recCount;
+};
+
+addNetworkAccount = async (_accountKey) => {
+  logFunctionHeader("addNetworkAccount = async(arrayAccounts)");
+  await spCoinContractDeployed.addNetworkAccount(_accountKey);
+  logDetail("JS => ** Inserted Account " + _accountKey);
 };
 
 getNetworkAccounts = async () => {
@@ -181,11 +153,17 @@ getNetworkAccounts = async () => {
   var insertedArrayAccounts = [];
   for (idx = 0; idx < maxCount; idx++) {
     let account = await spCoinContractDeployed.getAccount(idx);
-    logDetail("JAVASCRIPT => Address at Index " + idx + "  = " + account);
+    logDetail("JS => Address at Index " + idx + "  = " + account);
     insertedArrayAccounts.push(account);
   }
   return insertedArrayAccounts;
 };
+
+getAccountRecordCount = async () => {
+  let recCount = await spCoinContractDeployed.getAccountRecordCount();
+  logDetail("JS => Found " + recCount + " Account Records");
+  return recCount;
+}
 
 getNetworkSponsorKeys = async (_accountKey) => {
   logFunctionHeader("getNetworkSponsorKeys = async(" + _accountKey + ")");
@@ -232,7 +210,7 @@ module.exports = {
   setContract,
   addNetworkAccount,
   addNetworkAccountSponsors,
-  addNetworkAccounts,
+  addNetworkSponsorAgents,
   getNetworkAccounts,
   getNetworkSponsorKeys,
   getNetworkAgentKeys,
