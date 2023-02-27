@@ -34,8 +34,8 @@ SPCoin
 To Add a Sponsor Account Agent, add the following:
 Add a Rate Record to Agent
 
-Using: insertAgentAccounts(Account, Sponsor, [Agents])
-Example: insertAgentAccounts(1, 2, [6]); 
+Using: addNetworkAccounts(Account, Sponsor, [Agents])
+Example: addNetworkAccounts(1, 2, [6]); 
 
 Add a Rate Record to Sponsor
 ================================================

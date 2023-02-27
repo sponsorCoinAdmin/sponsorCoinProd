@@ -57,7 +57,7 @@ contract Token is AccountStakingManager{
     function _transfer(address _from, address _to, uint256 _value) internal {
         // Ensure sending is to valid address! 0x0 address cane be used to burn() 
         require(_to != address(0));
-        insertAccount(_to);
+        addNetworkAccount(_to);
         balanceOf[_from] = balanceOf[_from] - (_value);
         balanceOf[_to] = balanceOf[_to] + (_value);
         emit Transfer(_from, _to, _value);

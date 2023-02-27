@@ -14,7 +14,7 @@ contract Agents is Sponsors, HelloWorld {
     /// @param _agentKey new sponsor to add to account list
     function insertSponsorAgent(address _accountKey, address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(msg.sender) returns (bool) {
         insertAccountSponsor(_accountKey, _sponsorKey);
-        insertAccount(_agentKey);
+        addNetworkAccount(_agentKey);
 
         SponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorKey);
         AgentStruct storage  agentRec = getAgentRec(_accountKey, _sponsorKey, _agentKey);

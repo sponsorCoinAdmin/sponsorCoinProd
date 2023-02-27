@@ -11,8 +11,8 @@ contract Sponsors is Accounts {
     /// @param _accountKey public account key to get sponsor array
     /// @param _sponsorKey new sponsor to add to account list
     function insertAccountSponsor(address _accountKey, address _sponsorKey) public onlyOwnerOrRootAdmin(_accountKey) returns (bool) {
-        insertAccount(_accountKey);
-        insertAccount(_sponsorKey);
+        addNetworkAccount(_accountKey);
+        addNetworkAccount(_sponsorKey);
         AccountStruct storage accountRec = accountMap[_accountKey];
         SponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorKey);
         if (!sponsorRec.inserted) {

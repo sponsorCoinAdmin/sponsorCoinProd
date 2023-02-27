@@ -5,21 +5,26 @@ setContract = (_spCoinContractDeployed) => {
   spCoinContractDeployed = _spCoinContractDeployed;
 };
 
-insertAccount = async (_testAccountHHIdx) => {
-  logFunctionHeader("scAccountMethods.js: InsertAccount = async(" + _testAccountHHIdx + ")");
-  let accountKey = testHHAccounts[_testAccountHHIdx];
-
+addNetworkAccount = async (accountKey) => {
+  logFunctionHeader("scAccountMethods.js: InsertAccount = async(" + accountKey + ")");
   console.log("Inserting Account " + accountKey);
-  recString = await spCoinContractDeployed.insertAccount(accountKey);
-  let helloWorld = await spCoinContractDeployed.sayHelloWorld();
-  console.log("ZZZZ HelloWorld " + helloWorld);
-
-  return recString;
+  let recString = await spCoinContractDeployed.addNetworkAccount(accountKey);
 };
 
-insertSponsorAccounts = async (_testAccountHHIdx, _sponsorArr) => {
+getNetworkAccountRec = async (accountKey) => {
+  let serializeAccount = await spCoinContractDeployed.getSerializedAccount(accountKey);
+
+  console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+  console.log("scPrintStructureTest.js, serializeAccount:");
+  console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+  console.log(serializeAccount);
+  console.log("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
+  return recString;
+}
+
+addNetworkAccountSponsors = async (_testAccountHHIdx, _sponsorArr) => {
   logFunctionHeader(
-    "insertSponsorAccounts = async(" +
+    "addNetworkAccountSponsors = async(" +
       _testAccountHHIdx +
       ", " +
       _sponsorArr +
@@ -49,9 +54,9 @@ insertSponsorAccounts = async (_testAccountHHIdx, _sponsorArr) => {
   return sponsorCount;
 };
 
-insertAgentAccounts = async (_testAccountHHIdx, _sponsorRecIdx, _agentArr) => {
+addNetworkAccounts = async (_testAccountHHIdx, _sponsorRecIdx, _agentArr) => {
   logFunctionHeader(
-    "insertAgentAccounts = async(" + _sponsorRecIdx + ", " + _agentArr + ")"
+    "addNetworkAccounts = async(" + _sponsorRecIdx + ", " + _agentArr + ")"
   );
   let accountRec = testHHAccounts[_testAccountHHIdx];
   let sponsorRec = testHHAccounts[_sponsorRecIdx];
@@ -91,22 +96,22 @@ insertAgentAccounts = async (_testAccountHHIdx, _sponsorRecIdx, _agentArr) => {
   return agentCount;
 };
 
-insertAccounts = async (_arrayAccounts) => {
-  logFunctionHeader("insertAccounts = async(arrayAccounts)");
+addNetworkAccounts = async (_arrayAccounts) => {
+  logFunctionHeader("addNetworkAccounts = async(arrayAccounts)");
   let recCount = _arrayAccounts.length;
   logDetail("Inserting " + recCount + " Records to Blockchain");
 
   for (idx = 0; idx < recCount; idx++) {
     let account = _arrayAccounts[idx];
     logDetail("Inserting " + idx + ", " + account);
-    await spCoinContractDeployed.insertAccount(account);
+    await spCoinContractDeployed.addNetworkAccount(account);
   }
   logDetail("JAVASCRIPT => ** Inserted " + recCount + " Accounts");
   return recCount;
 };
 
-getInsertedAccounts = async () => {
-  logFunctionHeader("getInsertedAccounts = async()");
+getNetworkAccounts = async () => {
+  logFunctionHeader("getNetworkAccounts = async()");
   let maxCount = await spCoinContractDeployed.getAccountRecordCount();
 
   var insertedArrayAccounts = [];
@@ -161,10 +166,10 @@ getNetworkAgentKeys = async (_accountKey, _sponsorKey) => {
 
 module.exports = {
   setContract,
-  insertAccount,
-  insertSponsorAccounts,
-  insertAgentAccounts,
-  getInsertedAccounts,
+  addNetworkAccount,
+  addNetworkAccountSponsors,
+  addNetworkAccounts,
+  getNetworkAccounts,
   getNetworkSponsorKeys,
   getNetworkAgentKeys,
 };

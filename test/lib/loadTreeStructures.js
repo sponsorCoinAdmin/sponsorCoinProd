@@ -10,7 +10,7 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
     logFunctionHeader("loadTreeStructures(" + _spCoinContractDeployed + ")");
     spCoinContractDeployed = _spCoinContractDeployed;
     let accountArr = [];
-    let insertedArrayAccounts = await getInsertedAccounts();
+    let insertedArrayAccounts = await getNetworkAccounts();
     let maxCount = insertedArrayAccounts.length;
     for(let idx = 0; idx < maxCount; idx++) {
         let accountKey = insertedArrayAccounts[idx];
