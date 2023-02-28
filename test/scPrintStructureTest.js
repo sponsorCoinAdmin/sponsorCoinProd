@@ -80,7 +80,7 @@ describe("spCoinContract", function () {
     setLogDefaults();
   });
 
-  /*
+  /**/
   it("PRINT STRUCTURE TREE TESTS", async function () {
     // USAGE: addNetworkAccountSponsors(_accountRecIdx, _startSpIdx, _lastSpIdx);
     // await addNetworkAccountSponsors(2, [1, 7, 14, 8, 18, 9]);
@@ -145,7 +145,6 @@ describe("spCoinContract", function () {
     let accountKey = testHHAccounts[testRecordNumber].toLowerCase();
     await addNetworkAccount(accountKey);
     return accountKey;
-    
   }
 
 });

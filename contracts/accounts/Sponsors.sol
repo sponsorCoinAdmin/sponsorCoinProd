@@ -7,25 +7,23 @@ contract Sponsors is Accounts {
         constructor() {
     }
 
-     /// @notice insert address for later recall
+    /// @notice insert address for later recall
     /// @param _accountKey public account key to get sponsor array
     /// @param _sponsorKey new sponsor to add to account list
-    function insertAccountSponsor(address _accountKey, address _sponsorKey) public onlyOwnerOrRootAdmin(_accountKey) returns (bool) {
+    function insertAccountSponsor(address _accountKey, address _sponsorKey) public onlyOwnerOrRootAdmin(_accountKey) {
         addNetworkAccount(_accountKey);
         addNetworkAccount(_sponsorKey);
-        AccountStruct storage accountRec = accountMap[_accountKey];
+        AccountStruct storage parentAccountRec = accountMap[_accountKey];
+        AccountStruct storage sponsorAccountRec = accountMap[_sponsorKey];
         SponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorKey);
         if (!sponsorRec.inserted) {
-            sponsorRec.index = accountRec.sponsorKeys.length;
+            sponsorRec.index = parentAccountRec.sponsorKeys.length;
             sponsorRec.insertionTime = block.timestamp;
-            sponsorRec.parentAccount = _accountKey;
             sponsorRec.sponsor = _sponsorKey;
             sponsorRec.inserted = true;
-            accountRec.sponsorKeys.push(_sponsorKey);
-            uint256 accountSponsorCount = getAccountSponsorCount(_accountKey);
-            return true;
+            parentAccountRec.sponsorKeys.push(_sponsorKey);
+            sponsorAccountRec.parentAccountKeys.push(_accountKey);
         }
-        return false;
     }
 
     /// @notice determines if sponsor address is inserted in account.sponsor.map

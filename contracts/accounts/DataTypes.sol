@@ -4,10 +4,27 @@ pragma solidity ^0.8.7;
 import "../utils/KYC.sol";
 
 contract DataTypes is KYC {
-   address burnAddress = 0x0000000000000000000000000000000000000000;
-   uint public lastStakingUpdateTime = block.timestamp;
 
    // Keep track of account insertions
+   // Record relationship rules as Follows:
+   // 1. Every Account is the root of a mapping tree in the diagram below:
+   // 2. Every Account can be a Recipiant, And/or Sponsor, and/or Agent
+   //    - A Recipient is the primary bennifacary of the Sponsors steaking allocations
+   //    - An Agent is the secondary bennifacary of the Sponsors steaking allocations
+   // 3. Every Account can have a number of Sponsor(s)
+   // 4. Every Sponsor can have a number of Agent(s)
+   // 5. Every Sponsor has an array of rate structures
+   // 6. Every Agent has an array of rate structures
+   // 7. Every Rate Structure has an array of Transactions
+   // 8. Each Recipiant/Sponsor/Agent must be mutually exclusive
+   //    - This implies no two accounts can be the same for each account structure
+   //
+   //  The following is a brief diagram of the contractural structure.
+   //                          |-/Agent(s)/Rate(s)/Transaction(s)
+   // Account(s)/Sponsor(s)/ =>|
+   //                          |-/Rate(s)/Transaction(s)
+
+   address burnAddress = 0x0000000000000000000000000000000000000000;
    address[] public accountIndex;
    mapping(address => AccountStruct)  accountMap;
    mapping(address => AgentStruct)  agentMap;
@@ -19,13 +36,15 @@ contract DataTypes is KYC {
       bool inserted;
       bool verified;
       KYC kyc;
-      address[] sponsorKeys;
+      address[] sponsorKeys;       // If Recipient List of Accounts Sponsored
+      address[] parentSponsorKeys; // If Agent? List of Parent Sponsors Accounts
+      address[] parentAccountKeys; // If Sponsor? List of Agents Sponsors Accounts
       mapping(address => SponsorStruct)  sponsorMap;
    }
 
+   // Each Account has a map of Sponsors and an array of rate structures
    struct SponsorStruct {
       uint index;
-      address parentAccount;
       address sponsor;
       uint insertionTime;
       bool inserted;
@@ -36,6 +55,7 @@ contract DataTypes is KYC {
       mapping(uint256 => RateStruct) rateMap;
    }
 
+   // Each Sponsor has a map of Agents and an array of rate structures
    struct AgentStruct {
       uint index;
       address account;
@@ -60,5 +80,4 @@ contract DataTypes is KYC {
       uint insertionTime;
       int256 quantity;
    }
-
 }

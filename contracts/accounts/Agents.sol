@@ -16,17 +16,19 @@ contract Agents is Sponsors, HelloWorld {
         insertAccountSponsor(_accountKey, _sponsorKey);
         addNetworkAccount(_agentKey);
 
-        SponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorKey);
+        SponsorStruct storage sponsorAccountRec = getSponsorRec(_accountKey, _sponsorKey);
+        AccountStruct storage agentAccountRec = accountMap[_sponsorKey];
         AgentStruct storage  agentRec = getAgentRec(_accountKey, _sponsorKey, _agentKey);
 
         if (!agentRec.inserted) {
-            agentRec.index = sponsorRec.agentKeys.length;
+            agentRec.index = sponsorAccountRec.agentKeys.length;
             agentRec.insertionTime = block.timestamp;
             agentRec.account  = _accountKey;
             agentRec.parentSponsor  = _sponsorKey;
             agentRec.agent    = _agentKey;
             agentRec.inserted = true;
-            sponsorRec.agentKeys.push(_agentKey);
+            sponsorAccountRec.agentKeys.push(_agentKey);
+            agentAccountRec.parentSponsorKeys.push(_agentKey);
         }
     }
 
