@@ -69,7 +69,7 @@ describe("spCoinContract", function() {
     it("Account Insertion Validation", async function () {
         logTestHeader("TEST ACCOUNT INSERTION");
         let account = testHHAccounts[0];
-        let recCount = await spCoinContractDeployed.getAccountRecordCount();
+        let recCount = await spCoinContractDeployed.getNetworkAccountCount();
         expect(recCount).to.equal(0);
         logDetail("JS => ** Before Inserted Record Count = " + recCount);
         let isAccountInserted = await spCoinContractDeployed.isAccountInserted(account);
@@ -77,7 +77,7 @@ describe("spCoinContract", function() {
         await spCoinContractDeployed.addNetworkAccount(account);
         isAccountInserted = await spCoinContractDeployed.isAccountInserted(account);
         logDetail("JS => Address "+ account + " After Inserted Record Found = " + isAccountInserted);
-        recCount = await spCoinContractDeployed.getAccountRecordCount();
+        recCount = await spCoinContractDeployed.getNetworkAccountCount();
         logDetail("JS => ** After Inserted Record Count = " + await recCount);        
         expect(recCount).to.equal(1);
     });
@@ -106,7 +106,7 @@ describe("spCoinContract", function() {
         let startRec = 4;
         let endRec = 15;
         await addNetworkSponsorAgents(3, 6, [1, 2]);
-        let insertCount = await spCoinContractDeployed.getAccountRecordCount();
+        let insertCount = await spCoinContractDeployed.getNetworkAccountCount();
         expect(insertCount).to.equal(4);
     });
 });

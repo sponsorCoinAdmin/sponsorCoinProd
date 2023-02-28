@@ -6,8 +6,8 @@ import "./DataTypes.sol";
 contract Accounts is DataTypes {
     constructor() {}
 
-    /// @notice determines if address is inserted in account array
-    /// @param _accountKey public account key validate Insertion
+    /// @notice determines if address is inserted in accountKey array
+    /// @param _accountKey public accountKey validate Insertion
     function isAccountInserted(address _accountKey)
         public
         view
@@ -19,7 +19,7 @@ contract Accounts is DataTypes {
     }
 
     /// @notice insert block chain network address for spCoin Management
-    /// @param _accountKey public account key to set new balance
+    /// @param _accountKey public accountKey to set new balance
     function addNetworkAccount(address _accountKey)
         public onlyOwnerOrRootAdmin(_accountKey) {
         if (!isAccountInserted(_accountKey)) {
@@ -37,7 +37,7 @@ contract Accounts is DataTypes {
     }
 
     /// @notice retreives the array index of a specific address.
-    /// @param _accountKey public account key to set new balance
+    /// @param _accountKey public accountKey to set new balance
     function getAccountIndex(address _accountKey)
         public
         view
@@ -50,18 +50,18 @@ contract Accounts is DataTypes {
     }
 
     /// @notice retreives the number of accounts inserted.
-    function getAccountRecordCount() public view returns (uint256) {
+    function getNetworkAccountCount() public view returns (uint256) {
         return accountIndex.length;
     }
 
     /// @notice retreives a specified account address from accountIndex.
     /// @param _idx index of a specific account in accountIndex
-    function getAccount(uint256 _idx) public view returns (address) {
+    function getAccountKey(uint256 _idx) public view returns (address) {
         return accountIndex[_idx];
     }
 
-    /// @notice retreives the account record of a specific account address.
-    /// @param _accountKey public account key to set new balance
+    /// @notice retreives the account record of a specific accountKey address.
+    /// @param _accountKey public accountKey to set new balance
     function getAccountRecord(address _accountKey)
         internal
         view
@@ -72,8 +72,8 @@ contract Accounts is DataTypes {
         return accountMap[_accountKey];
     }
 
-    /// @notice retreives the account record of a specific account address.
-    /// @param _accountKey public account key to set new balance
+    /// @notice retreives the account record of a specific accountKey address.
+    /// @param _accountKey public accountKey to set new balance
     function getSerializedAccountRec(address _accountKey)
         public
         view
