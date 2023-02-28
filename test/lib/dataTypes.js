@@ -12,8 +12,6 @@ class AccountStruct {
     this.sponsorKeys;
     this.sponsorArr;
   }
-
-  
 }
 
 class SponsorStruct {

@@ -80,37 +80,37 @@ describe("spCoinContract", function () {
     setLogDefaults();
   });
 
-  /**/
+  /*
   it("PRINT STRUCTURE TREE TESTS", async function () {
     // USAGE: addNetworkAccountSponsors(_accountRecIdx, _startSpIdx, _lastSpIdx);
-    // await addNetworkAccountSponsors(2, [1, 7, 14, 8, 18, 9]);
-    // await addNetworkAccountSponsors(2, [12]);
-    // await addNetworkAccountSponsors(3, [14, 17]);
-    // await addNetworkAccountSponsors(1, [5, 11, 13, 15]);
-    // await addNetworkAccountSponsors(14, [18, 19, 7]);
-    // await addNetworkAccountSponsors(3, [4]);
-    // await addNetworkAccountSponsors(1, [2, 5]);
-    // await addNetworkAccountSponsors(11, [5, 9, 0]);
+    await addNetworkAccountSponsors(2, [1, 7, 14, 8, 18, 9]);
+    await addNetworkAccountSponsors(2, [12]);
+    await addNetworkAccountSponsors(3, [14, 17]);
+    await addNetworkAccountSponsors(1, [5, 11, 13, 15]);
+    await addNetworkAccountSponsors(14, [18, 19, 7]);
+    await addNetworkAccountSponsors(3, [4]);
+    await addNetworkAccountSponsors(1, [2, 5]);
+    await addNetworkAccountSponsors(11, [5, 9, 0]);
 
     //        USAGE: addNetworkSponsorAgents(_accountRecIdx, _sponsorRecIdx, _startAgIdx, _lastAgIdx);
     await addNetworkSponsorAgents(1, 5, [7, 2, 17, 3, 9, 19]);
-    // await addNetworkSponsorAgents(3, 6, [1]);
-    // await addNetworkSponsorAgents(11, 18, [5, 7, 9, 6]);
-    // await addNetworkSponsorAgents(14, 7, [1, 11, 0, 12, 2]);
-    // await addNetworkSponsorAgents(14, 2, [3]);
-    // await addNetworkSponsorAgents(14, 3, [1, 2]);
-    // await addNetworkSponsorAgents(0, 2, [6, 7, 16]);
+    await addNetworkSponsorAgents(3, 6, [1]);
+    await addNetworkSponsorAgents(11, 18, [5, 7, 9, 6]);
+    await addNetworkSponsorAgents(14, 7, [1, 11, 0, 12, 2]);
+    await addNetworkSponsorAgents(14, 2, [3]);
+    await addNetworkSponsorAgents(14, 3, [1, 2]);
+    await addNetworkSponsorAgents(0, 2, [6, 7, 16]);
 
     let accountArr = await loadTreeStructures(spCoinContractDeployed);
     //        console.log(JSON.stringify(accountArr, null, 2));
     dumpStructureTree(accountArr);
   });
-  /**/
+  /*
 
   it("PRINT STRUCTURE ACCOUNT SPONSORS DATA", async function () {
     setLogMode(LOG_MODE.LOG, true);
     // Test Record Insertion to Blockchain Network
-    let accountKey = await addAccountTestRecordToNetwork(0);
+    let accountKey = await addTestAccountRecordsToNetwork(0);
     let accountRecCount = await getAccountRecordCount();
     expect(accountRecCount).to.equal(1);
 
@@ -121,30 +121,64 @@ describe("spCoinContract", function () {
     expect(networkAccountKey).to.equal(accountKey);
 
     // Test Duplicate Record Cannot be Inserted to Blockchain Network
-    accountKey = await addAccountTestRecordToNetwork(0);
+    accountKey = await addTestAccountRecordsToNetwork(0);
     accountRecCount = await getAccountRecordCount();
     expect(accountRecCount).to.equal(1);
 
     // Test Second Record Insertion to blockchain Network
-    accountKey = await addAccountTestRecordToNetwork(4);
+    accountKey = await addTestAccountRecordsToNetwork(4);
     accountRecCount = await getAccountRecordCount();
     expect(accountRecCount).to.equal(2);
 
     // Test N Record Insertions to blockchain Network
-    accountKey = await addAccountTestRecordToNetwork(7);
-    accountKey = await addAccountTestRecordToNetwork(6);
-    accountKey = await addAccountTestRecordToNetwork(12);
-    accountKey = await addAccountTestRecordToNetwork(15);
+    accountKey = await addTestAccountRecordsToNetwork(7);
+    accountKey = await addTestAccountRecordsToNetwork(6);
+    accountKey = await addTestAccountRecordsToNetwork(12);
+    accountKey = await addTestAccountRecordsToNetwork(15);
     accountRecCount = await getAccountRecordCount();
     expect(accountRecCount).to.equal(6);
   });
   /**/
 
-  // TEST FUNCTIONS ONLY
-  addAccountTestRecordToNetwork = async (testRecordNumber) => {
+  it("PRINT ACCOUNT SPONSOR ARRAY LISTS", async function () {
+    setLogMode(LOG_MODE.LOG, true);
+    let accountKey = testHHAccounts[2];
+    let sponsorAccountRecords = getHHTestAccountRecords([1, 7, 14, 8, 18, 9]);
+    log("For Account: " + accountKey + " Inserting Sponsor Records:");
+    log(sponsorAccountRecords);
+
+    await addNetworkAccountSponsors(accountKey, sponsorAccountRecords);
+    let accountArr = await loadTreeStructures(spCoinContractDeployed);
+
+    log("Tree For Account: " + accountKey + " With Inserted Sponsors:");
+    dumpStructureTree(accountArr);
+
+    accountRecCount = await getAccountRecordCount();
+    expect(accountRecCount).to.equal(7);
+
+    let sponsorCount = await getAccountSponsorCount(accountKey);
+    expect(sponsorCount).to.equal(6);
+
+    let sponsorArr = await getNetworkSponsorKeys(accountKey);
+    console.log(sponsorArr);
+
+    getNetworkSponsorKeys();
+  });
+
+  //////////////////////////////////// TEST FUNCTIONS AREA ////////////////////////////////////////////
+
+  addTestAccountRecordsToNetwork = async (testRecordNumber) => {
     let accountKey = testHHAccounts[testRecordNumber].toLowerCase();
-    await addNetworkAccount(accountKey);
+    // await addNetworkAccount(accountKey);
     return accountKey;
+  }
+
+  getHHTestAccountRecords = (accountSponsorArr) => {
+    let accountSponsorKey = [];
+    for (let i = 0; i < accountSponsorArr.length; i++) {
+      accountSponsorKey.push(testHHAccounts[accountSponsorArr[i]]);
+    }
+    return accountSponsorKey;
   }
 
 });
