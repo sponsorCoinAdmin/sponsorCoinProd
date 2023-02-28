@@ -62,10 +62,8 @@ let spCoinContractDeployed;
 logSetup("JS => Setup Test");
 
 describe("spCoinContract", function () {
-  let spCoinContract;
-  let msgSender;
   beforeEach(async () => {
-    spCoinContract = await hre.ethers.getContractFactory("SPCoin");
+    let spCoinContract = await hre.ethers.getContractFactory("SPCoin");
     logSetup("JS => spCoinContract retrieved from Factory");
 
     logSetup("JS => Deploying spCoinContract to Network");
@@ -74,7 +72,7 @@ describe("spCoinContract", function () {
 
     await spCoinContractDeployed.deployed();
     logSetup("JS => spCoinContract Deployed to Network");
-    msgSender = await spCoinContractDeployed.msgSender();
+    let msgSender = await spCoinContractDeployed.msgSender();
 
     setContract(spCoinContractDeployed);
     setLogDefaults();
