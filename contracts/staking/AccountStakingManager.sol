@@ -1,21 +1,22 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.6;
 /// @title ERC20 Contract
-import "./AccountRecords.sol";
+import "../accounts/Agents.sol";
+import "./Transactions.sol";
 
-contract AccountStakingManager is AccountRecords{
+contract AccountStakingManager is Transactions{
 
 // ###  ALGORITHMIC ARCHITECTURAL DESIGN FOR STAKING REWARDS ALLOCATION ###
 // allocateStakingRewards()
-// 1. Get the sponsors accounts Array as (sponsorAccountArray)
-// 2. Set totalRewards = calcAllSponsorsStakingRewards(sponsorAccountArray)
+// 1. Get the sponsors accounts Array as (accountSponsorArray)
+// 2. Set totalRewards = calcAllSponsorsStakingRewards(accountSponsorArray)
 // 3. Update all account balances updateAllSponsorsStakingRewards()
 
 /*
-function allocateStakingRewards() internal view returns(  accountRec[] memory ){
+function allocateStakingRewards() internal view returns(  AccountStruct[] memory ){
    
-   accountRec[] memory sponsorAccountArray = getSponsorRecords(msg.sender);
-   return sponsorAccountArray;
+   AccountStruct[] memory accountSponsorArray = getSponsorRecords(msg.sender);
+   return accountSponsorArray;
 }
 */// @title A title that should describe the contract/interface
 /// @notice Explain to an end user what this does
@@ -46,20 +47,20 @@ function gitAddressThis() external view returns(address){
 //    4. return stakingRewards
 
 // ### CALCULATE STAKING REWARDS FOR ALL SPONSORS ###
-// calcAllSponsorsStakingRewards(sponsorAccountArray)
+// calcAllSponsorsStakingRewards(accountSponsorArray)
 //    1. Set totalSponsorRewards = 0
-//    2. For each sponsorAccount in sponsorAccountArray calculate the Staking Rewards as:
-//    2.1   Increment totalSponsorRewards += calcSponsorStakingRewards(sponsorAccount)
+//    2. For each accountSponsor in accountSponsorArray calculate the Staking Rewards as:
+//    2.1   Increment totalSponsorRewards += calcSponsorStakingRewards(accountSponsor)
 //    3. return totalSponsorRewards
 
 // ### CALCULATE INDIVIDUAL SPONSOR STAKING REWARDS FOR ACCOUNT ###
-// calcSponsorStakingRewards(sponsorAccount)
-//    1. Set sponsorRewards = calculateAccountSteakingReward(sponsorAccount.balanceOf, sponsorAccount.rewardsRate, sponsorAccount.lastUpdateDate)
+// calcSponsorStakingRewards(accountSponsor)
+//    1. Set sponsorRewards = calculateAccountSteakingReward(accountSponsor.balanceOf, accountSponsor.rewardsRate, accountSponsor.lastUpdateDate)
 //    2. Update balance= accountBalance + stakingRewards
-//    3. agentAccountArray = sponsorAccount.
+//    3. agentAccountArray = accountSponsor.
 //    4. Set agentRewards = calcAllAgentsStakingRewards(agentAccountArray)
 //    5. Decrement sponsorRewards -= agentRewards
-//    6. addAccountsToUpdateStakingRewards(sponsorAccount, sponsorRewards)
+//    6. addAccountsToUpdateStakingRewards(accountSponsor, sponsorRewards)
 //    7. return sponsorRewards
 
 // ### CALCULATE STAKING REWARDS FOR ALL AGENTS ###
@@ -67,13 +68,13 @@ function gitAddressThis() external view returns(address){
 //    1. Set totalAgentsRewards = 0
 //    3. For each agentAccount in agentAccountArray calculate the Staking Rewards as:
 //    4.    Increment totalAgentsRewards += calculateAccountSteakingReward(agentAccount)
-//    5. addAccountsToUpdateStakingRewards(sponsorAccount, sponsorRewards)
+//    5. addAccountsToUpdateStakingRewards(accountSponsor, sponsorRewards)
 //    6. return totalAgentsRewards
 
 //*****************************************************************************************************
 
 // ### CALCULATE INDIVIDUAL SPONSOR STAKING REWARDS FOR ACCOUNT ###
-// calcSponsorStakingRewards(sponsorAccount, rewardsMultiplier)
+// calcSponsorStakingRewards(accountSponsor, rewardsMultiplier)
 //    1. Get a list of the agents accounts (agentAccountArray)
 //    2. Get the current currBalance with balanceOf() ERC20 function;
 //    3. Get the lastUpdate for the sponsors Account
