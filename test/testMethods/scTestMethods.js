@@ -7,7 +7,7 @@ const {
   getNetworkAccounts,
   getNetworkSponsorKeys,
   getNetworkAgentKeys,
-} = require("../scAccountMethods");
+} = require("../prod/lib/scAccountMethods");
 
 addTestNetworkAccountSponsors = async (_accountIdx, _sponsorArrayIdx) => {
   logFunctionHeader("async (" + _accountIdx  + "," + _sponsorArrayIdx+ ")");

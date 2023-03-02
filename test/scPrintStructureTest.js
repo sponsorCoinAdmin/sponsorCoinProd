@@ -1,15 +1,15 @@
 const { expect } = require("chai");
-const {} = require("./lib/loadTreeStructures");
+const {} = require("./prod/lib/loadTreeStructures");
 const { addTestNetworkAccountSponsors,
   addTestNetworkSponsorAgents,
   addTestNetworkAccount,
   getTestHHAccountArrayKeys
-} = require("./lib/test/scTestMethods");
-const { testHHAccounts } = require("./lib/test/hhTestAccounts");
+} = require("./testMethods/scTestMethods");
+const { testHHAccounts } = require("./testMethods/hhTestAccounts");
 
 const {
   setContract
-} = require("./lib/scAccountMethods");
+} = require("./prod/lib/scAccountMethods");
 
 const {
   AccountStruct,
@@ -17,7 +17,7 @@ const {
   AgentStruct,
   RateHeaderStruct,
   TransactionStruct,
-} = require("./lib/dataTypes");
+} = require("./prod/lib/dataTypes");
 
 const {
   LOG_MODE,
@@ -30,32 +30,7 @@ const {
   logFunctionHeader,
   logDetail,
   log,
-} = require("./lib/logging");
-
-const {
-  dumpTestHHAccounts,
-  dumpStructureTree,
-  dumpStructureAccountSponsors,
-  dumpStructureAccountKYC,
-  dumpStructureSponsorAgents,
-  getJSONStructureAccountSponsors,
-  getJSONStructureAccountKYC,
-  getJSONStructureSponsorAgents,
-  // NetWork Calls
-  dumpNetworkAccountSponsors,
-  dumpNetworkAccountKYC,
-  dumpNetworkSponsorAgents,
-  getJSONNetworkAccountSponsors,
-  getJSONNetworkAccountKYC,
-  getJSONNetworkSponsorAgents,
-  getNetworkAccountSponsors,
-  getNetworkAccountKYC,
-  getNetworkSponsorAgents,
-} = require("./lib/dumpTreeStructures");
-
-let account;
-let sponsor;
-let agent;
+} = require("./prod/utils/logging");
 
 let spCoinContractDeployed;
 

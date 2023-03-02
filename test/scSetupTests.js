@@ -1,10 +1,10 @@
 const { expect } = require("chai");
-const { testHHAccounts } = require("./lib/test/hhTestAccounts");
+const { testHHAccounts } = require("./testMethods/hhTestAccounts");
 const { addTestNetworkAccountSponsors,
     addTestNetworkSponsorAgents,
     addTestNetworkAccount,
     getTestHHAccountArrayKeys
-  } = require("../test/lib/test/scTestMethods");
+  } = require("./testMethods/scTestMethods");
 
 const {    
     LOG_MODE,
@@ -15,7 +15,7 @@ const {
     logFunctionHeader,
     logDetail,
     log
-    } = require("../test/lib/logging");
+    } = require("./prod/utils/logging");
 
 let account;
 
