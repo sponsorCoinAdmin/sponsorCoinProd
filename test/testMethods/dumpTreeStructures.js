@@ -1,9 +1,8 @@
-const { testHHAccounts } = require("../../testMethods/hhTestAccounts");
 const { AccountStruct,
         SponsorStruct,
         AgentStruct,
         RateHeaderStruct,
-        TransactionStruct } = require("../lib/dataTypes");
+        TransactionStruct } = require("../prod/lib/dataTypes");
 
 dumpTestHHAccounts = () => {
     return JSON.stringify(testHHAccounts, null, 2);
