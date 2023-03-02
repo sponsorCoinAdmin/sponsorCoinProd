@@ -20,11 +20,6 @@ const {
 } = require("./prod/lib/dataTypes");
 
 const {
-  deployContract
-} = require("./prod/deployContract");
-
-
-const {
   LOG_MODE,
   logAccountStructure,
   logSetup,
@@ -37,6 +32,10 @@ const {
   log,
 } = require("./prod/lib/utils/logging");
 
+const {
+  deployContract
+} = require("./prod/deployContract");
+
 let spCoinContractDeployed;
 
 logSetup("JS => Setup Test");
@@ -46,12 +45,12 @@ describe("spCoinContract", function () {
     spCoinContractDeployed = await deployContract();
       setContract(spCoinContractDeployed);
 //    setLogDefaults();
-   
   });
 
   /**/
   it("PRINT STRUCTURE TREE TESTS", async function () {
     // USAGE: addTestNetworkAccountSponsors(_accountRecIdx, _startSpIdx, _lastSpIdx);
+    log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     await addTestNetworkAccountSponsors(2, [1, 7, 14, 8, 18, 9]);
     await addTestNetworkAccountSponsors(2, [12]);
     await addTestNetworkAccountSponsors(3, [14, 17]);
@@ -71,9 +70,12 @@ describe("spCoinContract", function () {
     await addTestNetworkSponsorAgents(0, 2, [6, 7, 16]);
 
     let accountArr = await loadTreeStructures(spCoinContractDeployed);
-    logTree(accountArr);
-  });
+    console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+    console.log("accountArr = "+ accountArr);
 
+    logAccountStructure(accountArr);
+//    logTree(accountArr);
+  });
   /**
 
   it("PRINT STRUCTURE ACCOUNT DATA RECORD", async function () {
@@ -106,8 +108,7 @@ describe("spCoinContract", function () {
     accountKey = await addTestNetworkAccount(15);
     accountRecCount = await getNetworkAccountCount();
     expect(accountRecCount).to.equal(6);
-  });
-
+  });  
   /**
   
   it("PRINT STRUCTURE SPONSORS DATA RECORD", async function () {
@@ -134,7 +135,6 @@ describe("spCoinContract", function () {
     // let networkAccountKey = accountStruct.accountKey;
     // expect(networkAccountKey).to.equal(arrayKey);
   });
-
   /**
 
   it("PRINT ACCOUNT SPONSOR ARRAY LISTS", async function () {
