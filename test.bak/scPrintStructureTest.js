@@ -20,11 +20,6 @@ const {
 } = require("./prod/lib/dataTypes");
 
 const {
-  deployContract
-} = require("./prod/deployContract");
-
-
-const {
   LOG_MODE,
   logAccountStructure,
   logSetup,
@@ -43,10 +38,19 @@ logSetup("JS => Setup Test");
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
-    spCoinContractDeployed = await deployContract();
-      setContract(spCoinContractDeployed);
-//    setLogDefaults();
-   
+    let spCoinContract = await hre.ethers.getContractFactory("SPCoin");
+    logSetup("JS => spCoinContract retrieved from Factory");
+
+    logSetup("JS => Deploying spCoinContract to Network");
+    spCoinContractDeployed = await spCoinContract.deploy();
+    logSetup("JS => spCoinContract is being mined");
+
+    await spCoinContractDeployed.deployed();
+    logSetup("JS => spCoinContract Deployed to Network");
+    let msgSender = await spCoinContractDeployed.msgSender();
+
+    setContract(spCoinContractDeployed);
+    setLogDefaults();
   });
 
   /**/
@@ -73,7 +77,6 @@ describe("spCoinContract", function () {
     let accountArr = await loadTreeStructures(spCoinContractDeployed);
     logTree(accountArr);
   });
-
   /**
 
   it("PRINT STRUCTURE ACCOUNT DATA RECORD", async function () {
@@ -106,8 +109,7 @@ describe("spCoinContract", function () {
     accountKey = await addTestNetworkAccount(15);
     accountRecCount = await getNetworkAccountCount();
     expect(accountRecCount).to.equal(6);
-  });
-
+  });  
   /**
   
   it("PRINT STRUCTURE SPONSORS DATA RECORD", async function () {
@@ -134,7 +136,6 @@ describe("spCoinContract", function () {
     // let networkAccountKey = accountStruct.accountKey;
     // expect(networkAccountKey).to.equal(arrayKey);
   });
-
   /**
 
   it("PRINT ACCOUNT SPONSOR ARRAY LISTS", async function () {
@@ -164,5 +165,4 @@ describe("spCoinContract", function () {
 
     getNetworkSponsorKeys();
   });
-  /**/
 });

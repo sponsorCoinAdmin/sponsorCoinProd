@@ -29,10 +29,6 @@ contract Accounts is DataTypes {
         }
     }
 
-    function sayHelloWorld2() public pure returns (string memory) {
-        return "Hello World 2";
-    }
-
     /// @notice retreives the array index of a specific address.
     /// @param _accountKey public accountKey to set new balance
     function getAccountIndex(address _accountKey)

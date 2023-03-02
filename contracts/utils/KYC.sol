@@ -6,7 +6,7 @@ import "./Utils.sol";
 contract KYC is Utils {
 
    mapping(string => string)  public kyc ;
-
+ 
    function setUserName(string memory name) external {
       kyc[name] = name;
    }

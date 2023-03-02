@@ -52,6 +52,16 @@ string public text;
         return strValue;
     }
 
+    // function boolTostring(bool val)  internal pure returns(string memory) {
+    //     if (val) {
+    //         return "true";
+    //     }
+    //     else {
+    //         return "false";
+    //     }
+    // }
+
+
     function toString(address[] storage arrValues) internal view returns(string memory) {
         string memory strArrValue  = "[";
         for (uint i = 0; i < arrValues.length; i++) {

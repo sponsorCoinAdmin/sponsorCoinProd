@@ -23,7 +23,6 @@ contract Sponsors is Accounts {
             sponsorRec.inserted = true;
             parentAccountRec.sponsorKeys.push(_sponsorKey);
             sponsorAccountRec.beneficiaryKeys.push(_accountKey);
-            console.log("***** _sponsorKey = ",  _sponsorKey);
         }
     }
 

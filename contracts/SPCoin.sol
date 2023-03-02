@@ -14,9 +14,4 @@ contract SPCoin is Token{
         initToken(defaultName,  defaultSymbol, defaultDecimals, defaultTotalSupply);
 //        logDetail("MESSAGE.SENDER: ", msg.sender);
     }
-
-   function msgSender() external view returns(address){
-      return (msg.sender);
-   }
-
 }

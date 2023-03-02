@@ -14,32 +14,13 @@ contract Logging is StringUtils{
 
    function setLogStatus(bool _logStatus )  public {
         logStatus = _logStatus;
-        string memory boolToString = boolTostring(_logStatus);
-        console.log(boolToString);
- //       string memory concat = string.concat("Setting Logging ", "boolToString");
- //       scLog(string.concat("Setting Logging ", boolTostring(_logStatus)));
+ //       string memory boolToString = toString(_logStatus);
+ //       console.log(toString);
+ //       string memory concat = string.concat("Setting Logging ", "toString");
+ //       scLog(string.concat("Setting Logging ", toString(_logStatus)));
     }
 
    function scLog(bool _logStr ) view public{
         console.log(_logStr);
     }
-
-    function boolTostring(bool val)  internal pure returns(string memory) {
-        if (val) {
-            return "true";
-        }
-        else {
-            return "false";
-        }
-    }
-
-/*
-   function scLog(string _logStr ) view public {
-        console.log(_logStr);
-    }
-
-   function scClearPrefix(string _logStr ) view public {
-        console.log("BLA");
-    }
-*/
  }

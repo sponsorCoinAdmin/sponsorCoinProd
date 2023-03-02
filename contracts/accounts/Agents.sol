@@ -2,9 +2,8 @@
 pragma solidity ^0.8.7;
 /// @title ERC20 Contract
 import "./Sponsors.sol";
-import "./HelloWorld.sol";
 
-contract Agents is Sponsors, HelloWorld {
+contract Agents is Sponsors {
         constructor(){
     }
 
