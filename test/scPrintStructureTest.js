@@ -1,14 +1,15 @@
 const { expect } = require("chai");
-const {} = require("../test/lib/loadTreeStructures");
+const {} = require("./lib/loadTreeStructures");
 const { addTestNetworkAccountSponsors,
   addTestNetworkSponsorAgents,
   addTestNetworkAccount,
   getTestHHAccountArrayKeys
-} = require("../test/lib/test/scTestMethods");
+} = require("./lib/test/scTestMethods");
+const { testHHAccounts } = require("./lib/test/hhTestAccounts");
 
 const {
   setContract
-} = require("../test/lib/scAccountMethods");
+} = require("./lib/scAccountMethods");
 
 const {
   AccountStruct,
@@ -16,7 +17,7 @@ const {
   AgentStruct,
   RateHeaderStruct,
   TransactionStruct,
-} = require("../test/lib/dataTypes");
+} = require("./lib/dataTypes");
 
 const {
   LOG_MODE,
@@ -29,7 +30,7 @@ const {
   logFunctionHeader,
   logDetail,
   log,
-} = require("../test/lib/logging");
+} = require("./lib/logging");
 
 const {
   dumpTestHHAccounts,
@@ -50,7 +51,7 @@ const {
   getNetworkAccountSponsors,
   getNetworkAccountKYC,
   getNetworkSponsorAgents,
-} = require("../test/lib/dumpTreeStructures");
+} = require("./lib/dumpTreeStructures");
 
 let account;
 let sponsor;
@@ -77,7 +78,7 @@ describe("spCoinContract", function () {
     setLogDefaults();
   });
 
-  /**
+  /**/
   it("PRINT STRUCTURE TREE TESTS", async function () {
     // USAGE: addTestNetworkAccountSponsors(_accountRecIdx, _startSpIdx, _lastSpIdx);
     await addTestNetworkAccountSponsors(2, [1, 7, 14, 8, 18, 9]);
@@ -101,7 +102,7 @@ describe("spCoinContract", function () {
     let accountArr = await loadTreeStructures(spCoinContractDeployed);
     logTree(accountArr);
   });
-  /**
+  /**/
 
   it("PRINT STRUCTURE ACCOUNT DATA RECORD", async function () {
     setLogMode(LOG_MODE.LOG, true);
@@ -160,7 +161,7 @@ describe("spCoinContract", function () {
     // let networkAccountKey = accountStruct.accountKey;
     // expect(networkAccountKey).to.equal(arrayKey);
   });
-  /**
+  /**/
 
   it("PRINT ACCOUNT SPONSOR ARRAY LISTS", async function () {
     setLogMode(LOG_MODE.LOG, true);
