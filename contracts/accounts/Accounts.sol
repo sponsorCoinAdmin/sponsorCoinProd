@@ -9,10 +9,7 @@ contract Accounts is DataTypes {
     /// @notice determines if address is inserted in accountKey array
     /// @param _accountKey public accountKey validate Insertion
     function isAccountInserted(address _accountKey)
-        public
-        view
-        onlyOwnerOrRootAdmin(_accountKey)
-        returns (bool)
+        public view onlyOwnerOrRootAdmin(_accountKey) returns (bool)
     {
         if (accountMap[_accountKey].inserted) return true;
         else return false;
@@ -103,19 +100,17 @@ contract Accounts is DataTypes {
             "verified: ",
             toString(accountRec.verified)
         );
-        string memory seralized = concat(index, ",", addr, ",", insertionTime);
+        string memory agentsSponsorKeys = toString(accountRec.agentsSponsorKeys);
+        string memory beneficiaryKeys = toString(accountRec.beneficiaryKeys);
+        string memory delimiter = "\\,";
+        string memory seralized = concat(index, delimiter, addr, delimiter, insertionTime);
         seralized = concat(seralized, ",", verified);
         seralized = string(
-            abi.encodePacked(
-                index,
-                ",\n",
-                addr,
-                ",\n",
-                insertionTime,
-                ",\n",
-                verified
-            )
-        );
+            abi.encodePacked(index, "\\,\n",
+                addr, "\\,\n", insertionTime, "\\,\n", verified ));
+        seralized = concat(seralized, delimiter, "agentsSponsorKeys:", agentsSponsorKeys );
+        seralized = concat(seralized, delimiter, "beneficiaryKeys:", beneficiaryKeys );
+
 
         // console.log("accountRec.accountKey:", accountRec.accountKey);
         // console.log( "toString(accountRec.accountKey)", toString(accountRec.accountKey));

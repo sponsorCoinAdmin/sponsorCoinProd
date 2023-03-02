@@ -1,4 +1,4 @@
-const { testHHAccounts } = require("./hhTestAccounts");
+const { testHHAccounts } = require("./test/hhTestAccounts");
 const { AccountStruct,
         SponsorStruct,
         AgentStruct,

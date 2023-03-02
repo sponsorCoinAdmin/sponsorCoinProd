@@ -5,7 +5,7 @@ const {
   RateHeaderStruct,
   TransactionStruct,
 } = require("./dataTypes");
-const { logFunctionHeader } = require("./logging");
+const { logFunctionHeader, logDetail } = require("./logging");
 let spCoinContractDeployed;
 
 setContract = (_spCoinContractDeployed) => {
@@ -24,10 +24,12 @@ getNetworkAccountRec = async (accountKey) => {
     await spCoinContractDeployed.getSerializedAccountRec(accountKey);
   logDetail("serializeAccountRec:\n" + serializeAccountRec);
   let accountStruct = new AccountStruct(accountKey);
-  let elements = serializeAccountRec.split(",");
+  let elements = serializeAccountRec.split("\\,");
   for (let i = 0; i < elements.length; i++) {
     let element = elements[i].trim();
     let keyValue = element.split(":");
+    logDetail("keyValue = " + keyValue);
+
     let key = keyValue[0].trim();
     let value = keyValue[1].trim();
     // logDetail("key     = " + key);
@@ -80,10 +82,28 @@ addAccountField = (key, value, accountStruct) => {
       logDetail("setting accountStruct.sponsorArr = " + value);
       accountStruct.sponsorArr = value;
       break;
+    case "agentsSponsorKeys":
+      logDetail("setting accountStruct.agentsSponsorKeys = " + value);
+      accountStruct.agentsSponsorKeys = parseAddressStrArray(value);
+      break;
+    case "beneficiaryKeys":
+      logDetail("setting accountStruct.beneficiaryKeys = " + value);
+      accountStruct.beneficiaryKeys = parseAddressStrArray(value);
+      break;
     default:
       break;
   }
 };
+
+parseAddressStrArray = (strArray) => {
+  logFunctionHeader("parseAddressStrArray = " + strArray);
+  console.log("parseAddressStrArray = " + strArray);
+
+  strArray = strArray.substring(0, strArray.length - 1);
+  addressStrArray = strArray.split(",");
+  return addressStrArray;
+}
+
 
 addNetworkAccountSponsors = async (accountKey, _sponsorArr) => {
   logFunctionHeader(
@@ -98,15 +118,7 @@ addNetworkAccountSponsors = async (accountKey, _sponsorArr) => {
   let sponsorCount = 0;
   for (sponsorCount; sponsorCount < _sponsorArr.length; sponsorCount++) {
     let sponsorRec = _sponsorArr[sponsorCount];
-    logDetail(
-      "   " +
-        sponsorCount +
-        ". " +
-        "Inserting Sponsor[" +
-        sponsorCount +
-        "]: " +
-        sponsorRec
-    );
+    logDetail( "   " + sponsorCount + ". " + "Inserting Sponsor[" + sponsorCount + "]: " + sponsorRec );
     await spCoinContractDeployed.insertAccountSponsor(accountKey, sponsorRec);
   }
   logDetail("Inserted = " + sponsorCount + " Sponsor Records");
@@ -115,13 +127,7 @@ addNetworkAccountSponsors = async (accountKey, _sponsorArr) => {
 
 addNetworkSponsorAgents = async (accountKey, sponsorKey, _agentArrayKeys) => {
   logFunctionHeader(
-    "addNetworkSponsorAgents = async(" +
-      accountKey +
-      ", " +
-      sponsorKey +
-      ", " +
-      _agentArrayKeys +
-      ")"
+    "addNetworkSponsorAgents = async(" + accountKey + ", " + sponsorKey + ", " + _agentArrayKeys + ")"
   );
   logDetail("For Account[" + accountKey + "]: " + accountKey + ")");
   logDetail("For Sponsor[" + sponsorKey + "]: " + sponsorKey + ")");
@@ -135,15 +141,7 @@ addNetworkSponsorAgents = async (accountKey, sponsorKey, _agentArrayKeys) => {
   logDetail("agentCount.length = " + agentCount);
   for (let i = 0; i < agentCount; i++) {
     let agentKey = _agentArrayKeys[i];
-    logDetail(
-      "        " +
-        ++agentKeyCount +
-        ". " +
-        "Inserting Agent[" +
-        i +
-        "]: " +
-        agentKey
-    );
+    logDetail( "        " + ++agentKeyCount + ". " + "Inserting Agent[" + i + "]: " + agentKey );
     await spCoinContractDeployed.insertSponsorAgent(
       accountKey,
       sponsorKey,
@@ -226,14 +224,13 @@ getNetworkSponsorKeys = async (_accountKey) => {
   );
 
   let sponsorKeys = {};
+
   for (let idx = 0; idx < maxCount; idx++) {
     let sponsor = await spCoinContractDeployed.getSponsorKeyAddress(
       _accountKey,
       idx
     );
-    logDetail("Sponsor[" + idx + "]: " + sponsor);
     sponsorKeys[sponsor] = idx;
-    //        sponsorKeys.push(sponsor);
   }
   return sponsorKeys;
 };
@@ -279,19 +276,3 @@ module.exports = {
   getNetworkSponsorKeys,
   getNetworkAgentKeys,
 };
-
-/*
-addNetworkAccount,
-getNetworkAccountRec,
-addAccountField,
-addNetworkAccountSponsors,
-addNetworkSponsorAgents,
-addNetworkAccounts,
-addNetworkAccount,
-getNetworkAccounts,
-getAccountSponsorCount,
-getNetworkAccountCount,
-getNetworkAccountSponsorsCount,
-getNetworkSponsorKeys,
-getNetworkAgentKeys,
-*/

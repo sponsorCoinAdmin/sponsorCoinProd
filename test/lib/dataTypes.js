@@ -11,6 +11,8 @@ class AccountStruct {
     this.KYC;
     this.sponsorKeys;
     this.sponsorArr;
+    this.agentsSponsorKeys;
+    this.beneficiaryKeys;
   }
 }
 

@@ -1,5 +1,11 @@
 const { expect } = require("chai");
-const { testHHAccounts } = require("./lib/hhTestAccounts");
+const { testHHAccounts } = require("./lib/test/hhTestAccounts");
+const { addTestNetworkAccountSponsors,
+    addTestNetworkSponsorAgents,
+    addTestNetworkAccount,
+    getTestHHAccountArrayKeys
+  } = require("../test/lib/test/scTestMethods");
+
 const {    
     LOG_MODE,
     setLogDefaults,
@@ -11,12 +17,7 @@ const {
     log
     } = require("../test/lib/logging");
 
-const {} = require("../test/lib/scAccountMethods");
-
 let account;
-let sponsor;
-let agent;
-//let scTree[] = {account, sponsor, agent};
 
 logSetup("JS => Setup Test");
 
@@ -84,7 +85,7 @@ describe("spCoinContract", function() {
 
     it("Insertion 20 Hardhat Accounts for Validation", async function () {
         logTestHeader("ADD MORE HARDHAT ACCOUNTS")
-        await addNetworkSponsorAgents(testHHAccounts);
+        await addNetworkAccounts(testHHAccounts);
 
         logDetail("*** RETRIEVE ALL INSERTED RECORDS FROM THE BLOCKCHAIN ***")
         let insertedArrayAccounts = await getNetworkAccounts();
@@ -105,7 +106,7 @@ describe("spCoinContract", function() {
         logDetail("*** Insert Sponsor to AccountRecord[2] as AccountRecord[5] ***")
         let startRec = 4;
         let endRec = 15;
-        await addNetworkSponsorAgents(3, 6, [1, 2]);
+        await addTestNetworkSponsorAgents(3, 6, [1, 2]);
         let insertCount = await spCoinContractDeployed.getNetworkAccountCount();
         expect(insertCount).to.equal(4);
     });

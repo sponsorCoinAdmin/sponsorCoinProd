@@ -8,15 +8,15 @@ contract DataTypes is KYC {
    // Keep track of account insertions
    // Record relationship rules as Follows:
    // 1. Every Account is the root of a mapping tree in the diagram below:
-   // 2. Every Account can be a Recipiant, And/or Sponsor, and/or Agent
-   //    - A Recipient is the primary bennifacary of the Sponsors steaking allocations
+   // 2. Every Account can be a Benefactor, And/or Sponsor, and/or Agent
+   //    - A Benefactor is the primary bennifacary of the Sponsors steaking allocations
    //    - An Agent is the secondary bennifacary of the Sponsors steaking allocations
    // 3. Every Account can have a number of Sponsor(s)
    // 4. Every Sponsor can have a number of Agent(s)
    // 5. Every Sponsor has an array of rate structures
    // 6. Every Agent has an array of rate structures
    // 7. Every Rate Structure has an array of Transactions
-   // 8. Each Recipiant/Sponsor/Agent must be mutually exclusive
+   // 8. Each Benefactor/Sponsor/Agent must be mutually exclusive
    //    - This implies no two accounts can be the same for each account structure
    //
    //  The following is a brief diagram of the contractural structure.
@@ -36,9 +36,9 @@ contract DataTypes is KYC {
       bool inserted;
       bool verified;
       KYC kyc;
-      address[] sponsorKeys;       // If Recipient List of Accounts Sponsored
-      address[] parentSponsorKeys; // If Agent? List of Parent Sponsors Accounts
-      address[] parentAccountKeys; // If Sponsor? List of Agents Sponsors Accounts
+      address[] sponsorKeys;       // If Benefactor List of Accounts Sponsored
+      address[] agentsSponsorKeys; // If Agent? List of Parent Sponsors Accounts
+      address[] beneficiaryKeys; // If Sponsor? List of Agents Sponsors Accounts
       mapping(address => SponsorStruct)  sponsorMap;
    }
 

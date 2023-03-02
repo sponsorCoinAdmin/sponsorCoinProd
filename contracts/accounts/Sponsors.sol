@@ -22,7 +22,8 @@ contract Sponsors is Accounts {
             sponsorRec.sponsor = _sponsorKey;
             sponsorRec.inserted = true;
             parentAccountRec.sponsorKeys.push(_sponsorKey);
-            sponsorAccountRec.parentAccountKeys.push(_accountKey);
+            sponsorAccountRec.beneficiaryKeys.push(_accountKey);
+            console.log("***** _sponsorKey = ",  _sponsorKey);
         }
     }
 
@@ -91,5 +92,4 @@ contract Sponsors is Accounts {
         address[] storage sponsorKeys = account.sponsorKeys;
         return sponsorKeys;
     }
-
 }
