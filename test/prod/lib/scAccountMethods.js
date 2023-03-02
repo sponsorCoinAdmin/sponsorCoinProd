@@ -5,7 +5,11 @@ const {
   RateHeaderStruct,
   TransactionStruct,
 } = require("./dataTypes");
+
+const {} = require("./utils/serialize");
+
 const { logFunctionHeader, logDetail } = require("./utils/logging");
+
 let spCoinContractDeployed;
 
 setContract = (_spCoinContractDeployed) => {
@@ -20,90 +24,10 @@ addNetworkAccount = async (accountKey) => {
 
 getNetworkAccountRec = async (accountKey) => {
   logFunctionHeader("getNetworkAccountRec = async(" + accountKey + ")");
-  let serializeAccountRec =
+  let serializedAccountRec =
     await spCoinContractDeployed.getSerializedAccountRec(accountKey);
-  logDetail("serializeAccountRec:\n" + serializeAccountRec);
-  let accountStruct = new AccountStruct(accountKey);
-  let elements = serializeAccountRec.split("\\,");
-  for (let i = 0; i < elements.length; i++) {
-    let element = elements[i].trim();
-    let keyValue = element.split(":");
-    logDetail("keyValue = " + keyValue);
-
-    let key = keyValue[0].trim();
-    let value = keyValue[1].trim();
-    // logDetail("key     = " + key);
-    // logDetail("value   = " + value);
-    addAccountField(key, value, accountStruct);
-  }
-
-  logDetail("scPrintStructureTest.js, accountStruct:");
-  logDetail(
-    "accountStruct               = " + JSON.stringify(accountStruct, 0, 2)
-  );
-  logDetail(
-    "============================================================================"
-  );
-  return accountStruct;
+  return deSerializedAccountRec(serializedAccountRec);
 };
-
-addAccountField = (key, value, accountStruct) => {
-  logFunctionHeader("addAccountField = (" + key + "," + value + ")");
-  switch (key.trim()) {
-    case "index":
-      logDetail("setting accountStruct.index = " + value);
-      accountStruct.index = value;
-      break;
-    case "accountKey":
-      logDetail("setting accountStruct.index = " + value);
-      accountStruct.accountKey = value;
-      break;
-    case "insertionTime":
-      logDetail("setting accountStruct.insertionTime = " + value);
-      accountStruct.insertionTime = value;
-      break;
-    case "inserted":
-      logDetail("setting accountStruct.inserted = " + value);
-      accountStruct.inserted = value;
-      break;
-    case "verified":
-      logDetail("setting accountStruct.verified = " + value);
-      accountStruct.verified = value;
-      break;
-    case "KYC":
-      logDetail("setting accountStruct.KYC = " + value);
-      accountStruct.KYC = value;
-      break;
-    case "sponsorKeys":
-      logDetail("setting accountStruct.sponsorKeys = " + value);
-      accountStruct.sponsorKeys = value;
-      break;
-    case "sponsorArr":
-      logDetail("setting accountStruct.sponsorArr = " + value);
-      accountStruct.sponsorArr = value;
-      break;
-    case "agentsSponsorKeys":
-      logDetail("setting accountStruct.agentsSponsorKeys = " + value);
-      accountStruct.agentsSponsorKeys = parseAddressStrArray(value);
-      break;
-    case "beneficiaryKeys":
-      logDetail("setting accountStruct.beneficiaryKeys = " + value);
-      accountStruct.beneficiaryKeys = parseAddressStrArray(value);
-      break;
-    default:
-      break;
-  }
-};
-
-parseAddressStrArray = (strArray) => {
-  logFunctionHeader("parseAddressStrArray = " + strArray);
-  console.log("parseAddressStrArray = " + strArray);
-
-  strArray = strArray.substring(0, strArray.length - 1);
-  addressStrArray = strArray.split(",");
-  return addressStrArray;
-}
-
 
 addNetworkAccountSponsors = async (accountKey, _sponsorArr) => {
   logFunctionHeader(

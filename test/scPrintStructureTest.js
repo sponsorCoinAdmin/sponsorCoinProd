@@ -165,38 +165,4 @@ describe("spCoinContract", function () {
 
     getNetworkSponsorKeys();
   });
-/**/
-  //////////////////////////////////// TEST FUNCTIONS AREA ////////////////////////////////////////////
-/*
-  addTestNetworkAccountSponsors = async (_accountIdx, _sponsorArrayIdx) => {
-    let accountKey = testHHAccounts[_accountIdx].toLowerCase();
-    let sponsorArrayKeys = getTestHHAccountArrayKeys(_sponsorArrayIdx);
-    logDetail("For Account: " + accountKey + " Inserting Sponsor Records:");
-    logDetail(sponsorArrayKeys);
-    await addNetworkAccountSponsors(accountKey, sponsorArrayKeys);
-    return accountKey;
-  }
-  
-  addTestNetworkSponsorAgents = async (_accountIdx, _sponsorIdx, _agentArrayIdx) => {
-    let accountKey = testHHAccounts[_accountIdx].toLowerCase();
-    let sponsorKey = testHHAccounts[_sponsorIdx].toLowerCase();
-    let agentArrayKeys = getTestHHAccountArrayKeys(_agentArrayIdx);
-
-    await addNetworkSponsorAgents(accountKey, sponsorKey, agentArrayKeys);
-    return sponsorKey;
-  }
-  
-  addTestNetworkAccount = async (testRecordNumber) => {
-    let accountKey = testHHAccounts[testRecordNumber].toLowerCase();
-    await addNetworkAccount(accountKey);
-    return accountKey;
-  }
-
-  getTestHHAccountArrayKeys = (testAccountIdxArr) => {
-    let accountIdxArrayKeys = [];
-    for (let i = 0; i < testAccountIdxArr.length; i++) {
-      accountIdxArrayKeys.push(testHHAccounts[testAccountIdxArr[i]]);
-    }
-    return accountIdxArrayKeys;
-  }
-*/});
+});
