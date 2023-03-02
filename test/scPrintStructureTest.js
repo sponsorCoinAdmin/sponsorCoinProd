@@ -30,7 +30,7 @@ const {
   logFunctionHeader,
   logDetail,
   log,
-} = require("./prod/utils/logging");
+} = require("./prod/lib/utils/logging");
 
 let spCoinContractDeployed;
 

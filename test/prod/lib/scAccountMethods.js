@@ -5,7 +5,7 @@ const {
   RateHeaderStruct,
   TransactionStruct,
 } = require("./dataTypes");
-const { logFunctionHeader, logDetail } = require("../utils/logging");
+const { logFunctionHeader, logDetail } = require("./utils/logging");
 let spCoinContractDeployed;
 
 setContract = (_spCoinContractDeployed) => {
