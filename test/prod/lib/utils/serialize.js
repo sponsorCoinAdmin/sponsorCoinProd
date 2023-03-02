@@ -71,9 +71,9 @@ addAccountField = (key, value, accountStruct) => {
       logDetail("setting accountStruct.sponsorArr = " + value);
       accountStruct.sponsorArr = value;
       break;
-    case "agentsSponsorKeys":
-      logDetail("setting accountStruct.agentsSponsorKeys = " + value);
-      accountStruct.agentsSponsorKeys = parseAddressStrArray(value);
+    case "agentKeys":
+      logDetail("setting accountStruct.agentKeys = " + value);
+      accountStruct.agentKeys = parseAddressStrArray(value);
       break;
     case "beneficiaryKeys":
       logDetail("setting accountStruct.beneficiaryKeys = " + value);

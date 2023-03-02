@@ -167,8 +167,8 @@ getNetworkBeneficiaryKeys = async (_accountKey) => {
   return beneficiaryKeys;
 };
 
-getNetworkAgentKeys = async (_accountKey, _sponsorKey) => {
-  logFunctionHeader("getNetworkAgentKeys = async(" + _accountKey + ", " + _sponsorKey + ")" );
+getNetworkSponsorAgentKeys = async (_accountKey, _sponsorKey) => {
+  logFunctionHeader("getNetworkSponsorAgentKeys = async(" + _accountKey + ", " + _sponsorKey + ")" );
   let maxCount = await spCoinContractDeployed.getAgentRecordCount(_accountKey, _sponsorKey);
 
   let agentKeys = {};
@@ -194,5 +194,5 @@ module.exports = {
   getNetworkAccountCount,
   getNetworkAccountSponsorsCount,
   getNetworkSponsorKeys,
-  getNetworkAgentKeys,
+  getNetworkSponsorAgentKeys,
 };

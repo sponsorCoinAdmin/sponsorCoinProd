@@ -37,7 +37,7 @@ contract DataTypes is KYC {
       bool verified;
       KYC kyc;
       address[] sponsorKeys;       // If Benefactor List of Accounts Sponsored
-      address[] agentsSponsorKeys; // If Agent? List of Parent Sponsors Accounts
+      address[] agentKeys; // If Agent? List of Parent Sponsors Accounts
       address[] beneficiaryKeys; // If Sponsor? List of Agents Sponsors Accounts
       mapping(address => SponsorStruct)  sponsorMap;
    }

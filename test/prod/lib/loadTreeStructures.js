@@ -39,7 +39,7 @@ loadSponsorsByKeys = async(_accountKey, _sponsorKeys) => {
     let sponsorArr = [];
     for (let [sponsorKey, idx] of Object.entries(_sponsorKeys)) {
         logDetail(sponsorKey, idx);
-        let agentKeys = await getNetworkAgentKeys(_accountKey, sponsorKey);
+        let agentKeys = await getNetworkSponsorAgentKeys(_accountKey, sponsorKey);
         // let sponsorIndex = await spCoinContractDeployed.getSponsorIndex(_accountKey, sponsorKey);
         // let sponsorActIdx = await spCoinContractDeployed.getAccountIndex(sponsorKey);
         let sponsorStruct = new SponsorStruct(sponsorKey);
@@ -73,7 +73,7 @@ loadBeneficiariesByKeys = async(_accountKey, _beneficiaryKeys) => {
 
 loadAgentsByAccountSponsor = async(_accountKey, _sponsorKey) => {
     logFunctionHeader("loadAgentsByAccountSponsor = async(" + _accountKey + ", " + _sponsorKey + ")");
-    let agentKeys = await getNetworkAgentKeys(_accountKey, _sponsorKey);
+    let agentKeys = await getNetworkSponsorAgentKeys(_accountKey, _sponsorKey);
     let agentArr = await loadAgentsByKeys(_accountKey, _sponsorKey, agentKeys);
     return agentArr;
 }

@@ -56,9 +56,7 @@ contract Accounts is DataTypes {
     /// @notice retreives the account record of a specific accountKey address.
     /// @param _accountKey public accountKey to set new balance
     function getAccountRecord(address _accountKey)
-        internal
-        view
-        onlyOwnerOrRootAdmin(_accountKey)
+        internal view onlyOwnerOrRootAdmin(_accountKey)
         returns (AccountStruct storage)
     {
         require(isAccountInserted(_accountKey));
@@ -68,49 +66,44 @@ contract Accounts is DataTypes {
     /// @notice retreives the account record of a specific accountKey address.
     /// @param _accountKey public accountKey to set new balance
     function getSerializedAccountRec(address _accountKey)
-        public
-        view
-        onlyOwnerOrRootAdmin(_accountKey)
+        public view onlyOwnerOrRootAdmin(_accountKey)
         returns (string memory)
     {
         require(isAccountInserted(_accountKey));
         return serialize(accountMap[_accountKey]);
     }
 
-    function serialize(AccountStruct storage accountRec)
-        private
-        view
-        returns (string memory)
+    function serialize(AccountStruct storage _accountRec)
+        private view returns (string memory)
     {
         // ToDo Remove Next Line and Serialize the AccountRec
-        string memory index = concat("index: ", toString(accountRec.index));
+        string memory index = concat("index: ", toString(_accountRec.index));
         string memory addr = concat(
             "accountKey: ",
-            toString(accountRec.accountKey)
+            toString(_accountRec.accountKey)
         );
         string memory insertionTime = concat(
             "insertionTime: ",
-            toString(accountRec.insertionTime)
+            toString(_accountRec.insertionTime)
         );
         string memory verified = concat(
             "verified: ",
-            toString(accountRec.verified)
+            toString(_accountRec.verified)
         );
-        string memory agentsSponsorKeys = toString(accountRec.agentsSponsorKeys);
-        string memory beneficiaryKeys = toString(accountRec.beneficiaryKeys);
+        string memory agentKeys = toString(_accountRec.agentKeys);
+        string memory beneficiaryKeys = toString(_accountRec.beneficiaryKeys);
         string memory delimiter = "\\,";
         string memory seralized = concat(index, delimiter, addr, delimiter, insertionTime);
         seralized = concat(seralized, ",", verified);
         seralized = string(
             abi.encodePacked(index, "\\,\n",
                 addr, "\\,\n", insertionTime, "\\,\n", verified ));
-        seralized = concat(seralized, delimiter, "agentsSponsorKeys:", agentsSponsorKeys );
+        seralized = concat(seralized, delimiter, "agentKeys:", agentKeys );
         seralized = concat(seralized, delimiter, "beneficiaryKeys:", beneficiaryKeys );
 
-        // console.log("accountRec.accountKey:", accountRec.accountKey);
-        // console.log( "toString(accountRec.accountKey)", toString(accountRec.accountKey));
+        // console.log("_accountRec.accountKey:", _accountRec.accountKey);
+        // console.log( "toString(_accountRec.accountKey)", toString(_accountRec.accountKey));
 
         return seralized;
-        // return  "QWERTYUIOP";
     }
 }

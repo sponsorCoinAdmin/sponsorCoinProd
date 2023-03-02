@@ -62,7 +62,7 @@ describe("spCoinContract", function () {
     await addTestNetworkSponsorAgents(1, 5, [7, 2, 17, 3, 9, 19]);
     await addTestNetworkSponsorAgents(3, 6, [1]);
     await addTestNetworkSponsorAgents(11, 18, [5, 7, 9, 6]);
-    await addTestNetworkSponsorAgents(14, 7, [1, 11, 0, 12, 2]);
+    await addTestNetworkSponsorAgents(14, 0, [1, 11, 0, 12, 2]);
     await addTestNetworkSponsorAgents(14, 2, [3]);
     await addTestNetworkSponsorAgents(14, 3, [1, 2]);
     await addTestNetworkSponsorAgents(0, 2, [6, 7, 16]);

@@ -27,7 +27,7 @@ contract Agents is Sponsors {
             agentRec.agent    = _agentKey;
             agentRec.inserted = true;
             sponsorAccountRec.agentKeys.push(_agentKey);
-            agentAccountRec.agentsSponsorKeys.push(_agentKey);
+            agentAccountRec.agentKeys.push(_agentKey);
         }
     }
 
