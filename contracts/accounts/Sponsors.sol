@@ -71,10 +71,25 @@ contract Sponsors is Accounts {
         return sponsor;
     }
 
+    /// @notice get address for an account beneficiary
+    /// @param _accountKey public account key to get sponsor array
+    /// @param beneficiaryIdx new beneficiary to add to account list
+    function getBeneficiaryKeyAddress(address _accountKey, uint beneficiaryIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
+        AccountStruct storage accountRec = accountMap[_accountKey];
+        address sponsor = accountRec.beneficiaryKeys[beneficiaryIdx];
+        return sponsor;
+    }
+
     /// @notice retreives the sponsor array record size a specific address.
     /// @param _accountKey public account key to get Sponsor Record Length
     function getSponsorRecordCount(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
         return getSponsorList(_accountKey).length;
+    }
+
+    /// @notice retreives the sponsor array record size a specific address.
+    /// @param _accountKey public account key to get Sponsor Record Length
+    function getBeneficiaryRecordCount(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
+        return getBeneficiaryList(_accountKey).length;
     }
 
     /// @notice retreives the sponsor array record size a specific address.
@@ -90,5 +105,11 @@ contract Sponsors is Accounts {
         AccountStruct storage account = accountMap[_accountKey];
         address[] storage sponsorKeys = account.sponsorKeys;
         return sponsorKeys;
+    }
+
+    function getBeneficiaryList(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
+        AccountStruct storage account = accountMap[_accountKey];
+        address[] storage beneficiaryKeys = account.beneficiaryKeys;
+        return beneficiaryKeys;
     }
 }

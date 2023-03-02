@@ -1,15 +1,16 @@
 const { expect } = require("chai");
+
 const {} = require("./prod/lib/loadTreeStructures");
-const { addTestNetworkAccountSponsors,
+
+const {
+  addTestNetworkAccountSponsors,
   addTestNetworkSponsorAgents,
   addTestNetworkAccount,
-  getTestHHAccountArrayKeys
+  getTestHHAccountArrayKeys,
 } = require("./testMethods/scTestMethods");
 const { testHHAccounts } = require("./testMethods/hhTestAccounts");
 
-const {
-  setContract
-} = require("./prod/lib/scAccountMethods");
+const { setContract } = require("./prod/lib/scAccountMethods");
 
 const {
   AccountStruct,
@@ -32,9 +33,7 @@ const {
   log,
 } = require("./prod/lib/utils/logging");
 
-const {
-  deployContract
-} = require("./prod/deployContract");
+const { deployContract } = require("./prod/deployContract");
 
 let spCoinContractDeployed;
 
@@ -43,14 +42,13 @@ logSetup("JS => Setup Test");
 describe("spCoinContract", function () {
   beforeEach(async () => {
     spCoinContractDeployed = await deployContract();
-      setContract(spCoinContractDeployed);
-//    setLogDefaults();
+    setContract(spCoinContractDeployed);
+    //    setLogDefaults();
   });
 
   /**/
   it("PRINT STRUCTURE TREE TESTS", async function () {
     // USAGE: addTestNetworkAccountSponsors(_accountRecIdx, _startSpIdx, _lastSpIdx);
-    log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     await addTestNetworkAccountSponsors(2, [1, 7, 14, 8, 18, 9]);
     await addTestNetworkAccountSponsors(2, [12]);
     await addTestNetworkAccountSponsors(3, [14, 17]);
@@ -70,11 +68,9 @@ describe("spCoinContract", function () {
     await addTestNetworkSponsorAgents(0, 2, [6, 7, 16]);
 
     let accountArr = await loadTreeStructures(spCoinContractDeployed);
-    console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
-    console.log("accountArr = "+ accountArr);
 
     logAccountStructure(accountArr);
-//    logTree(accountArr);
+    //    logTree(accountArr);
   });
   /**
 

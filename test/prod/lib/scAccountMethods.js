@@ -143,41 +143,37 @@ getNetworkAccountSponsorsCount = async (_accountKey) => {
 
 getNetworkSponsorKeys = async (_accountKey) => {
   logFunctionHeader("getNetworkSponsorKeys = async(" + _accountKey + ")");
-  let maxCount = await spCoinContractDeployed.getSponsorRecordCount(
-    _accountKey
-  );
+  let maxCount = await spCoinContractDeployed.getSponsorRecordCount(_accountKey);
 
   let sponsorKeys = {};
 
   for (let idx = 0; idx < maxCount; idx++) {
-    let sponsor = await spCoinContractDeployed.getSponsorKeyAddress(
-      _accountKey,
-      idx
-    );
+    let sponsor = await spCoinContractDeployed.getSponsorKeyAddress(_accountKey, idx );
     sponsorKeys[sponsor] = idx;
   }
   return sponsorKeys;
 };
 
+getNetworkBeneficiaryKeys = async (_accountKey) => {
+  logFunctionHeader("getNetworkBeneficiaryKeys = async(" + _accountKey + ")");
+  let maxCount = await spCoinContractDeployed.getBeneficiaryRecordCount(_accountKey);
+
+  let beneficiaryKeys = {};
+
+  for (let idx = 0; idx < maxCount; idx++) {
+    let beneficiary = await spCoinContractDeployed.getBeneficiaryKeyAddress(_accountKey, idx );
+    beneficiaryKeys[beneficiary] = idx;
+  }
+  return beneficiaryKeys;
+};
+
 getNetworkAgentKeys = async (_accountKey, _sponsorKey) => {
-  logFunctionHeader(
-    "getNetworkAgentKeys = async(" + _accountKey + ", " + _sponsorKey + ")"
-  );
-  logFunctionHeader(
-    "getNetworkAgentKeys = async(" + _accountKey + ", " + _sponsorKey + ")"
-  );
-  let maxCount = await spCoinContractDeployed.getAgentRecordCount(
-    _accountKey,
-    _sponsorKey
-  );
+  logFunctionHeader("getNetworkAgentKeys = async(" + _accountKey + ", " + _sponsorKey + ")" );
+  let maxCount = await spCoinContractDeployed.getAgentRecordCount(_accountKey, _sponsorKey);
 
   let agentKeys = {};
   for (let idx = 0; idx < maxCount; idx++) {
-    let agent = await spCoinContractDeployed.getAgentKeyAddress(
-      _accountKey,
-      _sponsorKey,
-      idx
-    );
+    let agent = await spCoinContractDeployed.getAgentKeyAddress(_accountKey, _sponsorKey, idx);
     logDetail("Agent[" + idx + "]: " + agent);
     agentKeys[agent] = idx;
   }

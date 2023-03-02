@@ -107,7 +107,6 @@ contract Accounts is DataTypes {
         seralized = concat(seralized, delimiter, "agentsSponsorKeys:", agentsSponsorKeys );
         seralized = concat(seralized, delimiter, "beneficiaryKeys:", beneficiaryKeys );
 
-
         // console.log("accountRec.accountKey:", accountRec.accountKey);
         // console.log( "toString(accountRec.accountKey)", toString(accountRec.accountKey));
 
