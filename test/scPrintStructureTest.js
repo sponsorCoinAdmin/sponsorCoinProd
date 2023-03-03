@@ -64,7 +64,7 @@ describe("spCoinContract", function () {
     // await addTestNetworkSponsorAgents(0, 2, [6, 7, 16]);
     // await addTestNetworkSponsorAgents(14, 6, [1]);
     // await addTestNetworkSponsorAgents(14, 0, [1, 11, 0, 12, 2]);
-    await addTestNetworkSponsorAgents(0, 1, [2]);
+    await addTestNetworkSponsorAgents(0, 1, [2, 3]);
     // await addTestNetworkSponsorAgents(3, 4, [5]);
 
     let accountArr = await loadTreeStructures(spCoinContractDeployed);

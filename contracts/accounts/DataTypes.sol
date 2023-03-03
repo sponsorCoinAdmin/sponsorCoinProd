@@ -35,16 +35,17 @@ contract DataTypes is KYC {
       bool inserted;
       bool verified;
       KYC kyc;
-      address[] sponsorKeys;       // If Benefactor List of Accounts Sponsored
-      address[] agentKeys; // If Agent? List of Parent Sponsors Accounts
-      address[] beneficiaryKeys; // If Sponsor? List of Agents Sponsors Accounts
+      address[] sponsoredAccountKeys;     // If Contribuitor List of Sponsored Accounts 
+      address[] agentKeys;                // If Sponsor? List of Agent Accounts
+      address[] contributorAccountKeys; // If Sponsor? List of Contribuitor Accounts
+      address[] agentParentAccountKeys;   // If Agent? List of Contribuitor Sponsor Accounts
       mapping(address => SponsorStruct)  sponsorMap;
    }
 
    // Each Account has a map of Sponsors and an array of rate structures
    struct SponsorStruct {
       uint index;
-      address sponsor;
+      address sponsorKey;
       uint insertionTime;
       bool inserted;
       bool verified;
@@ -58,7 +59,6 @@ contract DataTypes is KYC {
    struct AgentStruct {
       uint index;
       address account;
-      address parentSponsor;
       address agent;
       uint insertionTime;
       bool inserted;

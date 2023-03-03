@@ -1,28 +1,22 @@
-let prefix = "";
-let indentation = 2;
-
 class AccountStruct {
   constructor() {
     this.index;
     this.accountKey;
     this.insertionTime;
-    this.inserted;
     this.verified;
     this.KYC;
-    this.sponsorKeys;
+    this.sponsoredAccountKeys;
     this.sponsorArr;
     this.agentKeys;
-    this.beneficiaryKeys;
+    this.contributorAccountKeys;
   }
 }
 
 class SponsorStruct {
   constructor() {
     this.index;
-    this.parentAccountKey;
     this.sponsorKey;
     this.insertionTime;
-    this.inserted;
     this.verified;
     this.rates;
     this.verified;
@@ -34,10 +28,8 @@ class SponsorStruct {
 class AgentStruct {
   constructor() {
     this.index;
-    this.parentSponsorKey;
     this.agentKey;
     this.insertionTime;
-    this.inserted;
     this.verified;
     this.rates;
   }

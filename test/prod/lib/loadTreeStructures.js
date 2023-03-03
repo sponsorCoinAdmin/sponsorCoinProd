@@ -18,12 +18,12 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
 
         accountStruct.index = idx;
         accountStruct.accountKey = accountKey;
-        sponsorKeys = await getNetworkSponsorKeys(accountKey);
-        accountStruct.sponsorKeys = sponsorKeys;
-        accountStruct.sponsorArr = await loadSponsorsByKeys(accountKey, sponsorKeys);
+        sponsoredAccountKeys = await getNetworkSponsorKeys(accountKey);
+        accountStruct.sponsoredAccountKeys = sponsoredAccountKeys;
+        accountStruct.sponsorArr = await loadSponsorsByKeys(accountKey, sponsoredAccountKeys);
         accountArr.push(accountStruct);
 
-        accountStruct.beneficiaryKeys = await getNetworkBeneficiaryKeys(accountKey);
+        accountStruct.contributorAccountKeys = await getNetworkBeneficiaryKeys(accountKey);
         accountStruct.agentKeys = await getNetworkAgentKeys(accountKey);
     }
     return accountArr;
@@ -31,21 +31,20 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
 
 loadSponsorsByAccount = async(_accountKey) => {    
     logFunctionHeader("loadSponsorsByAccount("  + _accountKey + ")");
-    sponsorKeys = await getNetworkSponsorKeys(_accountKey);
-    sponsorArr = await loadSponsorsByKeys(_accountKey, sponsorKeys);
+    sponsoredAccountKeys = await getNetworkSponsorKeys(_accountKey);
+    sponsorArr = await loadSponsorsByKeys(_accountKey, sponsoredAccountKeys);
     return sponsorArr;
 }
 
-loadSponsorsByKeys = async(_accountKey, _sponsorKeys) => {
+loadSponsorsByKeys = async(_accountKey, _sponsoredAccountKeys) => {
     let sponsorArr = [];
-    for (let [sponsorKey, idx] of Object.entries(_sponsorKeys)) {
+    for (let [sponsorKey, idx] of Object.entries(_sponsoredAccountKeys)) {
         logDetail(sponsorKey, idx);
         let agentKeys = await getNetworkSponsorAgentKeys(_accountKey, sponsorKey);
         // let sponsorIndex = await spCoinContractDeployed.getSponsorIndex(_accountKey, sponsorKey);
         // let sponsorActIdx = await spCoinContractDeployed.getAccountIndex(sponsorKey);
         let sponsorStruct = new SponsorStruct(sponsorKey);
         sponsorStruct.index = idx;
-        sponsorStruct.parentAccountKey = _accountKey;
         sponsorStruct.sponsorKey = sponsorKey;
 
         sponsorStruct.agentKeys = agentKeys;
@@ -55,21 +54,20 @@ loadSponsorsByKeys = async(_accountKey, _sponsorKeys) => {
     return sponsorArr;
 }
 
-loadBeneficiariesByKeys = async(_accountKey, _beneficiaryKeys) => {
-    let beneficiaryArr = [];
-    for (let [beneficiaryKey, idx] of Object.entries(_beneficiaryKeys)) {
-        logDetail(beneficiaryKey, idx);
-        let agentKeys = await getNetworkBeneficiaryKeys(_accountKey, beneficiaryKey);
-        let sponsorStruct = new SponsorStruct(beneficiaryKey);
+loadBeneficiariesByKeys = async(_accountKey, _contributorAccountKeys) => {
+    let contributorArr = [];
+    for (let [contributorKey, idx] of Object.entries(_contributorAccountKeys)) {
+        logDetail(contributorKey, idx);
+        let agentKeys = await getNetworkBeneficiaryKeys(_accountKey, contributorKey);
+        let sponsorStruct = new SponsorStruct(contributorKey);
         sponsorStruct.index = idx;
-        sponsorStruct.parentAccountKey = _accountKey;
-        sponsorStruct.beneficiaryKey = beneficiaryKey;
+        sponsorStruct.contributorKey = contributorKey;
 
         sponsorStruct.agentKeys = agentKeys;
-        sponsorStruct.agentArr = await loadAgentsByKeys(_accountKey, beneficiaryKey, agentKeys);
-        beneficiaryArr.push(sponsorStruct);
+        sponsorStruct.agentArr = await loadAgentsByKeys(_accountKey, contributorKey, agentKeys);
+        contributorArr.push(sponsorStruct);
     }
-    return beneficiaryArr;
+    return contributorArr;
 }
 
 loadAgentsByAccountSponsor = async(_accountKey, _sponsorKey) => {
@@ -86,13 +84,10 @@ loadAgentsByKeys = async(_accountKey, _sponsorKey, _agentKeys) => {
         logDetail(agentKey, idx);
         let agentIndex = await spCoinContractDeployed.getAgentIndex(_accountKey, _sponsorKey, agentKey);
         let agentActIdx = await spCoinContractDeployed.getAccountIndex(agentKey);
-        agentStruct = new AgentStruct(agentKey);
+        agentStruct = new AgentStruct();
 
         agentStruct.index = idx;
-        agentStruct.accountKey = _accountKey;
-        agentStruct.parentSponsorKey = _sponsorKey;
-//        agentStruct.agentKey = agentKey;
-//        agentStruct.agentKeys[agentKey] = idx;
+        agentStruct.agentKey = agentKey;
         agentArr.push(agentStruct);
     }
     return agentArr;
@@ -109,7 +104,6 @@ loadBeneficiariesByKeys = async(_accountKey, _sponsorKey, _agentKeys) => {
 
         agentStruct.index = idx;
         agentStruct.accountKey = _accountKey;
-        agentStruct.parentSponsorKey = _sponsorKey;
 //        agentStruct.agentKey = agentKey;
 //        agentStruct.agentKeys[agentKey] = idx;
         agentArr.push(agentStruct);

@@ -11,7 +11,9 @@ contract Agents is Sponsors {
     /// @param _accountKey public Sponsor Coin Account Key
     /// @param _sponsorKey public account key to get sponsor array
     /// @param _agentKey new sponsor to add to account list
-    function insertSponsorAgent(address _accountKey, address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(msg.sender) {
+    function insertSponsorAgent(address _accountKey, address _sponsorKey, address _agentKey)
+            public onlyOwnerOrRootAdmin(msg.sender) 
+            nonRedundantAgent ( _accountKey, _sponsorKey, _agentKey) {
         insertAccountSponsor(_accountKey, _sponsorKey);
         addNetworkAccount(_agentKey);
 
@@ -23,7 +25,6 @@ contract Agents is Sponsors {
             agentRec.index = sponsorAccountRec.agentKeys.length;
             agentRec.insertionTime = block.timestamp;
             agentRec.account  = _accountKey;
-            agentRec.parentSponsor  = _sponsorKey;
             agentRec.agent    = _agentKey;
             agentRec.inserted = true;
             sponsorAccountRec.agentKeys.push(_agentKey);

@@ -24,4 +24,18 @@ contract Security {
         require (msg.sender == rootAdmin || msg.sender == _account, "Owner or Root Admin Security Access Violation");
         _;
     }
+
+    modifier nonRedundantSponsor (address _accountKey, address _sponsorKey) {
+        require (_accountKey != _sponsorKey , "_accountKey and _sponsorKey must be Mutually Exclusive)");
+        _;
+    }
+
+    modifier nonRedundantAgent (address _accountKey, address _sponsorKey, address _agentKey) {
+        require (_accountKey != _sponsorKey && 
+                 _sponsorKey != _agentKey && 
+                 _accountKey != _agentKey , "_accountKey, _sponsorKey and _agentKey must be Mutually Exclusive)");
+        _;
+    }
+
+    // address _accountKey, address _sponsorKey, address _agentKey
 }

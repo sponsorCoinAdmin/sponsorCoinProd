@@ -65,12 +65,12 @@ contract Accounts is DataTypes {
 
     ////////////////////// BENEFICIARY REQUESTS //////////////////////////////
 
-    /// @notice get address for an account beneficiary
+    /// @notice get address for an account contributor
     /// @param _accountKey public account key to get sponsor array
-    /// @param beneficiaryIdx new beneficiary to add to account list
-    function getBeneficiaryKeyAddress(address _accountKey, uint beneficiaryIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
+    /// @param contributorIdx new contributor to add to account list
+    function getBeneficiaryKeyAddress(address _accountKey, uint contributorIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         AccountStruct storage accountRec = accountMap[_accountKey];
-        address sponsor = accountRec.beneficiaryKeys[beneficiaryIdx];
+        address sponsor = accountRec.contributorAccountKeys[contributorIdx];
         return sponsor;
     }
 
@@ -84,15 +84,15 @@ contract Accounts is DataTypes {
     /// @param _accountKey public account key to get Sponsor Record Length
     function getBeneficiaryList(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
         AccountStruct storage account = accountMap[_accountKey];
-        address[] storage beneficiaryKeys = account.beneficiaryKeys;
-        return beneficiaryKeys;
+        address[] storage contributorAccountKeys = account.contributorAccountKeys;
+        return contributorAccountKeys;
     }
 
      /////////////////////////// AGENT REQUESTS //////////////////////////////
 
     /// @notice get address for an account agent
     /// @param _accountKey public account key to get sponsor array
-    /// @param _agentIdx new beneficiary to add to account list
+    /// @param _agentIdx new contributor to add to account list
     function getAgentKeyAddress(address _accountKey, uint _agentIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         AccountStruct storage accountRec = accountMap[_accountKey];
         address sponsor = accountRec.agentKeys[_agentIdx];
@@ -143,7 +143,7 @@ contract Accounts is DataTypes {
             toString(_accountRec.verified)
         );
         string memory agentKeys = toString(_accountRec.agentKeys);
-        string memory beneficiaryKeys = toString(_accountRec.beneficiaryKeys);
+        string memory contributorAccountKeys = toString(_accountRec.contributorAccountKeys);
         string memory delimiter = "\\,";
         string memory seralized = concat(index, delimiter, addr, delimiter, insertionTime);
         seralized = concat(seralized, ",", verified);
@@ -151,7 +151,7 @@ contract Accounts is DataTypes {
             abi.encodePacked(index, "\\,\n",
                 addr, "\\,\n", insertionTime, "\\,\n", verified ));
         seralized = concat(seralized, delimiter, "agentKeys:", agentKeys );
-        seralized = concat(seralized, delimiter, "beneficiaryKeys:", beneficiaryKeys );
+        seralized = concat(seralized, delimiter, "contributorAccountKeys:", contributorAccountKeys );
         seralized = concat(seralized, delimiter, "agentKeys:", agentKeys );
 
         // console.log("_accountRec.accountKey:", _accountRec.accountKey);
