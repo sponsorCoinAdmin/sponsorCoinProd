@@ -49,23 +49,23 @@ describe("spCoinContract", function () {
   /**/
   it("PRINT STRUCTURE TREE TESTS", async function () {
     // USAGE: addTestNetworkAccountSponsors(_accountRecIdx, _startSpIdx, _lastSpIdx);
-    await addTestNetworkAccountSponsors(2, [1, 7, 14, 8, 18, 9]);
-    await addTestNetworkAccountSponsors(2, [12]);
-    await addTestNetworkAccountSponsors(3, [14, 17]);
-    await addTestNetworkAccountSponsors(1, [5, 11, 13, 15]);
-    await addTestNetworkAccountSponsors(14, [18, 19, 7]);
-    await addTestNetworkAccountSponsors(3, [4]);
-    await addTestNetworkAccountSponsors(1, [2, 5]);
-    await addTestNetworkAccountSponsors(11, [5, 9, 0]);
+    // await addTestNetworkAccountSponsors(2, [1, 7, 14, 8, 18, 9]);
+    // await addTestNetworkAccountSponsors(2, [12]);
+    // await addTestNetworkAccountSponsors(3, [14, 17]);
+    // await addTestNetworkAccountSponsors(1, [5, 11, 13, 15]);
+    // await addTestNetworkAccountSponsors(14, [18, 19, 7]);
+    // await addTestNetworkAccountSponsors(3, [4]);
+    // await addTestNetworkAccountSponsors(1, [2, 5]);
+    // await addTestNetworkAccountSponsors(11, [5, 9, 0]);
 
-    //        USAGE: addNetworkSponsorAgents(_accountRecIdx, _sponsorRecIdx, _startAgIdx, _lastAgIdx);
-    await addTestNetworkSponsorAgents(1, 5, [7, 2, 17, 3, 9, 19]);
-    await addTestNetworkSponsorAgents(3, 6, [1]);
-    await addTestNetworkSponsorAgents(11, 18, [5, 7, 9, 6]);
-    await addTestNetworkSponsorAgents(14, 0, [1, 11, 0, 12, 2]);
-    await addTestNetworkSponsorAgents(14, 2, [3]);
-    await addTestNetworkSponsorAgents(14, 3, [1, 2]);
-    await addTestNetworkSponsorAgents(0, 2, [6, 7, 16]);
+    // //        USAGE: addNetworkSponsorAgents(_accountRecIdx, _sponsorRecIdx, _startAgIdx, _lastAgIdx);
+    // await addTestNetworkSponsorAgents(1, 5, [7, 2, 17, 3, 9, 19]);
+    // await addTestNetworkSponsorAgents(11, 18, [5, 7, 9, 6]);
+    // await addTestNetworkSponsorAgents(0, 2, [6, 7, 16]);
+    // await addTestNetworkSponsorAgents(14, 6, [1]);
+    // await addTestNetworkSponsorAgents(14, 0, [1, 11, 0, 12, 2]);
+    await addTestNetworkSponsorAgents(0, 1, [2]);
+    // await addTestNetworkSponsorAgents(3, 4, [5]);
 
     let accountArr = await loadTreeStructures(spCoinContractDeployed);
 

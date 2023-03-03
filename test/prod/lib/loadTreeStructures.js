@@ -24,6 +24,7 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
         accountArr.push(accountStruct);
 
         accountStruct.beneficiaryKeys = await getNetworkBeneficiaryKeys(accountKey);
+        accountStruct.agentKeys = await getNetworkAgentKeys(accountKey);
     }
     return accountArr;
 }

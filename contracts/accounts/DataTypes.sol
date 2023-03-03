@@ -27,7 +27,6 @@ contract DataTypes is KYC {
    address burnAddress = 0x0000000000000000000000000000000000000000;
    address[] public accountIndex;
    mapping(address => AccountStruct)  accountMap;
-   mapping(address => AgentStruct)  agentMap;
 
    struct AccountStruct {
       uint index;
