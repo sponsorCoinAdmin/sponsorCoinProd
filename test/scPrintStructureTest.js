@@ -45,7 +45,7 @@ describe("spCoinContract", function () {
     setContract(spCoinContractDeployed);
   });
 
-  /**
+  /**/
   it("PRINT STRUCTURE TREE TESTS", async function () {
     // USAGE: addTestNetworkAccountSponsors(_accountRecIdx, _startSpIdx, _lastSpIdx);
     await addTestNetworkAccountSponsors(2, [1, 7, 14, 8, 18, 9]);
@@ -148,7 +148,7 @@ describe("spCoinContract", function () {
     /**/
   });
 
-  /**
+  /**/
     it("PRINT STRUCTURE ACCOUNT DATA RECORD", async function () {
     setLogMode(LOG_MODE.LOG, true);
     // Test Record Insertion to Blockchain Network
@@ -180,7 +180,7 @@ describe("spCoinContract", function () {
     accountRecCount = await getNetworkAccountCount();
     expect(accountRecCount).to.equal(6);
   });  
-  /**
+  /**/
   
   it("PRINT STRUCTURE SPONSORS DATA RECORD", async function () {
     setLogMode(LOG_MODE.LOG, true);
@@ -206,7 +206,7 @@ describe("spCoinContract", function () {
     // let networkAccountKey = accountStruct.accountKey;
     // expect(networkAccountKey).to.equal(arrayKey);
   });
-  /**
+  /**/
 
   it("PRINT ACCOUNT SPONSOR ARRAY LISTS", async function () {
     setLogMode(LOG_MODE.LOG, true);

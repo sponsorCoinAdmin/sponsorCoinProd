@@ -8,7 +8,7 @@ import "./TimeUtils.sol";
 import "./Logging.sol";
 
 contract Utils is Security, TimeUtils, Logging {
-    constructor() {
+    constructor() { 
     }
   
     function msgSender() external view returns(address){

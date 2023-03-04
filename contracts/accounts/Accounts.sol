@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.7;
 /// @title ERC20 Contract
-import "./DataTypes.sol";
+import "../utils/StructSerialization.sol";
 
-contract Accounts is DataTypes {
+contract Accounts is StructSerialization {
     constructor() {}
 
     /// @notice insert block chain network address for spCoin Management
@@ -115,48 +115,13 @@ contract Accounts is DataTypes {
 
      /////////////////// ACCOUNT SERIALIZATION REQUESTS ////////////////////////
 
-     /// @notice retreives the account record of a specific accountKey address.
+    /// @notice retreives the account record of a specific accountKey address.
     /// @param _accountKey public accountKey to set new balance
     function getSerializedAccountRec(address _accountKey)
         public view onlyOwnerOrRootAdmin(_accountKey)
         returns (string memory)
     {
         require(isAccountInserted(_accountKey));
-        return serialize(accountMap[_accountKey]);
-    }
-
-    function serialize(AccountStruct storage _accountRec)
-        private view returns (string memory)
-    {
-        // ToDo Remove Next Line and Serialize the AccountRec
-        string memory index = concat("index: ", toString(_accountRec.index));
-        string memory addr = concat(
-            "accountKey: ",
-            toString(_accountRec.accountKey)
-        );
-        string memory insertionTime = concat(
-            "insertionTime: ",
-            toString(_accountRec.insertionTime)
-        );
-        string memory verified = concat(
-            "verified: ",
-            toString(_accountRec.verified)
-        );
-        string memory agentKeys = toString(_accountRec.agentKeys);
-        string memory contributorAccountKeys = toString(_accountRec.contributorAccountKeys);
-        string memory delimiter = "\\,";
-        string memory seralized = concat(index, delimiter, addr, delimiter, insertionTime);
-        seralized = concat(seralized, ",", verified);
-        seralized = string(
-            abi.encodePacked(index, "\\,\n",
-                addr, "\\,\n", insertionTime, "\\,\n", verified ));
-        seralized = concat(seralized, delimiter, "agentKeys:", agentKeys );
-        seralized = concat(seralized, delimiter, "contributorAccountKeys:", contributorAccountKeys );
-        seralized = concat(seralized, delimiter, "agentKeys:", agentKeys );
-
-        // console.log("_accountRec.accountKey:", _accountRec.accountKey);
-        // console.log( "toString(_accountRec.accountKey)", toString(_accountRec.accountKey));
-
-        return seralized;
+        return serializeAccount(accountMap[_accountKey]);
     }
 }

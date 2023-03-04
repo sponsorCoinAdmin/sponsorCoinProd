@@ -2,6 +2,7 @@
 pragma solidity ^0.8.7;
 /// @title ERC20 Contract
 import "./Sponsors.sol";
+import "../utils/StructSerialization.sol";
 
 contract Agents is Sponsors {
         constructor(){
@@ -96,5 +97,4 @@ contract Agents is Sponsors {
         address[] memory agentKeys = sponsorRec.agentKeys;
         return agentKeys;
     }
-
 }

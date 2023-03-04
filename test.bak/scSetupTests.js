@@ -67,6 +67,7 @@ describe("spCoinContract", function() {
         expect(await spCoinContractDeployed.decimals()).to.equal(testDecimals);
 //        expect(await spCoinContractDeployed.balanceOf(msgSender)).to.equal(testTotalSupply);
     });
+    
     it("Account Insertion Validation", async function () {
         logTestHeader("TEST ACCOUNT INSERTION");
         let account = testHHAccounts[0];
