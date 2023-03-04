@@ -2,7 +2,7 @@ const { testHHAccounts } = require("./hhTestAccounts");
 const {
   setContract,
   addNetworkAccount,
-  addNetworkAccountSponsors,
+  addAccountSponsors,
   addNetworkSponsorAgents,
   getNetworkAccounts,
   getNetworkSponsorKeys,
@@ -15,7 +15,7 @@ addTestNetworkAccountSponsors = async (_accountIdx, _sponsorArrayIdx) => {
   let sponsorArrayKeys = getTestHHAccountArrayKeys(_sponsorArrayIdx);
   logDetail("JS => For Account: " + accountKey + " Inserting Sponsor Records:");
   logDetail(sponsorArrayKeys);
-  await addNetworkAccountSponsors(accountKey, sponsorArrayKeys);
+  await addAccountSponsors(accountKey, sponsorArrayKeys);
   return accountKey;
 };
 
