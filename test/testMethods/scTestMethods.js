@@ -6,7 +6,7 @@ const {
   addNetworkSponsorAgents,
   getNetworkAccounts,
   getSponsorKeys,
-  getNetworkSponsorAgentKeys,
+  getSponsorAgentKeys,
 } = require("../prod/lib/scAccountMethods");
 
 addTestNetworkAccountSponsors = async (_accountIdx, _sponsorArrayIdx) => {

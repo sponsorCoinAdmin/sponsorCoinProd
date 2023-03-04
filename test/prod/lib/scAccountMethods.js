@@ -18,12 +18,6 @@ setContract = (_spCoinContractDeployed) => {
 
 ////////////////////// ADD NETWORK FUNCTIONS ///////////////////////
 
-addNetworkAccount = async (accountKey) => {
-  logFunctionHeader("addNetworkAccount = async(" + accountKey + ")");
-  logDetail("JS => Inserting Account " + accountKey + " To Blockchain Network");
-  await spCoinContractDeployed.addNetworkAccount(accountKey);
-};
-
 getNetworkAccounts = async () => {
   logFunctionHeader("getNetworkAccounts = async()");
   let maxCount = await spCoinContractDeployed.getNetworkAccountCount();
@@ -59,11 +53,30 @@ addNetworkAccounts = async (_accountArrayKeys) => {
   return maxCount;
 };
 
+addNetworkAccount = async (accountKey) => {
+  logFunctionHeader("addNetworkAccount = async(" + accountKey + ")");
+  logDetail("JS => Inserting Account " + accountKey + " To Blockchain Network");
+  await spCoinContractDeployed.addNetworkAccount(accountKey);
+};
+
 getNetworkAccountCount = async () => {
   logFunctionHeader("getNetworkAccountCount = async()");
   let maxCount = await spCoinContractDeployed.getNetworkAccountCount();
   logDetail("JS => Found " + maxCount + " Account Records");
   return maxCount;
+};
+
+getNetworkPatreonKeys = async (_accountKey) => {
+  logFunctionHeader("getNetworkPatreonKeys = async(" + _accountKey + ")");
+  let maxCount = await spCoinContractDeployed.getPatreonRecordCount(_accountKey);
+
+  let contributorAccountKeys = {};
+
+  for (let idx = 0; idx < maxCount; idx++) {
+    let contributor = await spCoinContractDeployed.getPatreonKeyAddress(_accountKey, idx );
+    contributorAccountKeys[contributor] = idx;
+  }
+  return contributorAccountKeys;
 };
 
 ////////////////////// ADD SPONSOR FUNCTIONS ///////////////////////
@@ -86,7 +99,6 @@ addAccountSponsors = async (accountKey, _sponsorArr) => {
   logDetail("JS => Inserted = " + sponsorCount + " Sponsor Records");
   return --sponsorCount;
 };
-
 
 getAccountSponsorCount = async (_account) => {
   logFunctionHeader("getAccountSponsorCount = async(" + _account + ")");
@@ -118,19 +130,6 @@ getSponsorKeys = async (_accountKey) => {
     sponsoredAccountKeys[sponsor] = idx;
   }
   return sponsoredAccountKeys;
-};
-
-getPatreonKeys = async (_accountKey) => {
-  logFunctionHeader("getPatreonKeys = async(" + _accountKey + ")");
-  let maxCount = await spCoinContractDeployed.getPatreonRecordCount(_accountKey);
-
-  let contributorAccountKeys = {};
-
-  for (let idx = 0; idx < maxCount; idx++) {
-    let contributor = await spCoinContractDeployed.getPatreonKeyAddress(_accountKey, idx );
-    contributorAccountKeys[contributor] = idx;
-  }
-  return contributorAccountKeys;
 };
 
 //////////////////////// ADD AGENT FUNCTIONS /////////////////////////
@@ -178,8 +177,8 @@ getNetworkAgentKeys = async (_accountKey) => {
   return contributorAccountKeys;
 };
 
-getNetworkSponsorAgentKeys = async (_accountKey, _sponsorKey) => {
-  logFunctionHeader("getNetworkSponsorAgentKeys = async(" + _accountKey + ", " + _sponsorKey + ")" );
+getSponsorAgentKeys = async (_accountKey, _sponsorKey) => {
+  logFunctionHeader("getSponsorAgentKeys = async(" + _accountKey + ", " + _sponsorKey + ")" );
   let maxCount = await spCoinContractDeployed.getSponsorAgentRecordCount(_accountKey, _sponsorKey);
 
   let agentKeys = {};
@@ -206,5 +205,5 @@ module.exports = {
   getNetworkAccountCount,
   getAccountSponsorsCount,
   getSponsorKeys,
-  getNetworkSponsorAgentKeys,
+  getSponsorAgentKeys,
 };

@@ -23,7 +23,7 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
         accountStruct.sponsorArr = await loadSponsorsByKeys(accountKey, sponsoredAccountKeys);
         accountArr.push(accountStruct);
 
-        accountStruct.contributorAccountKeys = await getPatreonKeys(accountKey);
+        accountStruct.contributorAccountKeys = await getNetworkPatreonKeys(accountKey);
         accountStruct.agentKeys = await getNetworkAgentKeys(accountKey);
     }
     return accountArr;
@@ -42,7 +42,7 @@ loadSponsorsByKeys = async(_accountKey, _sponsoredAccountKeys) => {
     let sponsorArr = [];
     for (let [sponsorKey, idx] of Object.entries(_sponsoredAccountKeys)) {
         logDetail("JS => " + sponsorKey, idx);
-        let agentKeys = await getNetworkSponsorAgentKeys(_accountKey, sponsorKey);
+        let agentKeys = await getSponsorAgentKeys(_accountKey, sponsorKey);
         // let sponsorIndex = await spCoinContractDeployed.getSponsorIndex(_accountKey, sponsorKey);
         // let sponsorActIdx = await spCoinContractDeployed.getAccountIndex(sponsorKey);
         let sponsorStruct = new SponsorStruct(sponsorKey);
@@ -60,7 +60,7 @@ loadBeneficiariesByKeys = async(_accountKey, _contributorAccountKeys) => {
     let contributorArr = [];
     for (let [contributorKey, idx] of Object.entries(_contributorAccountKeys)) {
         logDetail("JS => " + contributorKey, idx);
-        let agentKeys = await getPatreonKeys(_accountKey, contributorKey);
+        let agentKeys = await getNetworkPatreonKeys(_accountKey, contributorKey);
         let sponsorStruct = new SponsorStruct(contributorKey);
         sponsorStruct.index = idx;
         sponsorStruct.contributorKey = contributorKey;
@@ -74,7 +74,7 @@ loadBeneficiariesByKeys = async(_accountKey, _contributorAccountKeys) => {
 
 loadAgentsByAccountSponsor = async(_accountKey, _sponsorKey) => {
     logFunctionHeader("loadAgentsByAccountSponsor = async(" + _accountKey + ", " + _sponsorKey + ")");
-    let agentKeys = await getNetworkSponsorAgentKeys(_accountKey, _sponsorKey);
+    let agentKeys = await getSponsorAgentKeys(_accountKey, _sponsorKey);
     let agentArr = await loadAgentsByKeys(_accountKey, _sponsorKey, agentKeys);
     return agentArr;
 }
