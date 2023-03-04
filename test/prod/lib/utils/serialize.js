@@ -11,27 +11,25 @@ deSerializedAccountRec = async (serializedAccountRec) => {
   logFunctionHeader(
     "deSerializedAccountRec = async(" + serializedAccountRec + ")"
   );
-  logDetail("serializedAccountRec:\n" + serializedAccountRec);
+  logDetail("JS => serializedAccountRec:\n" + serializedAccountRec);
   let accountStruct = new AccountStruct();
   let elements = serializedAccountRec.split("\\,");
   for (let i = 0; i < elements.length; i++) {
     let element = elements[i].trim();
     let keyValue = element.split(":");
-    logDetail("keyValue = " + keyValue);
+    logDetail("JS => keyValue = " + keyValue);
 
     let key = keyValue[0].trim();
     let value = keyValue[1].trim();
-    // logDetail("key     = " + key);
-    // logDetail("value   = " + value);
+    // logDetail("JS => key     = " + key);
+    // logDetail("JS => value   = " + value);
     addAccountField(key, value, accountStruct);
   }
 
-  logDetail("scPrintStructureTest.js, accountStruct:");
-  logDetail(
-    "accountStruct               = " + JSON.stringify(accountStruct, 0, 2)
+  logDetail("JS => scPrintStructureTest.js, accountStruct:");
+  logDetail("JS => accountStruct               = " + JSON.stringify(accountStruct, 0, 2)
   );
-  logDetail(
-    "============================================================================"
+  logDetail("JS => ============================================================================"
   );
   return accountStruct;
 };
@@ -40,43 +38,43 @@ addAccountField = (key, value, accountStruct) => {
   logFunctionHeader("addAccountField = (" + key + "," + value + ")");
   switch (key.trim()) {
     case "index":
-      logDetail("setting accountStruct.index = " + value);
+      logDetail("JS => setting accountStruct.index = " + value);
       accountStruct.index = value;
       break;
     case "accountKey":
-      logDetail("setting accountStruct.index = " + value);
+      logDetail("JS => setting accountStruct.index = " + value);
       accountStruct.accountKey = value;
       break;
     case "insertionTime":
-      logDetail("setting accountStruct.insertionTime = " + value);
+      logDetail("JS => setting accountStruct.insertionTime = " + value);
       accountStruct.insertionTime = value;
       break;
     case "inserted":
-      logDetail("setting accountStruct.inserted = " + value);
+      logDetail("JS => setting accountStruct.inserted = " + value);
       accountStruct.inserted = value;
       break;
     case "verified":
-      logDetail("setting accountStruct.verified = " + value);
+      logDetail("JS => setting accountStruct.verified = " + value);
       accountStruct.verified = value;
       break;
     case "KYC":
-      logDetail("setting accountStruct.KYC = " + value);
+      logDetail("JS => setting accountStruct.KYC = " + value);
       accountStruct.KYC = value;
       break;
     case "sponsoredAccountKeys":
-      logDetail("setting accountStruct.sponsoredAccountKeys = " + value);
+      logDetail("JS => setting accountStruct.sponsoredAccountKeys = " + value);
       accountStruct.sponsoredAccountKeys = value;
       break;
     case "sponsorArr":
-      logDetail("setting accountStruct.sponsorArr = " + value);
+      logDetail("JS => setting accountStruct.sponsorArr = " + value);
       accountStruct.sponsorArr = value;
       break;
     case "agentKeys":
-      logDetail("setting accountStruct.agentKeys = " + value);
+      logDetail("JS => setting accountStruct.agentKeys = " + value);
       accountStruct.agentKeys = parseAddressStrArray(value);
       break;
     case "contributorAccountKeys":
-      logDetail("setting accountStruct.contributorAccountKeys = " + value);
+      logDetail("JS => setting accountStruct.contributorAccountKeys = " + value);
       accountStruct.contributorAccountKeys = parseAddressStrArray(value);
       break;
     default:

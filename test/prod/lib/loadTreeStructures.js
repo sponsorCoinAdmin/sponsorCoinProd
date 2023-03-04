@@ -37,9 +37,11 @@ loadSponsorsByAccount = async(_accountKey) => {
 }
 
 loadSponsorsByKeys = async(_accountKey, _sponsoredAccountKeys) => {
+    logFunctionHeader("loadSponsorsByKeys(" + _accountKey + ", " + _sponsoredAccountKeys + ")");
+
     let sponsorArr = [];
     for (let [sponsorKey, idx] of Object.entries(_sponsoredAccountKeys)) {
-        logDetail(sponsorKey, idx);
+        logDetail("JS => " + sponsorKey, idx);
         let agentKeys = await getNetworkSponsorAgentKeys(_accountKey, sponsorKey);
         // let sponsorIndex = await spCoinContractDeployed.getSponsorIndex(_accountKey, sponsorKey);
         // let sponsorActIdx = await spCoinContractDeployed.getAccountIndex(sponsorKey);
@@ -57,7 +59,7 @@ loadSponsorsByKeys = async(_accountKey, _sponsoredAccountKeys) => {
 loadBeneficiariesByKeys = async(_accountKey, _contributorAccountKeys) => {
     let contributorArr = [];
     for (let [contributorKey, idx] of Object.entries(_contributorAccountKeys)) {
-        logDetail(contributorKey, idx);
+        logDetail("JS => " + contributorKey, idx);
         let agentKeys = await getNetworkBeneficiaryKeys(_accountKey, contributorKey);
         let sponsorStruct = new SponsorStruct(contributorKey);
         sponsorStruct.index = idx;
@@ -81,7 +83,7 @@ loadAgentsByKeys = async(_accountKey, _sponsorKey, _agentKeys) => {
     let agentArr = [];
     let maxCount = _agentKeys.length;
     for (let [agentKey, idx] of Object.entries(_agentKeys)) {
-        logDetail(agentKey, idx);
+        logDetail("JS => " + agentKey, idx);
         let agentIndex = await spCoinContractDeployed.getAgentIndex(_accountKey, _sponsorKey, agentKey);
         let agentActIdx = await spCoinContractDeployed.getAccountIndex(agentKey);
         agentStruct = new AgentStruct();
@@ -97,7 +99,7 @@ loadBeneficiariesByKeys = async(_accountKey, _sponsorKey, _agentKeys) => {
     let agentArr = [];
     let maxCount = _agentKeys.length;
     for (let [agentKey, idx] of Object.entries(_agentKeys)) {
-        logDetail(agentKey, idx);
+        logDetail("JS => " + agentKey, idx);
         let agentIndex = await spCoinContractDeployed.getAgentIndex(_accountKey, _sponsorKey, agentKey);
         let agentActIdx = await spCoinContractDeployed.getAccountIndex(agentKey);
         agentStruct = new AgentStruct(agentKey);

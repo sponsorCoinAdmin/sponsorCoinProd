@@ -87,7 +87,7 @@ describe("spCoinContract", function() {
         logTestHeader("ADD MORE HARDHAT ACCOUNTS")
         await addNetworkAccounts(testHHAccounts);
 
-        logDetail("*** RETRIEVE ALL INSERTED RECORDS FROM THE BLOCKCHAIN ***")
+        logDetail("JS => *** RETRIEVE ALL INSERTED RECORDS FROM THE BLOCKCHAIN ***")
         let insertedArrayAccounts = await getNetworkAccounts();
         let testRecCount = testHHAccounts.length;
         let insertedRecCount = insertedArrayAccounts.length;
@@ -103,7 +103,7 @@ describe("spCoinContract", function() {
     it("Insert 4 Sponsor Coin Records 1 count, 1 sponsor and 2 Agents", async function () {
         logTestHeader("TEST MORE HARDHAT SPONSOR RECORD INSERTIONS")
 
-        logDetail("*** Insert Sponsor to AccountRecord[2] as AccountRecord[5] ***")
+        logDetail("JS => *** Insert Sponsor to AccountRecord[2] as AccountRecord[5] ***")
         let startRec = 4;
         let endRec = 15;
         await addTestNetworkSponsorAgents(3, 6, [1, 2]);

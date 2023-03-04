@@ -13,7 +13,7 @@ addTestNetworkAccountSponsors = async (_accountIdx, _sponsorArrayIdx) => {
   logFunctionHeader("async (" + _accountIdx  + "," + _sponsorArrayIdx+ ")");
   let accountKey = testHHAccounts[_accountIdx].toLowerCase();
   let sponsorArrayKeys = getTestHHAccountArrayKeys(_sponsorArrayIdx);
-  logDetail("For Account: " + accountKey + " Inserting Sponsor Records:");
+  logDetail("JS => For Account: " + accountKey + " Inserting Sponsor Records:");
   logDetail(sponsorArrayKeys);
   await addNetworkAccountSponsors(accountKey, sponsorArrayKeys);
   return accountKey;
