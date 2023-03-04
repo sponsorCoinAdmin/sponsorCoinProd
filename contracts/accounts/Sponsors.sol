@@ -95,15 +95,15 @@ contract Sponsors is Accounts {
         return sponsoredAccountKeys;
     }
 
-    // /// @notice retreives the sponsor array record size of the Beneficiary list.
+    // /// @notice retreives the sponsor array record size of the Patreon list.
     // /// @param _accountKey public account key to get Sponsor Record Length
-    // function getBeneficiaryRecordCount(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
-    //     return getBeneficiaryList(_accountKey).length;
+    // function getPatreonRecordCount(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
+    //     return getPatreonList(_accountKey).length;
     // }
 
-    // /// @notice retreives the sponsor array records for the Beneficiary list
+    // /// @notice retreives the sponsor array records for the Patreon list
     // /// @param _accountKey public account key to get Sponsor Record Length
-    // function getBeneficiaryList(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
+    // function getPatreonList(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
     //     AccountStruct storage account = accountMap[_accountKey];
     //     address[] storage contributorAccountKeys = account.contributorAccountKeys;
     //     return contributorAccountKeys;

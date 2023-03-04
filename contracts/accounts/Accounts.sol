@@ -68,21 +68,21 @@ contract Accounts is DataTypes {
     /// @notice get address for an account contributor
     /// @param _accountKey public account key to get sponsor array
     /// @param contributorIdx new contributor to add to account list
-    function getBeneficiaryKeyAddress(address _accountKey, uint contributorIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
+    function getPatreonKeyAddress(address _accountKey, uint contributorIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         AccountStruct storage accountRec = accountMap[_accountKey];
         address sponsor = accountRec.contributorAccountKeys[contributorIdx];
         return sponsor;
     }
 
-    /// @notice retreives the sponsor array record size of the Beneficiary list.
+    /// @notice retreives the sponsor array record size of the Patreon list.
     /// @param _accountKey public account key to get Sponsor Record Length
-    function getBeneficiaryRecordCount(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
-        return getBeneficiaryList(_accountKey).length;
+    function getPatreonRecordCount(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
+        return getPatreonList(_accountKey).length;
     }
 
-    /// @notice retreives the sponsor array records for the Beneficiary list
+    /// @notice retreives the sponsor array records for the Patreon list
     /// @param _accountKey public account key to get Sponsor Record Length
-    function getBeneficiaryList(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
+    function getPatreonList(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
         AccountStruct storage account = accountMap[_accountKey];
         address[] storage contributorAccountKeys = account.contributorAccountKeys;
         return contributorAccountKeys;
@@ -99,13 +99,13 @@ contract Accounts is DataTypes {
         return sponsor;
     }
 
-    /// @notice retreives the sponsor array record size of the Beneficiary list.
+    /// @notice retreives the sponsor array record size of the Patreon list.
     /// @param _accountKey public account key to get Sponsor Record Length
     function getAgentRecordCount(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
         return getAgentList(_accountKey).length;
     }
 
-    /// @notice retreives the sponsor array records for the Beneficiary list
+    /// @notice retreives the sponsor array records for the Patreon list
     /// @param _accountKey public account key to get Sponsor Record Length
     function getAgentList(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
         AccountStruct storage account = accountMap[_accountKey];

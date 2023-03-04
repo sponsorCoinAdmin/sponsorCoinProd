@@ -152,13 +152,13 @@ describe("spCoinContract", function () {
     let sponsorCount = await getAccountSponsorCount(accountKey);
     expect(sponsorCount).to.equal(6);
 
-    let sponsorArr = await getNetworkSponsorKeys(accountKey);
+    let sponsorArr = await getSponsorKeys(accountKey);
 
     logTree(sponsorArr);
     let sponsorArrLength = Object.keys(sponsorArr).length;
     expect(sponsorArrLength).to.equal(6);
 
-    getNetworkSponsorKeys();
+    getSponsorKeys();
   });
   /**/
 });
