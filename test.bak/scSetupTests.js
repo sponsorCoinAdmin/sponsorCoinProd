@@ -71,25 +71,25 @@ describe("spCoinContract", function() {
     it("Account Insertion Validation", async function () {
         logTestHeader("TEST ACCOUNT INSERTION");
         let account = testHHAccounts[0];
-        let recCount = await spCoinContractDeployed.getNetworkAccountCount();
+        let recCount = await spCoinContractDeployed.getAccountCount();
         expect(recCount).to.equal(0);
         logDetail("JS => ** Before Inserted Record Count = " + recCount);
         let isAccountInserted = await spCoinContractDeployed.isAccountInserted(account);
         logDetail("JS => Address "+ account + " Before Inserted Record Found = " + isAccountInserted);
-        await spCoinContractDeployed.addNetworkAccount(account);
+        await spCoinContractDeployed.addAccount(account);
         isAccountInserted = await spCoinContractDeployed.isAccountInserted(account);
         logDetail("JS => Address "+ account + " After Inserted Record Found = " + isAccountInserted);
-        recCount = await spCoinContractDeployed.getNetworkAccountCount();
+        recCount = await spCoinContractDeployed.getAccountCount();
         logDetail("JS => ** After Inserted Record Count = " + await recCount);        
         expect(recCount).to.equal(1);
     });
 
     it("Insertion 20 Hardhat Accounts for Validation", async function () {
         logTestHeader("ADD MORE HARDHAT ACCOUNTS")
-        await addNetworkAccounts(testHHAccounts);
+        await addAccounts(testHHAccounts);
 
         logDetail("JS => *** RETRIEVE ALL INSERTED RECORDS FROM THE BLOCKCHAIN ***")
-        let insertedArrayAccounts = await getNetworkAccounts();
+        let insertedArrayAccounts = await getAccounts();
         let testRecCount = testHHAccounts.length;
         let insertedRecCount = insertedArrayAccounts.length;
         expect(testRecCount).to.equal(insertedRecCount);
@@ -108,7 +108,7 @@ describe("spCoinContract", function() {
         let startRec = 4;
         let endRec = 15;
         await addTestNetworkSponsorAgents(3, 6, [1, 2]);
-        let insertCount = await spCoinContractDeployed.getNetworkAccountCount();
+        let insertCount = await spCoinContractDeployed.getAccountCount();
         expect(insertCount).to.equal(4);
     });
 });

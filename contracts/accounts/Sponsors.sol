@@ -13,8 +13,8 @@ contract Sponsors is Accounts {
     function insertAccountSponsor(address _accountKey, address _sponsorAccountKey) 
         public onlyOwnerOrRootAdmin(_accountKey)
         nonRedundantSponsor ( _accountKey,  _sponsorAccountKey) {
-        addNetworkAccount(_accountKey);
-        addNetworkAccount(_sponsorAccountKey);
+        addAccount(_accountKey);
+        addAccount(_sponsorAccountKey);
         AccountStruct storage parentAccountRec = accountMap[_accountKey];
         AccountStruct storage sponsorAccountRec = accountMap[_sponsorAccountKey];
         SponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorAccountKey);

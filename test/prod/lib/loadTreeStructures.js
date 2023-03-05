@@ -10,7 +10,7 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
     logFunctionHeader("loadTreeStructures(" + _spCoinContractDeployed + ")");
     spCoinContractDeployed = _spCoinContractDeployed;
     let accountArr = [];
-    let insertedArrayAccounts = await getNetworkAccounts();
+    let insertedArrayAccounts = await getAccounts();
     let maxCount = insertedArrayAccounts.length;
     for(let idx = 0; idx < maxCount; idx++) {
         let accountKey = insertedArrayAccounts[idx];
@@ -23,7 +23,7 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
         accountStruct.sponsoredObjectArray = await loadSponsorsByKeys(accountKey, sponsoredAccountKeys);
         accountArr.push(accountStruct);
 
-        accountStruct.patreonAccountKeys = await getNetworkPatreonKeys(accountKey);
+        accountStruct.patreonAccountKeys = await getPatreonKeys(accountKey);
         accountStruct.agentAccountKeys = await getNetworkAgentKeys(accountKey);
     }
     return accountArr;
@@ -60,7 +60,7 @@ loadBeneficiariesByKeys = async(_accountKey, _patreonAccountKeys) => {
     let patreonArr = [];
     for (let [patreonKey, idx] of Object.entries(_patreonAccountKeys)) {
         logDetail("JS => " + patreonKey, idx);
-        let agentAccountKeys = await getNetworkPatreonKeys(_accountKey, patreonKey);
+        let agentAccountKeys = await getPatreonKeys(_accountKey, patreonKey);
         let sponsorStruct = new SponsorStruct(patreonKey);
         sponsorStruct.index = idx;
         sponsorStruct.patreonKey = patreonKey;

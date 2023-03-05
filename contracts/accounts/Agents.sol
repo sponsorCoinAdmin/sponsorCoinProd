@@ -16,7 +16,7 @@ contract Agents is Sponsors {
             public onlyOwnerOrRootAdmin(msg.sender) 
             nonRedundantAgent ( _accountKey, _sponsorAccountKey, _agentAccountKey) {
         insertAccountSponsor(_accountKey, _sponsorAccountKey);
-        addNetworkAccount(_agentAccountKey);
+        addAccount(_agentAccountKey);
 
         SponsorStruct storage sponsorAccountRec = getSponsorRec(_accountKey, _sponsorAccountKey);
         AccountStruct storage agentAccountRec = accountMap[_sponsorAccountKey];

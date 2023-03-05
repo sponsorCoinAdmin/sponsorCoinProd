@@ -1,10 +1,10 @@
 const { testHHAccounts } = require("./hhTestAccounts");
 const {
   setContract,
-  addNetworkAccount,
+  addAccount,
   addAccountSponsors,
   addNetworkSponsorAgents,
-  getNetworkAccounts,
+  getAccounts,
   getSponsorKeys,
   getSponsorAgentKeys,
 } = require("../prod/lib/scAccountMethods");
@@ -32,7 +32,7 @@ addTestNetworkSponsorAgents = async ( _accountIdx, _sponsorIdx, _agentArrayIdx )
 addTestNetworkAccount = async (testRecordNumber) => {
   logFunctionHeader("async (" + testRecordNumber+ ")");
   let accountKey = testHHAccounts[testRecordNumber].toLowerCase();
-  await addNetworkAccount(accountKey);
+  await addAccount(accountKey);
   return accountKey;
 };
 
