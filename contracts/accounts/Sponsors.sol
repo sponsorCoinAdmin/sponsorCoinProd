@@ -73,7 +73,6 @@ contract Sponsors is Accounts {
         return sponsor;
     }
 
-
     /// @notice retreives the sponsor array record size a specific address.
     /// @param _accountKey public account key to get Sponsor Record Length
     function getSponsorRecordCount(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {

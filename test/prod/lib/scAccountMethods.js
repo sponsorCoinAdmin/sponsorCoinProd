@@ -100,11 +100,11 @@ addAccountSponsors = async (accountKey, _sponsoredObjectArray) => {
   return --sponsorCount;
 };
 
-getAccountSponsorCount = async (_account) => {
-  logFunctionHeader("getAccountSponsorCount = async(" + _account + ")");
+getAccountSponsorCount = async (_accountKey) => {
+  logFunctionHeader("getAccountSponsorCount = async(" + _accountKey + ")");
 
-  let maxCount = await spCoinContractDeployed.getAccountSponsorCount(_account);
-  logDetail("JS => Found " + maxCount + " Sponsor Records For Account " + _account
+  let maxCount = await spCoinContractDeployed.getAccountSponsorCount(_accountKey);
+  logDetail("JS => Found " + maxCount + " Sponsor Records For Account " + _accountKey
   );
   return maxCount;
 };
