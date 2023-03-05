@@ -70,13 +70,13 @@ getNetworkPatreonKeys = async (_accountKey) => {
   logFunctionHeader("getNetworkPatreonKeys = async(" + _accountKey + ")");
   let maxCount = await spCoinContractDeployed.getPatreonRecordCount(_accountKey);
 
-  let contributorAccountKeys = {};
+  let patreonAccountKeys = {};
 
   for (let idx = 0; idx < maxCount; idx++) {
-    let contributor = await spCoinContractDeployed.getPatreonKeyAddress(_accountKey, idx );
-    contributorAccountKeys[contributor] = idx;
+    let patreon = await spCoinContractDeployed.getPatreonKeyAddress(_accountKey, idx );
+    patreonAccountKeys[patreon] = idx;
   }
-  return contributorAccountKeys;
+  return patreonAccountKeys;
 };
 
 ////////////////////// ADD SPONSOR FUNCTIONS ///////////////////////
@@ -168,13 +168,13 @@ getNetworkAgentKeys = async (_accountKey) => {
   logFunctionHeader("getNetworkAgentKeys = async(" + _accountKey + ")");
   let maxCount = await spCoinContractDeployed.getAgentRecordCount(_accountKey);
 
-  let contributorAccountKeys = {};
+  let patreonAccountKeys = {};
 
   for (let idx = 0; idx < maxCount; idx++) {
-    let contributor = await spCoinContractDeployed.getAgentKeyAddress(_accountKey, idx );
-    contributorAccountKeys[contributor] = idx;
+    let patreon = await spCoinContractDeployed.getAgentKeyAddress(_accountKey, idx );
+    patreonAccountKeys[patreon] = idx;
   }
-  return contributorAccountKeys;
+  return patreonAccountKeys;
 };
 
 getSponsorAgentKeys = async (_accountKey, _sponsorKey) => {

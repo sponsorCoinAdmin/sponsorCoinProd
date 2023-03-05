@@ -8,7 +8,7 @@ class AccountStruct {
     this.sponsoredAccountKeys;
     this.sponsorArr;
     this.agentKeys;
-    this.contributorAccountKeys;
+    this.patreonAccountKeys;
   }
 }
 

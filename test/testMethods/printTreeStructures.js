@@ -4,28 +4,28 @@ const { AccountStruct,
         RateHeaderStruct,
         TransactionStruct } = require("../prod/lib/dataTypes");
 
-dumpTestHHAccounts = () => {
+printTestHHAccounts = () => {
     return JSON.stringify(testHHAccounts, null, 2);
 }
 
 ///////////////////////////////// Structure Data //////////////////////////////
 
-dumpStructureTree = (_structure) => {
+printStructureTree = (_structure) => {
     let structure = getJSONStructureTree(_structure);
     console.log(structure);
 }
 
-dumpStructureAccountSponsors = async(_accountStruct) => {
+printStructureAccountSponsors = async(_accountStruct) => {
     let accountSponsors = getJSONStructureAccountSponsors(_accountKey);
     console.log(accountSponsors);
 }
 
-dumpStructureAccountKYC = async(_accountStruct) => {
+printStructureAccountKYC = async(_accountStruct) => {
     let accountKYC = getJSONStructureAccountKYC(_accountKey);
     console.log(accountKYC);
 }
 
-dumpStructureSponsorAgents = async(_sponsorStruct) => {
+printStructureSponsorAgents = async(_sponsorStruct) => {
     let sponsorAgents = getJSONStructureSponsorAgents(_accountKey, _sponsorKey);
     console.log(sponsorAgents);
 }
@@ -50,17 +50,17 @@ getJSONStructureSponsorAgents = async(_sponsorStruct) => {
 
 ///////////////////////////////// NetWork Stuff //////////////////////////////
 
-dumpNetworkAccountSponsors = async(_accountKey) => {
+printNetworkAccountSponsors = async(_accountKey) => {
     let accountSponsors = getJSONNetworkAccountSponsors(_accountKey);
     console.log(accountSponsors);
 }
 
-dumpNetworkAccountKYC = async(_accountKey) => {
+printNetworkAccountKYC = async(_accountKey) => {
     let accountKYC = getJSONNetworkAccountKYC(_accountKey);
     console.log(accountKYC);
 }
 
-dumpNetworkSponsorAgents = async(_accountKey, _sponsorKey) => {
+printNetworkSponsorAgents = async(_accountKey, _sponsorKey) => {
     let sponsorAgents = getJSONNetworkSponsorAgents(_accountKey, _sponsorKey);
     console.log(sponsorAgents);
 }
@@ -95,18 +95,18 @@ getNetworkSponsorAgents = async(_accountKey, _sponsorKey) => {
 
 module.exports = {
 // Local Calls
-    dumpTestHHAccounts,
-    dumpStructureTree,
-    dumpStructureAccountSponsors,
-    dumpStructureAccountKYC,
-    dumpStructureSponsorAgents,
+    printTestHHAccounts,
+    printStructureTree,
+    printStructureAccountSponsors,
+    printStructureAccountKYC,
+    printStructureSponsorAgents,
     getJSONStructureAccountSponsors,
     getJSONStructureAccountKYC,
     getJSONStructureSponsorAgents,
     // NetWork Calls
-    dumpNetworkAccountSponsors,
-    dumpNetworkAccountKYC,
-    dumpNetworkSponsorAgents,
+    printNetworkAccountSponsors,
+    printNetworkAccountKYC,
+    printNetworkSponsorAgents,
     getJSONNetworkAccountSponsors,
     getJSONNetworkAccountKYC,
     getJSONNetworkSponsorAgents,

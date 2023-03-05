@@ -65,12 +65,12 @@ contract Accounts is StructSerialization {
 
     ////////////////////// BENEFICIARY REQUESTS //////////////////////////////
 
-    /// @notice get address for an account contributor
+    /// @notice get address for an account patreon
     /// @param _accountKey public account key to get sponsor array
-    /// @param contributorIdx new contributor to add to account list
-    function getPatreonKeyAddress(address _accountKey, uint contributorIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
+    /// @param patreonIdx new patreon to add to account list
+    function getPatreonKeyAddress(address _accountKey, uint patreonIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         AccountStruct storage accountRec = accountMap[_accountKey];
-        address sponsor = accountRec.contributorAccountKeys[contributorIdx];
+        address sponsor = accountRec.patreonAccountKeys[patreonIdx];
         return sponsor;
     }
 
@@ -84,15 +84,15 @@ contract Accounts is StructSerialization {
     /// @param _accountKey public account key to get Sponsor Record Length
     function getPatreonList(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
         AccountStruct storage account = accountMap[_accountKey];
-        address[] storage contributorAccountKeys = account.contributorAccountKeys;
-        return contributorAccountKeys;
+        address[] storage patreonAccountKeys = account.patreonAccountKeys;
+        return patreonAccountKeys;
     }
 
      /////////////////////////// AGENT REQUESTS //////////////////////////////
 
     /// @notice get address for an account agent
     /// @param _accountKey public account key to get sponsor array
-    /// @param _agentIdx new contributor to add to account list
+    /// @param _agentIdx new patreon to add to account list
     function getAgentKeyAddress(address _accountKey, uint _agentIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         AccountStruct storage accountRec = accountMap[_accountKey];
         address sponsor = accountRec.agentKeys[_agentIdx];

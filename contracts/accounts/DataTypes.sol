@@ -35,10 +35,10 @@ contract DataTypes is KYC {
       bool inserted;
       bool verified;
       KYC kyc;
-      address[] sponsoredAccountKeys;     // If Contribuitor List of Sponsored Accounts 
+      address[] sponsoredAccountKeys;     // If Patreon List of Sponsored Accounts 
       address[] agentKeys;                // If Sponsor? List of Agent Accounts
-      address[] contributorAccountKeys; // If Sponsor? List of Contribuitor Accounts
-      address[] agentParentAccountKeys;   // If Agent? List of Contribuitor Sponsor Accounts
+      address[] patreonAccountKeys; // If Sponsor? List of Patreon Accounts
+      address[] agentParentAccountKeys;   // If Agent? List of Patreon Sponsor Accounts
       mapping(address => SponsorStruct)  sponsorMap;
    }
 

@@ -24,7 +24,7 @@ contract Sponsors is Accounts {
             sponsorRec.sponsorKey = _sponsorKey;
             sponsorRec.inserted = true;
             parentAccountRec.sponsoredAccountKeys.push(_sponsorKey);
-            sponsorAccountRec.contributorAccountKeys.push(_accountKey);
+            sponsorAccountRec.patreonAccountKeys.push(_accountKey);
         }
     }
 
@@ -105,7 +105,7 @@ contract Sponsors is Accounts {
     // /// @param _accountKey public account key to get Sponsor Record Length
     // function getPatreonList(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
     //     AccountStruct storage account = accountMap[_accountKey];
-    //     address[] storage contributorAccountKeys = account.contributorAccountKeys;
-    //     return contributorAccountKeys;
+    //     address[] storage patreonAccountKeys = account.patreonAccountKeys;
+    //     return patreonAccountKeys;
     // }
 }
