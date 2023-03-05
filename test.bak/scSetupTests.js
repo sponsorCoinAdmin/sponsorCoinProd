@@ -76,7 +76,7 @@ describe("spCoinContract", function() {
         logDetail("JS => ** Before Inserted Record Count = " + recCount);
         let isAccountInserted = await spCoinContractDeployed.isAccountInserted(account);
         logDetail("JS => Address "+ account + " Before Inserted Record Found = " + isAccountInserted);
-        await spCoinContractDeployed.addAccountRec(account);
+        await spCoinContractDeployed.addAccountRecord(account);
         isAccountInserted = await spCoinContractDeployed.isAccountInserted(account);
         logDetail("JS => Address "+ account + " After Inserted Record Found = " + isAccountInserted);
         recCount = await spCoinContractDeployed.getAccountCount();
@@ -86,10 +86,10 @@ describe("spCoinContract", function() {
 
     it("Insertion 20 Hardhat Accounts for Validation", async function () {
         logTestHeader("ADD MORE HARDHAT ACCOUNTS")
-        await addAccounts(testHHAccounts);
+        await addAccountRecords(testHHAccounts);
 
         logDetail("JS => *** RETRIEVE ALL INSERTED RECORDS FROM THE BLOCKCHAIN ***")
-        let insertedArrayAccounts = await getAccounts();
+        let insertedArrayAccounts = await getAccountKeys();
         let testRecCount = testHHAccounts.length;
         let insertedRecCount = insertedArrayAccounts.length;
         expect(testRecCount).to.equal(insertedRecCount);

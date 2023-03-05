@@ -13,18 +13,18 @@ contract Sponsors is Accounts {
     function insertAccountSponsor(address _accountKey, address _sponsorAccountKey) 
         public onlyOwnerOrRootAdmin(_accountKey)
         nonRedundantSponsor ( _accountKey,  _sponsorAccountKey) {
-        addAccountRec(_accountKey);
-        addAccountRec(_sponsorAccountKey);
+        addAccountRecord(_accountKey);
+        addAccountRecord(_sponsorAccountKey);
         AccountStruct storage parentAccountRec = accountMap[_accountKey];
         AccountStruct storage sponsorAccountRec = accountMap[_sponsorAccountKey];
         SponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorAccountKey);
         if (!sponsorRec.inserted) {
-            sponsorRec.index = parentAccountRec.sponsoredAccountKeys.length;
+            sponsorRec.index = parentAccountRec.accountSponsorKeys.length;
             sponsorRec.insertionTime = block.timestamp;
             sponsorRec.sponsorAccountKey = _sponsorAccountKey;
             sponsorRec.inserted = true;
-            parentAccountRec.sponsoredAccountKeys.push(_sponsorAccountKey);
-            sponsorAccountRec.patreonAccountKeys.push(_accountKey);
+            parentAccountRec.accountSponsorKeys.push(_sponsorAccountKey);
+            sponsorAccountRec.accountPatreonKeys.push(_accountKey);
         }
     }
 
@@ -69,7 +69,7 @@ contract Sponsors is Accounts {
     /// @param _sponsorIdx new sponsor to add to account list
     function getSponsorKeyAddress(address _accountKey, uint _sponsorIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         AccountStruct storage accountRec = accountMap[_accountKey];
-        address sponsor = accountRec.sponsoredAccountKeys[_sponsorIdx];
+        address sponsor = accountRec.accountSponsorKeys[_sponsorIdx];
         return sponsor;
     }
 
@@ -83,15 +83,15 @@ contract Sponsors is Accounts {
     /// @param _accountKey public account key to get Sponsor Record Length
     function getAccountSponsorCount(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
             AccountStruct storage accountRec = accountMap[_accountKey];
-        return accountRec.sponsoredAccountKeys.length;
+        return accountRec.accountSponsorKeys.length;
     }
 
     /// @notice retreives the sponsors of a specific address.
     /// @param _accountKey public account key to set new balance
     function getSponsorList(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
         AccountStruct storage account = accountMap[_accountKey];
-        address[] storage sponsoredAccountKeys = account.sponsoredAccountKeys;
-        return sponsoredAccountKeys;
+        address[] storage accountSponsorKeys = account.accountSponsorKeys;
+        return accountSponsorKeys;
     }
 
     // /// @notice retreives the sponsor array record size of the Patreon list.
@@ -104,7 +104,7 @@ contract Sponsors is Accounts {
     // /// @param _accountKey public account key to get Sponsor Record Length
     // function getPatreonList(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
     //     AccountStruct storage account = accountMap[_accountKey];
-    //     address[] storage patreonAccountKeys = account.patreonAccountKeys;
-    //     return patreonAccountKeys;
+    //     address[] storage accountPatreonKeys = account.accountPatreonKeys;
+    //     return accountPatreonKeys;
     // }
 }

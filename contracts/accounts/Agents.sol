@@ -16,20 +16,20 @@ contract Agents is Sponsors {
             public onlyOwnerOrRootAdmin(msg.sender) 
             nonRedundantAgent ( _accountKey, _sponsorAccountKey, _agentAccountKey) {
         insertAccountSponsor(_accountKey, _sponsorAccountKey);
-        addAccountRec(_agentAccountKey);
+        addAccountRecord(_agentAccountKey);
 
         SponsorStruct storage sponsorAccountRec = getSponsorRec(_accountKey, _sponsorAccountKey);
         AccountStruct storage agentAccountRec = accountMap[_sponsorAccountKey];
         AgentStruct storage  agentRec = getAgentRec(_accountKey, _sponsorAccountKey, _agentAccountKey);
 
         if (!agentRec.inserted) {
-            agentRec.index = sponsorAccountRec.agentAccountKeys.length;
+            agentRec.index = sponsorAccountRec.accountAgentKeys.length;
             agentRec.insertionTime = block.timestamp;
             agentRec.account  = _accountKey;
             agentRec.agent    = _agentAccountKey;
             agentRec.inserted = true;
-            sponsorAccountRec.agentAccountKeys.push(_agentAccountKey);
-            agentAccountRec.agentAccountKeys.push(_agentAccountKey);
+            sponsorAccountRec.accountAgentKeys.push(_agentAccountKey);
+            agentAccountRec.accountAgentKeys.push(_agentAccountKey);
         }
     }
 
@@ -94,7 +94,7 @@ contract Agents is Sponsors {
     /// @param _sponsorAccountKey public account key to get Sponsors
     function getAgentList(address _accountKey, address _sponsorAccountKey) internal view onlyOwnerOrRootAdmin(_sponsorAccountKey) returns (address[] memory) {
         SponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorAccountKey);
-        address[] memory agentAccountKeys = sponsorRec.agentAccountKeys;
-        return agentAccountKeys;
+        address[] memory accountAgentKeys = sponsorRec.accountAgentKeys;
+        return accountAgentKeys;
     }
 }

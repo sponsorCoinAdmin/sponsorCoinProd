@@ -13,21 +13,21 @@ contract Rates is Agents{
     function insertSponsorRate(uint256 _rate) public onlyOwnerOrRootAdmin(msg.sender) returns (bool) {
 /*
         insertAccountSponsor(_accountKey, _sponsorAccountKey);
-        // addAccountRec(_agentAccountKey);
-        // addAccountRec(_sponsorAccountKey);
-        addAccountRec(_agentAccountKey);
+        // addAccountRecord(_agentAccountKey);
+        // addAccountRecord(_sponsorAccountKey);
+        addAccountRecord(_agentAccountKey);
 
         SponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorAccountKey);
         AgentStruct storage  agentRec = getAgentRec(_accountKey, _sponsorAccountKey, _agentAccountKey);
 
         if (!agentRec.inserted) {
-            agentRec.index = sponsorRec.agentAccountKeys.length;
+            agentRec.index = sponsorRec.accountAgentKeys.length;
             agentRec.insertionTime = block.timestamp;
             agentRec.account  = _accountKey;
             agentRec.sponsor  = _sponsorAccountKey;
             agentRec.agent    = _agentAccountKey;
             agentRec.inserted = true;
-            sponsorRec.agentAccountKeys.push(_agentAccountKey);
+            sponsorRec.accountAgentKeys.push(_agentAccountKey);
             return true;
         */
     }

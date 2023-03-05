@@ -1,21 +1,21 @@
 const { testHHAccounts } = require("./hhTestAccounts");
 const {
   setContract,
-  addAccountRec,
+  addAccountRecord,
   addAccountSponsors,
   addNetworkSponsorAgents,
-  getAccounts,
+  getAccountKeys,
   getSponsorKeys,
   getSponsorAgentKeys,
 } = require("../prod/lib/scAccountMethods");
 
-addTestNetworkAccountSponsors = async (_accountIdx, _sponsoredObjectArrayayIdx) => {
-  logFunctionHeader("async (" + _accountIdx  + "," + _sponsoredObjectArrayayIdx+ ")");
+addTestNetworkAccountSponsors = async (_accountIdx, _accountSponsorObjectsayIdx) => {
+  logFunctionHeader("async (" + _accountIdx  + "," + _accountSponsorObjectsayIdx+ ")");
   let accountKey = testHHAccounts[_accountIdx].toLowerCase();
-  let sponsoredObjectArrayayKeys = getTestHHAccountArrayKeys(_sponsoredObjectArrayayIdx);
+  let accountSponsorObjectsayKeys = getTestHHAccountArrayKeys(_accountSponsorObjectsayIdx);
   logDetail("JS => For Account: " + accountKey + " Inserting Sponsor Records:");
-  logDetail(sponsoredObjectArrayayKeys);
-  await addAccountSponsors(accountKey, sponsoredObjectArrayayKeys);
+  logDetail(accountSponsorObjectsayKeys);
+  await addAccountSponsors(accountKey, accountSponsorObjectsayKeys);
   return accountKey;
 };
 
@@ -23,16 +23,16 @@ addTestNetworkSponsorAgents = async ( _accountIdx, _sponsorIdx, _agentArrayIdx )
   logFunctionHeader("async (" + _accountIdx  + "," + _sponsorIdx + "," + _agentArrayIdx+ ")");
   let accountKey = testHHAccounts[_accountIdx].toLowerCase();
   let sponsorAccountKey = testHHAccounts[_sponsorIdx].toLowerCase();
-  let agentAccountKeys = getTestHHAccountArrayKeys(_agentArrayIdx);
+  let accountAgentKeys = getTestHHAccountArrayKeys(_agentArrayIdx);
 
-  await addNetworkSponsorAgents(accountKey, sponsorAccountKey, agentAccountKeys);
+  await addNetworkSponsorAgents(accountKey, sponsorAccountKey, accountAgentKeys);
   return sponsorAccountKey;
 };
 
 addTestNetworkAccount = async (testRecordNumber) => {
   logFunctionHeader("async (" + testRecordNumber+ ")");
   let accountKey = testHHAccounts[testRecordNumber].toLowerCase();
-  await addAccountRec(accountKey);
+  await addAccountRecord(accountKey);
   return accountKey;
 };
 

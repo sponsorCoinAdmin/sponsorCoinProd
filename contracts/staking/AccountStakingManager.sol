@@ -8,15 +8,15 @@ contract AccountStakingManager is Transactions{
 
 // ###  ALGORITHMIC ARCHITECTURAL DESIGN FOR STAKING REWARDS ALLOCATION ###
 // allocateStakingRewards()
-// 1. Get the sponsors accounts Array as (sponsoredObjectArray)
-// 2. Set totalRewards = calcAllSponsorsStakingRewards(sponsoredObjectArray)
+// 1. Get the sponsors accounts Array as (accountSponsorObjects)
+// 2. Set totalRewards = calcAllSponsorsStakingRewards(accountSponsorObjects)
 // 3. Update all account balances updateAllSponsorsStakingRewards()
 
 /*
 function allocateStakingRewards() internal view returns(  AccountStruct[] memory ){
    
-   AccountStruct[] memory sponsoredObjectArray = getSponsorRecords(msg.sender);
-   return sponsoredObjectArray;
+   AccountStruct[] memory accountSponsorObjects = getSponsorRecords(msg.sender);
+   return accountSponsorObjects;
 }
 */// @title A title that should describe the contract/interface
 /// @notice Explain to an end user what this does
@@ -47,9 +47,9 @@ function gitAddressThis() external view returns(address){
 //    4. return stakingRewards
 
 // ### CALCULATE STAKING REWARDS FOR ALL SPONSORS ###
-// calcAllSponsorsStakingRewards(sponsoredObjectArray)
+// calcAllSponsorsStakingRewards(accountSponsorObjects)
 //    1. Set totalSponsorRewards = 0
-//    2. For each accountSponsor in sponsoredObjectArray calculate the Staking Rewards as:
+//    2. For each accountSponsor in accountSponsorObjects calculate the Staking Rewards as:
 //    2.1   Increment totalSponsorRewards += calcSponsorStakingRewards(accountSponsor)
 //    3. return totalSponsorRewards
 
@@ -60,7 +60,7 @@ function gitAddressThis() external view returns(address){
 //    3. agentAccountArray = accountSponsor.
 //    4. Set agentRewards = calcAllAgentsStakingRewards(agentAccountArray)
 //    5. Decrement sponsorRewards -= agentRewards
-//    6. addAccountsToUpdateStakingRewards(accountSponsor, sponsorRewards)
+//    6. addAccountRecordsToUpdateStakingRewards(accountSponsor, sponsorRewards)
 //    7. return sponsorRewards
 
 // ### CALCULATE STAKING REWARDS FOR ALL AGENTS ###
@@ -68,7 +68,7 @@ function gitAddressThis() external view returns(address){
 //    1. Set totalAgentsRewards = 0
 //    3. For each agentAccount in agentAccountArray calculate the Staking Rewards as:
 //    4.    Increment totalAgentsRewards += calculateAccountSteakingReward(agentAccount)
-//    5. addAccountsToUpdateStakingRewards(accountSponsor, sponsorRewards)
+//    5. addAccountRecordsToUpdateStakingRewards(accountSponsor, sponsorRewards)
 //    6. return totalAgentsRewards
 
 //*****************************************************************************************************

@@ -4,11 +4,11 @@ class AccountStruct {
     this.accountKey;
     this.insertionTime;
     this.verified;
+    this.accountSponsorKeys;
+    this.accountSponsorObjects;
+    this.accountAgentKeys;
+    this.accountPatreonKeys;
     this.KYC;
-    this.sponsoredAccountKeys;
-    this.sponsoredObjectArray;
-    this.agentAccountKeys;
-    this.patreonAccountKeys;
   }
 }
 
@@ -20,7 +20,7 @@ class SponsorStruct {
     this.verified;
     this.rates;
     this.verified;
-    this.agentAccountKeys;
+    this.accountAgentKeys;
     this.agentObjectArray;
   }
 }

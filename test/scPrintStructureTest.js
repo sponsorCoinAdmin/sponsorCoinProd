@@ -161,7 +161,7 @@ describe("spCoinContract", function () {
     expect(accountRecCount).to.equal(1);
 
     // Test Record Structure Read from Blockchain Network
-    let accountStruct = await getAccountRec(accountKey);
+    let accountStruct = await getAccountRecord(accountKey);
     logAccountStructure(accountStruct);
     let networkAccountKey = accountStruct.accountKey;
     expect(networkAccountKey).to.equal(accountKey);
@@ -206,7 +206,7 @@ describe("spCoinContract", function () {
     // Read from Blockchain Network
     let recipientKey = testHHAccounts[3].toLowerCase();
 
-    let accountStruct = await getAccountRec(recipientKey);
+    let accountStruct = await getAccountRecord(recipientKey);
     logTree(accountStruct);
     // let networkAccountKey = accountStruct.accountKey;
     // expect(networkAccountKey).to.equal(arrayKey);
@@ -233,11 +233,11 @@ describe("spCoinContract", function () {
     let sponsorCount = await getAccountSponsorCount(accountKey);
     expect(sponsorCount).to.equal(6);
 
-    let sponsoredObjectArray = await getSponsorKeys(accountKey);
+    let accountSponsorObjects = await getSponsorKeys(accountKey);
 
-    logTree(sponsoredObjectArray);
-    let sponsoredObjectArrayLength = Object.keys(sponsoredObjectArray).length;
-    expect(sponsoredObjectArrayLength).to.equal(6);
+    logTree(accountSponsorObjects);
+    let accountSponsorObjectsLength = Object.keys(accountSponsorObjects).length;
+    expect(accountSponsorObjectsLength).to.equal(6);
 
     getSponsorKeys();
   });

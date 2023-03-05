@@ -26,9 +26,9 @@ contract StructSerialization is DataTypes {
             "verified: ",
             toString(_accountRec.verified)
         );
-        string memory agentAccountKeys = toString(_accountRec.agentAccountKeys);
-        string memory patreonAccountKeys = toString(
-            _accountRec.patreonAccountKeys
+        string memory accountAgentKeys = toString(_accountRec.accountAgentKeys);
+        string memory accountPatreonKeys = toString(
+            _accountRec.accountPatreonKeys
         );
         string memory delimiter = "\\,";
         string memory seralized = concat(
@@ -50,14 +50,14 @@ contract StructSerialization is DataTypes {
                 verified
             )
         );
-        seralized = concat(seralized, delimiter, "agentAccountKeys:", agentAccountKeys);
+        seralized = concat(seralized, delimiter, "accountAgentKeys:", accountAgentKeys);
         seralized = concat(
             seralized,
             delimiter,
-            "patreonAccountKeys:",
-            patreonAccountKeys
+            "accountPatreonKeys:",
+            accountPatreonKeys
         );
-        seralized = concat(seralized, delimiter, "agentAccountKeys:", agentAccountKeys);
+        seralized = concat(seralized, delimiter, "accountAgentKeys:", accountAgentKeys);
 
         // console.log("_accountRec.accountKey:", _accountRec.accountKey);
         // console.log( "toString(_accountRec.accountKey)", toString(_accountRec.accountKey));
