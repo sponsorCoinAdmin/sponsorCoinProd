@@ -157,8 +157,8 @@ describe("spCoinContract", function () {
     setLogMode(LOG_MODE.LOG, true);
     // Test Record Insertion to Blockchain Network
     let accountKey = await addTestNetworkAccount(0);
-    let accountRecCount = await getAccountCount();
-    expect(accountRecCount).to.equal(1);
+    let accountSize = await getAccountSize();
+    expect(accountSize).to.equal(1);
 
     // Test Record Structure Read from Blockchain Network
     let accountStruct = await getAccountRecord(accountKey);
@@ -168,21 +168,21 @@ describe("spCoinContract", function () {
 
     // Test Duplicate Record Cannot be Inserted to Blockchain Network
     accountKey = await addTestNetworkAccount(0);
-    accountRecCount = await getAccountCount();
-    expect(accountRecCount).to.equal(1);
+    accountSize = await getAccountSize();
+    expect(accountSize).to.equal(1);
 
     // Test Second Record Insertion to blockchain Network
     accountKey = await addTestNetworkAccount(4);
-    accountRecCount = await getAccountCount();
-    expect(accountRecCount).to.equal(2);
+    accountSize = await getAccountSize();
+    expect(accountSize).to.equal(2);
 
     // Test N Record Insertions to blockchain Network
     accountKey = await addTestNetworkAccount(7);
     accountKey = await addTestNetworkAccount(6);
     accountKey = await addTestNetworkAccount(12);
     accountKey = await addTestNetworkAccount(15);
-    accountRecCount = await getAccountCount();
-    expect(accountRecCount).to.equal(6);
+    accountSize = await getAccountSize();
+    expect(accountSize).to.equal(6);
   });
 
   /**
@@ -195,8 +195,8 @@ describe("spCoinContract", function () {
     let arrayKey = await addTestNetworkAccountSponsors(14, [3, 2]);
     arrayKey = await addTestNetworkAccountSponsors(13, [3]);
   
-    let accountRecCount = await getAccountCount();
-    expect(accountRecCount).to.equal(4);
+    let accountSize = await getAccountSize();
+    expect(accountSize).to.equal(4);
 
     let accountArr = await loadTreeStructures(spCoinContractDeployed);
     logTree(accountArr);
@@ -227,11 +227,11 @@ describe("spCoinContract", function () {
     log("Tree For Account Key: " + accountKey + " With Inserted Sponsors:");
     logTree(accountArr);
 
-    accountRecCount = await getAccountCount();
-    expect(accountRecCount).to.equal(7);
+    accountSize = await getAccountSize();
+    expect(accountSize).to.equal(7);
 
-    let sponsorCount = await getAccountSponsorCount(accountKey);
-    expect(sponsorCount).to.equal(6);
+    let sponsorSize = await getAccountSponsorSize(accountKey);
+    expect(sponsorSize).to.equal(6);
 
     let accountSponsorObjects = await getAccountSponsorKeys(accountKey);
 

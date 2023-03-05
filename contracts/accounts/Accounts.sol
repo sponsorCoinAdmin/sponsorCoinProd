@@ -43,7 +43,7 @@ contract Accounts is StructSerialization {
     }
 
     /// @notice retreives the number of accounts inserted.
-    function getAccountCount() public view returns (uint256) {
+    function getAccountSize() public view returns (uint256) {
         return accountIndex.length;
     }
 
@@ -76,7 +76,7 @@ contract Accounts is StructSerialization {
 
     /// @notice retreives the sponsor array record size of the Patreon list.
     /// @param _accountKey public account key to get Sponsor Record Length
-    function getPatreonRecordCount(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
+    function getPatreonSize(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
         return getPatreonList(_accountKey).length;
     }
 
@@ -101,7 +101,7 @@ contract Accounts is StructSerialization {
 
     /// @notice retreives the sponsor array record size of the Patreon list.
     /// @param _accountKey public account key to get Sponsor Record Length
-    function getAgentRecordCount(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
+    function getAgentRecordSize(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
         return getAgentList(_accountKey).length;
     }
 

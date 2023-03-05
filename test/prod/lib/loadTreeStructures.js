@@ -11,8 +11,8 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
     spCoinContractDeployed = _spCoinContractDeployed;
     let accountArr = [];
     let insertedArrayAccounts = await getAccountKeys();
-    let maxCount = insertedArrayAccounts.length;
-    for(let idx = 0; idx < maxCount; idx++) {
+    let maxSize = insertedArrayAccounts.length;
+    for(let idx = 0; idx < maxSize; idx++) {
         let accountKey = insertedArrayAccounts[idx];
         let accountStruct = new AccountStruct(accountKey);
 
@@ -81,7 +81,7 @@ loadAgentsByAccountSponsor = async(_accountKey, _sponsorAccountKey) => {
 
 loadAgentsByKeys = async(_accountKey, _sponsorAccountKey, _accountAgentKeys) => {
     let agentObjectArray = [];
-    let maxCount = _accountAgentKeys.length;
+    let maxSize = _accountAgentKeys.length;
     for (let [agentAccountKey, idx] of Object.entries(_accountAgentKeys)) {
         logDetail("JS => " + agentAccountKey, idx);
         let agentIndex = await spCoinContractDeployed.getAgentIndex(_accountKey, _sponsorAccountKey, agentAccountKey);
@@ -97,7 +97,7 @@ loadAgentsByKeys = async(_accountKey, _sponsorAccountKey, _accountAgentKeys) => 
 
 loadBeneficiariesByKeys = async(_accountKey, _sponsorAccountKey, _accountAgentKeys) => {
     let agentObjectArray = [];
-    let maxCount = _accountAgentKeys.length;
+    let maxSize = _accountAgentKeys.length;
     for (let [agentAccountKey, idx] of Object.entries(_accountAgentKeys)) {
         logDetail("JS => " + agentAccountKey, idx);
         let agentIndex = await spCoinContractDeployed.getAgentIndex(_accountKey, _sponsorAccountKey, agentAccountKey);

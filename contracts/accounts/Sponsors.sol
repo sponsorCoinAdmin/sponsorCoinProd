@@ -75,7 +75,7 @@ contract Sponsors is Accounts {
 
     /// @notice retreives the sponsor array record size a specific address.
     /// @param _accountKey public account key to get Sponsor Record Length
-    function getAccountSponsorCount(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
+    function getAccountSponsorSize(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
         return getSponsorList(_accountKey).length;
     }
 
@@ -89,7 +89,7 @@ contract Sponsors is Accounts {
 
     // /// @notice retreives the sponsor array record size of the Patreon list.
     // /// @param _accountKey public account key to get Sponsor Record Length
-    // function getPatreonRecordCount(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
+    // function getPatreonSize(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
     //     return getPatreonList(_accountKey).length;
     // }
 

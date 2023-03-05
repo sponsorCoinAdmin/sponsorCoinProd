@@ -86,7 +86,7 @@ contract Agents is Sponsors {
 
     /// @notice retreives the sponsor array record size a specific address.
     /// @param _sponsorAccountKey public account key to get Sponsor Record Length
-    function getSponsorAgentRecordCount(address _accountKey, address _sponsorAccountKey) public view onlyOwnerOrRootAdmin(_sponsorAccountKey) returns (uint) {
+    function getSponsorAgentSize(address _accountKey, address _sponsorAccountKey) public view onlyOwnerOrRootAdmin(_sponsorAccountKey) returns (uint) {
         return getAgentList(_accountKey, _sponsorAccountKey).length;
     }
 
