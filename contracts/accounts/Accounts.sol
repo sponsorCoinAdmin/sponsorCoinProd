@@ -8,7 +8,7 @@ contract Accounts is StructSerialization {
 
     /// @notice insert block chain network address for spCoin Management
     /// @param _accountKey public accountKey to set new balance
-    function addAccount(address _accountKey)
+    function addAccountRec(address _accountKey)
         public onlyOwnerOrRootAdmin(_accountKey) {
         if (!isAccountInserted(_accountKey)) {
             AccountStruct storage accountRec = accountMap[_accountKey];

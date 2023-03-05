@@ -46,6 +46,7 @@ describe("spCoinContract", function () {
   });
 
   /**/
+
   it("PRINT STRUCTURE TREE TESTS", async function () {
     // USAGE: addTestNetworkAccountSponsors(_accountRecIdx, _startSpIdx, _lastSpIdx);
     // await addTestNetworkAccountSponsors(2, [1, 7, 14, 8, 18, 9]);
@@ -76,6 +77,7 @@ describe("spCoinContract", function () {
   });
 
   /**
+  
   it("VALIDATE THAT ACCOUNTS, PATRIOT/SPONSOR/AGENT, ARE ALL MUTUALLY EXCLUSIVE", async function () {
     setLogMode(LOG_MODE.LOG, true);
     let expectedErrMsg;
@@ -85,7 +87,6 @@ describe("spCoinContract", function () {
     // Account, Sponsor and/or Agent are Successfully mutually exclusive.
     await addTestNetworkAccountSponsors(4, [3]);
 
-/**
     // Test Un-Successful Record Insertion of Patreon
     // and Agent Accounts to the Blockchain Network.
     // Account and Sponsor are not mutually exclusive.
@@ -148,8 +149,10 @@ describe("spCoinContract", function () {
       expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _sponsorAccountKey and _agentAccountKey must be Mutually Exclusive)'";
       expect(err.message).to.equal(expectedErrMsg);
     }
+  });
 
   /**
+  
     it("PRINT STRUCTURE ACCOUNT DATA RECORD", async function () {
     setLogMode(LOG_MODE.LOG, true);
     // Test Record Insertion to Blockchain Network

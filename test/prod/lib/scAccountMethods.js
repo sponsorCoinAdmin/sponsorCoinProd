@@ -39,24 +39,24 @@ getAccountRec = async (accountKey) => {
 };
 
 addAccounts = async (_accountArrayKeys) => {
-  logFunctionHeader("addAccount = async(arrayAccounts)");
+  logFunctionHeader("addAccountRec = async(arrayAccounts)");
   let maxCount = _accountArrayKeys.length;
   logDetail("JS => Inserting " + maxCount + " Records to Blockchain Network");
 
   for (idx = 0; idx < maxCount; idx++) {
     let account = _accountArrayKeys[idx];
     logDetail("JS => Inserting " + idx + ", " + account);
-    await spCoinContractDeployed.addAccount(account);
+    await spCoinContractDeployed.addAccountRec(account);
   }
   logDetail("JS => Inserted " + maxCount + " Accounts to Blockchain Network");
 
   return maxCount;
 };
 
-addAccount = async (accountKey) => {
-  logFunctionHeader("addAccount = async(" + accountKey + ")");
+addAccountRec = async (accountKey) => {
+  logFunctionHeader("addAccountRec = async(" + accountKey + ")");
   logDetail("JS => Inserting Account " + accountKey + " To Blockchain Network");
-  await spCoinContractDeployed.addAccount(accountKey);
+  await spCoinContractDeployed.addAccountRec(accountKey);
 };
 
 getAccountCount = async () => {
@@ -193,13 +193,13 @@ getSponsorAgentKeys = async (_accountKey, _sponsorAccountKey) => {
 
 module.exports = {
   setContract,
-  addAccount,
+  addAccountRec,
   getAccountRec,
   addAccountField,
   addAccountSponsors,
   addNetworkSponsorAgents,
   addAccounts,
-  addAccount,
+  addAccountRec,
   getAccounts,
   getAccountSponsorCount,
   getAccountCount,

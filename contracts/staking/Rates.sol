@@ -13,9 +13,9 @@ contract Rates is Agents{
     function insertSponsorRate(uint256 _rate) public onlyOwnerOrRootAdmin(msg.sender) returns (bool) {
 /*
         insertAccountSponsor(_accountKey, _sponsorAccountKey);
-        // addAccount(_agentAccountKey);
-        // addAccount(_sponsorAccountKey);
-        addAccount(_agentAccountKey);
+        // addAccountRec(_agentAccountKey);
+        // addAccountRec(_sponsorAccountKey);
+        addAccountRec(_agentAccountKey);
 
         SponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorAccountKey);
         AgentStruct storage  agentRec = getAgentRec(_accountKey, _sponsorAccountKey, _agentAccountKey);

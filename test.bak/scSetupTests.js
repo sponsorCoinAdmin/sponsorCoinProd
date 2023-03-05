@@ -76,7 +76,7 @@ describe("spCoinContract", function() {
         logDetail("JS => ** Before Inserted Record Count = " + recCount);
         let isAccountInserted = await spCoinContractDeployed.isAccountInserted(account);
         logDetail("JS => Address "+ account + " Before Inserted Record Found = " + isAccountInserted);
-        await spCoinContractDeployed.addAccount(account);
+        await spCoinContractDeployed.addAccountRec(account);
         isAccountInserted = await spCoinContractDeployed.isAccountInserted(account);
         logDetail("JS => Address "+ account + " After Inserted Record Found = " + isAccountInserted);
         recCount = await spCoinContractDeployed.getAccountCount();
