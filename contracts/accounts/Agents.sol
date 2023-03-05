@@ -8,7 +8,7 @@ contract Agents is Sponsors {
         constructor(){
     }
 
-     /// @notice insert sponsors Agent
+    /// @notice insert sponsors Agent
     /// @param _accountKey public Sponsor Coin Account Key
     /// @param _sponsorAccountKey public account key to get sponsor array
     /// @param _agentAccountKey new sponsor to add to account list
