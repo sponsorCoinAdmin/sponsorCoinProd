@@ -109,19 +109,9 @@ getAccountSponsorCount = async (_accountKey) => {
   return maxCount;
 };
 
-getAccountSponsorsCount = async (_accountKey) => {
-  logFunctionHeader("getNetworkAccountSponsors = async(" + _accountKey + ")");
-  let maxCount = await spCoinContractDeployed.getSponsorRecordCount(
-    _accountKey
-  );
-
-  logDetail("JS => Found " + maxCount + " Account Records");
-  return maxCount;
-};
-
 getSponsorKeys = async (_accountKey) => {
   logFunctionHeader("getSponsorKeys = async(" + _accountKey + ")");
-  let maxCount = await spCoinContractDeployed.getSponsorRecordCount(_accountKey);
+  let maxCount = await spCoinContractDeployed.getAccountSponsorCount(_accountKey);
 
   let accountSponsorKeys = {};
 
@@ -134,9 +124,9 @@ getSponsorKeys = async (_accountKey) => {
 
 //////////////////////// ADD AGENT FUNCTIONS /////////////////////////
 
-addNetworkSponsorAgents = async (accountKey, sponsorAccountKey, _accountAgentKeys) => {
+addSponsorAgents = async (accountKey, sponsorAccountKey, _accountAgentKeys) => {
   logFunctionHeader(
-    "addNetworkSponsorAgents = async(" + accountKey + ", " + sponsorAccountKey + ", " + _accountAgentKeys + ")"
+    "addSponsorAgents = async(" + accountKey + ", " + sponsorAccountKey + ", " + _accountAgentKeys + ")"
   );
   logDetail("JS => For Account[" + accountKey + "]: " + accountKey + ")");
   logDetail("JS => For Sponsor[" + sponsorAccountKey + "]: " + sponsorAccountKey + ")");
@@ -164,8 +154,8 @@ addNetworkSponsorAgents = async (accountKey, sponsorAccountKey, _accountAgentKey
   return agentCount;
 };
 
-getNetworkAgentKeys = async (_accountKey) => {
-  logFunctionHeader("getNetworkAgentKeys = async(" + _accountKey + ")");
+getAccountAgentKeys = async (_accountKey) => {
+  logFunctionHeader("getAccountAgentKeys = async(" + _accountKey + ")");
   let maxCount = await spCoinContractDeployed.getAgentRecordCount(_accountKey);
 
   let accountPatreonKeys = {};
@@ -197,12 +187,11 @@ module.exports = {
   addAccountRecord,
   addAccountRecords,
   addAccountSponsors,
-  addNetworkSponsorAgents,
+  addSponsorAgents,
   getAccountCount,
   getAccountRecord,
   getAccountKeys,
   getAccountSponsorCount,
-  getAccountSponsorsCount,
   getSponsorAgentKeys,
   getSponsorKeys,
   setContract,

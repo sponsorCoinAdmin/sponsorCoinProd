@@ -75,15 +75,8 @@ contract Sponsors is Accounts {
 
     /// @notice retreives the sponsor array record size a specific address.
     /// @param _accountKey public account key to get Sponsor Record Length
-    function getSponsorRecordCount(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
-        return getSponsorList(_accountKey).length;
-    }
-
-    /// @notice retreives the sponsor array record size a specific address.
-    /// @param _accountKey public account key to get Sponsor Record Length
     function getAccountSponsorCount(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
-            AccountStruct storage accountRec = accountMap[_accountKey];
-        return accountRec.accountSponsorKeys.length;
+        return getSponsorList(_accountKey).length;
     }
 
     /// @notice retreives the sponsors of a specific address.

@@ -3,7 +3,7 @@ const {
   setContract,
   addAccountRecord,
   addAccountSponsors,
-  addNetworkSponsorAgents,
+  addSponsorAgents,
   getAccountKeys,
   getSponsorKeys,
   getSponsorAgentKeys,
@@ -25,7 +25,7 @@ addTestNetworkSponsorAgents = async ( _accountIdx, _sponsorIdx, _agentArrayIdx )
   let sponsorAccountKey = testHHAccounts[_sponsorIdx].toLowerCase();
   let accountAgentKeys = getTestHHAccountArrayKeys(_agentArrayIdx);
 
-  await addNetworkSponsorAgents(accountKey, sponsorAccountKey, accountAgentKeys);
+  await addSponsorAgents(accountKey, sponsorAccountKey, accountAgentKeys);
   return sponsorAccountKey;
 };
 
