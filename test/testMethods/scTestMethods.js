@@ -5,7 +5,7 @@ const {
   addAccountSponsors,
   addSponsorAgents,
   getAccountKeys,
-  getSponsorKeys,
+  getAccountSponsorKeys,
   getSponsorAgentKeys,
 } = require("../prod/lib/scAccountMethods");
 

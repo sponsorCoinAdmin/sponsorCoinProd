@@ -73,13 +73,11 @@ getAccountPatreonKeys = async (_accountKey) => {
   let accountPatreonKeys = {};
 
   for (let idx = 0; idx < maxCount; idx++) {
-    let patreon = await spCoinContractDeployed.getPatreonKeyAddress(_accountKey, idx );
+    let patreon = await spCoinContractDeployed.getAccountPatreonKeyByIndex(_accountKey, idx );
     accountPatreonKeys[patreon] = idx;
   }
   return accountPatreonKeys;
 };
-
-////////////////////// ADD SPONSOR FUNCTIONS ///////////////////////
 
 addAccountSponsors = async (accountKey, _accountSponsorObjects) => {
   logFunctionHeader(
@@ -109,20 +107,33 @@ getAccountSponsorCount = async (_accountKey) => {
   return maxCount;
 };
 
-getSponsorKeys = async (_accountKey) => {
-  logFunctionHeader("getSponsorKeys = async(" + _accountKey + ")");
+getAccountSponsorKeys = async (_accountKey) => {
+  logFunctionHeader("getAccountSponsorKeys = async(" + _accountKey + ")");
   let maxCount = await spCoinContractDeployed.getAccountSponsorCount(_accountKey);
 
   let accountSponsorKeys = {};
 
   for (let idx = 0; idx < maxCount; idx++) {
-    let sponsor = await spCoinContractDeployed.getSponsorKeyAddress(_accountKey, idx );
+    let sponsor = await spCoinContractDeployed.getAccountSponsorKeyByIndex(_accountKey, idx );
     accountSponsorKeys[sponsor] = idx;
   }
   return accountSponsorKeys;
 };
 
-//////////////////////// ADD AGENT FUNCTIONS /////////////////////////
+getAccountAgentKeys = async (_accountKey) => {
+  logFunctionHeader("getAccountAgentKeys = async(" + _accountKey + ")");
+  let maxCount = await spCoinContractDeployed.getAgentRecordCount(_accountKey);
+
+  let accountPatreonKeys = {};
+
+  for (let idx = 0; idx < maxCount; idx++) {
+    let patreon = await spCoinContractDeployed.getAccountAgentKeyByIndex(_accountKey, idx );
+    accountPatreonKeys[patreon] = idx;
+  }
+  return accountPatreonKeys;
+};
+
+/////////////////////// ADD SPONSOR FUNCTIONS ////////////////////////
 
 addSponsorAgents = async (accountKey, sponsorAccountKey, _accountAgentKeys) => {
   logFunctionHeader(
@@ -154,19 +165,6 @@ addSponsorAgents = async (accountKey, sponsorAccountKey, _accountAgentKeys) => {
   return agentCount;
 };
 
-getAccountAgentKeys = async (_accountKey) => {
-  logFunctionHeader("getAccountAgentKeys = async(" + _accountKey + ")");
-  let maxCount = await spCoinContractDeployed.getAgentRecordCount(_accountKey);
-
-  let accountPatreonKeys = {};
-
-  for (let idx = 0; idx < maxCount; idx++) {
-    let patreon = await spCoinContractDeployed.getAgentKeyAddress(_accountKey, idx );
-    accountPatreonKeys[patreon] = idx;
-  }
-  return accountPatreonKeys;
-};
-
 getSponsorAgentKeys = async (_accountKey, _sponsorAccountKey) => {
   logFunctionHeader("getSponsorAgentKeys = async(" + _accountKey + ", " + _sponsorAccountKey + ")" );
   let maxCount = await spCoinContractDeployed.getSponsorAgentRecordCount(_accountKey, _sponsorAccountKey);
@@ -179,6 +177,7 @@ getSponsorAgentKeys = async (_accountKey, _sponsorAccountKey) => {
   }
   return accountAgentKeys;
 };
+///////////////////////// ADD AGENT FUNCTIONS /////////////////////////
 /////////////////////// EXPORT MODULE FUNCTIONS ///////////////////////
 
 module.exports = {
@@ -193,6 +192,6 @@ module.exports = {
   getAccountKeys,
   getAccountSponsorCount,
   getSponsorAgentKeys,
-  getSponsorKeys,
+  getAccountSponsorKeys,
   setContract,
 };

@@ -18,7 +18,7 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
 
         accountStruct.index = idx;
         accountStruct.accountKey = accountKey;
-        accountSponsorKeys = await getSponsorKeys(accountKey);
+        accountSponsorKeys = await getAccountSponsorKeys(accountKey);
         accountStruct.accountSponsorKeys = accountSponsorKeys;
         accountStruct.accountSponsorObjects = await loadSponsorsByKeys(accountKey, accountSponsorKeys);
         accountArr.push(accountStruct);
@@ -31,7 +31,7 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
 
 loadSponsorsByAccount = async(_accountKey) => {    
     logFunctionHeader("loadSponsorsByAccount("  + _accountKey + ")");
-    accountSponsorKeys = await getSponsorKeys(_accountKey);
+    accountSponsorKeys = await getAccountSponsorKeys(_accountKey);
     accountSponsorObjects = await loadSponsorsByKeys(_accountKey, accountSponsorKeys);
     return accountSponsorObjects;
 }
@@ -43,7 +43,7 @@ loadSponsorsByKeys = async(_accountKey, _accountSponsorKeys) => {
     for (let [sponsorAccountKey, idx] of Object.entries(_accountSponsorKeys)) {
         logDetail("JS => " + sponsorAccountKey, idx);
         let accountAgentKeys = await getSponsorAgentKeys(_accountKey, sponsorAccountKey);
-        // let sponsorIndex = await spCoinContractDeployed.getSponsorIndex(_accountKey, sponsorAccountKey);
+        // let sponsorIndex = await spCoinContractDeployed.getAccountSponsorIndex(_accountKey, sponsorAccountKey);
         // let sponsorActIdx = await spCoinContractDeployed.getAccountIndex(sponsorAccountKey);
         let sponsorStruct = new SponsorStruct(sponsorAccountKey);
         sponsorStruct.index = idx;

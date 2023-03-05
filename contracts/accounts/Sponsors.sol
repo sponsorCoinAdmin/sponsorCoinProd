@@ -17,7 +17,7 @@ contract Sponsors is Accounts {
         addAccountRecord(_sponsorAccountKey);
         AccountStruct storage parentAccountRec = accountMap[_accountKey];
         AccountStruct storage sponsorAccountRec = accountMap[_sponsorAccountKey];
-        SponsorStruct storage sponsorRec = getSponsorRec(_accountKey, _sponsorAccountKey);
+        SponsorStruct storage sponsorRec = getAccountSponsorRecByKey(_accountKey, _sponsorAccountKey);
         if (!sponsorRec.inserted) {
             sponsorRec.index = parentAccountRec.accountSponsorKeys.length;
             sponsorRec.insertionTime = block.timestamp;
@@ -32,12 +32,12 @@ contract Sponsors is Accounts {
     /// @param _accountKey public account key validate Insertion
     /// @param _sponsorAccountKey public sponsor account key validate Insertion
     function isSponsorInserted(address _accountKey, address _sponsorAccountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (bool) {
-        return getSponsorRec(_accountKey, _sponsorAccountKey).inserted;
+        return getAccountSponsorRecByKey(_accountKey, _sponsorAccountKey).inserted;
     }
 
     /// @notice retreives the array index of a specific address.
     /// @param _accountKey public account key to set new balance
-    function getSponsorIndex(address _accountKey, address _sponsorAccountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (uint) {
+    function getAccountSponsorIndex(address _accountKey, address _sponsorAccountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (uint) {
         if (isSponsorInserted(_accountKey, _sponsorAccountKey))
             return accountMap[_accountKey].sponsorMap[_sponsorAccountKey].index;
         else
@@ -55,10 +55,10 @@ contract Sponsors is Accounts {
         if (!isSponsorInserted(_accountKey, _sponsorAccountKey)) {
             insertAccountSponsor(_accountKey, _sponsorAccountKey);
         }
-        return getSponsorRec(_accountKey, _sponsorAccountKey);
+        return getAccountSponsorRecByKey(_accountKey, _sponsorAccountKey);
      }
 
-     function getSponsorRec(address _accountKey, address _sponsorAccountKey) internal view onlyOwnerOrRootAdmin(_accountKey) returns (SponsorStruct storage) {
+     function getAccountSponsorRecByKey(address _accountKey, address _sponsorAccountKey) internal view onlyOwnerOrRootAdmin(_accountKey) returns (SponsorStruct storage) {
         AccountStruct storage accountRec = accountMap[_accountKey];
         SponsorStruct storage accountSponsor = accountRec.sponsorMap[_sponsorAccountKey];
        return accountSponsor;
@@ -67,7 +67,7 @@ contract Sponsors is Accounts {
     /// @notice get address for an account sponsor
     /// @param _accountKey public account key to get sponsor array
     /// @param _sponsorIdx new sponsor to add to account list
-    function getSponsorKeyAddress(address _accountKey, uint _sponsorIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
+    function getAccountSponsorKeyByIndex(address _accountKey, uint _sponsorIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         AccountStruct storage accountRec = accountMap[_accountKey];
         address sponsor = accountRec.accountSponsorKeys[_sponsorIdx];
         return sponsor;

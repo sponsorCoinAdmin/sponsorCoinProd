@@ -68,7 +68,7 @@ contract Accounts is StructSerialization {
     /// @notice get address for an account patreon
     /// @param _accountKey public account key to get sponsor array
     /// @param patreonIdx new patreon to add to account list
-    function getPatreonKeyAddress(address _accountKey, uint patreonIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
+    function getAccountPatreonKeyByIndex(address _accountKey, uint patreonIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         AccountStruct storage accountRec = accountMap[_accountKey];
         address sponsor = accountRec.accountPatreonKeys[patreonIdx];
         return sponsor;
@@ -93,7 +93,7 @@ contract Accounts is StructSerialization {
     /// @notice get address for an account agent
     /// @param _accountKey public account key to get sponsor array
     /// @param _agentIdx new patreon to add to account list
-    function getAgentKeyAddress(address _accountKey, uint _agentIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
+    function getAccountAgentKeyByIndex(address _accountKey, uint _agentIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         AccountStruct storage accountRec = accountMap[_accountKey];
         address sponsor = accountRec.accountAgentKeys[_agentIdx];
         return sponsor;
