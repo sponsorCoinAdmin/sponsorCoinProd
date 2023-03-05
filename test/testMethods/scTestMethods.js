@@ -9,24 +9,24 @@ const {
   getSponsorAgentKeys,
 } = require("../prod/lib/scAccountMethods");
 
-addTestNetworkAccountSponsors = async (_accountIdx, _sponsorArrayIdx) => {
-  logFunctionHeader("async (" + _accountIdx  + "," + _sponsorArrayIdx+ ")");
+addTestNetworkAccountSponsors = async (_accountIdx, _sponsoredObjectArrayayIdx) => {
+  logFunctionHeader("async (" + _accountIdx  + "," + _sponsoredObjectArrayayIdx+ ")");
   let accountKey = testHHAccounts[_accountIdx].toLowerCase();
-  let sponsorArrayKeys = getTestHHAccountArrayKeys(_sponsorArrayIdx);
+  let sponsoredObjectArrayayKeys = getTestHHAccountArrayKeys(_sponsoredObjectArrayayIdx);
   logDetail("JS => For Account: " + accountKey + " Inserting Sponsor Records:");
-  logDetail(sponsorArrayKeys);
-  await addAccountSponsors(accountKey, sponsorArrayKeys);
+  logDetail(sponsoredObjectArrayayKeys);
+  await addAccountSponsors(accountKey, sponsoredObjectArrayayKeys);
   return accountKey;
 };
 
 addTestNetworkSponsorAgents = async ( _accountIdx, _sponsorIdx, _agentArrayIdx ) => {
   logFunctionHeader("async (" + _accountIdx  + "," + _sponsorIdx + "," + _agentArrayIdx+ ")");
   let accountKey = testHHAccounts[_accountIdx].toLowerCase();
-  let sponsorKey = testHHAccounts[_sponsorIdx].toLowerCase();
-  let agentArrayKeys = getTestHHAccountArrayKeys(_agentArrayIdx);
+  let sponsorAccountKey = testHHAccounts[_sponsorIdx].toLowerCase();
+  let agentAccountKeys = getTestHHAccountArrayKeys(_agentArrayIdx);
 
-  await addNetworkSponsorAgents(accountKey, sponsorKey, agentArrayKeys);
-  return sponsorKey;
+  await addNetworkSponsorAgents(accountKey, sponsorAccountKey, agentAccountKeys);
+  return sponsorAccountKey;
 };
 
 addTestNetworkAccount = async (testRecordNumber) => {

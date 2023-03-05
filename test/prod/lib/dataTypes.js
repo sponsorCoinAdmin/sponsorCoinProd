@@ -6,8 +6,8 @@ class AccountStruct {
     this.verified;
     this.KYC;
     this.sponsoredAccountKeys;
-    this.sponsorArr;
-    this.agentKeys;
+    this.sponsoredObjectArray;
+    this.agentAccountKeys;
     this.patreonAccountKeys;
   }
 }
@@ -15,20 +15,20 @@ class AccountStruct {
 class SponsorStruct {
   constructor() {
     this.index;
-    this.sponsorKey;
+    this.sponsorAccountKey;
     this.insertionTime;
     this.verified;
     this.rates;
     this.verified;
-    this.agentKeys;
-    this.agentArr;
+    this.agentAccountKeys;
+    this.agentObjectArray;
   }
 }
 
 class AgentStruct {
   constructor() {
     this.index;
-    this.agentKey;
+    this.agentAccountKey;
     this.insertionTime;
     this.verified;
     this.rates;

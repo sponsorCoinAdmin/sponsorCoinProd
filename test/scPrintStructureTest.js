@@ -91,7 +91,7 @@ describe("spCoinContract", function () {
       throw new Error("Trace point 0. Should have thrown an error");
     } catch (err) {
       // console.log ("err.message = " + err.message);
-      expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey and _sponsorKey must be Mutually Exclusive)'";
+      expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey and _sponsorAccountKey must be Mutually Exclusive)'";
       expect(err.message).to.equal(expectedErrMsg);
     }
 
@@ -103,7 +103,7 @@ describe("spCoinContract", function () {
       throw new Error("Trace point 1. Should have thrown an error");
     } catch (err) {
       // console.log ("err.message = " + err.message);
-      expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _sponsorKey and _agentKey must be Mutually Exclusive)'"
+      expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _sponsorAccountKey and _agentAccountKey must be Mutually Exclusive)'"
       expect(err.message).to.equal(expectedErrMsg);
     }
 
@@ -120,7 +120,7 @@ describe("spCoinContract", function () {
       throw new Error("Trace point 2. Should have thrown an error");
     } catch (err) {
       // console.log ("err.message = " + err.message);
-      expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _sponsorKey and _agentKey must be Mutually Exclusive)'";
+      expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _sponsorAccountKey and _agentAccountKey must be Mutually Exclusive)'";
       expect(err.message).to.equal(expectedErrMsg);
     }
 
@@ -131,7 +131,7 @@ describe("spCoinContract", function () {
       throw new Error("Trace point 3. Should have thrown an error");
     } catch (err) {
       // console.log ("err.message = " + err.message);
-      expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _sponsorKey and _agentKey must be Mutually Exclusive)'";
+      expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _sponsorAccountKey and _agentAccountKey must be Mutually Exclusive)'";
       expect(err.message).to.equal(expectedErrMsg);
     }
 
@@ -142,7 +142,7 @@ describe("spCoinContract", function () {
       throw new Error("Trace point 4. Should have thrown an error");
     } catch (err) {
       // console.log ("err.message = " + err.message);
-      expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _sponsorKey and _agentKey must be Mutually Exclusive)'";
+      expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _sponsorAccountKey and _agentAccountKey must be Mutually Exclusive)'";
       expect(err.message).to.equal(expectedErrMsg);
     }
     /**/
@@ -227,11 +227,11 @@ describe("spCoinContract", function () {
     let sponsorCount = await getAccountSponsorCount(accountKey);
     expect(sponsorCount).to.equal(6);
 
-    let sponsorArr = await getSponsorKeys(accountKey);
+    let sponsoredObjectArray = await getSponsorKeys(accountKey);
 
-    logTree(sponsorArr);
-    let sponsorArrLength = Object.keys(sponsorArr).length;
-    expect(sponsorArrLength).to.equal(6);
+    logTree(sponsoredObjectArray);
+    let sponsoredObjectArrayLength = Object.keys(sponsoredObjectArray).length;
+    expect(sponsoredObjectArrayLength).to.equal(6);
 
     getSponsorKeys();
   });

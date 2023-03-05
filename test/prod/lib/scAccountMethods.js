@@ -81,18 +81,18 @@ getNetworkPatreonKeys = async (_accountKey) => {
 
 ////////////////////// ADD SPONSOR FUNCTIONS ///////////////////////
 
-addAccountSponsors = async (accountKey, _sponsorArr) => {
+addAccountSponsors = async (accountKey, _sponsoredObjectArray) => {
   logFunctionHeader(
-    "addAccountSponsors = async(" + accountKey + ", " + _sponsorArr + ")"
+    "addAccountSponsors = async(" + accountKey + ", " + _sponsoredObjectArray + ")"
   );
 
   logDetail("JS => For Account[" + accountKey + "]: " + accountKey + ")");
-  logDetail("JS => Inserting " + _sponsorArr.length + " Sponsors To Blockchain Network"
+  logDetail("JS => Inserting " + _sponsoredObjectArray.length + " Sponsors To Blockchain Network"
   );
 
   let sponsorCount = 0;
-  for (sponsorCount; sponsorCount < _sponsorArr.length; sponsorCount++) {
-    let sponsorRec = _sponsorArr[sponsorCount];
+  for (sponsorCount; sponsorCount < _sponsoredObjectArray.length; sponsorCount++) {
+    let sponsorRec = _sponsoredObjectArray[sponsorCount];
     logDetail("JS => " + sponsorCount + ". " + "Inserting Sponsor[" + sponsorCount + "]: " + sponsorRec );
     await spCoinContractDeployed.insertAccountSponsor(accountKey, sponsorRec);
   }
@@ -134,31 +134,31 @@ getSponsorKeys = async (_accountKey) => {
 
 //////////////////////// ADD AGENT FUNCTIONS /////////////////////////
 
-addNetworkSponsorAgents = async (accountKey, sponsorKey, _agentArrayKeys) => {
+addNetworkSponsorAgents = async (accountKey, sponsorAccountKey, _agentAccountKeys) => {
   logFunctionHeader(
-    "addNetworkSponsorAgents = async(" + accountKey + ", " + sponsorKey + ", " + _agentArrayKeys + ")"
+    "addNetworkSponsorAgents = async(" + accountKey + ", " + sponsorAccountKey + ", " + _agentAccountKeys + ")"
   );
   logDetail("JS => For Account[" + accountKey + "]: " + accountKey + ")");
-  logDetail("JS => For Sponsor[" + sponsorKey + "]: " + sponsorKey + ")");
-  logDetail("JS => Inserting " + _agentArrayKeys.length + " Agents To Blockchain Network"
+  logDetail("JS => For Sponsor[" + sponsorAccountKey + "]: " + sponsorAccountKey + ")");
+  logDetail("JS => Inserting " + _agentAccountKeys.length + " Agents To Blockchain Network"
   );
-  logDetail("JS => _agentArrayKeys = " + _agentArrayKeys);
+  logDetail("JS => _agentAccountKeys = " + _agentAccountKeys);
 
-  let agentKeyCount = 0;
-  let agentCount = _agentArrayKeys.length;
+  let agentAccountKeyCount = 0;
+  let agentCount = _agentAccountKeys.length;
   logDetail("JS => agentCount.length = " + agentCount);
   for (let i = 0; i < agentCount; i++) {
-    let agentKey = _agentArrayKeys[i];
-    logDetail("JS =>  " + ++agentKeyCount + ". " + "Inserting Agent[" + i + "]: " + agentKey );
+    let agentAccountKey = _agentAccountKeys[i];
+    logDetail("JS =>  " + ++agentAccountKeyCount + ". " + "Inserting Agent[" + i + "]: " + agentAccountKey );
     await spCoinContractDeployed.insertSponsorAgent(
       accountKey,
-      sponsorKey,
-      agentKey
+      sponsorAccountKey,
+      agentAccountKey
     );
   }
   agentCount = await spCoinContractDeployed.getSponsorAgentRecordCount(
     accountKey,
-    sponsorKey
+    sponsorAccountKey
   );
   logDetail("JS => "+ "Inserted = " + agentCount + " Agent Records");
   return agentCount;
@@ -177,17 +177,17 @@ getNetworkAgentKeys = async (_accountKey) => {
   return patreonAccountKeys;
 };
 
-getSponsorAgentKeys = async (_accountKey, _sponsorKey) => {
-  logFunctionHeader("getSponsorAgentKeys = async(" + _accountKey + ", " + _sponsorKey + ")" );
-  let maxCount = await spCoinContractDeployed.getSponsorAgentRecordCount(_accountKey, _sponsorKey);
+getSponsorAgentKeys = async (_accountKey, _sponsorAccountKey) => {
+  logFunctionHeader("getSponsorAgentKeys = async(" + _accountKey + ", " + _sponsorAccountKey + ")" );
+  let maxCount = await spCoinContractDeployed.getSponsorAgentRecordCount(_accountKey, _sponsorAccountKey);
 
-  let agentKeys = {};
+  let agentAccountKeys = {};
   for (let idx = 0; idx < maxCount; idx++) {
-    let agent = await spCoinContractDeployed.getSponsorAgentKeyAddress(_accountKey, _sponsorKey, idx);
+    let agent = await spCoinContractDeployed.getSponsorAgentKeyAddress(_accountKey, _sponsorAccountKey, idx);
     logDetail("JS => Agent[" + idx + "]: " + agent);
-    agentKeys[agent] = idx;
+    agentAccountKeys[agent] = idx;
   }
-  return agentKeys;
+  return agentAccountKeys;
 };
 /////////////////////// EXPORT MODULE FUNCTIONS ///////////////////////
 

@@ -8,15 +8,15 @@ contract AccountStakingManager is Transactions{
 
 // ###  ALGORITHMIC ARCHITECTURAL DESIGN FOR STAKING REWARDS ALLOCATION ###
 // allocateStakingRewards()
-// 1. Get the sponsors accounts Array as (accountSponsorArray)
-// 2. Set totalRewards = calcAllSponsorsStakingRewards(accountSponsorArray)
+// 1. Get the sponsors accounts Array as (sponsoredObjectArray)
+// 2. Set totalRewards = calcAllSponsorsStakingRewards(sponsoredObjectArray)
 // 3. Update all account balances updateAllSponsorsStakingRewards()
 
 /*
 function allocateStakingRewards() internal view returns(  AccountStruct[] memory ){
    
-   AccountStruct[] memory accountSponsorArray = getSponsorRecords(msg.sender);
-   return accountSponsorArray;
+   AccountStruct[] memory sponsoredObjectArray = getSponsorRecords(msg.sender);
+   return sponsoredObjectArray;
 }
 */// @title A title that should describe the contract/interface
 /// @notice Explain to an end user what this does
@@ -47,9 +47,9 @@ function gitAddressThis() external view returns(address){
 //    4. return stakingRewards
 
 // ### CALCULATE STAKING REWARDS FOR ALL SPONSORS ###
-// calcAllSponsorsStakingRewards(accountSponsorArray)
+// calcAllSponsorsStakingRewards(sponsoredObjectArray)
 //    1. Set totalSponsorRewards = 0
-//    2. For each accountSponsor in accountSponsorArray calculate the Staking Rewards as:
+//    2. For each accountSponsor in sponsoredObjectArray calculate the Staking Rewards as:
 //    2.1   Increment totalSponsorRewards += calcSponsorStakingRewards(accountSponsor)
 //    3. return totalSponsorRewards
 
