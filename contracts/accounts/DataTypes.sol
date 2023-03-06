@@ -37,7 +37,7 @@ contract DataTypes is KYC {
       address[] accountSponsorKeys;     // If Patreon List of Sponsored Accounts 
       address[] accountAgentKeys;                // If Sponsor? List of Agent Accounts
       address[] accountPatreonKeys; // If Sponsor? List of Patreon Accounts
-      address[] agentParentAccountKeys;   // If Agent? List of Patreon Sponsor Accounts
+      address[] accountAgentSponsorKeys;   // If Agent? List of Patreon Sponsor Accounts
       mapping(address => SponsorStruct)  sponsorMap;
       KYC kyc;
    }

@@ -98,9 +98,9 @@ setIndentPrefixLevel = (_indentPrefix, _level) => {
     return indent;
 }
 
-logAccountStructure = (_accountRec) => {
+logAccountStructure = (_accountArr) => {
     console.log("ACCOUNT RECORD DUMP");
-    console.log(JSON.stringify(_accountRec, null, 2));
+    console.log(JSON.stringify(_accountArr, null, 2));
 }
 
 logTree = (_tree) => {

@@ -18,18 +18,19 @@ contract Agents is Sponsors {
         insertAccountSponsor(_accountKey, _sponsorAccountKey);
         addAccountRecord(_agentAccountKey);
 
-        SponsorStruct storage sponsorAccountRec = getAccountSponsorRecByKey(_accountKey, _sponsorAccountKey);
-        AccountStruct storage agentAccountRec = accountMap[_sponsorAccountKey];
-        AgentStruct storage  agentRec = getAgentRec(_accountKey, _sponsorAccountKey, _agentAccountKey);
-
-        if (!agentRec.inserted) {
-            agentRec.index = sponsorAccountRec.accountAgentKeys.length;
-            agentRec.insertionTime = block.timestamp;
-            agentRec.account  = _accountKey;
-            agentRec.agent    = _agentAccountKey;
-            agentRec.inserted = true;
-            sponsorAccountRec.accountAgentKeys.push(_agentAccountKey);
-            agentAccountRec.accountAgentKeys.push(_agentAccountKey);
+        AccountStruct storage accountSponsorRec = accountMap[_sponsorAccountKey];
+        AccountStruct storage accountAgentRec = accountMap[_agentAccountKey];
+        SponsorStruct storage accountChildSponsorRec = getAccountSponsorRecByKey(_accountKey, _sponsorAccountKey);
+        AgentStruct storage  sponsorChildAgentRec = getAgentRec(_accountKey, _sponsorAccountKey, _agentAccountKey);
+        if (!sponsorChildAgentRec.inserted) {
+            sponsorChildAgentRec.index = accountChildSponsorRec.accountAgentKeys.length;
+            sponsorChildAgentRec.insertionTime = block.timestamp;
+            sponsorChildAgentRec.account  = _accountKey;
+            sponsorChildAgentRec.agent    = _agentAccountKey;
+            sponsorChildAgentRec.inserted = true;
+            accountChildSponsorRec.accountAgentKeys.push(_agentAccountKey);
+            accountSponsorRec.accountAgentKeys.push(_agentAccountKey);
+            accountAgentRec.accountAgentSponsorKeys.push(_agentAccountKey);
         }
     }
 
@@ -71,8 +72,8 @@ contract Agents is Sponsors {
 
     function getAgentRec(address _accountKey, address _sponsorAccountKey, address _agentAccountKey) internal view onlyOwnerOrRootAdmin(_accountKey) returns (AgentStruct storage) {
         SponsorStruct storage sponsorRec = getAccountSponsorRecByKey(_accountKey, _sponsorAccountKey);
-        AgentStruct storage agentRec = sponsorRec.agentMap[_agentAccountKey];
-        return agentRec;
+        AgentStruct storage sponsorChildAgentRec = sponsorRec.agentMap[_agentAccountKey];
+        return sponsorChildAgentRec;
      }
 
     /// @notice get address for an account sponsor

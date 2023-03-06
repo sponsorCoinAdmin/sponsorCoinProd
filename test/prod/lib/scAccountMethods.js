@@ -95,6 +95,17 @@ getAccountAgentSize = async (_accountKey) => {
   return maxSize;
 };
 
+getAccountAgentSponsorKeys = async (_accountKey) => {
+  logFunctionHeader("getAccountAgentSponsorKeys = async(" + _accountKey + ")");
+  let maxSize = await spCoinContractDeployed.getAccountAgentSponsorSize(_accountKey);
+  let accountAgentSponsorKeys = {};
+  for (let idx = 0; idx < maxSize; idx++) {
+    let parentSponsor = await spCoinContractDeployed.getAccountAgentSponsorByIdx(_accountKey, idx );
+    accountAgentSponsorKeys[parentSponsor] = idx;
+  }
+  return accountAgentSponsorKeys;
+}
+
 getAccountPatreonKeys = async (_accountKey) => {
   logFunctionHeader("getAccountPatreonKeys = async(" + _accountKey + ")");
   let maxSize = await spCoinContractDeployed.getAccountPatreonSize(_accountKey);

@@ -15,15 +15,15 @@ contract Sponsors is Accounts {
         nonRedundantSponsor ( _accountKey,  _sponsorAccountKey) {
         addAccountRecord(_accountKey);
         addAccountRecord(_sponsorAccountKey);
-        AccountStruct storage parentAccountRec = accountMap[_accountKey];
+        AccountStruct storage patreonAccountRec = accountMap[_accountKey];
         AccountStruct storage sponsorAccountRec = accountMap[_sponsorAccountKey];
-        SponsorStruct storage sponsorRec = getAccountSponsorRecByKey(_accountKey, _sponsorAccountKey);
-        if (!sponsorRec.inserted) {
-            sponsorRec.index = parentAccountRec.accountSponsorKeys.length;
-            sponsorRec.insertionTime = block.timestamp;
-            sponsorRec.sponsorAccountKey = _sponsorAccountKey;
-            sponsorRec.inserted = true;
-            parentAccountRec.accountSponsorKeys.push(_sponsorAccountKey);
+        SponsorStruct storage accountChildSponsorRec = getAccountSponsorRecByKey(_accountKey, _sponsorAccountKey);
+        if (!accountChildSponsorRec.inserted) {
+            accountChildSponsorRec.index = patreonAccountRec.accountSponsorKeys.length;
+            accountChildSponsorRec.insertionTime = block.timestamp;
+            accountChildSponsorRec.sponsorAccountKey = _sponsorAccountKey;
+            accountChildSponsorRec.inserted = true;
+            patreonAccountRec.accountSponsorKeys.push(_sponsorAccountKey);
             sponsorAccountRec.accountPatreonKeys.push(_accountKey);
         }
     }
@@ -86,5 +86,4 @@ contract Sponsors is Accounts {
         address[] storage accountSponsorKeys = account.accountSponsorKeys;
         return accountSponsorKeys;
     }
-
 }

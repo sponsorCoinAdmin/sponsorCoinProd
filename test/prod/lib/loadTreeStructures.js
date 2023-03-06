@@ -25,6 +25,7 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
 
         accountStruct.accountPatreonKeys = await getAccountPatreonKeys(accountKey);
         accountStruct.accountAgentKeys = await getAccountAgentKeys(accountKey);
+        accountStruct.accountAgentSponsorKeys = await getAccountAgentSponsorKeys(accountKey);
     }
     return accountArr;
 }
@@ -90,6 +91,7 @@ loadAgentsByKeys = async(_accountKey, _sponsorAccountKey, _accountAgentKeys) => 
 
         agentStruct.index = idx;
         agentStruct.agentAccountKey = agentAccountKey;
+        agentStruct
         agentObjectArray.push(agentStruct);
     }
     return agentObjectArray;
