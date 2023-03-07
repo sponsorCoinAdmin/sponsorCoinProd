@@ -30,6 +30,7 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
     return accountArr;
 }
 
+//////////////////// LOAD ACCOUNT DATA //////////////////////
 loadSponsorsByAccount = async(_accountKey) => {    
     logFunctionHeader("loadSponsorsByAccount("  + _accountKey + ")");
     accountSponsorKeys = await getAccountSponsorKeys(_accountKey);
@@ -37,11 +38,13 @@ loadSponsorsByAccount = async(_accountKey) => {
     return accountSponsorObjects;
 }
 
+//////////////////// LOAD SPONSOR DATA //////////////////////
+
 loadSponsorRecordsByKeys = async(_accountKey, _accountSponsorKeys) => {
     logFunctionHeader("loadSponsorRecordsByKeys(" + _accountKey + ", " + _accountSponsorKeys + ")");
     let accountSponsorObjects = [];
     for (let [sponsorAccountKey, idx] of Object.entries(_accountSponsorKeys)) {
-        logDetail("JS => " + sponsorAccountKey, idx);
+        logDetail("JS => Loading Sponsor Record " + sponsorAccountKey, idx);
         let sponsorStruct = await loadSponsorRecordByKeys(_accountKey, sponsorAccountKey);
         sponsorStruct.index = idx;
         accountSponsorObjects.push(sponsorStruct);
@@ -55,67 +58,51 @@ loadSponsorRecordByKeys = async(_accountKey, _sponsorAccountKey) => {
     let sponsorStruct = new SponsorStruct(_sponsorAccountKey);
     sponsorStruct.sponsorAccountKey = _sponsorAccountKey;
     sponsorStruct.accountAgentKeys = accountAgentKeys;
-    sponsorStruct.agentObjectArray = await loadAgentsByKeys(_accountKey, _sponsorAccountKey, accountAgentKeys);
+    sponsorStruct.agentObjectArray = await loadAgentRecordsByKeys(_accountKey, _sponsorAccountKey, accountAgentKeys);
     return sponsorStruct;
-}
-
-loadBeneficiariesByKeys = async(_accountKey, _accountPatreonKeys) => {
-    let patreonArr = [];
-    for (let [patreonKey, idx] of Object.entries(_accountPatreonKeys)) {
-        logDetail("JS => " + patreonKey, idx);
-        let accountAgentKeys = await getAccountPatreonKeys(_accountKey, patreonKey);
-        let sponsorStruct = new SponsorStruct(patreonKey);
-        sponsorStruct.index = idx;
-        sponsorStruct.patreonKey = patreonKey;
-
-        sponsorStruct.accountAgentKeys = accountAgentKeys;
-        sponsorStruct.agentObjectArray = await loadAgentsByKeys(_accountKey, patreonKey, accountAgentKeys);
-        patreonArr.push(sponsorStruct);
-    }
-    return patreonArr;
 }
 
 loadAgentsByAccountSponsor = async(_accountKey, _sponsorAccountKey) => {
     logFunctionHeader("loadAgentsByAccountSponsor = async(" + _accountKey + ", " + _sponsorAccountKey + ")");
     let accountAgentKeys = await getSponsorAgentKeys(_accountKey, _sponsorAccountKey);
-    let agentObjectArray = await loadAgentsByKeys(_accountKey, _sponsorAccountKey, accountAgentKeys);
+    let agentObjectArray = await loadAgentRecordsByKeys(_accountKey, _sponsorAccountKey, accountAgentKeys);
     return agentObjectArray;
 }
 
-loadAgentsByKeys = async(_accountKey, _sponsorAccountKey, _accountAgentKeys) => {
-    let agentObjectArray = [];
-    let maxSize = _accountAgentKeys.length;
-    for (let [agentAccountKey, idx] of Object.entries(_accountAgentKeys)) {
-        logDetail("JS => " + agentAccountKey, idx);
-        let agentIndex = await spCoinContractDeployed.getAgentIndex(_accountKey, _sponsorAccountKey, agentAccountKey);
-        let agentActIdx = await spCoinContractDeployed.getAccountIndex(agentAccountKey);
-        agentStruct = new AgentStruct();
+//////////////////// LOAD AGENT DATA //////////////////////
 
+loadAgentRecordsByKeys = async(_accountKey, _sponsorAccountKey, _accountAgentKeys) => {
+    logFunctionHeader("loadAgentRecordsByKeys(" + _accountKey + ", " + _sponsorAccountKey + ", " + _accountAgentKeys + ")");
+    let agentObjectArray = [];
+    for (let [agentAccountKey, idx] of Object.entries(_accountAgentKeys)) {
+        logDetail("JS => Loading Agent Records " + agentAccountKey, idx);
+        let agentStruct = await loadAgentRecordByKeys();
         agentStruct.index = idx;
-        agentStruct.agentAccountKey = agentAccountKey;
-        agentStruct
         agentObjectArray.push(agentStruct);
     }
     return agentObjectArray;
 }
 
-loadBeneficiariesByKeys = async(_accountKey, _sponsorAccountKey, _accountAgentKeys) => {
-    let agentObjectArray = [];
-    let maxSize = _accountAgentKeys.length;
-    for (let [agentAccountKey, idx] of Object.entries(_accountAgentKeys)) {
-        logDetail("JS => " + agentAccountKey, idx);
-        let agentIndex = await spCoinContractDeployed.getAgentIndex(_accountKey, _sponsorAccountKey, agentAccountKey);
-        let agentActIdx = await spCoinContractDeployed.getAccountIndex(agentAccountKey);
-        agentStruct = new AgentStruct(agentAccountKey);
-
-        agentStruct.index = idx;
-        agentStruct.accountKey = _accountKey;
-//        agentStruct.agentAccountKey = agentAccountKey;
-//        agentStruct.accountAgentKeys[agentAccountKey] = idx;
-        agentObjectArray.push(agentStruct);
-    }
-    return agentObjectArray;
+loadAgentRecordByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey) => {
+    logFunctionHeader("loadAgentRecordByKeys(" + _accountKey + ", " + _sponsorAccountKey + ", " + _agentAccountKey + ")");
+    // let agentIndex = await spCoinContractDeployed.getAgentIndex(_accountKey, _sponsorAccountKey, agentAccountKey);
+    // let agentActIdx = await spCoinContractDeployed.getAccountIndex(agentAccountKey);
+    agentStruct = new AgentStruct();
+    agentStruct.agentAccountKey = _agentAccountKey;
+    //agentStruct.agentObjectArray = await spCoinContractDeployed.getAgentRecByKeys(_accountKey, _sponsorAccountKey, _agentAccountKey);
+    agentStruct.agentObjectArray = undefined;
+    return agentStruct;
 }
+
+loadRatesByAccountAgents = async(_accountKey, _rateRecordKey) => {
+    // logFunctionHeader("loadAgentsByAccountSponsor = async(" + _accountKey + ", " + _rateRecordKey + ")");
+    // let agentRateKeys = await getAgentRateKeys(_accountKey, _rateRecordKey);
+    // let agentRateArray = await loadAgentRatesByKeys(_accountKey, _sponsorAccountKey, _rateRecordKey);
+    // return agentRateArray;
+    return undefined;
+}
+
+//////////////////// MODULE EXPORTS //////////////////////
 
 module.exports = {
     loadTreeStructures,
