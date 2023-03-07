@@ -38,10 +38,7 @@ contract Agents is Sponsors {
     /// @param _sponsorKey public sponsor account key validate Insertion
     /// @param _agentKey public agent account key validate Insertion
     function isAgentInserted(address _patreonKey,address _sponsorKey,address _agentKey) public onlyOwnerOrRootAdmin(_patreonKey) view returns (bool) {
-        if (getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey).inserted)
-            return true;
-        else
-            return false;
+        return getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey).inserted;
     }
 
     function getAgentIndex(address _patreonKey, address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(_patreonKey) view returns (uint) {
@@ -90,4 +87,30 @@ contract Agents is Sponsors {
         address[] memory accountAgentKeys = sponsorRec.accountAgentKeys;
         return accountAgentKeys;
     }
+
+    /// @notice insert sponsors Agent
+    /// @param _patreonKey public Sponsor Coin Account Key
+    /// @param _sponsorKey public account key to get sponsor array
+    /// @param _agentKey new sponsor to add to account list
+    function deleteSponsorAgent(address _patreonKey, address _sponsorKey, address _agentKey)
+            public onlyOwnerOrRootAdmin(msg.sender) 
+            nonRedundantAgent ( _patreonKey, _sponsorKey, _agentKey) {
+        addPatreonSponsor(_patreonKey, _sponsorKey);
+        addAccountRecord(_agentKey);
+
+        AccountStruct storage accountSponsorRec = accountMap[_sponsorKey];
+        AccountStruct storage accountAgentRec = accountMap[_agentKey];
+        SponsorStruct storage patreonSponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
+        AgentStruct storage  sponsorChildAgentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
+        if (!sponsorChildAgentRec.inserted) {
+            sponsorChildAgentRec.index = patreonSponsorRec.accountAgentKeys.length;
+            sponsorChildAgentRec.insertionTime = block.timestamp;
+            sponsorChildAgentRec.agentAccountKey    = _agentKey;
+            sponsorChildAgentRec.inserted = true;
+            patreonSponsorRec.accountAgentKeys.push(_agentKey);
+            accountSponsorRec.accountAgentKeys.push(_agentKey);
+            accountAgentRec.accountAgentSponsorKeys.push(_agentKey);
+        }
+    }
+
 }

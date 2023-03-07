@@ -8,7 +8,7 @@ contract Sponsors is Accounts {
     }
 
     /// @notice insert address for later recall
-    /// @param _patreonKey public account key to get sponsor array
+    /// @param _patreonKey public patreon key to get sponsor array
     /// @param _sponsorKey new sponsor to add to account list
     function addPatreonSponsor(address _patreonKey, address _sponsorKey) 
         public onlyOwnerOrRootAdmin(_patreonKey)
@@ -36,7 +36,7 @@ contract Sponsors is Accounts {
     }
 
     /// @notice retreives the array index of a specific address.
-    /// @param _patreonKey public account key to set new balance
+    /// @param _patreonKey public patreon key to get sponsor array
     function getPatreonSponsorIndex(address _patreonKey, address _sponsorKey) public onlyOwnerOrRootAdmin(_patreonKey) view returns (uint) {
         if (isSponsorInserted(_patreonKey, _sponsorKey))
             return accountMap[_patreonKey].sponsorMap[_sponsorKey].index;
