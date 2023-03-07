@@ -7,7 +7,7 @@ const {
   getAccountKeys,
   getPatreonSponsorKeys,
   getSponsorAgentKeys,
-} = require("../prod/lib/scAccountCreateMethods");
+} = require("../prod/lib/scAccountMethods");
 
 addTestNetworkPatreonSponsors = async (_accountIdx, _accountSponsorObjectsayIdx) => {
   logFunctionHeader("async (" + _accountIdx  + "," + _accountSponsorObjectsayIdx+ ")");

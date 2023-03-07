@@ -137,10 +137,17 @@ contract Accounts is StructSerialization {
         return accountAgentKeys;
     }
 
-    function deleteAccount(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
-        AccountStruct storage account = accountMap[_accountKey];
-        address[] storage accountAgentKeys = account.accountAgentKeys;
-        return accountAgentKeys;
+     /////////////////// DELETE ACCOUNT METHODS ////////////////////////
+   
+    function deleteAccount(address _accountKey) public view
+             onlyOwnerOrRootAdmin(_accountKey)
+             accountExists(_accountKey) {
+        // ToDo Complete this function
+    }
+
+    modifier accountExists (address _accountKey) {
+        require (isAccountInserted(_accountKey) , "_accountKey not found)");
+        _;
     }
 
      /////////////////// ACCOUNT SERIALIZATION REQUESTS ////////////////////////

@@ -88,29 +88,36 @@ contract Agents is Sponsors {
         return accountAgentKeys;
     }
 
-    /// @notice insert sponsors Agent
+    /////////////////// DELETE AGENT METHODS ////////////////////////
+
+    /// @notice delete sponsors Agent
     /// @param _patreonKey public Sponsor Coin Account Key
     /// @param _sponsorKey public account key to get sponsor array
     /// @param _agentKey new sponsor to add to account list
     function deleteSponsorAgent(address _patreonKey, address _sponsorKey, address _agentKey)
             public onlyOwnerOrRootAdmin(msg.sender) 
-            nonRedundantAgent ( _patreonKey, _sponsorKey, _agentKey) {
-        addPatreonSponsor(_patreonKey, _sponsorKey);
-        addAccountRecord(_agentKey);
+            agentExists ( _patreonKey, _sponsorKey, _agentKey) {
+        // addPatreonSponsor(_patreonKey, _sponsorKey);
+        // addAccountRecord(_agentKey);
 
-        AccountStruct storage accountSponsorRec = accountMap[_sponsorKey];
-        AccountStruct storage accountAgentRec = accountMap[_agentKey];
-        SponsorStruct storage patreonSponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
-        AgentStruct storage  sponsorChildAgentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
-        if (!sponsorChildAgentRec.inserted) {
-            sponsorChildAgentRec.index = patreonSponsorRec.accountAgentKeys.length;
-            sponsorChildAgentRec.insertionTime = block.timestamp;
-            sponsorChildAgentRec.agentAccountKey    = _agentKey;
-            sponsorChildAgentRec.inserted = true;
-            patreonSponsorRec.accountAgentKeys.push(_agentKey);
-            accountSponsorRec.accountAgentKeys.push(_agentKey);
-            accountAgentRec.accountAgentSponsorKeys.push(_agentKey);
-        }
+        // AccountStruct storage accountSponsorRec = accountMap[_sponsorKey];
+        // AccountStruct storage accountAgentRec = accountMap[_agentKey];
+        // SponsorStruct storage patreonSponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
+        // AgentStruct storage  sponsorChildAgentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
+        // if (!sponsorChildAgentRec.inserted) {
+        //     sponsorChildAgentRec.index = patreonSponsorRec.accountAgentKeys.length;
+        //     sponsorChildAgentRec.insertionTime = block.timestamp;
+        //     sponsorChildAgentRec.agentAccountKey    = _agentKey;
+        //     sponsorChildAgentRec.inserted = true;
+        //     patreonSponsorRec.accountAgentKeys.push(_agentKey);
+        //     accountSponsorRec.accountAgentKeys.push(_agentKey);
+        //     accountAgentRec.accountAgentSponsorKeys.push(_agentKey);
+        // }
+    }
+
+    modifier agentExists (address _patreonKey, address _sponsorKey, address _agentKey) {
+        require (isAgentInserted(_patreonKey, _sponsorKey, _agentKey) , "_agentKey not found)");
+        _;
     }
 
 }

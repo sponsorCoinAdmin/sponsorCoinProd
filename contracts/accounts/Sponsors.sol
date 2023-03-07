@@ -86,4 +86,17 @@ contract Sponsors is Accounts {
         address[] storage accountSponsorKeys = account.accountSponsorKeys;
         return accountSponsorKeys;
     }
+
+    /////////////////// DELETE SPONSOR METHODS ////////////////////////
+
+    function deletePatreonSponsor(address _patreonKey, address _sponsorKey) 
+        public sponsorExists(_patreonKey, _sponsorKey) {
+
+        }
+
+    modifier sponsorExists (address _patreonKey, address _sponsorKey) {
+        require (isSponsorInserted(_patreonKey, _sponsorKey) , "_sponsorKey not found)");
+        _;
+    }
+
 }
