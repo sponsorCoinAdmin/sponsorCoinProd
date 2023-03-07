@@ -25,8 +25,7 @@ contract Agents is Sponsors {
         if (!sponsorChildAgentRec.inserted) {
             sponsorChildAgentRec.index = accountChildSponsorRec.accountAgentKeys.length;
             sponsorChildAgentRec.insertionTime = block.timestamp;
-            sponsorChildAgentRec.account  = _accountKey;
-            sponsorChildAgentRec.agent    = _agentAccountKey;
+            sponsorChildAgentRec.agentAccountKey    = _agentAccountKey;
             sponsorChildAgentRec.inserted = true;
             accountChildSponsorRec.accountAgentKeys.push(_agentAccountKey);
             accountSponsorRec.accountAgentKeys.push(_agentAccountKey);

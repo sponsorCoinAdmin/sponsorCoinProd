@@ -76,7 +76,7 @@ loadAgentRecordsByKeys = async(_accountKey, _sponsorAccountKey, _accountAgentKey
     let agentObjectArray = [];
     for (let [agentAccountKey, idx] of Object.entries(_accountAgentKeys)) {
         logDetail("JS => Loading Agent Records " + agentAccountKey, idx);
-        let agentStruct = await loadAgentRecordByKeys();
+        let agentStruct = await loadAgentRecordByKeys(_accountKey, _sponsorAccountKey, agentAccountKey);
         agentStruct.index = idx;
         agentObjectArray.push(agentStruct);
     }
@@ -90,16 +90,16 @@ loadAgentRecordByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey)
     agentStruct = new AgentStruct();
     agentStruct.agentAccountKey = _agentAccountKey;
     //agentStruct.agentObjectArray = await spCoinContractDeployed.getAgentRecByKeys(_accountKey, _sponsorAccountKey, _agentAccountKey);
-    agentStruct.agentObjectArray = undefined;
+    agentStruct.rates = ratesByAccountAgents = await loadRatesByAccountAgents(_accountKey, _sponsorAccountKey, _agentAccountKey);
     return agentStruct;
 }
 
-loadRatesByAccountAgents = async(_accountKey, _rateRecordKey) => {
+loadRatesByAccountAgents = async(_accountKey, _sponsorAccountKey, _agentAccountKey) => {
     // logFunctionHeader("loadAgentsByAccountSponsor = async(" + _accountKey + ", " + _rateRecordKey + ")");
     // let agentRateKeys = await getAgentRateKeys(_accountKey, _rateRecordKey);
     // let agentRateArray = await loadAgentRatesByKeys(_accountKey, _sponsorAccountKey, _rateRecordKey);
     // return agentRateArray;
-    return undefined;
+    return "ToDo Rates";
 }
 
 //////////////////// MODULE EXPORTS //////////////////////

@@ -64,8 +64,7 @@ contract DataTypes is KYC {
     // Each Sponsor has a map of Agents and an array of rate structures
     struct AgentStruct {
         uint256 index;
-        address account;
-        address agent;
+        address agentAccountKey;
         uint256 insertionTime;
         bool inserted;
         bool verified;
