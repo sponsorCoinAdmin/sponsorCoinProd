@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.6;
 
-import "../accounts/DataTypes.sol";
+import "./Utils.sol";
 
-contract StructSerialization is DataTypes {
+contract StructSerialization is Utils {
 
     constructor() {}
 

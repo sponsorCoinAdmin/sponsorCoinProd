@@ -3,7 +3,7 @@ pragma solidity ^0.8.6;
 
 import "./Utils.sol";
 
-contract KYC is Utils {
+contract KYC {
 
    mapping(string => string)  public kyc ;
  
