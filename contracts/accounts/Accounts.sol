@@ -137,7 +137,7 @@ contract Accounts is StructSerialization {
         return accountAgentKeys;
     }
 
-    function deleteAccountRecord(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
+    function deleteAccount(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
         AccountStruct storage account = accountMap[_accountKey];
         address[] storage accountAgentKeys = account.accountAgentKeys;
         return accountAgentKeys;

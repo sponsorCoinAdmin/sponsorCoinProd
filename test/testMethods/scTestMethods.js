@@ -45,6 +45,29 @@ getTestHHAccountArrayKeys = (testAccountIdxArr) => {
   return accountIdxArrayKeys;
 };
 
+///////////////////////////// DELETE METHODS ///////////////////////////////
+
+deleteTestNetworkAccount = async (testRecordNumber) => {
+  logFunctionHeader("async (" + testRecordNumber+ ")");
+  let accountKey = testHHAccounts[testRecordNumber].toLowerCase();
+  await deleteAccount(accountKey);
+  return accountKey;
+};
+
+deleteTestNetworkAccountSponsors = async (testRecordNumber) => {
+  logFunctionHeader("async (" + testRecordNumber+ ")");
+  let accountKey = testHHAccounts[testRecordNumber].toLowerCase();
+  await deleteAccountSponsors(accountKey);
+  return accountKey;
+};
+
+deleteTestNetworkSponsorAgents = async (testRecordNumber) => {
+  logFunctionHeader("async (" + testRecordNumber+ ")");
+  let accountKey = testHHAccounts[testRecordNumber].toLowerCase();
+  await deleteSponsorAgents(accountKey);
+  return accountKey;
+};
+
 module.exports = {
   addTestNetworkAccountSponsors,
   addTestNetworkSponsorAgents,

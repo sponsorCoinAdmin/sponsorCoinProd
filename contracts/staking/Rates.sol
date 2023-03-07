@@ -12,7 +12,7 @@ contract Rates is Agents{
     /// @param _rate Rate record for transaction
     function insertSponsorRate(uint256 _rate) public onlyOwnerOrRootAdmin(msg.sender) returns (bool) {
 /*
-        insertAccountSponsor(_accountKey, _sponsorAccountKey);
+        addAccountSponsor(_accountKey, _sponsorAccountKey);
         // addAccountRecord(_agentAccountKey);
         // addAccountRecord(_sponsorAccountKey);
         addAccountRecord(_agentAccountKey);

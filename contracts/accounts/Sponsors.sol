@@ -10,7 +10,7 @@ contract Sponsors is Accounts {
     /// @notice insert address for later recall
     /// @param _accountKey public account key to get sponsor array
     /// @param _sponsorAccountKey new sponsor to add to account list
-    function insertAccountSponsor(address _accountKey, address _sponsorAccountKey) 
+    function addAccountSponsor(address _accountKey, address _sponsorAccountKey) 
         public onlyOwnerOrRootAdmin(_accountKey)
         nonRedundantSponsor ( _accountKey,  _sponsorAccountKey) {
         addAccountRecord(_accountKey);
@@ -53,7 +53,7 @@ contract Sponsors is Accounts {
 
     function getValidSponsorRec(address _accountKey, address _sponsorAccountKey) internal onlyOwnerOrRootAdmin(_accountKey) returns (SponsorStruct storage) {
         if (!isSponsorInserted(_accountKey, _sponsorAccountKey)) {
-            insertAccountSponsor(_accountKey, _sponsorAccountKey);
+            addAccountSponsor(_accountKey, _sponsorAccountKey);
         }
         return getAccountSponsorRecByKeys(_accountKey, _sponsorAccountKey);
      }

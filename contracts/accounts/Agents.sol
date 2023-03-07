@@ -12,10 +12,10 @@ contract Agents is Sponsors {
     /// @param _accountKey public Sponsor Coin Account Key
     /// @param _sponsorAccountKey public account key to get sponsor array
     /// @param _agentAccountKey new sponsor to add to account list
-    function insertSponsorAgent(address _accountKey, address _sponsorAccountKey, address _agentAccountKey)
+    function addSponsorAgent(address _accountKey, address _sponsorAccountKey, address _agentAccountKey)
             public onlyOwnerOrRootAdmin(msg.sender) 
             nonRedundantAgent ( _accountKey, _sponsorAccountKey, _agentAccountKey) {
-        insertAccountSponsor(_accountKey, _sponsorAccountKey);
+        addAccountSponsor(_accountKey, _sponsorAccountKey);
         addAccountRecord(_agentAccountKey);
 
         AccountStruct storage accountSponsorRec = accountMap[_sponsorAccountKey];
