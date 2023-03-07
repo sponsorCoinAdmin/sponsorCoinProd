@@ -20,7 +20,7 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
         accountStruct.accountKey = accountKey;
         accountSponsorKeys = await getAccountSponsorKeys(accountKey);
         accountStruct.accountSponsorKeys = accountSponsorKeys;
-        accountStruct.accountSponsorObjects = await loadSponsorsByKeys(accountKey, accountSponsorKeys);
+        accountStruct.accountSponsorObjects = await loadSponsorRecordsByKeys(accountKey, accountSponsorKeys);
         accountArr.push(accountStruct);
 
         accountStruct.accountPatreonKeys = await getAccountPatreonKeys(accountKey);
@@ -33,28 +33,30 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
 loadSponsorsByAccount = async(_accountKey) => {    
     logFunctionHeader("loadSponsorsByAccount("  + _accountKey + ")");
     accountSponsorKeys = await getAccountSponsorKeys(_accountKey);
-    accountSponsorObjects = await loadSponsorsByKeys(_accountKey, accountSponsorKeys);
+    accountSponsorObjects = await loadSponsorRecordsByKeys(_accountKey, accountSponsorKeys);
     return accountSponsorObjects;
 }
 
-loadSponsorsByKeys = async(_accountKey, _accountSponsorKeys) => {
-    logFunctionHeader("loadSponsorsByKeys(" + _accountKey + ", " + _accountSponsorKeys + ")");
-
+loadSponsorRecordsByKeys = async(_accountKey, _accountSponsorKeys) => {
+    logFunctionHeader("loadSponsorRecordsByKeys(" + _accountKey + ", " + _accountSponsorKeys + ")");
     let accountSponsorObjects = [];
     for (let [sponsorAccountKey, idx] of Object.entries(_accountSponsorKeys)) {
         logDetail("JS => " + sponsorAccountKey, idx);
-        let accountAgentKeys = await getSponsorAgentKeys(_accountKey, sponsorAccountKey);
-        // let sponsorIndex = await spCoinContractDeployed.getAccountSponsorIndex(_accountKey, sponsorAccountKey);
-        // let sponsorActIdx = await spCoinContractDeployed.getAccountIndex(sponsorAccountKey);
-        let sponsorStruct = new SponsorStruct(sponsorAccountKey);
+        let sponsorStruct = await loadSponsorRecordByKeys(_accountKey, sponsorAccountKey);
         sponsorStruct.index = idx;
-        sponsorStruct.sponsorAccountKey = sponsorAccountKey;
-
-        sponsorStruct.accountAgentKeys = accountAgentKeys;
-        sponsorStruct.agentObjectArray = await loadAgentsByKeys(_accountKey, sponsorAccountKey, accountAgentKeys);
         accountSponsorObjects.push(sponsorStruct);
     }
     return accountSponsorObjects;
+}
+
+loadSponsorRecordByKeys = async(_accountKey, _sponsorAccountKey) => {
+    logFunctionHeader("loadSponsorRecordByKeys(" + _accountKey + ", " + _sponsorAccountKey + ")");
+    let accountAgentKeys = await getSponsorAgentKeys(_accountKey, _sponsorAccountKey);
+    let sponsorStruct = new SponsorStruct(_sponsorAccountKey);
+    sponsorStruct.sponsorAccountKey = _sponsorAccountKey;
+    sponsorStruct.accountAgentKeys = accountAgentKeys;
+    sponsorStruct.agentObjectArray = await loadAgentsByKeys(_accountKey, _sponsorAccountKey, accountAgentKeys);
+    return sponsorStruct;
 }
 
 loadBeneficiariesByKeys = async(_accountKey, _accountPatreonKeys) => {

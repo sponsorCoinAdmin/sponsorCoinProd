@@ -61,27 +61,11 @@ addAccountRecords = async (_accountArrayKeys) => {
   return maxSize;
 };
 
-getAccountRecord = async (_accountKey) => {
-  logFunctionHeader("getAccountRecord = async(" + _accountKey + ")");
-  let serializedAccountRec =
-    await spCoinContractDeployed.getSerializedAccountRec(_accountKey);
-  return deSerializedAccountRec(serializedAccountRec);
-};
-
 getAccountSponsorSize = async (_accountKey) => {
   logFunctionHeader("getAccountSponsorSize = async(" + _accountKey + ")");
 
   let maxSize = await spCoinContractDeployed.getAccountSponsorSize(_accountKey);
   logDetail("JS => Found " + maxSize + " Sponsor Records For Account " + _accountKey
-  );
-  return maxSize;
-};
-
-getAccountPatreonSize = async (_accountKey) => {
-  logFunctionHeader("getAccountPatreonSize = async(" + _accountKey + ")");
-
-  let maxSize = await spCoinContractDeployed.getAccountPatreonSize(_accountKey);
-  logDetail("JS => Found " + maxSize + " Patreon Records For Account " + _accountKey
   );
   return maxSize;
 };

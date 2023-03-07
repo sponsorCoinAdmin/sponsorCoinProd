@@ -204,8 +204,8 @@ describe("spCoinContract", function () {
     let accountArr = await loadTreeStructures(spCoinContractDeployed);
     logTree(accountArr);
 
-    // Test That Benefactor at Idx 3 has 2 Record Sponsors in the blockchain and
-    // Validate they are the correct ones in the Benefactor Structure
+    // Test That Patreon at Idx 3 has 2 Record Sponsors in the blockchain and
+    // Validate they are the correct ones in the Patreon Structure
     // Read from Blockchain Network
     let recipientKey = testHHAccounts[3].toLowerCase();
 

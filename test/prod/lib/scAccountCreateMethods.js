@@ -80,7 +80,7 @@ getAccountSponsorSize = async (_accountKey) => {
 getAccountPatreonSize = async (_accountKey) => {
   logFunctionHeader("getAccountPatreonSize = async(" + _accountKey + ")");
 
-  let maxSize = await spCoinContractDeployed.getAccountPatreonSize(_accountKey);
+  let maxSize = await spCoinContractDeployed.c(_accountKey);
   logDetail("JS => Found " + maxSize + " Patreon Records For Account " + _accountKey
   );
   return maxSize;
