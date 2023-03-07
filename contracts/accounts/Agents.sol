@@ -20,14 +20,14 @@ contract Agents is Sponsors {
 
         AccountStruct storage accountSponsorRec = accountMap[_sponsorKey];
         AccountStruct storage accountAgentRec = accountMap[_agentKey];
-        SponsorStruct storage accountChildSponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
+        SponsorStruct storage patreonSponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
         AgentStruct storage  sponsorChildAgentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
         if (!sponsorChildAgentRec.inserted) {
-            sponsorChildAgentRec.index = accountChildSponsorRec.accountAgentKeys.length;
+            sponsorChildAgentRec.index = patreonSponsorRec.accountAgentKeys.length;
             sponsorChildAgentRec.insertionTime = block.timestamp;
             sponsorChildAgentRec.agentAccountKey    = _agentKey;
             sponsorChildAgentRec.inserted = true;
-            accountChildSponsorRec.accountAgentKeys.push(_agentKey);
+            patreonSponsorRec.accountAgentKeys.push(_agentKey);
             accountSponsorRec.accountAgentKeys.push(_agentKey);
             accountAgentRec.accountAgentSponsorKeys.push(_agentKey);
         }
