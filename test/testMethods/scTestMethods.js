@@ -1,21 +1,21 @@
 const { testHHAccounts } = require("./hhTestAccounts");
 const {
-  setContract,
+  setCreateContract,
   addAccountRecord,
   addAccountSponsors,
   addSponsorAgents,
   getAccountKeys,
   getAccountSponsorKeys,
   getSponsorAgentKeys,
-} = require("../prod/lib/scAccountMethods");
+} = require("../prod/lib/scAccountCreateMethods");
 
 addTestNetworkAccountSponsors = async (_accountIdx, _accountSponsorObjectsayIdx) => {
   logFunctionHeader("async (" + _accountIdx  + "," + _accountSponsorObjectsayIdx+ ")");
   let accountKey = testHHAccounts[_accountIdx].toLowerCase();
-  let accountSponsorObjectsayKeys = getTestHHAccountArrayKeys(_accountSponsorObjectsayIdx);
+  let accountSponsorObjectKeys = getTestHHAccountArrayKeys(_accountSponsorObjectsayIdx);
   logDetail("JS => For Account: " + accountKey + " Inserting Sponsor Records:");
-  logDetail(accountSponsorObjectsayKeys);
-  await addAccountSponsors(accountKey, accountSponsorObjectsayKeys);
+  logDetail(accountSponsorObjectKeys);
+  await addAccountSponsors(accountKey, accountSponsorObjectKeys);
   return accountKey;
 };
 

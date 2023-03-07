@@ -17,8 +17,8 @@ contract Rates is Agents{
         // addAccountRecord(_sponsorAccountKey);
         addAccountRecord(_agentAccountKey);
 
-        SponsorStruct storage sponsorRec = getAccountSponsorRecByKey(_accountKey, _sponsorAccountKey);
-        AgentStruct storage  agentRec = getAgentRec(_accountKey, _sponsorAccountKey, _agentAccountKey);
+        SponsorStruct storage sponsorRec = getAccountSponsorRecByKeys(_accountKey, _sponsorAccountKey);
+        AgentStruct storage  agentRec = getAgentRecByKeys(_accountKey, _sponsorAccountKey, _agentAccountKey);
 
         if (!agentRec.inserted) {
             agentRec.index = sponsorRec.accountAgentKeys.length;

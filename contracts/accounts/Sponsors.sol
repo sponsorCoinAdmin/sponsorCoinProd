@@ -17,7 +17,7 @@ contract Sponsors is Accounts {
         addAccountRecord(_sponsorAccountKey);
         AccountStruct storage patreonAccountRec = accountMap[_accountKey];
         AccountStruct storage sponsorAccountRec = accountMap[_sponsorAccountKey];
-        SponsorStruct storage accountChildSponsorRec = getAccountSponsorRecByKey(_accountKey, _sponsorAccountKey);
+        SponsorStruct storage accountChildSponsorRec = getAccountSponsorRecByKeys(_accountKey, _sponsorAccountKey);
         if (!accountChildSponsorRec.inserted) {
             accountChildSponsorRec.index = patreonAccountRec.accountSponsorKeys.length;
             accountChildSponsorRec.insertionTime = block.timestamp;
@@ -32,7 +32,7 @@ contract Sponsors is Accounts {
     /// @param _accountKey public account key validate Insertion
     /// @param _sponsorAccountKey public sponsor account key validate Insertion
     function isSponsorInserted(address _accountKey, address _sponsorAccountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (bool) {
-        return getAccountSponsorRecByKey(_accountKey, _sponsorAccountKey).inserted;
+        return getAccountSponsorRecByKeys(_accountKey, _sponsorAccountKey).inserted;
     }
 
     /// @notice retreives the array index of a specific address.
@@ -55,10 +55,10 @@ contract Sponsors is Accounts {
         if (!isSponsorInserted(_accountKey, _sponsorAccountKey)) {
             insertAccountSponsor(_accountKey, _sponsorAccountKey);
         }
-        return getAccountSponsorRecByKey(_accountKey, _sponsorAccountKey);
+        return getAccountSponsorRecByKeys(_accountKey, _sponsorAccountKey);
      }
 
-     function getAccountSponsorRecByKey(address _accountKey, address _sponsorAccountKey) internal view onlyOwnerOrRootAdmin(_accountKey) returns (SponsorStruct storage) {
+     function getAccountSponsorRecByKeys(address _accountKey, address _sponsorAccountKey) internal view onlyOwnerOrRootAdmin(_accountKey) returns (SponsorStruct storage) {
         AccountStruct storage accountRec = accountMap[_accountKey];
         SponsorStruct storage accountSponsor = accountRec.sponsorMap[_sponsorAccountKey];
        return accountSponsor;

@@ -14,7 +14,7 @@ let spCoinContractDeployed;
 
 //////////////////////////// ROOT LEVEL FUNCTIONS ////////////////////////////
 
-setContract = (_spCoinContractDeployed) => {
+setCreateContract = (_spCoinContractDeployed) => {
   spCoinContractDeployed = _spCoinContractDeployed;
 };
 
@@ -144,13 +144,6 @@ getAccountAgentKeys = async (_accountKey) => {
   }
   return accountAgentKeys;
 };
-
-deleteAccountRecord = async (_accountKey) => {
-  // ToDo: do Solidity Code and Testing
-    logFunctionHeader("deleteAccountRecord = async(" + _accountKey + ")");
-    logDetail("JS => Deleting Account " + _accountKey + " From Blockchain Network");
-    await spCoinContractDeployed.deleteAccountRecord(_accountKey);
-  };
   
 /////////////////////// SPONSOR OBJECT FUNCTIONS ///////////////////////
 
@@ -207,20 +200,6 @@ getSponsorAgentSize = async (_accountKey, _sponsorAccountKey) => {
   return agentSize;
 };
 
-deleteAccountSponsor = async (_accountKey, _sponsorKey) => {
-  // ToDo: do Solidity Code and Testing
-  logFunctionHeader(
-    "deleteAccountSponsor = async(" + _accountKey + ", " + _sponsorKey + ")"
-  );
-
-  logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
-  logDetail("JS => Deleting " + _sponsorKey + " Sponsor From Blockchain Network"
-  );
-
-  logDetail("JS => Deleting Sponsor " + _sponsorKey );
-  await spCoinContractDeployed.deleteAccountSponsor(_accountKey, _sponsorKey);
-};
-
 /////////////////////// AGENT OBJECT FUNCTIONS ////////////////////////
 
 addSponsorAgent = async (_accountKey, _sponsorAccountKey, _accountAgentKey) => {
@@ -257,19 +236,6 @@ addSponsorAgents = async (_accountKey, _sponsorAccountKey, _accountAgentKeys) =>
   return agentCount;
 };
 
-deleteSponsorAgent = async (_accountKey, _sponsorAccountKey, _accountAgentKey) => {
-  // ToDo: do Solidity Code and Testing
-  logFunctionHeader(
-    "deleteSponsorAgent = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _accountAgentKey + ")"
-  );
-  logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
-  logDetail("JS => Deleting Agent " + _accountAgentKey + " From Blockchain Network");
-
-  logDetail("JS =>  " + _accountKey + ". " + "Inserting Agent[" + _accountKey + "]: " + _accountAgentKey );
-  await spCoinContractDeployed.deleteSponsorAgent( _accountKey, _sponsorAccountKey, _agentAccountKey );
-  logDetail("JS => "+ "Deleted = " + _accountAgentKey + " Agent Record from SponsorKey " + _sponsorAccountKey);
-};
-
 /////////////////////// EXPORT MODULE FUNCTIONS ///////////////////////
 
 module.exports = {
@@ -279,13 +245,11 @@ module.exports = {
   addAccountSponsors,
   addSponsorAgent,
   addSponsorAgents,
-  deleteAccountSponsor,
-  deleteAccountRecord,
   getAccountSize,
   getAccountRecord,
   getAccountKeys,
   getAccountSponsorSize,
   getSponsorAgentKeys,
   getAccountSponsorKeys,
-  setContract,
+  setCreateContract,
 };

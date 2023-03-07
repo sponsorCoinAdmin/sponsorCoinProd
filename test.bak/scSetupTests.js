@@ -37,7 +37,7 @@ describe("spCoinContract", function() {
         logSetup("JS => spCoinContract Deployed to Network");
         msgSender = await spCoinContractDeployed.msgSender();
 
-        setContract(spCoinContractDeployed);
+        setCreateContract(spCoinContractDeployed);
         setLogDefaults();
     });
 

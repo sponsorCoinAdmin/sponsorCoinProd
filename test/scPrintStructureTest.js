@@ -10,7 +10,7 @@ const {
 } = require("./testMethods/scTestMethods");
 const { testHHAccounts } = require("./testMethods/hhTestAccounts");
 
-const { setContract } = require("./prod/lib/scAccountMethods");
+const { setCreateContract } = require("./prod/lib/scAccountCreateMethods");
 
 const {
   AccountStruct,
@@ -42,7 +42,8 @@ logSetup("JS => Setup Test");
 describe("spCoinContract", function () {
   beforeEach(async () => {
     spCoinContractDeployed = await deployContract();
-    setContract(spCoinContractDeployed);
+    setCreateContract(spCoinContractDeployed);
+    setDeleteContract(spCoinContractDeployed);
   });
 
   /**/
