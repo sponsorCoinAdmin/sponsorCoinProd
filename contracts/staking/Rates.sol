@@ -12,13 +12,13 @@ contract Rates is Agents{
     /// @param _rate Rate record for transaction
     function insertSponsorRate(uint256 _rate) public onlyOwnerOrRootAdmin(msg.sender) returns (bool) {
 /*
-        addAccountSponsor(_accountKey, _sponsorAccountKey);
+        addPatreonSponsor(_accountKey, _sponsorAccountKey);
         // addAccountRecord(_agentAccountKey);
         // addAccountRecord(_sponsorAccountKey);
         addAccountRecord(_agentAccountKey);
 
-        SponsorStruct storage sponsorRec = getAccountSponsorRecByKeys(_accountKey, _sponsorAccountKey);
-        AgentStruct storage  agentRec = getAgentRecByKeys(_accountKey, _sponsorAccountKey, _agentAccountKey);
+        SponsorStruct storage sponsorRec = getPatreonSponsorRecByKeys(_accountKey, _sponsorAccountKey);
+        AgentStruct storage  agentRec = getAgentRecordByKeys(_accountKey, _sponsorAccountKey, _agentAccountKey);
 
         if (!agentRec.inserted) {
             agentRec.index = sponsorRec.accountAgentKeys.length;

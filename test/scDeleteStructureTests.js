@@ -3,7 +3,7 @@ const { expect } = require("chai");
 const {} = require("./prod/lib/loadTreeStructures");
 
 const {
-  addTestNetworkAccountSponsors,
+  addTestNetworkPatreonSponsors,
   addTestNetworkSponsorAgents,
   addTestNetworkAccount,
   getTestHHAccountArrayKeys,
@@ -49,15 +49,15 @@ describe("spCoinContract", function () {
   /**/
 
   it("PRINT STRUCTURE TREE TESTS", async function () {
-    // // USAGE: addTestNetworkAccountSponsors(_accountRecIdx, _startSpIdx, _lastSpIdx);
-    // await addTestNetworkAccountSponsors(2, [1, 7, 14, 8, 18, 9]);
-    // await addTestNetworkAccountSponsors(2, [12]);
-    // await addTestNetworkAccountSponsors(3, [14, 17]);
-    // await addTestNetworkAccountSponsors(1, [5, 11, 13, 15]);
-    // await addTestNetworkAccountSponsors(14, [18, 19, 7]);
-    // await addTestNetworkAccountSponsors(3, [4]);
-    // await addTestNetworkAccountSponsors(1, [2, 5]);
-    // await addTestNetworkAccountSponsors(11, [5, 9, 0]);
+    // // USAGE: addTestNetworkPatreonSponsors(_accountRecIdx, _startSpIdx, _lastSpIdx);
+    // await addTestNetworkPatreonSponsors(2, [1, 7, 14, 8, 18, 9]);
+    // await addTestNetworkPatreonSponsors(2, [12]);
+    // await addTestNetworkPatreonSponsors(3, [14, 17]);
+    // await addTestNetworkPatreonSponsors(1, [5, 11, 13, 15]);
+    // await addTestNetworkPatreonSponsors(14, [18, 19, 7]);
+    // await addTestNetworkPatreonSponsors(3, [4]);
+    // await addTestNetworkPatreonSponsors(1, [2, 5]);
+    // await addTestNetworkPatreonSponsors(11, [5, 9, 0]);
 
     // // USAGE: addNetworkSponsorAgents(_accountRecIdx, _sponsorRecIdx, _startAgIdx, _lastAgIdx);
     // await addTestNetworkSponsorAgents(1, 5, [7, 2, 17, 3, 9, 19]);

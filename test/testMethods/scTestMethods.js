@@ -2,20 +2,20 @@ const { testHHAccounts } = require("./hhTestAccounts");
 const {
   setCreateContract,
   addAccountRecord,
-  addAccountSponsors,
+  addPatreonSponsors,
   addSponsorAgents,
   getAccountKeys,
-  getAccountSponsorKeys,
+  getPatreonSponsorKeys,
   getSponsorAgentKeys,
 } = require("../prod/lib/scAccountCreateMethods");
 
-addTestNetworkAccountSponsors = async (_accountIdx, _accountSponsorObjectsayIdx) => {
+addTestNetworkPatreonSponsors = async (_accountIdx, _accountSponsorObjectsayIdx) => {
   logFunctionHeader("async (" + _accountIdx  + "," + _accountSponsorObjectsayIdx+ ")");
   let accountKey = testHHAccounts[_accountIdx].toLowerCase();
   let accountSponsorObjectKeys = getTestHHAccountArrayKeys(_accountSponsorObjectsayIdx);
   logDetail("JS => For Account: " + accountKey + " Inserting Sponsor Records:");
   logDetail(accountSponsorObjectKeys);
-  await addAccountSponsors(accountKey, accountSponsorObjectKeys);
+  await addPatreonSponsors(accountKey, accountSponsorObjectKeys);
   return accountKey;
 };
 
@@ -54,10 +54,10 @@ deleteTestNetworkAccount = async (testRecordNumber) => {
   return accountKey;
 };
 
-deleteTestNetworkAccountSponsors = async (testRecordNumber) => {
+deleteTestNetworkPatreonSponsors = async (testRecordNumber) => {
   logFunctionHeader("async (" + testRecordNumber+ ")");
   let accountKey = testHHAccounts[testRecordNumber].toLowerCase();
-  await deleteAccountSponsors(accountKey);
+  await deletePatreonSponsors(accountKey);
   return accountKey;
 };
 
@@ -69,7 +69,7 @@ deleteTestNetworkSponsorAgents = async (testRecordNumber) => {
 };
 
 module.exports = {
-  addTestNetworkAccountSponsors,
+  addTestNetworkPatreonSponsors,
   addTestNetworkSponsorAgents,
   addTestNetworkAccount,
   getTestHHAccountArrayKeys

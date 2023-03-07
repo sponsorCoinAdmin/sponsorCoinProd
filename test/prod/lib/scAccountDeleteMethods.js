@@ -30,10 +30,10 @@ deleteAccount = async (_accountKey) => {
   
 /////////////////////// SPONSOR OBJECT FUNCTIONS ///////////////////////
 
-deleteAccountSponsor = async (_accountKey, _sponsorKey) => {
+deletePatreonSponsor = async (_accountKey, _sponsorKey) => {
   // ToDo: do Solidity Code and Testing
   logFunctionHeader(
-    "deleteAccountSponsor = async(" + _accountKey + ", " + _sponsorKey + ")"
+    "deletePatreonSponsor = async(" + _accountKey + ", " + _sponsorKey + ")"
   );
 
   logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
@@ -41,7 +41,7 @@ deleteAccountSponsor = async (_accountKey, _sponsorKey) => {
   );
 
   logDetail("JS => Deleting Sponsor " + _sponsorKey );
-  await spCoinContractDeployed.deleteAccountSponsor(_accountKey, _sponsorKey);
+  await spCoinContractDeployed.deletePatreonSponsor(_accountKey, _sponsorKey);
 };
 
 /////////////////////// AGENT OBJECT FUNCTIONS ////////////////////////
@@ -64,7 +64,7 @@ deleteSponsorAgent = async (_accountKey, _sponsorAccountKey, _accountAgentKey) =
 module.exports = {
 
   deleteAccount,
-  deleteAccountSponsor,
+  deletePatreonSponsor,
   deleteSponsorAgent,
   setDeleteContract,
 };

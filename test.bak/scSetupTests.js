@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 const { testHHAccounts } = require("./testMethods/hhTestAccounts");
-const { addTestNetworkAccountSponsors,
+const { addTestNetworkPatreonSponsors,
     addTestNetworkSponsorAgents,
     addTestNetworkAccount,
     getTestHHAccountArrayKeys

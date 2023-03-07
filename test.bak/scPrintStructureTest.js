@@ -3,7 +3,7 @@ const { expect } = require("chai");
 const {} = require("../test/prod/lib/loadTreeStructures");
 
 const {
-  addTestNetworkAccountSponsors,
+  addTestNetworkPatreonSponsors,
   addTestNetworkSponsorAgents,
   addTestNetworkAccount,
   getTestHHAccountArrayKeys,
@@ -49,15 +49,15 @@ describe("spCoinContract", function () {
   /**/
 
   it("PRINT STRUCTURE TREE TESTS", async function () {
-    // USAGE: addTestNetworkAccountSponsors(_accountRecIdx, _startSpIdx, _lastSpIdx);
-    await addTestNetworkAccountSponsors(2, [1, 7, 14, 8, 18, 9]);
-    await addTestNetworkAccountSponsors(2, [12]);
-    await addTestNetworkAccountSponsors(3, [14, 17]);
-    await addTestNetworkAccountSponsors(1, [5, 11, 13, 15]);
-    await addTestNetworkAccountSponsors(14, [18, 19, 7]);
-    await addTestNetworkAccountSponsors(3, [4]);
-    await addTestNetworkAccountSponsors(1, [2, 5]);
-    await addTestNetworkAccountSponsors(11, [5, 9, 0]);
+    // USAGE: addTestNetworkPatreonSponsors(_accountRecIdx, _startSpIdx, _lastSpIdx);
+    await addTestNetworkPatreonSponsors(2, [1, 7, 14, 8, 18, 9]);
+    await addTestNetworkPatreonSponsors(2, [12]);
+    await addTestNetworkPatreonSponsors(3, [14, 17]);
+    await addTestNetworkPatreonSponsors(1, [5, 11, 13, 15]);
+    await addTestNetworkPatreonSponsors(14, [18, 19, 7]);
+    await addTestNetworkPatreonSponsors(3, [4]);
+    await addTestNetworkPatreonSponsors(1, [2, 5]);
+    await addTestNetworkPatreonSponsors(11, [5, 9, 0]);
 
     // USAGE: addNetworkSponsorAgents(_accountRecIdx, _sponsorRecIdx, _startAgIdx, _lastAgIdx);
     await addTestNetworkSponsorAgents(1, 5, [7, 2, 17, 3, 9, 19]);
@@ -87,13 +87,13 @@ describe("spCoinContract", function () {
     // Test Successful Record Insertion of Patreon and 
     // Sponsor Accounts to the Blockchain Network.
     // Account, Sponsor and/or Agent are Successfully mutually exclusive.
-    await addTestNetworkAccountSponsors(4, [3]);
+    await addTestNetworkPatreonSponsors(4, [3]);
 
     // Test Un-Successful Record Insertion of Patreon
     // and Agent Accounts to the Blockchain Network.
     // Account and Sponsor are not mutually exclusive.
     try {
-      await addTestNetworkAccountSponsors(4, [4]);
+      await addTestNetworkPatreonSponsors(4, [4]);
       throw new Error("Trace point 0. Should have thrown an error");
     } catch (err) {
       // console.log ("err.message = " + err.message);
@@ -194,8 +194,8 @@ describe("spCoinContract", function () {
     setLogMode(LOG_MODE.LOG_TREE, true);
 
     // Test Record Insertions to Blockchain Network
-    let arrayKey = await addTestNetworkAccountSponsors(14, [3, 2]);
-    arrayKey = await addTestNetworkAccountSponsors(13, [3]);
+    let arrayKey = await addTestNetworkPatreonSponsors(14, [3, 2]);
+    arrayKey = await addTestNetworkPatreonSponsors(13, [3]);
   
     let accountSize = await getAccountSize();
     expect(accountSize).to.equal(4);
@@ -223,7 +223,7 @@ describe("spCoinContract", function () {
     let accountKey = testHHAccounts[testAccountKey];
     let testSponsorArrayKeys = [1, 7, 14, 8, 18, 9];
   
-    await addTestNetworkAccountSponsors(testAccountKey, testSponsorArrayKeys);
+    await addTestNetworkPatreonSponsors(testAccountKey, testSponsorArrayKeys);
     let accountArr = await loadTreeStructures(spCoinContractDeployed);
 
     log("Tree For Account Key: " + accountKey + " With Inserted Sponsors:");
@@ -232,16 +232,16 @@ describe("spCoinContract", function () {
     accountSize = await getAccountSize();
     expect(accountSize).to.equal(7);
 
-    let sponsorSize = await getAccountSponsorSize(accountKey);
+    let sponsorSize = await getPatreonSponsorSize(accountKey);
     expect(sponsorSize).to.equal(6);
 
-    let accountSponsorObjects = await getAccountSponsorKeys(accountKey);
+    let accountSponsorObjects = await getPatreonSponsorKeys(accountKey);
 
     logTree(accountSponsorObjects);
     let accountSponsorObjectsLength = Object.keys(accountSponsorObjects).length;
     expect(accountSponsorObjectsLength).to.equal(6);
 
-    getAccountSponsorKeys();
+    getPatreonSponsorKeys();
   });
   /**/
 });
