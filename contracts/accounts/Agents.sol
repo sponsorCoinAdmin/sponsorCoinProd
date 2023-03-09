@@ -58,36 +58,6 @@ contract Agents is Sponsors {
         else
             return 0;
     }
-
-    function getAgentRecordByKeys(address _patreonKey, address _sponsorKey, address _agentKey) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (AgentStruct storage) {
-        SponsorStruct storage sponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
-        AgentStruct storage sponsorChildAgentRec = sponsorRec.agentMap[_agentKey];
-        return sponsorChildAgentRec;
-     }
-
-    /// @notice get address for an account sponsor
-    /// @param _sponsorKey public account key to get agent array
-    /// @param _agentIdx new agent to add to account list
-    function getSponsorAgentKeyAddress(address _patreonKey, address _sponsorKey, uint _agentIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
-        address[] memory agentList = getAgentList(_patreonKey, _sponsorKey);
-        address agentAddress = agentList[_agentIdx];
-        return agentAddress;
-    }
-
-    /// @notice retreives the sponsor array record size a specific address.
-    /// @param _sponsorKey public account key to get Sponsor Record Length
-    function getSponsorAgentSize(address _patreonKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
-        return getAgentList(_patreonKey, _sponsorKey).length;
-    }
-
-    /// @notice retreives the sponsor array records from a specific account address.
-    /// @param _sponsorKey public account key to get Sponsors
-    function getAgentList(address _patreonKey, address _sponsorKey) internal view onlyOwnerOrRootAdmin(_sponsorKey) returns (address[] memory) {
-        SponsorStruct storage sponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
-        address[] memory accountAgentKeys = sponsorRec.accountAgentKeys;
-        return accountAgentKeys;
-    }
-
     /////////////////// DELETE AGENT METHODS ////////////////////////
 
     /// @notice delete sponsors Agent
