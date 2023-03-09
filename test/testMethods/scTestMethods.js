@@ -7,7 +7,7 @@ const {
   addSponsorAgents,
   getAccountKeys,
   getPatreonSponsorKeys,
-  getSponsorAgentKeys,
+  getChildAgentKeys,
 } = require("../prod/lib/scAccountMethods");
 const { logFunctionHeader } = require("../prod/lib/utils/logging");
 

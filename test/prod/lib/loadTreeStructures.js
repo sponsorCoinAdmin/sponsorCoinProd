@@ -54,7 +54,7 @@ loadSponsorRecordsByKeys = async(_accountKey, _accountChildSponsorKeys) => {
 
 loadSponsorRecordByKeys = async(_accountKey, _sponsorAccountKey) => {
     logFunctionHeader("loadSponsorRecordByKeys(" + _accountKey + ", " + _sponsorAccountKey + ")");
-    let accountChildAgentKeys = await getSponsorAgentKeys(_accountKey, _sponsorAccountKey);
+    let accountChildAgentKeys = await getChildAgentKeys(_accountKey, _sponsorAccountKey);
     let sponsorStruct = new SponsorStruct(_sponsorAccountKey);
     sponsorStruct.sponsorAccountKey = _sponsorAccountKey;
     sponsorStruct.accountChildAgentKeys = accountChildAgentKeys;
@@ -64,7 +64,7 @@ loadSponsorRecordByKeys = async(_accountKey, _sponsorAccountKey) => {
 
 loadAgentsByPatreonSponsor = async(_accountKey, _sponsorAccountKey) => {
     logFunctionHeader("loadAgentsByPatreonSponsor = async(" + _accountKey + ", " + _sponsorAccountKey + ")");
-    let accountChildAgentKeys = await getSponsorAgentKeys(_accountKey, _sponsorAccountKey);
+    let accountChildAgentKeys = await getChildAgentKeys(_accountKey, _sponsorAccountKey);
     let agentObjectArray = await loadAgentRecordsByKeys(_accountKey, _sponsorAccountKey, accountChildAgentKeys);
     return agentObjectArray;
 }

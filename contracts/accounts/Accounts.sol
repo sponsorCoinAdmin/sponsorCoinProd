@@ -137,6 +137,21 @@ contract Accounts is StructSerialization {
         return accountChildAgentKeys;
     }
 
+    
+    /// @notice given a patreon key get the size of the child sponsor account keys.
+    /// @param _patreonKey public account key to get Sponsor Record Length
+    function getChildSponsorSize(address _patreonKey) public view onlyOwnerOrRootAdmin(_patreonKey) returns (uint) {
+        return getChildSponsorKeys(_patreonKey).length;
+    }
+
+    /// @notice retreives the sponsors of a specific address.
+    /// @param _patreonKey public account key to set new balance
+    function getChildSponsorKeys(address _patreonKey) internal onlyOwnerOrRootAdmin(_patreonKey) view returns (address[] memory) {
+        AccountStruct storage account = accountMap[_patreonKey];
+        address[] storage accountChildSponsorKeys = account.accountChildSponsorKeys;
+        return accountChildSponsorKeys;
+    }
+
      /////////////////// DELETE ACCOUNT METHODS ////////////////////////
    
     function deleteAccount(address _accountKey) public

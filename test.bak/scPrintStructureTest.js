@@ -232,7 +232,7 @@ describe("spCoinContract", function () {
     accountSize = await getAccountSize();
     expect(accountSize).to.equal(7);
 
-    let sponsorSize = await getPatreonSponsorSize(accountKey);
+    let sponsorSize = await getChildSponsorSize(accountKey);
     expect(sponsorSize).to.equal(6);
 
     let accountSponsorObjects = await getPatreonSponsorKeys(accountKey);
