@@ -29,11 +29,11 @@ addTestNetworkAccounts = async (accountIndexes) => {
 
 //////////////////////////// TEST SPONSOR METHODS ////////////////////////////
 
-addTestNetworkPatreonSponsors = async (_accountIdx, _accountSponsorKeysIdx) => {
-  logFunctionHeader("addTestNetworkPatreonSponsors = async (" + _accountIdx + ", " + _accountSponsorKeysIdx + ")");
+addTestNetworkPatreonSponsors = async (_accountIdx, _accountChildSponsorKeysIdx) => {
+  logFunctionHeader("addTestNetworkPatreonSponsors = async (" + _accountIdx + ", " + _accountChildSponsorKeysIdx + ")");
 
   let accountKey = testHHAccounts[_accountIdx].toLowerCase();
-  let accountSponsorObjectKeys = getTestHHAccountArrayKeys(_accountSponsorKeysIdx);
+  let accountSponsorObjectKeys = getTestHHAccountArrayKeys(_accountChildSponsorKeysIdx);
   logDetail("JS => For Account: " + accountKey + " Inserting Sponsor Records:");
   logDetail(accountSponsorObjectKeys);
   await addPatreonSponsors(accountKey, accountSponsorObjectKeys);
@@ -45,9 +45,9 @@ addTestNetworkSponsorAgents = async ( _accountIdx, _sponsorIdx, _agentArrayIdx )
   logFunctionHeader("async (" + _accountIdx  + "," + _sponsorIdx + "," + _agentArrayIdx+ ")");
   let accountKey = testHHAccounts[_accountIdx].toLowerCase();
   let sponsorAccountKey = testHHAccounts[_sponsorIdx].toLowerCase();
-  let accountAgentKeys = getTestHHAccountArrayKeys(_agentArrayIdx);
+  let accountChildAgentKeys = getTestHHAccountArrayKeys(_agentArrayIdx);
 
-  await addSponsorAgents(accountKey, sponsorAccountKey, accountAgentKeys);
+  await addSponsorAgents(accountKey, sponsorAccountKey, accountChildAgentKeys);
   return sponsorAccountKey;
 };
 

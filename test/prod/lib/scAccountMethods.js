@@ -98,51 +98,51 @@ getAccountAgentSize = async (_accountKey) => {
 getAccountAgentSponsorKeys = async (_accountKey) => {
   logFunctionHeader("getAccountAgentSponsorKeys = async(" + _accountKey + ")");
   let maxSize = await spCoinContractDeployed.getAccountAgentSponsorSize(_accountKey);
-  let accountAgentSponsorKeys = {};
+  let accountParentSponsorKeys = {};
   for (let idx = 0; idx < maxSize; idx++) {
     let parentSponsor = await spCoinContractDeployed.getAccountAgentSponsorByIdx(_accountKey, idx );
-    accountAgentSponsorKeys[parentSponsor] = idx;
+    accountParentSponsorKeys[parentSponsor] = idx;
   }
-  return accountAgentSponsorKeys;
+  return accountParentSponsorKeys;
 }
 
 getAccountPatreonKeys = async (_accountKey) => {
   logFunctionHeader("getAccountPatreonKeys = async(" + _accountKey + ")");
   let maxSize = await spCoinContractDeployed.getAccountPatreonSize(_accountKey);
 
-  let accountPatreonKeys = {};
+  let accountParentPatreonKeys = {};
 
   for (let idx = 0; idx < maxSize; idx++) {
     let patreon = await spCoinContractDeployed.getAccountPatreonKeyByIndex(_accountKey, idx );
-    accountPatreonKeys[patreon] = idx;
+    accountParentPatreonKeys[patreon] = idx;
   }
-  return accountPatreonKeys;
+  return accountParentPatreonKeys;
 };
 
 getPatreonSponsorKeys = async (_accountKey) => {
   logFunctionHeader("getPatreonSponsorKeys = async(" + _accountKey + ")");
   let maxSize = await spCoinContractDeployed.getPatreonSponsorSize(_accountKey);
 
-  let accountSponsorKeys = {};
+  let accountChildSponsorKeys = {};
 
   for (let idx = 0; idx < maxSize; idx++) {
     let sponsor = await spCoinContractDeployed.getPatreonSponsorKeyByIndex(_accountKey, idx );
-    accountSponsorKeys[sponsor] = idx;
+    accountChildSponsorKeys[sponsor] = idx;
   }
-  return accountSponsorKeys;
+  return accountChildSponsorKeys;
 };
 
 getAccountAgentKeys = async (_accountKey) => {
   logFunctionHeader("getAccountAgentKeys = async(" + _accountKey + ")");
   let maxSize = await getAccountAgentSize(_accountKey);
 
-  let accountAgentKeys = {};
+  let accountChildAgentKeys = {};
 
   for (let idx = 0; idx < maxSize; idx++) {
     let patreon = await spCoinContractDeployed.getAccountAgentKeyByIndex(_accountKey, idx );
-    accountAgentKeys[patreon] = idx;
+    accountChildAgentKeys[patreon] = idx;
   }
-  return accountAgentKeys;
+  return accountChildAgentKeys;
 };
   
 /////////////////////// ACCOUNT OBJECT FUNCTIONS ///////////////////////
@@ -162,18 +162,18 @@ addPatreonSponsor = async (_accountKey, _sponsorKey) => {
   await spCoinContractDeployed.addPatreonSponsor(_accountKey, _sponsorKey);
 };
 
-addPatreonSponsors = async (_accountKey, _accountSponsorKeys) => {
+addPatreonSponsors = async (_accountKey, _accountChildSponsorKeys) => {
   logFunctionHeader(
-    "addPatreonSponsors = async(" + _accountKey + ", " + _accountSponsorKeys + ")"
+    "addPatreonSponsors = async(" + _accountKey + ", " + _accountChildSponsorKeys + ")"
   );
 
   logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
-  logDetail("JS => Adding " + _accountSponsorKeys.length + " Sponsors To Blockchain Network"
+  logDetail("JS => Adding " + _accountChildSponsorKeys.length + " Sponsors To Blockchain Network"
   );
 
   let sponsorCount = 0;
-  for (sponsorCount; sponsorCount < _accountSponsorKeys.length; sponsorCount++) {
-    let _sponsorKey = _accountSponsorKeys[sponsorCount];
+  for (sponsorCount; sponsorCount < _accountChildSponsorKeys.length; sponsorCount++) {
+    let _sponsorKey = _accountChildSponsorKeys[sponsorCount];
     await addPatreonSponsor(_accountKey, _sponsorKey);
   }
   logDetail("JS => Inserted = " + sponsorCount + " Sponsor Records");
@@ -184,13 +184,13 @@ getSponsorAgentKeys = async (_accountKey, _sponsorAccountKey) => {
   logFunctionHeader("getSponsorAgentKeys = async(" + _accountKey + ", " + _sponsorAccountKey + ")" );
   let maxSize = await spCoinContractDeployed.getSponsorAgentSize(_accountKey, _sponsorAccountKey);
 
-  let accountAgentKeys = {};
+  let accountChildAgentKeys = {};
   for (let idx = 0; idx < maxSize; idx++) {
     let agent = await spCoinContractDeployed.getSponsorAgentKeyAddress(_accountKey, _sponsorAccountKey, idx);
     logDetail("JS => Agent[" + idx + "]: " + agent);
-    accountAgentKeys[agent] = idx;
+    accountChildAgentKeys[agent] = idx;
   }
-  return accountAgentKeys;
+  return accountChildAgentKeys;
 };
 
 getSponsorAgentSize = async (_accountKey, _sponsorAccountKey) => {
@@ -216,21 +216,21 @@ addSponsorAgent = async (_accountKey, _sponsorAccountKey, _accountAgentKey) => {
   logDetail("JS => "+ "Added Agent " + _accountAgentKey + " Record to SponsorKey " + _sponsorAccountKey);
 };
 
-addSponsorAgents = async (_accountKey, _sponsorAccountKey, _accountAgentKeys) => {
+addSponsorAgents = async (_accountKey, _sponsorAccountKey, _accountChildAgentKeys) => {
   logFunctionHeader(
-    "addSponsorAgents = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _accountAgentKeys + ")"
+    "addSponsorAgents = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _accountChildAgentKeys + ")"
   );
   logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
   logDetail("JS => For Sponsor[" + _sponsorAccountKey + "]: " + _sponsorAccountKey + ")");
-  logDetail("JS => Inserting " + _accountAgentKeys.length + " Agents To Blockchain Network"
+  logDetail("JS => Inserting " + _accountChildAgentKeys.length + " Agents To Blockchain Network"
   );
-  logDetail("JS => _accountAgentKeys = " + _accountAgentKeys);
+  logDetail("JS => _accountChildAgentKeys = " + _accountChildAgentKeys);
 
-  let agentSize = _accountAgentKeys.length;
+  let agentSize = _accountChildAgentKeys.length;
   logDetail("JS => agentSize.length = " + agentSize);
   let agentCount = 0;
   for (let agentCount = 0; agentCount < agentSize; agentCount++) {
-    let agentAccountKey = _accountAgentKeys[agentCount];
+    let agentAccountKey = _accountChildAgentKeys[agentCount];
     logDetail("JS =>  " + agentCount + ". " + "Inserting Agent[" + agentCount + "]: " + agentAccountKey );
     await addSponsorAgent( _accountKey, _sponsorAccountKey, agentAccountKey );
   }
