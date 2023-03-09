@@ -4,6 +4,7 @@ let LOG_DETAIL = false;
 let LOG_TEST_HEADER = false;
 let LOG_FUNCTION_HEADER = false;
 let LOG_SETUP = false;
+let LOG_TREE = false;
 prefix = "  ";
 
 const LOG_MODE = {
@@ -11,16 +12,17 @@ const LOG_MODE = {
     LOG_DETAIL : "LOG_DETAIL",
     LOG_TEST_HEADER : "LOG_TEST_HEADER",
     LOG_FUNCTION_HEADER : "LOG_FUNCTION_HEADER",
-    LOG_SETUP : "LOG_SETUP"
+    LOG_SETUP : "LOG_SETUP",
+    LOG_TREE : "LOG_TREE"
   }
 
   setLogDefaults = (_log_mode, _state) => {
-
     LOG = true;
     LOG_DETAIL = false;
     LOG_TEST_HEADER = false;
     LOG_FUNCTION_HEADER = false;
     LOG_SETUP = false;
+    LOG_TREE = false;
   }
     
   setLogMode = (_log_mode, _state) => {
@@ -46,7 +48,10 @@ const LOG_MODE = {
          case LOG_MODE.LOG_SETUP:
             console.log("Setting _log_mode LOG_SETUP: " + _state)
             LOG_SETUP = _state;
-         break;
+        case LOG_MODE.LOG_TREE:
+            console.log("Setting _log_mode LOG_SETUP: " + _state)
+            LOG_TREE = _state;
+            break;
         default:
         _text = "Unknown _log_mode " + _log_mode;
     }
@@ -93,9 +98,17 @@ setIndentPrefixLevel = (_indentPrefix, _level) => {
     return indent;
 }
 
-logAccountStructure = (_accountRec) => {
+logAccountStructure = (_accountArr) => {
     console.log("ACCOUNT RECORD DUMP");
-    console.log(JSON.stringify(_accountRec, null, 2));
+    console.log(JSON.stringify(_accountArr, null, 2));
+}
+
+logTree = (_tree) => {
+    if (LOG_TREE) {
+        console.log("TREE STRUCTURE DUMP");
+//        console.log(_tree);
+        console.log(JSON.stringify(_tree, null, 2));
+    }
 }
 
 module.exports = {

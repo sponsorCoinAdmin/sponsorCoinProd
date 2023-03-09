@@ -1,5 +1,11 @@
 const { expect } = require("chai");
-const { testHHAccounts } = require("./lib/hhTestAccounts");
+const { testHHAccounts } = require("./testMethods/hhTestAccounts");
+const { addTestNetworkPatreonSponsors,
+    addTestNetworkSponsorAgents,
+    addTestNetworkAccount,
+    getTestHHAccountArrayKeys
+  } = require("../test/testMethods/scTestMethods");
+
 const {    
     LOG_MODE,
     setLogDefaults,
@@ -9,14 +15,9 @@ const {
     logFunctionHeader,
     logDetail,
     log
-    } = require("../test/lib/logging");
-
-const {} = require("../test/lib/scAccountMethods");
+    } = require("../test/prod/lib/utils/logging");
 
 let account;
-let sponsor;
-let agent;
-//let scTree[] = {account, sponsor, agent};
 
 logSetup("JS => Setup Test");
 
@@ -36,7 +37,7 @@ describe("spCoinContract", function() {
         logSetup("JS => spCoinContract Deployed to Network");
         msgSender = await spCoinContractDeployed.msgSender();
 
-        setContract(spCoinContractDeployed);
+        setCreateContract(spCoinContractDeployed);
         setLogDefaults();
     });
 
@@ -66,28 +67,29 @@ describe("spCoinContract", function() {
         expect(await spCoinContractDeployed.decimals()).to.equal(testDecimals);
 //        expect(await spCoinContractDeployed.balanceOf(msgSender)).to.equal(testTotalSupply);
     });
+    
     it("Account Insertion Validation", async function () {
         logTestHeader("TEST ACCOUNT INSERTION");
         let account = testHHAccounts[0];
-        let recCount = await spCoinContractDeployed.getAccountRecordCount();
+        let recCount = await spCoinContractDeployed.getAccountSize();
         expect(recCount).to.equal(0);
         logDetail("JS => ** Before Inserted Record Count = " + recCount);
         let isAccountInserted = await spCoinContractDeployed.isAccountInserted(account);
         logDetail("JS => Address "+ account + " Before Inserted Record Found = " + isAccountInserted);
-        await spCoinContractDeployed.addNetworkAccount(account);
+        await spCoinContractDeployed.addAccountRecord(account);
         isAccountInserted = await spCoinContractDeployed.isAccountInserted(account);
         logDetail("JS => Address "+ account + " After Inserted Record Found = " + isAccountInserted);
-        recCount = await spCoinContractDeployed.getAccountRecordCount();
+        recCount = await spCoinContractDeployed.getAccountSize();
         logDetail("JS => ** After Inserted Record Count = " + await recCount);        
         expect(recCount).to.equal(1);
     });
 
     it("Insertion 20 Hardhat Accounts for Validation", async function () {
         logTestHeader("ADD MORE HARDHAT ACCOUNTS")
-        await addNetworkSponsorAgents(testHHAccounts);
+        await addAccountRecords(testHHAccounts);
 
-        logDetail("*** RETRIEVE ALL INSERTED RECORDS FROM THE BLOCKCHAIN ***")
-        let insertedArrayAccounts = await getNetworkAccounts();
+        logDetail("JS => *** RETRIEVE ALL INSERTED RECORDS FROM THE BLOCKCHAIN ***")
+        let insertedArrayAccounts = await getAccountKeys();
         let testRecCount = testHHAccounts.length;
         let insertedRecCount = insertedArrayAccounts.length;
         expect(testRecCount).to.equal(insertedRecCount);
@@ -102,11 +104,11 @@ describe("spCoinContract", function() {
     it("Insert 4 Sponsor Coin Records 1 count, 1 sponsor and 2 Agents", async function () {
         logTestHeader("TEST MORE HARDHAT SPONSOR RECORD INSERTIONS")
 
-        logDetail("*** Insert Sponsor to AccountRecord[2] as AccountRecord[5] ***")
+        logDetail("JS => *** Insert Sponsor to AccountRecord[2] as AccountRecord[5] ***")
         let startRec = 4;
         let endRec = 15;
-        await addNetworkSponsorAgents(3, 6, [1, 2]);
-        let insertCount = await spCoinContractDeployed.getAccountRecordCount();
+        await addTestNetworkSponsorAgents(3, 6, [1, 2]);
+        let insertCount = await spCoinContractDeployed.getAccountSize();
         expect(insertCount).to.equal(4);
     });
 });

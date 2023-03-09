@@ -52,7 +52,22 @@ string public text;
         return strValue;
     }
 
-   function toString(bytes memory data) internal pure returns(string memory) {
+    function toString(address[] storage arrValues) internal view returns(string memory) {
+        string memory strArrValue  = "[";
+        for (uint i = 0; i < arrValues.length; i++) {
+            if (i == 0) {
+                strArrValue = concat(strArrValue, toString(arrValues[i]));
+            }
+            else {
+                strArrValue = concat(strArrValue, ",", toString(arrValues[i]));
+            }
+            console.log(arrValues[i]);
+        }
+        strArrValue = concat(strArrValue,"]");
+        return strArrValue;
+    }
+
+    function toString(bytes memory data) internal pure returns(string memory) {
        bytes memory alphabet = "0123456789abcdef";
 
        bytes memory str = new bytes(2 + data.length * 2);

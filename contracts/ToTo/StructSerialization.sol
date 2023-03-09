@@ -3,7 +3,6 @@ pragma solidity ^0.8.7;
 
 contract StructSerialization
 {
-
     event exactUserStructEvent(uint32 id, string name);
 
     //Use only fixed size simple (uint,int) types!
@@ -19,7 +18,6 @@ contract StructSerialization
     {
         exactUserStructEvent(u.id, u.name);
     }
-
 
     function exactUserStructToBytes(ExactUserStruct memory u) private
     returns (bytes memory data)

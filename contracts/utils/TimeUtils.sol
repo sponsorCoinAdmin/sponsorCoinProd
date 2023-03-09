@@ -4,6 +4,9 @@ pragma solidity ^0.8.6;
 import "hardhat/console.sol";
 
 contract TimeUtils {
+    constructor() {
+    }
+
    function getAccountTimeInSecondeSinceUpdate(uint TokenLastUpdate) external view returns(uint) {
         uint AccountTimeInSecondeSinceUpdate = block.timestamp -TokenLastUpdate;
         return AccountTimeInSecondeSinceUpdate;
@@ -11,6 +14,7 @@ contract TimeUtils {
 
 }
 
+/*
 contract Countdown {
 
     function getTimeUnits() external view returns(uint, uint, uint, uint, uint, uint) {
@@ -35,6 +39,5 @@ contract Countdown {
         require(block.timestamp < startTime + 60 seconds, "voting period passed, wait next year");
         noVote++;
     }
-    
-    
 }
+*/

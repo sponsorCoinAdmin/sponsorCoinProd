@@ -10,13 +10,8 @@ contract SPCoin is Token{
     uint256 private defaultTotalSupply = 1000000000 * 10**defaultDecimals;
 
     constructor()  {
-//        logDetail("MESSAGE.SENDER: ", msg.sender);
+//        logDetail("JS => MESSAGE.SENDER: ", msg.sender);
         initToken(defaultName,  defaultSymbol, defaultDecimals, defaultTotalSupply);
-//        logDetail("MESSAGE.SENDER: ", msg.sender);
+//        logDetail("JS => MESSAGE.SENDER: ", msg.sender);
     }
-
-   function msgSender() external view returns(address){
-      return (msg.sender);
-   }
-
 }
