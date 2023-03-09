@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.6;
+pragma solidity ^0.8.17;
 /// @title ERC20 Contract
 
 import "./staking/AccountStakingManager.sol";
+import "./accounts/Agents.sol";
 
-contract Token is AccountStakingManager{
+contract Token is Agents{
 
     // My Variables
     string public name;

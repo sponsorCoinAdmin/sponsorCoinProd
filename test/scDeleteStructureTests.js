@@ -76,6 +76,7 @@ describe("spCoinContract", function () {
 
     let accountArr = await loadTreeStructures(spCoinContractDeployed);
     logAccountStructure(accountArr);
+    deleteTestNetworkAccount(0);
   });
 
 });
