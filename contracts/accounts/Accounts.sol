@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 /// @title ERC20 Contract
-import "hardhat/console.sol";
 import "../utils/StructSerialization.sol";
 
 contract Accounts is StructSerialization {
@@ -44,7 +43,7 @@ contract Accounts is StructSerialization {
     }
 
     /// @notice retreives the number of accounts inserted.
-    function getAccountSize() public view returns (uint256) {
+    function getAccountSize() public view returns (uint) {
         return accountIndex.length;
     }
 
@@ -71,22 +70,22 @@ contract Accounts is StructSerialization {
     /// @param patreonIdx new patreon to add to account list
     function getAccountPatreonKeyByIndex(address _accountKey, uint patreonIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         AccountStruct storage accountRec = accountMap[_accountKey];
-        address accountSponsorKey = accountRec.accountPatreonKeys[patreonIdx];
+        address accountSponsorKey = accountRec.accountParentPatreonKeys[patreonIdx];
         return accountSponsorKey;
     }
 
     /// @notice retreives the sponsor array record size of the Patreon list.
     /// @param _accountKey public account key to get Sponsor Record Length
     function getAccountPatreonSize(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
-        return getAccountPatreonList(_accountKey).length;
+        return getAccountParentPatreonKeys(_accountKey).length;
     }
 
     /// @notice retreives the sponsor array records for the Patreon list
     /// @param _accountKey public account key to get Sponsor Record Length
-    function getAccountPatreonList(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
+    function getAccountParentPatreonKeys(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
         AccountStruct storage account = accountMap[_accountKey];
-        address[] storage accountPatreonKeys = account.accountPatreonKeys;
-        return accountPatreonKeys;
+        address[] storage accountParentPatreonKeys = account.accountParentPatreonKeys;
+        return accountParentPatreonKeys;
     }
 
     /// @notice get address for an account patreon
@@ -95,22 +94,22 @@ contract Accounts is StructSerialization {
 
     function getAccountAgentSponsorByIdx(address _accountKey, uint sponsorIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         AccountStruct storage accountRec = accountMap[_accountKey];
-        address accountAgentSponsorKey = accountRec.accountAgentSponsorKeys[sponsorIdx];
+        address accountAgentSponsorKey = accountRec.accountParentSponsorKeys[sponsorIdx];
         return accountAgentSponsorKey;
     }
 
     /// @notice retreives the sponsor array record size of the Patreon list.
     /// @param _accountKey public account key to get Sponsor Record Length
     function getAccountAgentSponsorSize(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
-        return getAccountAgentSponsorList(_accountKey).length;
+        return getAccountParentSponsorKeys(_accountKey).length;
     }
     
     /// @notice retreives the sponsor array records for the Patreon list
     /// @param _accountKey public account key to get Sponsor Record Length
-    function getAccountAgentSponsorList(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
+    function getAccountParentSponsorKeys(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
         AccountStruct storage account = accountMap[_accountKey];
-        address[] storage accountAgentSponsorKeys = account.accountAgentSponsorKeys;
-        return accountAgentSponsorKeys;
+        address[] storage accountParentSponsorKeys = account.accountParentSponsorKeys;
+        return accountParentSponsorKeys;
     }
 
     /////////////////////////// AGENT REQUESTS //////////////////////////////
@@ -120,32 +119,58 @@ contract Accounts is StructSerialization {
     /// @param _agentIdx new patreon to add to account list
     function getAccountAgentKeyByIndex(address _accountKey, uint _agentIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         AccountStruct storage accountRec = accountMap[_accountKey];
-        address accountAgentKey = accountRec.accountAgentKeys[_agentIdx];
+        address accountAgentKey = accountRec.accountChildAgentKeys[_agentIdx];
         return accountAgentKey;
     }
 
     /// @notice retreives the sponsor array record size of the Patreon list.
     /// @param _accountKey public account key to get Sponsor Record Length
     function getAccountAgentSize(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
-        return getAgentList(_accountKey).length;
+        return getChildAgentKeys(_accountKey).length;
     }
 
     /// @notice retreives the sponsor array records for the Patreon list
     /// @param _accountKey public account key to get Sponsor Record Length
-    function getAgentList(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
+    function getChildAgentKeys(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
         AccountStruct storage account = accountMap[_accountKey];
-        address[] storage accountAgentKeys = account.accountAgentKeys;
-        return accountAgentKeys;
+        address[] storage accountChildAgentKeys = account.accountChildAgentKeys;
+        return accountChildAgentKeys;
+    }
+
+    
+    /// @notice given a patreon key get the size of the child sponsor account keys.
+    /// @param _patreonKey public account key to get Sponsor Record Length
+    function getChildSponsorSize(address _patreonKey) public view onlyOwnerOrRootAdmin(_patreonKey) returns (uint) {
+        return getChildSponsorKeys(_patreonKey).length;
+    }
+
+    /// @notice retreives the sponsors of a specific address.
+    /// @param _patreonKey public account key to set new balance
+    function getChildSponsorKeys(address _patreonKey) internal onlyOwnerOrRootAdmin(_patreonKey) view returns (address[] memory) {
+        AccountStruct storage account = accountMap[_patreonKey];
+        address[] storage accountChildSponsorKeys = account.accountChildSponsorKeys;
+        return accountChildSponsorKeys;
     }
 
      /////////////////// DELETE ACCOUNT METHODS ////////////////////////
    
-    function deleteAccount(address _accountKey) public view
-        //  onlyOwnerOrRootAdmin(_accountKey)
-        //  accountExists(_accountKey) 
+    function deleteAccount(address _accountKey) public
+         onlyOwnerOrRootAdmin(_accountKey)
+         accountExists(_accountKey) 
     {
-        console.log("TZZZZZZZZZZZZZZZZZZZZ ");
         console.log("ToDo Complete deleteAccount ", _accountKey);
+        for (uint i=0; i<accountIndex.length; i++) {
+            if (accountIndex[i] == _accountKey) {
+                console.log("Found ", _accountKey, "at index", i);
+                delete accountMap[_accountKey];
+                delete accountIndex[i];
+                while ( i < accountIndex.length - 1) { 
+                    accountIndex[i] = accountIndex[i + 1];
+                    i++;
+                }
+            }
+        }
+        accountIndex.pop();
     }
 
     modifier accountExists (address _accountKey) {

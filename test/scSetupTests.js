@@ -1,10 +1,12 @@
 const { expect } = require("chai");
+
+
 const { testHHAccounts } = require("./testMethods/hhTestAccounts");
 const { addTestNetworkPatreonSponsors,
     addTestNetworkSponsorAgents,
     addTestNetworkAccount,
     getTestHHAccountArrayKeys
-  } = require("../test/testMethods/scTestMethods");
+  } = require("./testMethods/scTestMethods");
 
 const {    
     LOG_MODE,
@@ -15,7 +17,7 @@ const {
     logFunctionHeader,
     logDetail,
     log
-    } = require("../test/prod/lib/utils/logging");
+    } = require("./prod/lib/utils/logging");
 
 let account;
 
@@ -27,7 +29,7 @@ describe("spCoinContract", function() {
     let msgSender;
     beforeEach(async() =>  {
         spCoinContract = await hre.ethers.getContractFactory("SPCoin");
-        logSetup("JS => spCoinContract retreived from Factory");
+        logSetup("JS => spCoinContract retrieved from Factory");
 
         logSetup("JS => Deploying spCoinContract to Network");
         spCoinContractDeployed = await spCoinContract.deploy();
@@ -40,6 +42,8 @@ describe("spCoinContract", function() {
         setCreateContract(spCoinContractDeployed);
         setLogDefaults();
     });
+
+/**/
 
     it("Deployment should return correct parameter settings", async function () {
         // setLogMode(LOG_MODE.LOG, true);
@@ -62,27 +66,31 @@ describe("spCoinContract", function() {
         expect(await spCoinContractDeployed.msgSender()).to.equal(testMsgSender);
         expect(await spCoinContractDeployed.name()).to.equal(testName);
         expect(await spCoinContractDeployed.symbol()).to.equal(testSymbol);
-        let solDecimals = await spCoinContractDeployed.decimals();
+        let solDecimals = (await spCoinContractDeployed.decimals()).toNumber();
+        let solTotalSupply = (await spCoinContractDeployed.balanceOf(msgSender)).toNumber();
         expect(solDecimals).to.equal(testDecimals);
-        expect(await spCoinContractDeployed.decimals()).to.equal(testDecimals);
-//        expect(await spCoinContractDeployed.balanceOf(msgSender)).to.equal(testTotalSupply);
+        expect(solTotalSupply).to.equal(testTotalSupply);
     });
-    
+
+/**/
+
     it("Account Insertion Validation", async function () {
         logTestHeader("TEST ACCOUNT INSERTION");
         let account = testHHAccounts[0];
         let recCount = await spCoinContractDeployed.getAccountSize();
-        expect(recCount).to.equal(0);
+        expect(recCount.toNumber()).to.equal(0);
         logDetail("JS => ** Before Inserted Record Count = " + recCount);
         let isAccountInserted = await spCoinContractDeployed.isAccountInserted(account);
         logDetail("JS => Address "+ account + " Before Inserted Record Found = " + isAccountInserted);
         await spCoinContractDeployed.addAccountRecord(account);
         isAccountInserted = await spCoinContractDeployed.isAccountInserted(account);
         logDetail("JS => Address "+ account + " After Inserted Record Found = " + isAccountInserted);
-        recCount = await spCoinContractDeployed.getAccountSize();
+        recCount = (await spCoinContractDeployed.getAccountSize()).toNumber();
         logDetail("JS => ** After Inserted Record Count = " + await recCount);        
         expect(recCount).to.equal(1);
     });
+
+/**/
 
     it("Insertion 20 Hardhat Accounts for Validation", async function () {
         logTestHeader("ADD MORE HARDHAT ACCOUNTS")
@@ -100,7 +108,8 @@ describe("spCoinContract", function() {
             logDetail("JS => Address Retrieved from Block Chain at Index " + idx + "  = "+ account );
         }
     });
-    
+    /**/
+
     it("Insert 4 Sponsor Coin Records 1 count, 1 sponsor and 2 Agents", async function () {
         logTestHeader("TEST MORE HARDHAT SPONSOR RECORD INSERTIONS")
 
@@ -108,7 +117,8 @@ describe("spCoinContract", function() {
         let startRec = 4;
         let endRec = 15;
         await addTestNetworkSponsorAgents(3, 6, [1, 2]);
-        let insertCount = await spCoinContractDeployed.getAccountSize();
+        let insertCount = (await spCoinContractDeployed.getAccountSize()).toNumber();
         expect(insertCount).to.equal(4);
     });
+    /**/
 });

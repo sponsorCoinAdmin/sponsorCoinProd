@@ -23,13 +23,13 @@ contract Agents is Sponsors {
         SponsorStruct storage patreonSponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
         AgentStruct storage  sponsorChildAgentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
         if (!sponsorChildAgentRec.inserted) {
-            sponsorChildAgentRec.index = patreonSponsorRec.accountAgentKeys.length;
+            sponsorChildAgentRec.index = patreonSponsorRec.accountChildAgentKeys.length;
             sponsorChildAgentRec.insertionTime = block.timestamp;
             sponsorChildAgentRec.agentAccountKey    = _agentKey;
             sponsorChildAgentRec.inserted = true;
-            patreonSponsorRec.accountAgentKeys.push(_agentKey);
-            accountSponsorRec.accountAgentKeys.push(_agentKey);
-            accountAgentRec.accountAgentSponsorKeys.push(_agentKey);
+            patreonSponsorRec.accountChildAgentKeys.push(_agentKey);
+            accountSponsorRec.accountChildAgentKeys.push(_agentKey);
+            accountAgentRec.accountParentSponsorKeys.push(_agentKey);
         }
     }
 
@@ -75,13 +75,13 @@ contract Agents is Sponsors {
         // SponsorStruct storage patreonSponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
         // AgentStruct storage  sponsorChildAgentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
         // if (!sponsorChildAgentRec.inserted) {
-        //     sponsorChildAgentRec.index = patreonSponsorRec.accountAgentKeys.length;
+        //     sponsorChildAgentRec.index = patreonSponsorRec.accountChildAgentKeys.length;
         //     sponsorChildAgentRec.insertionTime = block.timestamp;
         //     sponsorChildAgentRec.agentAccountKey    = _agentKey;
         //     sponsorChildAgentRec.inserted = true;
-        //     patreonSponsorRec.accountAgentKeys.push(_agentKey);
-        //     accountSponsorRec.accountAgentKeys.push(_agentKey);
-        //     accountAgentRec.accountAgentSponsorKeys.push(_agentKey);
+        //     patreonSponsorRec.accountChildAgentKeys.push(_agentKey);
+        //     accountSponsorRec.accountChildAgentKeys.push(_agentKey);
+        //     accountAgentRec.accountParentSponsorKeys.push(_agentKey);
         // }
     }
 

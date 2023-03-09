@@ -1,16 +1,16 @@
 const { expect } = require("chai");
 
-const {} = require("../test/prod/lib/loadTreeStructures");
+const {} = require("./prod/lib/loadTreeStructures");
 
 const {
   addTestNetworkPatreonSponsors,
   addTestNetworkSponsorAgents,
   addTestNetworkAccount,
   getTestHHAccountArrayKeys,
-} = require("../test/testMethods/scTestMethods");
+} = require("./testMethods/scTestMethods");
 const { testHHAccounts } = require("./testMethods/hhTestAccounts");
 
-const { setCreateContract } = require("../test/prod/lib/scAccountCreateMethods");
+const { setCreateContract } = require("./prod/lib/scAccountMethods");
 
 const {
   AccountStruct,
@@ -18,7 +18,7 @@ const {
   AgentStruct,
   RateHeaderStruct,
   TransactionStruct,
-} = require("../test/prod/lib/dataTypes");
+} = require("./prod/lib/dataTypes");
 
 const {
   LOG_MODE,
@@ -31,9 +31,9 @@ const {
   logFunctionHeader,
   logDetail,
   log,
-} = require("../test/prod/lib/utils/logging");
+} = require("./prod/lib/utils/logging");
 
-const { deployContract } = require("../test/prod/deployContract");
+const { deployContract } = require("./prod/deployContract");
 
 let spCoinContractDeployed;
 
@@ -159,7 +159,7 @@ describe("spCoinContract", function () {
     setLogMode(LOG_MODE.LOG, true);
     // Test Record Insertion to Blockchain Network
     let accountKey = await addTestNetworkAccount(0);
-    let accountSize = await getAccountSize();
+    let accountSize = (await getAccountSize()).toNumber();
     expect(accountSize).to.equal(1);
 
     // Test Record Structure Read from Blockchain Network
@@ -170,12 +170,12 @@ describe("spCoinContract", function () {
 
     // Test Duplicate Record Cannot be Inserted to Blockchain Network
     accountKey = await addTestNetworkAccount(0);
-    accountSize = await getAccountSize();
+    accountSize = (await getAccountSize()).toNumber();
     expect(accountSize).to.equal(1);
 
     // Test Second Record Insertion to blockchain Network
     accountKey = await addTestNetworkAccount(4);
-    accountSize = await getAccountSize();
+    accountSize = (await getAccountSize()).toNumber();
     expect(accountSize).to.equal(2);
 
     // Test N Record Insertions to blockchain Network
@@ -183,7 +183,7 @@ describe("spCoinContract", function () {
     accountKey = await addTestNetworkAccount(6);
     accountKey = await addTestNetworkAccount(12);
     accountKey = await addTestNetworkAccount(15);
-    accountSize = await getAccountSize();
+    accountSize = (await getAccountSize()).toNumber();
     expect(accountSize).to.equal(6);
   });
 
@@ -197,7 +197,7 @@ describe("spCoinContract", function () {
     let arrayKey = await addTestNetworkPatreonSponsors(14, [3, 2]);
     arrayKey = await addTestNetworkPatreonSponsors(13, [3]);
   
-    let accountSize = await getAccountSize();
+    let accountSize = (await getAccountSize()).toNumber();
     expect(accountSize).to.equal(4);
 
     let accountArr = await loadTreeStructures(spCoinContractDeployed);
@@ -229,10 +229,10 @@ describe("spCoinContract", function () {
     log("Tree For Account Key: " + accountKey + " With Inserted Sponsors:");
     logTree(accountArr);
 
-    accountSize = await getAccountSize();
+    accountSize = (await getAccountSize()).toNumber();
     expect(accountSize).to.equal(7);
 
-    let sponsorSize = await getPatreonSponsorSize(accountKey);
+    let sponsorSize = (await getChildSponsorSize(accountKey)).toNumber();
     expect(sponsorSize).to.equal(6);
 
     let accountSponsorObjects = await getPatreonSponsorKeys(accountKey);

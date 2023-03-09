@@ -94,7 +94,7 @@ function gitAddressThis() external view returns(address){
 
 
 
-// calcAgentsStakingRewards(sponsorsRewards, agentList)
+// calcAgentsStakingRewards(sponsorsRewards, agentKeys)
 //    1. Initialize local totalAgentsReward to zero (0).
 // ### FOR EACH AGENT PROCESS AS FOLLOWS ###
 //    2. Get the agents account, (agentsAccount).

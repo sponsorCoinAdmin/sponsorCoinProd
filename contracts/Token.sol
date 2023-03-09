@@ -36,7 +36,7 @@ contract Token is Agents{
         symbol = _symbol;
         decimals = _decimals;
         totalSupply = _totalSupply;
-        balanceOf[msg.sender] = totalSupply;
+        balanceOf[msg.sender] = _totalSupply;
     }
 
     /// @notice transfer amount of tokens to an address
