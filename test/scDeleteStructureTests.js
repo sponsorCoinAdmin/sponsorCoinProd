@@ -43,6 +43,7 @@ describe("spCoinContract", function () {
   beforeEach(async () => {
     spCoinContractDeployed = await deployContract();
     setCreateContract(spCoinContractDeployed);
+    setDeleteContract(spCoinContractDeployed);
   });
 
   /**/

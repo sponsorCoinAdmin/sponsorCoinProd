@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 /// @title ERC20 Contract
-import "hardhat/console.sol";
 import "../utils/StructSerialization.sol";
 
 contract Accounts is StructSerialization {
@@ -144,7 +143,6 @@ contract Accounts is StructSerialization {
         //  onlyOwnerOrRootAdmin(_accountKey)
         //  accountExists(_accountKey) 
     {
-        console.log("TZZZZZZZZZZZZZZZZZZZZ ");
         console.log("ToDo Complete deleteAccount ", _accountKey);
     }
 
