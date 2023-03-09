@@ -20,11 +20,11 @@ setDeleteContract = (_spCoinContractDeployed) => {
 
 ////////////////////////// ACCOUNT OBJECT FUNCTIONS //////////////////////////
 
-
 deleteAccount = async (_accountKey) => {
   // ToDo: do Solidity Code and Testing
     logFunctionHeader("deleteAccount = async(" + _accountKey + ")");
     logDetail("JS => Deleting Account " + _accountKey + " From Blockchain Network");
+    log("deleteAccount = async(" + _accountKey + ")");
     await spCoinContractDeployed.deleteAccount(_accountKey);
   };
   

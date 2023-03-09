@@ -70,10 +70,13 @@ describe("spCoinContract", function () {
     // await addTestNetworkSponsorAgents(0, 1, [3,4,5,6]);
     // await addTestNetworkSponsorAgents(2, 1, [4]);
     // await addTestNetworkSponsorAgents(0, 1, [2,3,4]);
-    await addTestNetworkSponsorAgents(1, 0, [4]);
+    // await addTestNetworkSponsorAgents(1, 0, [4]);
+
+    await addTestNetworkAccounts([0, 1, 2, 3, 4, 5, 6, 7]);
 
     let accountArr = await loadTreeStructures(spCoinContractDeployed);
     logAccountStructure(accountArr);
+    deleteTestNetworkAccount(0);
   });
 
 });
