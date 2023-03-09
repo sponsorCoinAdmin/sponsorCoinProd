@@ -1,16 +1,16 @@
 const { expect } = require("chai");
 
-const {} = require("../test/prod/lib/loadTreeStructures");
+const {} = require("./prod/lib/loadTreeStructures");
 
 const {
   addTestNetworkPatreonSponsors,
   addTestNetworkSponsorAgents,
   addTestNetworkAccount,
   getTestHHAccountArrayKeys,
-} = require("../test/testMethods/scTestMethods");
+} = require("./testMethods/scTestMethods");
 const { testHHAccounts } = require("./testMethods/hhTestAccounts");
 
-const { setCreateContract } = require("../test/prod/lib/scAccountMethods");
+const { setCreateContract } = require("./prod/lib/scAccountMethods");
 
 const {
   AccountStruct,
@@ -18,16 +18,16 @@ const {
   AgentStruct,
   RateHeaderStruct,
   TransactionStruct,
-} = require("../test/prod/lib/dataTypes");
+} = require("./prod/lib/dataTypes");
 
 const {
   setDeleteContract,
-} = require("../test/prod/lib/scAccountDeleteMethods");
+} = require("./prod/lib/scAccountDeleteMethods");
 
 const {
   addTestNetworkAccounts,
   deleteTestNetworkAccount,
-} = require("../test/testMethods/scTestMethods");
+} = require("./testMethods/scTestMethods");
 
 const {
   LOG_MODE,
@@ -40,9 +40,9 @@ const {
   logFunctionHeader,
   logDetail,
   log,
-} = require("../test/prod/lib/utils/logging");
+} = require("./prod/lib/utils/logging");
 
-const { deployContract } = require("../test/prod/deployContract");
+const { deployContract } = require("./prod/deployContract");
 
 let spCoinContractDeployed;
 
