@@ -21,6 +21,15 @@ const {
 } = require("./prod/lib/dataTypes");
 
 const {
+  setDeleteContract,
+} = require("./prod/lib/scAccountDeleteMethods");
+
+const {
+  addTestNetworkAccounts,
+  deleteTestNetworkAccount,
+} = require("./testMethods/scTestMethods");
+
+const {
   LOG_MODE,
   logAccountStructure,
   logSetup,
@@ -73,11 +82,20 @@ describe("spCoinContract", function () {
     // await addTestNetworkSponsorAgents(0, 1, [2,3,4]);
     // await addTestNetworkSponsorAgents(1, 0, [4]);
 
-    await addTestNetworkAccounts([0, 1, 2, 3, 4, 5, 6, 7]);
+    await addTestNetworkAccounts([0, 1, 2, 3, 4, 5, 6, 7, 8 ]);
 
-    let accountArr = await loadTreeStructures(spCoinContractDeployed);
-    logAccountStructure(accountArr);
-    deleteTestNetworkAccount(0);
+    console.log("BEFORE DELETE");
+    // let accountArr = await loadTreeStructures(spCoinContractDeployed);
+    // logAccountStructure(accountArr);
+    let keys = await getAccountKeys();
+    console.log(keys);
+    deleteTestNetworkAccount(8);
+    // accountArr = await loadTreeStructures(spCoinContractDeployed);
+    keys = await getAccountKeys();
+
+    // logAccountStructure(accountArr);
+    console.log(keys);
+    console.log("AFTER DELETE");
   });
 
 });

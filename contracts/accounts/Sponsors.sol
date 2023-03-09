@@ -119,8 +119,7 @@ contract Sponsors is Accounts {
         return accountAgentKeys;
     }
 
-
-    /////////////////// DELETE SPONSOR METHODS ////////////////////////
+    ///////////////////// DELETE SPONSOR METHODS ////////////////////////
 
     function deletePatreonSponsor(address _patreonKey, address _sponsorKey) 
         public sponsorExists(_patreonKey, _sponsorKey) {

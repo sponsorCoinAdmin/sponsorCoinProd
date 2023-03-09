@@ -139,11 +139,23 @@ contract Accounts is StructSerialization {
 
      /////////////////// DELETE ACCOUNT METHODS ////////////////////////
    
-    function deleteAccount(address _accountKey) public view
-        //  onlyOwnerOrRootAdmin(_accountKey)
-        //  accountExists(_accountKey) 
+    function deleteAccount(address _accountKey) public
+         onlyOwnerOrRootAdmin(_accountKey)
+         accountExists(_accountKey) 
     {
         console.log("ToDo Complete deleteAccount ", _accountKey);
+        for (uint i=0; i<accountIndex.length; i++) {
+            if (accountIndex[i] == _accountKey) {
+                console.log("Found ", _accountKey, "at index", i);
+                delete accountMap[_accountKey];
+                delete accountIndex[i];
+                while ( i < accountIndex.length - 1) { 
+                    accountIndex[i] = accountIndex[i + 1];
+                    i++;
+                }
+            }
+        }
+        accountIndex.pop();
     }
 
     modifier accountExists (address _accountKey) {

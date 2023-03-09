@@ -92,6 +92,8 @@ deleteTestNetworkSponsorAgents = async (testRecordNumber) => {
 };
 
 module.exports = {
+  addTestNetworkAccounts,
+  deleteTestNetworkAccount,
   addTestNetworkPatreonSponsors,
   addTestNetworkSponsorAgents,
   addTestNetworkAccount,
