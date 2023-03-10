@@ -83,7 +83,7 @@ describe("spCoinContract", function () {
       console.log("============================================================");
       console.log("*** ACCOUNTS KEYS AFTER DELETE ***\n", keys);
       console.log("============================================================");
-      console.log("*** ACCOUNT STRUCTURE AFTER DELETE ***\n");
+      console.log("*** ACCOUNT STRUCTURE AFTER DELETE ***");
       console.log(accountArr);
       console.log("============================================================");
     });
