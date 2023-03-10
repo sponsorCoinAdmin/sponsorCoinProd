@@ -90,19 +90,33 @@ describe("spCoinContract", function () {
 
   /**/
 
-    it("SUCCESSFUL ERROR MSG CAUGHT: 'PATREON ACCOUNT HAS SPONSOR'", async function () {
-      await addTestNetworkPatreonSponsors(0, [1]);
-      let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Patreon Account has a Sponsor, (Patreon must Un-sponsor Sponsored Account)'";
-      try {
-        await deleteTestNetworkAccount(0);
-        throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
-      }
-      catch (err) {
-        expect(err.message).to.equal(expectedErrMsg);
-      }
-    });
+  it("SUCCESSFUL ERROR MSG CAUGHT: 'ACCOUNT DOES NOT EXIST'", async function () {
+    await addTestNetworkPatreonSponsors(0, [1]);
+    let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Account does not exists'";
+    try {
+      await deleteTestNetworkAccount(2);
+      throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
+    }
+    catch (err) {
+      expect(err.message).to.equal(expectedErrMsg);
+    }
+  });
 
   /**/
+
+  it("SUCCESSFUL ERROR MSG CAUGHT: 'PATREON ACCOUNT HAS SPONSOR'", async function () {
+    await addTestNetworkPatreonSponsors(0, [1]);
+    let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Patreon Account has a Sponsor, (Patreon must Un-sponsor Sponsored Account)'";
+    try {
+      await deleteTestNetworkAccount(0);
+      throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
+    }
+    catch (err) {
+      expect(err.message).to.equal(expectedErrMsg);
+    }
+  });
+
+/**/
 
     it("SUCCESSFUL ERROR MSG CAUGHT: 'SPONSOR ACCOUNT HAS PATREON'", async function () {
       await addTestNetworkPatreonSponsors(0, [1]);
