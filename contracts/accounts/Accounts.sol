@@ -158,8 +158,8 @@ contract Accounts is StructSerialization {
           onlyOwnerOrRootAdmin(_accountKey)
           parentPatreonDoesNotExist(_accountKey)
           parentSponsorDoesNotExist(_accountKey)
-          childAgentDoesNotExist(_accountKey)
           childSponsorDoesNotExist(_accountKey)
+//          childAgentDoesNotExist(_accountKey)
           accountExists(_accountKey) 
     {
         // console.log("ToDo Complete deleteAccount ", _accountKey);
@@ -184,7 +184,8 @@ contract Accounts is StructSerialization {
     }
 
     modifier parentPatreonDoesNotExist(address _accountKey) {
-        require (getAccountParentPatreonSize(_accountKey) == 0, "Sponsor Account has a Patreon, (Patreon must Un-sponsor Sponsored Account)");
+        require (getAccountParentPatreonSize(_accountKey) == 0 &&
+                 getAccountChildAgentSize(_accountKey) == 0, "Sponsor Account has a Patreon, (Patreon must Un-sponsor Sponsored Account)");
         _;
     }
     
@@ -192,17 +193,18 @@ contract Accounts is StructSerialization {
         require (getAccountParentSponsorSize(_accountKey) == 0, "Agent Account has a Parent Sponsor, (Patreon must Un-sponsor Sponsored Account)");
         _;
     }
-    
-    modifier childAgentDoesNotExist(address _accountKey) {
-        require (getAccountChildAgentSize(_accountKey) == 0, "Sponsor Account has an Agent, (Patreon must Un-sponsor Sponsored Account)");
-        _;
-    }
-    
+
     modifier childSponsorDoesNotExist(address _accountKey) {
         require (getChildSponsorSize(_accountKey) == 0, "Patreon Account has a Sponsor, (Patreon must Un-sponsor Sponsored Account)");
         _;
     }
-
+    
+    /*
+    modifier childAgentDoesNotExist(address _accountKey) {
+        require (getAccountChildAgentSize(_accountKey) == 0, "Sponsor Account has an Agent, (Patreon must Un-sponsor Sponsored Account)");
+        _;
+    }
+    */
      /////////////////// ACCOUNT SERIALIZATION REQUESTS ////////////////////////
 
     /// @notice retreives the account record of a specific accountKey address.
