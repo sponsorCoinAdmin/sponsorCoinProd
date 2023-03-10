@@ -82,20 +82,25 @@ describe("spCoinContract", function () {
     // await addTestNetworkSponsorAgents(0, 1, [2,3,4]);
     // await addTestNetworkSponsorAgents(1, 0, [4]);
 
-    await addTestNetworkAccounts([0, 1, 2, 3, 4, 5, 6, 7, 8 ]);
+    //await addTestNetworkAccounts([0, 1, 2]);
+    
+    // await addTestNetworkPatreonSponsors(0, [1]);
 
-    console.log("BEFORE DELETE");
+    await addTestNetworkSponsorAgents(1, 2, [3]);
+
+    console.log("*** BEFORE DELETE ***");
     // let accountArr = await loadTreeStructures(spCoinContractDeployed);
     // logAccountStructure(accountArr);
     let keys = await getAccountKeys();
     console.log(keys);
-    deleteTestNetworkAccount(8);
-    // accountArr = await loadTreeStructures(spCoinContractDeployed);
+    let accountArr = await loadTreeStructures(spCoinContractDeployed);
+    console.log(accountArr);
+    console.log("============================================================");
+    await deleteTestNetworkAccount(3);
     keys = await getAccountKeys();
-
-    // logAccountStructure(accountArr);
-    console.log(keys);
-    console.log("AFTER DELETE");
+    accountArr = await loadTreeStructures(spCoinContractDeployed);
+    console.log("*** AFTER DELETE ***\n", keys);
+    console.log(accountArr);
   });
 
 });

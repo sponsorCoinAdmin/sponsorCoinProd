@@ -76,7 +76,7 @@ contract Accounts is StructSerialization {
 
     /// @notice retreives the sponsor array record size of the Patreon list.
     /// @param _accountKey public account key to get Sponsor Record Length
-    function getAccountPatreonSize(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
+    function getAccountParentPatreonSize(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
         return getAccountParentPatreonKeys(_accountKey).length;
     }
 
@@ -100,7 +100,7 @@ contract Accounts is StructSerialization {
 
     /// @notice retreives the sponsor array record size of the Patreon list.
     /// @param _accountKey public account key to get Sponsor Record Length
-    function getAccountAgentSponsorSize(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
+    function getAccountParentSponsorSize(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
         return getAccountParentSponsorKeys(_accountKey).length;
     }
     
@@ -125,7 +125,7 @@ contract Accounts is StructSerialization {
 
     /// @notice retreives the sponsor array record size of the Patreon list.
     /// @param _accountKey public account key to get Sponsor Record Length
-    function getAccountAgentSize(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
+    function getAccountChildAgentSize(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
         return getChildAgentKeys(_accountKey).length;
     }
 
@@ -155,14 +155,19 @@ contract Accounts is StructSerialization {
      /////////////////// DELETE ACCOUNT METHODS ////////////////////////
    
     function deleteAccount(address _accountKey) public
-         onlyOwnerOrRootAdmin(_accountKey)
-         accountExists(_accountKey) 
+          onlyOwnerOrRootAdmin(_accountKey)
+          parentPatreonDoesNotExist(_accountKey)
+          parentSponsorDoesNotExist(_accountKey)
+          childAgentDoesNotExist(_accountKey)
+          childSponsorDoesNotExist(_accountKey)
+          accountExists(_accountKey) 
     {
-        console.log("ToDo Complete deleteAccount ", _accountKey);
+        // console.log("ToDo Complete deleteAccount ", _accountKey);
         for (uint i=0; i<accountIndex.length; i++) {
             if (accountIndex[i] == _accountKey) {
-                console.log("Found ", _accountKey, "at index", i);
-                delete accountMap[_accountKey];
+                // console.log("Found ", _accountKey, "at index", i);
+                // console.log("Found accountMap[accountIndex[", i,  "]].accountKey ", accountMap[accountIndex[i]].accountKey);
+                delete accountMap[accountIndex[i]];
                 delete accountIndex[i];
                 while ( i < accountIndex.length - 1) { 
                     accountIndex[i] = accountIndex[i + 1];
@@ -174,7 +179,27 @@ contract Accounts is StructSerialization {
     }
 
     modifier accountExists (address _accountKey) {
-        require (isAccountInserted(_accountKey) , "_accountKey not found)");
+        require (isAccountInserted(_accountKey) , "Account does not exists");
+        _;
+    }
+
+    modifier parentPatreonDoesNotExist(address _accountKey) {
+        require (getAccountParentPatreonSize(_accountKey) == 0, "Sponsor Account has a Patreon, (Patreon must Un-sponsor Sponsored Account)");
+        _;
+    }
+    
+    modifier parentSponsorDoesNotExist(address _accountKey) {
+        require (getAccountParentSponsorSize(_accountKey) == 0, "Agent Account has a Parent Sponsor, (Patreon must Un-sponsor Sponsored Account)");
+        _;
+    }
+    
+    modifier childAgentDoesNotExist(address _accountKey) {
+        require (getAccountChildAgentSize(_accountKey) == 0, "Sponsor Account has an Agent, (Patreon must Un-sponsor Sponsored Account)");
+        _;
+    }
+    
+    modifier childSponsorDoesNotExist(address _accountKey) {
+        require (getChildSponsorSize(_accountKey) == 0, "Patreon Account has a Sponsor, (Patreon must Un-sponsor Sponsored Account)");
         _;
     }
 
