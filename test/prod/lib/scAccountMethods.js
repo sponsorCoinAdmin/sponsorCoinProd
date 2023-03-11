@@ -144,8 +144,6 @@ getAccountAgentKeys = async (_accountKey) => {
   }
   return accountChildAgentKeys;
 };
-  
-/////////////////////// ACCOUNT OBJECT FUNCTIONS ///////////////////////
 
 /////////////////////// SPONSOR OBJECT FUNCTIONS ///////////////////////
 

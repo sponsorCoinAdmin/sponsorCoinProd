@@ -155,14 +155,23 @@ contract Accounts is StructSerialization {
      /////////////////// DELETE ACCOUNT METHODS ////////////////////////
    
     function deleteAccount(address _accountKey) public
-          onlyOwnerOrRootAdmin(_accountKey)
-          parentPatreonDoesNotExist(_accountKey)
-          parentSponsorDoesNotExist(_accountKey)
-          childSponsorDoesNotExist(_accountKey)
-//          childAgentDoesNotExist(_accountKey)
-          accountExists(_accountKey) 
     {
-        // console.log("ToDo Complete deleteAccount ", _accountKey);
+        deleteAccountMapArray( _accountKey,  accountIndex, accountMap); 
+    }
+
+
+    function deleteAccountMapArray(address _accountKey, 
+        address[] storage accountIndex, 
+        mapping(address => AccountStruct) storage accountMap) internal
+        onlyOwnerOrRootAdmin(_accountKey)
+        parentPatreonDoesNotExist(_accountKey)
+        parentSponsorDoesNotExist(_accountKey)
+        childSponsorDoesNotExist(_accountKey)
+//          childAgentDoesNotExist(_accountKey)
+        accountExists(_accountKey) 
+      
+        {
+
         for (uint i=0; i<accountIndex.length; i++) {
             if (accountIndex[i] == _accountKey) {
                 // console.log("Found ", _accountKey, "at index", i);
@@ -176,7 +185,8 @@ contract Accounts is StructSerialization {
             }
         }
         accountIndex.pop();
-    }
+    } 
+
 
     modifier accountExists (address _accountKey) {
         require (isAccountInserted(_accountKey) , "Account does not exists");

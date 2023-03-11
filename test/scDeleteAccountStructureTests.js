@@ -11,6 +11,7 @@ const {
 const { testHHAccounts } = require("./testMethods/hhTestAccounts");
 
 const { setCreateContract } = require("./prod/lib/scAccountMethods");
+const { setDeleteContract } = require("./prod/lib/scAccountDeleteMethods");
 
 const {
   AccountStruct,
@@ -19,10 +20,6 @@ const {
   RateHeaderStruct,
   TransactionStruct,
 } = require("./prod/lib/dataTypes");
-
-const {
-  setDeleteContract,
-} = require("./prod/lib/scAccountDeleteMethods");
 
 const {
   addTestNetworkAccounts,

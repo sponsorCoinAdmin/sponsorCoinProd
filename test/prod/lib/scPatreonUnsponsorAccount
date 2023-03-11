@@ -1,0 +1,22 @@
+const {
+  AccountStruct,
+  SponsorStruct,
+  AgentStruct,
+  RateHeaderStruct,
+  TransactionStruct,
+} = require("./dataTypes");
+
+const { logFunctionHeader, logDetail } = require("./utils/logging");
+
+let spCoinContractDeployed;
+
+//////////////////////////// ROOT LEVEL FUNCTIONS ////////////////////////////
+
+setUnSponsorContract = (_spCoinContractDeployed) => {
+  spCoinContractDeployed = _spCoinContractDeployed;
+};
+  
+unSponsorAccount = async (_patreonKey, _sponsorAccount) => {
+  await spCoinContractDeployed.unSponsorAccount(_patreonKey, _sponsorAccount);
+};
+  
