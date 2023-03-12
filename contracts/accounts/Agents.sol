@@ -33,6 +33,39 @@ contract Agents is Sponsors {
         }
     }
 
+    /// @notice Remove all sponsorship relationships for Patreon and Sponsor accounts
+    /// @param _patreonKey Patreon key containing the Sponsor relationship
+    /// @param _sponsorKey Sponsor to be removed from the Sponsor relationship
+    function deletePatreonSponsor(address _patreonKey, address _sponsorKey)  
+    public onlyOwnerOrRootAdmin(_patreonKey)
+           accountExists(_patreonKey)
+           nonRedundantSponsor ( _patreonKey,  _sponsorKey) {
+        
+        console.log("Agent.sol deletePatreon(", _patreonKey, ", ", _patreonKey);
+
+        // ToDo: create modifies to ensure sponsor relationship exists.
+
+        // Delete Sponsors Agent Nested records 
+        //   ToDo: For each Agent Account Record Record Unlink the Parent Sponsor Account
+
+        // Unlink the Patreon Relationship account from Sponsor Account Record
+        AccountStruct storage sponsorAccountRec = accountMap[_sponsorKey];
+        //   ToDo: For each Agent Account Record Record Unlink the Parent Sponsor Account
+        address[] storage accountParentPatreonKeys = sponsorAccountRec.accountParentPatreonKeys;
+        deleteAccountFromArray(_patreonKey, accountParentPatreonKeys);
+
+        // Unlink the Sponsor Relationship account from Patreon Account Record
+        AccountStruct storage patreonAccountRec = accountMap[_patreonKey];
+        address[] storage childSponsorKeys = patreonAccountRec.accountChildSponsorKeys;
+        mapping(address => SponsorStruct) storage sponsorMap = patreonAccountRec.sponsorMap;
+
+        mapping(address => AgentStruct) storage agentMap = sponsorMap[_sponsorKey].agentMap; 
+
+        if (deleteAccountFromArray(_sponsorKey, childSponsorKeys)) {
+            delete sponsorMap[_sponsorKey];
+        }
+    }
+
     /// @notice determines if agent address is inserted in account.sponsor.agent.map
     /// @param _patreonKey public account key validate Insertion
     /// @param _sponsorKey public sponsor account key validate Insertion

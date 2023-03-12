@@ -23,8 +23,7 @@ contract Accounts is StructSerialization {
     /// @notice determines if address is inserted in accountKey array
     /// @param _accountKey public accountKey validate Insertion
     function isAccountInserted(address _accountKey)
-        public view onlyOwnerOrRootAdmin(_accountKey) returns (bool)
-    {
+        public view onlyOwnerOrRootAdmin(_accountKey) returns (bool) {
         if (accountMap[_accountKey].inserted) return true;
         else return false;
     }
@@ -35,8 +34,7 @@ contract Accounts is StructSerialization {
         public
         view
         onlyOwnerOrRootAdmin(_accountKey)
-        returns (uint256)
-    {
+        returns (uint256) {
         if (isAccountInserted(_accountKey))
             return accountMap[_accountKey].index;
         else return 0;
@@ -57,8 +55,7 @@ contract Accounts is StructSerialization {
     /// @param _accountKey public accountKey to set new balance
     function getAccountRecord(address _accountKey)
         internal view onlyOwnerOrRootAdmin(_accountKey)
-        returns (AccountStruct storage)
-    {
+        returns (AccountStruct storage) {
         require(isAccountInserted(_accountKey));
         return accountMap[_accountKey];
     }
@@ -156,35 +153,34 @@ contract Accounts is StructSerialization {
    
     function deleteAccount(address _accountKey) public
     {
-        deleteAccountMapArray( _accountKey,  accountIndex, accountMap); 
+        if (deleteAccountFromArray( _accountKey,  accountIndex)) {
+            delete accountMap[_accountKey];
+        } 
     }
 
-
-    function deleteAccountMapArray(address _accountKey, 
-        address[] storage accountIndex, 
-        mapping(address => AccountStruct) storage accountMap) internal
+    function deleteAccountFromArray(address _accountKey, 
+        address[] storage accountIndex) internal
         onlyOwnerOrRootAdmin(_accountKey)
         parentPatreonDoesNotExist(_accountKey)
         parentSponsorDoesNotExist(_accountKey)
         childSponsorDoesNotExist(_accountKey)
 //          childAgentDoesNotExist(_accountKey)
-        accountExists(_accountKey) 
-      
-        {
-
+        accountExists(_accountKey) returns (bool) {
+        bool deleted = false;
         for (uint i=0; i<accountIndex.length; i++) {
             if (accountIndex[i] == _accountKey) {
                 // console.log("Found ", _accountKey, "at index", i);
                 // console.log("Found accountMap[accountIndex[", i,  "]].accountKey ", accountMap[accountIndex[i]].accountKey);
-                delete accountMap[accountIndex[i]];
                 delete accountIndex[i];
                 while ( i < accountIndex.length - 1) { 
                     accountIndex[i] = accountIndex[i + 1];
                     i++;
                 }
+                deleted = true;
             }
         }
         accountIndex.pop();
+        return deleted;
     } 
 
 

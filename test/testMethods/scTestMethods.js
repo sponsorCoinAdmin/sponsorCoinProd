@@ -5,11 +5,23 @@ const {
   addAccountRecords,
   addPatreonSponsors,
   addSponsorAgents,
+  deletePatreonSponsor,
   getAccountKeys,
   getPatreonSponsorKeys,
   getChildAgentKeys,
 } = require("../prod/lib/scAccountMethods");
+
 const { logFunctionHeader } = require("../prod/lib/utils/logging");
+
+/////////////////////////// TEST UN-SPONSOR METHODS //////////////////////////
+
+deleteTestPatreonSponsor = async (_patreonIdx, _sponsorIdx) => {
+  logFunctionHeader("deleteTestPatreonSponsor(" + _patreonIdx + ", " + _sponsorIdx + ")");
+  console.log("deleteTestPatreonSponsor(" + _patreonIdx + ", " + _sponsorIdx + ")");
+  let patreonKey = testHHAccounts[_patreonIdx].toLowerCase();
+  let sponsorKey = testHHAccounts[_sponsorIdx].toLowerCase();
+  deletePatreonSponsor(patreonKey, sponsorKey);
+}
 
 //////////////////////////// TEST ACCOUNT METHODS ////////////////////////////
 
@@ -28,6 +40,16 @@ addTestNetworkAccounts = async (accountIndexes) => {
 };
 
 //////////////////////////// TEST SPONSOR METHODS ////////////////////////////
+
+addTestNetworkPatreonSponsor = async (_accountIdx, _sponsorIdx) => {
+  logFunctionHeader("addTestNetworkPatreonSponsor = async (" + _accountIdx + ", " + _sponsorIdx + ")");
+
+  let accountKey = testHHAccounts[_accountIdx].toLowerCase();
+  let sponsorKey = testHHAccounts[_sponsorIdx].toLowerCase();  
+  logDetail("JS => For Account: " + accountKey + " Inserting Sponsor Records");
+  logDetail(sponsorKey);
+  await addPatreonSponsor(accountKey, sponsorKey);
+};
 
 addTestNetworkPatreonSponsors = async (_accountIdx, _accountChildSponsorKeysIdx) => {
   logFunctionHeader("addTestNetworkPatreonSponsors = async (" + _accountIdx + ", " + _accountChildSponsorKeysIdx + ")");
@@ -94,8 +116,10 @@ deleteTestNetworkSponsorAgents = async (testRecordNumber) => {
 module.exports = {
   addTestNetworkAccounts,
   deleteTestNetworkAccount,
+  addTestNetworkPatreonSponsor,
   addTestNetworkPatreonSponsors,
   addTestNetworkSponsorAgents,
   addTestNetworkAccount,
-  getTestHHAccountArrayKeys
+  getTestHHAccountArrayKeys,
+  deleteTestPatreonSponsor,
 }

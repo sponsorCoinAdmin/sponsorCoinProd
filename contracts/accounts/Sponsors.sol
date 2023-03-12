@@ -29,26 +29,6 @@ contract Sponsors is Accounts {
         }
     }
 
-    /// @notice Remove all sponsorship relationships for Patreon and Sponsor accounts
-    /// @param _patreonKey Patreon key containing the Sponsor relationship
-    /// @param _sponsorKey Sponsor to be removed from the Sponsor relationship
-    function removePatreonSponsor(address _patreonKey, address _sponsorKey)  
-    public onlyOwnerOrRootAdmin(_patreonKey)
-    accountExists(_patreonKey) 
-    accountExists(_sponsorKey) 
-    nonRedundantSponsor ( _patreonKey,  _sponsorKey) {
-
-        // ToDo create modifies to ensure sponsor relationship exists.
-        AccountStruct storage patreonAccountRec = accountMap[_patreonKey];
-        AccountStruct storage sponsorAccountRec = accountMap[_sponsorKey];
-
-        // Delete Sponsors Agent Nested records 
-        //   For each Agent Account Record Record Unlink the Parent Sponsor Account
-        // Unlink the Patreon Relationship account from Sponsor Account Record
-        address[] memory childSponsors = patreonAccountRec.accountChildSponsorKeys;
-        // Unlink the Sponsor Relationship account from Patreon Account Record
-    }
-
     /// @notice determines if sponsor address is inserted in account.sponsor.map
     /// @param _patreonKey public account key validate Insertion
     /// @param _sponsorKey public sponsor account key validate Insertion
@@ -126,12 +106,6 @@ contract Sponsors is Accounts {
     }
 
     ///////////////////// DELETE SPONSOR METHODS ////////////////////////
-
-    function deletePatreonSponsor(address _patreonKey, address _sponsorKey) 
-        public sponsorExists(_patreonKey, _sponsorKey) {
-
-        }
-
     modifier sponsorExists (address _patreonKey, address _sponsorKey) {
         require (isSponsorInserted(_patreonKey, _sponsorKey) , "_sponsorKey not found)");
         _;

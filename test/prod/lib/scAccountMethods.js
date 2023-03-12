@@ -178,6 +178,13 @@ addPatreonSponsors = async (_accountKey, _accountChildSponsorKeys) => {
   return --sponsorCount;
 };
 
+deletePatreonSponsor = async (_patreonKey, _sponsorKey) => {
+  logFunctionHeader("deletePatreonSponsor(" + _patreonKey + ", " + _sponsorKey + ")");
+  log("deletePatreonSponsor(" + _patreonKey + ", " + _sponsorKey + ")");
+  spCoinContractDeployed.deletePatreonSponsor(_patreonKey, _sponsorKey);
+}
+
+
 getChildAgentKeys = async (_accountKey, _sponsorAccountKey) => {
   logFunctionHeader("getChildAgentKeys = async(" + _accountKey + ", " + _sponsorAccountKey + ")" );
   let maxSize = await spCoinContractDeployed.getChildAgentSize(_accountKey, _sponsorAccountKey);
@@ -245,6 +252,7 @@ module.exports = {
   addPatreonSponsors,
   addSponsorAgent,
   addSponsorAgents,
+  deletePatreonSponsor,
   getAccountSize,
   getAccountRecord,
   getAccountKeys,
