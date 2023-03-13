@@ -98,12 +98,13 @@ describe("spCoinContract", function () {
     // Test Successful Record Insertion of Patreon and 
     // Sponsor Accounts to the Blockchain Network.
     // Account, Sponsor and/or Agent are Successfully mutually exclusive.
-    await addTestNetworkPatreonSponsor(1, 0);
+    await addTestNetworkSponsorAgents(0, 1, [2]);
+    await addTestNetworkSponsorAgents(0, 1, [3]);
     let accountArr = await loadTreeStructures(spCoinContractDeployed);
     log("BEFORE Un-Sponsor");
     logAccountStructure(accountArr);
     log("AFTER Un-Sponsor");
-    deleteTestPatreonSponsor(1, 0);
+    deleteTestPatreonSponsor(0, 1);
     accountArr = await loadTreeStructures(spCoinContractDeployed);
     logAccountStructure(accountArr);
   });

@@ -32,7 +32,10 @@ contract DataTypes is KYC {
 
     address burnAddress = 0x0000000000000000000000000000000000000000;
     address[] public accountIndex;
+
     mapping(address => AccountStruct) accountMap;
+
+
 
     struct arrayMappedData {
         address[] accountIndex;
@@ -45,11 +48,16 @@ contract DataTypes is KYC {
         uint256 insertionTime;
         bool inserted;
         bool verified;
+        string[] childSponsorKeys; // Key = PatreonAddress,SponsorIndex
+        string[] childAgentKeys;   // Key = PatreonAddress,SponsorIndex,AgentIndex
+        string[] parentPatreonKeys; // If Sponsor? List of Patreon Accounts
+        string[] parentSponsorKeys; // If Agent? List of Patreon Sponsor Accounts
+   
         address[] accountChildSponsorKeys;  // If Patreon List of Sponsored Accounts
         address[] accountChildAgentKeys;    // If Sponsor? List of Agent Accounts
         address[] accountParentPatreonKeys; // If Sponsor? List of Patreon Accounts
         address[] accountParentSponsorKeys; // If Agent? List of Patreon Sponsor Accounts
-        mapping(address => SponsorStruct) sponsorMap;
+        mapping(address => SponsorStruct) sponsorMap; 
         KYC kyc;
     }
 

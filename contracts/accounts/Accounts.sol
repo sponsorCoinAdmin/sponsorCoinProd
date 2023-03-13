@@ -159,30 +159,43 @@ contract Accounts is StructSerialization {
     }
 
     function deleteAccountFromArray(address _accountKey, 
-        address[] storage accountIndex) internal
-        onlyOwnerOrRootAdmin(_accountKey)
-        parentPatreonDoesNotExist(_accountKey)
-        parentSponsorDoesNotExist(_accountKey)
-        childSponsorDoesNotExist(_accountKey)
-//          childAgentDoesNotExist(_accountKey)
+        address[] storage _accountIndex) internal
+        // onlyOwnerOrRootAdmin(_accountKey)
+        // parentPatreonDoesNotExist(_accountKey)
+        // parentSponsorDoesNotExist(_accountKey)
+        // childSponsorDoesNotExist(_accountKey)
+        // childAgentDoesNotExist(_accountKey)
         accountExists(_accountKey) returns (bool) {
         bool deleted = false;
-        for (uint i=0; i<accountIndex.length; i++) {
-            if (accountIndex[i] == _accountKey) {
+        uint i = getAccountArrayIndex (_accountKey, _accountIndex);
+        for (i; i<_accountIndex.length; i++) { 
+            if (_accountIndex[i] == _accountKey) {
                 // console.log("Found ", _accountKey, "at index", i);
-                // console.log("Found accountMap[accountIndex[", i,  "]].accountKey ", accountMap[accountIndex[i]].accountKey);
-                delete accountIndex[i];
-                while ( i < accountIndex.length - 1) { 
-                    accountIndex[i] = accountIndex[i + 1];
+                // console.log("Found accountMap[_accountIndex[", i,  "]].accountKey ", accountMap[_accountIndex[i]].accountKey);
+                delete _accountIndex[i];
+                while ( i < _accountIndex.length - 1) { 
+                    _accountIndex[i] = _accountIndex[i + 1];
                     i++;
                 }
                 deleted = true;
             }
         }
-        accountIndex.pop();
+        _accountIndex.pop();
         return deleted;
-    } 
+    }
 
+    function getAccountArrayIndex (address _accountKey, 
+        address[] storage _accountIndex) internal view
+        accountExists(_accountKey)
+        accountExists(_accountKey) returns (uint) {
+        uint i = 0;
+        for (i; i < _accountIndex.length; i++) {
+            if (_accountIndex[i] == _accountKey) {
+                break;
+            }
+        }
+        return i; 
+    }
 
     modifier accountExists (address _accountKey) {
         require (isAccountInserted(_accountKey) , "Account does not exists");
