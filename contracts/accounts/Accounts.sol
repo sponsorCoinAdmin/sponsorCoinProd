@@ -186,7 +186,6 @@ contract Accounts is StructSerialization {
 
     function getAccountArrayIndex (address _accountKey, 
         address[] storage _accountIndex) internal view
-        accountExists(_accountKey)
         accountExists(_accountKey) returns (uint) {
         uint i = 0;
         for (i; i < _accountIndex.length; i++) {

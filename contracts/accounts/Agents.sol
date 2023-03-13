@@ -64,12 +64,27 @@ contract Agents is Sponsors {
         mapping(address => SponsorStruct) storage sponsorMap = patreonAccountRec.sponsorMap;
 
         mapping(address => AgentStruct) storage agentMap = sponsorMap[_sponsorKey].agentMap;
-//        address[] storage accountChildAgentKeys = sponsorMap.accountChildAgentKeys; 
+        address[] storage accountChildAgentKeys = sponsorMap[_sponsorKey].accountChildAgentKeys;
+        deleteAllAgentsFromSponsor(accountChildAgentKeys, agentMap);
 
 
         console.log("*** BEFORE deleteAccountFromArray childSponsorKeys(", _sponsorKey, ")");
         if (deleteAccountFromArray(_sponsorKey, childSponsorKeys)) {
             delete sponsorMap[_sponsorKey];
+        }
+    }
+
+    function deleteAllAgentsFromSponsor (address[] storage accountChildAgentKeys,
+                                         mapping(address => AgentStruct) storage agentMap)
+        internal {
+        console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+
+        uint i = accountChildAgentKeys.length;
+        for (i; i >= 0; i--) {
+            AgentStruct storage agentStruct = agentMap[accountChildAgentKeys[i]];  
+            console.log("***** Deleting accountChildAgentKeys ", agentStruct.agentAccountKey);
+                delete agentMap[accountChildAgentKeys[i]];
+                accountChildAgentKeys.pop();
         }
     }
 
