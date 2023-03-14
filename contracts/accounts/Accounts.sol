@@ -133,7 +133,6 @@ contract Accounts is StructSerialization {
         address[] storage accountChildAgentKeys = account.accountChildAgentKeys;
         return accountChildAgentKeys;
     }
-
     
     /// @notice given a patreon key get the size of the child sponsor account keys.
     /// @param _patreonKey public account key to get Sponsor Record Length

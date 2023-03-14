@@ -41,7 +41,9 @@ contract Agents is Sponsors {
            accountExists(_patreonKey)
            nonRedundantSponsor ( _patreonKey,  _sponsorKey) {
         
-        console.log("*** Agent.sol deletePatreon(", _patreonKey, ", ", _patreonKey);
+            console.log("*** Agent.sol deletePatreon(", _patreonKey, ", ", _sponsorKey);
+            console.log("*** Patraon : ", _patreonKey);
+            console.log("*** Sponsor : ", _sponsorKey);
 
         // ToDo: create modifies to ensure sponsor relationship exists.
 
@@ -52,7 +54,6 @@ contract Agents is Sponsors {
         AccountStruct storage sponsorAccountRec = accountMap[_sponsorKey];
         //   ToDo: For each Agent Account Record Record Unlink the Parent Sponsor Account
         address[] storage accountParentPatreonKeys = sponsorAccountRec.accountParentPatreonKeys;
-        console.log(accountParentPatreonKeys[0]);
         deleteAccountFromArray(_patreonKey, accountParentPatreonKeys);
 
         // Unlink the Sponsor Relationship account from Patreon Account Record
@@ -63,10 +64,7 @@ contract Agents is Sponsors {
         // UnLink Sponsor Agents beore we unLink the Sponsors relationship
         mapping(address => SponsorStruct) storage sponsorMap = patreonAccountRec.sponsorMap;
 
-        mapping(address => AgentStruct) storage agentMap = sponsorMap[_sponsorKey].agentMap;
-        address[] storage accountChildAgentKeys = sponsorMap[_sponsorKey].accountChildAgentKeys;
-        deleteAllAgentsFromSponsor(accountChildAgentKeys, agentMap);
-
+        deleteAgentsFromSponsor(_sponsorKey, sponsorMap);
 
         console.log("*** BEFORE deleteAccountFromArray childSponsorKeys(", _sponsorKey, ")");
         if (deleteAccountFromArray(_sponsorKey, childSponsorKeys)) {
@@ -74,18 +72,24 @@ contract Agents is Sponsors {
         }
     }
 
-    function deleteAllAgentsFromSponsor (address[] storage accountChildAgentKeys,
-                                         mapping(address => AgentStruct) storage agentMap)
-        internal {
-        console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+    function deleteAgentsFromSponsor (address _sponsorKey,
+        mapping(address => SponsorStruct) storage sponsorMap) internal {          
+        console.log("deleteAllAgentsFromChildSponsor(_sponsorKey, sponsorMap)");
+        mapping(address => AgentStruct) storage agentMap = sponsorMap[_sponsorKey].agentMap;
+        address[] storage accountChildAgentKeys = sponsorMap[_sponsorKey].accountChildAgentKeys;
 
-        uint i = accountChildAgentKeys.length;
+        uint i = accountChildAgentKeys.length - 1;
+        console.log("*** BEFORE AGENT DELETE accountChildAgentKeys.length = ", accountChildAgentKeys.length);
         for (i; i >= 0; i--) {
             AgentStruct storage agentStruct = agentMap[accountChildAgentKeys[i]];  
             console.log("***** Deleting accountChildAgentKeys ", agentStruct.agentAccountKey);
-                delete agentMap[accountChildAgentKeys[i]];
-                accountChildAgentKeys.pop();
+            delete agentMap[accountChildAgentKeys[i]];
+            delete accountChildAgentKeys[i];
+            accountChildAgentKeys.pop();
+            if (i == 0)
+               break;
         }
+        console.log("*** AFTER AGENT DELETE accountChildAgentKeys.length = ", accountChildAgentKeys.length);
     }
 
     /// @notice determines if agent address is inserted in account.sponsor.agent.map

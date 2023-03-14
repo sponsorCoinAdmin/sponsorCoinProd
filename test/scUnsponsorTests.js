@@ -8,7 +8,9 @@ const {
   addTestNetworkSponsorAgents,
   addTestNetworkAccount,
   deleteTestPatreonSponsor,
+  deletePatreonSponsors,
   getTestHHAccountArrayKeys,
+  getTestHHAccountKey,
 } = require("./testMethods/scTestMethods");
 
 const { testHHAccounts } = require("./testMethods/hhTestAccounts");
@@ -99,12 +101,16 @@ describe("spCoinContract", function () {
     // Sponsor Accounts to the Blockchain Network.
     // Account, Sponsor and/or Agent are Successfully mutually exclusive.
     await addTestNetworkSponsorAgents(0, 1, [2]);
-    await addTestNetworkSponsorAgents(0, 1, [3]);
+    // await addTestNetworkSponsorAgents(0, 1, [3]);
     let accountArr = await loadTreeStructures(spCoinContractDeployed);
-    log("BEFORE Un-Sponsor");
     logAccountStructure(accountArr);
-    log("AFTER Un-Sponsor");
-    deleteTestPatreonSponsor(0, 1);
+    await deleteTestPatreonSponsor(0, 1);
+    log("*************************** AFTER Un-Sponsor ***************************");
+
+    // START WIP
+//  sponsorChildAgentKeys = await getAccountAgentKeys(sponsorKey);
+    // END WIP
+
     accountArr = await loadTreeStructures(spCoinContractDeployed);
     logAccountStructure(accountArr);
   });

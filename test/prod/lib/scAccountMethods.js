@@ -134,7 +134,9 @@ getPatreonSponsorKeys = async (_accountKey) => {
 
 getAccountAgentKeys = async (_accountKey) => {
   logFunctionHeader("getAccountAgentKeys = async(" + _accountKey + ")");
+  log("getAccountAgentKeys = async(" + _accountKey + ")");
   let maxSize = await getAccountChildAgentSize(_accountKey);
+  log("maxSize = " + maxSize);
 
   let accountChildAgentKeys = {};
 
@@ -183,7 +185,6 @@ deletePatreonSponsor = async (_patreonKey, _sponsorKey) => {
   log("deletePatreonSponsor(" + _patreonKey + ", " + _sponsorKey + ")");
   spCoinContractDeployed.deletePatreonSponsor(_patreonKey, _sponsorKey);
 }
-
 
 getChildAgentKeys = async (_accountKey, _sponsorAccountKey) => {
   logFunctionHeader("getChildAgentKeys = async(" + _accountKey + ", " + _sponsorAccountKey + ")" );

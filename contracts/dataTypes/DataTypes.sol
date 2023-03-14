@@ -35,8 +35,6 @@ contract DataTypes is KYC {
 
     mapping(address => AccountStruct) accountMap;
 
-
-
     struct arrayMappedData {
         address[] accountIndex;
         mapping(address => AccountStruct) accountMap;

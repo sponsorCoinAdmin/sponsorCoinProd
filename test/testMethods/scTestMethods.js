@@ -13,6 +13,10 @@ const {
 
 const { logFunctionHeader } = require("../prod/lib/utils/logging");
 
+getTestHHAccountKey = async (idx) => {
+  return testHHAccounts[idx].toLowerCase();
+}
+
 /////////////////////////// TEST UN-SPONSOR METHODS //////////////////////////
 
 deleteTestPatreonSponsor = async (_patreonIdx, _sponsorIdx) => {
@@ -122,4 +126,5 @@ module.exports = {
   addTestNetworkAccount,
   getTestHHAccountArrayKeys,
   deleteTestPatreonSponsor,
+  getTestHHAccountKey
 }
