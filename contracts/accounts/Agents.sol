@@ -52,9 +52,7 @@ contract Agents is Sponsors {
         //   ToDo: For each Agent Account Record Record Unlink the Parent Sponsor Account
 
         // Get The Sponsor Account Record and Remove from the Parent Patreon Relationship account list
-        AccountStruct storage sponsorAccountRec = accountMap[_sponsorKey];
-        address[] storage accountParentPatreonKeys = sponsorAccountRec.accountParentPatreonKeys;
-        deleteAccountFromArray(_patreonKey, accountParentPatreonKeys);
+        deleteChildPatreonSponsor (_patreonKey, _sponsorKey);
 
         // Get The Patreon Account Record and Remove from the Child Sponsor Relationship account list
         AccountStruct storage patreonAccountRec = accountMap[_patreonKey];
@@ -70,8 +68,21 @@ contract Agents is Sponsors {
         }
     }
 
+    function deleteChildPatreonSponsor (address _patreonKey, address _sponsorKey) internal {
+        deleteSponsorPatreonsRelationships(_patreonKey, _sponsorKey);
+        AccountStruct storage sponsorAccountRec = accountMap[_sponsorKey];
+        address[] storage accountParentPatreonKeys = sponsorAccountRec.accountParentPatreonKeys;
+        deleteAccountFromArray(_patreonKey, accountParentPatreonKeys);
+    }
+
+    function deleteSponsorPatreonsRelationships (address _patreonKey, address _sponsorKey) internal {
+        // Get The Patreon Account Record and Remove from the Child Sponsor Relationship account list
+        AccountStruct storage patreonAccountRec = accountMap[_patreonKey];
+        address[] storage childSponsorKeys = patreonAccountRec.accountChildSponsorKeys;
+    }
+
     function deleteAgentsFromSponsorStruct (address _sponsorKey,
-        mapping(address => SponsorStruct) storage sponsorMap) internal {          
+            mapping(address => SponsorStruct) storage sponsorMap) internal {          
         console.log("deleteAllAgentsFromChildSponsor(_sponsorKey, sponsorMap)");
         mapping(address => AgentStruct) storage agentMap = sponsorMap[_sponsorKey].agentMap;
         address[] storage accountChildAgentKeys = sponsorMap[_sponsorKey].accountChildAgentKeys;
