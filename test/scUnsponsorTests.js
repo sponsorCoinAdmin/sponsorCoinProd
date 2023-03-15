@@ -101,7 +101,7 @@ describe("spCoinContract", function () {
     // Sponsor Accounts to the Blockchain Network.
     // Account, Sponsor and/or Agent are Successfully mutually exclusive.
     await addTestNetworkSponsorAgents(0, 1, [2]);
-    // await addTestNetworkSponsorAgents(0, 1, [3]);
+    await addTestNetworkSponsorAgents(0, 3, [2]);
     let accountArr = await loadTreeStructures(spCoinContractDeployed);
     logAccountStructure(accountArr);
     await deleteTestPatreonSponsor(0, 1);

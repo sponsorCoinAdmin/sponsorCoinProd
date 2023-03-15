@@ -152,12 +152,12 @@ contract Accounts is StructSerialization {
    
     function deleteAccount(address _accountKey) public
     {
-        if (deleteAccountFromArray( _accountKey,  accountIndex)) {
+        if (deleteAccountFromSearchKeys( _accountKey,  accountIndex)) {
             delete accountMap[_accountKey];
         } 
     }
 
-    function deleteAccountFromArray(address _accountKey, 
+    function deleteAccountFromSearchKeys(address _accountKey, 
         address[] storage _accountIndex) internal
         // onlyOwnerOrRootAdmin(_accountKey)
         // parentPatreonDoesNotExist(_accountKey)
