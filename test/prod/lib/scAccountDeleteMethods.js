@@ -54,7 +54,7 @@ deleteSponsorAgent = async (_accountKey, _sponsorAccountKey, _accountAgentKey) =
   logDetail("JS => Deleting Agent " + _accountAgentKey + " From Blockchain Network");
 
   logDetail("JS =>  " + _accountKey + ". " + "Inserting Agent[" + _accountKey + "]: " + _accountAgentKey );
-  await spCoinContractDeployed.deleteSponsorAgent( _accountKey, _sponsorAccountKey, _agentAccountKey );
+  // await spCoinContractDeployed.deleteSponsorAgent( _accountKey, _sponsorAccountKey, _agentAccountKey );
   logDetail("JS => "+ "Deleted = " + _accountAgentKey + " Agent Record from SponsorKey " + _sponsorAccountKey);
 };
 

@@ -29,7 +29,7 @@ contract Agents is Sponsors {
             sponsorChildAgentRec.inserted = true;
             patreonSponsorRec.accountChildAgentKeys.push(_agentKey);
             accountSponsorRec.accountChildAgentKeys.push(_agentKey);
-            accountAgentRec.accountParentSponsorKeys.push(_agentKey);
+            accountAgentRec.accountParentSponsorKeys.push(_sponsorKey);
         }
     }
 
@@ -42,9 +42,9 @@ contract Agents is Sponsors {
     accountExists(_sponsorKey)
     nonRedundantSponsor ( _patreonKey,  _sponsorKey) {
         
-            console.log("*** Agent.sol deletePatreon(", _patreonKey, ", ", _sponsorKey);
-            console.log("*** Patraon : ", _patreonKey);
-            console.log("*** Sponsor : ", _sponsorKey);
+            // console.log("*** Agent.sol deletePatreon(", _patreonKey, ", ", _sponsorKey);
+            // console.log("*** Patraon : ", _patreonKey);
+            // console.log("*** Sponsor : ", _sponsorKey);
 
         // ToDo: create modifies to ensure sponsor relationship exists.
 
@@ -62,7 +62,7 @@ contract Agents is Sponsors {
         mapping(address => SponsorStruct) storage sponsorMap = patreonAccountRec.sponsorMap;
         deleteAgentsFromSponsorStruct(_sponsorKey, sponsorMap);
 
-        console.log("*** BEFORE deleteAccountFromArray childSponsorKeys(", _sponsorKey, ")");
+        // console.log("*** BEFORE deleteAccountFromArray childSponsorKeys(", _sponsorKey, ")");
         if (deleteAccountFromArray(_sponsorKey, childSponsorKeys)) {
             delete sponsorMap[_sponsorKey];
         }
@@ -75,7 +75,7 @@ contract Agents is Sponsors {
         deleteAccountFromArray(_patreonKey, accountParentPatreonKeys);
     }
 
-    function deleteSponsorPatreonsRelationships (address _patreonKey, address _sponsorKey) internal {
+    function deleteSponsorPatreonsRelationships (address _patreonKey, address _sponsorKey) internal view {
         // Get The Patreon Account Record and Remove from the Child Sponsor Relationship account list
         AccountStruct storage patreonAccountRec = accountMap[_patreonKey];
         address[] storage childSponsorKeys = patreonAccountRec.accountChildSponsorKeys;
@@ -83,31 +83,41 @@ contract Agents is Sponsors {
 
     function deleteAgentsFromSponsorStruct (address _sponsorKey,
             mapping(address => SponsorStruct) storage sponsorMap) internal {          
-        console.log("deleteAllAgentsFromChildSponsor(_sponsorKey, sponsorMap)");
+        // console.log("deleteAgentsFromChildSponsor(_sponsorKey, sponsorMap)");
         mapping(address => AgentStruct) storage agentMap = sponsorMap[_sponsorKey].agentMap;
         address[] storage accountChildAgentKeys = sponsorMap[_sponsorKey].accountChildAgentKeys;
 
         uint i = accountChildAgentKeys.length - 1;
-        console.log("*** BEFORE AGENT DELETE accountChildAgentKeys.length = ", accountChildAgentKeys.length);
+        // console.log("*** BEFORE AGENT DELETE accountChildAgentKeys.length = ", accountChildAgentKeys.length);
         for (i; i >= 0; i--) {
             AgentStruct storage agentStruct = agentMap[accountChildAgentKeys[i]];  
             deleteAgentFromSponsorAccountChildAgentKeys(_sponsorKey, accountChildAgentKeys[i]); 
-            console.log("***** Deleting accountChildAgentKeys ", agentStruct.agentAccountKey);
+            // console.log("***** Deleting accountChildAgentKeys ", agentStruct.agentAccountKey);
             delete agentMap[accountChildAgentKeys[i]];
             delete accountChildAgentKeys[i];
             accountChildAgentKeys.pop();
             if (i == 0)
                break;
         }
-        console.log("*** AFTER AGENT DELETE accountChildAgentKeys.length = ", accountChildAgentKeys.length);
+        // console.log("*** AFTER AGENT DELETE accountChildAgentKeys.length = ", accountChildAgentKeys.length);
     }
 
     function deleteAgentFromSponsorAccountChildAgentKeys (address _sponsorKey,
-        address agentKey) internal {
-            console.log("Deleting agent", "from sponsor account ", _sponsorKey); 
+        address _agentKey) internal {
+        // console.log("Deleting Agent Key ", _agentKey, "from Sponsor child Agent Keys ", _sponsorKey); 
+        deleteSponsorFromSponsorAccountParentSponsorKeys (_sponsorKey, _agentKey);
         AccountStruct storage accountSponsorRec = accountMap[_sponsorKey];
         address[] storage childAgentKeys = accountSponsorRec.accountChildAgentKeys;
-        deleteAccountFromArray(agentKey, childAgentKeys);
+        deleteAccountFromArray(_agentKey, childAgentKeys);
+    }
+
+    function deleteSponsorFromSponsorAccountParentSponsorKeys (address _sponsorKey,
+        address _agentKey) internal {
+        // console.log("Deleting Sponsor Key ", _sponsorKey, "from Agent Parent Sponsor Keys ", _agentKey); 
+        AccountStruct storage accountAgentRec = accountMap[_agentKey];
+
+        address[] storage parentSponsorKeys = accountAgentRec.accountParentSponsorKeys;
+        deleteAccountFromArray(_sponsorKey, parentSponsorKeys);
     }
 
 
@@ -137,7 +147,7 @@ contract Agents is Sponsors {
             return 0;
     }
     /////////////////// DELETE AGENT METHODS ////////////////////////
-
+/*
     /// @notice delete sponsors Agent
     /// @param _patreonKey public Sponsor Coin Account Key
     /// @param _sponsorKey public account key to get sponsor array
@@ -162,10 +172,10 @@ contract Agents is Sponsors {
         //     accountAgentRec.accountParentSponsorKeys.push(_agentKey);
         // }
     }
-
     modifier agentExists (address _patreonKey, address _sponsorKey, address _agentKey) {
         require (isAgentInserted(_patreonKey, _sponsorKey, _agentKey) , "_agentKey not found)");
         _;
     }
+*/
 
 }

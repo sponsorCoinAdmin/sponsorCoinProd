@@ -169,8 +169,8 @@ contract Accounts is StructSerialization {
         uint i = getAccountArrayIndex (_accountKey, _accountIndex);
         for (i; i<_accountIndex.length; i++) { 
             if (_accountIndex[i] == _accountKey) {
-                // console.log("Found ", _accountKey, "at index", i);
-                // console.log("Found accountMap[_accountIndex[", i,  "]].accountKey ", accountMap[_accountIndex[i]].accountKey);
+                    // console.log("==== Found _accountIndex[", i, "] ", _accountIndex[i]);
+                    // console.log("==== Found accountMap[_accountIndex[", i,  "]].accountKey ", accountMap[_accountIndex[i]].accountKey);
                 delete _accountIndex[i];
                 while ( i < _accountIndex.length - 1) { 
                     _accountIndex[i] = _accountIndex[i + 1];
