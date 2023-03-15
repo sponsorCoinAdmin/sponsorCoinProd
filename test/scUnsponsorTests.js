@@ -108,7 +108,7 @@ describe("spCoinContract", function () {
     log("*************************** AFTER Un-Sponsor ***************************");
 
     // START WIP
-//  sponsorChildAgentKeys = await getAccountAgentKeys(sponsorKey);
+    //  sponsorChildAgentKeys = await getAccountAgentKeys(sponsorKey);
     // END WIP
 
     accountArr = await loadTreeStructures(spCoinContractDeployed);
