@@ -37,13 +37,13 @@ contract Sponsors is Accounts {
     }
 
     /// @notice retreives the array index of a specific address.
-    /// @param _patreonKey public patreon key to get sponsor array
-    function getPatreonSponsorIndex(address _patreonKey, address _sponsorKey) public onlyOwnerOrRootAdmin(_patreonKey) view returns (uint) {
-        if (isSponsorInserted(_patreonKey, _sponsorKey))
-            return accountMap[_patreonKey].sponsorMap[_sponsorKey].index;
-        else
-            return 0;
-    }
+    // /// @param _patreonKey public patreon key to get sponsor array
+    // function getPatreonSponsorIndex(address _patreonKey, address _sponsorKey) public onlyOwnerOrRootAdmin(_patreonKey) view returns (uint) {
+    //     if (isSponsorInserted(_patreonKey, _sponsorKey))
+    //         return accountMap[_patreonKey].sponsorMap[_sponsorKey].index;
+    //     else
+    //         return 0;
+    // }
 
     function getSponsorInsertionTime(address _patreonKey, address _sponsorKey) public onlyOwnerOrRootAdmin(_patreonKey) view returns (uint) {
         if (isSponsorInserted(_patreonKey, _sponsorKey))
@@ -52,12 +52,12 @@ contract Sponsors is Accounts {
             return 0;
     }
 
-    function getValidSponsorRec(address _patreonKey, address _sponsorKey) internal onlyOwnerOrRootAdmin(_patreonKey) returns (SponsorStruct storage) {
-        if (!isSponsorInserted(_patreonKey, _sponsorKey)) {
-            addPatreonSponsor(_patreonKey, _sponsorKey);
-        }
-        return getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
-     }
+    // function getValidSponsorRec(address _patreonKey, address _sponsorKey) internal onlyOwnerOrRootAdmin(_patreonKey) returns (SponsorStruct storage) {
+    //     if (!isSponsorInserted(_patreonKey, _sponsorKey)) {
+    //         addPatreonSponsor(_patreonKey, _sponsorKey);
+    //     }
+    //     return getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
+    //  }
 
      function getPatreonSponsorRecByKeys(address _patreonKey, address _sponsorKey) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (SponsorStruct storage) {
         AccountStruct storage accountRec = accountMap[_patreonKey];
@@ -105,10 +105,11 @@ contract Sponsors is Accounts {
         return accountChildAgentKeys;
     }
 
+    /*
     ///////////////////// DELETE SPONSOR METHODS ////////////////////////
     modifier sponsorExists (address _patreonKey, address _sponsorKey) {
         require (isSponsorInserted(_patreonKey, _sponsorKey) , "_sponsorKey not found)");
         _;
     }
-
+*/
 }

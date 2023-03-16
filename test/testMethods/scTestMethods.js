@@ -17,21 +17,11 @@ getTestHHAccountKey = async (idx) => {
   return testHHAccounts[idx].toLowerCase();
 }
 
-/////////////////////////// TEST UN-SPONSOR METHODS //////////////////////////
-
-deleteTestPatreonSponsor = async (_patreonIdx, _sponsorIdx) => {
-  logFunctionHeader("deleteTestPatreonSponsor(" + _patreonIdx + ", " + _sponsorIdx + ")");
-  console.log("deleteTestPatreonSponsor(" + _patreonIdx + ", " + _sponsorIdx + ")");
-  let patreonKey = testHHAccounts[_patreonIdx].toLowerCase();
-  let sponsorKey = testHHAccounts[_sponsorIdx].toLowerCase();
-  deletePatreonSponsor(patreonKey, sponsorKey);
-}
-
 //////////////////////////// TEST ACCOUNT METHODS ////////////////////////////
 
 addTestNetworkAccount = async (_accountIdx) => {
   logFunctionHeader("addTestNetworkAccount = async (" + _accountIdx + ")");
-  let accountKey = testHHAccounts[_accountIdx].toLowerCase();
+  let accountKey = getTestHHAccountKey(_accountIdx);
   logDetail("JS => For Adding Account Record: " + accountKey );
   await addAccountRecord(accountKey);
 };
@@ -48,8 +38,8 @@ addTestNetworkAccounts = async (accountIndexes) => {
 addTestNetworkPatreonSponsor = async (_accountIdx, _sponsorIdx) => {
   logFunctionHeader("addTestNetworkPatreonSponsor = async (" + _accountIdx + ", " + _sponsorIdx + ")");
 
-  let accountKey = testHHAccounts[_accountIdx].toLowerCase();
-  let sponsorKey = testHHAccounts[_sponsorIdx].toLowerCase();  
+  let accountKey = getTestHHAccountKey(_accountIdx);
+  let sponsorKey = getTestHHAccountKey(_sponsorIdx);  
   logDetail("JS => For Account: " + accountKey + " Inserting Sponsor Records");
   logDetail(sponsorKey);
   await addPatreonSponsor(accountKey, sponsorKey);
@@ -58,7 +48,7 @@ addTestNetworkPatreonSponsor = async (_accountIdx, _sponsorIdx) => {
 addTestNetworkPatreonSponsors = async (_accountIdx, _accountChildSponsorKeysIdx) => {
   logFunctionHeader("addTestNetworkPatreonSponsors = async (" + _accountIdx + ", " + _accountChildSponsorKeysIdx + ")");
 
-  let accountKey = testHHAccounts[_accountIdx].toLowerCase();
+  let accountKey = getTestHHAccountKey(_accountIdx);
   let accountSponsorObjectKeys = getTestHHAccountArrayKeys(_accountChildSponsorKeysIdx);
   logDetail("JS => For Account: " + accountKey + " Inserting Sponsor Records:");
   logDetail(accountSponsorObjectKeys);
@@ -69,18 +59,17 @@ addTestNetworkPatreonSponsors = async (_accountIdx, _accountChildSponsorKeysIdx)
 
 addTestNetworkSponsorAgents = async ( _accountIdx, _sponsorIdx, _agentArrayIdx ) => {
   logFunctionHeader("async (" + _accountIdx  + "," + _sponsorIdx + "," + _agentArrayIdx+ ")");
-  let accountKey = testHHAccounts[_accountIdx].toLowerCase();
-  let sponsorAccountKey = testHHAccounts[_sponsorIdx].toLowerCase();
+  let accountKey = getTestHHAccountKey(_accountIdx);
+  let sponsorAccountKey = getTestHHAccountKey(_sponsorIdx);
   let accountChildAgentKeys = getTestHHAccountArrayKeys(_agentArrayIdx);
 
   await addSponsorAgents(accountKey, sponsorAccountKey, accountChildAgentKeys);
   return sponsorAccountKey;
 };
 
-
-addTestNetworkAccount = async (testRecordNumber) => {
-  logFunctionHeader("async (" + testRecordNumber+ ")");
-  let accountKey = testHHAccounts[testRecordNumber].toLowerCase();
+addTestNetworkAccount = async (_testHHAccountIdx) => {
+  logFunctionHeader("async (" + _testHHAccountIdx+ ")");
+  let accountKey = getTestHHAccountKey(_testHHAccountIdx);
   await addAccountRecord(accountKey);
   return accountKey;
 };
@@ -89,42 +78,58 @@ getTestHHAccountArrayKeys = (testAccountIdxArr) => {
   logFunctionHeader("getTestHHAccountArrayKeys (" + testAccountIdxArr + ")");
   let accountIdxArrayKeys = [];
   for (let i = 0; i < testAccountIdxArr.length; i++) {
-    accountIdxArrayKeys.push(testHHAccounts[testAccountIdxArr[i]]);
+    accountIdxArrayKeys.push(getTestHHAccountKey(testAccountIdxArr[i]));
   }
   return accountIdxArrayKeys;
 };
 
 ///////////////////////////// DELETE METHODS ///////////////////////////////
 
-deleteTestNetworkAccount = async (testRecordNumber) => {
-  logFunctionHeader("async (" + testRecordNumber+ ")");
-  let accountKey = testHHAccounts[testRecordNumber].toLowerCase();
+deleteTestNetworkAccount = async (_testHHAccountIdx) => {
+  logFunctionHeader("async (" + _testHHAccountIdx+ ")");
+  let accountKey = getTestHHAccountKey(_testHHAccountIdx);
   await deleteAccount(accountKey);
   return accountKey;
 };
 
-deleteTestNetworkPatreonSponsors = async (testRecordNumber) => {
-  logFunctionHeader("async (" + testRecordNumber+ ")");
-  let accountKey = testHHAccounts[testRecordNumber].toLowerCase();
-  await deletePatreonSponsors(accountKey);
+deleteTestNetworkAccounts = async (_testHHAccountArr) => {
+  logFunctionHeader("async (" + _testHHAccountArr+ ")");
+  accountArrayKeys = getTestHHAccountArrayKeys(_testHHAccountArr);
+  await deleteAccounts(accountArrayKeys);
+};
+
+/////////////////////////// TEST UN-SPONSOR METHODS //////////////////////////
+
+deleteTestPatreonSponsor = async (_patreonIdx, _sponsorIdx) => {
+  logFunctionHeader("deleteTestPatreonSponsor(" + _patreonIdx + ", " + _sponsorIdx + ")");
+  console.log("deleteTestPatreonSponsor(" + _patreonIdx + ", " + _sponsorIdx + ")");
+  let patreonKey = getTestHHAccountKey(_patreonIdx);
+  let sponsorKey = getTestHHAccountKey(_sponsorIdx);
+  deletePatreonSponsor(patreonKey, sponsorKey);
+}
+
+deleteTestNetworkPatreonSponsors = async (_testHHAccountIdx) => {
+  logFunctionHeader("async (" + _testHHAccountIdx+ ")");
+  let accountKey = getTestHHAccountKey(_testHHAccountIdx);
+  await (accountKey);
   return accountKey;
 };
 
-deleteTestNetworkSponsorAgents = async (testRecordNumber) => {
-  logFunctionHeader("async (" + testRecordNumber+ ")");
-  let accountKey = testHHAccounts[testRecordNumber].toLowerCase();
+deleteTestNetworkSponsorAgents = async (_testHHAccountIdx) => {
+  logFunctionHeader("async (" + _testHHAccountIdx+ ")");
+  let accountKey = getTestHHAccountKey(_testHHAccountIdx);
   await deleteSponsorAgents(accountKey);
   return accountKey;
 };
 
 module.exports = {
+  getTestHHAccountArrayKeys,
+  addTestNetworkAccount,
   addTestNetworkAccounts,
-  deleteTestNetworkAccount,
   addTestNetworkPatreonSponsor,
   addTestNetworkPatreonSponsors,
   addTestNetworkSponsorAgents,
-  addTestNetworkAccount,
-  getTestHHAccountArrayKeys,
+  deleteTestNetworkAccount,
   deleteTestPatreonSponsor,
   getTestHHAccountKey
 }

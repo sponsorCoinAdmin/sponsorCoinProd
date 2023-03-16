@@ -6,9 +6,12 @@ const { AccountStruct,
         TransactionStruct } = require("./dataTypes");
 let spCoinContractDeployed;
 
-loadTreeStructures = async(_spCoinContractDeployed) => {
-    logFunctionHeader("loadTreeStructures(" + _spCoinContractDeployed + ")");
+setStructureContract = (_spCoinContractDeployed) => {
     spCoinContractDeployed = _spCoinContractDeployed;
+}
+
+loadTreeStructures = async() => {
+    logFunctionHeader("loadTreeStructures()");
     let accountArr = [];
     let insertedArrayAccounts = await getAccountKeys();
     let maxSize = insertedArrayAccounts.length;
@@ -105,7 +108,8 @@ loadRatesByAccountAgents = async(_accountKey, _sponsorAccountKey, _agentAccountK
 //////////////////// MODULE EXPORTS //////////////////////
 
 module.exports = {
-    loadTreeStructures,
+    loadAgentsByPatreonSponsor,
     loadSponsorsByAccount,
-    loadAgentsByPatreonSponsor
+    loadTreeStructures,
+    setStructureContract
 }

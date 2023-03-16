@@ -1,13 +1,13 @@
 const { expect } = require("chai");
 
-const {} = require("./prod/lib/loadTreeStructures");
-
 const {
+  setContracts,
   addTestNetworkPatreonSponsor,
   addTestNetworkPatreonSponsors,
   addTestNetworkSponsorAgents,
   addTestNetworkAccount,
   deleteTestPatreonSponsor,
+  deleteTestNetworkAccount,
   deletePatreonSponsors,
   getTestHHAccountArrayKeys,
   getTestHHAccountKey,
@@ -29,6 +29,7 @@ const {
   LOG_MODE,
   logAccountStructure,
   logSetup,
+  logTreeStructure,
   setLogDefaults,
   setIndentPrefixLevel,
   setLogMode,
@@ -38,7 +39,10 @@ const {
   log,
 } = require("./prod/lib/utils/logging");
 
-const { deployContract } = require("./prod/deployContract");
+const { 
+  deployContract, 
+  loadSpCoinContract 
+} = require("../test/prod/deployContract");
 
 let spCoinContractDeployed;
 
@@ -46,9 +50,7 @@ logSetup("JS => Setup Test");
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
-    spCoinContractDeployed = await deployContract();
-    setCreateContract(spCoinContractDeployed);
-    setDeleteContract(spCoinContractDeployed);
+    await loadSpCoinContract();
   });
 
   /**
@@ -87,13 +89,55 @@ describe("spCoinContract", function () {
     await addTestNetworkSponsorAgents(0, 1, [2, 3]);
     await addTestNetworkSponsorAgents(3, 4, [5]);
 
-    let accountArr = await loadTreeStructures(spCoinContractDeployed);
+    await logTreeStructure();
 
+  });
+
+  /**
+  
+  it("VALIDATE THAT ACCOUNTS, PATRIOT/SPONSOR/AGENT, ARE ALL MUTUALLY EXCLUSIVE", async function () {
+    setLogMode(LOG_MODE.LOG, true);
+
+    // Test Successful Record Insertion of Account Records 
+    // Validate Account Size is zero
+    let accountSize = (await getAccountSize()).toNumber();
+    expect(accountSize).to.equal(0);
+
+    // Add 1 Record Validate Size is 1
+    await addTestNetworkAccount(0);
+    accountSize = (await getAccountSize()).toNumber();
+    expect(accountSize).to.equal(1);
+
+    // Add duplicate Record Validate Size is still 1
+    await addTestNetworkAccount(0);
+    accountSize = (await getAccountSize()).toNumber();
+
+    // delete Record Validate Size should reduce to 1
+    await deleteTestNetworkAccount(0);
+    accountSize = (await getAccountSize()).toNumber();
+    expect(accountSize).to.equal(0);
+
+    // Add additional Record Validate Size is 2
+    await addTestNetworkAccount(0);
+    await addTestNetworkAccount(1);
+    accountSize = (await getAccountSize()).toNumber();
+    expect(accountSize).to.equal(2);
+
+    // Add 5 additional Records Validate Size is now 7
+    await addTestNetworkAccounts([4,6,9,10,8]);
+    accountSize = (await getAccountSize()).toNumber();
+    expect(accountSize).to.equal(7);
+
+    // Add 4 Records Validate Size is now 3
+    await deleteTestNetworkAccounts([10,8,4,0]);
+    accountSize = (await getAccountSize()).toNumber();
+    expect(accountSize).to.equal(3);
+
+    accountArr = await loadTreeStructures(spCoinContractDeployed);
     logAccountStructure(accountArr);
   });
 
-  /**/
-  
+ /**/
   it("VALIDATE THAT ACCOUNTS, PATRIOT/SPONSOR/AGENT, ARE ALL MUTUALLY EXCLUSIVE", async function () {
     setLogMode(LOG_MODE.LOG, true);
 
@@ -101,18 +145,17 @@ describe("spCoinContract", function () {
     // Sponsor Accounts to the Blockchain Network.
     // Account, Sponsor and/or Agent are Successfully mutually exclusive.
     await addTestNetworkSponsorAgents(0, 1, [2]);
-    await addTestNetworkSponsorAgents(0, 3, [2]);
-    let accountArr = await loadTreeStructures(spCoinContractDeployed);
-    logAccountStructure(accountArr);
+//    await addTestNetworkSponsorAgents(3, 1, [2]);
+    await logTreeStructure();
     await deleteTestPatreonSponsor(0, 1);
+    await deleteTestPatreonSponsor(0, 3);
     log("*************************** AFTER Un-Sponsor ***************************");
 
     // START WIP
     //  sponsorChildAgentKeys = await getAccountAgentKeys(sponsorKey);
     // END WIP
 
-    accountArr = await loadTreeStructures(spCoinContractDeployed);
-    logAccountStructure(accountArr);
+    await logTreeStructure();
   });
  /**/
 });

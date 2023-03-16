@@ -33,7 +33,10 @@ const {
   log,
 } = require("../test/prod/lib/utils/logging");
 
-const { deployContract } = require("../test/prod/deployContract");
+const {
+  deployContract,
+  loadSpCoinContract 
+} = require("../test/prod/deployContract");
 
 let spCoinContractDeployed;
 
@@ -41,9 +44,7 @@ logSetup("JS => Setup Test");
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
-    spCoinContractDeployed = await deployContract();
-    setCreateContract(spCoinContractDeployed);
-    setDeleteContract(spCoinContractDeployed);
+    spCoinContractDeployed = await loadSpCoinContract();
   });
 
   /**/
@@ -73,9 +74,8 @@ describe("spCoinContract", function () {
     await addTestNetworkSponsorAgents(0, 1, [2,3,4]);
     await addTestNetworkSponsorAgents(1, 0, [4]);
 
-    let accountArr = await loadTreeStructures(spCoinContractDeployed);
+    await logTreeStructure();
 
-    logAccountStructure(accountArr);
   });
 
   /**/
@@ -224,10 +224,8 @@ describe("spCoinContract", function () {
     let testSponsorArrayKeys = [1, 7, 14, 8, 18, 9];
   
     await addTestNetworkPatreonSponsors(testAccountKey, testSponsorArrayKeys);
-    let accountArr = await loadTreeStructures(spCoinContractDeployed);
-
     log("Tree For Account Key: " + accountKey + " With Inserted Sponsors:");
-    logTree(accountArr);
+    await logTreeStructure();
 
     accountSize = (await getAccountSize()).toNumber();
     expect(accountSize).to.equal(7);

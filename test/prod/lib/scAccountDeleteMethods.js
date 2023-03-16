@@ -18,15 +18,28 @@ setDeleteContract = (_spCoinContractDeployed) => {
   spCoinContractDeployed = _spCoinContractDeployed;
 };
 
-////////////////////////// ACCOUNT OBJECT FUNCTIONS //////////////////////////
+////////////////////////// DELETE ACCOUNT FUNCTIONS //////////////////////////
 
 deleteAccount = async (_accountKey) => {
   // ToDo: do Solidity Code and Testing
     logFunctionHeader("deleteAccount = async(" + _accountKey + ")");
     logDetail("JS => Deleting Account " + _accountKey + " From Blockchain Network");
     await spCoinContractDeployed.deleteAccount(_accountKey);
-  };
+};
+
+deleteAccounts = async (_accountArrayKeys) => {
+  logFunctionHeader("deleteAccounts = async(arrayAccounts)");
+  let maxSize = _accountArrayKeys.length;
+  logDetail("JS => Inserting " + maxSize + " Records to Blockchain Network");
   
+  for (idx = 0; idx < maxSize; idx++) {
+    let accountKey = _accountArrayKeys[idx];
+    logDetail("JS => Deleting " + idx + ", " + accountKey);
+    await deleteAccount(accountKey);
+  }
+  logDetail("JS => Inserted " + maxSize + " Accounts to Blockchain Network");
+};
+
 /////////////////////// SPONSOR OBJECT FUNCTIONS ///////////////////////
 
 deleteAccountSponsor = async (_accountKey, _sponsorKey) => {
@@ -61,8 +74,8 @@ deleteSponsorAgent = async (_accountKey, _sponsorAccountKey, _accountAgentKey) =
 /////////////////////// EXPORT MODULE FUNCTIONS ///////////////////////
 
 module.exports = {
-
   deleteAccount,
+  deleteAccounts,
   deleteAccountSponsor,
   deleteSponsorAgent,
   setDeleteContract,

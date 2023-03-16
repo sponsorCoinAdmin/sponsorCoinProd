@@ -1,3 +1,5 @@
+const {} = require("../loadTreeStructures");
+
 // ************************* LOG SECTION ******************************/
 let LOG = true;
 let LOG_DETAIL = false;
@@ -98,9 +100,15 @@ setIndentPrefixLevel = (_indentPrefix, _level) => {
     return indent;
 }
 
-logAccountStructure = (_accountArr) => {
+logTreeStructure = async() => {
     console.log("ACCOUNT RECORD DUMP");
-    console.log(JSON.stringify(_accountArr, null, 2));
+    let accountArr = await loadTreeStructures();
+    console.log(JSON.stringify(accountArr, null, 2));
+}
+
+logAccountStructure = (_structure) => {
+    console.log("ACCOUNT RECORD DUMP");
+    console.log(JSON.stringify(_structure, null, 2));
 }
 
 logTree = (_tree) => {
@@ -115,6 +123,7 @@ module.exports = {
     LOG_MODE,
     logAccountStructure,
     logSetup,
+    logTreeStructure,
     setLogDefaults,
     setIndentPrefixLevel,
     setLogMode,
