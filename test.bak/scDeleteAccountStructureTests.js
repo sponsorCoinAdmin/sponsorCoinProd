@@ -26,7 +26,7 @@ const {
 
 const {
   LOG_MODE,
-  logAccountStructure,
+  logJSON,
   logSetup,
   setLogDefaults,
   setIndentPrefixLevel,
@@ -63,7 +63,7 @@ describe("spCoinContract", function () {
       console.log("*** ACCOUNT KEYS BEFORE DELETE ***\n", keys);
       console.log("============================================================");
       console.log("*** ACCOUNT STRUCTURE BEFORE DELETE ***");
-      await logTreeStructure();
+      await logJSONTree();
   
       let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Patreon Account has a Sponsor, (Patreon must Un-sponsor Sponsored Account)'";
       try {
@@ -78,7 +78,7 @@ describe("spCoinContract", function () {
       console.log("*** ACCOUNTS KEYS AFTER DELETE ***\n", keys);
       console.log("============================================================");
       console.log("*** ACCOUNT STRUCTURE AFTER DELETE ***");
-      await logTreeStructure();
+      await logJSONTree();
 
       console.log("============================================================");
     });
@@ -180,7 +180,7 @@ describe("spCoinContract", function () {
     expect(accountSize).to.equal(3);
 
     accountArr = await loadTreeStructures(spCoinContractDeployed);
-    logAccountStructure(accountArr);
+    logJSON(accountArr);
   });
 
 });

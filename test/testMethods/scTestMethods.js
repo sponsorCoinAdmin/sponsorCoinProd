@@ -83,6 +83,18 @@ getTestHHAccountArrayKeys = (testAccountIdxArr) => {
   return accountIdxArrayKeys;
 };
 
+getTestHHAccountRecord = (testHHAccountIdx) => {
+  testHHAccountKey = getTestHHAccountKey(testHHAccountIdx);
+  testHHAccountRecord = getAccountRecord(testHHAccountKey);
+  return testHHAccountRecord;
+}
+
+logTestHHAccountRecord = (testHHAccountIdx) => {
+  testHHAccountKey = getTestHHAccountKey(testHHAccountIdx);
+  testHHAccountRecord = logJSONAccount(testHHAccountKey);
+  return testHHAccountRecord;
+}
+
 ///////////////////////////// DELETE METHODS ///////////////////////////////
 
 deleteTestNetworkAccount = async (_testHHAccountIdx) => {
@@ -131,5 +143,7 @@ module.exports = {
   addTestNetworkSponsorAgents,
   deleteTestNetworkAccount,
   deleteTestPatreonSponsor,
-  getTestHHAccountKey
+  getTestHHAccountKey,
+  getTestHHAccountRecord,
+  logTestHHAccountRecord
 }

@@ -31,9 +31,9 @@ getAccountKeys = async () => {
 
   var insertedArrayAccounts = [];
   for (idx = 0; idx < maxSize; idx++) {
-    let account = await spCoinContractDeployed.getAccountKey(idx);
-    logDetail("JS => Address at Index " + idx + "  = " + account);
-    insertedArrayAccounts.push(account);
+    let accountKey = await spCoinContractDeployed.getAccountKey(idx);
+    logDetail("JS => Address at Index " + idx + "  = " + accountKey);
+    insertedArrayAccounts.push(accountKey);
   }
   return insertedArrayAccounts;
 };

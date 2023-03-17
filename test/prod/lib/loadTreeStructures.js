@@ -13,24 +13,35 @@ setStructureContract = (_spCoinContractDeployed) => {
 loadTreeStructures = async() => {
     logFunctionHeader("loadTreeStructures()");
     let accountArr = [];
-    let insertedArrayAccounts = await getAccountKeys();
-    let maxSize = insertedArrayAccounts.length;
+    // let insertedArrayAccounts = await getAccountKeys();
+    // let maxSize = insertedArrayAccounts.length;
+    let maxSize = await spCoinContractDeployed.getAccountSize();
+
     for(let idx = 0; idx < maxSize; idx++) {
-        let accountKey = insertedArrayAccounts[idx];
-        let accountStruct = new AccountStruct(accountKey);
-
-        accountStruct.index = idx;
-        accountStruct.accountKey = accountKey;
-        accountChildSponsorKeys = await getPatreonSponsorKeys(accountKey);
-        accountStruct.accountChildSponsorKeys = accountChildSponsorKeys;
-        accountStruct.accountSponsorObjects = await loadSponsorRecordsByKeys(accountKey, accountChildSponsorKeys);
+//        let accountKey = insertedArrayAccounts[idx];
+        accountStruct = await loadAccountStructure(idx);
         accountArr.push(accountStruct);
-
-        accountStruct.accountParentPatreonKeys = await getAccountPatreonKeys(accountKey);
-        accountStruct.accountChildAgentKeys = await getAccountAgentKeys(accountKey);
-        accountStruct.accountParentSponsorKeys = await getAccountAgentSponsorKeys(accountKey);
     }
     return accountArr;
+}
+
+loadAccountStructure = async (idx) => {
+    let accountKey = await spCoinContractDeployed.getAccountKey(idx);
+
+    let accountStruct = await getAccountRecord(accountKey);
+
+//    let accountStruct = new AccountStruct(accountKey);
+
+    accountStruct.index = idx;
+    accountStruct.accountKey = accountKey;
+    accountChildSponsorKeys = await getPatreonSponsorKeys(accountKey);
+    accountStruct.accountChildSponsorKeys = accountChildSponsorKeys;
+    accountStruct.accountSponsorObjects = await loadSponsorRecordsByKeys(accountKey, accountChildSponsorKeys);
+
+    accountStruct.accountParentPatreonKeys = await getAccountPatreonKeys(accountKey);
+    accountStruct.accountChildAgentKeys = await getAccountAgentKeys(accountKey);
+    accountStruct.accountParentSponsorKeys = await getAccountAgentSponsorKeys(accountKey);
+    return accountStruct;
 }
 
 //////////////////// LOAD ACCOUNT DATA //////////////////////
@@ -110,6 +121,7 @@ loadRatesByAccountAgents = async(_accountKey, _sponsorAccountKey, _agentAccountK
 module.exports = {
     loadAgentsByPatreonSponsor,
     loadSponsorsByAccount,
+    loadAccountStructure,
     loadTreeStructures,
     setStructureContract
 }

@@ -7,6 +7,7 @@ const {
   addTestNetworkSponsorAgents,
   addTestNetworkAccount,
   getTestHHAccountArrayKeys,
+  getTestHHAccountKey
 } = require("../test/testMethods/scTestMethods");
 const { testHHAccounts } = require("./testMethods/hhTestAccounts");
 
@@ -22,7 +23,7 @@ const {
 
 const {
   LOG_MODE,
-  logAccountStructure,
+  logJSON,
   logSetup,
   setLogDefaults,
   setIndentPrefixLevel,
@@ -74,7 +75,7 @@ describe("spCoinContract", function () {
     await addTestNetworkSponsorAgents(0, 1, [2,3,4]);
     await addTestNetworkSponsorAgents(1, 0, [4]);
 
-    await logTreeStructure();
+    await logJSONTree();
 
   });
 
@@ -164,7 +165,7 @@ describe("spCoinContract", function () {
 
     // Test Record Structure Read from Blockchain Network
     let accountStruct = await getAccountRecord(accountKey);
-    logAccountStructure(accountStruct);
+    logJSON(accountStruct);
     let networkAccountKey = accountStruct.accountKey;
     expect(networkAccountKey).to.equal(accountKey);
 
@@ -201,15 +202,15 @@ describe("spCoinContract", function () {
     expect(accountSize).to.equal(4);
 
     let accountArr = await loadTreeStructures(spCoinContractDeployed);
-    logTree(accountArr);
+    logJSON(accountArr);
 
     // Test That Patreon at Idx 3 has 2 Record Sponsors in the blockchain and
     // Validate they are the correct ones in the Patreon Structure
     // Read from Blockchain Network
-    let recipientKey = testHHAccounts[3].toLowerCase();
+    let recipientKey = getTestHHAccountKey(3);
 
     let accountStruct = await getAccountRecord(recipientKey);
-    logTree(accountStruct);
+    logJSON(accountStruct);
     // let networkAccountKey = accountStruct.accountKey;
     // expect(networkAccountKey).to.equal(arrayKey);
   });
@@ -225,7 +226,7 @@ describe("spCoinContract", function () {
   
     await addTestNetworkPatreonSponsors(testAccountKey, testSponsorArrayKeys);
     log("Tree For Account Key: " + accountKey + " With Inserted Sponsors:");
-    await logTreeStructure();
+    await logJSONTree();
 
     accountSize = (await getAccountSize()).toNumber();
     expect(accountSize).to.equal(7);
@@ -235,7 +236,7 @@ describe("spCoinContract", function () {
 
     let accountSponsorObjects = await getPatreonSponsorKeys(accountKey);
 
-    logTree(accountSponsorObjects);
+    logJSON(accountSponsorObjects);
     let accountSponsorObjectsLength = Object.keys(accountSponsorObjects).length;
     expect(accountSponsorObjectsLength).to.equal(6);
 
