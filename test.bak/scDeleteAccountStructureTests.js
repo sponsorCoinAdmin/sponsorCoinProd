@@ -179,7 +179,7 @@ describe("spCoinContract", function () {
     accountSize = (await getAccountSize()).toNumber();
     expect(accountSize).to.equal(3);
 
-    accountArr = await loadTreeStructures(spCoinContractDeployed);
+    accountArr = await loadSPCoinStructures(spCoinContractDeployed);
     logJSON(accountArr);
   });
 

@@ -1,6 +1,6 @@
 const { setCreateContract } = require("./lib/scAccountMethods");
 const { setDeleteContract } = require("./lib/scAccountDeleteMethods");
-const { setStructureContract } = require("./lib/loadTreeStructures");
+const { setStructureContract } = require("./lib/loadStructures");
 
 const {
     LOG_MODE,

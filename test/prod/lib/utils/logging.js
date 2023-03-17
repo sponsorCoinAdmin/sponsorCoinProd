@@ -1,5 +1,5 @@
-const {} = require("../loadTreeStructures");
 const {} = require("../scAccountMethods");
+const {} = require("../loadStructures");
 
 // ************************* LOG SECTION ******************************/
 let LOG = true;
@@ -112,8 +112,8 @@ logJSONAccount = async(accountKey) => {
 
 logJSONTree = async() => {
     console.log("ACCOUNT RECORD DUMP");
-    let accountArr = await loadTreeStructures();
-    logJSON(accountArr);
+    let spCoinStructure = await loadSPCoinStructures();
+    logJSON(spCoinStructure);
 }
 
 logJSON = (_obj) => {

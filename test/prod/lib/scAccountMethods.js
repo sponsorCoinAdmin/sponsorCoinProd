@@ -6,8 +6,6 @@ const {
   TransactionStruct,
 } = require("./dataTypes");
 
-const {} = require("./utils/serialize");
-
 const { logFunctionHeader, logDetail } = require("./utils/logging");
 
 let spCoinContractDeployed;
@@ -40,12 +38,6 @@ getAccountKeys = async () => {
 
 ////////////////////////// ACCOUNT OBJECT FUNCTIONS //////////////////////////
 
-addAccountRecord = async (_accountKey) => {
-  logFunctionHeader("addAccountRecord = async(" + _accountKey + ")");
-  logDetail("JS => Inserting Account " + _accountKey + " To Blockchain Network");
-  await spCoinContractDeployed.addAccountRecord(_accountKey);
-};
-
 addAccountRecords = async (_accountArrayKeys) => {
   logFunctionHeader("addAccountRecord = async(arrayAccounts)");
   let maxSize = _accountArrayKeys.length;
@@ -59,13 +51,6 @@ addAccountRecords = async (_accountArrayKeys) => {
   logDetail("JS => Inserted " + maxSize + " Accounts to Blockchain Network");
 
   return maxSize;
-};
-
-getAccountRecord = async (_accountKey) => {
-  logFunctionHeader("getAccountRecord = async(" + _accountKey + ")");
-  let serializedAccountRec =
-    await spCoinContractDeployed.getSerializedAccountRec(_accountKey);
-  return deSerializedAccountRec(serializedAccountRec);
 };
 
 getChildSponsorSize = async (_accountKey) => {
@@ -254,7 +239,6 @@ module.exports = {
   addSponsorAgents,
   deletePatreonSponsor,
   getAccountSize,
-  getAccountRecord,
   getAccountKeys,
   getChildSponsorSize,
   getChildAgentKeys,

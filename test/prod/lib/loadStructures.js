@@ -1,4 +1,3 @@
-const { testHHAccounts } = require("../../testMethods/hhTestAccounts");
 const { AccountStruct,
         SponsorStruct,
         AgentStruct,
@@ -6,20 +5,19 @@ const { AccountStruct,
         TransactionStruct } = require("./dataTypes");
 let spCoinContractDeployed;
 
+const {} = require("./utils/serialize");
+
 setStructureContract = (_spCoinContractDeployed) => {
     spCoinContractDeployed = _spCoinContractDeployed;
 }
 
-loadTreeStructures = async() => {
-    logFunctionHeader("loadTreeStructures()");
+loadSPCoinStructures = async() => {
+    logFunctionHeader("loadSPCoinStructures()");
     let accountArr = [];
-    // let insertedArrayAccounts = await getAccountKeys();
-    // let maxSize = insertedArrayAccounts.length;
     let maxSize = await spCoinContractDeployed.getAccountSize();
 
     for(let idx = 0; idx < maxSize; idx++) {
-//        let accountKey = insertedArrayAccounts[idx];
-        accountStruct = await loadAccountStructure(idx);
+        let accountStruct = await loadAccountStructure(idx);
         accountArr.push(accountStruct);
     }
     return accountArr;
@@ -29,9 +27,6 @@ loadAccountStructure = async (idx) => {
     let accountKey = await spCoinContractDeployed.getAccountKey(idx);
 
     let accountStruct = await getAccountRecord(accountKey);
-
-//    let accountStruct = new AccountStruct(accountKey);
-
     accountStruct.index = idx;
     accountStruct.accountKey = accountKey;
     accountChildSponsorKeys = await getPatreonSponsorKeys(accountKey);
@@ -43,6 +38,19 @@ loadAccountStructure = async (idx) => {
     accountStruct.accountParentSponsorKeys = await getAccountAgentSponsorKeys(accountKey);
     return accountStruct;
 }
+
+getAccountRecord = async (_accountKey) => {
+    logFunctionHeader("getAccountRecord = async(" + _accountKey + ")");
+    let serializedAccountRec =
+      await spCoinContractDeployed.getSerializedAccountRec(_accountKey);
+    return deSerializedAccountRec(serializedAccountRec);
+  };
+
+addAccountRecord = async (_accountKey) => {
+    logFunctionHeader("addAccountRecord = async(" + _accountKey + ")");
+    logDetail("JS => Inserting Account " + _accountKey + " To Blockchain Network");
+    await spCoinContractDeployed.addAccountRecord(_accountKey);
+  };  
 
 //////////////////// LOAD ACCOUNT DATA //////////////////////
 loadSponsorsByAccount = async(_accountKey) => {    
@@ -119,9 +127,10 @@ loadRatesByAccountAgents = async(_accountKey, _sponsorAccountKey, _agentAccountK
 //////////////////// MODULE EXPORTS //////////////////////
 
 module.exports = {
+    getAccountRecord,
     loadAgentsByPatreonSponsor,
     loadSponsorsByAccount,
     loadAccountStructure,
-    loadTreeStructures,
+    loadSPCoinStructures,
     setStructureContract
 }

@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 
-const {} = require("../test/prod/lib/loadTreeStructures");
+const {} = require("../test/prod/lib/loadStructures");
 
 const {
   addTestNetworkPatreonSponsors,
@@ -10,8 +10,8 @@ const {
   getTestHHAccountKey
 } = require("../test/testMethods/scTestMethods");
 const { testHHAccounts } = require("./testMethods/hhTestAccounts");
-
-const { setCreateContract } = require("../test/prod/lib/scAccountMethods");
+const {} = require("../test/prod/lib/scAccountMethods");
+const { getAccountRecord } = require("../loadStructures");
 
 const {
   AccountStruct,
@@ -201,7 +201,7 @@ describe("spCoinContract", function () {
     let accountSize = (await getAccountSize()).toNumber();
     expect(accountSize).to.equal(4);
 
-    let accountArr = await loadTreeStructures(spCoinContractDeployed);
+    let accountArr = await loadSPCoinStructures(spCoinContractDeployed);
     logJSON(accountArr);
 
     // Test That Patreon at Idx 3 has 2 Record Sponsors in the blockchain and
