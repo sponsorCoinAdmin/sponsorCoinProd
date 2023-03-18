@@ -33,21 +33,30 @@ deSerializedAccountRec = async (serializedAccountRec) => {
   );
   return accountStruct;
 };
+const hexToDecimal = hex => parseInt(hex, 16);
 
 addAccountField = (key, value, accountStruct) => {
   logFunctionHeader("addAccountField = (" + key + "," + value + ")");
   switch (key.trim()) {
     case "index":
       logDetail("JS => setting accountStruct.index = " + value);
-      accountStruct.index = value;
+      accountStruct.index = hexToDecimal(value);
       break;
     case "accountKey":
       logDetail("JS => setting accountStruct.index = " + value);
       accountStruct.accountKey = value;
       break;
+    case "balanceOf":
+      logDetail("JS => setting accountStruct.balanceOf = " + value);
+      accountStruct.balanceOf = hexToDecimal(value);
+      break;
+    case "decimals":
+      logDetail("JS => setting accountStruct.decimals = " + value);
+      accountStruct.decimals = hexToDecimal(value);
+      break;
     case "insertionTime":
       logDetail("JS => setting accountStruct.insertionTime = " + value);
-      accountStruct.insertionTime = value;
+      accountStruct.insertionTime = hexToDecimal(value);
       break;
     case "inserted":
       logDetail("JS => setting accountStruct.inserted = " + value);

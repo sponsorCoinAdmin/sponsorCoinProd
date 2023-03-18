@@ -7,20 +7,6 @@ import "./accounts/Agents.sol";
 
 contract Token is Agents{
 
-    // My Variables
-    string public name;
-    string public symbol;
-    uint256 public decimals;
-    uint256 public totalSupply;
-
-    // Keep track balances and allowances approved
-    mapping(address => uint256) public balanceOf;
-    mapping(address => mapping(address => uint256)) public allowance;
-
-    // Events - fire events on state changes etc
-    event Transfer(address indexed from, address indexed to, uint256 value);
-    event Approval(address indexed owner, address indexed spender, uint256 value);
-
 /*
     constructor(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) {
         initToken(_name, _symbol, _decimals, _totalSupply);

@@ -9,27 +9,42 @@ contract Rates is Agents{
     }
 
     /// @notice insert sponsors Agent
-    /// @param _rate Rate record for transaction
-    function insertSponsorRate(uint256 _rate) public onlyOwnerOrRootAdmin(msg.sender) returns (bool) {
-/*
-        addPatreonSponsor(_accountKey, _sponsorAccountKey);
-        // addAccountRecord(_agentAccountKey);
-        // addAccountRecord(_sponsorAccountKey);
-        addAccountRecord(_agentAccountKey);
+    /// @param _patreonKey public Sponsor Coin Account Key
+    /// @param _sponsorKey public account key to get sponsor array
+    /// @param _agentKey new sponsor to add to account list
 
-        SponsorStruct storage sponsorRec = getPatreonSponsorRecByKeys(_accountKey, _sponsorAccountKey);
-        AgentStruct storage  agentRec = getAgentRecordByKeys(_accountKey, _sponsorAccountKey, _agentAccountKey);
+    
+    function addAgentRate(address _patreonKey, address _sponsorKey, address _agentKey, uint _rate)
+            public onlyOwnerOrRootAdmin(msg.sender) {
 
-        if (!agentRec.inserted) {
-            agentRec.index = sponsorRec.accountChildAgentKeys.length;
-            agentRec.insertionTime = block.timestamp;
-            agentRec.account  = _accountKey;
-            agentRec.sponsor  = _sponsorAccountKey;
-            agentRec.agent    = _agentAccountKey;
-            agentRec.inserted = true;
-            sponsorRec.accountChildAgentKeys.push(_agentAccountKey);
-            return true;
-        */
+        addSponsorAgent(_patreonKey, _sponsorKey, _agentKey);  
+
+        AgentStruct storage rateRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
+/*        agentRec.
+
+        AccountStruct storage accountSponsorRec = accountMap[_sponsorKey];
+        AccountStruct storage accountAgentRec = accountMap[_agentKey];
+        SponsorStruct storage patreonSponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
+        AgentStruct storage  sponsorChildAgentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
+        if (!sponsorChildAgentRec.inserted) {
+            sponsorChildAgentRec.index = patreonSponsorRec.accountChildAgentKeys.length;
+            sponsorChildAgentRec.insertionTime = block.timestamp;
+            sponsorChildAgentRec.agentAccountKey    = _agentKey;
+            sponsorChildAgentRec.inserted = true;
+            patreonSponsorRec.accountChildAgentKeys.push(_agentKey);
+            accountSponsorRec.accountChildAgentKeys.push(_agentKey);
+            accountAgentRec.accountParentSponsorKeys.push(_sponsorKey);
+        }
+*/
     }
+
+    function getRateRecordByKeys(address _patreonKey, address _sponsorKey, address _agentKey, uint _rate) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (RateStruct storage) {
+        SponsorStruct storage sponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
+        RateStruct storage rateRec = sponsorRec.rateMap[_rate];
+        // RateStruct storage sponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
+        // SponsorStruct storage sponsorChildAgentRec = sponsorRec.agentMap[_agentKey];
+        // return sponsorChildAgentRec;
+        return rateRec;
+     }
 
 }

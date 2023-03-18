@@ -4,6 +4,21 @@ pragma solidity ^0.8.17;
 import "./KYC.sol";
 
 contract DataTypes is KYC {
+
+    // **Standard ERC20 contract Variables
+    string public name;
+    string public symbol;
+    uint256 public decimals;
+    uint256 public totalSupply;
+    
+    // Keep track balances and allowances approved
+    mapping(address => uint256) public balanceOf;
+    mapping(address => mapping(address => uint256)) public allowance;
+    
+    // Events - fire events on state changes etc
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+
     // Keep track of account insertions
     // Record relationship rules as Follows:
     // 1. Every Account is the root of a mapping tree in the diagram below:
@@ -30,6 +45,8 @@ contract DataTypes is KYC {
     // Account(s) =>| Patreon(s)/Sponsor(s)/ =>|
     //              |                          |-/Rate(s)/Transaction(s)
 
+    // **Additional Sponsor Coin Variables
+
     address burnAddress = 0x0000000000000000000000000000000000000000;
     address[] public accountIndex;
 
@@ -43,6 +60,7 @@ contract DataTypes is KYC {
     struct AccountStruct {
         uint256 index;
         address accountKey;
+        uint256 balanceOf;
         uint256 insertionTime;
         bool inserted;
         bool verified;

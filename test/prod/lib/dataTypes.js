@@ -2,6 +2,7 @@ class AccountStruct {
   constructor() {
     this.index;
     this.accountKey;
+    this.balanceOf;
     this.insertionTime;
     this.verified;
     this.accountChildSponsorKeys;
@@ -41,7 +42,7 @@ class RateHeaderStruct {
     this.insertionTime;
     this.lastUpdateTime;
     this.totalQuantity;
-    this.TransactionStruct = [];
+    this.TransactionStruct;
   }
 }
 
