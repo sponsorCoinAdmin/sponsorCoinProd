@@ -28,15 +28,13 @@ logSetup("JS => Setup Test");
 let spCoinContractDeployed;
 
 describe("spCoinContract", function() {
-    let spCoinContract;
-    let msgSender;
     beforeEach(async() =>  {
         spCoinContractDeployed = await loadSpCoinContract();
     });
 
 /**/
 
-    it("Deployment should return correct parameter settings", async function () {
+    it("Deployment ~ Validating ERC20 standard parameter settings", async function () {
         // setLogMode(LOG_MODE.LOG, true);
         // setLogMode(LOG_MODE.LOG_DETAIL, true);
         // setLogMode(LOG_MODE.LOG_TEST_HEADER, true);
@@ -50,20 +48,21 @@ describe("spCoinContract", function() {
         let testMsgSender   = testHHAccounts[0];
         log("**** BEFORE ACCOUNT DEPLOYMENT");
         await spCoinContractDeployed.initToken(testName,  testSymbol, testDecimals, testTotalSupply);
-        log("JS => MsgSender = " + msgSender);
         log("JS => Name      = " + await spCoinContractDeployed.name());
         log("JS => Symbol    = " + await spCoinContractDeployed.symbol());
         log("JS => Decimals  = " + await spCoinContractDeployed.decimals());
-        log("JS => balanceOf = " + await spCoinContractDeployed.balanceOf(msgSender));
-        console.log("await spCoinContractDeployed.name() = " + await spCoinContractDeployed.name());
+        log("JS => balanceOf = " + await spCoinContractDeployed.balanceOf(testMsgSender));
         expect(await spCoinContractDeployed.msgSender()).to.equal(testMsgSender);
 
-        expect(await spCoinContractDeployed.name()).to.equal(testName);
-        expect(await spCoinContractDeployed.symbol()).to.equal(testSymbol);
+        let solName = await spCoinContractDeployed.name();
+        let solSymbol = await spCoinContractDeployed.symbol();
+        let solBalanceOf = (await spCoinContractDeployed.balanceOf(testMsgSender)).toNumber();
         let solDecimals = (await spCoinContractDeployed.decimals()).toNumber();
-        let solTotalSupply = (await spCoinContractDeployed.balanceOf(msgSender)).toNumber();
+        
+        expect(solName).to.equal(testName);
+        expect(solSymbol).to.equal(testSymbol);
+        expect(solBalanceOf).to.equal(testTotalSupply);
         expect(solDecimals).to.equal(testDecimals);
-        expect(solTotalSupply).to.equal(testTotalSupply);
     });
 
 /**/
