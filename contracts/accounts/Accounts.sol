@@ -20,7 +20,7 @@ contract Accounts is StructSerialization {
         }
     }
 
-    /// @notice determines if address is inserted in accountKey array
+    /// @notice determines if address Record is inserted in accountKey array
     /// @param _accountKey public accountKey validate Insertion
     function isAccountInserted(address _accountKey)
         public view onlyOwnerOrRootAdmin(_accountKey) returns (bool) {

@@ -106,7 +106,8 @@ contract DataTypes is KYC {
         uint256 lastUpdateTime;
         uint256 totalQuantity;
         uint256[] rate;
-        TransactionStruct[] transactionChain;
+        bool inserted;
+        TransactionStruct[] transactionList;
     }
 
     struct TransactionStruct {
