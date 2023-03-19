@@ -41,11 +41,9 @@ contract Rates is Agents{
             return false;
     }
 
-
     function getRateRecordByKeys(address _patreonKey, address _sponsorKey, address _agentKey, uint _rate) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (RateStruct storage) {
         SponsorStruct storage sponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
         RateStruct storage rateRec = sponsorRec.rateMap[_rate];
         return rateRec;
      }
-
 }

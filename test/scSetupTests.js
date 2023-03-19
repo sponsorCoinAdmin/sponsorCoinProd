@@ -1,6 +1,5 @@
 const { expect } = require("chai");
 
-
 const { testHHAccounts } = require("./testMethods/hhTestAccounts");
 const { addTestNetworkPatreonSponsors,
     addTestNetworkSponsorAgents,
@@ -22,7 +21,7 @@ const {
     const {
         deployContract,
         loadSpCoinContract 
-      } = require("../test/prod/deployContract");
+      } = require("./prod/deployContract");
 
 logSetup("JS => Setup Test");
 
@@ -49,13 +48,16 @@ describe("spCoinContract", function() {
         let testDecimals    = 3;
         let testTotalSupply = 10 * 10**testDecimals;
         let testMsgSender   = testHHAccounts[0];
+        log("**** BEFORE ACCOUNT DEPLOYMENT");
         await spCoinContractDeployed.initToken(testName,  testSymbol, testDecimals, testTotalSupply);
-        logDetail("JS => MsgSender = " + msgSender);
-        logDetail("JS => Name      = " + await spCoinContractDeployed.name());
-        logDetail("JS => Symbol    = " + await spCoinContractDeployed.symbol());
-        logDetail("JS => Decimals  = " + await spCoinContractDeployed.decimals());
-        logDetail("JS => balanceOf = " + await spCoinContractDeployed.balanceOf(msgSender));
+        log("JS => MsgSender = " + msgSender);
+        log("JS => Name      = " + await spCoinContractDeployed.name());
+        log("JS => Symbol    = " + await spCoinContractDeployed.symbol());
+        log("JS => Decimals  = " + await spCoinContractDeployed.decimals());
+        log("JS => balanceOf = " + await spCoinContractDeployed.balanceOf(msgSender));
+        console.log("await spCoinContractDeployed.name() = " + await spCoinContractDeployed.name());
         expect(await spCoinContractDeployed.msgSender()).to.equal(testMsgSender);
+
         expect(await spCoinContractDeployed.name()).to.equal(testName);
         expect(await spCoinContractDeployed.symbol()).to.equal(testSymbol);
         let solDecimals = (await spCoinContractDeployed.decimals()).toNumber();

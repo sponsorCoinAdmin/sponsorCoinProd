@@ -11,11 +11,11 @@ const {
   deletePatreonSponsors,
   getTestHHAccountArrayKeys,
   getTestHHAccountKey,
-} = require("./testMethods/scTestMethods");
+} = require("../test/testMethods/scTestMethods");
 
 const { testHHAccounts } = require("./testMethods/hhTestAccounts");
 
-const { setCreateContract } = require("./prod/lib/scAccountMethods");
+const { setCreateContract } = require("../test/prod/lib/scAccountMethods");
 
 const {
   AccountStruct,
@@ -23,7 +23,7 @@ const {
   AgentStruct,
   RateHeaderStruct,
   TransactionStruct,
-} = require("./prod/lib/dataTypes");
+} = require("../test/prod/lib/dataTypes");
 
 const {
   LOG_MODE,
@@ -37,7 +37,7 @@ const {
   logFunctionHeader,
   logDetail,
   log,
-} = require("./prod/lib/utils/logging");
+} = require("../test/prod/lib/utils/logging");
 
 const { 
   deployContract, 
