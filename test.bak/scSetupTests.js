@@ -5,7 +5,7 @@ const { addTestNetworkPatreonSponsors,
     addTestNetworkSponsorAgents,
     addTestNetworkAccount,
     getTestHHAccountArrayKeys
-  } = require("./testMethods/scTestMethods");
+  } = require("../test/testMethods/scTestMethods");
 
 const {    
     LOG_MODE,
@@ -16,12 +16,12 @@ const {
     logFunctionHeader,
     logDetail,
     log
-    } = require("./prod/lib/utils/logging");
+    } = require("../test/prod/lib/utils/logging");
 
     const {
         deployContract,
         loadSpCoinContract 
-      } = require("./prod/deployContract");
+      } = require("../test/prod/deployContract");
 
 logSetup("JS => Setup Test");
 
