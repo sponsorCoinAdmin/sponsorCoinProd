@@ -4,6 +4,21 @@ pragma solidity ^0.8.17;
 import "./KYC.sol";
 
 contract DataTypes is KYC {
+
+    // **Standard ERC20 contract Variables
+    string public name;
+    string public symbol;
+    uint256 public decimals;
+    uint256 public totalSupply;
+    
+    // Keep track balances and allowances approved
+    mapping(address => uint256) public balanceOf;
+    mapping(address => mapping(address => uint256)) public allowance;
+    
+    // Events - fire events on state changes etc
+    event Transfer(address indexed from, address indexed to, uint256 value);
+    event Approval(address indexed owner, address indexed spender, uint256 value);
+
     // Keep track of account insertions
     // Record relationship rules as Follows:
     // 1. Every Account is the root of a mapping tree in the diagram below:
@@ -30,21 +45,35 @@ contract DataTypes is KYC {
     // Account(s) =>| Patreon(s)/Sponsor(s)/ =>|
     //              |                          |-/Rate(s)/Transaction(s)
 
+    // **Additional Sponsor Coin Variables
+
     address burnAddress = 0x0000000000000000000000000000000000000000;
     address[] public accountIndex;
+
     mapping(address => AccountStruct) accountMap;
+
+    struct arrayMappedData {
+        address[] accountIndex;
+        mapping(address => AccountStruct) accountMap;
+    }
 
     struct AccountStruct {
         uint256 index;
         address accountKey;
+        uint256 balanceOf;
         uint256 insertionTime;
         bool inserted;
         bool verified;
+        // string[] childSponsorKeys; // Key = PatreonAddress,SponsorIndex
+        // string[] childAgentKeys;   // Key = PatreonAddress,SponsorIndex,AgentIndex
+        // string[] parentPatreonKeys; // If Sponsor? List of Patreon Accounts
+        // string[] parentSponsorKeys; // If Agent? List of Patreon Sponsor Accounts
+   
         address[] accountChildSponsorKeys;  // If Patreon List of Sponsored Accounts
         address[] accountChildAgentKeys;    // If Sponsor? List of Agent Accounts
         address[] accountParentPatreonKeys; // If Sponsor? List of Patreon Accounts
         address[] accountParentSponsorKeys; // If Agent? List of Patreon Sponsor Accounts
-        mapping(address => SponsorStruct) sponsorMap;
+        mapping(address => SponsorStruct) sponsorMap; 
         KYC kyc;
     }
 
@@ -77,7 +106,8 @@ contract DataTypes is KYC {
         uint256 lastUpdateTime;
         uint256 totalQuantity;
         uint256[] rate;
-        TransactionStruct[] transactionChain;
+        bool inserted;
+        TransactionStruct[] transactionList;
     }
 
     struct TransactionStruct {

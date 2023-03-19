@@ -1,16 +1,15 @@
 const { expect } = require("chai");
 
-const {} = require("./prod/lib/loadTreeStructures");
-
 const {
   addTestNetworkPatreonSponsors,
   addTestNetworkSponsorAgents,
   addTestNetworkAccount,
   getTestHHAccountArrayKeys,
-} = require("./testMethods/scTestMethods");
+} = require("../test/testMethods/scTestMethods");
 const { testHHAccounts } = require("./testMethods/hhTestAccounts");
 
-const { setCreateContract } = require("./prod/lib/scAccountMethods");
+const { setCreateContract } = require("../test/prod/lib/scAccountMethods");
+const { setDeleteContract } = require("../test/prod/lib/scAccountDeleteMethods");
 
 const {
   AccountStruct,
@@ -18,20 +17,16 @@ const {
   AgentStruct,
   RateHeaderStruct,
   TransactionStruct,
-} = require("./prod/lib/dataTypes");
-
-const {
-  setDeleteContract,
-} = require("./prod/lib/scAccountDeleteMethods");
+} = require("../test/prod/lib/dataTypes");
 
 const {
   addTestNetworkAccounts,
   deleteTestNetworkAccount,
-} = require("./testMethods/scTestMethods");
+} = require("../test/testMethods/scTestMethods");
 
 const {
   LOG_MODE,
-  logAccountStructure,
+  logJSON,
   logSetup,
   setLogDefaults,
   setIndentPrefixLevel,
@@ -40,9 +35,12 @@ const {
   logFunctionHeader,
   logDetail,
   log,
-} = require("./prod/lib/utils/logging");
+} = require("../test/prod/lib/utils/logging");
 
-const { deployContract } = require("./prod/deployContract");
+const { 
+  deployContract, 
+  loadSpCoinContract 
+} = require("../test/prod/deployContract");
 
 let spCoinContractDeployed;
 
@@ -52,9 +50,7 @@ logSetup("JS => Setup Test");
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
-    spCoinContractDeployed = await deployContract();
-    setCreateContract(spCoinContractDeployed);
-    setDeleteContract(spCoinContractDeployed);
+    spCoinContractDeployed = await loadSpCoinContract();
   });
 
 /**/
@@ -67,8 +63,7 @@ describe("spCoinContract", function () {
       console.log("*** ACCOUNT KEYS BEFORE DELETE ***\n", keys);
       console.log("============================================================");
       console.log("*** ACCOUNT STRUCTURE BEFORE DELETE ***");
-      let accountArr = await loadTreeStructures(spCoinContractDeployed);
-      console.log(accountArr);
+      await logJSONTree();
   
       let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Patreon Account has a Sponsor, (Patreon must Un-sponsor Sponsored Account)'";
       try {
@@ -79,12 +74,12 @@ describe("spCoinContract", function () {
       }
 
       keys = await getAccountKeys();
-      accountArr = await loadTreeStructures(spCoinContractDeployed);
       console.log("============================================================");
       console.log("*** ACCOUNTS KEYS AFTER DELETE ***\n", keys);
       console.log("============================================================");
       console.log("*** ACCOUNT STRUCTURE AFTER DELETE ***");
-      console.log(accountArr);
+      await logJSONTree();
+
       console.log("============================================================");
     });
 
@@ -145,5 +140,47 @@ describe("spCoinContract", function () {
     }
   });
   /**/
+
+  it("VALIDATE THAT ACCOUNTS, PATRIOT/SPONSOR/AGENT, ARE ALL MUTUALLY EXCLUSIVE", async function () {
+    setLogMode(LOG_MODE.LOG, true);
+
+    // Test Successful Record Insertion of Account Records 
+    // Validate Account Size is zero
+    let accountSize = (await getAccountSize()).toNumber();
+    expect(accountSize).to.equal(0);
+
+    // Add 1 Record Validate Size is 1
+    await addTestNetworkAccount(0);
+    accountSize = (await getAccountSize()).toNumber();
+    expect(accountSize).to.equal(1);
+
+    // Add duplicate Record Validate Size is still 1
+    await addTestNetworkAccount(0);
+    accountSize = (await getAccountSize()).toNumber();
+
+    // delete Record Validate Size should reduce to 1
+    await deleteTestNetworkAccount(0);
+    accountSize = (await getAccountSize()).toNumber();
+    expect(accountSize).to.equal(0);
+
+    // Add additional Record Validate Size is 2
+    await addTestNetworkAccount(0);
+    await addTestNetworkAccount(1);
+    accountSize = (await getAccountSize()).toNumber();
+    expect(accountSize).to.equal(2);
+
+    // Add 5 additional Records Validate Size is now 7
+    await addTestNetworkAccounts([4,6,9,10,8]);
+    accountSize = (await getAccountSize()).toNumber();
+    expect(accountSize).to.equal(7);
+
+    // Add 4 Records Validate Size is now 3
+    await deleteTestNetworkAccounts([10,8,4,0]);
+    accountSize = (await getAccountSize()).toNumber();
+    expect(accountSize).to.equal(3);
+
+    accountArr = await loadSPCoinStructures(spCoinContractDeployed);
+    logJSON(accountArr);
+  });
 
 });

@@ -20,11 +20,10 @@ contract Accounts is StructSerialization {
         }
     }
 
-    /// @notice determines if address is inserted in accountKey array
+    /// @notice determines if address Record is inserted in accountKey array
     /// @param _accountKey public accountKey validate Insertion
     function isAccountInserted(address _accountKey)
-        public view onlyOwnerOrRootAdmin(_accountKey) returns (bool)
-    {
+        public view onlyOwnerOrRootAdmin(_accountKey) returns (bool) {
         if (accountMap[_accountKey].inserted) return true;
         else return false;
     }
@@ -35,8 +34,7 @@ contract Accounts is StructSerialization {
         public
         view
         onlyOwnerOrRootAdmin(_accountKey)
-        returns (uint256)
-    {
+        returns (uint256) {
         if (isAccountInserted(_accountKey))
             return accountMap[_accountKey].index;
         else return 0;
@@ -57,13 +55,12 @@ contract Accounts is StructSerialization {
     /// @param _accountKey public accountKey to set new balance
     function getAccountRecord(address _accountKey)
         internal view onlyOwnerOrRootAdmin(_accountKey)
-        returns (AccountStruct storage)
-    {
+        returns (AccountStruct storage) {
         require(isAccountInserted(_accountKey));
         return accountMap[_accountKey];
     }
 
-    ////////////////////// BENEFICIARY REQUESTS //////////////////////////////
+    ////////////////////// PATREON REQUESTS //////////////////////////////
 
     /// @notice get address for an account patreon
     /// @param _accountKey public account key to get sponsor array
@@ -88,10 +85,11 @@ contract Accounts is StructSerialization {
         return accountParentPatreonKeys;
     }
 
+    /////////////////////////// SPONSOR REQUESTS //////////////////////////////
+
     /// @notice get address for an account patreon
     /// @param _accountKey public account key to get sponsor array
     /// @param sponsorIdx new parent sponsor to add to account list
-
     function getAccountAgentSponsorByIdx(address _accountKey, uint sponsorIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         AccountStruct storage accountRec = accountMap[_accountKey];
         address accountAgentSponsorKey = accountRec.accountParentSponsorKeys[sponsorIdx];
@@ -136,7 +134,6 @@ contract Accounts is StructSerialization {
         address[] storage accountChildAgentKeys = account.accountChildAgentKeys;
         return accountChildAgentKeys;
     }
-
     
     /// @notice given a patreon key get the size of the child sponsor account keys.
     /// @param _patreonKey public account key to get Sponsor Record Length
@@ -155,27 +152,49 @@ contract Accounts is StructSerialization {
      /////////////////// DELETE ACCOUNT METHODS ////////////////////////
    
     function deleteAccount(address _accountKey) public
-          onlyOwnerOrRootAdmin(_accountKey)
-          parentPatreonDoesNotExist(_accountKey)
-          parentSponsorDoesNotExist(_accountKey)
-          childSponsorDoesNotExist(_accountKey)
-//          childAgentDoesNotExist(_accountKey)
-          accountExists(_accountKey) 
     {
-        // console.log("ToDo Complete deleteAccount ", _accountKey);
-        for (uint i=0; i<accountIndex.length; i++) {
-            if (accountIndex[i] == _accountKey) {
-                // console.log("Found ", _accountKey, "at index", i);
-                // console.log("Found accountMap[accountIndex[", i,  "]].accountKey ", accountMap[accountIndex[i]].accountKey);
-                delete accountMap[accountIndex[i]];
-                delete accountIndex[i];
-                while ( i < accountIndex.length - 1) { 
-                    accountIndex[i] = accountIndex[i + 1];
+        if (deleteAccountFromSearchKeys( _accountKey,  accountIndex)) {
+            delete accountMap[_accountKey];
+        } 
+    }
+
+    function deleteAccountFromSearchKeys(address _accountKey, 
+        address[] storage _accountIndex) internal
+        accountExists(_accountKey) 
+        onlyOwnerOrRootAdmin(_accountKey)
+        parentPatreonDoesNotExist(_accountKey)
+        parentSponsorDoesNotExist(_accountKey)
+//      childAgentDoesNotExist(_accountKey)
+        childSponsorDoesNotExist(_accountKey) returns (bool) {
+      // console.log("deleteAccountFromSearchKeys(", _accountKey);
+        bool deleted = false;
+        uint i = getAccountArrayIndex (_accountKey, _accountIndex);
+        for (i; i<_accountIndex.length; i++) { 
+            if (_accountIndex[i] == _accountKey) {
+                // console.log("==== Found _accountIndex[", i, "] ", _accountIndex[i]);
+                // console.log("==== Found accountMap[_accountIndex[", i,  "]].accountKey ", accountMap[_accountIndex[i]].accountKey);
+                delete _accountIndex[i];
+                while ( i < _accountIndex.length - 1) { 
+                    _accountIndex[i] = _accountIndex[i + 1];
                     i++;
                 }
+                deleted = true;
             }
         }
-        accountIndex.pop();
+        _accountIndex.pop();
+        return deleted;
+    }
+
+    function getAccountArrayIndex (address _accountKey, 
+        address[] storage _accountIndex) internal view
+        accountExists(_accountKey) returns (uint) {
+        uint i = 0;
+        for (i; i < _accountIndex.length; i++) {
+            if (_accountIndex[i] == _accountKey) {
+                break;
+            }
+        }
+        return i; 
     }
 
     modifier accountExists (address _accountKey) {

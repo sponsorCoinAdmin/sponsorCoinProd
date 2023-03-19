@@ -61,7 +61,7 @@ string public text;
             else {
                 strArrValue = concat(strArrValue, ",", toString(arrValues[i]));
             }
-            console.log(arrValues[i]);
+            // console.log(arrValues[i]);
         }
         strArrValue = concat(strArrValue,"]");
         return strArrValue;

@@ -6,8 +6,6 @@ const {
   TransactionStruct,
 } = require("./dataTypes");
 
-const {} = require("./utils/serialize");
-
 const { logFunctionHeader, logDetail } = require("./utils/logging");
 
 let spCoinContractDeployed;
@@ -31,20 +29,14 @@ getAccountKeys = async () => {
 
   var insertedArrayAccounts = [];
   for (idx = 0; idx < maxSize; idx++) {
-    let account = await spCoinContractDeployed.getAccountKey(idx);
-    logDetail("JS => Address at Index " + idx + "  = " + account);
-    insertedArrayAccounts.push(account);
+    let accountKey = await spCoinContractDeployed.getAccountKey(idx);
+    logDetail("JS => Address at Index " + idx + "  = " + accountKey);
+    insertedArrayAccounts.push(accountKey);
   }
   return insertedArrayAccounts;
 };
 
 ////////////////////////// ACCOUNT OBJECT FUNCTIONS //////////////////////////
-
-addAccountRecord = async (_accountKey) => {
-  logFunctionHeader("addAccountRecord = async(" + _accountKey + ")");
-  logDetail("JS => Inserting Account " + _accountKey + " To Blockchain Network");
-  await spCoinContractDeployed.addAccountRecord(_accountKey);
-};
 
 addAccountRecords = async (_accountArrayKeys) => {
   logFunctionHeader("addAccountRecord = async(arrayAccounts)");
@@ -59,13 +51,6 @@ addAccountRecords = async (_accountArrayKeys) => {
   logDetail("JS => Inserted " + maxSize + " Accounts to Blockchain Network");
 
   return maxSize;
-};
-
-getAccountRecord = async (_accountKey) => {
-  logFunctionHeader("getAccountRecord = async(" + _accountKey + ")");
-  let serializedAccountRec =
-    await spCoinContractDeployed.getSerializedAccountRec(_accountKey);
-  return deSerializedAccountRec(serializedAccountRec);
 };
 
 getChildSponsorSize = async (_accountKey) => {
@@ -134,6 +119,7 @@ getPatreonSponsorKeys = async (_accountKey) => {
 
 getAccountAgentKeys = async (_accountKey) => {
   logFunctionHeader("getAccountAgentKeys = async(" + _accountKey + ")");
+  log("getAccountAgentKeys = async(" + _accountKey + ")");
   let maxSize = await getAccountChildAgentSize(_accountKey);
 
   let accountChildAgentKeys = {};
@@ -144,8 +130,6 @@ getAccountAgentKeys = async (_accountKey) => {
   }
   return accountChildAgentKeys;
 };
-  
-/////////////////////// ACCOUNT OBJECT FUNCTIONS ///////////////////////
 
 /////////////////////// SPONSOR OBJECT FUNCTIONS ///////////////////////
 
@@ -179,6 +163,12 @@ addPatreonSponsors = async (_accountKey, _accountChildSponsorKeys) => {
   logDetail("JS => Inserted = " + sponsorCount + " Sponsor Records");
   return --sponsorCount;
 };
+
+deletePatreonSponsor = async (_patreonKey, _sponsorKey) => {
+  logFunctionHeader("deletePatreonSponsor(" + _patreonKey + ", " + _sponsorKey + ")");
+  log("deletePatreonSponsor(" + _patreonKey + ", " + _sponsorKey + ")");
+  spCoinContractDeployed.deletePatreonSponsor(_patreonKey, _sponsorKey);
+}
 
 getChildAgentKeys = async (_accountKey, _sponsorAccountKey) => {
   logFunctionHeader("getChildAgentKeys = async(" + _accountKey + ", " + _sponsorAccountKey + ")" );
@@ -247,8 +237,8 @@ module.exports = {
   addPatreonSponsors,
   addSponsorAgent,
   addSponsorAgents,
+  deletePatreonSponsor,
   getAccountSize,
-  getAccountRecord,
   getAccountKeys,
   getChildSponsorSize,
   getChildAgentKeys,

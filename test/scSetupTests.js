@@ -1,12 +1,11 @@
 const { expect } = require("chai");
 
-
 const { testHHAccounts } = require("./testMethods/hhTestAccounts");
 const { addTestNetworkPatreonSponsors,
     addTestNetworkSponsorAgents,
     addTestNetworkAccount,
     getTestHHAccountArrayKeys
-  } = require("./testMethods/scTestMethods");
+  } = require("../test/testMethods/scTestMethods");
 
 const {    
     LOG_MODE,
@@ -17,35 +16,25 @@ const {
     logFunctionHeader,
     logDetail,
     log
-    } = require("./prod/lib/utils/logging");
+    } = require("../test/prod/lib/utils/logging");
 
-let account;
+    const {
+        deployContract,
+        loadSpCoinContract 
+      } = require("../test/prod/deployContract");
 
 logSetup("JS => Setup Test");
 
 let spCoinContractDeployed;
+
 describe("spCoinContract", function() {
-    let spCoinContract;
-    let msgSender;
     beforeEach(async() =>  {
-        spCoinContract = await hre.ethers.getContractFactory("SPCoin");
-        logSetup("JS => spCoinContract retrieved from Factory");
-
-        logSetup("JS => Deploying spCoinContract to Network");
-        spCoinContractDeployed = await spCoinContract.deploy();
-        logSetup("JS => spCoinContract is being mined");
-
-        await spCoinContractDeployed.deployed();
-        logSetup("JS => spCoinContract Deployed to Network");
-        msgSender = await spCoinContractDeployed.msgSender();
-
-        setCreateContract(spCoinContractDeployed);
-        setLogDefaults();
+        spCoinContractDeployed = await loadSpCoinContract();
     });
 
 /**/
 
-    it("Deployment should return correct parameter settings", async function () {
+    it("Deployment ~ Validating ERC20 standard parameter settings", async function () {
         // setLogMode(LOG_MODE.LOG, true);
         // setLogMode(LOG_MODE.LOG_DETAIL, true);
         // setLogMode(LOG_MODE.LOG_TEST_HEADER, true);
@@ -57,34 +46,38 @@ describe("spCoinContract", function() {
         let testDecimals    = 3;
         let testTotalSupply = 10 * 10**testDecimals;
         let testMsgSender   = testHHAccounts[0];
+        log("**** BEFORE ACCOUNT DEPLOYMENT");
         await spCoinContractDeployed.initToken(testName,  testSymbol, testDecimals, testTotalSupply);
-        logDetail("JS => MsgSender = " + msgSender);
-        logDetail("JS => Name      = " + await spCoinContractDeployed.name());
-        logDetail("JS => Symbol    = " + await spCoinContractDeployed.symbol());
-        logDetail("JS => Decimals  = " + await spCoinContractDeployed.decimals());
-        logDetail("JS => balanceOf = " + await spCoinContractDeployed.balanceOf(msgSender));
+        log("JS => Name      = " + await spCoinContractDeployed.name());
+        log("JS => Symbol    = " + await spCoinContractDeployed.symbol());
+        log("JS => Decimals  = " + await spCoinContractDeployed.decimals());
+        log("JS => balanceOf = " + await spCoinContractDeployed.balanceOf(testMsgSender));
         expect(await spCoinContractDeployed.msgSender()).to.equal(testMsgSender);
-        expect(await spCoinContractDeployed.name()).to.equal(testName);
-        expect(await spCoinContractDeployed.symbol()).to.equal(testSymbol);
+
+        let solName = await spCoinContractDeployed.name();
+        let solSymbol = await spCoinContractDeployed.symbol();
+        let solBalanceOf = (await spCoinContractDeployed.balanceOf(testMsgSender)).toNumber();
         let solDecimals = (await spCoinContractDeployed.decimals()).toNumber();
-        let solTotalSupply = (await spCoinContractDeployed.balanceOf(msgSender)).toNumber();
+        
+        expect(solName).to.equal(testName);
+        expect(solSymbol).to.equal(testSymbol);
+        expect(solBalanceOf).to.equal(testTotalSupply);
         expect(solDecimals).to.equal(testDecimals);
-        expect(solTotalSupply).to.equal(testTotalSupply);
     });
 
 /**/
 
     it("Account Insertion Validation", async function () {
         logTestHeader("TEST ACCOUNT INSERTION");
-        let account = testHHAccounts[0];
+        let accountKey = testHHAccounts[0];
         let recCount = await spCoinContractDeployed.getAccountSize();
         expect(recCount.toNumber()).to.equal(0);
         logDetail("JS => ** Before Inserted Record Count = " + recCount);
-        let isAccountInserted = await spCoinContractDeployed.isAccountInserted(account);
-        logDetail("JS => Address "+ account + " Before Inserted Record Found = " + isAccountInserted);
-        await spCoinContractDeployed.addAccountRecord(account);
-        isAccountInserted = await spCoinContractDeployed.isAccountInserted(account);
-        logDetail("JS => Address "+ account + " After Inserted Record Found = " + isAccountInserted);
+        let isAccountInserted = await spCoinContractDeployed.isAccountInserted(accountKey);
+        logDetail("JS => Address "+ accountKey + " Before Inserted Record Found = " + isAccountInserted);
+        await spCoinContractDeployed.addAccountRecord(accountKey);
+        isAccountInserted = await spCoinContractDeployed.isAccountInserted(accountKey);
+        logDetail("JS => Address "+ accountKey + " After Inserted Record Found = " + isAccountInserted);
         recCount = (await spCoinContractDeployed.getAccountSize()).toNumber();
         logDetail("JS => ** After Inserted Record Count = " + await recCount);        
         expect(recCount).to.equal(1);
@@ -104,8 +97,8 @@ describe("spCoinContract", function() {
 
         for(idx = 0; idx < insertedRecCount; idx++) {
             expect(testHHAccounts[idx]).to.equal(insertedArrayAccounts[idx]);
-            account = insertedArrayAccounts[idx];
-            logDetail("JS => Address Retrieved from Block Chain at Index " + idx + "  = "+ account );
+            let accountKey = insertedArrayAccounts[idx];
+            logDetail("JS => Address Retrieved from Block Chain at Index " + idx + "  = "+ accountKey );
         }
     });
     /**/

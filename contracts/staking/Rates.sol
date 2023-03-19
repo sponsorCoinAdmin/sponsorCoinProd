@@ -5,31 +5,45 @@ import "../accounts/Agents.sol";
 
 contract Rates is Agents{
 
-    constructor(){
+    constructor() {
     }
 
     /// @notice insert sponsors Agent
-    /// @param _rate Rate record for transaction
-    function insertSponsorRate(uint256 _rate) public onlyOwnerOrRootAdmin(msg.sender) returns (bool) {
-/*
-        addPatreonSponsor(_accountKey, _sponsorAccountKey);
-        // addAccountRecord(_agentAccountKey);
-        // addAccountRecord(_sponsorAccountKey);
-        addAccountRecord(_agentAccountKey);
+    /// @param _patreonKey public Sponsor Coin Account Key
+    /// @param _sponsorKey public account key to get sponsor array
+    /// @param _agentKey new sponsor to add to account list
+    
+    function addAgentRate(address _patreonKey, address _sponsorKey, address _agentKey, uint _rateKey)
+            public onlyOwnerOrRootAdmin(msg.sender) {
 
-        SponsorStruct storage sponsorRec = getPatreonSponsorRecByKeys(_accountKey, _sponsorAccountKey);
-        AgentStruct storage  agentRec = getAgentRecordByKeys(_accountKey, _sponsorAccountKey, _agentAccountKey);
+        addSponsorAgent(_patreonKey, _sponsorKey, _agentKey);
 
-        if (!agentRec.inserted) {
-            agentRec.index = sponsorRec.accountChildAgentKeys.length;
-            agentRec.insertionTime = block.timestamp;
-            agentRec.account  = _accountKey;
-            agentRec.sponsor  = _sponsorAccountKey;
-            agentRec.agent    = _agentAccountKey;
-            agentRec.inserted = true;
-            sponsorRec.accountChildAgentKeys.push(_agentAccountKey);
+        AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
+        mapping(uint256 => RateStruct) storage rateMap = agentRec.rateMap;
+        RateStruct storage rateRec = rateMap[_rateKey];
+        if (!rateRec.inserted) {
+            rateRec.inserted = true;
+            rateRec.insertionTime = rateRec.lastUpdateTime = block.timestamp;
+        }
+        else {
+            rateRec.lastUpdateTime = block.timestamp;
+        }
+    } 
+    
+    /// @notice determines if address Record is inserted in accountKey array
+    /// @param _agentRec agent record containing rateMap records
+    /// @param _rateKey key for a specific rateMap record
+    function isRateInserted(AgentStruct storage _agentRec, uint _rateKey) internal view returns (bool) {
+        mapping(uint256 => RateStruct) storage rateMap = _agentRec.rateMap;
+        if (rateMap[_rateKey].inserted)
             return true;
-        */
+        else 
+            return false;
     }
 
+    function getRateRecordByKeys(address _patreonKey, address _sponsorKey, address _agentKey, uint _rate) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (RateStruct storage) {
+        AgentStruct storage agentStruct = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey) ;
+        RateStruct storage rateRec = agentStruct.rateMap[_rate];
+        return rateRec;
+     }
 }

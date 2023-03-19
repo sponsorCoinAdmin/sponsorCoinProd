@@ -1,16 +1,17 @@
 const { expect } = require("chai");
 
-const {} = require("../test/prod/lib/loadTreeStructures");
+const {} = require("./prod/lib/loadStructures");
 
 const {
   addTestNetworkPatreonSponsors,
   addTestNetworkSponsorAgents,
   addTestNetworkAccount,
   getTestHHAccountArrayKeys,
-} = require("../test/testMethods/scTestMethods");
+  getTestHHAccountKey
+} = require("./testMethods/scTestMethods");
 const { testHHAccounts } = require("./testMethods/hhTestAccounts");
-
-const { setCreateContract } = require("../test/prod/lib/scAccountMethods");
+const {} = require("./prod/lib/scAccountMethods");
+const { getAccountRecord } = require("./prod/lib/loadStructures");
 
 const {
   AccountStruct,
@@ -18,11 +19,11 @@ const {
   AgentStruct,
   RateHeaderStruct,
   TransactionStruct,
-} = require("../test/prod/lib/dataTypes");
+} = require("./prod/lib/dataTypes");
 
 const {
   LOG_MODE,
-  logAccountStructure,
+  logJSON,
   logSetup,
   setLogDefaults,
   setIndentPrefixLevel,
@@ -31,9 +32,12 @@ const {
   logFunctionHeader,
   logDetail,
   log,
-} = require("../test/prod/lib/utils/logging");
+} = require("./prod/lib/utils/logging");
 
-const { deployContract } = require("../test/prod/deployContract");
+const {
+  deployContract,
+  loadSpCoinContract 
+} = require("./prod/deployContract");
 
 let spCoinContractDeployed;
 
@@ -41,9 +45,7 @@ logSetup("JS => Setup Test");
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
-    spCoinContractDeployed = await deployContract();
-    setCreateContract(spCoinContractDeployed);
-    setDeleteContract(spCoinContractDeployed);
+    spCoinContractDeployed = await loadSpCoinContract();
   });
 
   /**/
@@ -73,9 +75,8 @@ describe("spCoinContract", function () {
     await addTestNetworkSponsorAgents(0, 1, [2,3,4]);
     await addTestNetworkSponsorAgents(1, 0, [4]);
 
-    let accountArr = await loadTreeStructures(spCoinContractDeployed);
+    await logJSONTree();
 
-    logAccountStructure(accountArr);
   });
 
   /**/
@@ -164,7 +165,7 @@ describe("spCoinContract", function () {
 
     // Test Record Structure Read from Blockchain Network
     let accountStruct = await getAccountRecord(accountKey);
-    logAccountStructure(accountStruct);
+    logJSON(accountStruct);
     let networkAccountKey = accountStruct.accountKey;
     expect(networkAccountKey).to.equal(accountKey);
 
@@ -200,16 +201,16 @@ describe("spCoinContract", function () {
     let accountSize = (await getAccountSize()).toNumber();
     expect(accountSize).to.equal(4);
 
-    let accountArr = await loadTreeStructures(spCoinContractDeployed);
-    logTree(accountArr);
+    let accountArr = await loadSPCoinStructures(spCoinContractDeployed);
+    logJSON(accountArr);
 
     // Test That Patreon at Idx 3 has 2 Record Sponsors in the blockchain and
     // Validate they are the correct ones in the Patreon Structure
     // Read from Blockchain Network
-    let recipientKey = testHHAccounts[3].toLowerCase();
+    let recipientKey = getTestHHAccountKey(3);
 
     let accountStruct = await getAccountRecord(recipientKey);
-    logTree(accountStruct);
+    logJSON(accountStruct);
     // let networkAccountKey = accountStruct.accountKey;
     // expect(networkAccountKey).to.equal(arrayKey);
   });
@@ -224,10 +225,8 @@ describe("spCoinContract", function () {
     let testSponsorArrayKeys = [1, 7, 14, 8, 18, 9];
   
     await addTestNetworkPatreonSponsors(testAccountKey, testSponsorArrayKeys);
-    let accountArr = await loadTreeStructures(spCoinContractDeployed);
-
     log("Tree For Account Key: " + accountKey + " With Inserted Sponsors:");
-    logTree(accountArr);
+    await logJSONTree();
 
     accountSize = (await getAccountSize()).toNumber();
     expect(accountSize).to.equal(7);
@@ -237,7 +236,7 @@ describe("spCoinContract", function () {
 
     let accountSponsorObjects = await getPatreonSponsorKeys(accountKey);
 
-    logTree(accountSponsorObjects);
+    logJSON(accountSponsorObjects);
     let accountSponsorObjectsLength = Object.keys(accountSponsorObjects).length;
     expect(accountSponsorObjectsLength).to.equal(6);
 

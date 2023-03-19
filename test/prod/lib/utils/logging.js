@@ -1,3 +1,6 @@
+const {} = require("../scAccountMethods");
+const {} = require("../loadStructures");
+
 // ************************* LOG SECTION ******************************/
 let LOG = true;
 let LOG_DETAIL = false;
@@ -98,23 +101,31 @@ setIndentPrefixLevel = (_indentPrefix, _level) => {
     return indent;
 }
 
-logAccountStructure = (_accountArr) => {
+////////////////////// STRUCTURE PRINT FUNCTIONS //////////////////////
+
+logJSONAccount = async(accountKey) => {
     console.log("ACCOUNT RECORD DUMP");
-    console.log(JSON.stringify(_accountArr, null, 2));
+    accountRec = await getAccountRecord(accountKey);
+    logJSON(accountRec);
+    return accountRec;
 }
 
-logTree = (_tree) => {
-    if (LOG_TREE) {
-        console.log("TREE STRUCTURE DUMP");
-//        console.log(_tree);
-        console.log(JSON.stringify(_tree, null, 2));
-    }
+logJSONTree = async() => {
+    console.log("ACCOUNT RECORD DUMP");
+    let spCoinStructure = await loadSPCoinStructures();
+    logJSON(spCoinStructure);
+}
+
+logJSON = (_obj) => {
+    console.log("JSON OBJECT DUMP");
+    console.log(JSON.stringify(_obj, null, 2));
 }
 
 module.exports = {
     LOG_MODE,
-    logAccountStructure,
+    logJSON,
     logSetup,
+    logJSONTree,
     setLogDefaults,
     setIndentPrefixLevel,
     setLogMode,

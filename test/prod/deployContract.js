@@ -1,9 +1,28 @@
+const { setCreateContract } = require("./lib/scAccountMethods");
+const { setDeleteContract } = require("./lib/scAccountDeleteMethods");
+const { setStructureContract } = require("./lib/loadStructures");
+
 const {
     LOG_MODE,
     logSetup,
     setLogMode,
     log
   } = require("./lib/utils/logging");
+
+  let spCoinContractDeployed;
+
+  loadSpCoinContract = async () => {
+    spCoinContractDeployed = await deployContract();
+    loadContracts();
+    return spCoinContractDeployed;
+  }
+  
+  loadContracts = () => {
+    setCreateContract(spCoinContractDeployed);
+    setDeleteContract(spCoinContractDeployed);
+    setStructureContract(spCoinContractDeployed);
+    return spCoinContractDeployed;
+  }
   
   deployContract = async () => {
     //setLogMode(LOG_MODE.LOG_SETUP, true);
@@ -14,7 +33,7 @@ const {
     let spCoinContract = await hre.ethers.getContractFactory("SPCoin");
 
     logSetup("JS => Deploying spCoinContract to Network");
-    let spCoinContractDeployed = await spCoinContract.deploy();
+    spCoinContractDeployed = await spCoinContract.deploy();
     logSetup("JS => spCoinContract is currently being mined");
 
     await spCoinContractDeployed.deployed();
@@ -24,5 +43,8 @@ const {
 }
 
 module.exports = {
-    deployContract
+  deployContract,
+  loadContracts,
+  loadSpCoinContract,
+  spCoinContractDeployed
 }
