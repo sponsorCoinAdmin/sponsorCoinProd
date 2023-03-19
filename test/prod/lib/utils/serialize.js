@@ -93,7 +93,7 @@ addAccountField = (key, value, accountStruct) => {
 
 parseAddressStrArray = (strArray) => {
   logFunctionHeader("parseAddressStrArray = " + strArray);
-  console.log("parseAddressStrArray = " + strArray);
+//  console.log("parseAddressStrArray = " + strArray);
 
   strArray = strArray.substring(0, strArray.length - 1);
   addressStrArray = strArray.split(",");

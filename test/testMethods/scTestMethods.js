@@ -118,7 +118,6 @@ deleteTestNetworkAccounts = async (_testHHAccountArr) => {
 
 deleteTestPatreonSponsor = async (_patreonIdx, _sponsorIdx) => {
   logFunctionHeader("deleteTestPatreonSponsor(" + _patreonIdx + ", " + _sponsorIdx + ")");
-  console.log("deleteTestPatreonSponsor(" + _patreonIdx + ", " + _sponsorIdx + ")");
   let patreonKey = getTestHHAccountKey(_patreonIdx);
   let sponsorKey = getTestHHAccountKey(_sponsorIdx);
   deletePatreonSponsor(patreonKey, sponsorKey);

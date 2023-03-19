@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 
-const {} = require("../test/prod/lib/loadStructures");
+const {} = require("./prod/lib/loadStructures");
 
 const {
   addTestNetworkPatreonSponsors,
@@ -8,10 +8,10 @@ const {
   addTestNetworkAccount,
   getTestHHAccountArrayKeys,
   getTestHHAccountKey
-} = require("../test/testMethods/scTestMethods");
+} = require("./testMethods/scTestMethods");
 const { testHHAccounts } = require("./testMethods/hhTestAccounts");
-const {} = require("../test/prod/lib/scAccountMethods");
-const { getAccountRecord } = require("../loadStructures");
+const {} = require("./prod/lib/scAccountMethods");
+const { getAccountRecord } = require("./prod/lib/loadStructures");
 
 const {
   AccountStruct,
@@ -19,7 +19,7 @@ const {
   AgentStruct,
   RateHeaderStruct,
   TransactionStruct,
-} = require("../test/prod/lib/dataTypes");
+} = require("./prod/lib/dataTypes");
 
 const {
   LOG_MODE,
@@ -32,12 +32,12 @@ const {
   logFunctionHeader,
   logDetail,
   log,
-} = require("../test/prod/lib/utils/logging");
+} = require("./prod/lib/utils/logging");
 
 const {
   deployContract,
   loadSpCoinContract 
-} = require("../test/prod/deployContract");
+} = require("./prod/deployContract");
 
 let spCoinContractDeployed;
 
