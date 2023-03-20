@@ -29,9 +29,9 @@ loadAccountStructure = async (idx) => {
     let accountStruct = await getAccountRecord(accountKey);
     accountStruct.index = idx;
     accountStruct.accountKey = accountKey;
-    accountChildSponsorKeys = await getPatreonSponsorKeys(accountKey);
-    accountStruct.accountChildSponsorKeys = accountChildSponsorKeys;
-    accountStruct.accountSponsorObjects = await loadSponsorRecordsByKeys(accountKey, accountChildSponsorKeys);
+    accountSponsorKeys = await getPatreonSponsorKeys(accountKey);
+    accountStruct.accountSponsorKeys = accountSponsorKeys;
+    accountStruct.accountSponsorObjects = await loadSponsorRecordsByKeys(accountKey, accountSponsorKeys);
 
     accountStruct.accountParentPatreonKeys = await getAccountPatreonKeys(accountKey);
     accountStruct.accountChildAgentKeys = await getAccountAgentKeys(accountKey);
@@ -55,17 +55,17 @@ addAccountRecord = async (_accountKey) => {
 //////////////////// LOAD ACCOUNT DATA //////////////////////
 loadSponsorsByAccount = async(_accountKey) => {    
     logFunctionHeader("loadSponsorsByAccount("  + _accountKey + ")");
-    accountChildSponsorKeys = await getPatreonSponsorKeys(_accountKey);
-    accountSponsorObjects = await loadSponsorRecordsByKeys(_accountKey, accountChildSponsorKeys);
+    accountSponsorKeys = await getPatreonSponsorKeys(_accountKey);
+    accountSponsorObjects = await loadSponsorRecordsByKeys(_accountKey, accountSponsorKeys);
     return accountSponsorObjects;
 }
 
 //////////////////// LOAD SPONSOR DATA //////////////////////
 
-loadSponsorRecordsByKeys = async(_accountKey, _accountChildSponsorKeys) => {
-    logFunctionHeader("loadSponsorRecordsByKeys(" + _accountKey + ", " + _accountChildSponsorKeys + ")");
+loadSponsorRecordsByKeys = async(_accountKey, _accountSponsorKeys) => {
+    logFunctionHeader("loadSponsorRecordsByKeys(" + _accountKey + ", " + _accountSponsorKeys + ")");
     let accountSponsorObjects = [];
-    for (let [sponsorAccountKey, idx] of Object.entries(_accountChildSponsorKeys)) {
+    for (let [sponsorAccountKey, idx] of Object.entries(_accountSponsorKeys)) {
         logDetail("JS => Loading Sponsor Record " + sponsorAccountKey, idx);
         let sponsorStruct = await loadSponsorRecordByKeys(_accountKey, sponsorAccountKey);
         sponsorStruct.index = idx;

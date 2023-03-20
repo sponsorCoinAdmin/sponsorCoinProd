@@ -49,11 +49,11 @@ addTestNetworkPatreonSponsor = async (_accountIdx, _sponsorIdx) => {
   await addPatreonSponsor(accountKey, sponsorKey);
 };
 
-addTestNetworkPatreonSponsors = async (_accountIdx, _accountChildSponsorKeysIdx) => {
-  logFunctionHeader("addTestNetworkPatreonSponsors = async (" + _accountIdx + ", " + _accountChildSponsorKeysIdx + ")");
+addTestNetworkPatreonSponsors = async (_accountIdx, _accountSponsorKeysIdx) => {
+  logFunctionHeader("addTestNetworkPatreonSponsors = async (" + _accountIdx + ", " + _accountSponsorKeysIdx + ")");
 
   let accountKey = getTestHHAccountKey(_accountIdx);
-  let accountSponsorObjectKeys = getTestHHAccountArrayKeys(_accountChildSponsorKeysIdx);
+  let accountSponsorObjectKeys = getTestHHAccountArrayKeys(_accountSponsorKeysIdx);
   logDetail("JS => For Account: " + accountKey + " Inserting Sponsor Records:");
   logDetail(accountSponsorObjectKeys);
   await addPatreonSponsors(accountKey, accountSponsorObjectKeys);

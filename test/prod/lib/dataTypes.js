@@ -5,7 +5,7 @@ class AccountStruct {
     this.balanceOf;
     this.insertionTime;
     this.verified;
-    this.accountChildSponsorKeys;
+    this.accountSponsorKeys;
     this.accountSponsorObjects;
     this.accountChildAgentKeys;
     this.accountParentPatreonKeys;

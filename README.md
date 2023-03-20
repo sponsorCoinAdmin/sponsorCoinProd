@@ -70,12 +70,12 @@ Requirements to Delete Sponsor from Patreon: (Delete Patreon sponsorship)
 2. Require Sponsor to have no Parent Patrion balanceOf Token affiliation.
 3. Require Sponsor to have no Child Agent affiliation
 4. Remove associated child agents from Sponsor.accountChildAgentKeys
-5. Remove from Account ParentKeys, account.accountChildSponsorKeys
+5. Remove from Account ParentKeys, account.accountSponsorKeys
 6. Remove from Account.sponsorMap, 
 7. Optional, If Sponsor account balanceOf is zero (0), Sponsor account may be deleted.
 
 Requirements to Delete Account
-1. Require Account to have No Sponsors, account.accountChildSponsorKeys must be zero (0).
+1. Require Account to have No Sponsors, account.accountSponsorKeys must be zero (0).
 2. Require Account to have No Agents, account.accountChildAgentKeys must be zero (0).
 3. Optional, Require Account to have No Patreons account.accountParentPatreonKeys must be zero (0).
 4. Optional, Require Account to have No account.accountParentSponsorKeys must be zero (0).

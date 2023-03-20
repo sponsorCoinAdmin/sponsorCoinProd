@@ -137,16 +137,16 @@ contract Accounts is StructSerialization {
     
     /// @notice given a patreon key get the size of the child sponsor account keys.
     /// @param _patreonKey public account key to get Sponsor Record Length
-    function getChildSponsorSize(address _patreonKey) public view onlyOwnerOrRootAdmin(_patreonKey) returns (uint) {
-        return getChildSponsorKeys(_patreonKey).length;
+    function getSponsorSize(address _patreonKey) public view onlyOwnerOrRootAdmin(_patreonKey) returns (uint) {
+        return getSponsorKeys(_patreonKey).length;
     }
 
     /// @notice retreives the sponsors of a specific address.
     /// @param _patreonKey public account key to set new balance
-    function getChildSponsorKeys(address _patreonKey) internal onlyOwnerOrRootAdmin(_patreonKey) view returns (address[] memory) {
+    function getSponsorKeys(address _patreonKey) internal onlyOwnerOrRootAdmin(_patreonKey) view returns (address[] memory) {
         AccountStruct storage account = accountMap[_patreonKey];
-        address[] storage accountChildSponsorKeys = account.accountChildSponsorKeys;
-        return accountChildSponsorKeys;
+        address[] storage accountSponsorKeys = account.accountSponsorKeys;
+        return accountSponsorKeys;
     }
 
      /////////////////// DELETE ACCOUNT METHODS ////////////////////////
@@ -213,7 +213,7 @@ contract Accounts is StructSerialization {
     }
 
     modifier childSponsorDoesNotExist(address _accountKey) {
-        require (getChildSponsorSize(_accountKey) == 0, "Patreon Account has a Sponsor, (Patreon must Un-sponsor Sponsored Account)");
+        require (getSponsorSize(_accountKey) == 0, "Patreon Account has a Sponsor, (Patreon must Un-sponsor Sponsored Account)");
         _;
     }
     

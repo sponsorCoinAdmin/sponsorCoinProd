@@ -20,11 +20,11 @@ contract Sponsors is Accounts {
         AccountStruct storage sponsorAccountRec = accountMap[_sponsorKey];
         SponsorStruct storage patreonSponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
         if (!patreonSponsorRec.inserted) {
-            patreonSponsorRec.index = patreonAccountRec.accountChildSponsorKeys.length;
+            patreonSponsorRec.index = patreonAccountRec.accountSponsorKeys.length;
             patreonSponsorRec.insertionTime = block.timestamp;
             patreonSponsorRec.sponsorAccountKey = _sponsorKey;
             patreonSponsorRec.inserted = true;
-            patreonAccountRec.accountChildSponsorKeys.push(_sponsorKey);
+            patreonAccountRec.accountSponsorKeys.push(_sponsorKey);
             sponsorAccountRec.accountParentPatreonKeys.push(_patreonKey);
         }
     }
@@ -70,7 +70,7 @@ contract Sponsors is Accounts {
     /// @param _sponsorIdx new sponsor to add to account list
     function getPatreonSponsorKeyByIndex(address _patreonKey, uint _sponsorIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         AccountStruct storage accountRec = accountMap[_patreonKey];
-        address sponsor = accountRec.accountChildSponsorKeys[_sponsorIdx];
+        address sponsor = accountRec.accountSponsorKeys[_sponsorIdx];
         return sponsor;
     }
 
@@ -85,7 +85,7 @@ contract Sponsors is Accounts {
     /// @notice get address for an account sponsor
     /// @param _sponsorKey public account key to get agent array
     /// @param _agentIdx new agent to add to account list
-    function getSponsorAgentKeyAddress(address _patreonKey, address _sponsorKey, uint _agentIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
+    function getSponsorAgentKey(address _patreonKey, address _sponsorKey, uint _agentIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         address[] memory agentKeys = getChildAgentKeys(_patreonKey, _sponsorKey);
         address agentAddress = agentKeys[_agentIdx];
         return agentAddress;
