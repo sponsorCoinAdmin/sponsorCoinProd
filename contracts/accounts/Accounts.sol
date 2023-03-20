@@ -152,20 +152,19 @@ contract Accounts is StructSerialization {
      /////////////////// DELETE ACCOUNT METHODS ////////////////////////
    
     function deleteAccount(address _accountKey) public
-    {
+        accountExists(_accountKey) 
+        onlyOwnerOrRootAdmin(_accountKey)
+        parentPatreonDoesNotExist(_accountKey)
+        parentSponsorDoesNotExist(_accountKey)
+//      childAgentDoesNotExist(_accountKey)
+        childSponsorDoesNotExist(_accountKey) {
         if (deleteAccountFromSearchKeys( _accountKey,  accountIndex)) {
             delete accountMap[_accountKey];
         } 
     }
 
     function deleteAccountFromSearchKeys(address _accountKey, 
-        address[] storage _accountIndex) internal
-        accountExists(_accountKey) 
-        onlyOwnerOrRootAdmin(_accountKey)
-        parentPatreonDoesNotExist(_accountKey)
-        parentSponsorDoesNotExist(_accountKey)
-//      childAgentDoesNotExist(_accountKey)
-        childSponsorDoesNotExist(_accountKey) returns (bool) {
+        address[] storage _accountIndex) internal returns (bool) {
       // console.log("deleteAccountFromSearchKeys(", _accountKey);
         bool deleted = false;
         uint i = getAccountArrayIndex (_accountKey, _accountIndex);

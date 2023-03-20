@@ -167,7 +167,7 @@ addPatreonSponsors = async (_accountKey, _accountChildSponsorKeys) => {
 deletePatreonSponsor = async (_patreonKey, _sponsorKey) => {
   logFunctionHeader("deletePatreonSponsor(" + _patreonKey + ", " + _sponsorKey + ")");
   log("deletePatreonSponsor(" + _patreonKey + ", " + _sponsorKey + ")");
-  spCoinContractDeployed.deletePatreonSponsor(_patreonKey, _sponsorKey);
+  await spCoinContractDeployed.deletePatreonSponsor(_patreonKey, _sponsorKey);
 }
 
 getChildAgentKeys = async (_accountKey, _sponsorAccountKey) => {
