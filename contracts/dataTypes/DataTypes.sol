@@ -65,12 +65,12 @@ contract DataTypes is KYC {
         bool inserted;
         bool verified;
         // string[] SponsorKeys; // Key = PatreonAddress,SponsorIndex
-        // string[] childAgentKeys;   // Key = PatreonAddress,SponsorIndex,AgentIndex
+        // string[] AgentKeys;   // Key = PatreonAddress,SponsorIndex,AgentIndex
         // string[] parentPatreonKeys; // If Sponsor? List of Patreon Accounts
         // string[] parentSponsorKeys; // If Agent? List of Patreon Sponsor Accounts
    
         address[] accountSponsorKeys;  // If Patreon List of Sponsored Accounts
-        address[] accountChildAgentKeys;    // If Sponsor? List of Agent Accounts
+        address[] accountAgentKeys;    // If Sponsor? List of Agent Accounts
         address[] accountParentPatreonKeys; // If Sponsor? List of Patreon Accounts
         address[] accountParentSponsorKeys; // If Agent? List of Patreon Sponsor Accounts
         mapping(address => SponsorStruct) sponsorMap; 
@@ -84,7 +84,7 @@ contract DataTypes is KYC {
         uint256 insertionTime;
         bool inserted;
         bool verified;
-        address[] accountChildAgentKeys;
+        address[] accountAgentKeys;
         mapping(address => AgentStruct) agentMap;
         RateStruct[] rates;
         mapping(uint256 => RateStruct) rateMap;

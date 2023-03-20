@@ -78,31 +78,31 @@ contract Sponsors is Accounts {
 
     function getAgentRecordByKeys(address _patreonKey, address _sponsorKey, address _agentKey) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (AgentStruct storage) {
         SponsorStruct storage sponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
-        AgentStruct storage sponsorChildAgentRec = sponsorRec.agentMap[_agentKey];
-        return sponsorChildAgentRec;
+        AgentStruct storage sponsorAgentRec = sponsorRec.agentMap[_agentKey];
+        return sponsorAgentRec;
      }
 
     /// @notice get address for an account sponsor
     /// @param _sponsorKey public account key to get agent array
     /// @param _agentIdx new agent to add to account list
     function getSponsorAgentKey(address _patreonKey, address _sponsorKey, uint _agentIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
-        address[] memory agentKeys = getChildAgentKeys(_patreonKey, _sponsorKey);
+        address[] memory agentKeys = getAgentKeys(_patreonKey, _sponsorKey);
         address agentAddress = agentKeys[_agentIdx];
         return agentAddress;
     }
 
     /// @notice retreives the sponsor array record size a specific address.
     /// @param _sponsorKey public account key to get Sponsor Record Length
-    function getChildAgentSize(address _patreonKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
-        return getChildAgentKeys(_patreonKey, _sponsorKey).length;
+    function getAgentSize(address _patreonKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
+        return getAgentKeys(_patreonKey, _sponsorKey).length;
     }
 
     /// @notice retreives the sponsor array records from a specific account address.
     /// @param _sponsorKey public account key to get Sponsors
-    function getChildAgentKeys(address _patreonKey, address _sponsorKey) internal view onlyOwnerOrRootAdmin(_sponsorKey) returns (address[] memory) {
+    function getAgentKeys(address _patreonKey, address _sponsorKey) internal view onlyOwnerOrRootAdmin(_sponsorKey) returns (address[] memory) {
         SponsorStruct storage sponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
-        address[] memory accountChildAgentKeys = sponsorRec.accountChildAgentKeys;
-        return accountChildAgentKeys;
+        address[] memory accountAgentKeys = sponsorRec.accountAgentKeys;
+        return accountAgentKeys;
     }
 
     /*

@@ -9,7 +9,7 @@ const {
   deletePatreonSponsor,
   getAccountKeys,
   getPatreonSponsorKeys,
-  getChildAgentKeys,
+  getAgentKeys,
 } = require("../prod/lib/scAccountMethods");
 
 
@@ -65,9 +65,9 @@ addTestNetworkSponsorAgents = async ( _accountIdx, _sponsorIdx, _agentArrayIdx )
   logFunctionHeader("async (" + _accountIdx  + "," + _sponsorIdx + "," + _agentArrayIdx+ ")");
   let accountKey = getTestHHAccountKey(_accountIdx);
   let sponsorAccountKey = getTestHHAccountKey(_sponsorIdx);
-  let accountChildAgentKeys = getTestHHAccountArrayKeys(_agentArrayIdx);
+  let accountAgentKeys = getTestHHAccountArrayKeys(_agentArrayIdx);
 
-  await addSponsorAgents(accountKey, sponsorAccountKey, accountChildAgentKeys);
+  await addSponsorAgents(accountKey, sponsorAccountKey, accountAgentKeys);
   return sponsorAccountKey;
 };
 

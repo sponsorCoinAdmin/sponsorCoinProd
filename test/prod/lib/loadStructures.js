@@ -34,7 +34,7 @@ loadAccountStructure = async (idx) => {
     accountStruct.accountSponsorObjects = await loadSponsorRecordsByKeys(accountKey, accountSponsorKeys);
 
     accountStruct.accountParentPatreonKeys = await getAccountPatreonKeys(accountKey);
-    accountStruct.accountChildAgentKeys = await getAccountAgentKeys(accountKey);
+    accountStruct.accountAgentKeys = await getAccountAgentKeys(accountKey);
     accountStruct.accountParentSponsorKeys = await getAccountAgentSponsorKeys(accountKey);
     return accountStruct;
 }
@@ -76,27 +76,27 @@ loadSponsorRecordsByKeys = async(_accountKey, _accountSponsorKeys) => {
 
 loadSponsorRecordByKeys = async(_accountKey, _sponsorAccountKey) => {
     logFunctionHeader("loadSponsorRecordByKeys(" + _accountKey + ", " + _sponsorAccountKey + ")");
-    let accountChildAgentKeys = await getChildAgentKeys(_accountKey, _sponsorAccountKey);
+    let accountAgentKeys = await getAgentKeys(_accountKey, _sponsorAccountKey);
     let sponsorStruct = new SponsorStruct(_sponsorAccountKey);
     sponsorStruct.sponsorAccountKey = _sponsorAccountKey;
-    sponsorStruct.accountChildAgentKeys = accountChildAgentKeys;
-    sponsorStruct.agentObjectArray = await loadAgentRecordsByKeys(_accountKey, _sponsorAccountKey, accountChildAgentKeys);
+    sponsorStruct.accountAgentKeys = accountAgentKeys;
+    sponsorStruct.agentObjectArray = await loadAgentRecordsByKeys(_accountKey, _sponsorAccountKey, accountAgentKeys);
     return sponsorStruct;
 }
 
 loadAgentsByPatreonSponsor = async(_accountKey, _sponsorAccountKey) => {
     logFunctionHeader("loadAgentsByPatreonSponsor = async(" + _accountKey + ", " + _sponsorAccountKey + ")");
-    let accountChildAgentKeys = await getChildAgentKeys(_accountKey, _sponsorAccountKey);
-    let agentObjectArray = await loadAgentRecordsByKeys(_accountKey, _sponsorAccountKey, accountChildAgentKeys);
+    let accountAgentKeys = await getAgentKeys(_accountKey, _sponsorAccountKey);
+    let agentObjectArray = await loadAgentRecordsByKeys(_accountKey, _sponsorAccountKey, accountAgentKeys);
     return agentObjectArray;
 }
 
 //////////////////// LOAD AGENT DATA //////////////////////
 
-loadAgentRecordsByKeys = async(_accountKey, _sponsorAccountKey, _accountChildAgentKeys) => {
-    logFunctionHeader("loadAgentRecordsByKeys(" + _accountKey + ", " + _sponsorAccountKey + ", " + _accountChildAgentKeys + ")");
+loadAgentRecordsByKeys = async(_accountKey, _sponsorAccountKey, _accountAgentKeys) => {
+    logFunctionHeader("loadAgentRecordsByKeys(" + _accountKey + ", " + _sponsorAccountKey + ", " + _accountAgentKeys + ")");
     let agentObjectArray = [];
-    for (let [agentAccountKey, idx] of Object.entries(_accountChildAgentKeys)) {
+    for (let [agentAccountKey, idx] of Object.entries(_accountAgentKeys)) {
         logDetail("JS => Loading Agent Records " + agentAccountKey, idx);
         let agentStruct = await loadAgentRecordByKeys(_accountKey, _sponsorAccountKey, agentAccountKey);
         agentStruct.index = idx;

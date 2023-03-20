@@ -75,7 +75,7 @@ describe("spCoinContract", function () {
     // await logTestHHAccountRecord(1);
     // await logTestHHAccountRecord(2);
     // START WIP
-    //  sponsorChildAgentKeys = await getAccountAgentKeys(sponsorKey);
+    //  sponsorAgentKeys = await getAccountAgentKeys(sponsorKey);
     // END WIP
 
   //  await logJSONTree();
