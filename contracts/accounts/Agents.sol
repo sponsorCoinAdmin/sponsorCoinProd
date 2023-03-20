@@ -64,7 +64,7 @@ console.log("***Agent.sol:deletePatreonSponsor(", _patreonKey,  _sponsorKey, ")"
         AccountStruct storage patreonAccountRec = accountMap[_patreonKey];
         mapping(address => SponsorStruct) storage sponsorMap = patreonAccountRec.sponsorMap;
 
-        // console.log("deleteAgentsFromChildSponsor(_sponsorKey, sponsorMap)");
+        // console.log("deleteAgentsFromSponsor(_sponsorKey, sponsorMap)");
         mapping(address => AgentStruct) storage agentMap = sponsorMap[_sponsorKey].agentMap;
         address[] storage accountChildAgentKeys = sponsorMap[_sponsorKey].accountChildAgentKeys;
 

@@ -157,7 +157,7 @@ contract Accounts is StructSerialization {
         parentPatreonDoesNotExist(_accountKey)
         parentSponsorDoesNotExist(_accountKey)
 //      childAgentDoesNotExist(_accountKey)
-        childSponsorDoesNotExist(_accountKey) {
+        SponsorDoesNotExist(_accountKey) {
         if (deleteAccountFromSearchKeys( _accountKey,  accountIndex)) {
             delete accountMap[_accountKey];
         } 
@@ -212,7 +212,7 @@ contract Accounts is StructSerialization {
         _;
     }
 
-    modifier childSponsorDoesNotExist(address _accountKey) {
+    modifier SponsorDoesNotExist(address _accountKey) {
         require (getSponsorSize(_accountKey) == 0, "Patreon Account has a Sponsor, (Patreon must Un-sponsor Sponsored Account)");
         _;
     }
