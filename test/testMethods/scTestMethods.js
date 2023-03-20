@@ -53,10 +53,10 @@ addTestNetworkPatreonSponsors = async (_accountIdx, _accountSponsorKeysIdx) => {
   logFunctionHeader("addTestNetworkPatreonSponsors = async (" + _accountIdx + ", " + _accountSponsorKeysIdx + ")");
 
   let accountKey = getTestHHAccountKey(_accountIdx);
-  let accountSponsorObjectKeys = getTestHHAccountArrayKeys(_accountSponsorKeysIdx);
+  let accountSponsorRecordKeys = getTestHHAccountArrayKeys(_accountSponsorKeysIdx);
   logDetail("JS => For Account: " + accountKey + " Inserting Sponsor Records:");
-  logDetail(accountSponsorObjectKeys);
-  await addPatreonSponsors(accountKey, accountSponsorObjectKeys);
+  logDetail(accountSponsorRecordKeys);
+  await addPatreonSponsors(accountKey, accountSponsorRecordKeys);
 };
 
 //////////////////////////// TEST AGENT METHODS ////////////////////////////

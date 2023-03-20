@@ -40,7 +40,7 @@ deleteAccounts = async (_accountArrayKeys) => {
   logDetail("JS => Inserted " + maxSize + " Accounts to Blockchain Network");
 };
 
-/////////////////////// SPONSOR OBJECT FUNCTIONS ///////////////////////
+/////////////////////// SPONSOR RECORD FUNCTIONS ///////////////////////
 
 deleteAccountSponsor = async (_accountKey, _sponsorKey) => {
   // ToDo: do Solidity Code and Testing
@@ -56,7 +56,7 @@ deleteAccountSponsor = async (_accountKey, _sponsorKey) => {
   await spCoinContractDeployed.deleteAccountSponsor(_accountKey, _sponsorKey);
 };
 
-/////////////////////// AGENT OBJECT FUNCTIONS ////////////////////////
+/////////////////////// AGENT RECORD FUNCTIONS ////////////////////////
 
 deleteSponsorAgent = async (_accountKey, _sponsorAccountKey, _accountAgentKey) => {
   // ToDo: do Solidity Code and Testing

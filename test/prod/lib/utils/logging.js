@@ -117,7 +117,7 @@ logJSONTree = async() => {
 }
 
 logJSON = (_obj) => {
-    console.log("JSON OBJECT DUMP");
+    console.log("JSON RECORD DUMP");
     console.log(JSON.stringify(_obj, null, 2));
 }
 

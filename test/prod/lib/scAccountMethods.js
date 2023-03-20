@@ -36,7 +36,7 @@ getAccountKeys = async () => {
   return insertedArrayAccounts;
 };
 
-////////////////////////// ACCOUNT OBJECT FUNCTIONS //////////////////////////
+////////////////////////// ACCOUNT RECORD FUNCTIONS //////////////////////////
 
 addAccountRecords = async (_accountArrayKeys) => {
   logFunctionHeader("addAccountRecord = async(arrayAccounts)");
@@ -131,7 +131,7 @@ getAccountAgentKeys = async (_accountKey) => {
   return accountAgentKeys;
 };
 
-/////////////////////// SPONSOR OBJECT FUNCTIONS ///////////////////////
+/////////////////////// SPONSOR RECORD FUNCTIONS ///////////////////////
 
 addPatreonSponsor = async (_accountKey, _sponsorKey) => {
   logFunctionHeader(
@@ -192,7 +192,7 @@ getAgentSize = async (_accountKey, _sponsorAccountKey) => {
   return agentSize;
 };
 
-/////////////////////// AGENT OBJECT FUNCTIONS ////////////////////////
+/////////////////////// AGENT RECORD FUNCTIONS ////////////////////////
 
 addSponsorAgent = async (_accountKey, _sponsorAccountKey, _accountAgentKey) => {
   logFunctionHeader(

@@ -234,11 +234,11 @@ describe("spCoinContract", function () {
     let sponsorSize = (await getSponsorSize(accountKey)).toNumber();
     expect(sponsorSize).to.equal(6);
 
-    let accountSponsorObjects = await getPatreonSponsorKeys(accountKey);
+    let accountSponsorRecords = await getPatreonSponsorKeys(accountKey);
 
-    logJSON(accountSponsorObjects);
-    let accountSponsorObjectsLength = Object.keys(accountSponsorObjects).length;
-    expect(accountSponsorObjectsLength).to.equal(6);
+    logJSON(accountSponsorRecords);
+    let accountSponsorRecordsLength = Object.keys(accountSponsorRecords).length;
+    expect(accountSponsorRecordsLength).to.equal(6);
 
     getPatreonSponsorKeys();
   });
