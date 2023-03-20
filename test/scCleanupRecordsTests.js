@@ -66,12 +66,14 @@ describe("spCoinContract", function () {
     expect(accountSize).to.equal(3);
     await logJSONTree();
 
-    // await deleteTestPatreonSponsor(0, 1);
+    await deleteTestPatreonSponsor(0, 1);
     // await deleteTestPatreonSponsor(0, 3);
     log("*************************** AFTER Un-Sponsor ***************************");
 
-    logTestHHAccountRecord(0);
-    logTestHHAccountRecord(1);
+    await logJSONTree();
+    // await logTestHHAccountRecord(0);
+    // await logTestHHAccountRecord(1);
+    // await logTestHHAccountRecord(2);
     // START WIP
     //  sponsorChildAgentKeys = await getAccountAgentKeys(sponsorKey);
     // END WIP

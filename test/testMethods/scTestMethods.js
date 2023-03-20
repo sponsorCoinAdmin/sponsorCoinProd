@@ -120,7 +120,7 @@ deleteTestPatreonSponsor = async (_patreonIdx, _sponsorIdx) => {
   logFunctionHeader("deleteTestPatreonSponsor(" + _patreonIdx + ", " + _sponsorIdx + ")");
   let patreonKey = getTestHHAccountKey(_patreonIdx);
   let sponsorKey = getTestHHAccountKey(_sponsorIdx);
-  deletePatreonSponsor(patreonKey, sponsorKey);
+  await deletePatreonSponsor(patreonKey, sponsorKey);
 }
 
 deleteTestNetworkPatreonSponsors = async (_testHHAccountIdx) => {
