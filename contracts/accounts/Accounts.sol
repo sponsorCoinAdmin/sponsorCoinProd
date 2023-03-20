@@ -167,7 +167,7 @@ contract Accounts is StructSerialization {
         address[] storage _accountIndex) internal returns (bool) {
       // console.log("deleteAccountFromSearchKeys(", _accountKey);
         bool deleted = false;
-        uint i = getAccountArrayIndex (_accountKey, _accountIndex);
+        uint i = getAccountListIndex (_accountKey, _accountIndex);
         for (i; i<_accountIndex.length; i++) { 
             if (_accountIndex[i] == _accountKey) {
                 // console.log("==== Found _accountIndex[", i, "] ", _accountIndex[i]);
@@ -184,7 +184,7 @@ contract Accounts is StructSerialization {
         return deleted;
     }
 
-    function getAccountArrayIndex (address _accountKey, 
+    function getAccountListIndex (address _accountKey, 
         address[] storage _accountIndex) internal view
         accountExists(_accountKey) returns (uint) {
         uint i = 0;

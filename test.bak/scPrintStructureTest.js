@@ -224,7 +224,7 @@ describe("spCoinContract", function () {
     let accountKey = testHHAccounts[testAccountKey];
     let testSponsorListKeys = [1, 7, 14, 8, 18, 9];
   
-    await addTestNetworkPatreonSponsors(testAccountKey, testSponsorListKeys);
+    await addTestNetworkPatreonSponsors(testAccountKey, testSponsorListys);
     log("Tree For Account Key: " + accountKey + " With Inserted Sponsors:");
     await logJSONTree();
 

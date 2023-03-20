@@ -90,14 +90,14 @@ describe("spCoinContract", function() {
         await addAccountRecords(testHHAccounts);
 
         logDetail("JS => *** RETRIEVE ALL INSERTED RECORDS FROM THE BLOCKCHAIN ***")
-        let insertedAccountList = await getAccountKeys();
+        let insertedListAccounts = await getAccountKeys();
         let testRecCount = testHHAccounts.length;
-        let insertedRecCount = insertedAccountList.length;
+        let insertedRecCount = insertedListAccounts.length;
         expect(testRecCount).to.equal(insertedRecCount);
 
         for(idx = 0; idx < insertedRecCount; idx++) {
-            expect(testHHAccounts[idx]).to.equal(insertedAccountList[idx]);
-            let accountKey = insertedAccountList[idx];
+            expect(testHHAccounts[idx]).to.equal(insertedListAccounts[idx]);
+            let accountKey = insertedListAccounts[idx];
             logDetail("JS => Address Retrieved from Block Chain at Index " + idx + "  = "+ accountKey );
         }
     });

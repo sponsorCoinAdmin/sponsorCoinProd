@@ -57,16 +57,16 @@ function gitAddressThis() external view returns(address){
 // calcSponsorStakingRewards(accountSponsor)
 //    1. Set sponsorRewards = calculateAccountSteakingReward(accountSponsor.balanceOf, accountSponsor.rewardsRate, accountSponsor.lastUpdateDate)
 //    2. Update balance= accountBalance + stakingRewards
-//    3. agentAccountArray = accountSponsor.
-//    4. Set agentRewards = calcAllAgentsStakingRewards(agentAccountArray)
+//    3. agentAccountList = accountSponsor.
+//    4. Set agentRewards = calcAllAgentsStakingRewards(agentAccountList)
 //    5. Decrement sponsorRewards -= agentRewards
 //    6. addAccountRecordsToUpdateStakingRewards(accountSponsor, sponsorRewards)
 //    7. return sponsorRewards
 
 // ### CALCULATE STAKING REWARDS FOR ALL AGENTS ###
-// calcAllAgentsStakingRewards(agentAccountArray)
+// calcAllAgentsStakingRewards(agentAccountList)
 //    1. Set totalAgentsRewards = 0
-//    3. For each agentAccount in agentAccountArray calculate the Staking Rewards as:
+//    3. For each agentAccount in agentAccountList calculate the Staking Rewards as:
 //    4.    Increment totalAgentsRewards += calculateAccountSteakingReward(agentAccount)
 //    5. addAccountRecordsToUpdateStakingRewards(accountSponsor, sponsorRewards)
 //    6. return totalAgentsRewards
@@ -75,12 +75,12 @@ function gitAddressThis() external view returns(address){
 
 // ### CALCULATE INDIVIDUAL SPONSOR STAKING REWARDS FOR ACCOUNT ###
 // calcSponsorStakingRewards(accountSponsor, rewardsMultiplier)
-//    1. Get a list of the agents accounts (agentAccountArray)
+//    1. Get a list of the agents accounts (agentAccountList)
 //    2. Get the current currBalance with balanceOf() ERC20 function;
 //    3. Get the lastUpdate for the sponsors Account
 //    4. Update Balances of all accounts updateBalances()
 
-//    3. For each agentAccount in agentAccountArray calculate the Staking Rewards as:
+//    3. For each agentAccount in agentAccountList calculate the Staking Rewards as:
 //       accountStakingReward = calcAgentStakingRewards(agentAccount)
 
 //    3. Add new elementto Array accountsToBeUpdated(account, "Sponsor", StakingRewards, currBalance, newBalance)

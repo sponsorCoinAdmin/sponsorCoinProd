@@ -9,7 +9,7 @@ const {
   deleteTestPatreonSponsor,
   deleteTestNetworkAccount,
   deletePatreonSponsors,
-  getTestHHAccountArrayKeys,
+  getTestHHAccountListKeys,
   getTestHHAccountKey,
 } = require("./testMethods/scTestMethods");
 

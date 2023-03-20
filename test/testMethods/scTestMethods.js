@@ -32,7 +32,7 @@ addTestNetworkAccount = async (_accountIdx) => {
 
 addTestNetworkAccounts = async (accountIndexes) => {
   logFunctionHeader("addTestNetworkAccounts = async (" + accountIndexes + ")");
-  let accountKeys = getTestHHAccountArrayKeys(accountIndexes);
+  let accountKeys = getTestHHAccountListKeys(accountIndexes);
   logDetail("JS => For Adding Account Records: " + accountKeys );
   await addAccountRecords(accountKeys);
 };
@@ -53,7 +53,7 @@ addTestNetworkPatreonSponsors = async (_accountIdx, _accountSponsorKeysIdx) => {
   logFunctionHeader("addTestNetworkPatreonSponsors = async (" + _accountIdx + ", " + _accountSponsorKeysIdx + ")");
 
   let accountKey = getTestHHAccountKey(_accountIdx);
-  let accountSponsorRecordKeys = getTestHHAccountArrayKeys(_accountSponsorKeysIdx);
+  let accountSponsorRecordKeys = getTestHHAccountListKeys(_accountSponsorKeysIdx);
   logDetail("JS => For Account: " + accountKey + " Inserting Sponsor Records:");
   logDetail(accountSponsorRecordKeys);
   await addPatreonSponsors(accountKey, accountSponsorRecordKeys);
@@ -65,7 +65,7 @@ addTestNetworkSponsorAgents = async ( _accountIdx, _sponsorIdx, _agentArrayIdx )
   logFunctionHeader("async (" + _accountIdx  + "," + _sponsorIdx + "," + _agentArrayIdx+ ")");
   let accountKey = getTestHHAccountKey(_accountIdx);
   let sponsorAccountKey = getTestHHAccountKey(_sponsorIdx);
-  let accountAgentKeys = getTestHHAccountArrayKeys(_agentArrayIdx);
+  let accountAgentKeys = getTestHHAccountListKeys(_agentArrayIdx);
 
   await addSponsorAgents(accountKey, sponsorAccountKey, accountAgentKeys);
   return sponsorAccountKey;
@@ -78,8 +78,8 @@ addTestNetworkAccount = async (_testHHAccountIdx) => {
   return accountKey;
 };
 
-getTestHHAccountArrayKeys = (testAccountIdxArr) => {
-  logFunctionHeader("getTestHHAccountArrayKeys (" + testAccountIdxArr + ")");
+getTestHHAccountListKeys = (testAccountIdxArr) => {
+  logFunctionHeader("getTestHHAccountListKeys (" + testAccountIdxArr + ")");
   let accountIdxArrayKeys = [];
   for (let i = 0; i < testAccountIdxArr.length; i++) {
     accountIdxArrayKeys.push(getTestHHAccountKey(testAccountIdxArr[i]));
@@ -110,7 +110,7 @@ deleteTestNetworkAccount = async (_testHHAccountIdx) => {
 
 deleteTestNetworkAccounts = async (_testHHAccountArr) => {
   logFunctionHeader("async (" + _testHHAccountArr+ ")");
-  accountArrayKeys = getTestHHAccountArrayKeys(_testHHAccountArr);
+  accountArrayKeys = getTestHHAccountListKeys(_testHHAccountArr);
   await deleteAccounts(accountArrayKeys);
 };
 
@@ -138,7 +138,7 @@ deleteTestNetworkSponsorAgents = async (_testHHAccountIdx) => {
 };
 
 module.exports = {
-  getTestHHAccountArrayKeys,
+  getTestHHAccountListKeys,
   addTestNetworkAccount,
   addTestNetworkAccounts,
   addTestNetworkPatreonSponsor,

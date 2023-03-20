@@ -27,13 +27,13 @@ getAccountKeys = async () => {
   logFunctionHeader("getAccountKeys = async()");
   let maxSize = await spCoinContractDeployed.getAccountSize();
 
-  var insertedArrayAccounts = [];
+  var insertedAccountList = [];
   for (idx = 0; idx < maxSize; idx++) {
     let accountKey = await spCoinContractDeployed.getAccountKey(idx);
     logDetail("JS => Address at Index " + idx + "  = " + accountKey);
-    insertedArrayAccounts.push(accountKey);
+    insertedAccountList.push(accountKey);
   }
-  return insertedArrayAccounts;
+  return insertedAccountList;
 };
 
 ////////////////////////// ACCOUNT RECORD FUNCTIONS //////////////////////////
