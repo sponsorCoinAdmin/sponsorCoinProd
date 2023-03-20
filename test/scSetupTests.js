@@ -4,7 +4,7 @@ const { testHHAccounts } = require("./testMethods/hhTestAccounts");
 const { addTestNetworkPatreonSponsors,
     addTestNetworkSponsorAgents,
     addTestNetworkAccount,
-    getTestHHAccountArrayKeys
+    getTestHHAccountListKeys
   } = require("../test/testMethods/scTestMethods");
 
 const {    
@@ -70,7 +70,7 @@ describe("spCoinContract", function() {
     it("Account Insertion Validation", async function () {
         logTestHeader("TEST ACCOUNT INSERTION");
         let accountKey = testHHAccounts[0];
-        let recCount = await spCoinContractDeployed.getAccountSize();
+        let recCount = await spCoinContractDeployed.getAccountListSize();
         expect(recCount.toNumber()).to.equal(0);
         logDetail("JS => ** Before Inserted Record Count = " + recCount);
         let isAccountInserted = await spCoinContractDeployed.isAccountInserted(accountKey);
@@ -78,7 +78,7 @@ describe("spCoinContract", function() {
         await spCoinContractDeployed.addAccountRecord(accountKey);
         isAccountInserted = await spCoinContractDeployed.isAccountInserted(accountKey);
         logDetail("JS => Address "+ accountKey + " After Inserted Record Found = " + isAccountInserted);
-        recCount = (await spCoinContractDeployed.getAccountSize()).toNumber();
+        recCount = (await spCoinContractDeployed.getAccountListSize()).toNumber();
         logDetail("JS => ** After Inserted Record Count = " + await recCount);        
         expect(recCount).to.equal(1);
     });
@@ -90,14 +90,14 @@ describe("spCoinContract", function() {
         await addAccountRecords(testHHAccounts);
 
         logDetail("JS => *** RETRIEVE ALL INSERTED RECORDS FROM THE BLOCKCHAIN ***")
-        let insertedArrayAccounts = await getAccountKeys();
+        let insertedAccountList = await getAccountKeys();
         let testRecCount = testHHAccounts.length;
-        let insertedRecCount = insertedArrayAccounts.length;
+        let insertedRecCount = insertedAccountList.length;
         expect(testRecCount).to.equal(insertedRecCount);
 
         for(idx = 0; idx < insertedRecCount; idx++) {
-            expect(testHHAccounts[idx]).to.equal(insertedArrayAccounts[idx]);
-            let accountKey = insertedArrayAccounts[idx];
+            expect(testHHAccounts[idx]).to.equal(insertedAccountList[idx]);
+            let accountKey = insertedAccountList[idx];
             logDetail("JS => Address Retrieved from Block Chain at Index " + idx + "  = "+ accountKey );
         }
     });
@@ -110,7 +110,7 @@ describe("spCoinContract", function() {
         let startRec = 4;
         let endRec = 15;
         await addTestNetworkSponsorAgents(3, 6, [1, 2]);
-        let insertCount = (await spCoinContractDeployed.getAccountSize()).toNumber();
+        let insertCount = (await spCoinContractDeployed.getAccountListSize()).toNumber();
         expect(insertCount).to.equal(4);
     });
     /**/

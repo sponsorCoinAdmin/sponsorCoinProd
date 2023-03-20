@@ -5,10 +5,10 @@ class AccountStruct {
     this.balanceOf;
     this.insertionTime;
     this.verified;
-    this.accountChildSponsorKeys;
-    this.accountSponsorObjects;
-    this.accountChildAgentKeys;
-    this.accountParentPatreonKeys;
+    this.accountSponsorKeys;
+    this.accountSponsorRecords;
+    this.accountAgentKeys;
+    this.accountPatreonKeys;
     this.accountParentSponsorKeys;
     this.KYC;
   }
@@ -22,8 +22,8 @@ class SponsorStruct {
     this.verified;
     this.rates;
     this.verified;
-    this.accountChildAgentKeys;
-    this.agentObjectArray;
+    this.accountAgentKeys;
+    this.agentRecordList;
   }
 }
 

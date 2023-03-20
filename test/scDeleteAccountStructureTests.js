@@ -4,7 +4,7 @@ const {
   addTestNetworkPatreonSponsors,
   addTestNetworkSponsorAgents,
   addTestNetworkAccount,
-  getTestHHAccountArrayKeys,
+  getTestHHAccountListKeys,
 } = require("./testMethods/scTestMethods");
 const { testHHAccounts } = require("./testMethods/hhTestAccounts");
 
@@ -146,38 +146,38 @@ describe("spCoinContract", function () {
 
     // Test Successful Record Insertion of Account Records 
     // Validate Account Size is zero
-    let accountSize = (await getAccountSize()).toNumber();
-    expect(accountSize).to.equal(0);
+    let accountListSize = (await getAccountListSize()).toNumber();
+    expect(accountListSize).to.equal(0);
 
     // Add 1 Record Validate Size is 1
     await addTestNetworkAccount(0);
-    accountSize = (await getAccountSize()).toNumber();
-    expect(accountSize).to.equal(1);
+    accountListSize = (await getAccountListSize()).toNumber();
+    expect(accountListSize).to.equal(1);
 
     // Add duplicate Record Validate Size is still 1
     await addTestNetworkAccount(0);
-    accountSize = (await getAccountSize()).toNumber();
+    accountListSize = (await getAccountListSize()).toNumber();
 
     // delete Record Validate Size should reduce to 1
     await deleteTestNetworkAccount(0);
-    accountSize = (await getAccountSize()).toNumber();
-    expect(accountSize).to.equal(0);
+    accountListSize = (await getAccountListSize()).toNumber();
+    expect(accountListSize).to.equal(0);
 
     // Add additional Record Validate Size is 2
     await addTestNetworkAccount(0);
     await addTestNetworkAccount(1);
-    accountSize = (await getAccountSize()).toNumber();
-    expect(accountSize).to.equal(2);
+    accountListSize = (await getAccountListSize()).toNumber();
+    expect(accountListSize).to.equal(2);
 
     // Add 5 additional Records Validate Size is now 7
     await addTestNetworkAccounts([4,6,9,10,8]);
-    accountSize = (await getAccountSize()).toNumber();
-    expect(accountSize).to.equal(7);
+    accountListSize = (await getAccountListSize()).toNumber();
+    expect(accountListSize).to.equal(7);
 
     // Add 4 Records Validate Size is now 3
     await deleteTestNetworkAccounts([10,8,4,0]);
-    accountSize = (await getAccountSize()).toNumber();
-    expect(accountSize).to.equal(3);
+    accountListSize = (await getAccountListSize()).toNumber();
+    expect(accountListSize).to.equal(3);
 
     accountArr = await loadSPCoinStructures(spCoinContractDeployed);
     logJSON(accountArr);

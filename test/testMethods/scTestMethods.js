@@ -9,7 +9,7 @@ const {
   deletePatreonSponsor,
   getAccountKeys,
   getPatreonSponsorKeys,
-  getChildAgentKeys,
+  getAgentKeys,
 } = require("../prod/lib/scAccountMethods");
 
 
@@ -32,7 +32,7 @@ addTestNetworkAccount = async (_accountIdx) => {
 
 addTestNetworkAccounts = async (accountIndexes) => {
   logFunctionHeader("addTestNetworkAccounts = async (" + accountIndexes + ")");
-  let accountKeys = getTestHHAccountArrayKeys(accountIndexes);
+  let accountKeys = getTestHHAccountListKeys(accountIndexes);
   logDetail("JS => For Adding Account Records: " + accountKeys );
   await addAccountRecords(accountKeys);
 };
@@ -49,25 +49,25 @@ addTestNetworkPatreonSponsor = async (_accountIdx, _sponsorIdx) => {
   await addPatreonSponsor(accountKey, sponsorKey);
 };
 
-addTestNetworkPatreonSponsors = async (_accountIdx, _accountChildSponsorKeysIdx) => {
-  logFunctionHeader("addTestNetworkPatreonSponsors = async (" + _accountIdx + ", " + _accountChildSponsorKeysIdx + ")");
+addTestNetworkPatreonSponsors = async (_accountIdx, _accountSponsorKeysIdx) => {
+  logFunctionHeader("addTestNetworkPatreonSponsors = async (" + _accountIdx + ", " + _accountSponsorKeysIdx + ")");
 
   let accountKey = getTestHHAccountKey(_accountIdx);
-  let accountSponsorObjectKeys = getTestHHAccountArrayKeys(_accountChildSponsorKeysIdx);
+  let accountSponsorRecordKeys = getTestHHAccountListKeys(_accountSponsorKeysIdx);
   logDetail("JS => For Account: " + accountKey + " Inserting Sponsor Records:");
-  logDetail(accountSponsorObjectKeys);
-  await addPatreonSponsors(accountKey, accountSponsorObjectKeys);
+  logDetail(accountSponsorRecordKeys);
+  await addPatreonSponsors(accountKey, accountSponsorRecordKeys);
 };
 
 //////////////////////////// TEST AGENT METHODS ////////////////////////////
 
-addTestNetworkSponsorAgents = async ( _accountIdx, _sponsorIdx, _agentArrayIdx ) => {
-  logFunctionHeader("async (" + _accountIdx  + "," + _sponsorIdx + "," + _agentArrayIdx+ ")");
+addTestNetworkSponsorAgents = async ( _accountIdx, _sponsorIdx, _agentListIdx ) => {
+  logFunctionHeader("async (" + _accountIdx  + "," + _sponsorIdx + "," + _agentListIdx+ ")");
   let accountKey = getTestHHAccountKey(_accountIdx);
   let sponsorAccountKey = getTestHHAccountKey(_sponsorIdx);
-  let accountChildAgentKeys = getTestHHAccountArrayKeys(_agentArrayIdx);
+  let accountAgentKeys = getTestHHAccountListKeys(_agentListIdx);
 
-  await addSponsorAgents(accountKey, sponsorAccountKey, accountChildAgentKeys);
+  await addSponsorAgents(accountKey, sponsorAccountKey, accountAgentKeys);
   return sponsorAccountKey;
 };
 
@@ -78,13 +78,13 @@ addTestNetworkAccount = async (_testHHAccountIdx) => {
   return accountKey;
 };
 
-getTestHHAccountArrayKeys = (testAccountIdxArr) => {
-  logFunctionHeader("getTestHHAccountArrayKeys (" + testAccountIdxArr + ")");
-  let accountIdxArrayKeys = [];
+getTestHHAccountListKeys = (testAccountIdxArr) => {
+  logFunctionHeader("getTestHHAccountListKeys (" + testAccountIdxArr + ")");
+  let accountIndexKeys = [];
   for (let i = 0; i < testAccountIdxArr.length; i++) {
-    accountIdxArrayKeys.push(getTestHHAccountKey(testAccountIdxArr[i]));
+    accountIndexKeys.push(getTestHHAccountKey(testAccountIdxArr[i]));
   }
-  return accountIdxArrayKeys;
+  return accountIndexKeys;
 };
 
 getTestHHAccountRecord = (testHHAccountIdx) => {
@@ -110,8 +110,8 @@ deleteTestNetworkAccount = async (_testHHAccountIdx) => {
 
 deleteTestNetworkAccounts = async (_testHHAccountArr) => {
   logFunctionHeader("async (" + _testHHAccountArr+ ")");
-  accountArrayKeys = getTestHHAccountArrayKeys(_testHHAccountArr);
-  await deleteAccounts(accountArrayKeys);
+  accountKeys = getTestHHAccountListKeys(_testHHAccountArr);
+  await deleteAccounts(accountKeys);
 };
 
 /////////////////////////// TEST UN-SPONSOR METHODS //////////////////////////
@@ -138,7 +138,7 @@ deleteTestNetworkSponsorAgents = async (_testHHAccountIdx) => {
 };
 
 module.exports = {
-  getTestHHAccountArrayKeys,
+  getTestHHAccountListKeys,
   addTestNetworkAccount,
   addTestNetworkAccounts,
   addTestNetworkPatreonSponsor,

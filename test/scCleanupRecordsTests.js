@@ -9,7 +9,7 @@ const {
   deleteTestPatreonSponsor,
   deleteTestNetworkAccount,
   deletePatreonSponsors,
-  getTestHHAccountArrayKeys,
+  getTestHHAccountListKeys,
   getTestHHAccountKey,
 } = require("./testMethods/scTestMethods");
 
@@ -62,8 +62,8 @@ describe("spCoinContract", function () {
     // Account, Sponsor and/or Agent are Successfully mutually exclusive.
     await addTestNetworkSponsorAgents(0, 1, [2]);
     // await addTestNetworkSponsorAgents(3, 1, [2]);
-    accountSize = (await getAccountSize()).toNumber();
-    expect(accountSize).to.equal(3);
+    accountListSize = (await getAccountListSize()).toNumber();
+    expect(accountListSize).to.equal(3);
     await logJSONTree();
 
     await deleteTestPatreonSponsor(0, 1);
@@ -75,7 +75,7 @@ describe("spCoinContract", function () {
     // await logTestHHAccountRecord(1);
     // await logTestHHAccountRecord(2);
     // START WIP
-    //  sponsorChildAgentKeys = await getAccountAgentKeys(sponsorKey);
+    //  sponsorAgentKeys = await getAccountAgentKeys(sponsorKey);
     // END WIP
 
   //  await logJSONTree();

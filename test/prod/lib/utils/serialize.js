@@ -70,34 +70,34 @@ addAccountField = (key, value, accountStruct) => {
       logDetail("JS => setting accountStruct.KYC = " + value);
       accountStruct.KYC = value;
       break;
-    case "accountChildSponsorKeys":
-      logDetail("JS => setting accountStruct.accountChildSponsorKeys = " + value);
-      accountStruct.accountChildSponsorKeys = value;
+    case "accountSponsorKeys":
+      logDetail("JS => setting accountStruct.accountSponsorKeys = " + value);
+      accountStruct.accountSponsorKeys = value;
       break;
-    case "accountSponsorObjects":
-      logDetail("JS => setting accountStruct.accountSponsorObjects = " + value);
-      accountStruct.accountSponsorObjects = value;
+    case "accountSponsorRecords":
+      logDetail("JS => setting accountStruct.accountSponsorRecords = " + value);
+      accountStruct.accountSponsorRecords = value;
       break;
-    case "accountChildAgentKeys":
-      logDetail("JS => setting accountStruct.accountChildAgentKeys = " + value);
-      accountStruct.accountChildAgentKeys = parseAddressStrArray(value);
+    case "accountAgentKeys":
+      logDetail("JS => setting accountStruct.accountAgentKeys = " + value);
+      accountStruct.accountAgentKeys = parseAddressStrRecord(value);
       break;
-    case "accountParentPatreonKeys":
-      logDetail("JS => setting accountStruct.accountParentPatreonKeys = " + value);
-      accountStruct.accountParentPatreonKeys = parseAddressStrArray(value);
+    case "accountPatreonKeys":
+      logDetail("JS => setting accountStruct.accountPatreonKeys = " + value);
+      accountStruct.accountPatreonKeys = parseAddressStrRecord(value);
       break;
     default:
       break;
   }
 };
 
-parseAddressStrArray = (strArray) => {
-  logFunctionHeader("parseAddressStrArray = " + strArray);
-//  console.log("parseAddressStrArray = " + strArray);
+parseAddressStrRecord = (strRecord) => {
+  logFunctionHeader("parseAddressStrRecord = " + strRecord);
+//  console.log("parseAddressStrRecord = " + strRecord);
 
-  strArray = strArray.substring(0, strArray.length - 1);
-  addressStrArray = strArray.split(",");
-  return addressStrArray;
+  strRecord = strRecord.substring(0, strRecord.length - 1);
+  addressStrRecord = strRecord.split(",");
+  return addressStrRecord;
 };
 
 module.exports = {

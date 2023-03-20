@@ -1,5 +1,5 @@
-dumpArray = (_prefix, _arr) => {
-    logFunctionHeader("dumpArray = async(" + _prefix + ", _arr)");
+dumpList = (_prefix, _arr) => {
+    logFunctionHeader("dumpList = async(" + _prefix + ", _arr)");
     let maxSize = _arr.length;
 //    logDetail("JS => DUMPING " + maxSize + " RECORDS");
     for(idx = 0; idx < maxSize; idx++) {
@@ -9,5 +9,5 @@ dumpArray = (_prefix, _arr) => {
 }
 
 module.exports = {
-    dumpArray
+    dumpList
 }
