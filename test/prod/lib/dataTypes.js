@@ -23,7 +23,7 @@ class SponsorStruct {
     this.rates;
     this.verified;
     this.accountAgentKeys;
-    this.agentRecordArray;
+    this.agentRecordList;
   }
 }
 
