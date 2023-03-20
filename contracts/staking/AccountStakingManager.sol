@@ -8,7 +8,7 @@ contract AccountStakingManager is Transactions{
 
 // ###  ALGORITHMIC ARCHITECTURAL DESIGN FOR STAKING REWARDS ALLOCATION ###
 // allocateStakingRewards()
-// 1. Get the sponsors accounts Array as (accountSponsorRecords)
+// 1. Get the sponsors accounts Record as (accountSponsorRecords)
 // 2. Set totalRewards = calcAllSponsorsStakingRewards(accountSponsorRecords)
 // 3. Update all account balances updateAllSponsorsStakingRewards()
 
@@ -83,7 +83,7 @@ function gitAddressThis() external view returns(address){
 //    3. For each agentAccount in agentAccountList calculate the Staking Rewards as:
 //       accountStakingReward = calcAgentStakingRewards(agentAccount)
 
-//    3. Add new elementto Array accountsToBeUpdated(account, "Sponsor", StakingRewards, currBalance, newBalance)
+//    3. Add new elementto Record accountsToBeUpdated(account, "Sponsor", StakingRewards, currBalance, newBalance)
 //    4. Calculate newBalance as currBalance + stakingRewards 
 //    3. return accountStakingReward;
 

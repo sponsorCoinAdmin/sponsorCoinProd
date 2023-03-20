@@ -27,13 +27,13 @@ deleteAccount = async (_accountKey) => {
     await spCoinContractDeployed.deleteAccount(_accountKey);
 };
 
-deleteAccounts = async (_accountArrayKeys) => {
+deleteAccounts = async (_accountListKeys) => {
   logFunctionHeader("deleteAccounts = async(arrayAccounts)");
-  let maxSize = _accountArrayKeys.length;
+  let maxSize = _accountListKeys.length;
   logDetail("JS => Inserting " + maxSize + " Records to Blockchain Network");
   
   for (idx = 0; idx < maxSize; idx++) {
-    let accountKey = _accountArrayKeys[idx];
+    let accountKey = _accountListKeys[idx];
     logDetail("JS => Deleting " + idx + ", " + accountKey);
     await deleteAccount(accountKey);
   }

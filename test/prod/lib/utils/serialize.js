@@ -80,24 +80,24 @@ addAccountField = (key, value, accountStruct) => {
       break;
     case "accountAgentKeys":
       logDetail("JS => setting accountStruct.accountAgentKeys = " + value);
-      accountStruct.accountAgentKeys = parseAddressStrArray(value);
+      accountStruct.accountAgentKeys = parseAddressStrRecord(value);
       break;
     case "accountPatreonKeys":
       logDetail("JS => setting accountStruct.accountPatreonKeys = " + value);
-      accountStruct.accountPatreonKeys = parseAddressStrArray(value);
+      accountStruct.accountPatreonKeys = parseAddressStrRecord(value);
       break;
     default:
       break;
   }
 };
 
-parseAddressStrArray = (strArray) => {
-  logFunctionHeader("parseAddressStrArray = " + strArray);
-//  console.log("parseAddressStrArray = " + strArray);
+parseAddressStrRecord = (strRecord) => {
+  logFunctionHeader("parseAddressStrRecord = " + strRecord);
+//  console.log("parseAddressStrRecord = " + strRecord);
 
-  strArray = strArray.substring(0, strArray.length - 1);
-  addressStrArray = strArray.split(",");
-  return addressStrArray;
+  strRecord = strRecord.substring(0, strRecord.length - 1);
+  addressStrRecord = strRecord.split(",");
+  return addressStrRecord;
 };
 
 module.exports = {

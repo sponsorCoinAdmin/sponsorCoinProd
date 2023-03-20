@@ -38,13 +38,13 @@ getAccountKeys = async () => {
 
 ////////////////////////// ACCOUNT RECORD FUNCTIONS //////////////////////////
 
-addAccountRecords = async (_accountArrayKeys) => {
+addAccountRecords = async (_accountListKeys) => {
   logFunctionHeader("addAccountRecord = async(arrayAccounts)");
-  let maxSize = _accountArrayKeys.length;
+  let maxSize = _accountListKeys.length;
   logDetail("JS => Inserting " + maxSize + " Records to Blockchain Network");
 
   for (idx = 0; idx < maxSize; idx++) {
-    let account = _accountArrayKeys[idx];
+    let account = _accountListKeys[idx];
     logDetail("JS => Inserting " + idx + ", " + account);
     await spCoinContractDeployed.addAccountRecord(account);
   }
