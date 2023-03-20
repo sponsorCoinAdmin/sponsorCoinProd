@@ -14,7 +14,7 @@ setStructureContract = (_spCoinContractDeployed) => {
 loadSPCoinStructures = async() => {
     logFunctionHeader("loadSPCoinStructures()");
     let accountArr = [];
-    let maxSize = await spCoinContractDeployed.getAccountSize();
+    let maxSize = await spCoinContractDeployed.getAccountListSize();
 
     for(let idx = 0; idx < maxSize; idx++) {
         let accountStruct = await loadAccountStructure(idx);

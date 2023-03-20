@@ -62,8 +62,8 @@ describe("spCoinContract", function () {
     // Account, Sponsor and/or Agent are Successfully mutually exclusive.
     await addTestNetworkSponsorAgents(0, 1, [2]);
     // await addTestNetworkSponsorAgents(3, 1, [2]);
-    accountSize = (await getAccountSize()).toNumber();
-    expect(accountSize).to.equal(3);
+    accountListSize = (await getAccountListSize()).toNumber();
+    expect(accountListSize).to.equal(3);
     await logJSONTree();
 
     await deleteTestPatreonSponsor(0, 1);
