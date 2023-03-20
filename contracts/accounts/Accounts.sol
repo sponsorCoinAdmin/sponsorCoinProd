@@ -143,9 +143,11 @@ contract Accounts is StructSerialization {
 
     /// @notice retreives the sponsors of a specific address.
     /// @param _patreonKey public account key to set new balance
-    function getSponsorKeys(address _patreonKey) internal onlyOwnerOrRootAdmin(_patreonKey) view returns (address[] memory) {
+    function getSponsorKeys(address _patreonKey) public onlyOwnerOrRootAdmin(_patreonKey) view returns (address[] memory) {
+        console.log("*** ACCOUNT.SOL patronKey = ", _patreonKey);
         AccountStruct storage account = accountMap[_patreonKey];
         address[] storage accountSponsorKeys = account.accountSponsorKeys;
+        console.log("*** ACCOUNT.SOL accountSponsorKeys.size = ", accountSponsorKeys.length);
         return accountSponsorKeys;
     }
 

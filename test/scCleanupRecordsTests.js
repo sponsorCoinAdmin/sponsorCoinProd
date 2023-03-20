@@ -45,26 +45,26 @@ const {
 } = require("./prod/deployContract");
 
 const { 
-  TEST_ACCOUNT_0,
-  TEST_ACCOUNT_1,
-  TEST_ACCOUNT_2,
-  TEST_ACCOUNT_3,
-  TEST_ACCOUNT_4,
-  TEST_ACCOUNT_5,
-  TEST_ACCOUNT_6,
-  TEST_ACCOUNT_7,
-  TEST_ACCOUNT_8,
-  TEST_ACCOUNT_9,
-  TEST_ACCOUNT_10,
-  TEST_ACCOUNT_11,
-  TEST_ACCOUNT_12,
-  TEST_ACCOUNT_13,
-  TEST_ACCOUNT_14,
-  TEST_ACCOUNT_15,
-  TEST_ACCOUNT_16,
-  TEST_ACCOUNT_17,
-  TEST_ACCOUNT_18,
-  TEST_ACCOUNT_19,
+  TEST_HH_ACCOUNT_KEY_0,
+  TEST_HH_ACCOUNT_KEY_1,
+  TEST_HH_ACCOUNT_KEY_2,
+  TEST_HH_ACCOUNT_KEY_3,
+  TEST_HH_ACCOUNT_KEY_4,
+  TEST_HH_ACCOUNT_KEY_5,
+  TEST_HH_ACCOUNT_KEY_6,
+  TEST_HH_ACCOUNT_KEY_7,
+  TEST_HH_ACCOUNT_KEY_8,
+  TEST_HH_ACCOUNT_KEY_9,
+  TEST_HH_ACCOUNT_KEY_10,
+  TEST_HH_ACCOUNT_KEY_11,
+  TEST_HH_ACCOUNT_KEY_12,
+  TEST_HH_ACCOUNT_KEY_13,
+  TEST_HH_ACCOUNT_KEY_14,
+  TEST_HH_ACCOUNT_KEY_15,
+  TEST_HH_ACCOUNT_KEY_16,
+  TEST_HH_ACCOUNT_KEY_17,
+  TEST_HH_ACCOUNT_KEY_18,
+  TEST_HH_ACCOUNT_KEY_19,
  } = require("./testMethods/hhTestAccounts");
 
 let spCoinContractDeployed;
@@ -87,15 +87,17 @@ describe("spCoinContract", function () {
     // await addTestNetworkSponsorAgents(3, 1, [2]);
     accountListSize = (await getAccountListSize()).toNumber();
     expect(accountListSize).to.equal(3);
-    await logJSONTree();
+//    await logJSONTree();
 
-    let sponsorRecord = await loadSponsorRecordByKeys(TEST_ACCOUNT_0, TEST_ACCOUNT_1);
-
+    let sponsorRecord = await loadSponsorRecordByKeys(TEST_HH_ACCOUNT_KEY_0, TEST_HH_ACCOUNT_KEY_1);
+    logJSON(sponsorRecord);
     await deleteTestPatreonSponsor(0, 1);
     // await deleteTestPatreonSponsor(0, 3);
     log("*************************** AFTER Un-Sponsor ***************************");
+    sponsorRecord = await loadSponsorRecordByKeys(TEST_HH_ACCOUNT_KEY_0, TEST_HH_ACCOUNT_KEY_1);
+    logJSON(sponsorRecord);
 
-    await logJSONTree();
+//    await logJSONTree();
     // await logTestHHAccountRecord(0);
     // await logTestHHAccountRecord(1);
     // await logTestHHAccountRecord(2);
