@@ -13,7 +13,7 @@ const {
   getTestHHAccountKey,
 } = require("./testMethods/scTestMethods");
 
-const { testHHAccounts } = require("./testMethods/hhTestAccounts");
+const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
 
 const { setCreateContract } = require("./prod/lib/scAccountMethods");
 
@@ -44,6 +44,29 @@ const {
   loadSpCoinContract 
 } = require("./prod/deployContract");
 
+const { 
+  TEST_ACCOUNT_0,
+  TEST_ACCOUNT_1,
+  TEST_ACCOUNT_2,
+  TEST_ACCOUNT_3,
+  TEST_ACCOUNT_4,
+  TEST_ACCOUNT_5,
+  TEST_ACCOUNT_6,
+  TEST_ACCOUNT_7,
+  TEST_ACCOUNT_8,
+  TEST_ACCOUNT_9,
+  TEST_ACCOUNT_10,
+  TEST_ACCOUNT_11,
+  TEST_ACCOUNT_12,
+  TEST_ACCOUNT_13,
+  TEST_ACCOUNT_14,
+  TEST_ACCOUNT_15,
+  TEST_ACCOUNT_16,
+  TEST_ACCOUNT_17,
+  TEST_ACCOUNT_18,
+  TEST_ACCOUNT_19,
+ } = require("./testMethods/hhTestAccounts");
+
 let spCoinContractDeployed;
 
 logSetup("JS => Setup Test");
@@ -66,6 +89,8 @@ describe("spCoinContract", function () {
     expect(accountListSize).to.equal(3);
     await logJSONTree();
 
+    let sponsorRecord = await loadSponsorRecordByKeys(TEST_ACCOUNT_0, TEST_ACCOUNT_1);
+
     await deleteTestPatreonSponsor(0, 1);
     // await deleteTestPatreonSponsor(0, 3);
     log("*************************** AFTER Un-Sponsor ***************************");
@@ -78,7 +103,7 @@ describe("spCoinContract", function () {
     //  sponsorAgentKeys = await getAccountAgentKeys(sponsorKey);
     // END WIP
 
-  //  await logJSONTree();
+    //  await logJSONTree();
   });
  /**/
 });

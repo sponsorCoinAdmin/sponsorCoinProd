@@ -6,7 +6,7 @@ const { AccountStruct,
 const { logFunctionHeader } = require("../prod/lib/utils/logging");
 
 printTestHHAccounts = () => {
-    return JSON.stringify(testHHAccounts, null, 2);
+    return JSON.stringify(TEST_HH_ACCOUNT_LIST, null, 2);
 }
 
 ///////////////////////////////// Structure Data //////////////////////////////

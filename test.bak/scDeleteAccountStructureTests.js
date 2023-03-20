@@ -5,11 +5,11 @@ const {
   addTestNetworkSponsorAgents,
   addTestNetworkAccount,
   getTestHHAccountListKeys,
-} = require("./testMethods/scTestMethods");
-const { testHHAccounts } = require("./testMethods/hhTestAccounts");
+} = require("../test/testMethods/scTestMethods");
+const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
 
-const { setCreateContract } = require("./prod/lib/scAccountMethods");
-const { setDeleteContract } = require("./prod/lib/scAccountDeleteMethods");
+const { setCreateContract } = require("../test/prod/lib/scAccountMethods");
+const { setDeleteContract } = require("../test/prod/lib/scAccountDeleteMethods");
 
 const {
   AccountStruct,
@@ -17,12 +17,12 @@ const {
   AgentStruct,
   RateHeaderStruct,
   TransactionStruct,
-} = require("./prod/lib/dataTypes");
+} = require("../test/prod/lib/dataTypes");
 
 const {
   addTestNetworkAccounts,
   deleteTestNetworkAccount,
-} = require("./testMethods/scTestMethods");
+} = require("../test/testMethods/scTestMethods");
 
 const {
   LOG_MODE,
@@ -35,12 +35,12 @@ const {
   logFunctionHeader,
   logDetail,
   log,
-} = require("./prod/lib/utils/logging");
+} = require("../test/prod/lib/utils/logging");
 
 const { 
   deployContract, 
   loadSpCoinContract 
-} = require("./prod/deployContract");
+} = require("../test/prod/deployContract");
 
 let spCoinContractDeployed;
 

@@ -1,4 +1,4 @@
-const { testHHAccounts } = require("./hhTestAccounts");
+const { TEST_HH_ACCOUNT_LIST } = require("./hhTestAccounts");
 const { getAccountRecord } = require("../prod/lib/loadStructures");
 const {
   setCreateContract,
@@ -18,7 +18,7 @@ const {} = require("../prod/lib/utils/serialize");
 const { logFunctionHeader } = require("../prod/lib/utils/logging");
 
 getTestHHAccountKey = async (idx) => {
-  return testHHAccounts[idx].toLowerCase();
+  return TEST_HH_ACCOUNT_LIST[idx].toLowerCase();
 }
 
 //////////////////////////// TEST ACCOUNT METHODS ////////////////////////////

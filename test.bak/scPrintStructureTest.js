@@ -9,7 +9,7 @@ const {
   getTestHHAccountListKeys,
   getTestHHAccountKey
 } = require("./testMethods/scTestMethods");
-const { testHHAccounts } = require("./testMethods/hhTestAccounts");
+const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
 const {} = require("./prod/lib/scAccountMethods");
 const { getAccountRecord } = require("./prod/lib/loadStructures");
 
@@ -221,7 +221,7 @@ describe("spCoinContract", function () {
     setLogMode(LOG_MODE.LOG, true);
     setLogMode(LOG_MODE.LOG_TREE, true);
     let testAccountKey = 2;
-    let accountKey = testHHAccounts[testAccountKey];
+    let accountKey = TEST_HH_ACCOUNT_LIST[testAccountKey];
     let testSponsorListKeys = [1, 7, 14, 8, 18, 9];
   
     await addTestNetworkPatreonSponsors(testAccountKey, testSponsorListKeys);

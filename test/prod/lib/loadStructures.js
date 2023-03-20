@@ -91,6 +91,42 @@ loadAgentsByPatreonSponsor = async(_accountKey, _sponsorAccountKey) => {
     return agentRecordList;
 }
 
+//////////////////// LOAD SPONSOR RATE DATA //////////////////////
+
+loadSponsorRatesByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey) => {
+    // logFunctionHeader("loadAgentsByPatreonSponsor = async(" + _accountKey + ", " + _rateRecordKey + ")");
+    // let agentRateKeys = await getAgentRateKeys(_accountKey, _rateRecordKey);
+    // let agentRateRecordList = await loadAgentRatesByKeys(_accountKey, _sponsorAccountKey, _rateRecordKey);
+    // return agentRateRecordList;
+    return "ToDo Sponsor Rates";
+}
+
+loadSponsorRateByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey) => {
+    // logFunctionHeader("loadAgentsByPatreonSponsor = async(" + _accountKey + ", " + _rateRecordKey + ")");
+    // let agentRateKeys = await getAgentRateKeys(_accountKey, _rateRecordKey);
+    // let agentRateRecordList = await loadAgentRatesByKeys(_accountKey, _sponsorAccountKey, _rateRecordKey);
+    // return agentRateRecordList;
+    return "ToDo Sponsor Rate";
+}
+
+//////////////////// LOAD SPONSOR TRANSACTION DATA //////////////////////
+
+loadSponsorTransactionsByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey) => {
+    // logFunctionHeader("loadAgentsByPatreonSponsor = async(" + _accountKey + ", " + _rateRecordKey + ")");
+    // let agentRateKeys = await getAgentRateKeys(_accountKey, _rateRecordKey);
+    // let agentRateRecordList = await loadAgentRatesByKeys(_accountKey, _sponsorAccountKey, _rateRecordKey);
+    // return agentRateRecordList;
+    return "ToDo Sponsor Transactions";
+}
+
+loadSponsorTransactionKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey) => {
+    // logFunctionHeader("loadAgentsByPatreonSponsor = async(" + _accountKey + ", " + _rateRecordKey + ")");
+    // let agentRateKeys = await getAgentRateKeys(_accountKey, _rateRecordKey);
+    // let agentRateRecordList = await loadAgentRatesByKeys(_accountKey, _sponsorAccountKey, _rateRecordKey);
+    // return agentRateRecordList;
+    return "ToDo Sponsor Transaction";
+}
+
 //////////////////// LOAD AGENT DATA //////////////////////
 
 loadAgentRecordsByKeys = async(_accountKey, _sponsorAccountKey, _accountAgentKeys) => {
@@ -112,24 +148,60 @@ loadAgentRecordByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey)
     agentStruct = new AgentStruct();
     agentStruct.agentAccountKey = _agentAccountKey;
     //agentStruct.agentRecordList = await spCoinContractDeployed.getAgentRecordByKeys(_accountKey, _sponsorAccountKey, _agentAccountKey);
-    agentStruct.rates = ratesByAccountAgents = await loadRatesByAccountAgents(_accountKey, _sponsorAccountKey, _agentAccountKey);
+    agentStruct.rates = ratesByAccountAgents = await loadAgentRatesByKeys(_accountKey, _sponsorAccountKey, _agentAccountKey);
     return agentStruct;
 }
 
-loadRatesByAccountAgents = async(_accountKey, _sponsorAccountKey, _agentAccountKey) => {
+//////////////////// LOAD AGENT RATE DATA //////////////////////
+
+loadAgentRatesByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey) => {
     // logFunctionHeader("loadAgentsByPatreonSponsor = async(" + _accountKey + ", " + _rateRecordKey + ")");
     // let agentRateKeys = await getAgentRateKeys(_accountKey, _rateRecordKey);
     // let agentRateRecordList = await loadAgentRatesByKeys(_accountKey, _sponsorAccountKey, _rateRecordKey);
     // return agentRateRecordList;
-    return "ToDo Rates";
+    return "ToDo Agent Rates";
+}
+
+loadAgentRateByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey) => {
+    // logFunctionHeader("loadAgentsByPatreonSponsor = async(" + _accountKey + ", " + _rateRecordKey + ")");
+    // let agentRateKeys = await getAgentRateKeys(_accountKey, _rateRecordKey);
+    // let agentRateRecordList = await loadAgentRatesByKeys(_accountKey, _sponsorAccountKey, _rateRecordKey);
+    // return agentRateRecordList;
+    return "ToDo Agent Rate";
+}
+
+//////////////////// LOAD AGENT TRANSACTION DATA //////////////////////
+
+loadAgentTransactionsByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey) => {
+    // logFunctionHeader("loadAgentsByPatreonSponsor = async(" + _accountKey + ", " + _rateRecordKey + ")");
+    // let agentRateKeys = await getAgentRateKeys(_accountKey, _rateRecordKey);
+    // let agentRateRecordList = await loadAgentRatesByKeys(_accountKey, _sponsorAccountKey, _rateRecordKey);
+    // return agentRateRecordList;
+    return "ToDo Agent Rate Transactions";
+}
+
+loadAgentTransactionKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey) => {
+    // logFunctionHeader("loadAgentsByPatreonSponsor = async(" + _accountKey + ", " + _rateRecordKey + ")");
+    // let agentRateKeys = await getAgentRateKeys(_accountKey, _rateRecordKey);
+    // let agentRateRecordList = await loadAgentRatesByKeys(_accountKey, _sponsorAccountKey, _rateRecordKey);
+    // return agentRateRecordList;
+    return "ToDo Agent Rate Transaction";
 }
 
 //////////////////// MODULE EXPORTS //////////////////////
 
 module.exports = {
     getAccountRecord,
+    loadAgentRecordByKeys,
+    loadAgentRecordsByKeys,
+    loadAgentRateByKeys,
+    loadAgentRatesByKeys,
     loadAgentsByPatreonSponsor,
     loadSponsorsByAccount,
+    loadSponsorRecordByKeys,
+    loadSponsorRecordsByKeys,
+    loadSponsorRateByKeys,
+    loadSponsorRatesByKeys,
     loadAccountStructure,
     loadSPCoinStructures,
     setStructureContract
