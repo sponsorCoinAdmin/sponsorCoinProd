@@ -27,8 +27,8 @@ contract StructSerialization is Utils {
             toString(_accountRec.verified)
         );
         string memory accountAgentKeys = toString(_accountRec.accountAgentKeys);
-        string memory accountParentPatreonKeys = toString(
-            _accountRec.accountParentPatreonKeys
+        string memory accountPatreonKeys = toString(
+            _accountRec.accountPatreonKeys
         );
         string memory balanceOf = concat(
             "balanceOf: ",
@@ -60,8 +60,8 @@ contract StructSerialization is Utils {
         seralized = concat(
             seralized,
             delimiter,
-            "accountParentPatreonKeys:",
-            accountParentPatreonKeys
+            "accountPatreonKeys:",
+            accountPatreonKeys
         );
         seralized = concat(seralized, delimiter, "accountAgentKeys:", accountAgentKeys);
 

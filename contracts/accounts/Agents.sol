@@ -52,8 +52,8 @@ console.log("***Agent.sol:deletePatreonSponsor(", _patreonKey,  _sponsorKey, ")"
 
     function deleteSponsorRecord(address _patreonKey, address _sponsorKey) internal {
         AccountStruct storage sponsorAccountRec = accountMap[_sponsorKey];
-        address[] storage accountParentPatreonKeys = sponsorAccountRec.accountParentPatreonKeys;
-        if (deleteAccountFromSearchKeys(_patreonKey, accountParentPatreonKeys)) {
+        address[] storage accountPatreonKeys = sponsorAccountRec.accountPatreonKeys;
+        if (deleteAccountFromSearchKeys(_patreonKey, accountPatreonKeys)) {
             deleteSponsorAgentRecords (_patreonKey, _sponsorKey);
         }
         // Optional        delete accountMap[_sponsorKey];

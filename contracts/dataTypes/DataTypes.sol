@@ -66,12 +66,12 @@ contract DataTypes is KYC {
         bool verified;
         // string[] SponsorKeys; // Key = PatreonAddress,SponsorIndex
         // string[] AgentKeys;   // Key = PatreonAddress,SponsorIndex,AgentIndex
-        // string[] parentPatreonKeys; // If Sponsor? List of Patreon Accounts
+        // string[] PatreonKeys; // If Sponsor? List of Patreon Accounts
         // string[] parentSponsorKeys; // If Agent? List of Patreon Sponsor Accounts
    
         address[] accountSponsorKeys;  // If Patreon List of Sponsored Accounts
         address[] accountAgentKeys;    // If Sponsor? List of Agent Accounts
-        address[] accountParentPatreonKeys; // If Sponsor? List of Patreon Accounts
+        address[] accountPatreonKeys; // If Sponsor? List of Patreon Accounts
         address[] accountParentSponsorKeys; // If Agent? List of Patreon Sponsor Accounts
         mapping(address => SponsorStruct) sponsorMap; 
         KYC kyc;

@@ -8,7 +8,7 @@ class AccountStruct {
     this.accountSponsorKeys;
     this.accountSponsorObjects;
     this.accountAgentKeys;
-    this.accountParentPatreonKeys;
+    this.accountPatreonKeys;
     this.accountParentSponsorKeys;
     this.KYC;
   }

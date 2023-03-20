@@ -25,7 +25,7 @@ contract Sponsors is Accounts {
             patreonSponsorRec.sponsorAccountKey = _sponsorKey;
             patreonSponsorRec.inserted = true;
             patreonAccountRec.accountSponsorKeys.push(_sponsorKey);
-            sponsorAccountRec.accountParentPatreonKeys.push(_patreonKey);
+            sponsorAccountRec.accountPatreonKeys.push(_patreonKey);
         }
     }
 

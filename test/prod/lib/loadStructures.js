@@ -33,7 +33,7 @@ loadAccountStructure = async (idx) => {
     accountStruct.accountSponsorKeys = accountSponsorKeys;
     accountStruct.accountSponsorObjects = await loadSponsorRecordsByKeys(accountKey, accountSponsorKeys);
 
-    accountStruct.accountParentPatreonKeys = await getAccountPatreonKeys(accountKey);
+    accountStruct.accountPatreonKeys = await getAccountPatreonKeys(accountKey);
     accountStruct.accountAgentKeys = await getAccountAgentKeys(accountKey);
     accountStruct.accountParentSponsorKeys = await getAccountAgentSponsorKeys(accountKey);
     return accountStruct;
