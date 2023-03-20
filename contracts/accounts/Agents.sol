@@ -44,7 +44,6 @@ contract Agents is Sponsors {
     
         AccountStruct storage patreonAccountRec = accountMap[_patreonKey];
         address[] storage patreonSponsorKeys = patreonAccountRec.accountSponsorKeys;
-console.log("***Agent.sol:deletePatreonSponsor(", _patreonKey,  _sponsorKey, ")");
         if (deleteAccountFromSearchKeys(_sponsorKey, patreonSponsorKeys)) {
             deleteSponsorRecord(_patreonKey, _sponsorKey);
         }

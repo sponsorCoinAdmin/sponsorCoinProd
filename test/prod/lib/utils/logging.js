@@ -111,13 +111,13 @@ logJSONAccount = async(accountKey) => {
 }
 
 logJSONTree = async() => {
-    console.log("ACCOUNT RECORD DUMP");
+    console.log("SPCOIN DUMP");
     let spCoinStructure = await loadSPCoinStructures();
     logJSON(spCoinStructure);
 }
 
 logJSON = (_obj) => {
-    console.log("JSON RECORD DUMP");
+    console.log("JSON TREE DUMP");
     console.log(JSON.stringify(_obj, null, 2));
 }
 
