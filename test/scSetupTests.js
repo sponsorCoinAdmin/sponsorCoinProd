@@ -5,7 +5,7 @@ const { addTestNetworkPatreonSponsors,
     addTestNetworkSponsorAgents,
     addTestNetworkAccount,
     getTestHHAccountListKeys
-  } = require("../test/testMethods/scTestMethods");
+  } = require("./testMethods/scTestMethods");
 
 const {    
     LOG_MODE,
@@ -16,12 +16,12 @@ const {
     logFunctionHeader,
     logDetail,
     log
-    } = require("../test/prod/lib/utils/logging");
+    } = require("./prod/lib/utils/logging");
 
     const {
         deployContract,
         loadSpCoinContract 
-      } = require("../test/prod/deployContract");
+      } = require("./prod/deployContract");
 
 logSetup("JS => Setup Test");
 
@@ -90,14 +90,14 @@ describe("spCoinContract", function() {
         await addAccountRecords(TEST_HH_ACCOUNT_LIST);
 
         logDetail("JS => *** RETRIEVE ALL INSERTED RECORDS FROM THE BLOCKCHAIN ***")
-        let insertedAccountList = await getAccountKeys();
+        let sPCoinAccountList = await getAccountKeys();
         let testRecCount = TEST_HH_ACCOUNT_LIST.length;
-        let insertedRecCount = insertedAccountList.length;
+        let insertedRecCount = sPCoinAccountList.length;
         expect(testRecCount).to.equal(insertedRecCount);
 
         for(idx = 0; idx < insertedRecCount; idx++) {
-            expect(TEST_HH_ACCOUNT_LIST[idx]).to.equal(insertedAccountList[idx]);
-            let accountKey = insertedAccountList[idx];
+            expect(TEST_HH_ACCOUNT_LIST[idx]).to.equal(sPCoinAccountList[idx]);
+            let accountKey = sPCoinAccountList[idx];
             logDetail("JS => Address Retrieved from Block Chain at Index " + idx + "  = "+ accountKey );
         }
     });

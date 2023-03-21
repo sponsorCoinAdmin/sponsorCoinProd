@@ -8,7 +8,7 @@ const {
   addSponsorAgents,
   deletePatreonSponsor,
   getPatreonSponsorKeys,
-  getAgentKeys,
+  getAgentRecordKeys,
 } = require("../prod/lib/scAccountMethods");
 
 
@@ -29,9 +29,9 @@ addTestNetworkAccount = async (_accountIdx) => {
   await addAccountRecord(accountKey);
 };
 
-addTestNetworkAccounts = async (accountKeyses) => {
-  logFunctionHeader("addTestNetworkAccounts = async (" + accountKeyses + ")");
-  let testHHAccountKeys = getTestHHAccountListKeys(accountKeyses);
+addTestNetworkAccounts = async (_accountKeys) => {
+  logFunctionHeader("addTestNetworkAccounts = async (" + _accountKeys + ")");
+  let testHHAccountKeys = getTestHHAccountListKeys(_accountKeys);
   logDetail("JS => For Adding Account Records: " + testHHAccountKeys );
   await addAccountRecords(testHHAccountKeys);
 };
