@@ -1,12 +1,4 @@
-const {
-  AccountStruct,
-  SponsorStruct,
-  AgentStruct,
-  RateHeaderStruct,
-  TransactionStruct,
-} = require("./dataTypes");
-
-const { logFunctionHeader, logDetail } = require("./utils/logging");
+const { } = require("./utils/logging");
 
 let spCoinContractDeployed;
 

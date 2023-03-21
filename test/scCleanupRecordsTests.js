@@ -1,22 +1,7 @@
 const { expect } = require("chai");
-
-const {
-  setContracts,
-  addTestNetworkPatreonSponsor,
-  addTestNetworkPatreonSponsors,
-  addTestNetworkSponsorAgents,
-  addTestNetworkAccount,
-  deleteTestPatreonSponsor,
-  deleteTestNetworkAccount,
-  deletePatreonSponsors,
-  getTestHHAccountListKeys,
-  getTestHHAccountKey,
-} = require("./testMethods/scTestMethods");
-
+const { } = require("./testMethods/scTestMethods");
 const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
-
 const { setCreateContract } = require("./prod/lib/scAccountMethods");
-
 const {
   AccountStruct,
   SponsorStruct,
