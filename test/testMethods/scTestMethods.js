@@ -1,20 +1,8 @@
 const { TEST_HH_ACCOUNT_LIST } = require("./hhTestAccounts");
-const { getAccountRecord } = require("../prod/lib/loadStructures");
-const {
-  setCreateContract,
-  addAccountRecord,
-  addAccountRecords,
-  addPatreonSponsors,
-  addSponsorAgents,
-  deletePatreonSponsor,
-  getAccountSponsorKeys,
-  getAgentRecordKeys,
-} = require("../prod/lib/scAccountMethods");
-
-
+const {} = require("../prod/lib/scAccountMethods");
+const {} = require("../prod/lib/loadStructures");
 const {} = require("../prod/lib/utils/serialize");
-
-const { logFunctionHeader } = require("../prod/lib/utils/logging");
+const {} = require("../prod/lib/utils/logging");
 
 getTestHHAccountKey = async (idx) => {
   return TEST_HH_ACCOUNT_LIST[idx].toLowerCase();

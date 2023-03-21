@@ -3,9 +3,9 @@ const { AccountStruct,
         AgentStruct,
         RateHeaderStruct,
         TransactionStruct } = require("./dataTypes");
-let spCoinContractDeployed;
-
 const {} = require("./utils/serialize");
+
+let spCoinContractDeployed;
 
 setStructureContract = (_spCoinContractDeployed) => {
     spCoinContractDeployed = _spCoinContractDeployed;
@@ -31,7 +31,7 @@ loadAccountStructure = async (_accountKey) => {
     accountStruct.accountSponsorRecords = await loadSponsorRecordsByKeys(_accountKey, accountSponsorKeys);
     accountStruct.accountPatreonKeys = await getAccountPatreonKeys(_accountKey);
     accountStruct.accountAgentKeys = await getAccountAgentKeys(_accountKey);
-    accountStruct.accountParentSponsorKeys = await getAccountAgentSponsorKeys(_accountKey);
+    accountStruct.accountParentSponsorKeys = await getAccountParentSponsorKeys(_accountKey);
     return accountStruct;
 }
 
@@ -48,7 +48,21 @@ addAccountRecord = async (_accountKey) => {
     await spCoinContractDeployed.addAccountRecord(_accountKey);
   };  
 
-//////////////////// LOAD ACCOUNT DATA //////////////////////
+  addAccountRecords = async (_accountListKeys) => {
+    logFunctionHeader("addAccountRecord = async(arrayAccounts)");
+    let maxCount = _accountListKeys.length;
+    logDetail("JS => Inserting " + maxCount + " Records to Blockchain Network");
+  
+    for (idx = 0; idx < maxCount; idx++) {
+      let account = _accountListKeys[idx];
+      logDetail("JS => Inserting " + idx + ", " + account);
+      await spCoinContractDeployed.addAccountRecord(account);
+    }
+    logDetail("JS => Inserted " + maxCount + " Accounts to Blockchain Network");
+  
+    return maxCount;
+  };
+  //////////////////// LOAD ACCOUNT DATA //////////////////////
 loadSponsorsByAccount = async(_accountKey) => {    
     logFunctionHeader("loadSponsorsByAccount("  + _accountKey + ")");
     accountSponsorKeys = await getAccountSponsorKeys(_accountKey);
@@ -202,6 +216,8 @@ loadAgentTransactionKeys = async(_accountKey, _sponsorAccountKey, _agentAccountK
 //////////////////// MODULE EXPORTS //////////////////////
 
 module.exports = {
+    addAccountRecord,
+    addAccountRecords,
     getAccountRecord,
     loadAgentRecordByKeys,
     loadAgentRecordsByKeys,
