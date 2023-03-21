@@ -52,18 +52,11 @@ contract Sponsors is Accounts {
             return 0;
     }
 
-    // function getValidSponsorRec(address _patreonKey, address _sponsorKey) internal onlyOwnerOrRootAdmin(_patreonKey) returns (SponsorStruct storage) {
-    //     if (!isSponsorInserted(_patreonKey, _sponsorKey)) {
-    //         addPatreonSponsor(_patreonKey, _sponsorKey);
-    //     }
-    //     return getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
-    //  }
-
-     function getPatreonSponsorRecByKeys(address _patreonKey, address _sponsorKey) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (SponsorStruct storage) {
+    function getPatreonSponsorRecByKeys(address _patreonKey, address _sponsorKey) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (SponsorStruct storage) {
         AccountStruct storage accountRec = accountMap[_patreonKey];
         SponsorStruct storage accountSponsor = accountRec.sponsorMap[_sponsorKey];
        return accountSponsor;
-     }
+    }
 
     /// @notice get address for an account sponsor
     /// @param _patreonKey public account key to get sponsor array
@@ -93,7 +86,7 @@ contract Sponsors is Accounts {
 
     /// @notice retreives the sponsor array record size a specific address.
     /// @param _sponsorKey public account key to get Sponsor Record Length
-    function getAgentListSize(address _patreonKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
+    function getAgentRecordKeySize(address _patreonKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
         return getAgentRecordKeys(_patreonKey, _sponsorKey).length;
     }
 

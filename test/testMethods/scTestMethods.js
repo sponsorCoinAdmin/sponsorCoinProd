@@ -7,7 +7,7 @@ const {
   addPatreonSponsors,
   addSponsorAgents,
   deletePatreonSponsor,
-  getPatreonSponsorKeys,
+  getAccountSponsorKeys,
   getAgentRecordKeys,
 } = require("../prod/lib/scAccountMethods");
 

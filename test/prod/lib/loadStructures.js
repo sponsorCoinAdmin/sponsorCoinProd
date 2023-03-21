@@ -26,7 +26,7 @@ loadSPCoinStructures = async() => {
 loadAccountStructure = async (_accountKey) => {
     let accountStruct = await getAccountRecord(_accountKey);
     accountStruct.accountKey = _accountKey;
-    accountSponsorKeys = await getPatreonSponsorKeys(_accountKey);
+    accountSponsorKeys = await getAccountSponsorKeys(_accountKey);
     accountStruct.accountSponsorKeys = accountSponsorKeys;
     accountStruct.accountSponsorRecords = await loadSponsorRecordsByKeys(_accountKey, accountSponsorKeys);
     accountStruct.accountPatreonKeys = await getAccountPatreonKeys(_accountKey);
@@ -51,7 +51,7 @@ addAccountRecord = async (_accountKey) => {
 //////////////////// LOAD ACCOUNT DATA //////////////////////
 loadSponsorsByAccount = async(_accountKey) => {    
     logFunctionHeader("loadSponsorsByAccount("  + _accountKey + ")");
-    accountSponsorKeys = await getPatreonSponsorKeys(_accountKey);
+    accountSponsorKeys = await getAccountSponsorKeys(_accountKey);
     accountSponsorRecords = await loadSponsorRecordsByKeys(_accountKey, accountSponsorKeys);
     return accountSponsorRecords;
 }

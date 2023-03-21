@@ -29,15 +29,15 @@ deleteAccount = async (_accountKey) => {
 
 deleteAccounts = async (_accountListKeys) => {
   logFunctionHeader("deleteAccounts = async(arrayAccounts)");
-  let maxSize = _accountListKeys.length;
-  logDetail("JS => Inserting " + maxSize + " Records to Blockchain Network");
+  let maxCount = _accountListKeys.length;
+  logDetail("JS => Inserting " + maxCount + " Records to Blockchain Network");
   
-  for (idx = 0; idx < maxSize; idx++) {
+  for (idx = 0; idx < maxCount; idx++) {
     let accountKey = _accountListKeys[idx];
     logDetail("JS => Deleting " + idx + ", " + accountKey);
     await deleteAccount(accountKey);
   }
-  logDetail("JS => Inserted " + maxSize + " Accounts to Blockchain Network");
+  logDetail("JS => Inserted " + maxCount + " Accounts to Blockchain Network");
 };
 
 /////////////////////// SPONSOR RECORD FUNCTIONS ///////////////////////
