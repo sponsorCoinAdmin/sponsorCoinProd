@@ -15,19 +15,31 @@ loadSPCoinStructures = async() => {
     logFunctionHeader("loadSPCoinStructures()");
     let accountArr = [];
     let maxSize = await spCoinContractDeployed.getAccountListSize();
+    let accountKeys = await spCoinContractDeployed.getAccountKeys();
+    // console.log ("********************************");
+    // logJSON(accountKeys);
+    // console.log ("********************************");
 
+    for (let i in accountKeys) {
+        let accountStruct = await loadAccountStructure(accountKeys[i]);
+        accountArr.push(accountStruct);
+    }
+
+    /*
     for(let idx = 0; idx < maxSize; idx++) {
         let accountStruct = await loadAccountStructure(idx);
         accountArr.push(accountStruct);
     }
+    */
     return accountArr;
 }
 
-loadAccountStructure = async (idx) => {
-    let accountKey = await spCoinContractDeployed.getAccountKey(idx);
+loadAccountStructure = async (accountKey) => {
+//    let accountKey = await spCoinContractDeployed.getAccountKey(idx);
+//    let accountKey = await spCoinContractDeployed.accountKeys(idx);
 
     let accountStruct = await getAccountRecord(accountKey);
-    accountStruct.index = idx;
+//    accountStruct.index = idx;
     accountStruct.accountKey = accountKey;
     accountSponsorKeys = await getPatreonSponsorKeys(accountKey);
     accountStruct.accountSponsorKeys = accountSponsorKeys;

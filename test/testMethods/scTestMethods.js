@@ -7,7 +7,6 @@ const {
   addPatreonSponsors,
   addSponsorAgents,
   deletePatreonSponsor,
-  getAccountKeys,
   getPatreonSponsorKeys,
   getAgentKeys,
 } = require("../prod/lib/scAccountMethods");
@@ -30,11 +29,11 @@ addTestNetworkAccount = async (_accountIdx) => {
   await addAccountRecord(accountKey);
 };
 
-addTestNetworkAccounts = async (accountIndexes) => {
-  logFunctionHeader("addTestNetworkAccounts = async (" + accountIndexes + ")");
-  let accountKeys = getTestHHAccountListKeys(accountIndexes);
-  logDetail("JS => For Adding Account Records: " + accountKeys );
-  await addAccountRecords(accountKeys);
+addTestNetworkAccounts = async (accountKeyses) => {
+  logFunctionHeader("addTestNetworkAccounts = async (" + accountKeyses + ")");
+  let testHHAccountKeys = getTestHHAccountListKeys(accountKeyses);
+  logDetail("JS => For Adding Account Records: " + testHHAccountKeys );
+  await addAccountRecords(testHHAccountKeys);
 };
 
 //////////////////////////// TEST SPONSOR METHODS ////////////////////////////
@@ -80,11 +79,11 @@ addTestNetworkAccount = async (_testHHAccountIdx) => {
 
 getTestHHAccountListKeys = (testAccountIdxArr) => {
   logFunctionHeader("getTestHHAccountListKeys (" + testAccountIdxArr + ")");
-  let accountIndexKeys = [];
+  let accountKeysKeys = [];
   for (let i = 0; i < testAccountIdxArr.length; i++) {
-    accountIndexKeys.push(getTestHHAccountKey(testAccountIdxArr[i]));
+    accountKeysKeys.push(getTestHHAccountKey(testAccountIdxArr[i]));
   }
-  return accountIndexKeys;
+  return accountKeysKeys;
 };
 
 getTestHHAccountRecord = (testHHAccountIdx) => {
@@ -110,8 +109,8 @@ deleteTestNetworkAccount = async (_testHHAccountIdx) => {
 
 deleteTestNetworkAccounts = async (_testHHAccountArr) => {
   logFunctionHeader("async (" + _testHHAccountArr+ ")");
-  accountKeys = getTestHHAccountListKeys(_testHHAccountArr);
-  await deleteAccounts(accountKeys);
+  testHHAccountKeys = getTestHHAccountListKeys(_testHHAccountArr);
+  await deleteAccounts(testHHAccountKeys);
 };
 
 /////////////////////////// TEST UN-SPONSOR METHODS //////////////////////////
