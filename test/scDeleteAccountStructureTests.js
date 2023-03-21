@@ -1,46 +1,16 @@
 const { expect } = require("chai");
+const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
+const { LOG_MODE } = require("../test/prod/lib/utils/logging");
+const { } = require("../test/testMethods/scTestMethods");
+const { } = require("../test/prod/lib/scAccountMethods");
+const { } = require("../test/prod/lib/scAccountDeleteMethods");
+const { } = require("../test/testMethods/scTestMethods");
 
-const {
-  addTestNetworkPatreonSponsors,
-  addTestNetworkSponsorAgents,
-  addTestNetworkAccount,
-  getTestHHAccountListKeys,
-} = require("./testMethods/scTestMethods");
-const { testHHAccounts } = require("./testMethods/hhTestAccounts");
-
-const { setCreateContract } = require("./prod/lib/scAccountMethods");
-const { setDeleteContract } = require("./prod/lib/scAccountDeleteMethods");
-
-const {
-  AccountStruct,
-  SponsorStruct,
-  AgentStruct,
-  RateHeaderStruct,
-  TransactionStruct,
-} = require("./prod/lib/dataTypes");
-
-const {
-  addTestNetworkAccounts,
-  deleteTestNetworkAccount,
-} = require("./testMethods/scTestMethods");
-
-const {
-  LOG_MODE,
-  logJSON,
-  logSetup,
-  setLogDefaults,
-  setIndentPrefixLevel,
-  setLogMode,
-  logTestHeader,
-  logFunctionHeader,
-  logDetail,
-  log,
-} = require("./prod/lib/utils/logging");
 
 const { 
   deployContract, 
   loadSpCoinContract 
-} = require("./prod/deployContract");
+} = require("../test/prod/deployContract");
 
 let spCoinContractDeployed;
 
@@ -146,38 +116,38 @@ describe("spCoinContract", function () {
 
     // Test Successful Record Insertion of Account Records 
     // Validate Account Size is zero
-    let accountListSize = (await getAccountListSize()).toNumber();
-    expect(accountListSize).to.equal(0);
+    let accountKeySize = (await getAccountKeySize()).toNumber();
+    expect(accountKeySize).to.equal(0);
 
     // Add 1 Record Validate Size is 1
     await addTestNetworkAccount(0);
-    accountListSize = (await getAccountListSize()).toNumber();
-    expect(accountListSize).to.equal(1);
+    accountKeySize = (await getAccountKeySize()).toNumber();
+    expect(accountKeySize).to.equal(1);
 
     // Add duplicate Record Validate Size is still 1
     await addTestNetworkAccount(0);
-    accountListSize = (await getAccountListSize()).toNumber();
+    accountKeySize = (await getAccountKeySize()).toNumber();
 
     // delete Record Validate Size should reduce to 1
     await deleteTestNetworkAccount(0);
-    accountListSize = (await getAccountListSize()).toNumber();
-    expect(accountListSize).to.equal(0);
+    accountKeySize = (await getAccountKeySize()).toNumber();
+    expect(accountKeySize).to.equal(0);
 
     // Add additional Record Validate Size is 2
     await addTestNetworkAccount(0);
     await addTestNetworkAccount(1);
-    accountListSize = (await getAccountListSize()).toNumber();
-    expect(accountListSize).to.equal(2);
+    accountKeySize = (await getAccountKeySize()).toNumber();
+    expect(accountKeySize).to.equal(2);
 
     // Add 5 additional Records Validate Size is now 7
     await addTestNetworkAccounts([4,6,9,10,8]);
-    accountListSize = (await getAccountListSize()).toNumber();
-    expect(accountListSize).to.equal(7);
+    accountKeySize = (await getAccountKeySize()).toNumber();
+    expect(accountKeySize).to.equal(7);
 
     // Add 4 Records Validate Size is now 3
     await deleteTestNetworkAccounts([10,8,4,0]);
-    accountListSize = (await getAccountListSize()).toNumber();
-    expect(accountListSize).to.equal(3);
+    accountKeySize = (await getAccountKeySize()).toNumber();
+    expect(accountKeySize).to.equal(3);
 
     accountArr = await loadSPCoinStructures(spCoinContractDeployed);
     logJSON(accountArr);

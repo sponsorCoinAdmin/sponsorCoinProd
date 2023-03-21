@@ -1,22 +1,7 @@
 const { expect } = require("chai");
-
-const {
-  setContracts,
-  addTestNetworkPatreonSponsor,
-  addTestNetworkPatreonSponsors,
-  addTestNetworkSponsorAgents,
-  addTestNetworkAccount,
-  deleteTestPatreonSponsor,
-  deleteTestNetworkAccount,
-  deletePatreonSponsors,
-  getTestHHAccountListKeys,
-  getTestHHAccountKey,
-} = require("./testMethods/scTestMethods");
-
-const { testHHAccounts } = require("./testMethods/hhTestAccounts");
-
-const { setCreateContract } = require("./prod/lib/scAccountMethods");
-
+const { } = require("./testMethods/scTestMethods");
+const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
+const { } = require("./prod/lib/scAccountMethods");
 const {
   AccountStruct,
   SponsorStruct,
@@ -25,24 +10,30 @@ const {
   TransactionStruct,
 } = require("./prod/lib/dataTypes");
 
-const {
-  LOG_MODE,
-  logJSON,
-  logSetup,
-  logJSONTree,
-  setLogDefaults,
-  setIndentPrefixLevel,
-  setLogMode,
-  logTestHeader,
-  logFunctionHeader,
-  logDetail,
-  log,
-} = require("./prod/lib/utils/logging");
-
+const { LOG_MODE } = require("./prod/lib/utils/logging");
+const { } = require("./prod/deployContract");
 const { 
-  deployContract, 
-  loadSpCoinContract 
-} = require("./prod/deployContract");
+  TEST_HH_ACCOUNT_KEY_0,
+  TEST_HH_ACCOUNT_KEY_1,
+  TEST_HH_ACCOUNT_KEY_2,
+  TEST_HH_ACCOUNT_KEY_3,
+  TEST_HH_ACCOUNT_KEY_4,
+  TEST_HH_ACCOUNT_KEY_5,
+  TEST_HH_ACCOUNT_KEY_6,
+  TEST_HH_ACCOUNT_KEY_7,
+  TEST_HH_ACCOUNT_KEY_8,
+  TEST_HH_ACCOUNT_KEY_9,
+  TEST_HH_ACCOUNT_KEY_10,
+  TEST_HH_ACCOUNT_KEY_11,
+  TEST_HH_ACCOUNT_KEY_12,
+  TEST_HH_ACCOUNT_KEY_13,
+  TEST_HH_ACCOUNT_KEY_14,
+  TEST_HH_ACCOUNT_KEY_15,
+  TEST_HH_ACCOUNT_KEY_16,
+  TEST_HH_ACCOUNT_KEY_17,
+  TEST_HH_ACCOUNT_KEY_18,
+  TEST_HH_ACCOUNT_KEY_19,
+ } = require("./testMethods/hhTestAccounts");
 
 let spCoinContractDeployed;
 
@@ -62,15 +53,19 @@ describe("spCoinContract", function () {
     // Account, Sponsor and/or Agent are Successfully mutually exclusive.
     await addTestNetworkSponsorAgents(0, 1, [2]);
     // await addTestNetworkSponsorAgents(3, 1, [2]);
-    accountListSize = (await getAccountListSize()).toNumber();
-    expect(accountListSize).to.equal(3);
+    accountKeySize = (await getAccountKeySize()).toNumber();
+    expect(accountKeySize).to.equal(3);
     await logJSONTree();
 
-    await deleteTestPatreonSponsor(0, 1);
+  //  let sponsorRecord = await loadSponsorRecordByKeys(TEST_HH_ACCOUNT_KEY_0, TEST_HH_ACCOUNT_KEY_1);
+  //  logJSON(sponsorRecord);
+  //  await deleteTestPatreonSponsor(0, 1);
     // await deleteTestPatreonSponsor(0, 3);
-    log("*************************** AFTER Un-Sponsor ***************************");
+  //  log("*************************** AFTER Un-Sponsor ***************************");
+  //  sponsorRecord = await loadSponsorRecordByKeys(TEST_HH_ACCOUNT_KEY_0, TEST_HH_ACCOUNT_KEY_1);
+  //  logJSON(sponsorRecord);
 
-    await logJSONTree();
+    // await logJSONTree();
     // await logTestHHAccountRecord(0);
     // await logTestHHAccountRecord(1);
     // await logTestHHAccountRecord(2);
@@ -78,7 +73,7 @@ describe("spCoinContract", function () {
     //  sponsorAgentKeys = await getAccountAgentKeys(sponsorKey);
     // END WIP
 
-  //  await logJSONTree();
+    //  await logJSONTree();
   });
  /**/
 });

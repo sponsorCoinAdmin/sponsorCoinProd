@@ -48,12 +48,12 @@ contract DataTypes is KYC {
     // **Additional Sponsor Coin Variables
 
     address burnAddress = 0x0000000000000000000000000000000000000000;
-    address[] public accountIndex;
+    address[] public accountKeys;
 
     mapping(address => AccountStruct) accountMap;
 
     struct arrayMappedData {
-        address[] accountIndex;
+        address[] accountKeys;
         mapping(address => AccountStruct) accountMap;
     }
 

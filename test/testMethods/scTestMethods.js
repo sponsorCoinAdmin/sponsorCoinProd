@@ -1,24 +1,11 @@
-const { testHHAccounts } = require("./hhTestAccounts");
-const { getAccountRecord } = require("../prod/lib/loadStructures");
-const {
-  setCreateContract,
-  addAccountRecord,
-  addAccountRecords,
-  addPatreonSponsors,
-  addSponsorAgents,
-  deletePatreonSponsor,
-  getAccountKeys,
-  getPatreonSponsorKeys,
-  getAgentKeys,
-} = require("../prod/lib/scAccountMethods");
-
-
+const { TEST_HH_ACCOUNT_LIST } = require("./hhTestAccounts");
+const {} = require("../prod/lib/scAccountMethods");
+const {} = require("../prod/lib/loadStructures");
 const {} = require("../prod/lib/utils/serialize");
-
-const { logFunctionHeader } = require("../prod/lib/utils/logging");
+const {} = require("../prod/lib/utils/logging");
 
 getTestHHAccountKey = async (idx) => {
-  return testHHAccounts[idx].toLowerCase();
+  return TEST_HH_ACCOUNT_LIST[idx].toLowerCase();
 }
 
 //////////////////////////// TEST ACCOUNT METHODS ////////////////////////////
@@ -30,11 +17,11 @@ addTestNetworkAccount = async (_accountIdx) => {
   await addAccountRecord(accountKey);
 };
 
-addTestNetworkAccounts = async (accountIndexes) => {
-  logFunctionHeader("addTestNetworkAccounts = async (" + accountIndexes + ")");
-  let accountKeys = getTestHHAccountListKeys(accountIndexes);
-  logDetail("JS => For Adding Account Records: " + accountKeys );
-  await addAccountRecords(accountKeys);
+addTestNetworkAccounts = async (_accountKeys) => {
+  logFunctionHeader("addTestNetworkAccounts = async (" + _accountKeys + ")");
+  let testHHAccountKeys = getTestHHAccountListKeys(_accountKeys);
+  logDetail("JS => For Adding Account Records: " + testHHAccountKeys );
+  await addAccountRecords(testHHAccountKeys);
 };
 
 //////////////////////////// TEST SPONSOR METHODS ////////////////////////////
@@ -80,11 +67,11 @@ addTestNetworkAccount = async (_testHHAccountIdx) => {
 
 getTestHHAccountListKeys = (testAccountIdxArr) => {
   logFunctionHeader("getTestHHAccountListKeys (" + testAccountIdxArr + ")");
-  let accountIndexKeys = [];
+  let accountKeysKeys = [];
   for (let i = 0; i < testAccountIdxArr.length; i++) {
-    accountIndexKeys.push(getTestHHAccountKey(testAccountIdxArr[i]));
+    accountKeysKeys.push(getTestHHAccountKey(testAccountIdxArr[i]));
   }
-  return accountIndexKeys;
+  return accountKeysKeys;
 };
 
 getTestHHAccountRecord = (testHHAccountIdx) => {
@@ -110,8 +97,8 @@ deleteTestNetworkAccount = async (_testHHAccountIdx) => {
 
 deleteTestNetworkAccounts = async (_testHHAccountArr) => {
   logFunctionHeader("async (" + _testHHAccountArr+ ")");
-  accountKeys = getTestHHAccountListKeys(_testHHAccountArr);
-  await deleteAccounts(accountKeys);
+  testHHAccountKeys = getTestHHAccountListKeys(_testHHAccountArr);
+  await deleteAccounts(testHHAccountKeys);
 };
 
 /////////////////////////// TEST UN-SPONSOR METHODS //////////////////////////
