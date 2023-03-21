@@ -1,27 +1,8 @@
 const { expect } = require("chai");
-
+const { LOG_MODE } = require("./prod/lib/utils/logging");
 const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
-const { addTestNetworkPatreonSponsors,
-    addTestNetworkSponsorAgents,
-    addTestNetworkAccount,
-    getTestHHAccountListKeys
-  } = require("./testMethods/scTestMethods");
-
-const {    
-    LOG_MODE,
-    setLogDefaults,
-    logSetup,
-    setLogMode,
-    logTestHeader,
-    logFunctionHeader,
-    logDetail,
-    log
-    } = require("./prod/lib/utils/logging");
-
-    const {
-        deployContract,
-        loadSpCoinContract 
-      } = require("./prod/deployContract");
+const { } = require("./testMethods/scTestMethods");
+const { } = require("./prod/deployContract");
 
 logSetup("JS => Setup Test");
 

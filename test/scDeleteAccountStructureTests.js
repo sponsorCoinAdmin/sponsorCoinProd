@@ -1,41 +1,11 @@
 const { expect } = require("chai");
-
-const {
-  addTestNetworkPatreonSponsors,
-  addTestNetworkSponsorAgents,
-  addTestNetworkAccount,
-  getTestHHAccountListKeys,
-} = require("../test/testMethods/scTestMethods");
 const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
+const { LOG_MODE } = require("../test/prod/lib/utils/logging");
+const { } = require("../test/testMethods/scTestMethods");
+const { } = require("../test/prod/lib/scAccountMethods");
+const { } = require("../test/prod/lib/scAccountDeleteMethods");
+const { } = require("../test/testMethods/scTestMethods");
 
-const { setCreateContract } = require("../test/prod/lib/scAccountMethods");
-const { setDeleteContract } = require("../test/prod/lib/scAccountDeleteMethods");
-
-const {
-  AccountStruct,
-  SponsorStruct,
-  AgentStruct,
-  RateHeaderStruct,
-  TransactionStruct,
-} = require("../test/prod/lib/dataTypes");
-
-const {
-  addTestNetworkAccounts,
-  deleteTestNetworkAccount,
-} = require("../test/testMethods/scTestMethods");
-
-const {
-  LOG_MODE,
-  logJSON,
-  logSetup,
-  setLogDefaults,
-  setIndentPrefixLevel,
-  setLogMode,
-  logTestHeader,
-  logFunctionHeader,
-  logDetail,
-  log,
-} = require("../test/prod/lib/utils/logging");
 
 const { 
   deployContract, 

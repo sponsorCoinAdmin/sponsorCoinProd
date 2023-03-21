@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const { } = require("./testMethods/scTestMethods");
 const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
-const { setCreateContract } = require("./prod/lib/scAccountMethods");
+const { } = require("./prod/lib/scAccountMethods");
 const {
   AccountStruct,
   SponsorStruct,
@@ -10,25 +10,8 @@ const {
   TransactionStruct,
 } = require("./prod/lib/dataTypes");
 
-const {
-  LOG_MODE,
-  logJSON,
-  logSetup,
-  logJSONTree,
-  setLogDefaults,
-  setIndentPrefixLevel,
-  setLogMode,
-  logTestHeader,
-  logFunctionHeader,
-  logDetail,
-  log,
-} = require("./prod/lib/utils/logging");
-
-const { 
-  deployContract, 
-  loadSpCoinContract 
-} = require("./prod/deployContract");
-
+const { LOG_MODE } = require("./prod/lib/utils/logging");
+const { } = require("./prod/deployContract");
 const { 
   TEST_HH_ACCOUNT_KEY_0,
   TEST_HH_ACCOUNT_KEY_1,
@@ -74,15 +57,15 @@ describe("spCoinContract", function () {
     expect(accountKeySize).to.equal(3);
     await logJSONTree();
 
-//    let sponsorRecord = await loadSponsorRecordByKeys(TEST_HH_ACCOUNT_KEY_0, TEST_HH_ACCOUNT_KEY_1);
-//    logJSON(sponsorRecord);
-//    await deleteTestPatreonSponsor(0, 1);
+  //  let sponsorRecord = await loadSponsorRecordByKeys(TEST_HH_ACCOUNT_KEY_0, TEST_HH_ACCOUNT_KEY_1);
+  //  logJSON(sponsorRecord);
+  //  await deleteTestPatreonSponsor(0, 1);
     // await deleteTestPatreonSponsor(0, 3);
-//    log("*************************** AFTER Un-Sponsor ***************************");
-//    sponsorRecord = await loadSponsorRecordByKeys(TEST_HH_ACCOUNT_KEY_0, TEST_HH_ACCOUNT_KEY_1);
-//    logJSON(sponsorRecord);
+  //  log("*************************** AFTER Un-Sponsor ***************************");
+  //  sponsorRecord = await loadSponsorRecordByKeys(TEST_HH_ACCOUNT_KEY_0, TEST_HH_ACCOUNT_KEY_1);
+  //  logJSON(sponsorRecord);
 
-//    await logJSONTree();
+    // await logJSONTree();
     // await logTestHHAccountRecord(0);
     // await logTestHHAccountRecord(1);
     // await logTestHHAccountRecord(2);
