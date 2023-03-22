@@ -54,7 +54,7 @@ contract Accounts is StructSerialization {
 
     /// @notice retreives the account record of a specific accountKey address.
     /// @param _accountKey public accountKey to set new balance
-    function getAccountRecord(address _accountKey)
+    function getSerializedAccountRecord(address _accountKey)
         internal view onlyOwnerOrRootAdmin(_accountKey)
         returns (AccountStruct storage) {
         require(isAccountInserted(_accountKey));
@@ -145,21 +145,21 @@ contract Accounts is StructSerialization {
 
      /////////////////// DELETE ACCOUNT METHODS ////////////////////////
    
-    function deleteAccount(address _accountKey) public
+    function deleteAccountRecord(address _accountKey) public
         accountExists(_accountKey) 
         onlyOwnerOrRootAdmin(_accountKey)
         PatreonDoesNotExist(_accountKey)
         parentSponsorDoesNotExist(_accountKey)
 //      AgentDoesNotExist(_accountKey)
         SponsorDoesNotExist(_accountKey) {
-        if (deleteAccountFromSearchKeys( _accountKey,  accountKeys)) {
+        if (deleteAccountRecordFromSearchKeys( _accountKey,  accountKeys)) {
             delete accountMap[_accountKey];
         } 
     }
 
-    function deleteAccountFromSearchKeys(address _accountKey, 
+    function deleteAccountRecordFromSearchKeys(address _accountKey, 
         address[] storage _accountKeys) internal returns (bool) {
-      // console.log("deleteAccountFromSearchKeys(", _accountKey);
+      // console.log("deleteAccountRecordFromSearchKeys(", _accountKey);
         bool deleted = false;
         uint i = getAccountListIndex (_accountKey, _accountKeys);
         for (i; i<_accountKeys.length; i++) { 

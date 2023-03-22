@@ -1,11 +1,11 @@
 const { expect } = require("chai");
-const { LOG_MODE } = require("../test/prod/lib/utils/logging");
+const { LOG_MODE } = require("./prod/lib/utils/logging");
 const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
-const {} = require("../test/prod/lib/loadStructures");
-const { } = require("../test/testMethods/scTestMethods");
-const { } = require("../test/prod/lib/scAccountMethods");
-const { } = require("../test/prod/lib/loadStructures");
-const { } = require("../test/prod/deployContract");
+const {} = require("./prod/lib/loadStructures");
+const { } = require("./testMethods/scTestMethods");
+const { } = require("./prod/lib/scAccountMethods");
+const { } = require("./prod/lib/loadStructures");
+const { } = require("./prod/deployContract");
 
 let spCoinContractDeployed;
 
@@ -132,7 +132,7 @@ describe("spCoinContract", function () {
     expect(accountKeySize).to.equal(1);
 
     // Test Record Structure Read from Blockchain Network
-    let accountStruct = await getAccountRecord(accountKey);
+    let accountStruct = await getSerializedAccountRecord(accountKey);
     logJSON(accountStruct);
     let networkAccountKey = accountStruct.accountKey;
     expect(networkAccountKey).to.equal(accountKey);
@@ -177,7 +177,7 @@ describe("spCoinContract", function () {
     // Read from Blockchain Network
     let recipientKey = getTestHHAccountKey(3);
 
-    let accountStruct = await getAccountRecord(recipientKey);
+    let accountStruct = await getSerializedAccountRecord(recipientKey);
     logJSON(accountStruct);
     // let networkAccountKey = accountStruct.accountKey;
     // expect(networkAccountKey).to.equal(arrayKey);
