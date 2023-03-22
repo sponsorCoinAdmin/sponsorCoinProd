@@ -84,20 +84,6 @@ loadSponsorRecordsByKeys = async(_accountKey, _accountSponsorKeys) => {
     return accountSponsorRecords;
 }
 
-/*
-loadSponsorRecordsByKeys = async(_accountKey, _accountSponsorKeys) => {
-    logFunctionHeader("loadSponsorRecordsByKeys(" + _accountKey + ", " + _accountSponsorKeys + ")");
-    let accountSponsorRecords = [];
-    for (let [sponsorAccountKey, idx] of Object.entries(_accountSponsorKeys)) {
-        logDetail("JS => Loading Sponsor Record " + sponsorAccountKey, idx);
-        let sponsorStruct = await loadSponsorRecordByKeys(_accountKey, sponsorAccountKey);
-        sponsorStruct.index = idx;
-        accountSponsorRecords.push(sponsorStruct);
-    }
-    return accountSponsorRecords;
-}
-*/
-
 loadSponsorRecordByKeys = async(_accountKey, _sponsorAccountKey) => {
     logFunctionHeader("loadSponsorRecordByKeys(" + _accountKey + ", " + _sponsorAccountKey + ")");
     let accountAgentKeys = await getAgentRecordKeys(_accountKey, _sponsorAccountKey);

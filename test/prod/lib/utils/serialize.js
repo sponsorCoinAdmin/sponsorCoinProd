@@ -102,4 +102,6 @@ parseAddressStrRecord = (strRecord) => {
 
 module.exports = {
   addAccountField,
+  deSerializedAccountRec,
+  hexToDecimal
 };

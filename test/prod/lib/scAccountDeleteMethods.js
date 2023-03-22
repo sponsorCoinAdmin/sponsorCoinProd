@@ -47,6 +47,13 @@ deleteAccountSponsor = async (_accountKey, _sponsorKey) => {
   await spCoinContractDeployed.deleteAccountSponsor(_accountKey, _sponsorKey);
 };
 
+
+deletePatreonSponsor = async (_patreonKey, _sponsorKey) => {
+  logFunctionHeader("deletePatreonSponsor(" + _patreonKey + ", " + _sponsorKey + ")");
+  await spCoinContractDeployed.deletePatreonSponsor(_patreonKey, _sponsorKey);
+}
+
+
 /////////////////////// AGENT RECORD FUNCTIONS ////////////////////////
 
 deleteSponsorAgent = async (_accountKey, _sponsorAccountKey, _accountAgentKey) => {
