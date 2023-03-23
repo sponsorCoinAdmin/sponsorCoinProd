@@ -4,7 +4,7 @@ const {
   AgentStruct,
   RateHeaderStruct,
   TransactionStruct,
-} = require("../dataTypes");
+} = require("../spCoinDataTypes");
 
 deSerializedAccountRec = async (serializedAccountRec) => {
   // LOG_DETAIL = true;
@@ -102,4 +102,6 @@ parseAddressStrRecord = (strRecord) => {
 
 module.exports = {
   addAccountField,
+  deSerializedAccountRec,
+  hexToDecimal
 };

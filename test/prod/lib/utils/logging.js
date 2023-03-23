@@ -1,5 +1,5 @@
-const {} = require("../scAccountMethods");
-const {} = require("../loadStructures");
+const {} = require("../spCoinReadMethods");
+const {} = require("../spCoinAddMethods");
 
 // ************************* LOG SECTION ******************************/
 let LOG = true;
@@ -112,7 +112,7 @@ logJSONAccount = async(accountKey) => {
 
 logJSONTree = async() => {
     console.log("SPCOIN DUMP");
-    let spCoinStructure = await loadSPCoinStructures();
+    let spCoinStructure = await getAccountRecords();
     logJSON(spCoinStructure);
 }
 

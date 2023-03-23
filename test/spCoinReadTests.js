@@ -1,11 +1,11 @@
 const { expect } = require("chai");
-const { LOG_MODE } = require("../test/prod/lib/utils/logging");
+const { LOG_MODE } = require("./prod/lib/utils/logging");
 const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
-const {} = require("../test/prod/lib/loadStructures");
-const { } = require("../test/testMethods/scTestMethods");
-const { } = require("../test/prod/lib/scAccountMethods");
-const { } = require("../test/prod/lib/loadStructures");
-const { } = require("../test/prod/deployContract");
+const {} = require("./prod/lib/spCoinAddMethods");
+const { } = require("./testMethods/scTestMethods");
+const { } = require("./prod/lib/spCoinReadMethods");
+const { } = require("./prod/lib/spCoinAddMethods");
+const { } = require("./prod/deployContract");
 
 let spCoinContractDeployed;
 
@@ -13,7 +13,7 @@ logSetup("JS => Setup Test");
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
-    spCoinContractDeployed = await loadSpCoinContract();
+    spCoinContractDeployed = await deploySpCoinContract();
   });
 
   /**/
@@ -169,7 +169,7 @@ describe("spCoinContract", function () {
     let accountKeySize = (await getAccountKeySize()).toNumber();
     expect(accountKeySize).to.equal(4);
 
-    let accountArr = await loadSPCoinStructures(spCoinContractDeployed);
+    let accountArr = await getAccountRecords(spCoinContractDeployed);
     logJSON(accountArr);
 
     // Test That Patreon at Idx 3 has 2 Record Sponsors in the blockchain and

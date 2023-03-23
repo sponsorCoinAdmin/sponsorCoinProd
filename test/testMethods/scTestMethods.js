@@ -1,7 +1,6 @@
 const { TEST_HH_ACCOUNT_LIST } = require("./hhTestAccounts");
-const {} = require("../prod/lib/scAccountMethods");
-const {} = require("../prod/lib/loadStructures");
-const {} = require("../prod/lib/utils/serialize");
+const {} = require("../prod/lib/spCoinAddMethods");
+const {} = require("../prod/lib/spCoinReadMethods");
 const {} = require("../prod/lib/utils/logging");
 
 getTestHHAccountKey = async (idx) => {
@@ -91,14 +90,14 @@ logTestHHAccountRecord = (testHHAccountIdx) => {
 deleteTestNetworkAccount = async (_testHHAccountIdx) => {
   logFunctionHeader("async (" + _testHHAccountIdx+ ")");
   let accountKey = getTestHHAccountKey(_testHHAccountIdx);
-  await deleteAccount(accountKey);
+  await deleteAccountRecord(accountKey);
   return accountKey;
 };
 
 deleteTestNetworkAccounts = async (_testHHAccountArr) => {
   logFunctionHeader("async (" + _testHHAccountArr+ ")");
   testHHAccountKeys = getTestHHAccountListKeys(_testHHAccountArr);
-  await deleteAccounts(testHHAccountKeys);
+  await deleteAccountRecords(testHHAccountKeys);
 };
 
 /////////////////////////// TEST UN-SPONSOR METHODS //////////////////////////
@@ -107,7 +106,7 @@ deleteTestPatreonSponsor = async (_patreonIdx, _sponsorIdx) => {
   logFunctionHeader("deleteTestPatreonSponsor(" + _patreonIdx + ", " + _sponsorIdx + ")");
   let patreonKey = getTestHHAccountKey(_patreonIdx);
   let sponsorKey = getTestHHAccountKey(_sponsorIdx);
-  await deletePatreonSponsor(patreonKey, sponsorKey);
+  await deletePatreonSponsorRecord(patreonKey, sponsorKey);
 }
 
 deleteTestNetworkPatreonSponsors = async (_testHHAccountIdx) => {
@@ -120,7 +119,7 @@ deleteTestNetworkPatreonSponsors = async (_testHHAccountIdx) => {
 deleteTestNetworkSponsorAgents = async (_testHHAccountIdx) => {
   logFunctionHeader("async (" + _testHHAccountIdx+ ")");
   let accountKey = getTestHHAccountKey(_testHHAccountIdx);
-  await deleteSponsorAgents(accountKey);
+  await deletePatreonSponsorAgentRecords(accountKey);
   return accountKey;
 };
 

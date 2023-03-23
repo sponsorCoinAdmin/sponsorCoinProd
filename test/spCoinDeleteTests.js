@@ -1,16 +1,16 @@
 const { expect } = require("chai");
 const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
-const { LOG_MODE } = require("../test/prod/lib/utils/logging");
-const { } = require("../test/testMethods/scTestMethods");
-const { } = require("../test/prod/lib/scAccountMethods");
-const { } = require("../test/prod/lib/scAccountDeleteMethods");
-const { } = require("../test/testMethods/scTestMethods");
+const { LOG_MODE } = require("./prod/lib/utils/logging");
+const { } = require("./testMethods/scTestMethods");
+const { } = require("./prod/lib/spCoinReadMethods");
+const { } = require("./prod/lib/spCoinDeleteMethods");
+const { } = require("./testMethods/scTestMethods");
 
 
 const { 
   deployContract, 
-  loadSpCoinContract 
-} = require("../test/prod/deployContract");
+  deploySpCoinContract 
+} = require("./prod/deployContract");
 
 let spCoinContractDeployed;
 
@@ -20,7 +20,7 @@ logSetup("JS => Setup Test");
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
-    spCoinContractDeployed = await loadSpCoinContract();
+    spCoinContractDeployed = await deploySpCoinContract();
   });
 
 /**/
@@ -149,7 +149,7 @@ describe("spCoinContract", function () {
     accountKeySize = (await getAccountKeySize()).toNumber();
     expect(accountKeySize).to.equal(3);
 
-    accountArr = await loadSPCoinStructures(spCoinContractDeployed);
+    accountArr = await getAccountRecords(spCoinContractDeployed);
     logJSON(accountArr);
   });
 

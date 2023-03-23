@@ -32,11 +32,11 @@ contract Agents is Sponsors {
             accountAgentRec.accountParentSponsorKeys.push(_sponsorKey);
         }
     }
-
+ 
     /// @notice Remove all sponsorship relationships for Patreon and Sponsor accounts
     /// @param _patreonKey Patreon key containing the Sponsor relationship
     /// @param _sponsorKey Sponsor to be removed from the Sponsor relationship
-    function deletePatreonSponsor(address _patreonKey, address _sponsorKey)  
+    function deletePatreonSponsorRecord(address _patreonKey, address _sponsorKey)  
         public onlyOwnerOrRootAdmin(_patreonKey)
         accountExists(_patreonKey)
         accountExists(_sponsorKey)
@@ -44,7 +44,7 @@ contract Agents is Sponsors {
     
         AccountStruct storage patreonAccountRec = accountMap[_patreonKey];
         address[] storage patreonSponsorKeys = patreonAccountRec.accountSponsorKeys;
-        if (deleteAccountFromSearchKeys(_sponsorKey, patreonSponsorKeys)) {
+        if (deleteAccountRecordFromSearchKeys(_sponsorKey, patreonSponsorKeys)) {
             deleteSponsorRecord(_patreonKey, _sponsorKey);
         }
     }
@@ -52,13 +52,13 @@ contract Agents is Sponsors {
     function deleteSponsorRecord(address _patreonKey, address _sponsorKey) internal {
         AccountStruct storage sponsorAccountRec = accountMap[_sponsorKey];
         address[] storage accountPatreonKeys = sponsorAccountRec.accountPatreonKeys;
-        if (deleteAccountFromSearchKeys(_patreonKey, accountPatreonKeys)) {
-            deleteSponsorAgentRecords (_patreonKey, _sponsorKey);
+        if (deleteAccountRecordFromSearchKeys(_patreonKey, accountPatreonKeys)) {
+            deletePatreonSponsorAgentRecordRecords (_patreonKey, _sponsorKey);
         }
         // Optional        delete accountMap[_sponsorKey];
     }
 
-    function deleteSponsorAgentRecords (address _patreonKey, address _sponsorKey) internal {
+    function deletePatreonSponsorAgentRecordRecords (address _patreonKey, address _sponsorKey) internal {
         // Get The Patreon Account Record and Remove from the Child Sponsor Relationship account list
         AccountStruct storage patreonAccountRec = accountMap[_patreonKey];
         mapping(address => SponsorStruct) storage sponsorMap = patreonAccountRec.sponsorMap;
@@ -70,7 +70,7 @@ contract Agents is Sponsors {
         uint i = accountAgentKeys.length - 1;
         // console.log("*** BEFORE AGENT DELETE accountAgentKeys.length = ", accountAgentKeys.length);
          for (i; i >= 0; i--) {
-            deleteSponsorAgentRecord(_sponsorKey, accountAgentKeys[i]); 
+            deletePatreonSponsorAgentRecordRecord(_sponsorKey, accountAgentKeys[i]); 
             // console.log("***** Deleting accountAgentKeys ", agentStruct.agentAccountKey);
             delete agentMap[accountAgentKeys[i]];
             delete accountAgentKeys[i];
@@ -80,11 +80,11 @@ contract Agents is Sponsors {
         }
     }
 
-    function deleteSponsorAgentRecord (address _sponsorKey, address _agentKey) public {
+    function deletePatreonSponsorAgentRecordRecord (address _sponsorKey, address _agentKey) public {
         // console.log("Deleting Agent Key ", _agentKey, "from Sponsor child Agent Keys ", _sponsorKey); 
         AccountStruct storage accountSponsorRec = accountMap[_sponsorKey];
         address[] storage AgentKeys = accountSponsorRec.accountAgentKeys;
-        if (deleteAccountFromSearchKeys(_agentKey, AgentKeys)) {
+        if (deleteAccountRecordFromSearchKeys(_agentKey, AgentKeys)) {
             deleteSponsorParentFromAgent (_sponsorKey, _agentKey);
         }
     }
@@ -94,7 +94,7 @@ contract Agents is Sponsors {
         AccountStruct storage accountAgentRec = accountMap[_agentKey];
 
         address[] storage parentSponsorKeys = accountAgentRec.accountParentSponsorKeys;
-        deleteAccountFromSearchKeys(_sponsorKey, parentSponsorKeys);
+        deleteAccountRecordFromSearchKeys(_sponsorKey, parentSponsorKeys);
     }
 
     /// @notice determines if agent address is inserted in account.sponsor.agent.map

@@ -10,7 +10,7 @@ let spCoinContractDeployed;
 
 describe("spCoinContract", function() {
     beforeEach(async() =>  {
-        spCoinContractDeployed = await loadSpCoinContract();
+        spCoinContractDeployed = await deploySpCoinContract();
     });
 
 /**/
