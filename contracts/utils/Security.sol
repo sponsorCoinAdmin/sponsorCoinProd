@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
-import "../dataTypes/DataTypes.sol";
+import "../dataTypes/SpCoinDataTypes.sol";
 
 import "hardhat/console.sol";
 
-contract Security is DataTypes {
+contract Security is SpCoinDataTypes {
     address private  rootAdmin;
  
     constructor()  {

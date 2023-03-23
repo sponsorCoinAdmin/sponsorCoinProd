@@ -8,7 +8,7 @@ const {
   AgentStruct,
   RateHeaderStruct,
   TransactionStruct,
-} = require("./prod/lib/dataTypes");
+} = require("./prod/lib/spCoinDataTypes");
 
 const { LOG_MODE } = require("./prod/lib/utils/logging");
 const { } = require("./prod/deployContract");

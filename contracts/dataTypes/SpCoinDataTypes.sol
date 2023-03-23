@@ -3,7 +3,7 @@ pragma solidity ^0.8.17;
 /// @title ERC20 Contract
 import "./KYC.sol";
 
-contract DataTypes is KYC {
+contract SpCoinDataTypes is KYC {
 
     // **Standard ERC20 contract Variables
     string public name;

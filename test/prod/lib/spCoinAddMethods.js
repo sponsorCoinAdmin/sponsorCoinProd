@@ -91,7 +91,6 @@ addAccountRecords = async (_accountListKeys) => {
     return maxCount;
 };
 
-
 //////////////////// MODULE EXPORTS //////////////////////
 
 module.exports = {

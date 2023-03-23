@@ -3,7 +3,7 @@ const { AccountStruct,
   SponsorStruct,
   AgentStruct,
   RateHeaderStruct,
-  TransactionStruct } = require("./dataTypes");
+  TransactionStruct } = require("./spCoinDataTypes");
 const {} = require("./utils/serialize");
 
 let spCoinContractDeployed;
