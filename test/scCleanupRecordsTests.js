@@ -1,7 +1,4 @@
 const { expect } = require("chai");
-const { } = require("./testMethods/scTestMethods");
-const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
-const { } = require("./prod/lib/spCoinReadMethods");
 const {
   AccountStruct,
   SponsorStruct,
@@ -9,10 +6,8 @@ const {
   RateHeaderStruct,
   TransactionStruct,
 } = require("./prod/lib/spCoinDataTypes");
-
-const { LOG_MODE } = require("./prod/lib/utils/logging");
-const { } = require("./prod/deployContract");
-const { 
+const {
+  TEST_HH_ACCOUNT_LIST,
   TEST_HH_ACCOUNT_KEY_0,
   TEST_HH_ACCOUNT_KEY_1,
   TEST_HH_ACCOUNT_KEY_2,
@@ -34,6 +29,10 @@ const {
   TEST_HH_ACCOUNT_KEY_18,
   TEST_HH_ACCOUNT_KEY_19,
  } = require("./testMethods/hhTestAccounts");
+const { LOG_MODE } = require("./prod/lib/utils/logging");
+const { } = require("./testMethods/scTestMethods");
+const { } = require("./prod/lib/spCoinReadMethods");
+const { } = require("./prod/deployContract");
 
 let spCoinContractDeployed;
 
