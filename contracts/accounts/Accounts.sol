@@ -80,7 +80,8 @@ contract Accounts is StructSerialization {
 
     /// @notice retreives the sponsor array records for the Patreon list
     /// @param _accountKey public account key to get Sponsor Record Length
-    function getAccountPatreonKeys(address _accountKey) internal onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
+    function getAccountPatreonKeys(address _accountKey) public view 
+        onlyOwnerOrRootAdmin(_accountKey) returns (address[] memory) {
         AccountStruct storage account = accountMap[_accountKey];
         address[] storage accountPatreonKeys = account.accountPatreonKeys;
         return accountPatreonKeys;
