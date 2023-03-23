@@ -6,13 +6,11 @@ const { AccountStruct,
   TransactionStruct } = require("./dataTypes");
 const {} = require("./utils/serialize");
 
-
 let spCoinContractDeployed;
 
 //////////////////////////// ROOT LEVEL FUNCTIONS ////////////////////////////
 
-
-setCreateContract = (_spCoinContractDeployed) => {
+setContractReadMethods = (_spCoinContractDeployed) => {
   spCoinContractDeployed = _spCoinContractDeployed;
 };
 
@@ -316,6 +314,5 @@ module.exports = {
   getSponsorRecordByKeys,
   getSponsorRecordsByKeys,
   getSponsorsByAccount,
-  setCreateContract,
-  setStructureContract,
+  setContractReadMethods,
 };

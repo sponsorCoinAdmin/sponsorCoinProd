@@ -1,6 +1,6 @@
 let spCoinContractDeployed;
 
-setStructureContract = (_spCoinContractDeployed) => {
+setContractAddMethods = (_spCoinContractDeployed) => {
     spCoinContractDeployed = _spCoinContractDeployed;
 }
 
@@ -100,4 +100,6 @@ module.exports = {
     addPatreonSponsors,
     addSponsorAgent,
     addSponsorAgents,
+    setContractAddMethods,
+
 }

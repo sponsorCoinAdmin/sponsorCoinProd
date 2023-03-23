@@ -41,7 +41,7 @@ logSetup("JS => Setup Test");
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
-    await loadSpCoinContract();
+    await deploySpCoinContract();
   });
 
  /**/

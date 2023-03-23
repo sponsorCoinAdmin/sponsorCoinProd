@@ -5,7 +5,7 @@ let spCoinContractDeployed;
 
 //////////////////////////// ROOT LEVEL FUNCTIONS ////////////////////////////
 
-setDeleteContract = (_spCoinContractDeployed) => {
+setContractDeleteMethods = (_spCoinContractDeployed) => {
   spCoinContractDeployed = _spCoinContractDeployed;
 };
 
@@ -58,7 +58,7 @@ deletePatreonSponsorAgentRecord = async (_accountKey, _sponsorAccountKey, _accou
 module.exports = {
   deleteAccountRecord,
   deleteAccountRecords,
-  deletePatreonSponsorRecord,
   deletePatreonSponsorAgentRecord,
-  setDeleteContract,
+  deletePatreonSponsorRecord,
+  setContractDeleteMethods,
 };

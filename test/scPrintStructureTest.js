@@ -13,7 +13,7 @@ logSetup("JS => Setup Test");
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
-    spCoinContractDeployed = await loadSpCoinContract();
+    spCoinContractDeployed = await deploySpCoinContract();
   });
 
   /**/

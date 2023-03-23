@@ -11,16 +11,16 @@ const {
 
   let spCoinContractDeployed;
 
-  loadSpCoinContract = async () => {
+  deploySpCoinContract = async () => {
     spCoinContractDeployed = await deployContract();
-    loadContracts();
+    injectContract(spCoinContractDeployed);
     return spCoinContractDeployed;
   }
-  
-  loadContracts = () => {
-    setCreateContract(spCoinContractDeployed);
-    setDeleteContract(spCoinContractDeployed);
-    setStructureContract(spCoinContractDeployed);
+
+  injectContract = (spCoinContractDeployed) => {
+    setContractReadMethods(spCoinContractDeployed);
+    setContractDeleteMethods(spCoinContractDeployed);
+    setContractAddMethods(spCoinContractDeployed);
     return spCoinContractDeployed;
   }
   
@@ -44,7 +44,7 @@ const {
 
 module.exports = {
   deployContract,
-  loadContracts,
-  loadSpCoinContract,
+  injectContract,
+  deploySpCoinContract,
   spCoinContractDeployed
 }
