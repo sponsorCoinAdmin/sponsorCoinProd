@@ -76,7 +76,7 @@ getTestHHAccountListKeys = (testAccountIdxArr) => {
 
 getTestHHAccountRecord = (testHHAccountIdx) => {
   testHHAccountKey = getTestHHAccountKey(testHHAccountIdx);
-  testHHAccountRecord = getSerializedAccountRecord(testHHAccountKey);
+  testHHAccountRecord = getAccountRecord(testHHAccountKey);
   return testHHAccountRecord;
 }
 

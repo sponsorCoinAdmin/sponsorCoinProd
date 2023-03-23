@@ -105,7 +105,7 @@ setIndentPrefixLevel = (_indentPrefix, _level) => {
 
 logJSONAccount = async(accountKey) => {
     console.log("ACCOUNT RECORD DUMP");
-    accountRec = await getSerializedAccountRecord(accountKey);
+    accountRec = await getAccountRecord(accountKey);
     logJSON(accountRec);
     return accountRec;
 }

@@ -54,7 +54,7 @@ contract Accounts is StructSerialization {
 
     /// @notice retreives the account record of a specific accountKey address.
     /// @param _accountKey public accountKey to set new balance
-    function getSerializedAccountRecord(address _accountKey)
+    function getAccountSerializedRecord(address _accountKey)
         internal view onlyOwnerOrRootAdmin(_accountKey)
         returns (AccountStruct storage) {
         require(isAccountInserted(_accountKey));

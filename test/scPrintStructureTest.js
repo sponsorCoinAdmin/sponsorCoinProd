@@ -132,7 +132,7 @@ describe("spCoinContract", function () {
     expect(accountKeySize).to.equal(1);
 
     // Test Record Structure Read from Blockchain Network
-    let accountStruct = await getSerializedAccountRecord(accountKey);
+    let accountStruct = await getAccountRecord(accountKey);
     logJSON(accountStruct);
     let networkAccountKey = accountStruct.accountKey;
     expect(networkAccountKey).to.equal(accountKey);
@@ -177,7 +177,7 @@ describe("spCoinContract", function () {
     // Read from Blockchain Network
     let recipientKey = getTestHHAccountKey(3);
 
-    let accountStruct = await getSerializedAccountRecord(recipientKey);
+    let accountStruct = await getAccountRecord(recipientKey);
     logJSON(accountStruct);
     // let networkAccountKey = accountStruct.accountKey;
     // expect(networkAccountKey).to.equal(arrayKey);
