@@ -2,8 +2,8 @@ const { expect } = require("chai");
 const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
 const { LOG_MODE } = require("./prod/lib/utils/logging");
 const { } = require("./testMethods/scTestMethods");
-const { } = require("./prod/lib/scAccountMethods");
-const { } = require("./prod/lib/scAccountDeleteMethods");
+const { } = require("./prod/lib/spCoinReadMethods");
+const { } = require("./prod/lib/spCoinDeleteMethods");
 const { } = require("./testMethods/scTestMethods");
 
 

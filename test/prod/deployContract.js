@@ -1,6 +1,6 @@
-const { } = require("./lib/scAccountMethods");
-const { } = require("./lib/scAccountDeleteMethods");
-const { } = require("./lib/loadStructures");
+const { } = require("./lib/spCoinReadMethods");
+const { } = require("./lib/spCoinDeleteMethods");
+const { } = require("./lib/spCoinAddMethods");
 
 const {
     LOG_MODE,

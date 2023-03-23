@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const { } = require("./testMethods/scTestMethods");
 const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
-const { } = require("./prod/lib/scAccountMethods");
+const { } = require("./prod/lib/spCoinReadMethods");
 const {
   AccountStruct,
   SponsorStruct,

@@ -1,6 +1,6 @@
 const { TEST_HH_ACCOUNT_LIST } = require("./hhTestAccounts");
-const {} = require("../prod/lib/scAccountMethods");
-const {} = require("../prod/lib/loadStructures");
+const {} = require("../prod/lib/spCoinReadMethods");
+const {} = require("../prod/lib/spCoinAddMethods");
 const {} = require("../prod/lib/utils/serialize");
 const {} = require("../prod/lib/utils/logging");
 

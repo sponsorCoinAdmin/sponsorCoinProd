@@ -1,5 +1,5 @@
-const {} = require("../scAccountMethods");
-const {} = require("../loadStructures");
+const {} = require("../spCoinReadMethods");
+const {} = require("../spCoinAddMethods");
 
 // ************************* LOG SECTION ******************************/
 let LOG = true;
