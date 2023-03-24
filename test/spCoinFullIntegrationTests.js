@@ -5,7 +5,7 @@ const {
   AgentStruct,
   RateHeaderStruct,
   TransactionStruct,
-} = require("./prod/lib/spCoinDataTypes");
+} = require("../prod/lib/spCoinDataTypes");
 const {
   TEST_HH_ACCOUNT_LIST,
   TEST_HH_ACCOUNT_KEY_0,
@@ -29,10 +29,10 @@ const {
   TEST_HH_ACCOUNT_KEY_18,
   TEST_HH_ACCOUNT_KEY_19,
  } = require("./testMethods/hhTestAccounts");
-const { LOG_MODE, LOG, setLogMode, log } = require("./prod/lib/utils/logging");
+const { LOG_MODE, LOG, setLogMode, log } = require("../prod/lib/utils/logging");
 const { } = require("./testMethods/scTestMethods");
-const { } = require("./prod/lib/spCoinReadMethods");
-const { } = require("./prod/deployContract");
+const { } = require("../prod/lib/spCoinReadMethods");
+const { } = require("../prod/deployContract");
 
 let spCoinContractDeployed;
 
