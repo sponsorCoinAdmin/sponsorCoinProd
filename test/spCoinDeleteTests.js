@@ -1,16 +1,16 @@
 const { expect } = require("chai");
 const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
-const { LOG_MODE } = require("../test/prod/lib/utils/logging");
-const { } = require("../test/testMethods/scTestMethods");
-const { } = require("../test/prod/lib/spCoinReadMethods");
-const { } = require("../test/prod/lib/spCoinDeleteMethods");
-const { } = require("../test/testMethods/scTestMethods");
+const { LOG_MODE } = require("../prod/lib/utils/logging");
+const { } = require("./testMethods/scTestMethods");
+const { } = require("../prod/lib/spCoinReadMethods");
+const { } = require("../prod/lib/spCoinDeleteMethods");
+const { } = require("./testMethods/scTestMethods");
 
 
 const { 
   deployContract, 
   deploySpCoinContract 
-} = require("../test/prod/deployContract");
+} = require("../prod//deployContract");
 
 let spCoinContractDeployed;
 

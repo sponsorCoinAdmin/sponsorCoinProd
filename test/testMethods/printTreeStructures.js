@@ -1,4 +1,4 @@
-const { } = require("../prod/lib/utils/logging");
+const { } = require("../../prod//lib/utils/logging");
 
 printTestHHAccounts = () => {
     return JSON.stringify(TEST_HH_ACCOUNT_LIST, null, 2);
