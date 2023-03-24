@@ -6,8 +6,8 @@ import "./Rates.sol";
 contract Transactions is Rates{
     constructor(){
     }
-
-    function addRateTransaction(address _patreonKey, address _sponsorKey, address _agentKey, uint _rateKey, int256 _transAmount)
+ 
+    function addAgentRateTransaction(address _patreonKey, address _sponsorKey, address _agentKey, uint _rateKey, int256 _transAmount)
     public onlyOwnerOrRootAdmin(msg.sender) {
         addAgentRate(_patreonKey, _sponsorKey, _agentKey, _rateKey);
         RateStruct storage rateRec = getRateRecordByKeys(_patreonKey, _sponsorKey, _agentKey, _rateKey);
@@ -15,4 +15,4 @@ contract Transactions is Rates{
             {insertionTime: block.timestamp, quantity: _transAmount});
             rateRec.transactionList.push(transStruct);   
     }
-} 
+}

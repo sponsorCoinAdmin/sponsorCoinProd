@@ -2,10 +2,10 @@
 pragma solidity ^0.8.17;
 /// @title ERC20 Contract
 
-import "./staking/AccountStakingManager.sol";
+import "./stakingManager/AccountStakingManager.sol";
 import "./accounts/Agents.sol";
 
-contract Token is Agents{
+contract Token is AccountStakingManager{
 
 /*
     constructor(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) {

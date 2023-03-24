@@ -113,12 +113,13 @@ contract Agents is Sponsors {
             return 0;
     }
 
-    /*
-    function getAgentInsertionTime(address _patreonKey, address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(_patreonKey) view returns (uint) {
-        if (isAgentInserted(_patreonKey, _sponsorKey, _agentKey))
-            return accountMap[_patreonKey].sponsorMap[_sponsorKey].agentMap[_agentKey].insertionTime;
-        else
-            return 0;
+    /// @notice retreives the sponsor array records from a specific account address.
+    /// @param _patreonKey patreon Key to retrieve the sponsor list
+    /// @param _sponsorKey sponsor Key to retrieve the agent list
+    /// @param _agentKey agent Key to retrieve the rate list
+    function getAgentRateKeys(address _patreonKey, address _sponsorKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint[] memory) {
+        AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
+        uint[] memory agentRateKeys = agentRec.rateKeys;
+        return agentRateKeys;
     }
-*/
 }

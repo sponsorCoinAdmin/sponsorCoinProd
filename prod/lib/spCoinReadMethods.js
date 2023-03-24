@@ -98,16 +98,6 @@ getAccountAgentKeys = async (_accountKey) => {
 
 getAgentRecordKeys = async (_accountKey, _sponsorAccountKey) => {
   logFunctionHeader("getAgentRecordKeys = async(" + _accountKey + ", " + _sponsorAccountKey + ")" );
-/*
-  let maxSize = await spCoinContractDeployed.getAgentRecordKeySize(_accountKey, _sponsorAccountKey);
-
-  let accountAgentKeys = {};
-  for (let idx = 0; idx < maxSize; idx++) {
-    let agent = await spCoinContractDeployed.getSponsorAgentKey(_accountKey, _sponsorAccountKey, idx);
-    logDetail("JS => Agent[" + idx + "]: " + agent);
-    accountAgentKeys[agent] = idx;
-  }
-  */
   accountAgentKeys = spCoinContractDeployed.getAgentRecordKeys(_accountKey, _sponsorAccountKey);
   return accountAgentKeys;
 };
@@ -231,12 +221,22 @@ getAgentRecordByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey) 
 //////////////////// LOAD AGENT RATE DATA //////////////////////
 
 getAgentRatesByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey) => {
-  // logFunctionHeader("getAgentsByPatreonSponsor = async(" + _accountKey + ", " + _rateRecordKey + ")");
-  // let agentRateKeys = await getAgentRateKeys(_accountKey, _rateRecordKey);
+  logFunctionHeader("getAgentRatesByKeys = async(" +
+  _accountKey + ", " +
+  _sponsorAccountKey+ ", " +
+  _agentAccountKey + ")");
+
+  let agentRateKeys = await getAgentRateKeys(_accountKey, _agentAccountKey);
   // let agentRateRecordList = await getAgentRatesByKeys(_accountKey, _sponsorAccountKey, _rateRecordKey);
   // return agentRateRecordList;
   return "ToDo Agent Rates";
 }
+
+getAgentRateKeys = async (_accountKey, _sponsorAccountKey, _agentAccountKey) => {
+  logFunctionHeader("getAgentRecordKeys = async(" + _accountKey + ", " + _sponsorAccountKey + ")" );
+  accountAgentKeys = spCoinContractDeployed.getAgentRecordKeys(_accountKey, _sponsorAccountKey, _agentAccountKey);
+  return accountAgentKeys;
+};
 
 getAgentRateByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey) => {
   // logFunctionHeader("getAgentsByPatreonSponsor = async(" + _accountKey + ", " + _rateRecordKey + ")");

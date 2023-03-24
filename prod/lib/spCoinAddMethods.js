@@ -4,7 +4,6 @@ setContractAddMethods = (_spCoinContractDeployed) => {
     spCoinContractDeployed = _spCoinContractDeployed;
 }
 
-
 addPatreonSponsor = async (_accountKey, _sponsorKey) => {
     logFunctionHeader(
       "addPatreonSponsor = async(" + _accountKey + ", " + _sponsorKey + ")"
@@ -38,7 +37,7 @@ addPatreonSponsor = async (_accountKey, _sponsorKey) => {
 
   addSponsorAgent = async (_accountKey, _sponsorAccountKey, _accountAgentKey) => {
     logFunctionHeader(
-      "accountAgentKey = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _accountAgentKey + ")"
+      "addSponsorAgent = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _accountAgentKey + ")"
     );
     logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
     logDetail("JS => Adding Agent " + _accountAgentKey + " To Blockchain Network");
@@ -91,14 +90,44 @@ addAccountRecords = async (_accountListKeys) => {
     return maxCount;
 };
 
+//////////////////// ADD TRANSACTIONS METHODS //////////////////////
+
+addAgentRateTransaction = async (
+  _accountKey, 
+  _sponsorAccountKey,
+  _accountAgentKey,
+  _rateKey,
+  _transactionQtyKey ) => {
+  logFunctionHeader(
+    "addAgentRateTransaction = async(" + 
+    _accountKey + ", " + 
+    _sponsorAccountKey + ", " + 
+    _accountAgentKey + 
+    _rateKey + 
+    _transactionQtyKey + ")"
+  );
+
+  logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
+  logDetail("JS => Adding Transaction " + _transactionQtyKey + " To Blockchain Network");
+
+  logDetail("JS =>  " + _accountKey + ". " + "Inserting Transaction[" + _rateKey + "]: " + _transactionQtyKey );
+  await spCoinContractDeployed.addAgentRateTransaction(
+    _accountKey,
+    _sponsorAccountKey,
+    _accountAgentKey,
+    _rateKey,
+    _transactionQtyKey );
+  logDetail("JS => "+ "Added Agent " + _accountAgentKey + " Record to SponsorKey " + _sponsorAccountKey);
+};
+
 //////////////////// MODULE EXPORTS //////////////////////
 
 module.exports = {
     addAccountRecord,
     addAccountRecords,
     addPatreonSponsors,
+    addAgentRateTransaction,
     addSponsorAgent,
     addSponsorAgents,
     setContractAddMethods,
-
 }

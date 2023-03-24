@@ -86,7 +86,7 @@ contract SpCoinDataTypes is KYC {
         bool verified;
         address[] accountAgentKeys;
         mapping(address => AgentStruct) agentMap;
-        RateStruct[] rates;
+        uint256[] rateKeys;
         mapping(uint256 => RateStruct) rateMap;
     }
 
@@ -97,7 +97,7 @@ contract SpCoinDataTypes is KYC {
         uint256 insertionTime;
         bool inserted;
         bool verified;
-        RateStruct[] rates;
+        uint256[] rateKeys;
         mapping(uint256 => RateStruct) rateMap;
     }
 

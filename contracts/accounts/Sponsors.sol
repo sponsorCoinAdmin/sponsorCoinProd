@@ -91,7 +91,8 @@ contract Sponsors is Accounts {
     }
 
     /// @notice retreives the sponsor array records from a specific account address.
-    /// @param _sponsorKey public account key to get Sponsors
+    /// @param _patreonKey patreon Key to retrieve the sponsor list
+    /// @param _sponsorKey sponsor Key to retrieve the agent list
     function getAgentRecordKeys(address _patreonKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (address[] memory) {
         SponsorStruct storage sponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
         address[] memory accountAgentKeys = sponsorRec.accountAgentKeys;
