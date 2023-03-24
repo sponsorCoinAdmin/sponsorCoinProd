@@ -44,7 +44,7 @@ describe("spCoinContract", function () {
   });
 
  /**/
-  it("VALIDATE CREATE SPONSOR", async function () {
+  it("VALIDATE CREATE/DELETE SPONSOR", async function () {
     setLogMode(LOG, true);
     let PATREON_ACCOUNT_KEY = TEST_HH_ACCOUNT_KEY_0;
     let SPONSOR_ACCOUNT_KEY = TEST_HH_ACCOUNT_KEY_1;
@@ -63,55 +63,60 @@ describe("spCoinContract", function () {
     // VALIDATE ACCOUNT CREATION
     // VALIDATE PATREON ACCOUNT
     let patreonAccountRecord = await getAccountRecord(PATREON_ACCOUNT_KEY);
-    logJSON(patreonAccountRecord);
+    // logJSON(patreonAccountRecord);
     expect(patreonAccountRecord.accountKey).to.equal(PATREON_ACCOUNT_KEY);
     expect(patreonAccountRecord.accountSponsorKeys[0]).to.equal(SPONSOR_ACCOUNT_KEY);
-    // VALIDATE NESTED SPONSOR RECORD
+    expect(patreonAccountRecord.accountPatreonKeys.length).to.equal(0);
+    expect(patreonAccountRecord.accountAgentKeys.length).to.equal(0);
+    expect(patreonAccountRecord.accountSponsorRecords.length).to.equal(1);
+  // VALIDATE NESTED SPONSOR RECORD
     let sponsorNestedRecord = await getSponsorRecordByKeys(PATREON_ACCOUNT_KEY, SPONSOR_ACCOUNT_KEY);
     // logJSON(sponsorNestedRecord);
     expect(sponsorNestedRecord.sponsorAccountKey).to.equal(SPONSOR_ACCOUNT_KEY);
     expect(sponsorNestedRecord.accountAgentKeys[0]).to.equal(AGENT_ACCOUNT_KEY);
     // VALIDATE SPONSOR ACCOUNT
     let sponsorAccount = await getAccountRecord(SPONSOR_ACCOUNT_KEY);
-    logJSON(sponsorAccount);
+    // logJSON(sponsorAccount);
     expect(sponsorAccount.accountKey).to.equal(SPONSOR_ACCOUNT_KEY);
     expect(sponsorAccount.accountPatreonKeys[0]).to.equal(PATREON_ACCOUNT_KEY);
+    expect(sponsorAccount.accountAgentKeys[0]).to.equal(AGENT_ACCOUNT_KEY);
+    expect(sponsorAccount.accountSponsorKeys.length).to.equal(0);
+    expect(sponsorAccount.accountSponsorRecords.length).to.equal(0);
     // VALIDATE AGENT RECORD
     let agentNestedRecord = await getAgentRecordByKeys(PATREON_ACCOUNT_KEY, SPONSOR_ACCOUNT_KEY, AGENT_ACCOUNT_KEY);
     expect(agentNestedRecord.agentAccountKey).to.equal(AGENT_ACCOUNT_KEY);
     // VALIDATE AGENT ACCOUNT
     let agentAccount = await getAccountRecord(AGENT_ACCOUNT_KEY);
-    console.log("RRRRRRRRRRR AGENT ACCOUNT RRRRRRRRRRRRRRRRRRRRRRRRR");
-    logJSON(agentAccount);
+//    logJSON(agentAccount);
     expect(agentAccount.accountKey).to.equal(AGENT_ACCOUNT_KEY);
     expect(agentAccount.accountAgentKeys.length).to.equal(0);
     expect(agentAccount.accountPatreonKeys.length).to.equal(0);
     expect(agentAccount.accountSponsorKeys.length).to.equal(0);
     expect(agentAccount.accountSponsorRecords.length).to.equal(0);
 
-
     log("*** PATREON/SPONSOR/AGENT CREATION SUCCESS ***");
 
   // VALIDATE PATREON UN-SPONSORING
-  // await deletePatreonSponsorRecord(PATREON_ACCOUNT_KEY, SPONSOR_ACCOUNT_KEY);
-  // await deleteTestPatreonSponsor(0, 3);
+  await deletePatreonSponsorRecord(PATREON_ACCOUNT_KEY, SPONSOR_ACCOUNT_KEY);
+  await logJSONTree();
+  patreonAccountRecord = await getAccountRecord(PATREON_ACCOUNT_KEY);
+  sponsorAccount = await getAccountRecord(SPONSOR_ACCOUNT_KEY);
+  agentAccount = await getAccountRecord(AGENT_ACCOUNT_KEY);
 
-  //   logJSON(sponsorNestedRecord);
-  // //  await deleteTestPatreonSponsor(0, 1);
-  // await deleteTestPatreonSponsor(0, 3);
-  //  log("*************************** AFTER Un-Sponsor ***************************");
-  //  sponsorNestedRecord = await getSponsorRecordByKeys(PATREON_ACCOUNT_KEY, .get();
-  //  logJSON(sponsorNestedRecord);
+  expect(patreonAccountRecord.accountAgentKeys.length).to.equal(0);
+  expect(patreonAccountRecord.accountPatreonKeys.length).to.equal(0);
+  expect(patreonAccountRecord.accountSponsorKeys.length).to.equal(0);
+  expect(patreonAccountRecord.accountSponsorRecords.length).to.equal(0);
 
-    // await logJSONTree();
-    // await logTestHHAccountRecord(0);
-    // await logTestHHAccountRecord(1);
-    // await logTestHHAccountRecord(2);
-    // START WIP
-    //  sponsorAgentKeys = await getAccountAgentKeys(sponsorKey);
-    // END WIP
+  expect(sponsorAccount.accountPatreonKeys.length).to.equal(0);
+  expect(sponsorAccount.accountSponsorKeys.length).to.equal(0);
+  expect(sponsorAccount.accountSponsorRecords.length).to.equal(0);
 
-    //  await logJSONTree();
+  expect(agentAccount.accountPatreonKeys.length).to.equal(0);
+  expect(agentAccount.accountSponsorKeys.length).to.equal(0);
+  expect(agentAccount.accountAgentKeys.length).to.equal(0);
+  expect(agentAccount.accountSponsorRecords.length).to.equal(0);
+
   });
  /**/
 });

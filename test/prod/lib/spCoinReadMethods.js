@@ -77,10 +77,9 @@ getAccountPatreonKeys = async (_accountKey) => {
     let patreon = await spCoinContractDeployed.getAccountPatreonKeyByIndex(_accountKey, idx );
     accountPatreonKeys[patreon] = idx;
   }
-  return accountPatreonKeys;
 */
- return spCoinContractDeployed.getAccountPatreonKeys(_accountKey);
-
+  accountPatreonKeys = spCoinContractDeployed.getAccountPatreonKeys(_accountKey);
+  return accountPatreonKeys;
 };
 
 getAccountSponsorKeys = async (_accountKey) => {
@@ -89,7 +88,6 @@ getAccountSponsorKeys = async (_accountKey) => {
   return accountSponsorKeys;
 };
 
-/* */
 getAccountAgentKeys = async (_accountKey) => {
   logFunctionHeader("getAccountAgentKeys = async(" + _accountKey + ")");
   let accountAgentKeys = await spCoinContractDeployed.getAccountAgentKeys(_accountKey);
