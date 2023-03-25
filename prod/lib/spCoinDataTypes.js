@@ -42,7 +42,7 @@ class RateHeaderStruct {
     this.insertionTime;
     this.lastUpdateTime;
     this.totalQuantity;
-    this.TransactionStruct;
+    this.transactions;
   }
 }
 

@@ -47,4 +47,44 @@ contract Rates is Agents{
         RateStruct storage rateRec = agentStruct.rateMap[_rate];
         return rateRec;
      }
+/*
+     function getRateTransactions(address _patreonKey, address _sponsorKey, address _agentKey, uint _rate) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (string[] memory) {
+        // RateStruct storage rateRec = getRateRecordByKeys(_patreonKey, _sponsorKey, _agentKey, _rate);
+        // TransactionStruct[] memory transactionRecs = rateRec.transactionList;
+        string[] memory transactionList;
+        // ToDo: Loop through TransactionStruct and get actual Transactions
+        transactionList[0] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
+        transactionList[1] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
+        transactionList[2] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
+        transactionList[3] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
+        transactionList[4] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
+        transactionList[5] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
+ 
+        return transactionList;
+    }
+*/
+    function getRateTransactions() public view returns (string[] memory) {
+        // RateStruct storage rateRec = getRateRecordByKeys(_patreonKey, _sponsorKey, _agentKey, _rate);
+        // TransactionStruct[] memory transactionRecs = rateRec.transactionList;
+        string[] memory transactionList;
+        // ToDo: Loop through TransactionStruct and get actual Transactions
+        transactionList[0] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
+        transactionList[1] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
+        transactionList[2] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
+        transactionList[3] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
+        transactionList[4] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
+        transactionList[5] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
+ 
+        return transactionList;
+    }
+
+    function JUNK(address _patreonKey, address _sponsorKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint[] memory) {
+        AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
+        uint[] memory agentRateKeys = agentRec.rateKeys;
+// console.log("AGENTS.SOL:addSponsorAgent: _patreonKey, _sponsorKey, _agentKey = " , _patreonKey, _sponsorKey, _agentKey);
+// console.log("AGENTS.SOL:addSponsorAgent:agentRec.agentAccountKey = " , agentRec.agentAccountKey);
+// console.log("AGENTS.SOL:getAgentRateKeys:agentRateKeys.length = ",agentRateKeys.length);
+        return agentRateKeys;
+    }
+
 }
