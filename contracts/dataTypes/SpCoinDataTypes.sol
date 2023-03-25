@@ -104,7 +104,7 @@ contract SpCoinDataTypes is KYC {
     struct RateStruct {
         uint256 insertionTime;
         uint256 lastUpdateTime;
-        uint256 totalQuantity;
+        int256 totalQuantity;
         uint256[] rate;
         bool inserted;
         TransactionStruct[] transactionList;

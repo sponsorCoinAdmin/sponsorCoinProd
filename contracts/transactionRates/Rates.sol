@@ -29,8 +29,8 @@ contract Rates is Agents{
         else {
             rateRec.lastUpdateTime = block.timestamp;
         }
-    } 
-    
+    }
+
     /// @notice determines if address Record is inserted in accountKey array
     /// @param _agentRec agent record containing rateMap records
     /// @param _rateKey key for a specific rateMap record

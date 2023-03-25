@@ -11,8 +11,15 @@ contract Transactions is Rates{
     public onlyOwnerOrRootAdmin(msg.sender) {
         addAgentRate(_patreonKey, _sponsorKey, _agentKey, _rateKey);
         RateStruct storage rateRec = getRateRecordByKeys(_patreonKey, _sponsorKey, _agentKey, _rateKey);
-        TransactionStruct memory transStruct = TransactionStruct(
+        TransactionStruct memory transRec = TransactionStruct(
             {insertionTime: block.timestamp, quantity: _transAmount});
-            rateRec.transactionList.push(transStruct);   
+            updateRateRecord(rateRec, transRec);
+    } 
+
+    function updateRateRecord(RateStruct storage rateRec, 
+        TransactionStruct memory transRec) internal onlyRootAdmin() {
+            rateRec.transactionList.push(transRec);
+            rateRec.lastUpdateTime = transRec.insertionTime;
+            rateRec.totalQuantity += transRec.quantity;
     }
 }
