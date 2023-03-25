@@ -226,9 +226,10 @@ getAgentRatesByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey) =
   let agentRateKeys = await getAgentRateKeys(_accountKey, _sponsorAccountKey, _agentAccountKey);
 
   let agentRateList = [];
-  for (let [idx, agentRateKey] of Object.entries(agentRateKeys)) {
-      logDetail("JS => Loading Agent Rates " + agentRateKeys, idx);
-      let agentRateRecord = await getAgentRateRecordByKeys(_accountKey, _sponsorAccountKey, agentRateKey);
+  for (let [agentRateKey, idx] of Object.entries(agentRateKeys)) {
+    logDetail("JS => Loading Agent Rates " + agentRateKey + " idx = " + idx);
+log("JS => Loading Agent Rates " + agentRateKey + " idx = " + idx);
+    let agentRateRecord = await getAgentRateRecordByKeys(_accountKey, _sponsorAccountKey, _agentAccountKey, agentRateKey);
       agentRateList.push(agentRateRecord);
   }
   return agentRateList;
@@ -271,15 +272,15 @@ getAgentRateRecordsByKeys = async(_accountKey, _sponsorAccountKey, _agentAccount
 
 getRateTransactionsByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey) => {
   logFunctionHeader("getRateTransactionsByKeys = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _agentAccountKey + ", " + _rateKey + ")");
-  log("getRateTransactionsByKeys = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _agentAccountKey + ", " + _rateKey + ")");
   // let rateTransactionKeys = await spCoinContractDeployed.getRateTransactions(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey);
-  let rateTransactionKeys = await spCoinContractDeployed.JUNK(_accountKey, _sponsorAccountKey, _agentAccountKey);
+  let rateTransactionKeys = await spCoinContractDeployed.getRateTransactions(_accountKey, _sponsorAccountKey, _agentAccountKey);
+  rateTransactionKeys =rateTransactionKeys.split("\n");
   // let agentRateRecordList = await getAgentRatesByKeys(_accountKey, _sponsorAccountKey, _rateRecordKey);
   // return agentRateRecordList;
-  return "ToDo Rate Transactions";
+  return rateTransactionKeys;
 }
 
-getAccountRecords = async() => {
+getAccountRecords = async(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey) => {
   logFunctionHeader("getAccountRecords()");
   let accountArr = [];
   let accountKeys = await spCoinContractDeployed.getAccountKeys();

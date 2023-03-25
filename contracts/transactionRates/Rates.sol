@@ -63,18 +63,18 @@ contract Rates is Agents{
         return transactionList;
     }
 */
-    function getRateTransactions() public view returns (string[] memory) {
+    function getRateTransactions(address _patreonKey, address _sponsorKey, address _agentKey) public view returns (string memory) {
         // RateStruct storage rateRec = getRateRecordByKeys(_patreonKey, _sponsorKey, _agentKey, _rate);
         // TransactionStruct[] memory transactionRecs = rateRec.transactionList;
-        string[] memory transactionList;
+        string memory transactionList = "";
         // ToDo: Loop through TransactionStruct and get actual Transactions
-        transactionList[0] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
-        transactionList[1] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
-        transactionList[2] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
-        transactionList[3] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
-        transactionList[4] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
-        transactionList[5] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
- 
+        transactionList = concat(transactionList, "1, Todo: TransactionTime 1 = ??? TransactAmount = ???\n");
+        transactionList = concat(transactionList, "2, Todo: TransactionTime 2 = ??? TransactAmount = ???\n");
+        transactionList = concat(transactionList, "3, Todo: TransactionTime 3 = ??? TransactAmount = ???\n");
+        transactionList = concat(transactionList, "4, Todo: TransactionTime 4 = ??? TransactAmount = ???\n");
+        transactionList = concat(transactionList, "5, Todo: TransactionTime 5 = ??? TransactAmount = ???\n");
+        transactionList = concat(transactionList, "6, Todo: TransactionTime 6 = ??? TransactAmount = ???\n");
+  
         return transactionList;
     }
 
