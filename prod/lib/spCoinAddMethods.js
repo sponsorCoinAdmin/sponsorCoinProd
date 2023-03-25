@@ -117,7 +117,7 @@ addAgentRateTransaction = async (
     _accountAgentKey,
     _rateKey,
     _transactionQtyKey );
-  logDetail("JS => "+ "Added Agent " + _accountAgentKey + " Record to SponsorKey " + _sponsorAccountKey);
+    logDetail("JS => "+ "Added Agent " + _accountAgentKey + " Record to SponsorKey " + _sponsorAccountKey);
 };
 
 //////////////////// MODULE EXPORTS //////////////////////

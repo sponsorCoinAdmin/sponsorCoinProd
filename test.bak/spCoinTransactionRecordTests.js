@@ -43,7 +43,7 @@ describe("spCoinContract", function () {
     await deploySpCoinContract();
   });
 
- /**/
+ /**
   it("VALIDATE CREATE/DELETE SPONSOR", async function () {
     setLogMode(LOG, true);
     let PATREON_ACCOUNT_KEY = TEST_HH_ACCOUNT_KEY_0;
@@ -119,4 +119,32 @@ describe("spCoinContract", function () {
 
   });
  /**/
+
+ it("VALIDATE ADD TRANSACTION RATES", async function () {
+  setLogMode(LOG, true);
+  let PATREON_ACCOUNT_KEY = TEST_HH_ACCOUNT_KEY_0;
+  let SPONSOR_ACCOUNT_KEY = TEST_HH_ACCOUNT_KEY_1;
+  let AGENT_ACCOUNT_KEY = TEST_HH_ACCOUNT_KEY_2;
+  let AGENT_RATE = 2;
+  let TRANSACTION_QTY = 10;
+
+  // Test Successful Record Insertion of Patreon and 
+  // Sponsor Accounts to the Blockchain Network.
+  // Account, Sponsor and/or Agent are Successfully mutually exclusive.
+  await addAgentRateTransaction(
+    PATREON_ACCOUNT_KEY,
+    SPONSOR_ACCOUNT_KEY,
+    AGENT_ACCOUNT_KEY,
+    AGENT_RATE,
+    TRANSACTION_QTY
+    );
+    accountKeySize = (await getAccountKeySize()).toNumber();
+    expect(accountKeySize).to.equal(3);
+    await logJSONTree();
+    // VALIDATE ACCOUNT CREATION
+    // VALIDATE PATREON ACCOUNT
+    let patreonAccountRecord = await getAccountRecord(PATREON_ACCOUNT_KEY);
+    // logJSON(patreonAccountRecord);
+  });
+/**/
 });

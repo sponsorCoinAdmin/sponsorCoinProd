@@ -24,6 +24,7 @@ contract Rates is Agents{
         if (!rateRec.inserted) {
             rateRec.inserted = true;
             rateRec.insertionTime = rateRec.lastUpdateTime = block.timestamp;
+            agentRec.rateKeys.push(_rateKey);
         }
         else {
             rateRec.lastUpdateTime = block.timestamp;

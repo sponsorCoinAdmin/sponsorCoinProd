@@ -10,7 +10,7 @@ const { } = require("../test/testMethods/scTestMethods");
 const { 
   deployContract, 
   deploySpCoinContract 
-} = require("../prod/deployContract");
+} = require("../test/deployContract");
 
 let spCoinContractDeployed;
 

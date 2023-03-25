@@ -5,7 +5,7 @@ const {} = require("../prod/lib/spCoinAddMethods");
 const { } = require("./testMethods/scTestMethods");
 const { } = require("../prod/lib/spCoinReadMethods");
 const { } = require("../prod/lib/spCoinAddMethods");
-const { } = require("../prod/deployContract");
+const { } = require("../test/deployContract");
 
 let spCoinContractDeployed;
 

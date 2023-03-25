@@ -25,7 +25,7 @@ contract Agents is Sponsors {
         if (!sponsorAgentRec.inserted) {
             sponsorAgentRec.index = patreonSponsorRec.accountAgentKeys.length;
             sponsorAgentRec.insertionTime = block.timestamp;
-            sponsorAgentRec.agentAccountKey    = _agentKey;
+            sponsorAgentRec.agentAccountKey = _agentKey;
             sponsorAgentRec.inserted = true;
             patreonSponsorRec.accountAgentKeys.push(_agentKey);
             accountSponsorRec.accountAgentKeys.push(_agentKey);
@@ -120,6 +120,9 @@ contract Agents is Sponsors {
     function getAgentRateKeys(address _patreonKey, address _sponsorKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint[] memory) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
         uint[] memory agentRateKeys = agentRec.rateKeys;
+// console.log("AGENTS.SOL:addSponsorAgent: _patreonKey, _sponsorKey, _agentKey = " , _patreonKey, _sponsorKey, _agentKey);
+// console.log("AGENTS.SOL:addSponsorAgent:agentRec.agentAccountKey = " , agentRec.agentAccountKey);
+// console.log("AGENTS.SOL:getAgentRateKeys:agentRateKeys.length = ",agentRateKeys.length);
         return agentRateKeys;
     }
 }
