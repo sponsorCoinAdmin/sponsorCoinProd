@@ -221,16 +221,19 @@ getAgentRecordByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey) 
 
 getAgentRatesByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey) => {
   logFunctionHeader("getAgentRatesByKeys = async(" +
-  _accountKey + ", " +
-  _sponsorAccountKey+ ", " +
-  _agentAccountKey + ")");
+  _accountKey + ", " + _sponsorAccountKey+ ", " + _agentAccountKey + ")");
 
   let agentRateKeys = await getAgentRateKeys(_accountKey, _sponsorAccountKey, _agentAccountKey);
 
-  // console.log("*** agentRateKeys = " + agentRateKeys);
-  // let agentRateRecordList = await getAgentRatesByKeys(_accountKey, _sponsorAccountKey, _rateRecordKey);
-  // return agentRateRecordList;
-  return "ToDo Agent Rates";
+  let agentRateList = [];
+  for (let [idx, agentRateKey] of Object.entries(agentRateKeys)) {
+      logDetail("JS => Loading Agent Rates " + agentRateKeys, idx);
+      let agentRateRecord = await getAgentRateRecordByKeys(_accountKey, _sponsorAccountKey, agentRateKey);
+      agentRateRecord.index = idx;
+      agentRateList.push(agentRateRecord);
+  }
+  return agentRateList;
+//  return "ToDo Agent Rates";
 }
 
 getAgentRateKeys = async (_accountKey, _sponsorAccountKey, _agentAccountKey) => {
@@ -239,14 +242,34 @@ getAgentRateKeys = async (_accountKey, _sponsorAccountKey, _agentAccountKey) => 
   return accountAgentKeys;
 };
 
-getAgentRateByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey) => {
-  // logFunctionHeader("getAgentsByPatreonSponsor = async(" + _accountKey + ", " + _rateRecordKey + ")");
-  // let agentRateKeys = await getAgentRateKeys(_accountKey, _rateRecordKey);
-  // let agentRateRecordList = await getAgentRatesByKeys(_accountKey, _sponsorAccountKey, _rateRecordKey);
-  // return agentRateRecordList;
-  return "ToDo Agent Rate";
+getAgentRateRecordByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey) => {
+  logFunctionHeader("getAgentRateByKeys(" + _accountKey + ", " + _sponsorAccountKey + ", " + _agentAccountKey+ ", " + _rateKey + ")");
+  agentRateRecord = new RateHeaderStruct();
+  // ToDo
+  agentRateRecord.insertionTime = "ToDo";
+  agentRateRecord.lastUpdateTime = "ToDo";
+  agentRateRecord.totalQuantity = "ToDo";
+  agentRateRecord.rates = ratesByAccountAgents = await getAgentTransactionsByKeys(_accountKey, _sponsorAccountKey, _agentAccountKey);
+  return agentRecord;
+//  return "ToDo Agent Rate";
 }
 
+/*
+getAgentRateRecordsByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey) => {
+  logFunctionHeader("getAgentRatesByKeys = async(" +
+  _accountKey + ", " + _sponsorAccountKey+ ", " + _agentAccountKey + ")");
+
+  let agentRateKeys = await getAgentRateKeys(_accountKey, _sponsorAccountKey, _agentAccountKey);
+
+  let agentRateList = [];
+  for (let [idx, agentRateKey] of Object.entries(agentRateKeys)) {
+      logDetail("JS => Loading Agent Rates " + agentRateKeys, idx);
+      let agentRateRecord = await getAgentRateByKeys(_accountKey, _sponsorAccountKey, agentRateKey);
+      agentRateRecord.index = idx;
+      agentRecordList.push(agentRateRecord);
+  }
+  return agentRateList;
+*/
 //////////////////// LOAD AGENT TRANSACTION DATA //////////////////////
 
 getAgentTransactionsByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey) => {
@@ -306,7 +329,7 @@ module.exports = {
   getAccountSerializedRecord,
   getAccountSponsorKeys,
   getAccountSponsorKeySize,
-  getAgentRateByKeys,
+  getAgentRateRecordByKeys,
   getAgentRatesByKeys,
   getAgentRecordByKeys,
   getAgentRecordKeys,
