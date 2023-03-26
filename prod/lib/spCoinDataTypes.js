@@ -10,7 +10,7 @@ class AccountStruct {
     this.accountAgentKeys;
     this.accountPatreonKeys;
     this.accountParentSponsorKeys;
-    this.KYC;
+//    this.KYC;
   }
 }
 

@@ -274,11 +274,37 @@ getRateTransactionsByKeys = async(_accountKey, _sponsorAccountKey, _agentAccount
   logFunctionHeader("getRateTransactionsByKeys = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _agentAccountKey + ", " + _rateKey + ")");
   // let rateTransactionKeys = await spCoinContractDeployed.getRateTransactions(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey);
   let rateTransactionKeys = await spCoinContractDeployed.getRateTransactions(_accountKey, _sponsorAccountKey, _agentAccountKey);
-  rateTransactionKeys =rateTransactionKeys.split("\n");
+  let rateTransactionList = rateTransactionKeys.split("\n");
   // let agentRateRecordList = await getAgentRatesByKeys(_accountKey, _sponsorAccountKey, _rateRecordKey);
   // return agentRateRecordList;
-  return rateTransactionKeys;
+  return getRateTransactionRecord(rateTransactionList[0]);
 }
+
+getRateTransactionRecord = (transactionStr) => {
+  console.log ("transactionStr = " + transactionStr);
+  let transactionFields = transactionStr.split(",");
+  console.log ("transactionFields[0] = " + transactionFields[0]);
+  console.log ("transactionFields[1] = " + transactionFields[1]);
+  let transactionRec = new TransactionStruct();
+  transactionRec.insertionTime = transactionFields[0];
+  transactionRec.quantity = transactionFields[1];
+  logJSON(transactionRec);
+  return transactionRec;
+}
+
+/*
+getRateTransactionsByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey) => {
+  logFunctionHeader("getRateTransactionsByKeys = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _agentAccountKey + ", " + _rateKey + ")");
+  // let rateTransactionKeys = await spCoinContractDeployed.getRateTransactions(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey);
+  let rateTransactions = await spCoinContractDeployed.getRateTransactions(_accountKey, _sponsorAccountKey, _agentAccountKey);
+  rateTransactionList = rateTransactions.split("\n");
+  // let agentRateRecordList = await getAgentRatesByKeys(_accountKey, _sponsorAccountKey, _rateRecordKey);
+  // return agentRateRecordList;
+  transactionRecords = getRateTransactionsByKeys(rateTransactionList[0]);
+  return rateTransactionList;
+}
+
+*/
 
 getAccountRecords = async(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey) => {
   logFunctionHeader("getAccountRecords()");

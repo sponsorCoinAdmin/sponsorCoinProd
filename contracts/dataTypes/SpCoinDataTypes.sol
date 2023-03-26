@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 /// @title ERC20 Contract
-import "./KYC.sol";
+// import "./KYC.sol";
 
-contract SpCoinDataTypes is KYC {
+contract SpCoinDataTypes {
 
     // **Standard ERC20 contract Variables
     string public name;
@@ -74,7 +74,7 @@ contract SpCoinDataTypes is KYC {
         address[] accountPatreonKeys; // If Sponsor? List of Patreon Accounts
         address[] accountParentSponsorKeys; // If Agent? List of Patreon Sponsor Accounts
         mapping(address => SponsorStruct) sponsorMap; 
-        KYC kyc;
+//        KYC kyc;
     }
 
     // Each Account has a map of Sponsors and an array of rate structures
@@ -104,7 +104,7 @@ contract SpCoinDataTypes is KYC {
     struct RateStruct {
         uint256 insertionTime;
         uint256 lastUpdateTime;
-        int256 totalQuantity;
+        uint256 totalQuantity;
         uint256[] rate;
         bool inserted;
         TransactionStruct[] transactionList;
@@ -112,6 +112,6 @@ contract SpCoinDataTypes is KYC {
 
     struct TransactionStruct {
         uint256 insertionTime;
-        int256 quantity;
+        uint256 quantity;
     }
 }

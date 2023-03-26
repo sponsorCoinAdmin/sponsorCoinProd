@@ -44,47 +44,34 @@ contract Rates is Agents{
 
     function getRateRecordByKeys(address _patreonKey, address _sponsorKey, address _agentKey, uint _rate) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (RateStruct storage) {
         AgentStruct storage agentStruct = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey) ;
-        RateStruct storage rateRec = agentStruct.rateMap[_rate];
-        return rateRec;
+        return agentStruct.rateMap[_rate];
      }
-/*
-     function getRateTransactions(address _patreonKey, address _sponsorKey, address _agentKey, uint _rate) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (string[] memory) {
-        // RateStruct storage rateRec = getRateRecordByKeys(_patreonKey, _sponsorKey, _agentKey, _rate);
-        // TransactionStruct[] memory transactionRecs = rateRec.transactionList;
-        string[] memory transactionList;
-        // ToDo: Loop through TransactionStruct and get actual Transactions
-        transactionList[0] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
-        transactionList[1] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
-        transactionList[2] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
-        transactionList[3] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
-        transactionList[4] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
-        transactionList[5] = "1, Todo: TransactionTime 1 = ??? TransactAmount = ???";
- 
-        return transactionList;
-    }
-*/
-    function getRateTransactions(address _patreonKey, address _sponsorKey, address _agentKey) public view returns (string memory) {
-        // RateStruct storage rateRec = getRateRecordByKeys(_patreonKey, _sponsorKey, _agentKey, _rate);
-        // TransactionStruct[] memory transactionRecs = rateRec.transactionList;
-        string memory transactionList = "";
-        // ToDo: Loop through TransactionStruct and get actual Transactions
-        transactionList = concat(transactionList, "1, Todo: TransactionTime 1 = ??? TransactAmount = ???\n");
-        transactionList = concat(transactionList, "2, Todo: TransactionTime 2 = ??? TransactAmount = ???\n");
-        transactionList = concat(transactionList, "3, Todo: TransactionTime 3 = ??? TransactAmount = ???\n");
-        transactionList = concat(transactionList, "4, Todo: TransactionTime 4 = ??? TransactAmount = ???\n");
-        transactionList = concat(transactionList, "5, Todo: TransactionTime 5 = ??? TransactAmount = ???\n");
-        transactionList = concat(transactionList, "6, Todo: TransactionTime 6 = ??? TransactAmount = ???\n");
-  
-        return transactionList;
-    }
 
-    function JUNK(address _patreonKey, address _sponsorKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint[] memory) {
+     function getRateTransactions(address _patreonKey, address _sponsorKey, address _agentKey) public view returns (string memory) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
-        uint[] memory agentRateKeys = agentRec.rateKeys;
-// console.log("AGENTS.SOL:addSponsorAgent: _patreonKey, _sponsorKey, _agentKey = " , _patreonKey, _sponsorKey, _agentKey);
-// console.log("AGENTS.SOL:addSponsorAgent:agentRec.agentAccountKey = " , agentRec.agentAccountKey);
-// console.log("AGENTS.SOL:getAgentRateKeys:agentRateKeys.length = ",agentRateKeys.length);
-        return agentRateKeys;
+        uint256[] memory agentRateKeys = agentRec.rateKeys;
+
+        string memory strTransactionList = "";
+        for (uint idx; idx < agentRateKeys.length; idx++) {
+            RateStruct storage rateRec = agentRec.rateMap[agentRateKeys[idx]];
+            TransactionStruct[] memory transactionList = rateRec.transactionList;
+            strTransactionList = getRateTransactionStr(transactionList);
+            if (idx < agentRateKeys.length - 1) {
+                strTransactionList = concat(strTransactionList, "\n");
+            }
+        }
+        return strTransactionList;
     }
 
+    function getRateTransactionStr(TransactionStruct[] memory transactionList) public pure returns (string memory) {
+        string memory strTransactionList = "";
+        for (uint idx; idx < transactionList.length; idx++) {
+            strTransactionList = concat(toString(transactionList[idx].insertionTime), ",",
+            toString(transactionList[idx].quantity));
+            if (idx < transactionList.length - 1) {
+                strTransactionList = concat(strTransactionList, "\n");
+            }
+        }
+        return strTransactionList;
+    }
 }

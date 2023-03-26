@@ -6,46 +6,46 @@ import "hardhat/console.sol";
 contract StringUtils {
 string public text;
 
-   function concat(address addr1, address addr2) internal pure returns (string memory) {
-       string memory a  = toString(addr1);
+    function concat(address addr1, address addr2) internal pure returns (string memory) {
+       string memory a = toString(addr1);
        string memory b = toString(addr2);
        return string(abi.encodePacked(a, ",", b, "", ""));
-   }
+    }
 
-   function concat(address addr1, address addr2, address addr3) internal pure returns (string memory) {
-       string memory a  = toString(addr1);
+    function concat(address addr1, address addr2, address addr3) internal pure returns (string memory) {
+       string memory a = toString(addr1);
        string memory b = toString(addr2);
        string memory c = toString(addr3);
        return string(abi.encodePacked(a, ",", b, ",", c));
-   }
+    }
 
-   function concat(string memory a, string memory b) internal pure returns (string memory) {
+    function concat(string memory a, string memory b) internal pure returns (string memory) {
        return string(abi.encodePacked(a, b, "", "", ""));
-   }
+    }
 
-   function concat(string memory a, string memory b, string memory c) internal pure returns (string memory) {
+    function concat(string memory a, string memory b, string memory c) internal pure returns (string memory) {
        return string(abi.encodePacked(a, b, c, "", ""));
-   }
+    }
 
-   function concat(string memory a, string memory b, string memory c, string memory d) internal pure returns (string memory) {
+    function concat(string memory a, string memory b, string memory c, string memory d) internal pure returns (string memory) {
        return string(abi.encodePacked(a, b, c, d, ""));
-   }
+    }
 
-   function concat(string memory a, string memory b, string memory c, string memory d, string memory e) internal pure returns (string memory) {
+    function concat(string memory a, string memory b, string memory c, string memory d, string memory e) internal pure returns (string memory) {
        return string(abi.encodePacked(a, b, c, d, e));
-   }
+    }
 
-  function toString(address account) internal pure returns(string memory) {
+    function toString(address account) internal pure returns(string memory) {
        return toString(abi.encodePacked(account));
-   }
+    }
 
-   function toString(uint256 value) internal pure returns(string memory) {
+    function toString(uint256 value) internal pure returns(string memory) {
        return toString(abi.encodePacked(value));
-   }
+    }
 
-   function toString(bytes32 value) internal pure returns(string memory) {
-    return toString(abi.encodePacked(value));
-   }
+    function toString(bytes32 value) internal pure returns(string memory) {
+      return toString(abi.encodePacked(value));
+    }
 
     function toString(bool value) internal pure returns(string memory) {
         string memory strValue  = (value == true ? "true" : "false");
