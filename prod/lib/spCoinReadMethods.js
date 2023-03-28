@@ -4,7 +4,7 @@ const { AccountStruct,
   AgentStruct,
   RateHeaderStruct,
   TransactionStruct } = require("./spCoinDataTypes");
-const {} = require("./utils/serialize");
+const { hexToDecimal } = require("./utils/serialize");
 
 let spCoinContractDeployed;
 
@@ -134,8 +134,8 @@ getSponsorRecordsByKeys = async(_accountKey, _accountSponsorKeys) => {
   let accountSponsorRecords = [];
   for (let [idx, sponsorAccountKey] of Object.entries(_accountSponsorKeys)) {
     logDetail("JS => Loading Sponsor Record " + sponsorAccountKey, idx);
-    let sponsorStruct = await getSponsorRecordByKeys(idx, _accountKey, sponsorAccountKey);
-    accountSponsorRecords.push(sponsorStruct);
+    let sponsorRec = await getSponsorRecordByKeys(idx, _accountKey, sponsorAccountKey);
+    accountSponsorRecords.push(sponsorRec);
   }
   return accountSponsorRecords;
 }
@@ -230,10 +230,10 @@ getAgentRatesByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey) =
     logDetail("JS => Loading Agent Rates " + agentRateKey + " idx = " + idx);
 log("JS => Loading Agent Rates " + agentRateKey + " idx = " + idx);
     let agentRateRecord = await getAgentRateRecordByKeys(_accountKey, _sponsorAccountKey, _agentAccountKey, agentRateKey);
-      agentRateList.push(agentRateRecord);
+//      agentRateList.push(agentRateRecord);
   }
   return agentRateList;
-//  return "ToDo Agent Rates";
+  return "ToDo Agent Rates";
 }
 
 getAgentRateKeys = async (_accountKey, _sponsorAccountKey, _agentAccountKey) => {
@@ -274,6 +274,7 @@ getRateTransactionsByKeys = async(_accountKey, _sponsorAccountKey, _agentAccount
   logFunctionHeader("getRateTransactionsByKeys = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _agentAccountKey + ", " + _rateKey + ")");
   // let rateTransactionKeys = await spCoinContractDeployed.getRateTransactions(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey);
   let rateTransactionKeys = await spCoinContractDeployed.getRateTransactions(_accountKey, _sponsorAccountKey, _agentAccountKey);
+console.log("rateTransactionKeys = " + rateTransactionKeys);
   let rateTransactionList = rateTransactionKeys.split("\n");
   // let agentRateRecordList = await getAgentRatesByKeys(_accountKey, _sponsorAccountKey, _rateRecordKey);
   // return agentRateRecordList;
@@ -288,6 +289,8 @@ getRateTransactionRecord = (transactionStr) => {
   let transactionRec = new TransactionStruct();
   transactionRec.insertionTime = transactionFields[0];
   transactionRec.quantity = transactionFields[1];
+  // transactionRec.insertionTime = hexToDecimal(transactionFields[0]);
+  // transactionRec.quantity = hexToDecimal(transactionFields[1]);
   logJSON(transactionRec);
   return transactionRec;
 }

@@ -49,7 +49,7 @@ describe("spCoinContract", function () {
   let SPONSOR_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_1;
   let AGENT_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_2;
   let AGENT_RATE_1 = 2;
-  let TRANSACTION_QTY_1 = 10;
+  let TRANSACTION_QTY_1 = 9;
   let AGENT_RATE_2 = 4;
   let TRANSACTION_QTY_2 = 3;
 
@@ -63,17 +63,28 @@ describe("spCoinContract", function () {
     AGENT_RATE_1,
     TRANSACTION_QTY_1
     );
-  await addAgentRateTransaction(
-    PATREON_ACCOUNT_KEY_1,
-    SPONSOR_ACCOUNT_KEY_1,
-    AGENT_ACCOUNT_KEY_1,
-    AGENT_RATE_2,
-    TRANSACTION_QTY_2
-  );
+
+    // await addAgentRateTransaction(
+    //   PATREON_ACCOUNT_KEY_1,
+    //   SPONSOR_ACCOUNT_KEY_1,
+    //   AGENT_ACCOUNT_KEY_1,
+    //   AGENT_RATE_2,
+    //   TRANSACTION_QTY_2
+    // );
+    
+    // await addAgentRateTransaction(
+    //   PATREON_ACCOUNT_KEY_1,
+    //   SPONSOR_ACCOUNT_KEY_1,
+    //   AGENT_ACCOUNT_KEY_1,
+    //   AGENT_RATE_2,
+    //   TRANSACTION_QTY_2
+    // );
+
     // let agentRateKeys = await getAgentRateKeys(
     //   PATREON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_1,
     //   AGENT_ACCOUNT_KEY_1);
+  
     // accountKeySize = (await getAccountKeySize()).toNumber();
     // expect(accountKeySize).to.equal(3);
     await logJSONTree();

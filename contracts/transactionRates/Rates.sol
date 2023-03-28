@@ -22,13 +22,18 @@ contract Rates is Agents{
         mapping(uint256 => RateStruct) storage rateMap = agentRec.rateMap;
         RateStruct storage rateRec = rateMap[_rateKey];
         if (!rateRec.inserted) {
+            console.log("Inserting RateRec", _rateKey);
             rateRec.inserted = true;
             rateRec.insertionTime = rateRec.lastUpdateTime = block.timestamp;
             agentRec.rateKeys.push(_rateKey);
         }
-        else {
-            rateRec.lastUpdateTime = block.timestamp;
-        }
+        // else {
+             console.log("Updating RateRec", _rateKey);
+        //     rateRec.lastUpdateTime = block.timestamp;
+        // }
+
+        // console.log("agentRec.rateMap[_rateKey].inserted",
+        // agentRec.rateMap[_rateKey].inserted); 
     }
 
     /// @notice determines if address Record is inserted in accountKey array
@@ -43,19 +48,20 @@ contract Rates is Agents{
     }
 
     function getRateRecordByKeys(address _patreonKey, address _sponsorKey, address _agentKey, uint _rate) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (RateStruct storage) {
-        AgentStruct storage agentStruct = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey) ;
-        return agentStruct.rateMap[_rate];
+        AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey) ;
+        return agentRec.rateMap[_rate];
      }
 
      function getRateTransactions(address _patreonKey, address _sponsorKey, address _agentKey) public view returns (string memory) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
         uint256[] memory agentRateKeys = agentRec.rateKeys;
-
         string memory strTransactionList = "";
         for (uint idx; idx < agentRateKeys.length; idx++) {
             RateStruct storage rateRec = agentRec.rateMap[agentRateKeys[idx]];
+            // console.log ("rateRec.transactionList[0].quantity = ", rateRec.transactionList[0].quantity);
             TransactionStruct[] memory transactionList = rateRec.transactionList;
             strTransactionList = getRateTransactionStr(transactionList);
+            // console.log("strTransactionList = ", strTransactionList); 
             if (idx < agentRateKeys.length - 1) {
                 strTransactionList = concat(strTransactionList, "\n");
             }
@@ -66,7 +72,8 @@ contract Rates is Agents{
     function getRateTransactionStr(TransactionStruct[] memory transactionList) public pure returns (string memory) {
         string memory strTransactionList = "";
         for (uint idx; idx < transactionList.length; idx++) {
-            strTransactionList = concat(toString(transactionList[idx].insertionTime), ",",
+            strTransactionList = concat(strTransactionList,
+            toString(transactionList[idx].insertionTime), ",",
             toString(transactionList[idx].quantity));
             if (idx < transactionList.length - 1) {
                 strTransactionList = concat(strTransactionList, "\n");
