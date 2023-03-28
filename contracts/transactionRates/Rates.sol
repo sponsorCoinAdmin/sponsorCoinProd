@@ -22,8 +22,8 @@ contract Rates is Agents{
         mapping(uint256 => RateStruct) storage rateMap = agentRec.rateMap;
         RateStruct storage rateRec = rateMap[_rateKey];
         if (!rateRec.inserted) {
-            console.log("**********************************");
-            console.log("Inserting RateRec", _rateKey);
+            // console.log("**********************************");
+            // console.log("Inserting RateRec", _rateKey);
             rateRec.rate = _rateKey;
             rateRec.inserted = true;
             rateRec.insertionTime = rateRec.lastUpdateTime = block.timestamp;
@@ -46,27 +46,40 @@ contract Rates is Agents{
         AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey) ;
         return agentRec.rateMap[_rate];
      }
-
-     function getRateTransactions(address _patreonKey, address _sponsorKey, address _agentKey) public view returns (string memory) {
+/*
+    function getRateTransactions(address _patreonKey, address _sponsorKey, address _agentKey) public view returns (string memory) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
         uint256[] memory agentRateKeys = agentRec.rateKeys;
         string memory strTransactionList = "";
         for (uint idx; idx < agentRateKeys.length; idx++) {
-            RateStruct storage rateRec = agentRec.rateMap[agentRateKeys[idx]];
-            console.log ("rateRec.transactionList[0].quantity = ", rateRec.transactionList[0].quantity);
-            TransactionStruct[] memory transactionList = rateRec.transactionList;
-            strTransactionList = concat(strTransactionList, getRateTransactionStr(transactionList)); 
+            uint256 agentRateKey = agentRateKeys[idx];
+            strTransactionList = getRateTransactionList(_patreonKey,  _sponsorKey,  _agentKey,  agentRateKey); 
             if (idx < agentRateKeys.length - 1) {
                 strTransactionList = concat(strTransactionList, "\n");
             }
         }
-        console.log("ZZZZ strTransactionList = ", strTransactionList); 
+        // console.log("ZZZZ strTransactionList = ", strTransactionList); 
+        return strTransactionList;
+    }
+*/
+    function getRateTransactionList(address _patreonKey, address _sponsorKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
+        AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
+        string memory strTransactionList = "";
+        RateStruct storage rateRec = agentRec.rateMap[_agentRateKey];
+        // console.log ("rateRec.transactionList[0].quantity = ", rateRec.transactionList[0].quantity);
+        TransactionStruct[] memory transactionList = rateRec.transactionList;
+        strTransactionList = concat(strTransactionList, getRateTransactionStr(transactionList)); 
+        // console.log("RRRR strTransactionList = ", strTransactionList); 
         return strTransactionList;
     }
 
-    function getRateTransactionStr(TransactionStruct[] memory transactionList) public pure returns (string memory) {
+    function getRateTransactionStr(TransactionStruct[] memory transactionList) public view returns (string memory) {
         string memory strTransactionList = "";
+        console.log("===================================================================");
+        console.log("getRateTransactionStr:transactionList.length = ", transactionList.length);
         for (uint idx; idx < transactionList.length; idx++) {
+console.log("HERE " , idx);
+
             strTransactionList = concat(strTransactionList,
             toString(transactionList[idx].insertionTime), ",",
             toString(transactionList[idx].quantity));
@@ -74,6 +87,9 @@ contract Rates is Agents{
                 strTransactionList = concat(strTransactionList, "\n");
             }
         }
+console.log("strTransactionList = ", strTransactionList);
+console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+
         return strTransactionList;
     }
 }

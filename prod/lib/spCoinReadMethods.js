@@ -186,15 +186,6 @@ getSponsorTransactionsByKeys = async(_accountKey, _sponsorAccountKey, _agentAcco
   // return agentRateRecordList;
   return "ToDo Sponsor Transactions";
 }
-
-getSponsorTransactionKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey) => {
-  // logFunctionHeader("getAgentsByPatreonSponsor = async(" + _accountKey + ", " + _rateRecordKey + ")");
-  // let agentRateKeys = await getAgentRateKeys(_accountKey, _rateRecordKey);
-  // let agentRateRecordList = await getAgentRatesByKeys(_accountKey, _sponsorAccountKey, _rateRecordKey);
-  // return agentRateRecordList;
-  return "ToDo Sponsor Transaction";
-}
-
 //////////////////// LOAD AGENT DATA //////////////////////
 
 getAgentRecordsByKeys = async(_accountKey, _sponsorAccountKey, _accountAgentKeys) => {
@@ -277,12 +268,13 @@ getRateTransactionsByKeys = async(_accountKey, _sponsorAccountKey, _agentAccount
   logFunctionHeader("getRateTransactionsByKeys = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _agentAccountKey + ", " + _rateKey + ")");
   log("getRateTransactionsByKeys = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _agentAccountKey + ", " + _rateKey + ")");
   // let rateTransactionKeys = await spCoinContractDeployed.getRateTransactions(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey);
-  let rateTransactionKeys = await spCoinContractDeployed.getRateTransactions(_accountKey, _sponsorAccountKey, _agentAccountKey);
-console.log("rateTransactionKeys = " + rateTransactionKeys);
-  let rateTransactionList = rateTransactionKeys.split("\n");
+//  let rateTransactionKeys = await spCoinContractDeployed.getRateTransactions(_accountKey, _sponsorAccountKey, _agentAccountKey);
+  let rateTransactionList = await spCoinContractDeployed.getRateTransactionList(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey);
+console.log("rateTransactionList = " + rateTransactionList);
+//  let rateTransactionList = rateTransactionKeys.split("\n");
   // let agentRateRecordList = await getAgentRatesByKeys(_accountKey, _sponsorAccountKey, _rateRecordKey);
   // return agentRateRecordList;
-  return getRateTransactionRecord(rateTransactionList[0]);
+  return getRateTransactionRecord(rateTransactionList);
 }
 
 getRateTransactionRecord = (transactionStr) => {
