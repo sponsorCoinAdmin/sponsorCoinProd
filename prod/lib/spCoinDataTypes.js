@@ -39,6 +39,7 @@ class AgentStruct {
 
 class RateHeaderStruct {
   constructor() {
+    this.rate;
     this.insertionTime;
     this.lastUpdateTime;
     this.totalQuantity;

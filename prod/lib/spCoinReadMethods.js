@@ -226,12 +226,14 @@ getAgentRatesByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey) =
   let agentRateKeys = await getAgentRateKeys(_accountKey, _sponsorAccountKey, _agentAccountKey);
 
   let agentRateList = [];
-  for (let [agentRateKey, idx] of Object.entries(agentRateKeys)) {
+  for (let [idx, agentRateKey] of Object.entries(agentRateKeys)) {
+    agentRateKey = hexToDecimal(agentRateKey);
     logDetail("JS => Loading Agent Rates " + agentRateKey + " idx = " + idx);
 log("JS => Loading Agent Rates " + agentRateKey + " idx = " + idx);
     let agentRateRecord = await getAgentRateRecordByKeys(_accountKey, _sponsorAccountKey, _agentAccountKey, agentRateKey);
-//      agentRateList.push(agentRateRecord);
+      agentRateList.push(agentRateRecord);
   }
+  // log("JS => Loading Agent Rates agentRateList = " + logJSON(agentRateList));
   return agentRateList;
   return "ToDo Agent Rates";
 }
@@ -245,6 +247,7 @@ getAgentRateKeys = async (_accountKey, _sponsorAccountKey, _agentAccountKey) => 
 getAgentRateRecordByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey) => {
   logFunctionHeader("getAgentRateByKeys(" + _accountKey + ", " + _sponsorAccountKey + ", " + _agentAccountKey+ ", " + _rateKey + ")");
   let agentRateRecord = new RateHeaderStruct();
+  agentRateRecord.rate = _rateKey;
   agentRateRecord.insertionTime = "ToDo";
   agentRateRecord.lastUpdateTime = "ToDo";
   agentRateRecord.totalQuantity = "ToDo";
@@ -272,6 +275,7 @@ getAgentRateRecordsByKeys = async(_accountKey, _sponsorAccountKey, _agentAccount
 
 getRateTransactionsByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey) => {
   logFunctionHeader("getRateTransactionsByKeys = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _agentAccountKey + ", " + _rateKey + ")");
+  log("getRateTransactionsByKeys = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _agentAccountKey + ", " + _rateKey + ")");
   // let rateTransactionKeys = await spCoinContractDeployed.getRateTransactions(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey);
   let rateTransactionKeys = await spCoinContractDeployed.getRateTransactions(_accountKey, _sponsorAccountKey, _agentAccountKey);
 console.log("rateTransactionKeys = " + rateTransactionKeys);
@@ -284,13 +288,9 @@ console.log("rateTransactionKeys = " + rateTransactionKeys);
 getRateTransactionRecord = (transactionStr) => {
   console.log ("transactionStr = " + transactionStr);
   let transactionFields = transactionStr.split(",");
-  console.log ("transactionFields[0] = " + transactionFields[0]);
-  console.log ("transactionFields[1] = " + transactionFields[1]);
   let transactionRec = new TransactionStruct();
-  transactionRec.insertionTime = transactionFields[0];
-  transactionRec.quantity = transactionFields[1];
-  // transactionRec.insertionTime = hexToDecimal(transactionFields[0]);
-  // transactionRec.quantity = hexToDecimal(transactionFields[1]);
+  transactionRec.insertionTime = hexToDecimal(transactionFields[0]);
+  transactionRec.quantity = hexToDecimal(transactionFields[1]);
   logJSON(transactionRec);
   return transactionRec;
 }

@@ -22,18 +22,13 @@ contract Rates is Agents{
         mapping(uint256 => RateStruct) storage rateMap = agentRec.rateMap;
         RateStruct storage rateRec = rateMap[_rateKey];
         if (!rateRec.inserted) {
+            console.log("**********************************");
             console.log("Inserting RateRec", _rateKey);
+            rateRec.rate = _rateKey;
             rateRec.inserted = true;
             rateRec.insertionTime = rateRec.lastUpdateTime = block.timestamp;
             agentRec.rateKeys.push(_rateKey);
         }
-        // else {
-             console.log("Updating RateRec", _rateKey);
-        //     rateRec.lastUpdateTime = block.timestamp;
-        // }
-
-        // console.log("agentRec.rateMap[_rateKey].inserted",
-        // agentRec.rateMap[_rateKey].inserted); 
     }
 
     /// @notice determines if address Record is inserted in accountKey array
@@ -58,14 +53,14 @@ contract Rates is Agents{
         string memory strTransactionList = "";
         for (uint idx; idx < agentRateKeys.length; idx++) {
             RateStruct storage rateRec = agentRec.rateMap[agentRateKeys[idx]];
-            // console.log ("rateRec.transactionList[0].quantity = ", rateRec.transactionList[0].quantity);
+            console.log ("rateRec.transactionList[0].quantity = ", rateRec.transactionList[0].quantity);
             TransactionStruct[] memory transactionList = rateRec.transactionList;
-            strTransactionList = getRateTransactionStr(transactionList);
-            // console.log("strTransactionList = ", strTransactionList); 
+            strTransactionList = concat(strTransactionList, getRateTransactionStr(transactionList)); 
             if (idx < agentRateKeys.length - 1) {
                 strTransactionList = concat(strTransactionList, "\n");
             }
         }
+        console.log("ZZZZ strTransactionList = ", strTransactionList); 
         return strTransactionList;
     }
 

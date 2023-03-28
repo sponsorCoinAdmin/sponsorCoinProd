@@ -52,6 +52,8 @@ describe("spCoinContract", function () {
   let TRANSACTION_QTY_1 = 9;
   let AGENT_RATE_2 = 4;
   let TRANSACTION_QTY_2 = 3;
+  let AGENT_RATE_3 = 7;
+  let TRANSACTION_QTY_3 = 6;
 
   // Test Successful Record Insertion of Patreon and 
   // Sponsor Accounts to the Blockchain Network.
@@ -64,21 +66,21 @@ describe("spCoinContract", function () {
     TRANSACTION_QTY_1
     );
 
-    // await addAgentRateTransaction(
-    //   PATREON_ACCOUNT_KEY_1,
-    //   SPONSOR_ACCOUNT_KEY_1,
-    //   AGENT_ACCOUNT_KEY_1,
-    //   AGENT_RATE_2,
-    //   TRANSACTION_QTY_2
-    // );
+    await addAgentRateTransaction(
+      PATREON_ACCOUNT_KEY_1,
+      SPONSOR_ACCOUNT_KEY_1,
+      AGENT_ACCOUNT_KEY_1,
+      AGENT_RATE_2,
+      TRANSACTION_QTY_2
+    );
     
-    // await addAgentRateTransaction(
-    //   PATREON_ACCOUNT_KEY_1,
-    //   SPONSOR_ACCOUNT_KEY_1,
-    //   AGENT_ACCOUNT_KEY_1,
-    //   AGENT_RATE_2,
-    //   TRANSACTION_QTY_2
-    // );
+    await addAgentRateTransaction(
+      PATREON_ACCOUNT_KEY_1,
+      SPONSOR_ACCOUNT_KEY_1,
+      AGENT_ACCOUNT_KEY_1,
+      AGENT_RATE_3,
+      TRANSACTION_QTY_3
+    );
 
     // let agentRateKeys = await getAgentRateKeys(
     //   PATREON_ACCOUNT_KEY_1,
