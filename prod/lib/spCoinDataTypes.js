@@ -42,7 +42,7 @@ class RateHeaderStruct {
     this.rate;
     this.insertionTime;
     this.lastUpdateTime;
-    this.totalQuantity;
+    this.totalSponsored;
     this.transactions;
   }
 }

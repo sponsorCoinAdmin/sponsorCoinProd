@@ -21,7 +21,7 @@ contract Transactions is Rates{
         TransactionStruct[] storage transactionList = rateRec.transactionList;
         transactionList.push(transRec);
         rateRec.lastUpdateTime = transactionTimeStamp;
-        rateRec.totalQuantity += _transAmount;
+        rateRec.totalSponsored += _transAmount;
     } 
 
 }

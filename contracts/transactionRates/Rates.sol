@@ -24,7 +24,7 @@ contract Rates is Agents{
             rateRec.rate = _rateKey;
             rateRec.inserted = true;
             rateRec.insertionTime = rateRec.lastUpdateTime = block.timestamp;
-            rateRec.totalQuantity = 0;
+            rateRec.totalSponsored = 0;
             agentRec.rateKeys.push(_rateKey);
         }
     }
@@ -49,8 +49,8 @@ contract Rates is Agents{
         RateStruct storage rateRec =  getRateRecordByKeys(_patreonKey, _sponsorKey, _agentKey, _agentRateKey);
         string memory insertionTimeStr = toString(rateRec.insertionTime);
         string memory lastUpdateTimeStr = toString(rateRec.lastUpdateTime);
-        string memory totalQuantityStr = toString(rateRec.totalQuantity);
-        string memory strRateHeaderStr = concat(insertionTimeStr, ",", lastUpdateTimeStr, ",", totalQuantityStr);
+        string memory totalSponsoredStr = toString(rateRec.totalSponsored);
+        string memory strRateHeaderStr = concat(insertionTimeStr, ",", lastUpdateTimeStr, ",", totalSponsoredStr);
 
         return strRateHeaderStr;
     }

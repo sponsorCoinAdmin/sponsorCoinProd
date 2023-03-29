@@ -242,7 +242,7 @@ getAgentRateRecordByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountK
   agentRateRecord.rate = _rateKey;
   agentRateRecord.insertionTime = hexToDecimal(headerStr[0]);
   agentRateRecord.lastUpdateTime = hexToDecimal(headerStr[1]);
-  agentRateRecord.totalQuantity = hexToDecimal(headerStr[2]);
+  agentRateRecord.totalSponsored = hexToDecimal(headerStr[2]);
   agentRateRecord.transactions = await getRateTransactionsByKeys(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey);
   return agentRateRecord;
 }

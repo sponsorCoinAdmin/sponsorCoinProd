@@ -19,6 +19,9 @@ contract SpCoinDataTypes {
     event Transfer(address indexed from, address indexed to, uint256 value);
     event Approval(address indexed owner, address indexed spender, uint256 value);
 
+    // Sponsored Coins
+    uint256 sponsorCoins;
+
     // Keep track of account insertions
     // Record relationship rules as Follows:
     // 1. Every Account is the root of a mapping tree in the diagram below:
@@ -61,6 +64,7 @@ contract SpCoinDataTypes {
         uint256 index;
         address accountKey;
         uint256 balanceOf;
+        uint256 sponsorCoins; // Coins Owned but steaked to sponsors
         uint256 insertionTime;
         bool inserted;
         bool verified;
@@ -82,6 +86,7 @@ contract SpCoinDataTypes {
         uint256 index;
         address sponsorAccountKey;
         uint256 insertionTime;
+        uint256 totalSponsored; // Coins not owned but Sponsored
         bool inserted;
         bool verified;
         address[] accountAgentKeys;
@@ -95,6 +100,7 @@ contract SpCoinDataTypes {
         uint256 index;
         address agentAccountKey;
         uint256 insertionTime;
+        uint256 totalSponsored; // Coins not owned but Sponsored
         bool inserted;
         bool verified;
         uint256[] rateKeys;
@@ -105,7 +111,7 @@ contract SpCoinDataTypes {
         uint256 rate;
         uint256 insertionTime;
         uint256 lastUpdateTime;
-        uint256 totalQuantity;
+        uint256 totalSponsored;
         bool inserted;
         TransactionStruct[] transactionList;
     }
