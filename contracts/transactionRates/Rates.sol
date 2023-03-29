@@ -11,8 +11,7 @@ contract Rates is Agents{
     /// @notice insert sponsors Agent
     /// @param _patreonKey public Sponsor Coin Account Key
     /// @param _sponsorKey public account key to get sponsor array
-    /// @param _agentKey new sponsor to add to account list
-    
+    /// @param _agentKey new sponsor to add to account list 
     function addAgentRate(address _patreonKey, address _sponsorKey, address _agentKey, uint _rateKey)
             public onlyOwnerOrRootAdmin(msg.sender) {
 
@@ -22,11 +21,10 @@ contract Rates is Agents{
         mapping(uint256 => RateStruct) storage rateMap = agentRec.rateMap;
         RateStruct storage rateRec = rateMap[_rateKey];
         if (!rateRec.inserted) {
-            // console.log("**********************************");
-            // console.log("Inserting RateRec", _rateKey);
             rateRec.rate = _rateKey;
             rateRec.inserted = true;
             rateRec.insertionTime = rateRec.lastUpdateTime = block.timestamp;
+            rateRec.totalQuantity = 0;
             agentRec.rateKeys.push(_rateKey);
         }
     }
@@ -46,22 +44,17 @@ contract Rates is Agents{
         AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey) ;
         return agentRec.rateMap[_rate];
      }
-/*
-    function getRateTransactions(address _patreonKey, address _sponsorKey, address _agentKey) public view returns (string memory) {
-        AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
-        uint256[] memory agentRateKeys = agentRec.rateKeys;
-        string memory strTransactionList = "";
-        for (uint idx; idx < agentRateKeys.length; idx++) {
-            uint256 agentRateKey = agentRateKeys[idx];
-            strTransactionList = getRateTransactionList(_patreonKey,  _sponsorKey,  _agentKey,  agentRateKey); 
-            if (idx < agentRateKeys.length - 1) {
-                strTransactionList = concat(strTransactionList, "\n");
-            }
-        }
-        // console.log("ZZZZ strTransactionList = ", strTransactionList); 
-        return strTransactionList;
+
+     function getRateHeaderDataStr(address _patreonKey, address _sponsorKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
+        RateStruct storage rateRec =  getRateRecordByKeys(_patreonKey, _sponsorKey, _agentKey, _agentRateKey);
+        string memory insertionTimeStr = toString(rateRec.insertionTime);
+        string memory lastUpdateTimeStr = toString(rateRec.lastUpdateTime);
+        string memory totalQuantityStr = toString(rateRec.totalQuantity);
+        string memory strRateHeaderStr = concat(insertionTimeStr, ",", lastUpdateTimeStr, ",", totalQuantityStr);
+
+        return strRateHeaderStr;
     }
-*/
+
     function getRateTransactionList(address _patreonKey, address _sponsorKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
         string memory strTransactionList = "";
@@ -73,12 +66,9 @@ contract Rates is Agents{
         return strTransactionList;
     }
 
-    function getRateTransactionStr(TransactionStruct[] memory transactionList) public view returns (string memory) {
+    function getRateTransactionStr(TransactionStruct[] memory transactionList) public pure returns (string memory) {
         string memory strTransactionList = "";
-        console.log("===================================================================");
-        console.log("getRateTransactionStr:transactionList.length = ", transactionList.length);
         for (uint idx; idx < transactionList.length; idx++) {
-console.log("HERE " , idx);
 
             strTransactionList = concat(strTransactionList,
             toString(transactionList[idx].insertionTime), ",",
@@ -87,9 +77,6 @@ console.log("HERE " , idx);
                 strTransactionList = concat(strTransactionList, "\n");
             }
         }
-console.log("strTransactionList = ", strTransactionList);
-console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-
         return strTransactionList;
     }
 }

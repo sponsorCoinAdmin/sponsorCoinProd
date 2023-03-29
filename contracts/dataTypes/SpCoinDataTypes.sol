@@ -106,7 +106,6 @@ contract SpCoinDataTypes {
         uint256 insertionTime;
         uint256 lastUpdateTime;
         uint256 totalQuantity;
-//        uint256[] rate;
         bool inserted;
         TransactionStruct[] transactionList;
     }
