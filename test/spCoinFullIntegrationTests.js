@@ -30,9 +30,9 @@ const {
   TEST_HH_ACCOUNT_KEY_19,
  } = require("./testMethods/hhTestAccounts");
 const { LOG_MODE, LOG, setLogMode, log } = require("../prod/lib/utils/logging");
-const { } = require("../test/testMethods/scTestMethods");
+const { } = require("./testMethods/scTestMethods");
 const { } = require("../prod/lib/spCoinReadMethods");
-const { } = require("../test/deployContract");
+const { } = require("./deployContract");
 
 let spCoinContractDeployed;
 
@@ -55,11 +55,11 @@ describe("spCoinContract", function () {
     // Account, Sponsor and/or Agent are Successfully mutually exclusive.
     await addSponsorAgents(
       PATREON_ACCOUNT_KEY, SPONSOR_ACCOUNT_KEY, [AGENT_ACCOUNT_KEY]);
-    // await addTestNetworkSponsorAgents(3, 1, [2]);
     accountKeySize = (await getAccountKeySize()).toNumber();
     expect(accountKeySize).to.equal(3);
-    await logJSONTree();
+//    await logJSONTree();
 
+    log("HERE 1");
     // VALIDATE ACCOUNT CREATION
     // VALIDATE PATREON ACCOUNT
     let patreonAccountRecord = await getAccountRecord(PATREON_ACCOUNT_KEY);
@@ -69,11 +69,13 @@ describe("spCoinContract", function () {
     expect(patreonAccountRecord.accountPatreonKeys.length).to.equal(0);
     expect(patreonAccountRecord.accountAgentKeys.length).to.equal(0);
     expect(patreonAccountRecord.accountSponsorRecords.length).to.equal(1);
+    log("HERE 2 SPONSOR_ACCOUNT_KEY = " + SPONSOR_ACCOUNT_KEY);
   // VALIDATE NESTED SPONSOR RECORD
-    let sponsorNestedRecord = await getSponsorRecordByKeys(PATREON_ACCOUNT_KEY, SPONSOR_ACCOUNT_KEY);
+    let sponsorNestedRecord = await getSponsorRecordByKeys(1, PATREON_ACCOUNT_KEY, SPONSOR_ACCOUNT_KEY);
     // logJSON(sponsorNestedRecord);
     expect(sponsorNestedRecord.sponsorAccountKey).to.equal(SPONSOR_ACCOUNT_KEY);
     expect(sponsorNestedRecord.accountAgentKeys[0]).to.equal(AGENT_ACCOUNT_KEY);
+    log("HERE 3");
     // VALIDATE SPONSOR ACCOUNT
     let sponsorAccount = await getAccountRecord(SPONSOR_ACCOUNT_KEY);
     // logJSON(sponsorAccount);
@@ -83,9 +85,11 @@ describe("spCoinContract", function () {
     expect(sponsorAccount.accountSponsorKeys.length).to.equal(0);
     expect(sponsorAccount.accountSponsorRecords.length).to.equal(0);
     // VALIDATE AGENT RECORD
+    log("HERE 4");
     let agentNestedRecord = await getAgentRecordByKeys(PATREON_ACCOUNT_KEY, SPONSOR_ACCOUNT_KEY, AGENT_ACCOUNT_KEY);
     expect(agentNestedRecord.agentAccountKey).to.equal(AGENT_ACCOUNT_KEY);
     // VALIDATE AGENT ACCOUNT
+    log("HERE 5");
     let agentAccount = await getAccountRecord(AGENT_ACCOUNT_KEY);
 //    logJSON(agentAccount);
     expect(agentAccount.accountKey).to.equal(AGENT_ACCOUNT_KEY);
@@ -95,6 +99,7 @@ describe("spCoinContract", function () {
     expect(agentAccount.accountSponsorRecords.length).to.equal(0);
 
     log("*** PATREON/SPONSOR/AGENT CREATION SUCCESS ***");
+    log("HERE 6");
 
   // VALIDATE PATREON UN-SPONSORING
   await deletePatreonSponsorRecord(PATREON_ACCOUNT_KEY, SPONSOR_ACCOUNT_KEY);
@@ -102,20 +107,24 @@ describe("spCoinContract", function () {
   patreonAccountRecord = await getAccountRecord(PATREON_ACCOUNT_KEY);
   sponsorAccount = await getAccountRecord(SPONSOR_ACCOUNT_KEY);
   agentAccount = await getAccountRecord(AGENT_ACCOUNT_KEY);
+  log("HERE 7");
 
   expect(patreonAccountRecord.accountAgentKeys.length).to.equal(0);
   expect(patreonAccountRecord.accountPatreonKeys.length).to.equal(0);
   expect(patreonAccountRecord.accountSponsorKeys.length).to.equal(0);
   expect(patreonAccountRecord.accountSponsorRecords.length).to.equal(0);
 
+  log("HERE 10");
   expect(sponsorAccount.accountPatreonKeys.length).to.equal(0);
   expect(sponsorAccount.accountSponsorKeys.length).to.equal(0);
   expect(sponsorAccount.accountSponsorRecords.length).to.equal(0);
+  log("HERE 11");
 
   expect(agentAccount.accountPatreonKeys.length).to.equal(0);
   expect(agentAccount.accountSponsorKeys.length).to.equal(0);
   expect(agentAccount.accountAgentKeys.length).to.equal(0);
   expect(agentAccount.accountSponsorRecords.length).to.equal(0);
+  log("HERE 12");
 
   });
  /**/

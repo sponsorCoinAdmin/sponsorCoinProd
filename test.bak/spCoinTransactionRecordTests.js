@@ -30,9 +30,9 @@ const {
   TEST_HH_ACCOUNT_KEY_19,
  } = require("./testMethods/hhTestAccounts");
 const { LOG_MODE, LOG, setLogMode, log, logJSON } = require("../prod/lib/utils/logging");
-const { } = require("./testMethods/scTestMethods");
+const { } = require("../test/testMethods/scTestMethods");
 const { } = require("../prod/lib/spCoinReadMethods");
-const { } = require("./deployContract");
+const { } = require("../test/deployContract");
 
 let spCoinContractDeployed;
 
