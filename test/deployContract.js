@@ -1,13 +1,13 @@
-const { } = require("./lib/spCoinReadMethods");
-const { } = require("./lib/spCoinDeleteMethods");
-const { } = require("./lib/spCoinAddMethods");
+const { } = require("../prod/lib/spCoinReadMethods");
+const { } = require("../prod/lib/spCoinDeleteMethods");
+const { } = require("../prod/lib/spCoinAddMethods");
 
 const {
     LOG_MODE,
     logSetup,
     setLogMode,
     log
-  } = require("./lib/utils/logging");
+  } = require("../prod/lib/utils/logging");
 
   let spCoinContractDeployed;
 

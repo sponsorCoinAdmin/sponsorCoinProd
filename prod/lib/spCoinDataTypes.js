@@ -10,7 +10,7 @@ class AccountStruct {
     this.accountAgentKeys;
     this.accountPatreonKeys;
     this.accountParentSponsorKeys;
-    this.KYC;
+//    this.KYC;
   }
 }
 
@@ -39,10 +39,11 @@ class AgentStruct {
 
 class RateHeaderStruct {
   constructor() {
+    this.rate;
     this.insertionTime;
     this.lastUpdateTime;
     this.totalQuantity;
-    this.TransactionStruct;
+    this.transactions;
   }
 }
 

@@ -2,7 +2,7 @@ const { expect } = require("chai");
 const { LOG_MODE } = require("../prod/lib/utils/logging");
 const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
 const { } = require("./testMethods/scTestMethods");
-const { } = require("../prod/deployContract");
+const { } = require("../test/deployContract");
 
 logSetup("JS => Setup Test");
 

@@ -218,7 +218,7 @@ contract Accounts is StructSerialization {
         _;
     }
     */
-     /////////////////// ACCOUNT SERIALIZATION REQUESTS ////////////////////////
+    /////////////////// ACCOUNT SERIALIZATION REQUESTS ////////////////////////
 
     /// @notice retreives the account record of a specific accountKey address.
     /// @param _accountKey public accountKey to set new balance
