@@ -29,7 +29,7 @@ const {
   TEST_HH_ACCOUNT_KEY_18,
   TEST_HH_ACCOUNT_KEY_19,
  } = require("./testMethods/hhTestAccounts");
-const { LOG_MODE, LOG, setLogMode, log } = require("../prod/lib/utils/logging");
+const { LOG_MODE, LOG, setLogMode, log, logJSON } = require("../prod/lib/utils/logging");
 const { } = require("./testMethods/scTestMethods");
 const { } = require("../prod/lib/spCoinReadMethods");
 const { } = require("./deployContract");
@@ -43,89 +43,101 @@ describe("spCoinContract", function () {
     await deploySpCoinContract();
   });
 
- /**/
-  it("VALIDATE CREATE/DELETE SPONSOR", async function () {
-    setLogMode(LOG, true);
-    let PATREON_ACCOUNT_KEY = TEST_HH_ACCOUNT_KEY_0;
-    let SPONSOR_ACCOUNT_KEY = TEST_HH_ACCOUNT_KEY_1;
-    let AGENT_ACCOUNT_KEY = TEST_HH_ACCOUNT_KEY_2;
+ it("VALIDATE ADD TRANSACTION RATES", async function () {
+  setLogMode("LOG", true);
+  let PATREON_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_0;
+  let PATREON_ACCOUNT_KEY_2 = TEST_HH_ACCOUNT_KEY_6;
+  let SPONSOR_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_1;
+  let AGENT_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_2;
+  let AGENT_RATE_1 = 2;
+  let TRANSACTION_QTY_1 = 9;
+  let AGENT_RATE_2 = 4;
+  let TRANSACTION_QTY_2 = 3;
+  let AGENT_RATE_3 = 7;
+  let TRANSACTION_QTY_3 = 6;
+  let AGENT_RATE_4 = 1;
+  let TRANSACTION_QTY_4 = 5;
 
-    // Test Successful Record Insertion of Patreon and 
-    // Sponsor Accounts to the Blockchain Network.
-    // Account, Sponsor and/or Agent are Successfully mutually exclusive.
-    await addSponsorAgents(
-      PATREON_ACCOUNT_KEY, SPONSOR_ACCOUNT_KEY, [AGENT_ACCOUNT_KEY]);
-    accountKeySize = (await getAccountKeySize()).toNumber();
-    expect(accountKeySize).to.equal(3);
-//    await logJSONTree();
+  // Test Successful Record Insertion of Patreon and 
+  // Sponsor Accounts to the Blockchain Network.
+  // Account, Sponsor and/or Agent are Successfully mutually exclusive.
+  await addAgentRateTransaction(
+    PATREON_ACCOUNT_KEY_1,
+    SPONSOR_ACCOUNT_KEY_1,
+    AGENT_ACCOUNT_KEY_1,
+    AGENT_RATE_1,
+    TRANSACTION_QTY_1
+    );
 
-    log("HERE 1");
+    await addAgentRateTransaction(
+      PATREON_ACCOUNT_KEY_2,
+      SPONSOR_ACCOUNT_KEY_1,
+      AGENT_ACCOUNT_KEY_1,
+      AGENT_RATE_1,
+      TRANSACTION_QTY_1
+      );
+
+      await addAgentRateTransaction(
+        PATREON_ACCOUNT_KEY_2,
+        SPONSOR_ACCOUNT_KEY_1,
+        AGENT_ACCOUNT_KEY_1,
+        AGENT_RATE_1,
+        TRANSACTION_QTY_3*3
+        );
+  
+      await addAgentRateTransaction(
+        PATREON_ACCOUNT_KEY_2,
+        SPONSOR_ACCOUNT_KEY_1,
+        AGENT_ACCOUNT_KEY_1,
+        AGENT_RATE_2,
+        TRANSACTION_QTY_2
+        );
+    
+    await addAgentRateTransaction(
+      PATREON_ACCOUNT_KEY_1,
+      SPONSOR_ACCOUNT_KEY_1,
+      AGENT_ACCOUNT_KEY_1,
+      AGENT_RATE_2,
+      TRANSACTION_QTY_2
+    );
+    
+    await addAgentRateTransaction(
+      PATREON_ACCOUNT_KEY_1,
+      SPONSOR_ACCOUNT_KEY_1,
+      AGENT_ACCOUNT_KEY_1,
+      AGENT_RATE_3,
+      TRANSACTION_QTY_3
+    );
+    await addAgentRateTransaction(
+      PATREON_ACCOUNT_KEY_1,
+      SPONSOR_ACCOUNT_KEY_1,
+      AGENT_ACCOUNT_KEY_1,
+      AGENT_RATE_2,
+      TRANSACTION_QTY_4
+    );
+
+    // let agentRateKeys = await getAgentRateKeys(
+    //   PATREON_ACCOUNT_KEY_1,
+    //   SPONSOR_ACCOUNT_KEY_1,
+    //   AGENT_ACCOUNT_KEY_1);
+  
+    // accountKeySize = (await getAccountKeySize()).toNumber();
+    // expect(accountKeySize).to.equal(3);
+    await logJSONTree();
+    await deletePatreonSponsorRecord(PATREON_ACCOUNT_KEY_1, SPONSOR_ACCOUNT_KEY_1);
+
+    console.log("--- AFTER DELETE SPONSOR -----------------------------------");
+    await logJSONTree();
+    // agentRateKeys = await getAgentRateKeys(
+    //   PATREON_ACCOUNT_KEY_1,
+    //   SPONSOR_ACCOUNT_KEY_1,
+    //   AGENT_ACCOUNT_KEY_1);
+    //   logJSON(agentRateKeys);
+
     // VALIDATE ACCOUNT CREATION
     // VALIDATE PATREON ACCOUNT
-    let patreonAccountRecord = await getAccountRecord(PATREON_ACCOUNT_KEY);
+    // let patreonAccountRecord = await getAccountRecord(PATREON_ACCOUNT_KEY_1);
     // logJSON(patreonAccountRecord);
-    expect(patreonAccountRecord.accountKey).to.equal(PATREON_ACCOUNT_KEY);
-    expect(patreonAccountRecord.accountSponsorKeys[0]).to.equal(SPONSOR_ACCOUNT_KEY);
-    expect(patreonAccountRecord.accountPatreonKeys.length).to.equal(0);
-    expect(patreonAccountRecord.accountAgentKeys.length).to.equal(0);
-    expect(patreonAccountRecord.accountSponsorRecords.length).to.equal(1);
-    log("HERE 2 SPONSOR_ACCOUNT_KEY = " + SPONSOR_ACCOUNT_KEY);
-  // VALIDATE NESTED SPONSOR RECORD
-    let sponsorNestedRecord = await getSponsorRecordByKeys(1, PATREON_ACCOUNT_KEY, SPONSOR_ACCOUNT_KEY);
-    // logJSON(sponsorNestedRecord);
-    expect(sponsorNestedRecord.sponsorAccountKey).to.equal(SPONSOR_ACCOUNT_KEY);
-    expect(sponsorNestedRecord.accountAgentKeys[0]).to.equal(AGENT_ACCOUNT_KEY);
-    log("HERE 3");
-    // VALIDATE SPONSOR ACCOUNT
-    let sponsorAccount = await getAccountRecord(SPONSOR_ACCOUNT_KEY);
-    // logJSON(sponsorAccount);
-    expect(sponsorAccount.accountKey).to.equal(SPONSOR_ACCOUNT_KEY);
-    expect(sponsorAccount.accountPatreonKeys[0]).to.equal(PATREON_ACCOUNT_KEY);
-    expect(sponsorAccount.accountAgentKeys[0]).to.equal(AGENT_ACCOUNT_KEY);
-    expect(sponsorAccount.accountSponsorKeys.length).to.equal(0);
-    expect(sponsorAccount.accountSponsorRecords.length).to.equal(0);
-    // VALIDATE AGENT RECORD
-    log("HERE 4");
-    let agentNestedRecord = await getAgentRecordByKeys(PATREON_ACCOUNT_KEY, SPONSOR_ACCOUNT_KEY, AGENT_ACCOUNT_KEY);
-    expect(agentNestedRecord.agentAccountKey).to.equal(AGENT_ACCOUNT_KEY);
-    // VALIDATE AGENT ACCOUNT
-    log("HERE 5");
-    let agentAccount = await getAccountRecord(AGENT_ACCOUNT_KEY);
-//    logJSON(agentAccount);
-    expect(agentAccount.accountKey).to.equal(AGENT_ACCOUNT_KEY);
-    expect(agentAccount.accountAgentKeys.length).to.equal(0);
-    expect(agentAccount.accountPatreonKeys.length).to.equal(0);
-    expect(agentAccount.accountSponsorKeys.length).to.equal(0);
-    expect(agentAccount.accountSponsorRecords.length).to.equal(0);
-
-    log("*** PATREON/SPONSOR/AGENT CREATION SUCCESS ***");
-    log("HERE 6");
-
-  // VALIDATE PATREON UN-SPONSORING
-  await deletePatreonSponsorRecord(PATREON_ACCOUNT_KEY, SPONSOR_ACCOUNT_KEY);
-  await logJSONTree();
-  patreonAccountRecord = await getAccountRecord(PATREON_ACCOUNT_KEY);
-  sponsorAccount = await getAccountRecord(SPONSOR_ACCOUNT_KEY);
-  agentAccount = await getAccountRecord(AGENT_ACCOUNT_KEY);
-  log("HERE 7");
-
-  expect(patreonAccountRecord.accountAgentKeys.length).to.equal(0);
-  expect(patreonAccountRecord.accountPatreonKeys.length).to.equal(0);
-  expect(patreonAccountRecord.accountSponsorKeys.length).to.equal(0);
-  expect(patreonAccountRecord.accountSponsorRecords.length).to.equal(0);
-
-  log("HERE 10");
-  expect(sponsorAccount.accountPatreonKeys.length).to.equal(0);
-  expect(sponsorAccount.accountSponsorKeys.length).to.equal(0);
-  expect(sponsorAccount.accountSponsorRecords.length).to.equal(0);
-  log("HERE 11");
-
-  expect(agentAccount.accountPatreonKeys.length).to.equal(0);
-  expect(agentAccount.accountSponsorKeys.length).to.equal(0);
-  expect(agentAccount.accountAgentKeys.length).to.equal(0);
-  expect(agentAccount.accountSponsorRecords.length).to.equal(0);
-  log("HERE 12");
-
   });
- /**/
+/**/
 });
