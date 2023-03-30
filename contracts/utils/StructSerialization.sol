@@ -59,7 +59,7 @@ contract StructSerialization is Utils {
             )
         );
         seralized = concat(seralized, delimiter, balanceOf);
-        seralized = concat(seralized, delimiter, sponsorCoins);
+        seralized = concat(seralized, delimiter, "sponsorCoins:", sponsorCoins);
         seralized = concat(seralized, delimiter, "accountAgentKeys:", accountAgentKeys);
         seralized = concat(
             seralized,

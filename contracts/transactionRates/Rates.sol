@@ -51,7 +51,6 @@ contract Rates is Agents{
         string memory lastUpdateTimeStr = toString(rateRec.lastUpdateTime);
         string memory totalSponsoredStr = toString(rateRec.totalSponsored);
         string memory strRateHeaderStr = concat(insertionTimeStr, ",", lastUpdateTimeStr, ",", totalSponsoredStr);
-
         return strRateHeaderStr;
     }
 
