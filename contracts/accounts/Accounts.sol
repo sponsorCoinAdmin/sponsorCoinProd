@@ -15,6 +15,7 @@ contract Accounts is StructSerialization {
             accountRec.index = accountKeys.length;
             accountRec.accountKey = _accountKey;
             accountRec.insertionTime = block.timestamp;
+            accountRec.stakedSPCoins = 0;
             accountRec.inserted = true;
             accountKeys.push(_accountKey);
         }

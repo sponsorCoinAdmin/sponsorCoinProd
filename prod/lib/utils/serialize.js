@@ -49,11 +49,15 @@ addAccountField = (key, value, accountStruct) => {
     case "balanceOf":
       logDetail("JS => setting accountStruct.balanceOf = " + value);
       accountStruct.balanceOf = hexToDecimal(value);
-      break;
+    break;
+    case "stakedSPCoins":
+      logDetail("JS => setting accountStruct.stakedSPCoins = " + value);
+      accountStruct.stakedSPCoins = hexToDecimal(value);
+    break;
     case "decimals":
       logDetail("JS => setting accountStruct.decimals = " + value);
       accountStruct.decimals = hexToDecimal(value);
-      break;
+    break;
     case "insertionTime":
       logDetail("JS => setting accountStruct.insertionTime = " + value);
       accountStruct.insertionTime = hexToDecimal(value);

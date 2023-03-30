@@ -20,7 +20,7 @@ contract SpCoinDataTypes {
     event Approval(address indexed owner, address indexed spender, uint256 value);
 
     // Sponsored Coins
-    uint256 sponsorCoins;
+    uint256 stakedSPCoins;
 
     // Keep track of account insertions
     // Record relationship rules as Follows:
@@ -64,7 +64,7 @@ contract SpCoinDataTypes {
         uint256 index;
         address accountKey;
         uint256 balanceOf;
-        uint256 sponsorCoins; // Coins Owned but steaked to sponsors
+        uint256 stakedSPCoins; // Coins Owned but steaked to sponsors
         uint256 insertionTime;
         bool inserted;
         bool verified;

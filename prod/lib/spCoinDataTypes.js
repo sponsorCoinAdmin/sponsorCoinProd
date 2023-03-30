@@ -3,6 +3,7 @@ class AccountStruct {
     this.index;
     this.accountKey;
     this.balanceOf;
+    this.stakedSPCoins;
     this.insertionTime;
     this.verified;
     this.accountSponsorKeys;

@@ -144,9 +144,9 @@ getSponsorRecordByKeys = async(_index, _accountKey, _sponsorAccountKey) => {
   logFunctionHeader("getSponsorRecordByKeys(" + _accountKey + ", " + _sponsorAccountKey + ")");
   let sponsorRecord = new SponsorStruct(_sponsorAccountKey);
   sponsorRecord.index = _index;
-  let accountAgentKeys = await getAgentRecordKeys(_accountKey, _sponsorAccountKey);
   sponsorRecord.sponsorAccountKey = _sponsorAccountKey;
   sponsorRecord.totalSponsored = hexToDecimal(await spCoinContractDeployed.getSponsorTotalSponsored(_accountKey, _sponsorAccountKey));
+  let accountAgentKeys = await getAgentRecordKeys(_accountKey, _sponsorAccountKey);
   sponsorRecord.accountAgentKeys = accountAgentKeys;
   sponsorRecord.agentRecordList = await getAgentRecordsByKeys(_accountKey, _sponsorAccountKey, accountAgentKeys);
   return sponsorRecord;
