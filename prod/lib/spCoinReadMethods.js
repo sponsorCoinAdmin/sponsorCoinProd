@@ -145,12 +145,25 @@ getSponsorRecordByKeys = async(_index, _accountKey, _sponsorAccountKey) => {
   let sponsorStruct = new SponsorStruct(_sponsorAccountKey);
   sponsorStruct.index = _index;
   let accountAgentKeys = await getAgentRecordKeys(_accountKey, _sponsorAccountKey);
-  let sponsorKeys = await spCoinContractDeployed.getSponsorKeys(_accountKey);
   sponsorStruct.sponsorAccountKey = _sponsorAccountKey;
+  sponsorStruct.totalSponsored = hexToDecimal(await spCoinContractDeployed.getSponsorTotalSponsored(_accountKey, _sponsorAccountKey));
   sponsorStruct.accountAgentKeys = accountAgentKeys;
   sponsorStruct.agentRecordList = await getAgentRecordsByKeys(_accountKey, _sponsorAccountKey, accountAgentKeys);
   return sponsorStruct;
 }
+
+/* FROM SPCT0026
+getSponsorRecordByKeys = async(_index, _accountKey, _sponsorAccountKey) => {
+  logFunctionHeader("getSponsorRecordByKeys(" + _accountKey + ", " + _sponsorAccountKey + ")");
+  let sponsorStruct = new SponsorStruct(_sponsorAccountKey);
+  sponsorStruct.index = _index;
+  sponsorStruct.sponsorAccountKey = _sponsorAccountKey;
+  sponsorStruct.totalSponsored = hexToDecimal(await spCoinContractDeployed.getSponsorTotalSponsored(_accountKey, _sponsorAccountKey));
+  sponsorStruct.accountAgentKeys = await getAgentRecordKeys(_accountKey, _sponsorAccountKey);
+  sponsorStruct.agentRecordList = await getAgentRecordsByKeys(_accountKey, _sponsorAccountKey, accountAgentKeys);
+  return sponsorStruct;
+}
+*/
 
 getAgentsByPatreonSponsor = async(_accountKey, _sponsorAccountKey) => {
   logFunctionHeader("getAgentsByPatreonSponsor = async(" + _accountKey + ", " + _sponsorAccountKey + ")");
@@ -241,7 +254,7 @@ getAgentRateRecordByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountK
   agentRateRecord.rate = _rateKey;
   agentRateRecord.insertionTime = hexToDecimal(headerStr[0]);
   agentRateRecord.lastUpdateTime = hexToDecimal(headerStr[1]);
-  agentRateRecord.totalQuantity = hexToDecimal(headerStr[2]);
+  agentRateRecord.totalSponsored = hexToDecimal(headerStr[2]);
   agentRateRecord.transactions = await getRateTransactionsByKeys(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey);
   return agentRateRecord;
 }

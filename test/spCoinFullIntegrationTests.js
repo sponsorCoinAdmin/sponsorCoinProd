@@ -46,6 +46,7 @@ describe("spCoinContract", function () {
  it("VALIDATE ADD TRANSACTION RATES", async function () {
   setLogMode("LOG", true);
   let PATREON_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_0;
+  let PATREON_ACCOUNT_KEY_2 = TEST_HH_ACCOUNT_KEY_6;
   let SPONSOR_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_1;
   let AGENT_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_2;
   let AGENT_RATE_1 = 2;
@@ -68,6 +69,30 @@ describe("spCoinContract", function () {
     TRANSACTION_QTY_1
     );
 
+    await addAgentRateTransaction(
+      PATREON_ACCOUNT_KEY_2,
+      SPONSOR_ACCOUNT_KEY_1,
+      AGENT_ACCOUNT_KEY_1,
+      AGENT_RATE_1,
+      TRANSACTION_QTY_1
+      );
+
+      await addAgentRateTransaction(
+        PATREON_ACCOUNT_KEY_2,
+        SPONSOR_ACCOUNT_KEY_1,
+        AGENT_ACCOUNT_KEY_1,
+        AGENT_RATE_1,
+        TRANSACTION_QTY_3*3
+        );
+  
+      await addAgentRateTransaction(
+        PATREON_ACCOUNT_KEY_2,
+        SPONSOR_ACCOUNT_KEY_1,
+        AGENT_ACCOUNT_KEY_1,
+        AGENT_RATE_2,
+        TRANSACTION_QTY_2
+        );
+    
     await addAgentRateTransaction(
       PATREON_ACCOUNT_KEY_1,
       SPONSOR_ACCOUNT_KEY_1,
@@ -99,7 +124,10 @@ describe("spCoinContract", function () {
     // accountKeySize = (await getAccountKeySize()).toNumber();
     // expect(accountKeySize).to.equal(3);
     await logJSONTree();
+    await deletePatreonSponsorRecord(PATREON_ACCOUNT_KEY_1, SPONSOR_ACCOUNT_KEY_1);
 
+    console.log("--- AFTER DELETE SPONSOR -----------------------------------");
+    await logJSONTree();
     // agentRateKeys = await getAgentRateKeys(
     //   PATREON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_1,

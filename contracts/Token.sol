@@ -23,6 +23,7 @@ contract Token is AccountStakingManager{
         decimals = _decimals;
         totalSupply = _totalSupply;
         balanceOf[msg.sender] = _totalSupply;
+        sponsorCoins = 0;
     }
 
     /// @notice transfer amount of tokens to an address

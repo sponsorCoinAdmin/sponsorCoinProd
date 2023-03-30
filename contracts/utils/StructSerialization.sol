@@ -22,6 +22,14 @@ contract StructSerialization is Utils {
             "insertionTime: ",
             toString(_accountRec.insertionTime)
         );
+        string memory balanceOf = concat(
+            "balanceOf: ",
+            toString(_accountRec.balanceOf)
+        );
+        string memory sponsorCoins = concat(
+            "sponsorCoins: ",
+            toString(_accountRec.sponsorCoins)
+        );
         string memory verified = concat(
             "verified: ",
             toString(_accountRec.verified)
@@ -29,10 +37,6 @@ contract StructSerialization is Utils {
         string memory accountAgentKeys = toString(_accountRec.accountAgentKeys);
         string memory accountPatreonKeys = toString(
             _accountRec.accountPatreonKeys
-        );
-        string memory balanceOf = concat(
-            "balanceOf: ",
-            toString(_accountRec.balanceOf)
         );
         string memory delimiter = "\\,";
         string memory seralized = concat(
@@ -55,7 +59,7 @@ contract StructSerialization is Utils {
             )
         );
         seralized = concat(seralized, delimiter, balanceOf);
-
+        seralized = concat(seralized, delimiter, sponsorCoins);
         seralized = concat(seralized, delimiter, "accountAgentKeys:", accountAgentKeys);
         seralized = concat(
             seralized,

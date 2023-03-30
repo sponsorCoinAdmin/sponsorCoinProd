@@ -18,6 +18,7 @@ class SponsorStruct {
   constructor() {
     this.index;
     this.sponsorAccountKey;
+    this.totalSponsored;
     this.insertionTime;
     this.verified;
     this.rates;
@@ -31,6 +32,7 @@ class AgentStruct {
   constructor() {
     this.index;
     this.agentAccountKey;
+    this.totalSponsored;
     this.insertionTime;
     this.verified;
     this.rates;
@@ -40,9 +42,9 @@ class AgentStruct {
 class RateHeaderStruct {
   constructor() {
     this.rate;
+    this.totalSponsored;
     this.insertionTime;
     this.lastUpdateTime;
-    this.totalQuantity;
     this.transactions;
   }
 }
