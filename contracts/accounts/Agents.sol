@@ -107,7 +107,8 @@ contract Agents is Sponsors {
 
     function getAgentTotalSponsored(address _patreonKey, address _sponsorKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
-        return agentRec.totalSponsored;
+        // console.log("Agents.sol:agentRec.totalSponsored  = ", agentRec.totalSponsored);
+        return agentRec.totalSponsored; 
     }
 
     function getAgentIndex(address _patreonKey, address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(_patreonKey) view returns (uint) {

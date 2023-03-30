@@ -93,6 +93,7 @@ contract Sponsors is Accounts {
 
     function getSponsorTotalSponsored(address _patreonKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
         SponsorStruct storage sponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
+        // console.log("Sponsor.sol:sponsorRec.totalSponsored  = ", sponsorRec.totalSponsored);
         return sponsorRec.totalSponsored;
     }
 

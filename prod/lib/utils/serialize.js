@@ -34,6 +34,7 @@ deSerializedAccountRec = async (serializedAccountRec) => {
   return accountStruct;
 };
 const hexToDecimal = hex => parseInt(hex, 16);
+const bigIntToDecimal = bigInt => parseInt(bigInt, 10);
 
 addAccountField = (key, value, accountStruct) => {
   logFunctionHeader("addAccountField = (" + key + "," + value + ")");
@@ -107,5 +108,6 @@ parseAddressStrRecord = (strRecord) => {
 module.exports = {
   addAccountField,
   deSerializedAccountRec,
-  hexToDecimal
+  hexToDecimal,
+  bigIntToDecimal
 };

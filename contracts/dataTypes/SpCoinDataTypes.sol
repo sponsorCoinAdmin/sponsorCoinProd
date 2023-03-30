@@ -83,6 +83,7 @@ contract SpCoinDataTypes {
 
     // Each Account has a map of Sponsors and an array of rate structures
     struct SponsorStruct {
+        AccountStruct parent;
         uint256 index;
         address sponsorAccountKey;
         uint256 insertionTime;
@@ -97,6 +98,7 @@ contract SpCoinDataTypes {
 
     // Each Sponsor has a map of Agents and an array of rate structures
     struct AgentStruct {
+        SponsorStruct parent;
         uint256 index;
         address agentAccountKey;
         uint256 insertionTime;
@@ -108,15 +110,17 @@ contract SpCoinDataTypes {
     }
 
     struct RateStruct {
+        AgentStruct parent;
         uint256 rate;
         uint256 insertionTime;
         uint256 lastUpdateTime;
-        uint256 totalSponsored;
+        uint256 totalSponsored; // Coins not owned but Sponsored
         bool inserted;
         TransactionStruct[] transactionList;
     }
 
     struct TransactionStruct {
+        // RateStruct parent;
         uint256 insertionTime;
         uint256 quantity;
     }
