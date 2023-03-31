@@ -32,6 +32,8 @@ contract Agents is Sponsors {
             accountAgentRec.accountParentSponsorKeys.push(_sponsorKey);
         }
     }
+
+    
  
     /// @notice Remove all sponsorship relationships for Patreon and Sponsor accounts
     /// @param _patreonKey Patreon key containing the Sponsor relationship
@@ -43,6 +45,16 @@ contract Agents is Sponsors {
         nonRedundantSponsor ( _patreonKey,  _sponsorKey) {
     
         AccountStruct storage patreonAccountRec = accountMap[_patreonKey];
+        SponsorStruct storage sponsorRec = patreonAccountRec.sponsorMap[_sponsorKey];
+
+        // console.log("BEFORE patreonAccountRec.balanceOf     = ", patreonAccountRec.balanceOf);
+        // console.log("BEFORE patreonAccountRec.stakedSPCoins = ", patreonAccountRec.stakedSPCoins);
+        // console.log("BEFORE sponsorRec.totalSponsored       = ", sponsorRec.totalSponsored);
+        patreonAccountRec.balanceOf += sponsorRec.totalSponsored;
+        patreonAccountRec.stakedSPCoins -= sponsorRec.totalSponsored;
+        // console.log("AFTER patreonAccountRec.balanceOf     = ", patreonAccountRec.balanceOf);
+        // console.log("AFTER patreonAccountRec.stakedSPCoins = ", patreonAccountRec.stakedSPCoins);
+
         address[] storage patreonSponsorKeys = patreonAccountRec.accountSponsorKeys;
         if (deleteAccountRecordFromSearchKeys(_sponsorKey, patreonSponsorKeys)) {
             deleteSponsorRecord(_patreonKey, _sponsorKey);

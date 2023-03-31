@@ -1,11 +1,11 @@
 const { expect } = require("chai");
 const { LOG_MODE } = require("../prod/lib/utils/logging");
 const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
-const {} = require("../prod/lib/spCoinAddMethods");
-const { } = require("./testMethods/scTestMethods");
+const { } = require("../prod/lib/spCoinAddMethods");
 const { } = require("../prod/lib/spCoinReadMethods");
 const { } = require("../prod/lib/spCoinAddMethods");
 const { } = require("./deployContract");
+const { } = require("./testMethods/scTestMethods");
 
 let spCoinContractDeployed;
 
@@ -202,11 +202,11 @@ describe("spCoinContract", function () {
     let sponsorSize = (await getAccountSponsorKeySize(accountKey)).toNumber();
     expect(sponsorSize).to.equal(6);
 
-    let accountSponsorRecords = await getAccountSponsorKeys(accountKey);
+    let sponsorRecordList = await getAccountSponsorKeys(accountKey);
 
-    logJSON(accountSponsorRecords);
-    let accountSponsorRecordsLength = Object.keys(accountSponsorRecords).length;
-    expect(accountSponsorRecordsLength).to.equal(6);
+    logJSON(sponsorRecordList);
+    let sponsorRecordListLength = Object.keys(sponsorRecordList).length;
+    expect(sponsorRecordListLength).to.equal(6);
 
     getAccountSponsorKeys();
   });

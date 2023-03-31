@@ -34,6 +34,5 @@ contract Transactions is Rates{
             {insertionTime: transactionTimeStamp, quantity: _transAmount});
         TransactionStruct[] storage transactionList = rateRec.transactionList;
         transactionList.push(transRec);
-    } 
-
+    }
 }

@@ -82,6 +82,7 @@ describe("spCoinContract", function() {
             logDetail("JS => Address Retrieved from Block Chain at Index " + idx + "  = "+ accountKey );
         }
     });
+
     /**/
 
     it("Insert 4 Sponsor Coin Records 1 count, 1 sponsor and 2 Agents", async function () {
