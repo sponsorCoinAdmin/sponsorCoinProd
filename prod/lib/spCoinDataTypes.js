@@ -19,10 +19,10 @@ class SponsorStruct {
   constructor() {
     this.index;
     this.sponsorAccountKey;
-    this.totalSponsored;
+    this.totalAgentsSponsored;
     this.insertionTime;
     this.verified;
-    this.rates;
+    this.sponsorRateList;
     this.verified;
     this.accountAgentKeys;
     this.agentRecordList;
@@ -33,17 +33,17 @@ class AgentStruct {
   constructor() {
     this.index;
     this.agentAccountKey;
-    this.totalSponsored;
+    this.totalRatesSponsored;
     this.insertionTime;
     this.verified;
-    this.rates;
+    this.agentRateList;
   }
 }
 
 class RateHeaderStruct {
   constructor() {
     this.rate;
-    this.totalSponsored;
+    this.totalTransactionsSponsored;
     this.insertionTime;
     this.lastUpdateTime;
     this.transactions;

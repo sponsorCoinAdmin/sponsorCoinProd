@@ -87,7 +87,7 @@ contract SpCoinDataTypes {
         uint256 index;
         address sponsorAccountKey;
         uint256 insertionTime;
-        uint256 totalSponsored; // Coins not owned but Sponsored
+        uint256 totalAgentsSponsored; // Coins not owned but Sponsored
         bool inserted;
         bool verified;
         address[] accountAgentKeys;
@@ -102,7 +102,7 @@ contract SpCoinDataTypes {
         uint256 index;
         address agentAccountKey;
         uint256 insertionTime;
-        uint256 totalSponsored; // Coins not owned but Sponsored
+        uint256 totalRatesSponsored; // Coins not owned but Sponsored
         bool inserted;
         bool verified;
         uint256[] rateKeys;
@@ -114,7 +114,7 @@ contract SpCoinDataTypes {
         uint256 rate;
         uint256 insertionTime;
         uint256 lastUpdateTime;
-        uint256 totalSponsored; // Coins not owned but Sponsored
+        uint256 totalTransactionsSponsored; // Coins not owned but Sponsored
         bool inserted;
         TransactionStruct[] transactionList;
     }

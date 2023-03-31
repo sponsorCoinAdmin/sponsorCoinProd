@@ -33,7 +33,7 @@ contract Agents is Sponsors {
         }
     }
 
-    
+
  
     /// @notice Remove all sponsorship relationships for Patreon and Sponsor accounts
     /// @param _patreonKey Patreon key containing the Sponsor relationship
@@ -46,12 +46,14 @@ contract Agents is Sponsors {
     
         AccountStruct storage patreonAccountRec = accountMap[_patreonKey];
         SponsorStruct storage sponsorRec = patreonAccountRec.sponsorMap[_sponsorKey];
+        uint256 totalSponsoed = sponsorRec.totalAgentsSponsored;
+
 
         // console.log("BEFORE patreonAccountRec.balanceOf     = ", patreonAccountRec.balanceOf);
         // console.log("BEFORE patreonAccountRec.stakedSPCoins = ", patreonAccountRec.stakedSPCoins);
-        // console.log("BEFORE sponsorRec.totalSponsored       = ", sponsorRec.totalSponsored);
-        patreonAccountRec.balanceOf += sponsorRec.totalSponsored;
-        patreonAccountRec.stakedSPCoins -= sponsorRec.totalSponsored;
+        // console.log("BEFORE totalSponsoed                   = ", totalSponsoed);
+        patreonAccountRec.balanceOf += totalSponsoed;
+        patreonAccountRec.stakedSPCoins -= totalSponsoed;
         // console.log("AFTER patreonAccountRec.balanceOf     = ", patreonAccountRec.balanceOf);
         // console.log("AFTER patreonAccountRec.stakedSPCoins = ", patreonAccountRec.stakedSPCoins);
 
@@ -119,8 +121,8 @@ contract Agents is Sponsors {
 
     function getAgentTotalSponsored(address _patreonKey, address _sponsorKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
-        // console.log("Agents.sol:agentRec.totalSponsored  = ", agentRec.totalSponsored);
-        return agentRec.totalSponsored; 
+        // console.log("Agents.sol:agentRec.totalRatesSponsored  = ", agentRec.totalRatesSponsored);
+        return agentRec.totalRatesSponsored; 
     }
 
     function getAgentIndex(address _patreonKey, address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(_patreonKey) view returns (uint) {

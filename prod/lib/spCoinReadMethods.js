@@ -145,7 +145,7 @@ getSponsorRecordByKeys = async(_index, _accountKey, _sponsorAccountKey) => {
   let sponsorRecord = new SponsorStruct(_sponsorAccountKey);
   sponsorRecord.index = _index;
   sponsorRecord.sponsorAccountKey = _sponsorAccountKey;
-  sponsorRecord.totalSponsored = bigIntToDecimal(await spCoinContractDeployed.getSponsorTotalSponsored(_accountKey, _sponsorAccountKey));
+  sponsorRecord.totalAgentsSponsored = bigIntToDecimal(await spCoinContractDeployed.getSponsorTotalSponsored(_accountKey, _sponsorAccountKey));
   let accountAgentKeys = await getAgentRecordKeys(_accountKey, _sponsorAccountKey);
   sponsorRecord.accountAgentKeys = accountAgentKeys;
   sponsorRecord.agentRecordList = await getAgentRecordsByKeys(_accountKey, _sponsorAccountKey, accountAgentKeys);
@@ -204,8 +204,8 @@ getAgentRecordByKeys = async(_index, _accountKey, _sponsorAccountKey, _agentAcco
   agentRecord = new AgentStruct();
   agentRecord.index = _index;
   agentRecord.agentAccountKey = _agentAccountKey;
-  agentRecord.totalSponsored = bigIntToDecimal(await spCoinContractDeployed.getAgentTotalSponsored(_accountKey, _sponsorAccountKey, _agentAccountKey));
-  agentRecord.rates = ratesByAccountAgents = await getAgentRatesByKeys(_accountKey, _sponsorAccountKey, _agentAccountKey);
+  agentRecord.totalRatesSponsored = bigIntToDecimal(await spCoinContractDeployed.getAgentTotalSponsored(_accountKey, _sponsorAccountKey, _agentAccountKey));
+  agentRecord.agentRateList = await getAgentRatesByKeys(_accountKey, _sponsorAccountKey, _agentAccountKey);
   return agentRecord;
 }
 
@@ -242,7 +242,7 @@ getAgentRateRecordByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountK
   agentRateRecord.rate = _rateKey;
   agentRateRecord.insertionTime = hexToDecimal(headerStr[0]);
   agentRateRecord.lastUpdateTime = hexToDecimal(headerStr[1]);
-  agentRateRecord.totalSponsored = hexToDecimal(headerStr[2]);
+  agentRateRecord.totalTransactionsSponsored = hexToDecimal(headerStr[2]);
   agentRateRecord.transactions = await getRateTransactionsByKeys(_accountKey, _sponsorAccountKey, _agentAccountKey, _rateKey);
   return agentRateRecord;
 }
