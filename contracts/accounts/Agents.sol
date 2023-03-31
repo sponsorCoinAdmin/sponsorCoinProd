@@ -32,6 +32,8 @@ contract Agents is Sponsors {
             accountAgentRec.accountParentSponsorKeys.push(_sponsorKey);
         }
     }
+
+
  
     /// @notice Remove all sponsorship relationships for Patreon and Sponsor accounts
     /// @param _patreonKey Patreon key containing the Sponsor relationship
@@ -43,6 +45,18 @@ contract Agents is Sponsors {
         nonRedundantSponsor ( _patreonKey,  _sponsorKey) {
     
         AccountStruct storage patreonAccountRec = accountMap[_patreonKey];
+        SponsorStruct storage sponsorRec = patreonAccountRec.sponsorMap[_sponsorKey];
+        uint256 totalSponsoed = sponsorRec.totalAgentsSponsored;
+
+
+        // console.log("BEFORE patreonAccountRec.balanceOf     = ", patreonAccountRec.balanceOf);
+        // console.log("BEFORE patreonAccountRec.stakedSPCoins = ", patreonAccountRec.stakedSPCoins);
+        // console.log("BEFORE totalSponsoed                   = ", totalSponsoed);
+        patreonAccountRec.balanceOf += totalSponsoed;
+        patreonAccountRec.stakedSPCoins -= totalSponsoed;
+        // console.log("AFTER patreonAccountRec.balanceOf     = ", patreonAccountRec.balanceOf);
+        // console.log("AFTER patreonAccountRec.stakedSPCoins = ", patreonAccountRec.stakedSPCoins);
+
         address[] storage patreonSponsorKeys = patreonAccountRec.accountSponsorKeys;
         if (deleteAccountRecordFromSearchKeys(_sponsorKey, patreonSponsorKeys)) {
             deleteSponsorRecord(_patreonKey, _sponsorKey);
@@ -107,7 +121,8 @@ contract Agents is Sponsors {
 
     function getAgentTotalSponsored(address _patreonKey, address _sponsorKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
-        return agentRec.totalSponsored;
+        // console.log("Agents.sol:agentRec.totalRatesSponsored  = ", agentRec.totalRatesSponsored);
+        return agentRec.totalRatesSponsored; 
     }
 
     function getAgentIndex(address _patreonKey, address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(_patreonKey) view returns (uint) {

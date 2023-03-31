@@ -26,10 +26,12 @@ contract StructSerialization is Utils {
             "balanceOf: ",
             toString(_accountRec.balanceOf)
         );
-        string memory sponsorCoins = concat(
-            "sponsorCoins: ",
-            toString(_accountRec.sponsorCoins)
+
+        string memory stakedSPCoins = concat(
+            "stakedSPCoins: ",
+            toString(_accountRec.stakedSPCoins)
         );
+
         string memory verified = concat(
             "verified: ",
             toString(_accountRec.verified)
@@ -59,7 +61,8 @@ contract StructSerialization is Utils {
             )
         );
         seralized = concat(seralized, delimiter, balanceOf);
-        seralized = concat(seralized, delimiter, sponsorCoins);
+
+        seralized = concat(seralized, delimiter, stakedSPCoins);
         seralized = concat(seralized, delimiter, "accountAgentKeys:", accountAgentKeys);
         seralized = concat(
             seralized,

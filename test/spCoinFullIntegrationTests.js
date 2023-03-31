@@ -46,17 +46,23 @@ describe("spCoinContract", function () {
  it("VALIDATE ADD TRANSACTION RATES", async function () {
   setLogMode("LOG", true);
   let PATREON_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_0;
-  let PATREON_ACCOUNT_KEY_2 = TEST_HH_ACCOUNT_KEY_6;
-  let SPONSOR_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_1;
-  let AGENT_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_2;
-  let AGENT_RATE_1 = 2;
+  let PATREON_ACCOUNT_KEY_2 = TEST_HH_ACCOUNT_KEY_1;
+  let SPONSOR_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_2;
+  let SPONSOR_ACCOUNT_KEY_2 = TEST_HH_ACCOUNT_KEY_3;
+  let AGENT_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_4;
+  let AGENT_ACCOUNT_KEY_2 = TEST_HH_ACCOUNT_KEY_5;
+  let AGENT_ACCOUNT_KEY_3 = TEST_HH_ACCOUNT_KEY_6;
+  let AGENT_RATE_1 = 1;
   let TRANSACTION_QTY_1 = 9;
-  let AGENT_RATE_2 = 4;
+  let AGENT_RATE_2 = 2;
   let TRANSACTION_QTY_2 = 3;
-  let AGENT_RATE_3 = 7;
+  let AGENT_RATE_3 = 3;
   let TRANSACTION_QTY_3 = 6;
-  let AGENT_RATE_4 = 1;
+  let AGENT_RATE_4 = 4;
   let TRANSACTION_QTY_4 = 5;
+  let TRANSACTION_QTY_5 = 5;
+  let TRANSACTION_QTY_6 = 6;
+  let TRANSACTION_QTY_7 = 7;
 
   // Test Successful Record Insertion of Patreon and 
   // Sponsor Accounts to the Blockchain Network.
@@ -70,51 +76,75 @@ describe("spCoinContract", function () {
     );
 
     await addAgentRateTransaction(
-      PATREON_ACCOUNT_KEY_2,
-      SPONSOR_ACCOUNT_KEY_1,
-      AGENT_ACCOUNT_KEY_1,
+      PATREON_ACCOUNT_KEY_1,
+      SPONSOR_ACCOUNT_KEY_2,
+      AGENT_ACCOUNT_KEY_2,
       AGENT_RATE_1,
       TRANSACTION_QTY_1
-      );
+    );
 
-      await addAgentRateTransaction(
-        PATREON_ACCOUNT_KEY_2,
-        SPONSOR_ACCOUNT_KEY_1,
-        AGENT_ACCOUNT_KEY_1,
-        AGENT_RATE_1,
-        TRANSACTION_QTY_3*3
-        );
+    // await addAgentRateTransaction(
+    //   PATREON_ACCOUNT_KEY_1,
+    //   SPONSOR_ACCOUNT_KEY_1,
+    //   AGENT_ACCOUNT_KEY_3,
+    //   AGENT_RATE_1,
+    //   TRANSACTION_QTY_3
+    // );
+
+    // await addAgentRateTransaction(
+    //   PATREON_ACCOUNT_KEY_1,
+    //   SPONSOR_ACCOUNT_KEY_2,
+    //   AGENT_ACCOUNT_KEY_3,
+    //   AGENT_RATE_4,
+    //   TRANSACTION_QTY_4
+    // );
   
-      await addAgentRateTransaction(
-        PATREON_ACCOUNT_KEY_2,
-        SPONSOR_ACCOUNT_KEY_1,
-        AGENT_ACCOUNT_KEY_1,
-        AGENT_RATE_2,
-        TRANSACTION_QTY_2
-        );
+    // await addAgentRateTransaction(
+    //   PATREON_ACCOUNT_KEY_1,
+    //   SPONSOR_ACCOUNT_KEY_2,
+    //   AGENT_ACCOUNT_KEY_3,
+    //   AGENT_RATE_4,
+    //   TRANSACTION_QTY_7
+    // );
+  
+      // await addAgentRateTransaction(
+      //   PATREON_ACCOUNT_KEY_2,
+      //   SPONSOR_ACCOUNT_KEY_1,
+      //   AGENT_ACCOUNT_KEY_1,
+      //   AGENT_RATE_1,
+      //   TRANSACTION_QTY_3*3
+      //   );
+  
+      // await addAgentRateTransaction(
+      //   PATREON_ACCOUNT_KEY_2,
+      //   SPONSOR_ACCOUNT_KEY_1,
+      //   AGENT_ACCOUNT_KEY_1,
+      //   AGENT_RATE_2,
+      //   TRANSACTION_QTY_2
+      //   );
     
-    await addAgentRateTransaction(
-      PATREON_ACCOUNT_KEY_1,
-      SPONSOR_ACCOUNT_KEY_1,
-      AGENT_ACCOUNT_KEY_1,
-      AGENT_RATE_2,
-      TRANSACTION_QTY_2
-    );
+    // await addAgentRateTransaction(
+    //   PATREON_ACCOUNT_KEY_1,
+    //   SPONSOR_ACCOUNT_KEY_1,
+    //   AGENT_ACCOUNT_KEY_1,
+    //   AGENT_RATE_2,
+    //   TRANSACTION_QTY_2
+    // );
     
-    await addAgentRateTransaction(
-      PATREON_ACCOUNT_KEY_1,
-      SPONSOR_ACCOUNT_KEY_1,
-      AGENT_ACCOUNT_KEY_1,
-      AGENT_RATE_3,
-      TRANSACTION_QTY_3
-    );
-    await addAgentRateTransaction(
-      PATREON_ACCOUNT_KEY_1,
-      SPONSOR_ACCOUNT_KEY_1,
-      AGENT_ACCOUNT_KEY_1,
-      AGENT_RATE_2,
-      TRANSACTION_QTY_4
-    );
+    // await addAgentRateTransaction(
+    //   PATREON_ACCOUNT_KEY_1,
+    //   SPONSOR_ACCOUNT_KEY_1,
+    //   AGENT_ACCOUNT_KEY_1,
+    //   AGENT_RATE_3,
+    //   TRANSACTION_QTY_3
+    // );
+    // await addAgentRateTransaction(
+    //   PATREON_ACCOUNT_KEY_1,
+    //   SPONSOR_ACCOUNT_KEY_1,
+    //   AGENT_ACCOUNT_KEY_1,
+    //   AGENT_RATE_2,
+    //   TRANSACTION_QTY_4
+    // );
 
     // let agentRateKeys = await getAgentRateKeys(
     //   PATREON_ACCOUNT_KEY_1,
@@ -126,7 +156,7 @@ describe("spCoinContract", function () {
     await logJSONTree();
     await deletePatreonSponsorRecord(PATREON_ACCOUNT_KEY_1, SPONSOR_ACCOUNT_KEY_1);
 
-    console.log("--- AFTER DELETE SPONSOR -----------------------------------");
+    // console.log("--- AFTER DELETE SPONSOR -----------------------------------");
     await logJSONTree();
     // agentRateKeys = await getAgentRateKeys(
     //   PATREON_ACCOUNT_KEY_1,

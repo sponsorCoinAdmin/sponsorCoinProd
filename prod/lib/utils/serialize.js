@@ -34,6 +34,7 @@ deSerializedAccountRec = async (serializedAccountRec) => {
   return accountStruct;
 };
 const hexToDecimal = hex => parseInt(hex, 16);
+const bigIntToDecimal = bigInt => parseInt(bigInt, 10);
 
 addAccountField = (key, value, accountStruct) => {
   logFunctionHeader("addAccountField = (" + key + "," + value + ")");
@@ -49,11 +50,15 @@ addAccountField = (key, value, accountStruct) => {
     case "balanceOf":
       logDetail("JS => setting accountStruct.balanceOf = " + value);
       accountStruct.balanceOf = hexToDecimal(value);
-      break;
+    break;
+    case "stakedSPCoins":
+      logDetail("JS => setting accountStruct.stakedSPCoins = " + value);
+      accountStruct.stakedSPCoins = hexToDecimal(value);
+    break;
     case "decimals":
       logDetail("JS => setting accountStruct.decimals = " + value);
       accountStruct.decimals = hexToDecimal(value);
-      break;
+    break;
     case "insertionTime":
       logDetail("JS => setting accountStruct.insertionTime = " + value);
       accountStruct.insertionTime = hexToDecimal(value);
@@ -74,9 +79,9 @@ addAccountField = (key, value, accountStruct) => {
       logDetail("JS => setting accountStruct.accountSponsorKeys = " + value);
       accountStruct.accountSponsorKeys = value;
       break;
-    case "accountSponsorRecords":
-      logDetail("JS => setting accountStruct.accountSponsorRecords = " + value);
-      accountStruct.accountSponsorRecords = value;
+    case "sponsorRecordList":
+      logDetail("JS => setting accountStruct.sponsorRecordList = " + value);
+      accountStruct.sponsorRecordList = value;
       break;
     case "accountAgentKeys":
       logDetail("JS => setting accountStruct.accountAgentKeys = " + value);
@@ -103,5 +108,6 @@ parseAddressStrRecord = (strRecord) => {
 module.exports = {
   addAccountField,
   deSerializedAccountRec,
-  hexToDecimal
+  hexToDecimal,
+  bigIntToDecimal
 };

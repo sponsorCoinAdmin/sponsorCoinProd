@@ -23,7 +23,7 @@ contract Sponsors is Accounts {
             patreonSponsorRec.index = patreonAccountRec.accountSponsorKeys.length;
             patreonSponsorRec.insertionTime = block.timestamp;
             patreonSponsorRec.sponsorAccountKey = _sponsorKey;
-            patreonSponsorRec.totalSponsored = 0; // Coins not owned but Sponsored
+            patreonSponsorRec.totalAgentsSponsored = 0; // Coins not owned but Sponsored
             patreonSponsorRec.inserted = true;
             patreonAccountRec.accountSponsorKeys.push(_sponsorKey);
             sponsorAccountRec.accountPatreonKeys.push(_patreonKey);
@@ -93,7 +93,8 @@ contract Sponsors is Accounts {
 
     function getSponsorTotalSponsored(address _patreonKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
         SponsorStruct storage sponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
-        return sponsorRec.totalSponsored;
+        // console.log("Sponsor.sol:sponsorRec.totalAgentsSponsored  = ", sponsorRec.totalAgentsSponsored);
+        return sponsorRec.totalAgentsSponsored;
     }
 
     /// @notice retreives the sponsor array records from a specific account address.

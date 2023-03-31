@@ -20,7 +20,7 @@ contract SpCoinDataTypes {
     event Approval(address indexed owner, address indexed spender, uint256 value);
 
     // Sponsored Coins
-    uint256 sponsorCoins;
+    uint256 stakedSPCoins;
 
     // Keep track of account insertions
     // Record relationship rules as Follows:
@@ -64,7 +64,7 @@ contract SpCoinDataTypes {
         uint256 index;
         address accountKey;
         uint256 balanceOf;
-        uint256 sponsorCoins; // Coins Owned but steaked to sponsors
+        uint256 stakedSPCoins; // Coins Owned but steaked to sponsors
         uint256 insertionTime;
         bool inserted;
         bool verified;
@@ -83,10 +83,11 @@ contract SpCoinDataTypes {
 
     // Each Account has a map of Sponsors and an array of rate structures
     struct SponsorStruct {
+        AccountStruct parent;
         uint256 index;
         address sponsorAccountKey;
         uint256 insertionTime;
-        uint256 totalSponsored; // Coins not owned but Sponsored
+        uint256 totalAgentsSponsored; // Coins not owned but Sponsored
         bool inserted;
         bool verified;
         address[] accountAgentKeys;
@@ -97,10 +98,11 @@ contract SpCoinDataTypes {
 
     // Each Sponsor has a map of Agents and an array of rate structures
     struct AgentStruct {
+        SponsorStruct parent;
         uint256 index;
         address agentAccountKey;
         uint256 insertionTime;
-        uint256 totalSponsored; // Coins not owned but Sponsored
+        uint256 totalRatesSponsored; // Coins not owned but Sponsored
         bool inserted;
         bool verified;
         uint256[] rateKeys;
@@ -108,15 +110,17 @@ contract SpCoinDataTypes {
     }
 
     struct RateStruct {
+        AgentStruct parent;
         uint256 rate;
         uint256 insertionTime;
         uint256 lastUpdateTime;
-        uint256 totalSponsored;
+        uint256 totalTransactionsSponsored; // Coins not owned but Sponsored
         bool inserted;
         TransactionStruct[] transactionList;
     }
 
     struct TransactionStruct {
+        // RateStruct parent;
         uint256 insertionTime;
         uint256 quantity;
     }
