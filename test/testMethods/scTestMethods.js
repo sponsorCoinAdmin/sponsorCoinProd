@@ -47,13 +47,13 @@ addTestNetworkPatreonSponsors = async (_accountIdx, _accountSponsorKeysIdx) => {
 
 //////////////////////////// TEST AGENT METHODS ////////////////////////////
 
-addTestNetworkSponsorAgents = async ( _accountIdx, _sponsorIdx, _agentListIdx ) => {
+addTestNetworkSponsorAgents = async ( _accountIdx, _sponsorIdx, _sponsorRate, _agentListIdx ) => {
   logFunctionHeader("async (" + _accountIdx  + "," + _sponsorIdx + "," + _agentListIdx+ ")");
   let accountKey = getTestHHAccountKey(_accountIdx);
   let sponsorAccountKey = getTestHHAccountKey(_sponsorIdx);
   let accountAgentKeys = getTestHHAccountListKeys(_agentListIdx);
 
-  await addSponsorAgents(accountKey, sponsorAccountKey, accountAgentKeys);
+  await addSponsorAgents(accountKey, sponsorAccountKey, _sponsorRate, accountAgentKeys);
   return sponsorAccountKey;
 };
 

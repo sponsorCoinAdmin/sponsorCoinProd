@@ -1,11 +1,11 @@
 const { expect } = require("chai");
 const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
 const { LOG_MODE } = require("../prod/lib/utils/logging");
-const { } = require("../test/testMethods/scTestMethods");
+const { } = require("./testMethods/scTestMethods");
 const { } = require("../prod/lib/spCoinReadMethods");
 const { } = require("../prod/lib/spCoinDeleteMethods");
-const { } = require("../test/testMethods/scTestMethods");
-const { } = require("../test/deployContract");
+const { } = require("./testMethods/scTestMethods");
+const { } = require("./deployContract");
 
 let spCoinContractDeployed;
 
@@ -93,7 +93,7 @@ describe("spCoinContract", function () {
   /**/
 
   it("SUCCESSFUL ERROR MSG CAUGHT: 'AGENT ACCOUNT HAS PARENT SPONSOR'", async function () {
-    await addTestNetworkSponsorAgents(1, 2, [3]);
+    await addTestNetworkSponsorAgents(1, 2, 10, [3]);
 
     let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Agent Account has a Parent Sponsor, (Patreon must Un-sponsor Sponsored Account)'";
     try {

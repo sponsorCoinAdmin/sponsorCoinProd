@@ -30,9 +30,9 @@ const {
   TEST_HH_ACCOUNT_KEY_19,
  } = require("./testMethods/hhTestAccounts");
 const { LOG_MODE, LOG, setLogMode, log, logJSON } = require("../prod/lib/utils/logging");
-const { } = require("../test/testMethods/scTestMethods");
+const { } = require("./testMethods/scTestMethods");
 const { } = require("../prod/lib/spCoinReadMethods");
-const { } = require("../test/deployContract");
+const { } = require("./deployContract");
 
 let spCoinContractDeployed;
 
@@ -48,6 +48,7 @@ it("VALIDATE ADD TRANSACTION RATES", async function () {
   let PATREON_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_0;
   let SPONSOR_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_1;
   let AGENT_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_2;
+  let SPONSOR_RATE_KEY_10 = 10;
   let AGENT_RATE_1 = 2;
   let TRANSACTION_QTY_1 = 9;
   let AGENT_RATE_2 = 4;
@@ -63,6 +64,7 @@ it("VALIDATE ADD TRANSACTION RATES", async function () {
   await addAgentRateTransaction(
     PATREON_ACCOUNT_KEY_1,
     SPONSOR_ACCOUNT_KEY_1,
+    SPONSOR_RATE_KEY_10,
     AGENT_ACCOUNT_KEY_1,
     AGENT_RATE_1,
     TRANSACTION_QTY_1
@@ -71,6 +73,7 @@ it("VALIDATE ADD TRANSACTION RATES", async function () {
   await addAgentRateTransaction(
     PATREON_ACCOUNT_KEY_1,
     SPONSOR_ACCOUNT_KEY_1,
+    SPONSOR_RATE_KEY_10,
     AGENT_ACCOUNT_KEY_1,
     AGENT_RATE_2,
     TRANSACTION_QTY_2
@@ -79,6 +82,7 @@ it("VALIDATE ADD TRANSACTION RATES", async function () {
   await addAgentRateTransaction(
     PATREON_ACCOUNT_KEY_1,
     SPONSOR_ACCOUNT_KEY_1,
+    SPONSOR_RATE_KEY_10,
     AGENT_ACCOUNT_KEY_1,
     AGENT_RATE_3,
     TRANSACTION_QTY_3
@@ -87,6 +91,7 @@ it("VALIDATE ADD TRANSACTION RATES", async function () {
   await addAgentRateTransaction(
     PATREON_ACCOUNT_KEY_1,
     SPONSOR_ACCOUNT_KEY_1,
+    SPONSOR_RATE_KEY_10,
     AGENT_ACCOUNT_KEY_1,
     AGENT_RATE_2,
     TRANSACTION_QTY_4
@@ -95,6 +100,7 @@ it("VALIDATE ADD TRANSACTION RATES", async function () {
     // let agentRateKeys = await getAgentRateKeys(
     //   PATREON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_1,
+    //   SPONSOR_RATE_KEY_10,
     //   AGENT_ACCOUNT_KEY_1);
   
     // accountKeySize = (await getAccountKeySize()).toNumber();
@@ -104,6 +110,7 @@ it("VALIDATE ADD TRANSACTION RATES", async function () {
     // agentRateKeys = await getAgentRateKeys(
     //   PATREON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_1,
+    //   SPONSOR_RATE_KEY_10,
     //   AGENT_ACCOUNT_KEY_1);
     //   logJSON(agentRateKeys);
 

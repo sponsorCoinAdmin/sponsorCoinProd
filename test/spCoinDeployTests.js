@@ -91,7 +91,7 @@ describe("spCoinContract", function() {
         logDetail("JS => *** Insert Sponsor to AccountRecord[2] as AccountRecord[5] ***")
         let startRec = 4;
         let endRec = 15;
-        await addTestNetworkSponsorAgents(3, 6, [1, 2]);
+        await addTestNetworkSponsorAgents(3, 6, 10, [1, 2]);
         let insertCount = (await spCoinContractDeployed.getAccountKeySize()).toNumber();
         expect(insertCount).to.equal(4);
     });

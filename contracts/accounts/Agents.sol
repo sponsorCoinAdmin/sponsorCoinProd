@@ -12,7 +12,7 @@ contract Agents is Sponsors {
     /// @param _patreonKey public Sponsor Coin Account Key
     /// @param _sponsorKey public account key to get sponsor array
     /// @param _agentKey new sponsor to add to account list
-    function addSponsorAgent(address _patreonKey, address _sponsorKey, address _agentKey)
+    function addSponsorAgent(address _patreonKey, address _sponsorKey, uint _sponsorRate, address _agentKey)
             public onlyOwnerOrRootAdmin(msg.sender) 
             nonRedundantAgent ( _patreonKey, _sponsorKey, _agentKey) {
         addPatreonSponsor(_patreonKey, _sponsorKey);
@@ -139,8 +139,8 @@ contract Agents is Sponsors {
     /// @param _agentKey agent Key to retrieve the rate list
     function getAgentRateKeys(address _patreonKey, address _sponsorKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint[] memory) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
-        uint[] memory agentRateKeys = agentRec.rateKeys;
-// console.log("AGENTS.SOL:addSponsorAgent: _patreonKey, _sponsorKey, _agentKey = " , _patreonKey, _sponsorKey, _agentKey);
+        uint[] memory agentRateKeys = agentRec.agentRateKeys;
+// console.log("AGENTS.SOL:addSponsorAgent: _patreonKey, _sponsorKey, _sponsorRate, _agentKey = " , _patreonKey, _sponsorKey, _sponsorRate, _agentKey);
 // console.log("AGENTS.SOL:addSponsorAgent:agentRec.agentAccountKey = " , agentRec.agentAccountKey);
 // console.log("AGENTS.SOL:getAgentRateKeys:agentRateKeys.length = ",agentRateKeys.length);
         return agentRateKeys;

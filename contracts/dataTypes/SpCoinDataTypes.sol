@@ -92,8 +92,18 @@ contract SpCoinDataTypes {
         bool verified;
         address[] accountAgentKeys;
         mapping(address => AgentStruct) agentMap;
-        uint256[] rateKeys;
-        mapping(uint256 => RateStruct) rateMap;
+        uint256[] sponsorRateKeys;
+        mapping(uint256 => SponsorRateStruct) rateMap;
+    }
+
+    struct SponsorRateStruct {
+        AgentStruct parent;
+        uint256 rate;
+        uint256 insertionTime;
+        uint256 lastUpdateTime;
+        uint256 totalTransactionsSponsored; // Coins not owned but Sponsored
+        bool inserted;
+        TransactionStruct[] transactionList;
     }
 
     // Each Sponsor has a map of Agents and an array of rate structures
@@ -105,11 +115,11 @@ contract SpCoinDataTypes {
         uint256 totalRatesSponsored; // Coins not owned but Sponsored
         bool inserted;
         bool verified;
-        uint256[] rateKeys;
-        mapping(uint256 => RateStruct) rateMap;
+        uint256[] agentRateKeys;
+        mapping(uint256 => AgentRateStruct) rateMap;
     }
 
-    struct RateStruct {
+    struct AgentRateStruct {
         AgentStruct parent;
         uint256 rate;
         uint256 insertionTime;
@@ -120,7 +130,7 @@ contract SpCoinDataTypes {
     }
 
     struct TransactionStruct {
-        // RateStruct parent;
+        // AgentRateStruct parent;
         uint256 insertionTime;
         uint256 quantity;
     }
