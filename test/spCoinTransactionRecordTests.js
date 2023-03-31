@@ -43,7 +43,7 @@ describe("spCoinContract", function () {
     await deploySpCoinContract();
   });
 
- it("VALIDATE ADD TRANSACTION RATES", async function () {
+it("VALIDATE ADD TRANSACTION RATES", async function () {
   setLogMode("LOG", true);
   let PATREON_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_0;
   let SPONSOR_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_1;
@@ -66,30 +66,31 @@ describe("spCoinContract", function () {
     AGENT_ACCOUNT_KEY_1,
     AGENT_RATE_1,
     TRANSACTION_QTY_1
-    );
+  );
 
-    await addAgentRateTransaction(
-      PATREON_ACCOUNT_KEY_1,
-      SPONSOR_ACCOUNT_KEY_1,
-      AGENT_ACCOUNT_KEY_1,
-      AGENT_RATE_2,
-      TRANSACTION_QTY_2
-    );
+  await addAgentRateTransaction(
+    PATREON_ACCOUNT_KEY_1,
+    SPONSOR_ACCOUNT_KEY_1,
+    AGENT_ACCOUNT_KEY_1,
+    AGENT_RATE_2,
+    TRANSACTION_QTY_2
+  );
     
-    await addAgentRateTransaction(
-      PATREON_ACCOUNT_KEY_1,
-      SPONSOR_ACCOUNT_KEY_1,
-      AGENT_ACCOUNT_KEY_1,
-      AGENT_RATE_3,
-      TRANSACTION_QTY_3
-    );
-    await addAgentRateTransaction(
-      PATREON_ACCOUNT_KEY_1,
-      SPONSOR_ACCOUNT_KEY_1,
-      AGENT_ACCOUNT_KEY_1,
-      AGENT_RATE_2,
-      TRANSACTION_QTY_4
-    );
+  await addAgentRateTransaction(
+    PATREON_ACCOUNT_KEY_1,
+    SPONSOR_ACCOUNT_KEY_1,
+    AGENT_ACCOUNT_KEY_1,
+    AGENT_RATE_3,
+    TRANSACTION_QTY_3
+  );
+
+  await addAgentRateTransaction(
+    PATREON_ACCOUNT_KEY_1,
+    SPONSOR_ACCOUNT_KEY_1,
+    AGENT_ACCOUNT_KEY_1,
+    AGENT_RATE_2,
+    TRANSACTION_QTY_4
+  );
 
     // let agentRateKeys = await getAgentRateKeys(
     //   PATREON_ACCOUNT_KEY_1,
