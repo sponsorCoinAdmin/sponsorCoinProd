@@ -47,21 +47,21 @@ addPatreonSponsor = async (_accountKey, _sponsorKey) => {
     logDetail("JS => "+ "Added Agent " + _accountAgentKey + " Record to SponsorKey " + _sponsorAccountKey);
   };
   
-  addSponsorAgents = async (_accountKey, _sponsorAccountKey, _sponsorRateKey, _accountAgentKeys) => {
+  addSponsorAgents = async (_accountKey, _sponsorAccountKey, _sponsorRateKey, _agentRecordKeys) => {
     logFunctionHeader(
-      "addSponsorAgents = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _sponsorRateKey + ", " + _accountAgentKeys + ")"
+      "addSponsorAgents = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _sponsorRateKey + ", " + _agentRecordKeys + ")"
     );
     logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
     logDetail("JS => For Sponsor[" + _sponsorAccountKey + "]: " + _sponsorAccountKey + ")");
-    logDetail("JS => Inserting " + _accountAgentKeys.length + " Agents To Blockchain Network"
+    logDetail("JS => Inserting " + _agentRecordKeys.length + " Agents To Blockchain Network"
     );
-    logDetail("JS => _accountAgentKeys = " + _accountAgentKeys);
+    logDetail("JS => _agentRecordKeys = " + _agentRecordKeys);
   
-    let agentSize = _accountAgentKeys.length;
+    let agentSize = _agentRecordKeys.length;
     logDetail("JS => agentSize.length = " + agentSize);
     let agentCount = 0;
     for (let agentCount = 0; agentCount < agentSize; agentCount++) {
-      let agentAccountKey = _accountAgentKeys[agentCount];
+      let agentAccountKey = _agentRecordKeys[agentCount];
       logDetail("JS =>  " + agentCount + ". " + "Inserting Agent[" + agentCount + "]: " + agentAccountKey );
       await addSponsorAgent( _accountKey, _sponsorAccountKey, _sponsorRateKey, agentAccountKey );
     }

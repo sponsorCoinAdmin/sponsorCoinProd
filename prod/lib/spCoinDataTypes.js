@@ -8,7 +8,7 @@ class AccountStruct {
     this.verified;
     this.accountPatreonKeys;
     this.accountSponsorKeys;
-    this.accountAgentKeys;
+    this.agentRecordKeys;
     this.accountParentSponsorKeys;
     this.sponsorRecordList;
 //    this.KYC;
@@ -24,7 +24,7 @@ class SponsorStruct {
     this.verified;
     this.sponsorRateList;
     this.verified;
-    this.accountAgentKeys;
+    this.agentRecordKeys;
     this.agentRecordList;
   }
 }

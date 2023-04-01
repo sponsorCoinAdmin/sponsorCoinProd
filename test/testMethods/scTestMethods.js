@@ -51,9 +51,9 @@ addTestNetworkSponsorAgents = async ( _accountIdx, _sponsorIdx, _sponsorRateKey,
   logFunctionHeader("async (" + _accountIdx  + "," + _sponsorIdx + "," + _agentListIdx+ ")");
   let accountKey = getTestHHAccountKey(_accountIdx);
   let sponsorAccountKey = getTestHHAccountKey(_sponsorIdx);
-  let accountAgentKeys = getTestHHAccountListKeys(_agentListIdx);
+  let agentRecordKeys = getTestHHAccountListKeys(_agentListIdx);
 
-  await addSponsorAgents(accountKey, sponsorAccountKey, _sponsorRateKey, accountAgentKeys);
+  await addSponsorAgents(accountKey, sponsorAccountKey, _sponsorRateKey, agentRecordKeys);
   return sponsorAccountKey;
 };
 

@@ -23,12 +23,12 @@ contract Agents is Sponsors {
         SponsorStruct storage patreonSponsorRec = getSponsorRecordByKeys(_patreonKey, _sponsorKey);
         AgentStruct storage  sponsorAgentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
         if (!sponsorAgentRec.inserted) {
-            sponsorAgentRec.index = patreonSponsorRec.accountAgentKeys.length;
+            sponsorAgentRec.index = patreonSponsorRec.agentRecordKeys.length;
             sponsorAgentRec.insertionTime = block.timestamp;
             sponsorAgentRec.agentAccountKey = _agentKey;
             sponsorAgentRec.inserted = true;
-            patreonSponsorRec.accountAgentKeys.push(_agentKey);
-            accountSponsorRec.accountAgentKeys.push(_agentKey);
+            patreonSponsorRec.agentRecordKeys.push(_agentKey);
+            accountSponsorRec.agentRecordKeys.push(_agentKey);
             accountAgentRec.accountParentSponsorKeys.push(_sponsorKey);
         }
     }
@@ -76,16 +76,16 @@ contract Agents is Sponsors {
 
         // console.log("deleteAgentsFromSponsor(_sponsorKey, sponsorMap)");
         mapping(address => AgentStruct) storage agentMap = sponsorMap[_sponsorKey].agentMap;
-        address[] storage accountAgentKeys = sponsorMap[_sponsorKey].accountAgentKeys;
+        address[] storage agentRecordKeys = sponsorMap[_sponsorKey].agentRecordKeys;
 
-        uint i = accountAgentKeys.length - 1;
-        // console.log("*** BEFORE AGENT DELETE accountAgentKeys.length = ", accountAgentKeys.length);
+        uint i = agentRecordKeys.length - 1;
+        // console.log("*** BEFORE AGENT DELETE agentRecordKeys.length = ", agentRecordKeys.length);
          for (i; i >= 0; i--) {
-            deletePatreonSponsorAgentRecordRecord(_sponsorKey, accountAgentKeys[i]); 
-            // console.log("***** Deleting accountAgentKeys ", agentStruct.agentAccountKey);
-            delete agentMap[accountAgentKeys[i]];
-            delete accountAgentKeys[i];
-            accountAgentKeys.pop();
+            deletePatreonSponsorAgentRecordRecord(_sponsorKey, agentRecordKeys[i]); 
+            // console.log("***** Deleting agentRecordKeys ", agentStruct.agentAccountKey);
+            delete agentMap[agentRecordKeys[i]];
+            delete agentRecordKeys[i];
+            agentRecordKeys.pop();
             if (i == 0)
                break;
         }
@@ -94,7 +94,7 @@ contract Agents is Sponsors {
     function deletePatreonSponsorAgentRecordRecord (address _sponsorKey, address _agentKey) public {
         // console.log("Deleting Agent Key ", _agentKey, "from Sponsor child Agent Keys ", _sponsorKey); 
         AccountStruct storage accountSponsorRec = accountMap[_sponsorKey];
-        address[] storage AgentKeys = accountSponsorRec.accountAgentKeys;
+        address[] storage AgentKeys = accountSponsorRec.agentRecordKeys;
         if (deleteAccountRecordFromSearchKeys(_agentKey, AgentKeys)) {
             deleteSponsorParentFromAgent (_sponsorKey, _agentKey);
         }
