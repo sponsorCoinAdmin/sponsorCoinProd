@@ -36,13 +36,13 @@ function addSponsorRate(address _patreonKey, address _sponsorKey, uint _sponsorR
     }
 
  /*
-   function getRateRecordByKeys(address _patreonKey, address _sponsorKey, address _agentKey, uint _sponsorRateKey) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (SponsorRateStruct storage) {
+   function getSponsorRateRecordByKeys(address _patreonKey, address _sponsorKey, address _agentKey, uint _sponsorRateKey) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (SponsorRateStruct storage) {
         SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patreonKey, _sponsorKey) ;
         return sponsorRec.sponsorRateMap[_sponsorRateKey];
      }
 
      function serializeSponsorRates(address _patreonKey, address _sponsorKey, address _sponsorKey, uint256 _sponsorRateKey) public view returns (string memory) {
-        SponsorRateStruct storage sponsorRateRec =  getRateRecordByKeys(_patreonKey, _sponsorKey, _sponsorKey, _sponsorRateKey);
+        SponsorRateStruct storage sponsorRateRec =  getSponsorRateRecordByKeys(_patreonKey, _sponsorKey, _sponsorKey, _sponsorRateKey);
         string memory insertionTimeStr = toString(sponsorRateRec.insertionTime);
         string memory lastUpdateTimeStr = toString(sponsorRateRec.lastUpdateTime);
         string memory totalSponsorsSponsoredStr = toString(sponsorRateRec.totalTransactionsSponsored);

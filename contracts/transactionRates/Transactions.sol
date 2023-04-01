@@ -11,7 +11,6 @@ contract Transactions is Rates{
         uint256 transactionTimeStamp = block.timestamp;
         // console.log("ADDING RATE REC = ",_agentRateKey, "ADDING TRANSACTION = ",_transAmount);
         addAgentRate(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey, _agentRateKey);
-    //    AgentRateStruct storage agentRateRec = getRateRecordByKeys(_patreonKey, _sponsorKey, _agentKey, _agentRateKey);
 
         AccountStruct storage accountRec = accountMap[_patreonKey];
         SponsorStruct storage sponsorRec = accountRec.sponsorMap[_sponsorKey];

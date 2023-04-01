@@ -230,7 +230,7 @@ getAgentRatesByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey) =
     agentRateKey = hexToDecimal(agentRateKey);
     logDetail("JS => Loading Agent Rates " + agentRateKey + " idx = " + idx);
 ///log("JS => Loading Agent Rates " + agentRateKey + " idx = " + idx);
-    let agentRateRecord = await getAgentRateRecordByKeys(_accountKey, _sponsorAccountKey, _agentAccountKey, agentRateKey);
+    let agentRateRecord = await deSelializeAgentRateRecordByKeys(_accountKey, _sponsorAccountKey, _agentAccountKey, agentRateKey);
       agentRateList.push(agentRateRecord);
   }
   return agentRateList;
@@ -243,7 +243,7 @@ getAgentRateKeys = async (_accountKey, _sponsorAccountKey, _agentAccountKey) => 
   return agentRecordKeys;
 };
 
-getAgentRateRecordByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey, _agentRateKey) => {
+deSelializeAgentRateRecordByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey, _agentRateKey) => {
   logFunctionHeader("getAgentRateByKeys(" + _accountKey + ", " + _sponsorAccountKey + ", " + _agentAccountKey+ ", " + _agentRateKey + ")");
   let agentRateRecord = new AgentRateStruct();
   let headerStr = await getRateHeaderDataList(_accountKey, _sponsorAccountKey, _agentAccountKey, _agentRateKey);
@@ -281,7 +281,7 @@ getRateTransactionsByKeys = async(_accountKey, _sponsorAccountKey, _agentAccount
 
 getRateHeaderDataList = async(_accountKey, _sponsorAccountKey, _agentAccountKey, _agentRateKey) => {
   logFunctionHeader("getRateHeaderDataList = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _agentAccountKey + ", " + _agentRateKey + ")");
-  let agentRateHeaderStr = await spCoinContractDeployed.getRateHeaderDataStr(_accountKey, _sponsorAccountKey, _agentAccountKey, _agentRateKey);
+  let agentRateHeaderStr = await spCoinContractDeployed.serializeAgentRateRecordStr(_accountKey, _sponsorAccountKey, _agentAccountKey, _agentRateKey);
   let agentRateHeaderList = agentRateHeaderStr.split(",");
   return agentRateHeaderList;
 }
@@ -340,7 +340,7 @@ module.exports = {
   getAccountSerializedRecord,
   getAccountSponsorKeys,
   getAccountSponsorKeySize,
-  getAgentRateRecordByKeys,
+  deSelializeAgentRateRecordByKeys,
   getAgentRatesByKeys,
   getAgentRecordByKeys,
   getAgentRecordKeys,

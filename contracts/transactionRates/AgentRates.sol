@@ -44,7 +44,7 @@ contract Rates is Agents{
         return agentRec.agentRateMap[_agentRateKey];
      }
 
-     function getRateHeaderDataStr(address _patreonKey, address _sponsorKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
+     function serializeAgentRateRecordStr(address _patreonKey, address _sponsorKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
         AgentRateStruct storage agentRateRec =  getRateRecordByKeys(_patreonKey, _sponsorKey, _agentKey, _agentRateKey);
         string memory insertionTimeStr = toString(agentRateRec.insertionTime);
         string memory lastUpdateTimeStr = toString(agentRateRec.lastUpdateTime);
