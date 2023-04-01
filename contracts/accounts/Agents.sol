@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 /// @title ERC20 Contract
-import "./Sponsors.sol";
+import "./SponsorRates.sol";
 import "../utils/StructSerialization.sol";
 
-contract Agents is Sponsors {
+contract Agents is SponsorRates {
         constructor(){
     }
 
@@ -15,7 +15,7 @@ contract Agents is Sponsors {
     function addSponsorAgent(address _patreonKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey)
             public onlyOwnerOrRootAdmin(msg.sender) 
             nonRedundantAgent ( _patreonKey, _sponsorKey, _agentKey) {
-        addPatreonSponsorRate(_patreonKey, _sponsorKey, _sponsorRateKey);
+        addSponsorRate(_patreonKey, _sponsorKey, _sponsorRateKey);
         addAccountRecord(_agentKey);
 
         AccountStruct storage accountSponsorRec = accountMap[_sponsorKey];

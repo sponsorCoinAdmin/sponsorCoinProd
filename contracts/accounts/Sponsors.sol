@@ -30,23 +30,22 @@ contract Sponsors is Accounts {
         }
     }
 
-    function addPatreonSponsorRate(address _patreonKey, address _sponsorKey, uint _sponsorRateKey) 
-        public onlyOwnerOrRootAdmin(_patreonKey)
-        nonRedundantSponsor ( _patreonKey,  _sponsorKey) {
-        addPatreonSponsor(_patreonKey, _sponsorKey);
-        SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patreonKey, _sponsorKey);
-        mapping(uint256 => SponsorRateStruct) storage sponsorRateMap = sponsorRec.sponsorRateMap;
-        SponsorRateStruct storage sponsorRateRec = sponsorRateMap[_sponsorRateKey];
+    // function addSponsorRate(address _patreonKey, address _sponsorKey, uint _sponsorRateKey) 
+    //     public onlyOwnerOrRootAdmin(_patreonKey)
+    //     nonRedundantSponsor ( _patreonKey,  _sponsorKey) {
+    //     addPatreonSponsor(_patreonKey, _sponsorKey);
+    //     SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patreonKey, _sponsorKey);
+    //     mapping(uint256 => SponsorRateStruct) storage sponsorRateMap = sponsorRec.sponsorRateMap;
+    //     SponsorRateStruct storage sponsorRateRec = sponsorRateMap[_sponsorRateKey];
 
-        if (!sponsorRateRec.inserted) {
-            sponsorRateRec.sponsorRate = _sponsorRateKey;
-            sponsorRateRec.inserted = true;
-            sponsorRateRec.insertionTime = sponsorRateRec.lastUpdateTime = block.timestamp;
-            sponsorRateRec.totalTransactionsSponsored = 0;
-            sponsorRec.sponsorRateKeys.push(_sponsorRateKey);
-        }
-// 
-}
+    //     if (!sponsorRateRec.inserted) {
+    //         sponsorRateRec.sponsorRate = _sponsorRateKey;
+    //         sponsorRateRec.inserted = true;
+    //         sponsorRateRec.insertionTime = sponsorRateRec.lastUpdateTime = block.timestamp;
+    //         sponsorRateRec.totalTransactionsSponsored = 0;
+    //         sponsorRec.sponsorRateKeys.push(_sponsorRateKey);
+    //     } 
+    // }
 
     /// @notice determines if agent address is inserted in account.sponsor.agent.map
     /// @param _patreonKey public account key validate Insertion

@@ -152,6 +152,8 @@ getSponsorRecordByKeys = async(_index, _accountKey, _sponsorAccountKey) => {
   return sponsorRecord;
 }
 
+
+
 getAgentsByPatreonSponsor = async(_accountKey, _sponsorAccountKey) => {
   logFunctionHeader("getAgentsByPatreonSponsor = async(" + _accountKey + ", " + _sponsorAccountKey + ")");
   let agentRecordKeys = await getAgentRecordKeys(_accountKey, _sponsorAccountKey);
@@ -161,13 +163,19 @@ getAgentsByPatreonSponsor = async(_accountKey, _sponsorAccountKey) => {
 
 //////////////////// LOAD SPONSOR RATE DATA //////////////////////
 
-getSponsorRatesByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey) => {
-  // logFunctionHeader("getAgentsByPatreonSponsor = async(" + _accountKey + ", " + _agentRateRecordKey + ")");
-  // let agentRateKeys = await getAgentRateKeys(_accountKey, _agentRateRecordKey);
-  // let agentRateRecordList = await getAgentRatesByKeys(_accountKey, _sponsorAccountKey, _agentRateRecordKey);
-  // return agentRateRecordList;
-  return "ToDo Sponsor Rates";
+//  Start New Robin
+getSponsorRatesByKeys = async(_index, _accountKey, _sponsorAccountKey) => {
+  logFunctionHeader("getSponsorRatesByKeys(" + _accountKey + ", " + _sponsorAccountKey + ")");
+  let sponsorRecord = new SponsorStruct(_sponsorAccountKey);
+  sponsorRecord.index = _index;
+  sponsorRecord.sponsorAccountKey = _sponsorAccountKey;
+  sponsorRecord.totalAgentsSponsored = bigIntToDecimal(await spCoinContractDeployed.getSponsorTotalSponsored(_accountKey, _sponsorAccountKey));
+  let agentRecordKeys = await getAgentRecordKeys(_accountKey, _sponsorAccountKey);
+  sponsorRecord.agentRecordKeys = agentRecordKeys;
+  sponsorRecord.agentRecordList = await getAgentRecordsByKeys(_accountKey, _sponsorAccountKey, agentRecordKeys);
+  return sponsorRecord;
 }
+//  End New Robin
 
 getSponsorRateByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey, _agentRateKey) => {
   // logFunctionHeader("getAgentsByPatreonSponsor = async(" + _accountKey + ", " + _agentRateRecordKey + ")");
