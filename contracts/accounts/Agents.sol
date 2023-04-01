@@ -54,7 +54,7 @@ contract Agents is Sponsors {
         // console.log("AFTER patreonAccountRec.balanceOf     = ", patreonAccountRec.balanceOf);
         // console.log("AFTER patreonAccountRec.stakedSPCoins = ", patreonAccountRec.stakedSPCoins);
 
-        address[] storage patreonSponsorKeys = patreonAccountRec.accountSponsorKeys;
+        address[] storage patreonSponsorKeys = patreonAccountRec.agentRecKeys;
         if (deleteAccountRecordFromSearchKeys(_sponsorKey, patreonSponsorKeys)) {
             deleteSponsorRecord(_patreonKey, _sponsorKey);
         }

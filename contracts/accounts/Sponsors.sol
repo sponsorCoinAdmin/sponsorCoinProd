@@ -20,12 +20,12 @@ contract Sponsors is Accounts {
         AccountStruct storage sponsorAccountRec = accountMap[_sponsorKey];
         SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patreonKey, _sponsorKey);
         if (!sponsorRec.inserted) {
-            sponsorRec.index = patreonAccountRec.accountSponsorKeys.length;
+            sponsorRec.index = patreonAccountRec.agentRecKeys.length;
             sponsorRec.insertionTime = block.timestamp;
             sponsorRec.sponsorAccountKey = _sponsorKey;
             sponsorRec.totalAgentsSponsored = 0; // Coins not owned but Sponsored
             sponsorRec.inserted = true;
-            patreonAccountRec.accountSponsorKeys.push(_sponsorKey);
+            patreonAccountRec.agentRecKeys.push(_sponsorKey);
             sponsorAccountRec.accountPatreonKeys.push(_patreonKey);
         }
     }
@@ -90,7 +90,7 @@ contract Sponsors is Accounts {
     /// @param _sponsorIdx new sponsor to add to account list
     function getPatreonSponsorKeyByIndex(address _patreonKey, uint _sponsorIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         AccountStruct storage accountRec = accountMap[_patreonKey];
-        address sponsor = accountRec.accountSponsorKeys[_sponsorIdx];
+        address sponsor = accountRec.agentRecKeys[_sponsorIdx];
         return sponsor;
     }
 

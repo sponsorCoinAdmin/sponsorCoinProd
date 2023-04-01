@@ -69,7 +69,7 @@ contract SpCoinDataTypes {
         bool inserted;
         bool verified;
         address[] accountPatreonKeys; // If Sponsor? List of Patreon Accounts
-        address[] accountSponsorKeys;  // If Patreon List of Sponsored Accounts
+        address[] agentRecKeys;  // If Patreon List of Sponsored Accounts
         address[] agentRecordKeys;    // If Sponsor? List of Agent Accounts
         address[] accountParentSponsorKeys; // If Agent? List of Patreon Sponsor Accounts
         mapping(address => SponsorStruct) sponsorMap; 

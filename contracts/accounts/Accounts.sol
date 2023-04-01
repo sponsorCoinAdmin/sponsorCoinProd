@@ -141,8 +141,8 @@ contract Accounts is StructSerialization {
     /// @param _patreonKey public account key to set new balance
     function getSponsorKeys(address _patreonKey) public onlyOwnerOrRootAdmin(_patreonKey) view returns (address[] memory) {
         AccountStruct storage account = accountMap[_patreonKey];
-        address[] storage accountSponsorKeys = account.accountSponsorKeys;
-        return accountSponsorKeys;
+        address[] storage agentRecKeys = account.agentRecKeys;
+        return agentRecKeys;
     }
 
      /////////////////// DELETE ACCOUNT METHODS ////////////////////////

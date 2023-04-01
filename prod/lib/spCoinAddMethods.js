@@ -17,18 +17,18 @@ addPatreonSponsor = async (_accountKey, _sponsorKey) => {
     await spCoinContractDeployed.addPatreonSponsor(_accountKey, _sponsorKey);
   };
   
-  addPatreonSponsors = async (_accountKey, _accountSponsorKeys) => {
+  addPatreonSponsors = async (_accountKey, _agentRecKeys) => {
     logFunctionHeader(
-      "addPatreonSponsors = async(" + _accountKey + ", " + _accountSponsorKeys + ")"
+      "addPatreonSponsors = async(" + _accountKey + ", " + _agentRecKeys + ")"
     );
   
     logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
-    logDetail("JS => Adding " + _accountSponsorKeys.length + " Sponsors To Blockchain Network"
+    logDetail("JS => Adding " + _agentRecKeys.length + " Sponsors To Blockchain Network"
     );
   
     let sponsorCount = 0;
-    for (sponsorCount; sponsorCount < _accountSponsorKeys.length; sponsorCount++) {
-      let _sponsorKey = _accountSponsorKeys[sponsorCount];
+    for (sponsorCount; sponsorCount < _agentRecKeys.length; sponsorCount++) {
+      let _sponsorKey = _agentRecKeys[sponsorCount];
       await addPatreonSponsor(_accountKey, _sponsorKey);
     }
     logDetail("JS => Inserted = " + sponsorCount + " Sponsor Records");
