@@ -30,6 +30,38 @@ contract Sponsors is Accounts {
         }
     }
 
+    function addPatreonSponsorRate(address _patreonKey, address _sponsorKey, uint _sponsorRate) 
+        public onlyOwnerOrRootAdmin(_patreonKey)
+        nonRedundantSponsor ( _patreonKey,  _sponsorKey) {
+        addPatreonSponsor(_patreonKey, _sponsorKey);
+        SponsorStruct storage patreonSponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
+//        patreonSponsorRec.
+        // SponsorRateStruct sponsorRateKeys storage  sponsorRateKey = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
+        // if (!isAgentRateInserted.inserted) {
+
+/*
+        AccountStruct storage sponsorAccountRec = accountMap[_sponsorKey];
+        if (!patreonSponsorRec.inserted) {
+            patreonSponsorRec.index = patreonAccountRec.accountSponsorKeys.length;
+            patreonSponsorRec.insertionTime = block.timestamp;
+            patreonSponsorRec.sponsorAccountKey = _sponsorKey;
+            patreonSponsorRec.totalAgentsSponsored = 0; // Coins not owned but Sponsored
+            patreonSponsorRec.inserted = true;
+            patreonAccountRec.accountSponsorKeys.push(_sponsorKey);
+            sponsorAccountRec.accountPatreonKeys.push(_patreonKey);
+        }
+            */
+// 
+}
+
+    /// @notice determines if agent address is inserted in account.sponsor.agent.map
+    /// @param _patreonKey public account key validate Insertion
+    /// @param _sponsorKey public sponsor account key validate Insertion
+    /// @param _sponsorRate public agent account key validate Insertion
+    function isAgentRateInserted(address _patreonKey,address _sponsorKey, uint _sponsorRate, address _agentKey) public onlyOwnerOrRootAdmin(_patreonKey) view returns (bool) {
+        return getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey).inserted;
+    }
+
     /// @notice determines if sponsor address is inserted in account.sponsor.map
     /// @param _patreonKey public account key validate Insertion
     /// @param _sponsorKey public sponsor account key validate Insertion

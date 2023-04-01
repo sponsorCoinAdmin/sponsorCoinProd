@@ -15,7 +15,7 @@ contract Agents is Sponsors {
     function addSponsorAgent(address _patreonKey, address _sponsorKey, uint _sponsorRate, address _agentKey)
             public onlyOwnerOrRootAdmin(msg.sender) 
             nonRedundantAgent ( _patreonKey, _sponsorKey, _agentKey) {
-        addPatreonSponsor(_patreonKey, _sponsorKey);
+        addPatreonSponsorRate(_patreonKey, _sponsorKey, _sponsorRate);
         addAccountRecord(_agentKey);
 
         AccountStruct storage accountSponsorRec = accountMap[_sponsorKey];
@@ -33,8 +33,6 @@ contract Agents is Sponsors {
         }
     }
 
-
- 
     /// @notice Remove all sponsorship relationships for Patreon and Sponsor accounts
     /// @param _patreonKey Patreon key containing the Sponsor relationship
     /// @param _sponsorKey Sponsor to be removed from the Sponsor relationship
@@ -47,7 +45,6 @@ contract Agents is Sponsors {
         AccountStruct storage patreonAccountRec = accountMap[_patreonKey];
         SponsorStruct storage sponsorRec = patreonAccountRec.sponsorMap[_sponsorKey];
         uint256 totalSponsoed = sponsorRec.totalAgentsSponsored;
-
 
         // console.log("BEFORE patreonAccountRec.balanceOf     = ", patreonAccountRec.balanceOf);
         // console.log("BEFORE patreonAccountRec.stakedSPCoins = ", patreonAccountRec.stakedSPCoins);
@@ -136,7 +133,7 @@ contract Agents is Sponsors {
     /// @notice retreives the sponsor array records from a specific account address.
     /// @param _patreonKey patreon Key to retrieve the sponsor list
     /// @param _sponsorKey sponsor Key to retrieve the agent list
-    /// @param _agentKey agent Key to retrieve the rate list
+    /// @param _agentKey agent Key to retrieve the agentate list
     function getAgentRateKeys(address _patreonKey, address _sponsorKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint[] memory) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
         uint[] memory agentRateKeys = agentRec.agentRateKeys;

@@ -2,7 +2,7 @@ const {
   AccountStruct,
   SponsorStruct,
   AgentStruct,
-  RateHeaderStruct,
+  AgentRateHeaderStruct,
   TransactionStruct,
 } = require("../spCoinDataTypes");
 

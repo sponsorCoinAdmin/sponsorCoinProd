@@ -12,44 +12,44 @@ contract Rates is Agents{
     /// @param _patreonKey public Sponsor Coin Account Key
     /// @param _sponsorKey public account key to get sponsor array
     /// @param _agentKey new sponsor to add to account list 
-    function addAgentRate(address _patreonKey, address _sponsorKey, uint _sponsorRate, address _agentKey, uint _rateKey)
+    function addAgentRate(address _patreonKey, address _sponsorKey, uint _sponsorRate, address _agentKey, uint _agentRateKey)
             public onlyOwnerOrRootAdmin(msg.sender) {
 
         addSponsorAgent(_patreonKey, _sponsorKey, _sponsorRate, _agentKey);
 
         AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
-        mapping(uint256 => AgentRateStruct) storage rateMap = agentRec.rateMap;
-        AgentRateStruct storage rateRec = rateMap[_rateKey];
-        if (!rateRec.inserted) {
-            rateRec.rate = _rateKey;
-            rateRec.inserted = true;
-            rateRec.insertionTime = rateRec.lastUpdateTime = block.timestamp;
-            rateRec.totalTransactionsSponsored = 0;
-            agentRec.agentRateKeys.push(_rateKey);
+        mapping(uint256 => AgentRateStruct) storage _agentRateMap = agentRec._agentRateMap;
+        AgentRateStruct storage agentRateRec = _agentRateMap[_agentRateKey];
+        if (!agentRateRec.inserted) {
+            agentRateRec.agentRate = _agentRateKey;
+            agentRateRec.inserted = true;
+            agentRateRec.insertionTime = agentRateRec.lastUpdateTime = block.timestamp;
+            agentRateRec.totalTransactionsSponsored = 0;
+            agentRec.agentRateKeys.push(_agentRateKey);
         }
     }
 
     /// @notice determines if address Record is inserted in accountKey array
-    /// @param _agentRec agent record containing rateMap records
-    /// @param _rateKey key for a specific rateMap record
-    function isRateInserted(AgentStruct storage _agentRec, uint _rateKey) internal view returns (bool) {
-        mapping(uint256 => AgentRateStruct) storage rateMap = _agentRec.rateMap;
-        if (rateMap[_rateKey].inserted)
+    /// @param _agentRec agent record containing _agentRateMap records
+    /// @param _agentRateKey key for a specific _agentRateMap record
+    function isRateInserted(AgentStruct storage _agentRec, uint _agentRateKey) internal view returns (bool) {
+        mapping(uint256 => AgentRateStruct) storage _agentRateMap = _agentRec._agentRateMap;
+        if (_agentRateMap[_agentRateKey].inserted)
             return true;
         else 
             return false;
     }
 
-    function getRateRecordByKeys(address _patreonKey, address _sponsorKey, address _agentKey, uint _rateKey) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (AgentRateStruct storage) {
+    function getRateRecordByKeys(address _patreonKey, address _sponsorKey, address _agentKey, uint _agentRateKey) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (AgentRateStruct storage) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey) ;
-        return agentRec.rateMap[_rateKey];
+        return agentRec._agentRateMap[_agentRateKey];
      }
 
      function getRateHeaderDataStr(address _patreonKey, address _sponsorKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
-        AgentRateStruct storage rateRec =  getRateRecordByKeys(_patreonKey, _sponsorKey, _agentKey, _agentRateKey);
-        string memory insertionTimeStr = toString(rateRec.insertionTime);
-        string memory lastUpdateTimeStr = toString(rateRec.lastUpdateTime);
-        string memory totalAgentsSponsoredStr = toString(rateRec.totalTransactionsSponsored);
+        AgentRateStruct storage agentRateRec =  getRateRecordByKeys(_patreonKey, _sponsorKey, _agentKey, _agentRateKey);
+        string memory insertionTimeStr = toString(agentRateRec.insertionTime);
+        string memory lastUpdateTimeStr = toString(agentRateRec.lastUpdateTime);
+        string memory totalAgentsSponsoredStr = toString(agentRateRec.totalTransactionsSponsored);
         string memory strRateHeaderStr = concat(insertionTimeStr, ",", lastUpdateTimeStr, ",", totalAgentsSponsoredStr);
         return strRateHeaderStr;
     }
@@ -57,9 +57,9 @@ contract Rates is Agents{
     function getRateTransactionList(address _patreonKey, address _sponsorKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
         string memory strTransactionList = "";
-        AgentRateStruct storage rateRec = agentRec.rateMap[_agentRateKey];
-        // console.log ("rateRec.transactionList[0].quantity = ", rateRec.transactionList[0].quantity);
-        TransactionStruct[] memory transactionList = rateRec.transactionList;
+        AgentRateStruct storage agentRateRec = agentRec._agentRateMap[_agentRateKey];
+        // console.log ("agentRateRec.transactionList[0].quantity = ", agentRateRec.transactionList[0].quantity);
+        TransactionStruct[] memory transactionList = agentRateRec.transactionList;
         strTransactionList = concat(strTransactionList, getRateTransactionStr(transactionList)); 
         // console.log("RRRR strTransactionList = ", strTransactionList); 
         return strTransactionList;

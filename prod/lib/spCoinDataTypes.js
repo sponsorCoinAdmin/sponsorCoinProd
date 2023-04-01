@@ -40,9 +40,9 @@ class AgentStruct {
   }
 }
 
-class RateHeaderStruct {
+class AgentRateHeaderStruct {
   constructor() {
-    this.rate;
+    this.agentRate;
     this.totalTransactionsSponsored;
     this.insertionTime;
     this.lastUpdateTime;
@@ -61,6 +61,6 @@ module.exports = {
   AccountStruct,
   SponsorStruct,
   AgentStruct,
-  RateHeaderStruct,
+  AgentRateHeaderStruct,
   TransactionStruct
 };

@@ -36,8 +36,8 @@ contract SpCoinDataTypes {
     // 3. Every Account can be a Patrion, Sponsor and/or agent to one or more mutually 
     //    exclusive account(s).
     // 4. Every Sponsor can have a number of Patreon(s), Sponsor(s) and/or Agent(s)
-    // 5. Every Sponsor has an array of rate structures
-    // 6. Every Agent has an array of rate structures
+    // 5. Every Sponsor has an array of sponsorRate structures
+    // 6. Every Agent has an array of agentRate structures
     // 7. Every Rate Structure has an array of Transactions
     // 8. Each Patreon/Sponsor/Agent "MUST BE" mutually exclusive
     //    - This implies no two accounts can be the same for each account structure
@@ -81,7 +81,7 @@ contract SpCoinDataTypes {
 //        KYC kyc;
     }
 
-    // Each Account has a map of Sponsors and an array of rate structures
+    // Each Account has a map of Sponsors and an array of sponsorRate structures
     struct SponsorStruct {
         AccountStruct parent;
         uint256 index;
@@ -93,12 +93,12 @@ contract SpCoinDataTypes {
         address[] accountAgentKeys;
         mapping(address => AgentStruct) agentMap;
         uint256[] sponsorRateKeys;
-        mapping(uint256 => SponsorRateStruct) rateMap;
+        mapping(uint256 => SponsorRateStruct) _agentRateMap;
     }
 
     struct SponsorRateStruct {
         AgentStruct parent;
-        uint256 rate;
+        uint256 sponsorRate;
         uint256 insertionTime;
         uint256 lastUpdateTime;
         uint256 totalTransactionsSponsored; // Coins not owned but Sponsored
@@ -106,7 +106,7 @@ contract SpCoinDataTypes {
         TransactionStruct[] transactionList;
     }
 
-    // Each Sponsor has a map of Agents and an array of rate structures
+    // Each Sponsor has a map of Agents and an array of agentRate structures
     struct AgentStruct {
         SponsorStruct parent;
         uint256 index;
@@ -116,12 +116,12 @@ contract SpCoinDataTypes {
         bool inserted;
         bool verified;
         uint256[] agentRateKeys;
-        mapping(uint256 => AgentRateStruct) rateMap;
+        mapping(uint256 => AgentRateStruct) _agentRateMap;
     }
 
     struct AgentRateStruct {
         AgentStruct parent;
-        uint256 rate;
+        uint256 agentRate;
         uint256 insertionTime;
         uint256 lastUpdateTime;
         uint256 totalTransactionsSponsored; // Coins not owned but Sponsored
