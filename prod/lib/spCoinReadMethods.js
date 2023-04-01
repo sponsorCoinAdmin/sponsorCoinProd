@@ -2,7 +2,7 @@ const { logFunctionHeader } = require("./utils/logging");
 const { AccountStruct,
   SponsorStruct,
   AgentStruct,
-  AgentRateHeaderStruct,
+  AgentRateStruct,
   TransactionStruct } = require("./spCoinDataTypes");
 const { hexToDecimal, bigIntToDecimal } = require("./utils/serialize");
 
@@ -139,7 +139,7 @@ getSponsorRecordsByKeys = async(_accountKey, _accountSponsorKeys) => {
   }
   return sponsorRecordList;
 }
- 
+
 getSponsorRecordByKeys = async(_index, _accountKey, _sponsorAccountKey) => {
   logFunctionHeader("getSponsorRecordByKeys(" + _accountKey + ", " + _sponsorAccountKey + ")");
   let sponsorRecord = new SponsorStruct(_sponsorAccountKey);
@@ -237,7 +237,7 @@ getAgentRateKeys = async (_accountKey, _sponsorAccountKey, _agentAccountKey) => 
 
 getAgentRateRecordByKeys = async(_accountKey, _sponsorAccountKey, _agentAccountKey, _agentRateKey) => {
   logFunctionHeader("getAgentRateByKeys(" + _accountKey + ", " + _sponsorAccountKey + ", " + _agentAccountKey+ ", " + _agentRateKey + ")");
-  let agentRateRecord = new AgentRateHeaderStruct();
+  let agentRateRecord = new AgentRateStruct();
   let headerStr = await getRateHeaderDataList(_accountKey, _sponsorAccountKey, _agentAccountKey, _agentRateKey);
   agentRateRecord.agentRate = _agentRateKey;
   agentRateRecord.insertionTime = hexToDecimal(headerStr[0]);

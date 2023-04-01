@@ -15,7 +15,7 @@ contract AccountStakingManager is Transactions{
 /*
 function allocateStakingRewards() internal view returns(  AccountStruct[] memory ){
    
-   AccountStruct[] memory sponsorRecordList = getPatreonSponsorRecByKeys(msg.sender);
+   AccountStruct[] memory sponsorRecordList = getSponsorRecordByKeys(msg.sender);
    return sponsorRecordList;
 }
 */// @title A title that should describe the contract/interface

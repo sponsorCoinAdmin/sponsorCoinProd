@@ -11,10 +11,10 @@ contract Rates is Agents{
     /// @param _patreonKey public Sponsor Coin Account Key
     /// @param _sponsorKey public account key to get sponsor array
     /// @param _agentKey new sponsor to add to account list 
-    function addAgentRate(address _patreonKey, address _sponsorKey, uint _sponsorRate, address _agentKey, uint _agentRateKey)
+    function addAgentRate(address _patreonKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey, uint _agentRateKey)
             public onlyOwnerOrRootAdmin(msg.sender) {
 
-        addSponsorAgent(_patreonKey, _sponsorKey, _sponsorRate, _agentKey);
+        addSponsorAgent(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey);
 
         AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
         mapping(uint256 => AgentRateStruct) storage agentRateMap = agentRec.agentRateMap;

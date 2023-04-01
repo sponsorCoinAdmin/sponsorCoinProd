@@ -6,11 +6,11 @@ import "./AgentRates.sol";
 contract Transactions is Rates{
     constructor() { }
 
-    function addAgentRateTransaction(address _patreonKey, address _sponsorKey, uint _sponsorRate, address _agentKey, uint _agentRateKey, uint256 _transAmount)
+    function addAgentRateTransaction(address _patreonKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey, uint _agentRateKey, uint256 _transAmount)
     public onlyOwnerOrRootAdmin(msg.sender) {
         uint256 transactionTimeStamp = block.timestamp;
         // console.log("ADDING RATE REC = ",_agentRateKey, "ADDING TRANSACTION = ",_transAmount);
-        addAgentRate(_patreonKey, _sponsorKey, _sponsorRate, _agentKey, _agentRateKey);
+        addAgentRate(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey, _agentRateKey);
     //    AgentRateStruct storage agentRateRec = getRateRecordByKeys(_patreonKey, _sponsorKey, _agentKey, _agentRateKey);
 
         AccountStruct storage accountRec = accountMap[_patreonKey];

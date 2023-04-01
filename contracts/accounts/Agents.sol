@@ -12,15 +12,15 @@ contract Agents is Sponsors {
     /// @param _patreonKey public Sponsor Coin Account Key
     /// @param _sponsorKey public account key to get sponsor array
     /// @param _agentKey new sponsor to add to account list
-    function addSponsorAgent(address _patreonKey, address _sponsorKey, uint _sponsorRate, address _agentKey)
+    function addSponsorAgent(address _patreonKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey)
             public onlyOwnerOrRootAdmin(msg.sender) 
             nonRedundantAgent ( _patreonKey, _sponsorKey, _agentKey) {
-        addPatreonSponsorRate(_patreonKey, _sponsorKey, _sponsorRate);
+        addPatreonSponsorRate(_patreonKey, _sponsorKey, _sponsorRateKey);
         addAccountRecord(_agentKey);
 
         AccountStruct storage accountSponsorRec = accountMap[_sponsorKey];
         AccountStruct storage accountAgentRec = accountMap[_agentKey];
-        SponsorStruct storage patreonSponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
+        SponsorStruct storage patreonSponsorRec = getSponsorRecordByKeys(_patreonKey, _sponsorKey);
         AgentStruct storage  sponsorAgentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
         if (!sponsorAgentRec.inserted) {
             sponsorAgentRec.index = patreonSponsorRec.accountAgentKeys.length;
@@ -137,7 +137,7 @@ contract Agents is Sponsors {
     function getAgentRateKeys(address _patreonKey, address _sponsorKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint[] memory) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
         uint[] memory agentRateKeys = agentRec.agentRateKeys;
-// console.log("AGENTS.SOL:addSponsorAgent: _patreonKey, _sponsorKey, _sponsorRate, _agentKey = " , _patreonKey, _sponsorKey, _sponsorRate, _agentKey);
+// console.log("AGENTS.SOL:addSponsorAgent: _patreonKey, _sponsorKey, _sponsorRateKey, _agentKey = " , _patreonKey, _sponsorKey, _sponsorRateKey, _agentKey);
 // console.log("AGENTS.SOL:addSponsorAgent:agentRec.agentAccountKey = " , agentRec.agentAccountKey);
 // console.log("AGENTS.SOL:getAgentRateKeys:agentRateKeys.length = ",agentRateKeys.length);
         return agentRateKeys;

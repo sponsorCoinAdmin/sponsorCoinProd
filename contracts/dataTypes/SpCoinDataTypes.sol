@@ -59,7 +59,7 @@ contract SpCoinDataTypes {
         address[] accountKeys;
         mapping(address => AccountStruct) accountMap;
     }
-
+ 
     struct AccountStruct {
         uint256 index;
         address accountKey;
@@ -68,14 +68,9 @@ contract SpCoinDataTypes {
         uint256 insertionTime;
         bool inserted;
         bool verified;
-        // string[] SponsorKeys; // Key = PatreonAddress,SponsorIndex
-        // string[] AgentKeys;   // Key = PatreonAddress,SponsorIndex,AgentIndex
-        // string[] PatreonKeys; // If Sponsor? List of Patreon Accounts
-        // string[] parentSponsorKeys; // If Agent? List of Patreon Sponsor Accounts
-   
+        address[] accountPatreonKeys; // If Sponsor? List of Patreon Accounts
         address[] accountSponsorKeys;  // If Patreon List of Sponsored Accounts
         address[] accountAgentKeys;    // If Sponsor? List of Agent Accounts
-        address[] accountPatreonKeys; // If Sponsor? List of Patreon Accounts
         address[] accountParentSponsorKeys; // If Agent? List of Patreon Sponsor Accounts
         mapping(address => SponsorStruct) sponsorMap; 
 //        KYC kyc;
@@ -86,8 +81,8 @@ contract SpCoinDataTypes {
         AccountStruct parent;
         uint256 index;
         address sponsorAccountKey;
-        uint256 insertionTime;
         uint256 totalAgentsSponsored; // Coins not owned but Sponsored
+        uint256 insertionTime;
         bool inserted;
         bool verified;
         address[] accountAgentKeys;
@@ -103,6 +98,8 @@ contract SpCoinDataTypes {
         uint256 lastUpdateTime;
         uint256 totalTransactionsSponsored; // Coins not owned but Sponsored
         bool inserted;
+        address[] accountAgentKeys;
+        mapping(address => AgentStruct) agentMap;
         TransactionStruct[] transactionList;
     }
 
@@ -111,8 +108,8 @@ contract SpCoinDataTypes {
         SponsorStruct parent;
         uint256 index;
         address agentAccountKey;
-        uint256 insertionTime;
         uint256 totalRatesSponsored; // Coins not owned but Sponsored
+        uint256 insertionTime;
         bool inserted;
         bool verified;
         uint256[] agentRateKeys;
