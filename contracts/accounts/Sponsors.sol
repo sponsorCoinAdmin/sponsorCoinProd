@@ -35,8 +35,9 @@ contract Sponsors is Accounts {
         nonRedundantSponsor ( _patreonKey,  _sponsorKey) {
         addPatreonSponsor(_patreonKey, _sponsorKey);
         SponsorStruct storage patreonSponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
+        mapping(uint256 => SponsorRateStruct) storage sponsorRateMap = patreonSponsorRec.sponsorRateMap;
+//        SponsorRateStruct storage sponsorRateKeys   sponsorRateKey = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
 //        patreonSponsorRec.
-        // SponsorRateStruct sponsorRateKeys storage  sponsorRateKey = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
         // if (!isAgentRateInserted.inserted) {
 
 /*

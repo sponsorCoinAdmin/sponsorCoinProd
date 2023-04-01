@@ -93,7 +93,7 @@ contract SpCoinDataTypes {
         address[] accountAgentKeys;
         mapping(address => AgentStruct) agentMap;
         uint256[] sponsorRateKeys;
-        mapping(uint256 => SponsorRateStruct) _agentRateMap;
+        mapping(uint256 => SponsorRateStruct) sponsorRateMap;
     }
 
     struct SponsorRateStruct {
@@ -116,7 +116,7 @@ contract SpCoinDataTypes {
         bool inserted;
         bool verified;
         uint256[] agentRateKeys;
-        mapping(uint256 => AgentRateStruct) _agentRateMap;
+        mapping(uint256 => AgentRateStruct) agentRateMap;
     }
 
     struct AgentRateStruct {
