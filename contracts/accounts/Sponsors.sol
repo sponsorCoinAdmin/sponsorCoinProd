@@ -30,23 +30,6 @@ contract Sponsors is Accounts {
         }
     }
 
-    // function addSponsorRate(address _patreonKey, address _sponsorKey, uint _sponsorRateKey) 
-    //     public onlyOwnerOrRootAdmin(_patreonKey)
-    //     nonRedundantSponsor ( _patreonKey,  _sponsorKey) {
-    //     addPatreonSponsor(_patreonKey, _sponsorKey);
-    //     SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patreonKey, _sponsorKey);
-    //     mapping(uint256 => SponsorRateStruct) storage sponsorRateMap = sponsorRec.sponsorRateMap;
-    //     SponsorRateStruct storage sponsorRateRec = sponsorRateMap[_sponsorRateKey];
-
-    //     if (!sponsorRateRec.inserted) {
-    //         sponsorRateRec.sponsorRate = _sponsorRateKey;
-    //         sponsorRateRec.inserted = true;
-    //         sponsorRateRec.insertionTime = sponsorRateRec.lastUpdateTime = block.timestamp;
-    //         sponsorRateRec.totalTransactionsSponsored = 0;
-    //         sponsorRec.sponsorRateKeys.push(_sponsorRateKey);
-    //     } 
-    // }
-
     /// @notice determines if agent address is inserted in account.sponsor.agent.map
     /// @param _patreonKey public account key validate Insertion
     /// @param _sponsorKey public sponsor account key validate Insertion
@@ -116,7 +99,7 @@ contract Sponsors is Accounts {
         return getAgentRecordKeys(_patreonKey, _sponsorKey).length;
     }
 
-    function getSponsorTotalSponsored(address _patreonKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
+    function getTotalSponsoredAmount(address _patreonKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
         SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patreonKey, _sponsorKey);
         // console.log("Sponsor.sol:sponsorRec.totalAgentsSponsored  = ", sponsorRec.totalAgentsSponsored);
         return sponsorRec.totalAgentsSponsored;
@@ -130,6 +113,19 @@ contract Sponsors is Accounts {
         address[] memory agentRecordKeys = sponsorRec.agentRecordKeys;
         return agentRecordKeys;
     }
+
+    /// @notice retreives the sponsor array records from a specific account address.
+    /// @param _patreonKey patreon Key to retrieve the sponsor list
+    /// @param _sponsorKey sponsor Key to retrieve the sponsor list
+    function getSponsorRateKeys(address _patreonKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint[] memory) {
+        SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patreonKey, _sponsorKey);
+        uint[] memory sponsorRateKeys = sponsorRec.sponsorRateKeys;
+// console.log("AGENTS.SOL:addSponsorAgent: _patreonKey, _sponsorKey, _sponsorRateKey, _sponsorKey = " , _patreonKey, _sponsorKey, _sponsorRateKey, _sponsorKey);
+// console.log("AGENTS.SOL:addSponsorAgent:sponsorRec.sponsorAccountKey = " , sponsorRec.sponsorAccountKey);
+// console.log("AGENTS.SOL:getAgentRateKeys:sponsorRateKeys.length = ",sponsorRateKeys.length);
+        return sponsorRateKeys;
+    }
+
 
     /*
     ///////////////////// DELETE SPONSOR METHODS ////////////////////////

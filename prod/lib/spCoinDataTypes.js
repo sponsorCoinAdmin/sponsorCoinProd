@@ -24,8 +24,6 @@ class SponsorStruct {
     this.verified;
     this.sponsorRateList;
     this.verified;
-    this.agentRecordKeys;
-    this.agentRecordList;
   }
 }
 
