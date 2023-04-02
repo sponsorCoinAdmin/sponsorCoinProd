@@ -110,8 +110,8 @@ contract Sponsors is Accounts {
     /// @param _sponsorKey sponsor Key to retrieve the agent list
     function getAgentRecordKeys(address _patreonKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (address[] memory) {
         SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patreonKey, _sponsorKey);
-        address[] memory agentRecordKeys = sponsorRec.agentRecordKeys;
-        return agentRecordKeys;
+        address[] memory agentAccountKeys = sponsorRec.agentAccountKeys;
+        return agentAccountKeys;
     }
 
     /// @notice retreives the sponsor array records from a specific account address.

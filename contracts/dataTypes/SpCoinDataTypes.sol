@@ -70,7 +70,7 @@ contract SpCoinDataTypes {
         bool verified;
         address[] accountPatreonKeys; // If Sponsor? List of Patreon Accounts
         address[] agentRecKeys;  // If Patreon List of Sponsored Accounts
-        address[] agentRecordKeys;    // If Sponsor? List of Agent Accounts
+        address[] agentAccountKeys;    // If Sponsor? List of Agent Accounts
         address[] accountParentSponsorKeys; // If Agent? List of Patreon Sponsor Accounts
         mapping(address => SponsorStruct) sponsorMap; 
 //        KYC kyc;
@@ -85,7 +85,7 @@ contract SpCoinDataTypes {
         uint256 insertionTime;
         bool inserted;
         bool verified;
-        address[] agentRecordKeys;
+        address[] agentAccountKeys;
         mapping(address => AgentStruct) agentMap;
         uint256[] sponsorRateKeys;
         mapping(uint256 => SponsorRateStruct) sponsorRateMap;
@@ -98,7 +98,7 @@ contract SpCoinDataTypes {
         uint256 lastUpdateTime;
         uint256 totalTransactionsSponsored; // Coins not owned but Sponsored
         bool inserted;
-        address[] agentRecordKeys;
+        address[] agentAccountKeys;
         mapping(address => AgentStruct) agentMap;
         TransactionStruct[] transactionList;
     }
