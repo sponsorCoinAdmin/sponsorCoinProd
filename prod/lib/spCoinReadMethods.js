@@ -57,7 +57,7 @@ getAccountAgentKeySize = async (_patreonKey) => {
 
 getAccountParentSponsorKeys = async (_patreonKey) => {
   logFunctionHeader("getAccountParentSponsorKeys = async(" + _patreonKey + ")");
-  let parentSponsorAccountKeys = spCoinContractDeployed.getAccountParentSponsorKeys;
+  let parentSponsorAccountKeys = spCoinContractDeployed.getAccountParentSponsorKeys(_patreonKey);
   return parentSponsorAccountKeys;
 }
 
@@ -86,8 +86,8 @@ getAccountPatreonKeys = async (_patreonKey) => {
 
 getAccountSponsorKeys = async (_patreonKey) => {
   logFunctionHeader("getAccountSponsorKeys = async(" + _patreonKey + ")");
-  let sponsorRecKeys = await spCoinContractDeployed.getSponsorKeys(_patreonKey);
-  return sponsorRecKeys;
+  let sponsorAccountKeys = await spCoinContractDeployed.getSponsorKeys(_patreonKey);
+  return sponsorAccountKeys;
 };
 
 getAccountAgentKeys = async (_patreonKey) => {
@@ -125,16 +125,16 @@ getAccountSerializedRecord = async (_patreonKey) => {
 //////////////////// LOAD ACCOUNT DATA //////////////////////
 getSponsorsByAccount = async(_patreonKey) => {    
   logFunctionHeader("getSponsorsByAccount("  + _patreonKey + ")");
-  sponsorRecKeys = await getAccountSponsorKeys(_patreonKey);
-  sponsorRecordList = await getSponsorRecordsByKeys(_patreonKey, sponsorRecKeys);
+  sponsorAccountKeys = await getAccountSponsorKeys(_patreonKey);
+  sponsorRecordList = await getSponsorRecordsByKeys(_patreonKey, sponsorAccountKeys);
   return sponsorRecordList;
 }
 //////////////////// LOAD SPONSOR DATA //////////////////////
 
-getSponsorRecordsByKeys = async(_patreonKey, _sponsorRecKeys) => {
-  logFunctionHeader("getSponsorRecordsByKeys(" + _patreonKey + ", " + _sponsorRecKeys + ")");
+getSponsorRecordsByKeys = async(_patreonKey, _sponsorAccountKeys) => {
+  logFunctionHeader("getSponsorRecordsByKeys(" + _patreonKey + ", " + _sponsorAccountKeys + ")");
   let sponsorRecordList = [];
-  for (let [idx, sponsorAccountKey] of Object.entries(_sponsorRecKeys)) {
+  for (let [idx, sponsorAccountKey] of Object.entries(_sponsorAccountKeys)) {
     logDetail("JS => Loading Sponsor Record " + sponsorAccountKey, idx);
     let sponsorRec = await getSponsorRecordByKeys(idx, _patreonKey, sponsorAccountKey);
     sponsorRecordList.push(sponsorRec);
@@ -151,9 +151,7 @@ getSponsorRecordByKeys = async(_index, _patreonKey, _sponsorKey) => {
 
   // ToDo New Robin
   sponsorRecord.sponsorRateKeys = await getSponsorRateKeys(_patreonKey, _sponsorKey);
-  console.log("ZZZZZ sponsorRecord.sponsorRateKeys.length = ", sponsorRecord.sponsorRateKeys.length);
   for (let [idx, sponsorRateKey] of Object.entries(sponsorRecord.sponsorRateKeys)) {
-    console.log("ZZZZZ sponsorRateKey[" + idx + "] = " + sponsorRateKey);
     sponsorRecord.sponsorRateList = await getSponsorRateRecordByKeys(idx, _patreonKey, _sponsorKey, sponsorRateKey);
   }
 
@@ -331,12 +329,12 @@ getAccountRecords = async(_patreonKey, _sponsorKey, _agentKey, _agentRateKey) =>
 getAccountRecord = async (_patreonKey) => {
   let accountStruct = await getAccountSerializedRecord(_patreonKey);
   accountStruct.accountKey = _patreonKey;
-  sponsorRecKeys = await getAccountSponsorKeys(_patreonKey);
-  accountStruct.sponsorRecKeys = sponsorRecKeys;
+  sponsorAccountKeys = await getAccountSponsorKeys(_patreonKey);
+  accountStruct.sponsorAccountKeys = sponsorAccountKeys;
   accountStruct.patreonAccountKeys = await getAccountPatreonKeys(_patreonKey);
   accountStruct.agentAccountKeys = await getAccountAgentKeys(_patreonKey);
   accountStruct.parentSponsorAccountKeys = await getAccountParentSponsorKeys(_patreonKey);
-  accountStruct.sponsorRecordList = await getSponsorRecordsByKeys(_patreonKey, sponsorRecKeys);
+  accountStruct.sponsorRecordList = await getSponsorRecordsByKeys(_patreonKey, sponsorAccountKeys);
   return accountStruct;
 }
 
