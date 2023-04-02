@@ -1,8 +1,10 @@
 const { logFunctionHeader } = require("./utils/logging");
-const { AccountStruct,
-  SponsorStruct,
-  AgentStruct,
+const {
+  AccountStruct,
   AgentRateStruct,
+  AgentStruct,
+  SponsorStruct,
+  SponsorRateStruct,
   TransactionStruct } = require("./spCoinDataTypes");
 const { hexToDecimal, bigIntToDecimal } = require("./utils/serialize");
 
@@ -147,12 +149,15 @@ getSponsorRecordByKeys = async(_index, _accountKey, _sponsorAccountKey) => {
   sponsorRecord.sponsorAccountKey = _sponsorAccountKey;
   sponsorRecord.totalAgentsSponsored = bigIntToDecimal(await spCoinContractDeployed.getSponsorTotalSponsored(_accountKey, _sponsorAccountKey));
   let agentRecordKeys = await getAgentRecordKeys(_accountKey, _sponsorAccountKey);
+
+  // ToDo New Robin
+  sponsorRecord.sponsorRateList = await getSponsorRatesByKeys(9999, _accountKey, _sponsorAccountKey);
   sponsorRecord.agentRecordKeys = agentRecordKeys;
   sponsorRecord.agentRecordList = await getAgentRecordsByKeys(_accountKey, _sponsorAccountKey, agentRecordKeys);
+  console.log("sponsorRecord = "+ sponsorRecord);
+
   return sponsorRecord;
 }
-
-
 
 getAgentsByPatreonSponsor = async(_accountKey, _sponsorAccountKey) => {
   logFunctionHeader("getAgentsByPatreonSponsor = async(" + _accountKey + ", " + _sponsorAccountKey + ")");
@@ -163,17 +168,19 @@ getAgentsByPatreonSponsor = async(_accountKey, _sponsorAccountKey) => {
 
 //////////////////// LOAD SPONSOR RATE DATA //////////////////////
 
-//  Start New Robin
 getSponsorRatesByKeys = async(_index, _accountKey, _sponsorAccountKey) => {
-  logFunctionHeader("getSponsorRatesByKeys(" + _accountKey + ", " + _sponsorAccountKey + ")");
-  let sponsorRecord = new SponsorStruct(_sponsorAccountKey);
-  sponsorRecord.index = _index;
-  sponsorRecord.sponsorAccountKey = _sponsorAccountKey;
-  sponsorRecord.totalAgentsSponsored = bigIntToDecimal(await spCoinContractDeployed.getSponsorTotalSponsored(_accountKey, _sponsorAccountKey));
+  logFunctionHeader("getSponsorRatesByKeys(" + _index + ", " + _accountKey + ", " + _sponsorAccountKey + ")");
+  log("getSponsorRatesByKeys(" + _index + ", " + _accountKey + ", " + _sponsorAccountKey + ")");
+  let sponsorRateRecord = new SponsorRateStruct();
+  sponsorRateRecord.index = _index;
+  sponsorRateRecord.sponsorAccountKey = _sponsorAccountKey;
+  sponsorRateRecord.totalAgentsSponsored = bigIntToDecimal(await spCoinContractDeployed.getSponsorTotalSponsored(_accountKey, _sponsorAccountKey));
   let agentRecordKeys = await getAgentRecordKeys(_accountKey, _sponsorAccountKey);
-  sponsorRecord.agentRecordKeys = agentRecordKeys;
-  sponsorRecord.agentRecordList = await getAgentRecordsByKeys(_accountKey, _sponsorAccountKey, agentRecordKeys);
-  return sponsorRecord;
+  sponsorRateRecord.agentRecordKeys = agentRecordKeys;
+  sponsorRateRecord.agentRecordList = await getAgentRecordsByKeys(_accountKey, _sponsorAccountKey, agentRecordKeys);
+  log("++++++++++++++++++++++++++++++++++++++++++");
+
+  return sponsorRateRecord;
 }
 //  End New Robin
 

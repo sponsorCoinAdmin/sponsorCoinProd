@@ -46,17 +46,23 @@ describe("spCoinContract", function () {
 it("VALIDATE ADD TRANSACTION RATES", async function () {
   setLogMode("LOG", true);
   let PATREON_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_0;
+  let PATREON_ACCOUNT_KEY_10 = TEST_HH_ACCOUNT_KEY_10;
   let SPONSOR_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_1;
   let AGENT_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_2;
+  let AGENT_ACCOUNT_KEY_2 = TEST_HH_ACCOUNT_KEY_12;
+  let SPONSOR_RATE_KEY_7 = 7;
+  let SPONSOR_RATE_KEY_8 = 8;
+  let SPONSOR_RATE_KEY_9 = 9;
   let SPONSOR_RATE_KEY_10 = 10;
   let AGENT_RATE_1 = 2;
-  let TRANSACTION_QTY_1 = 9;
-  let AGENT_RATE_2 = 4;
-  let TRANSACTION_QTY_2 = 3;
-  let AGENT_RATE_3 = 7;
-  let TRANSACTION_QTY_3 = 6;
-  let AGENT_RATE_4 = 1;
-  let TRANSACTION_QTY_4 = 5;
+  let TRANSACTION_QTY_1 = 1;
+  let AGENT_RATE_2 = 2;
+  let TRANSACTION_QTY_2 = 2;
+  let AGENT_RATE_3 = 3;
+  let TRANSACTION_QTY_3 = 3;
+  let AGENT_RATE_4 = 4;
+  let TRANSACTION_QTY_4 = 4;
+  let TRANSACTION_QTY_9 = 0;
 
   // Test Successful Record Insertion of Patreon and 
   // Sponsor Accounts to the Blockchain Network.
@@ -64,16 +70,16 @@ it("VALIDATE ADD TRANSACTION RATES", async function () {
   await addAgentRateTransaction(
     PATREON_ACCOUNT_KEY_1,
     SPONSOR_ACCOUNT_KEY_1,
-    SPONSOR_RATE_KEY_10,
+    SPONSOR_RATE_KEY_7,
     AGENT_ACCOUNT_KEY_1,
-    AGENT_RATE_1,
-    TRANSACTION_QTY_1
+    AGENT_RATE_4,
+    TRANSACTION_QTY_9
   );
 
   await addAgentRateTransaction(
-    PATREON_ACCOUNT_KEY_1,
+    PATREON_ACCOUNT_KEY_10,
     SPONSOR_ACCOUNT_KEY_1,
-    SPONSOR_RATE_KEY_10,
+    SPONSOR_RATE_KEY_7,
     AGENT_ACCOUNT_KEY_1,
     AGENT_RATE_2,
     TRANSACTION_QTY_2
@@ -83,19 +89,19 @@ it("VALIDATE ADD TRANSACTION RATES", async function () {
     PATREON_ACCOUNT_KEY_1,
     SPONSOR_ACCOUNT_KEY_1,
     SPONSOR_RATE_KEY_10,
-    AGENT_ACCOUNT_KEY_1,
+    AGENT_ACCOUNT_KEY_2,
     AGENT_RATE_3,
     TRANSACTION_QTY_3
   );
 
-  await addAgentRateTransaction(
-    PATREON_ACCOUNT_KEY_1,
-    SPONSOR_ACCOUNT_KEY_1,
-    SPONSOR_RATE_KEY_10,
-    AGENT_ACCOUNT_KEY_1,
-    AGENT_RATE_2,
-    TRANSACTION_QTY_4
-  );
+  // await addAgentRateTransaction(
+  //   PATREON_ACCOUNT_KEY_1,
+  //   SPONSOR_ACCOUNT_KEY_1,
+  //   SPONSOR_RATE_KEY_10,
+  //   AGENT_ACCOUNT_KEY_1,
+  //   AGENT_RATE_2,
+  //   TRANSACTION_QTY_4
+  // );
 
     // let agentRateKeys = await getAgentRateKeys(
     //   PATREON_ACCOUNT_KEY_1,

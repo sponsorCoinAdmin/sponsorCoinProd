@@ -39,13 +39,13 @@ contract Rates is Agents{
             return false;
     }
 
-    function getRateRecordByKeys(address _patreonKey, address _sponsorKey, address _agentKey, uint _agentRateKey) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (AgentRateStruct storage) {
+    function getAgentRateRecordByKeys(address _patreonKey, address _sponsorKey, address _agentKey, uint _agentRateKey) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (AgentRateStruct storage) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey) ;
         return agentRec.agentRateMap[_agentRateKey];
      }
 
      function serializeAgentRateRecordStr(address _patreonKey, address _sponsorKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
-        AgentRateStruct storage agentRateRec =  getRateRecordByKeys(_patreonKey, _sponsorKey, _agentKey, _agentRateKey);
+        AgentRateStruct storage agentRateRec =  getAgentRateRecordByKeys(_patreonKey, _sponsorKey, _agentKey, _agentRateKey);
         string memory insertionTimeStr = toString(agentRateRec.insertionTime);
         string memory lastUpdateTimeStr = toString(agentRateRec.lastUpdateTime);
         string memory totalAgentsSponsoredStr = toString(agentRateRec.totalTransactionsSponsored);
