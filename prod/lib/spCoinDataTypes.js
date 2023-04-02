@@ -7,7 +7,7 @@ class AccountStruct {
     this.insertionTime;
     this.verified;
     this.accountPatreonKeys;
-    this.agentRecKeys;
+    this.sponsorRecKeys;
     this.agentAccountKeys;
     this.accountParentSponsorKeys;
     this.sponsorRecordList;
@@ -23,7 +23,6 @@ class SponsorStruct {
     this.insertionTime;
     this.verified;
     this.sponsorRateList;
-    this.verified;
   }
 }
 

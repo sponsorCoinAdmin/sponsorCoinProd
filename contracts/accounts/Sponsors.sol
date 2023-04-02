@@ -126,7 +126,6 @@ contract Sponsors is Accounts {
         return sponsorRateKeys;
     }
 
-
     /*
     ///////////////////// DELETE SPONSOR METHODS ////////////////////////
     modifier sponsorExists (address _patreonKey, address _sponsorKey) {
