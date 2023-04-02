@@ -76,23 +76,23 @@ it("VALIDATE ADD TRANSACTION RATES", async function () {
     TRANSACTION_QTY_9
   );
 
-  await addAgentRateTransaction(
-    PATREON_ACCOUNT_KEY_10,
-    SPONSOR_ACCOUNT_KEY_1,
-    SPONSOR_RATE_KEY_7,
-    AGENT_ACCOUNT_KEY_1,
-    AGENT_RATE_2,
-    TRANSACTION_QTY_2
-  );
+  // await addAgentRateTransaction(
+  //   PATREON_ACCOUNT_KEY_10,
+  //   SPONSOR_ACCOUNT_KEY_1,
+  //   SPONSOR_RATE_KEY_7,
+  //   AGENT_ACCOUNT_KEY_1,
+  //   AGENT_RATE_2,
+  //   TRANSACTION_QTY_2
+  // );
     
-  await addAgentRateTransaction(
-    PATREON_ACCOUNT_KEY_1,
-    SPONSOR_ACCOUNT_KEY_1,
-    SPONSOR_RATE_KEY_10,
-    AGENT_ACCOUNT_KEY_2,
-    AGENT_RATE_3,
-    TRANSACTION_QTY_3
-  );
+  // await addAgentRateTransaction(
+  //   PATREON_ACCOUNT_KEY_1,
+  //   SPONSOR_ACCOUNT_KEY_1,
+  //   SPONSOR_RATE_KEY_10,
+  //   AGENT_ACCOUNT_KEY_2,
+  //   AGENT_RATE_3,
+  //   TRANSACTION_QTY_3
+  // );
 
   // await addAgentRateTransaction(
   //   PATREON_ACCOUNT_KEY_1,

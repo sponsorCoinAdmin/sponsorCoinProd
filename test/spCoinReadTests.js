@@ -73,7 +73,7 @@ describe("spCoinContract", function () {
     // Test Un-Successful Record Insertion of Patreon,
     // Sponsor and Agent Accounts to the Blockchain Network.
     // Account, Sponsor and/or Agent are not mutually exclusive.
-    expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _sponsorAccountKey and _agentAccountKey must be Mutually Exclusive)'"
+    expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _sponsorAccountKey and _agentKey must be Mutually Exclusive)'"
     try {
       await addTestNetworkSponsorAgents(6, 6, 10, [1]);
       throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
@@ -90,7 +90,7 @@ describe("spCoinContract", function () {
 
     // Test Un-Successful Record Insertion to Blockchain Network.
     // Patreon and Sponsor Accounts are Not mutually exclusive.
-    expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _sponsorAccountKey and _agentAccountKey must be Mutually Exclusive)'";
+    expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _sponsorAccountKey and _agentKey must be Mutually Exclusive)'";
     try {
       await addTestNetworkSponsorAgents(6, 6, 10, [1]);
       throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
@@ -101,7 +101,7 @@ describe("spCoinContract", function () {
 
     // Test Un-Successful Record Insertion to Blockchain Network.
     // Patreon and Agent Accounts are Not mutually exclusive.
-    expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _sponsorAccountKey and _agentAccountKey must be Mutually Exclusive)'";
+    expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _sponsorAccountKey and _agentKey must be Mutually Exclusive)'";
     try {
       await addTestNetworkSponsorAgents(6, 5, 10, [6]);
       throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
@@ -112,7 +112,7 @@ describe("spCoinContract", function () {
 
     // Test Un-Successful Record Insertion to Blockchain Network.
     // Sponsor and Agent Accounts are Not mutually exclusive.
-    expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _sponsorAccountKey and _agentAccountKey must be Mutually Exclusive)'";
+    expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _sponsorAccountKey and _agentKey must be Mutually Exclusive)'";
     try {
       await addTestNetworkSponsorAgents(5, 6, 10, [6]);
       throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);

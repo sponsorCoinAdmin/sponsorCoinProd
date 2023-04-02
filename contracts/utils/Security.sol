@@ -31,12 +31,12 @@ contract Security is SpCoinDataTypes {
         _;
     }
 
-    modifier nonRedundantAgent (address _accountKey, address _sponsorAccountKey, address _agentAccountKey) {
+    modifier nonRedundantAgent (address _accountKey, address _sponsorAccountKey, address _agentKey) {
         require (_accountKey != _sponsorAccountKey && 
-                 _sponsorAccountKey != _agentAccountKey && 
-                 _accountKey != _agentAccountKey , "_accountKey, _sponsorAccountKey and _agentAccountKey must be Mutually Exclusive)");
+                 _sponsorAccountKey != _agentKey && 
+                 _accountKey != _agentKey , "_accountKey, _sponsorAccountKey and _agentKey must be Mutually Exclusive)");
         _;
     }
 
-    // address _accountKey, address _sponsorAccountKey, address _agentAccountKey
+    // address _accountKey, address _sponsorAccountKey, address _agentKey
 }
