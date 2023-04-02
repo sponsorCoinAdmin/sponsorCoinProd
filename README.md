@@ -62,7 +62,7 @@ Requirements to Delete Agent: Agent Affiliation Program
 1. Require Agent to be child of Sponsor
 2. Require Agent to have No SponsorCoin balanceOf Token affiliation with Parent.
 3. Must Remove from parent Sponsor.agentAccountKeys
-4. Then Remove Sponsor Parent from agentAccount.accountParentSponsorKeys
+4. Then Remove Sponsor Parent from agentAccount.parentSponsorAccountKeys
 5. Optional, If Agent account balanceOf is zero (0), Agent account may be deleted.
 
 Requirements to Delete Sponsor from Patreon: (Delete Patreon sponsorship)
@@ -77,5 +77,5 @@ Requirements to Delete Sponsor from Patreon: (Delete Patreon sponsorship)
 Requirements to Delete Account
 1. Require Account to have No Sponsors, account.agentRecKeys must be zero (0).
 2. Require Account to have No Agents, account.agentAccountKeys must be zero (0).
-3. Optional, Require Account to have No Patreons account.accountPatreonKeys must be zero (0).
-4. Optional, Require Account to have No account.accountParentSponsorKeys must be zero (0).
+3. Optional, Require Account to have No Patreons account.patreonAccountKeys must be zero (0).
+4. Optional, Require Account to have No account.parentSponsorAccountKeys must be zero (0).

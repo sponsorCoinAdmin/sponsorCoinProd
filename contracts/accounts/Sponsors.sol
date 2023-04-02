@@ -26,7 +26,7 @@ contract Sponsors is Accounts {
             sponsorRec.totalAgentsSponsored = 0; // Coins not owned but Sponsored
             sponsorRec.inserted = true;
             patreonAccountRec.agentRecKeys.push(_sponsorKey);
-            sponsorAccountRec.accountPatreonKeys.push(_patreonKey);
+            sponsorAccountRec.patreonAccountKeys.push(_patreonKey);
         }
     }
 

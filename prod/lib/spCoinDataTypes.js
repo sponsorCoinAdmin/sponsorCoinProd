@@ -6,10 +6,10 @@ class AccountStruct {
     this.stakedSPCoins;
     this.insertionTime;
     this.verified;
-    this.accountPatreonKeys;
+    this.patreonAccountKeys;
     this.sponsorRecKeys;
     this.agentAccountKeys;
-    this.accountParentSponsorKeys;
+    this.parentSponsorAccountKeys;
     this.sponsorRecordList;
 //    this.KYC;
   }

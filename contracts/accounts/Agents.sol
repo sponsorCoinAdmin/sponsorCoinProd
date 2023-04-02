@@ -29,7 +29,7 @@ contract Agents is SponsorRates {
             sponsorAgentRec.inserted = true;
             patreonSponsorRec.agentAccountKeys.push(_agentKey);
             accountSponsorRec.agentAccountKeys.push(_agentKey);
-            accountAgentRec.accountParentSponsorKeys.push(_sponsorKey);
+            accountAgentRec.parentSponsorAccountKeys.push(_sponsorKey);
         }
     }
 
@@ -62,8 +62,8 @@ contract Agents is SponsorRates {
 
     function deleteSponsorRecord(address _patreonKey, address _sponsorKey) internal {
         AccountStruct storage sponsorAccountRec = accountMap[_sponsorKey];
-        address[] storage accountPatreonKeys = sponsorAccountRec.accountPatreonKeys;
-        if (deleteAccountRecordFromSearchKeys(_patreonKey, accountPatreonKeys)) {
+        address[] storage patreonAccountKeys = sponsorAccountRec.patreonAccountKeys;
+        if (deleteAccountRecordFromSearchKeys(_patreonKey, patreonAccountKeys)) {
             deletePatreonSponsorAgentRecordRecords (_patreonKey, _sponsorKey);
         }
         // Optional        delete accountMap[_sponsorKey];
@@ -104,7 +104,7 @@ contract Agents is SponsorRates {
         // console.log("Deleting Sponsor Key ", _sponsorKey, "from Agent Parent Sponsor Keys ", _agentKey); 
         AccountStruct storage accountAgentRec = accountMap[_agentKey];
 
-        address[] storage parentSponsorKeys = accountAgentRec.accountParentSponsorKeys;
+        address[] storage parentSponsorKeys = accountAgentRec.parentSponsorAccountKeys;
         deleteAccountRecordFromSearchKeys(_sponsorKey, parentSponsorKeys);
     }
 
