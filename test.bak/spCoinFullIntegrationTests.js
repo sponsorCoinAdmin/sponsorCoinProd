@@ -77,14 +77,14 @@ describe("spCoinContract", function () {
     TRANSACTION_QTY_1
     );
 
-    await addAgentRateTransaction(
-      PATREON_ACCOUNT_KEY_1,
-      SPONSOR_ACCOUNT_KEY_2,
-      SPONSOR_RATE_KEY_10,
-      AGENT_ACCOUNT_KEY_2,
-      AGENT_RATE_1,
-      TRANSACTION_QTY_1
-    );
+    // await addAgentRateTransaction(
+    //   PATREON_ACCOUNT_KEY_1,
+    //   SPONSOR_ACCOUNT_KEY_2,
+    //   SPONSOR_RATE_KEY_10,
+    //   AGENT_ACCOUNT_KEY_2,
+    //   AGENT_RATE_1,
+    //   TRANSACTION_QTY_1
+    // );
 
     // await addAgentRateTransaction(
     //   PATREON_ACCOUNT_KEY_1,

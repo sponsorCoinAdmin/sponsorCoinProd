@@ -35,7 +35,7 @@ class SponsorRateStruct {
     this.lastUpdateTime;
     this.transactions;
     this.agentAccountKeys;
-    this.agentRecordList;
+    this.sponsorRecordList;
   }
 }
 

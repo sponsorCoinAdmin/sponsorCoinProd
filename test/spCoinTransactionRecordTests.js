@@ -67,7 +67,7 @@ it("VALIDATE ADD TRANSACTION RATES", async function () {
   // Test Successful Record Insertion of Patreon and 
   // Sponsor Accounts to the Blockchain Network.
   // Account, Sponsor and/or Agent are Successfully mutually exclusive.
-  await addAgentRateTransaction(
+  await addAgentRateTransaction (
     PATREON_ACCOUNT_KEY_1,
     SPONSOR_ACCOUNT_KEY_1,
     SPONSOR_RATE_KEY_7,
@@ -75,6 +75,15 @@ it("VALIDATE ADD TRANSACTION RATES", async function () {
     AGENT_RATE_4,
     TRANSACTION_QTY_9
   );
+
+  // await addAgentRateTransaction(
+  //   PATREON_ACCOUNT_KEY_1,
+  //   SPONSOR_ACCOUNT_KEY_1,
+  //   SPONSOR_RATE_KEY_10,
+  //   AGENT_ACCOUNT_KEY_2,
+  //   AGENT_RATE_3,
+  //   TRANSACTION_QTY_3
+  // );
 
   // await addAgentRateTransaction(
   //   PATREON_ACCOUNT_KEY_10,
@@ -85,14 +94,6 @@ it("VALIDATE ADD TRANSACTION RATES", async function () {
   //   TRANSACTION_QTY_2
   // );
     
-  // await addAgentRateTransaction(
-  //   PATREON_ACCOUNT_KEY_1,
-  //   SPONSOR_ACCOUNT_KEY_1,
-  //   SPONSOR_RATE_KEY_10,
-  //   AGENT_ACCOUNT_KEY_2,
-  //   AGENT_RATE_3,
-  //   TRANSACTION_QTY_3
-  // );
 
   // await addAgentRateTransaction(
   //   PATREON_ACCOUNT_KEY_1,

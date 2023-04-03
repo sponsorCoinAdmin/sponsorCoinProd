@@ -99,19 +99,26 @@ addAgentRateTransaction = async (
   _accountAgentKey,
   _agentRateKey,
   _transactionQtyKey ) => {
-  logFunctionHeader(
-    "addAgentRateTransaction = async(" + 
-    _accountKey + ", " + 
-    _sponsorAccountKey + ", " + 
-    _accountAgentKey + 
-    _agentRateKey + 
-    _transactionQtyKey + ")"
-  );
+    logFunctionHeader(
+      "addAgentRateTransaction = async(" + 
+      _accountKey + ", " + 
+      _sponsorAccountKey + ", " + 
+      _sponsorRateKey + ", " + 
+      _accountAgentKey + ", " +
+      _agentRateKey + ", " +
+      _transactionQtyKey + ")"
+    );
 
-  logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
-  logDetail("JS => Adding Transaction " + _transactionQtyKey + " To Blockchain Network");
-
-  logDetail("JS =>  " + _accountKey + ". " + "Inserting Transaction[" + _agentRateKey + "]: " + _transactionQtyKey );
+    log(
+      "addAgentRateTransaction = async(" + 
+      _accountKey + ", " + 
+      _sponsorAccountKey + ", " + 
+      _sponsorRateKey + ", " + 
+      _accountAgentKey + ", " +
+      _agentRateKey + ", " +
+      _transactionQtyKey + ")"
+    );
+    
   await spCoinContractDeployed.addAgentRateTransaction(
     _accountKey,
     _sponsorAccountKey,
