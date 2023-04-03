@@ -109,16 +109,6 @@ addAgentRateTransaction = async (
       _transactionQtyKey + ")"
     );
 
-    log(
-      "addAgentRateTransaction = async(" + 
-      _accountKey + ", " + 
-      _sponsorAccountKey + ", " + 
-      _sponsorRateKey + ", " + 
-      _accountAgentKey + ", " +
-      _agentRateKey + ", " +
-      _transactionQtyKey + ")"
-    );
-    
   await spCoinContractDeployed.addAgentRateTransaction(
     _accountKey,
     _sponsorAccountKey,
