@@ -340,7 +340,7 @@ getAccountRecords = async(_patreonKey, _sponsorKey, _agentKey, _agentRateKey) =>
 deSerializeSponsorRateRecordByKeys = async(_patreonKey, _sponsorKey, _sponsorRateKey) => {
   logFunctionHeader("getAgentRateByKeys(" + _patreonKey + ", " + _sponsorKey + ", " + _sponsorKey + ")");
   let sponsorRateRecord = new SponsorRateStruct();
-  // let headerStr = await getSponsorRateHeaderDataList(_patreonKey, _sponsorKey, _sponsorKey);
+  let headerStr = await getSponsorRateHeaderDataList(_patreonKey, _sponsorKey, _sponsorKey);
   sponsorRateRecord.sponsorRate = _sponsorRateKey;
   sponsorRateRecord.insertionTime = hexToDecimal(headerStr[0]);
   sponsorRateRecord.lastUpdateTime = hexToDecimal(headerStr[1]);
@@ -367,11 +367,8 @@ deSerializeAgentRateRecordByKeys = async(_patreonKey, _sponsorKey, _agentKey, _a
 getSponsorRateHeaderDataList = async(_patreonKey, _sponsorKey, _sponsorRateKey) => {
   // logFunctionHeader("getSponsorRateHeaderDataList = async(" + _patreonKey + ", " + _sponsorKey+ ", " + _sponsorRateKey + ")");
   log("getSponsorRateHeaderDataList = async(" + _patreonKey + ", " + _sponsorKey+ ", " + _sponsorRateKey + ")");
-  console.log("HERE 1");
   let sponsorRateHeaderStr = await spCoinContractDeployed.serializeSponsorRateRecordStr(_patreonKey, _sponsorKey, _sponsorRateKey);
-  console.log("HERE 2");
   let sponsorRateHeaderList = sponsorRateHeaderStr.split(",");
-  console.log("HERE 3");
   return sponsorRateHeaderList;
 }
 
