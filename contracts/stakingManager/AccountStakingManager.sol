@@ -15,7 +15,7 @@ contract AccountStakingManager is Transactions{
 /*
 function allocateStakingRewards() internal view returns(  AccountStruct[] memory ){
    
-   AccountStruct[] memory sponsorRecordList = getPatreonSponsorRecByKeys(msg.sender);
+   AccountStruct[] memory sponsorRecordList = getSponsorRecordByKeys(msg.sender);
    return sponsorRecordList;
 }
 */// @title A title that should describe the contract/interface
@@ -110,7 +110,7 @@ function gitAddressThis() external view returns(address){
 // 10. Get the Sponsors Agent (sponsorsAgent)
 //     10.1 If no agent found set agentRewards at 0.
 // 11. For the sponsoredAccount, get the Sponsored Agent Rate, (sponsorAgentRate), (between 1% and sponsorAccountRate).
-// 10. If Agent not found, AgentRewardRate = 0, otherwise AgentRewardRate = agent rate read, default 1%.
+// 10. If Agent not found, AgentRewardRate = 0, otherwise AgentRewardRate = agentRate read, default 1%.
 // 11. Calculate the SponsorsReward as, SponsorsRewards = stakingRewards * (1 - (AgentRewardRate/SponsorsRewardRate)).
 // 12. Update the TotalQuanty
 // 13. Update the Agents TotalQuanty 

@@ -2,7 +2,7 @@ const {
   AccountStruct,
   SponsorStruct,
   AgentStruct,
-  RateHeaderStruct,
+  AgentRateStruct,
   TransactionStruct,
 } = require("../spCoinDataTypes");
 
@@ -75,21 +75,21 @@ addAccountField = (key, value, accountStruct) => {
       logDetail("JS => setting accountStruct.KYC = " + value);
       accountStruct.KYC = value;
       break;
-    case "accountSponsorKeys":
-      logDetail("JS => setting accountStruct.accountSponsorKeys = " + value);
-      accountStruct.accountSponsorKeys = value;
+    case "agentRecKeys":
+      logDetail("JS => setting accountStruct.agentRecKeys = " + value);
+      accountStruct.agentRecKeys = value;
       break;
     case "sponsorRecordList":
       logDetail("JS => setting accountStruct.sponsorRecordList = " + value);
       accountStruct.sponsorRecordList = value;
       break;
-    case "accountAgentKeys":
-      logDetail("JS => setting accountStruct.accountAgentKeys = " + value);
-      accountStruct.accountAgentKeys = parseAddressStrRecord(value);
+    case "agentAccountKeys":
+      logDetail("JS => setting accountStruct.agentAccountKeys = " + value);
+      accountStruct.agentAccountKeys = parseAddressStrRecord(value);
       break;
-    case "accountPatreonKeys":
-      logDetail("JS => setting accountStruct.accountPatreonKeys = " + value);
-      accountStruct.accountPatreonKeys = parseAddressStrRecord(value);
+    case "patreonAccountKeys":
+      logDetail("JS => setting accountStruct.patreonAccountKeys = " + value);
+      accountStruct.patreonAccountKeys = parseAddressStrRecord(value);
       break;
     default:
       break;

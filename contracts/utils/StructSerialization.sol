@@ -36,9 +36,9 @@ contract StructSerialization is Utils {
             "verified: ",
             toString(_accountRec.verified)
         );
-        string memory accountAgentKeys = toString(_accountRec.accountAgentKeys);
-        string memory accountPatreonKeys = toString(
-            _accountRec.accountPatreonKeys
+        string memory agentAccountKeys = toString(_accountRec.agentAccountKeys);
+        string memory patreonAccountKeys = toString(
+            _accountRec.patreonAccountKeys
         );
         string memory delimiter = "\\,";
         string memory seralized = concat(
@@ -63,14 +63,14 @@ contract StructSerialization is Utils {
         seralized = concat(seralized, delimiter, balanceOf);
 
         seralized = concat(seralized, delimiter, stakedSPCoins);
-        seralized = concat(seralized, delimiter, "accountAgentKeys:", accountAgentKeys);
+        seralized = concat(seralized, delimiter, "agentAccountKeys:", agentAccountKeys);
         seralized = concat(
             seralized,
             delimiter,
-            "accountPatreonKeys:",
-            accountPatreonKeys
+            "patreonAccountKeys:",
+            patreonAccountKeys
         );
-        seralized = concat(seralized, delimiter, "accountAgentKeys:", accountAgentKeys);
+        seralized = concat(seralized, delimiter, "agentAccountKeys:", agentAccountKeys);
 
         // console.log("_accountRec.accountKey:", _accountRec.accountKey);
         // console.log( "toString(_accountRec.accountKey)", toString(_accountRec.accountKey));

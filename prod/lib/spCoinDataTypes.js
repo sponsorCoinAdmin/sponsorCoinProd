@@ -6,11 +6,11 @@ class AccountStruct {
     this.stakedSPCoins;
     this.insertionTime;
     this.verified;
-    this.accountSponsorKeys;
+    this.patreonAccountKeys;
+    this.sponsorAccountKeys;
+    this.agentAccountKeys;
+    this.parentSponsorAccountKeys;
     this.sponsorRecordList;
-    this.accountAgentKeys;
-    this.accountPatreonKeys;
-    this.accountParentSponsorKeys;
 //    this.KYC;
   }
 }
@@ -23,9 +23,19 @@ class SponsorStruct {
     this.insertionTime;
     this.verified;
     this.sponsorRateList;
-    this.verified;
-    this.accountAgentKeys;
-    this.agentRecordList;
+  }
+}
+
+
+class SponsorRateStruct {
+  constructor() {
+    this.sponsorRate;
+    this.totalTransactionsSponsored;
+    this.insertionTime;
+    this.lastUpdateTime;
+    this.transactions;
+    this.agentAccountKeys;
+    this.sponsorRecordList;
   }
 }
 
@@ -40,9 +50,9 @@ class AgentStruct {
   }
 }
 
-class RateHeaderStruct {
+class AgentRateStruct {
   constructor() {
-    this.rate;
+    this.agentRate;
     this.totalTransactionsSponsored;
     this.insertionTime;
     this.lastUpdateTime;
@@ -59,8 +69,9 @@ class TransactionStruct {
 
 module.exports = {
   AccountStruct,
-  SponsorStruct,
+  AgentRateStruct,
   AgentStruct,
-  RateHeaderStruct,
+  SponsorStruct,
+  SponsorRateStruct,
   TransactionStruct
 };

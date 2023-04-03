@@ -17,53 +17,53 @@ addPatreonSponsor = async (_accountKey, _sponsorKey) => {
     await spCoinContractDeployed.addPatreonSponsor(_accountKey, _sponsorKey);
   };
   
-  addPatreonSponsors = async (_accountKey, _accountSponsorKeys) => {
+  addPatreonSponsors = async (_accountKey, _agentRecKeys) => {
     logFunctionHeader(
-      "addPatreonSponsors = async(" + _accountKey + ", " + _accountSponsorKeys + ")"
+      "addPatreonSponsors = async(" + _accountKey + ", " + _agentRecKeys + ")"
     );
   
     logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
-    logDetail("JS => Adding " + _accountSponsorKeys.length + " Sponsors To Blockchain Network"
+    logDetail("JS => Adding " + _agentRecKeys.length + " Sponsors To Blockchain Network"
     );
   
     let sponsorCount = 0;
-    for (sponsorCount; sponsorCount < _accountSponsorKeys.length; sponsorCount++) {
-      let _sponsorKey = _accountSponsorKeys[sponsorCount];
+    for (sponsorCount; sponsorCount < _agentRecKeys.length; sponsorCount++) {
+      let _sponsorKey = _agentRecKeys[sponsorCount];
       await addPatreonSponsor(_accountKey, _sponsorKey);
     }
     logDetail("JS => Inserted = " + sponsorCount + " Sponsor Records");
     return --sponsorCount;
   };
 
-  addSponsorAgent = async (_accountKey, _sponsorAccountKey, _accountAgentKey) => {
+  addSponsorAgent = async (_accountKey, _sponsorAccountKey, _sponsorRateKey, _accountAgentKey) => {
     logFunctionHeader(
-      "addSponsorAgent = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _accountAgentKey + ")"
+      "addSponsorAgent = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _sponsorRateKey + ", " + _accountAgentKey + ")"
     );
     logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
     logDetail("JS => Adding Agent " + _accountAgentKey + " To Blockchain Network");
   
     logDetail("JS =>  " + _accountKey + ". " + "Inserting Agent[" + _accountKey + "]: " + _accountAgentKey );
-    await spCoinContractDeployed.addSponsorAgent( _accountKey, _sponsorAccountKey, _accountAgentKey );
+    await spCoinContractDeployed.addSponsorAgent( _accountKey, _sponsorAccountKey, _sponsorRateKey, _accountAgentKey );
     logDetail("JS => "+ "Added Agent " + _accountAgentKey + " Record to SponsorKey " + _sponsorAccountKey);
   };
   
-  addSponsorAgents = async (_accountKey, _sponsorAccountKey, _accountAgentKeys) => {
+  addSponsorAgents = async (_accountKey, _sponsorAccountKey, _sponsorRateKey, _agentAccountKeys) => {
     logFunctionHeader(
-      "addSponsorAgents = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _accountAgentKeys + ")"
+      "addSponsorAgents = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _sponsorRateKey + ", " + _agentAccountKeys + ")"
     );
     logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
     logDetail("JS => For Sponsor[" + _sponsorAccountKey + "]: " + _sponsorAccountKey + ")");
-    logDetail("JS => Inserting " + _accountAgentKeys.length + " Agents To Blockchain Network"
+    logDetail("JS => Inserting " + _agentAccountKeys.length + " Agents To Blockchain Network"
     );
-    logDetail("JS => _accountAgentKeys = " + _accountAgentKeys);
+    logDetail("JS => _agentAccountKeys = " + _agentAccountKeys);
   
-    let agentSize = _accountAgentKeys.length;
+    let agentSize = _agentAccountKeys.length;
     logDetail("JS => agentSize.length = " + agentSize);
     let agentCount = 0;
     for (let agentCount = 0; agentCount < agentSize; agentCount++) {
-      let agentAccountKey = _accountAgentKeys[agentCount];
+      let agentAccountKey = _agentAccountKeys[agentCount];
       logDetail("JS =>  " + agentCount + ". " + "Inserting Agent[" + agentCount + "]: " + agentAccountKey );
-      await addSponsorAgent( _accountKey, _sponsorAccountKey, agentAccountKey );
+      await addSponsorAgent( _accountKey, _sponsorAccountKey, _sponsorRateKey, agentAccountKey );
     }
     logDetail("JS => "+ "Inserted = " + agentSize + " Agent Records");
     return agentCount;
@@ -95,27 +95,26 @@ addAccountRecords = async (_accountListKeys) => {
 addAgentRateTransaction = async (
   _accountKey, 
   _sponsorAccountKey,
+  _sponsorRateKey,
   _accountAgentKey,
-  _rateKey,
+  _agentRateKey,
   _transactionQtyKey ) => {
-  logFunctionHeader(
-    "addAgentRateTransaction = async(" + 
-    _accountKey + ", " + 
-    _sponsorAccountKey + ", " + 
-    _accountAgentKey + 
-    _rateKey + 
-    _transactionQtyKey + ")"
-  );
+    logFunctionHeader(
+      "addAgentRateTransaction = async(" + 
+      _accountKey + ", " + 
+      _sponsorAccountKey + ", " + 
+      _sponsorRateKey + ", " + 
+      _accountAgentKey + ", " +
+      _agentRateKey + ", " +
+      _transactionQtyKey + ")"
+    );
 
-  logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
-  logDetail("JS => Adding Transaction " + _transactionQtyKey + " To Blockchain Network");
-
-  logDetail("JS =>  " + _accountKey + ". " + "Inserting Transaction[" + _rateKey + "]: " + _transactionQtyKey );
   await spCoinContractDeployed.addAgentRateTransaction(
     _accountKey,
     _sponsorAccountKey,
+    _sponsorRateKey,
     _accountAgentKey,
-    _rateKey,
+    _agentRateKey,
     _transactionQtyKey );
     logDetail("JS => "+ "Added Agent " + _accountAgentKey + " Record to SponsorKey " + _sponsorAccountKey);
 };

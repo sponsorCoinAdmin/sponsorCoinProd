@@ -3,7 +3,7 @@ const {
   AccountStruct,
   SponsorStruct,
   AgentStruct,
-  RateHeaderStruct,
+  AgentRateStruct,
   TransactionStruct,
 } = require("../prod/lib/spCoinDataTypes");
 const {
@@ -52,6 +52,7 @@ describe("spCoinContract", function () {
   let AGENT_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_4;
   let AGENT_ACCOUNT_KEY_2 = TEST_HH_ACCOUNT_KEY_5;
   let AGENT_ACCOUNT_KEY_3 = TEST_HH_ACCOUNT_KEY_6;
+  let SPONSOR_RATE_KEY_10 = 10;
   let AGENT_RATE_1 = 1;
   let TRANSACTION_QTY_1 = 9;
   let AGENT_RATE_2 = 2;
@@ -70,22 +71,25 @@ describe("spCoinContract", function () {
   await addAgentRateTransaction(
     PATREON_ACCOUNT_KEY_1,
     SPONSOR_ACCOUNT_KEY_1,
+    SPONSOR_RATE_KEY_10,
     AGENT_ACCOUNT_KEY_1,
     AGENT_RATE_1,
     TRANSACTION_QTY_1
     );
 
-    await addAgentRateTransaction(
-      PATREON_ACCOUNT_KEY_1,
-      SPONSOR_ACCOUNT_KEY_2,
-      AGENT_ACCOUNT_KEY_2,
-      AGENT_RATE_1,
-      TRANSACTION_QTY_1
-    );
+    // await addAgentRateTransaction(
+    //   PATREON_ACCOUNT_KEY_1,
+    //   SPONSOR_ACCOUNT_KEY_2,
+    //   SPONSOR_RATE_KEY_10,
+    //   AGENT_ACCOUNT_KEY_2,
+    //   AGENT_RATE_1,
+    //   TRANSACTION_QTY_1
+    // );
 
     // await addAgentRateTransaction(
     //   PATREON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_1,
+    // SPONSOR_RATE_KEY_10,
     //   AGENT_ACCOUNT_KEY_3,
     //   AGENT_RATE_1,
     //   TRANSACTION_QTY_3
@@ -94,6 +98,7 @@ describe("spCoinContract", function () {
     // await addAgentRateTransaction(
     //   PATREON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_2,
+    // SPONSOR_RATE_KEY_10,
     //   AGENT_ACCOUNT_KEY_3,
     //   AGENT_RATE_4,
     //   TRANSACTION_QTY_4
@@ -102,6 +107,7 @@ describe("spCoinContract", function () {
     // await addAgentRateTransaction(
     //   PATREON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_2,
+    // SPONSOR_RATE_KEY_10,
     //   AGENT_ACCOUNT_KEY_3,
     //   AGENT_RATE_4,
     //   TRANSACTION_QTY_7
@@ -110,6 +116,7 @@ describe("spCoinContract", function () {
       // await addAgentRateTransaction(
       //   PATREON_ACCOUNT_KEY_2,
       //   SPONSOR_ACCOUNT_KEY_1,
+    // SPONSOR_RATE_KEY_10,
       //   AGENT_ACCOUNT_KEY_1,
       //   AGENT_RATE_1,
       //   TRANSACTION_QTY_3*3
@@ -118,6 +125,7 @@ describe("spCoinContract", function () {
       // await addAgentRateTransaction(
       //   PATREON_ACCOUNT_KEY_2,
       //   SPONSOR_ACCOUNT_KEY_1,
+    // SPONSOR_RATE_KEY_10,
       //   AGENT_ACCOUNT_KEY_1,
       //   AGENT_RATE_2,
       //   TRANSACTION_QTY_2
@@ -126,6 +134,7 @@ describe("spCoinContract", function () {
     // await addAgentRateTransaction(
     //   PATREON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_1,
+    // SPONSOR_RATE_KEY_10,
     //   AGENT_ACCOUNT_KEY_1,
     //   AGENT_RATE_2,
     //   TRANSACTION_QTY_2
@@ -134,6 +143,7 @@ describe("spCoinContract", function () {
     // await addAgentRateTransaction(
     //   PATREON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_1,
+    // SPONSOR_RATE_KEY_10,
     //   AGENT_ACCOUNT_KEY_1,
     //   AGENT_RATE_3,
     //   TRANSACTION_QTY_3
@@ -141,6 +151,7 @@ describe("spCoinContract", function () {
     // await addAgentRateTransaction(
     //   PATREON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_1,
+    // SPONSOR_RATE_KEY_10,
     //   AGENT_ACCOUNT_KEY_1,
     //   AGENT_RATE_2,
     //   TRANSACTION_QTY_4
@@ -149,6 +160,7 @@ describe("spCoinContract", function () {
     // let agentRateKeys = await getAgentRateKeys(
     //   PATREON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_1,
+    // SPONSOR_RATE_KEY_10,
     //   AGENT_ACCOUNT_KEY_1);
   
     // accountKeySize = (await getAccountKeySize()).toNumber();
@@ -161,6 +173,7 @@ describe("spCoinContract", function () {
     // agentRateKeys = await getAgentRateKeys(
     //   PATREON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_1,
+    // SPONSOR_RATE_KEY_10,
     //   AGENT_ACCOUNT_KEY_1);
     //   logJSON(agentRateKeys);
 
