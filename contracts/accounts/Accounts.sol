@@ -12,7 +12,7 @@ contract Accounts is StructSerialization {
         public onlyOwnerOrRootAdmin(_accountKey) {
         if (!isAccountInserted(_accountKey)) {
             AccountStruct storage accountRec = accountMap[_accountKey];
-            accountRec.index = accountKeys.length;
+            // accountRec.index = accountKeys.length;
             accountRec.accountKey = _accountKey;
             accountRec.insertionTime = block.timestamp;
             accountRec.stakedSPCoins = 0;
@@ -29,18 +29,6 @@ contract Accounts is StructSerialization {
             return true;
         else
             return false;
-    }
-
-    /// @notice retreives the array index of a specific address.
-    /// @param _accountKey public accountKey to set new balance
-    function getAccountIndex(address _accountKey)
-        public
-        view
-        onlyOwnerOrRootAdmin(_accountKey)
-        returns (uint256) {
-        if (isAccountInserted(_accountKey))
-            return accountMap[_accountKey].index;
-        else return 0;
     }
 
     /// @notice retreives the number of accounts inserted.
@@ -105,7 +93,7 @@ contract Accounts is StructSerialization {
     }
 
     /////////////////////////// AGENT REQUESTS //////////////////////////////
-
+/*
     /// @notice get address for an account agent
     /// @param _accountKey public account key to get sponsor array
     /// @param _agentIdx new patreon to add to account list
@@ -114,7 +102,7 @@ contract Accounts is StructSerialization {
         address accountAgentKey = accountRec.agentAccountKeys[_agentIdx];
         return accountAgentKey;
     }
-
+*/
     /// @notice retreives the sponsor array record size of the Patreon list.
     /// @param _accountKey public account key to get Sponsor Record Length
     function getAccountAgentKeySize(address _accountKey) public view onlyOwnerOrRootAdmin(_accountKey) returns (uint) {
@@ -150,10 +138,10 @@ contract Accounts is StructSerialization {
     function deleteAccountRecord(address _accountKey) public
         accountExists(_accountKey) 
         onlyOwnerOrRootAdmin(_accountKey)
-        PatreonDoesNotExist(_accountKey)
-        parentSponsorDoesNotExist(_accountKey)
+        patreonDoesNotExist(_accountKey)
+        parentsponsorDoesNotExist(_accountKey)
 //      AgentDoesNotExist(_accountKey)
-        SponsorDoesNotExist(_accountKey) {
+        sponsorDoesNotExist(_accountKey) {
         if (deleteAccountRecordFromSearchKeys( _accountKey,  accountKeys)) {
             delete accountMap[_accountKey];
         } 
@@ -197,18 +185,18 @@ contract Accounts is StructSerialization {
         _;
     }
 
-    modifier PatreonDoesNotExist(address _accountKey) {
+    modifier patreonDoesNotExist(address _accountKey) {
         require (getAccountPatreonKeySize(_accountKey) == 0 &&
                  getAccountAgentKeySize(_accountKey) == 0, "Sponsor Account has a Patreon, (Patreon must Un-sponsor Sponsored Account)");
         _;
     }
     
-    modifier parentSponsorDoesNotExist(address _accountKey) {
+    modifier parentsponsorDoesNotExist(address _accountKey) {
         require (getAccountParentSponsorKeySize(_accountKey) == 0, "Agent Account has a Parent Sponsor, (Patreon must Un-sponsor Sponsored Account)");
         _;
     }
 
-    modifier SponsorDoesNotExist(address _accountKey) {
+    modifier sponsorDoesNotExist(address _accountKey) {
         require (getAccountSponsorKeySize(_accountKey) == 0, "Patreon Account has a Sponsor, (Patreon must Un-sponsor Sponsored Account)");
         _;
     }

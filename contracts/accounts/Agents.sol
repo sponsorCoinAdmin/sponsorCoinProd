@@ -23,7 +23,7 @@ contract Agents is SponsorRates {
         SponsorStruct storage patreonSponsorRec = getSponsorRecordByKeys(_patreonKey, _sponsorKey);
         AgentStruct storage  sponsorAgentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
         if (!sponsorAgentRec.inserted) {
-            sponsorAgentRec.index = patreonSponsorRec.agentAccountKeys.length;
+            // sponsorAgentRec.index = patreonSponsorRec.agentAccountKeys.length;
             sponsorAgentRec.insertionTime = block.timestamp;
             sponsorAgentRec.agentAccountKey = _agentKey;
             sponsorAgentRec.inserted = true;
@@ -108,6 +108,7 @@ contract Agents is SponsorRates {
         deleteAccountRecordFromSearchKeys(_sponsorKey, parentSponsorKeys);
     }
 
+    /*
     /// @notice determines if agent address is inserted in account.sponsor.agent.map
     /// @param _patreonKey public account key validate Insertion
     /// @param _sponsorKey public sponsor account key validate Insertion
@@ -115,19 +116,11 @@ contract Agents is SponsorRates {
     function isAgentInserted(address _patreonKey,address _sponsorKey,address _agentKey) public onlyOwnerOrRootAdmin(_patreonKey) view returns (bool) {
         return getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey).inserted;
     }
-
+*/
     function getAgentTotalSponsored(address _patreonKey, address _sponsorKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
         // console.log("Agents.sol:agentRec.totalRatesSponsored  = ", agentRec.totalRatesSponsored);
         return agentRec.totalRatesSponsored; 
-    }
-
-    function getAgentIndex(address _patreonKey, address _sponsorKey, address _agentKey) public onlyOwnerOrRootAdmin(_patreonKey) view returns (uint) {
-        if (isAgentInserted(_patreonKey, _sponsorKey, _agentKey)) {
-            return accountMap[_patreonKey].sponsorMap[_sponsorKey].agentMap[_agentKey].index;
-        }
-        else
-            return 0;
     }
 
     /// @notice retreives the sponsor array records from a specific account address.
