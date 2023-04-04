@@ -13,18 +13,7 @@ contract Token is AccountStakingManager{
     }
 */
 
-    constructor() {
-        initToken("Test", "Test0001", 18, 100000000000000000000000000);
-   }
-
-   function initToken(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) public onlyRootAdmin {
-        name = _name;
-        symbol = _symbol;
-        decimals = _decimals;
-        totalSupply = _totalSupply;
-        balanceOf[msg.sender] = _totalSupply;
-        stakedSPCoins = 0;
-    }
+    constructor() { }
 
     /// @notice transfer amount of tokens to an address
     /// @param _to receiver of token
@@ -78,5 +67,4 @@ contract Token is AccountStakingManager{
         _transfer(_from, _to, _value);
         return true;
     }
-
 }

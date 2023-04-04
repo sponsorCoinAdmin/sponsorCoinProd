@@ -51,14 +51,15 @@ getAccountSponsorKeySize = async (_patreonKey) => {
   return maxSize;
 };
 
-getAccountPatreonKeySize = async (_patreonKey) => {
-  logFunctionHeader("getAccountPatreonKeySize = async(" + _patreonKey + ")");
+getAccountPatreonSize = async (_patreonKey) => {
+  logFunctionHeader("getAccountPatreonSize = async(" + _patreonKey + ")");
 
-  let maxSize = await spCoinContractDeployed.getAccountPatreonKeySize(_patreonKey);
+  let maxSize = await spCoinContractDeployed.getAccountPatreonSize(_patreonKey);
   logDetail("JS => Found " + maxSize + " Account Patreon Keys");
   return maxSize;
 };
 
+/*
 getAccountAgentKeySize = async (_patreonKey) => {
   logFunctionHeader("getAccountAgentKeySize = async(" + _patreonKey + ")");
 
@@ -66,6 +67,7 @@ getAccountAgentKeySize = async (_patreonKey) => {
   logDetail("JS => Found " + maxSize + " Account Agent Records");
   return maxSize;
 };
+*/
 
 getAccountParentSponsorKeys = async (_patreonKey) => {
   logFunctionHeader("getAccountParentSponsorKeys = async(" + _patreonKey + ")");
@@ -73,9 +75,9 @@ getAccountParentSponsorKeys = async (_patreonKey) => {
   return parentSponsorAccountKeys;
 }
 
-getAccountParentSponsorKeySize = async () => {
-  logFunctionHeader("getAccountParentSponsorKeySize = async()");
-  let maxSize = await spCoinContractDeployed.getAccountParentSponsorKeySize();
+getAccountParentSponsorSize = async () => {
+  logFunctionHeader("getAccountParentSponsorSize = async()");
+  let maxSize = await spCoinContractDeployed.getAccountParentSponsorSize();
   logDetail("JS => Found " + maxSize + " Account Keys");
   return maxSize;
 };
@@ -83,7 +85,7 @@ getAccountParentSponsorKeySize = async () => {
 getAccountPatreonKeys = async (_patreonKey) => {
   logFunctionHeader("getAccountPatreonKeys = async(" + _patreonKey + ")");
 /*
-  let maxSize = await spCoinContractDeployed.getAccountPatreonKeySize(_patreonKey);
+  let maxSize = await spCoinContractDeployed.getAccountPatreonSize(_patreonKey);
 
   let patreonAccountKeys = {};
 
@@ -337,13 +339,13 @@ deSerializeSponsorRateRecordByKeys = async(_patreonKey, _sponsorKey, _sponsorRat
 
 module.exports = {
   getAccountAgentKeys,
-  getAccountAgentKeySize,
+  // getAccountAgentKeySize,
   getAccountKeys,
   getAccountKeySize,
   getAccountParentSponsorKeys,
-  getAccountParentSponsorKeySize,
+  getAccountParentSponsorSize,
   getAccountPatreonKeys,
-  getAccountPatreonKeySize,
+  getAccountPatreonSize,
   getAccountRecord,
   getAccountRecords,
   getAccountSerializedRecord,

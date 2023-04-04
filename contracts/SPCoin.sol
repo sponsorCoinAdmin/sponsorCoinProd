@@ -9,9 +9,23 @@ contract SPCoin is Token{
     uint256 private defaultDecimals    = 18;
     uint256 private defaultTotalSupply = 1000000000 * 10**defaultDecimals;
 
+    // constructor()  {
+    //     initToken("Test", "Test0001", 18, 100000000000000000000000000);
+    // } 
+
     constructor()  {
 //        logDetail("JS => MESSAGE.SENDER: ", msg.sender);
         initToken(defaultName,  defaultSymbol, defaultDecimals, defaultTotalSupply);
 //        logDetail("JS => MESSAGE.SENDER: ", msg.sender);
     }
+
+   function initToken(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) public onlyRootAdmin {
+    name = _name;
+    symbol = _symbol;
+    decimals = _decimals;
+    totalSupply = _totalSupply;
+    balanceOf[msg.sender] = _totalSupply;
+    stakedSPCoins = 0;
+}
+
 }
