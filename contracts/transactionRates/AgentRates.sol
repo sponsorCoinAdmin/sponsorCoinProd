@@ -28,6 +28,7 @@ contract Rates is Agents{
         }
     }
 
+    /*
     /// @notice determines if address Record is inserted in accountKey array
     /// @param _agentRec agent record containing agentRateMap records
     /// @param _agentRateKey key for a specific agentRateMap record
@@ -38,11 +39,12 @@ contract Rates is Agents{
         else 
             return false;
     }
+*/
 
     function getAgentRateRecordByKeys(address _patreonKey, address _sponsorKey, address _agentKey, uint _agentRateKey) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (AgentRateStruct storage) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey) ;
         return agentRec.agentRateMap[_agentRateKey];
-     }
+    }
 
      function serializeAgentRateRecordStr(address _patreonKey, address _sponsorKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
         AgentRateStruct storage agentRateRec =  getAgentRateRecordByKeys(_patreonKey, _sponsorKey, _agentKey, _agentRateKey);
@@ -63,6 +65,7 @@ contract Rates is Agents{
         // console.log("RRRR strTransactionList = ", strTransactionList); 
         return strTransactionList;
     }
+
 
     function getRateTransactionStr(TransactionStruct[] memory transactionList) public pure returns (string memory) {
         string memory strTransactionList = "";

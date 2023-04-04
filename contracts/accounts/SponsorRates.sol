@@ -24,18 +24,7 @@ function addSponsorRate(address _patreonKey, address _sponsorKey, uint _sponsorR
     } 
 }
 
-    /// @notice determines if address Record is inserted in accountKey array
-    /// @param _sponsorRec sponsor record containing sponsorRateMap records
-    /// @param _sponsorRateKey key for a specific sponsorRateMap record
-    function isRateInserted(SponsorStruct storage _sponsorRec, uint _sponsorRateKey) internal view returns (bool) {
-        mapping(uint256 => SponsorRateStruct) storage sponsorRateMap = _sponsorRec.sponsorRateMap;
-        if (sponsorRateMap[_sponsorRateKey].inserted)
-            return true;
-        else 
-            return false;
-    }
-
-   function getSponsorRateRecordByKeys(address _patreonKey, address _sponsorKey, uint _sponsorRateKey) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (SponsorRateStruct storage) {
+function getSponsorRateRecordByKeys(address _patreonKey, address _sponsorKey, uint _sponsorRateKey) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (SponsorRateStruct storage) {
         SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patreonKey, _sponsorKey) ;
         return sponsorRec.sponsorRateMap[_sponsorRateKey];
      }
@@ -49,33 +38,4 @@ function addSponsorRate(address _patreonKey, address _sponsorKey, uint _sponsorR
         return strRateHeaderStr;
     }
 
-
-
- /*
-
-    function getRateTransactionList(address _patreonKey, address _sponsorKey, address _sponsorKey, uint256 _sponsorRateKey) public view returns (string memory) {
-        SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patreonKey, _sponsorKey, _sponsorKey);
-        string memory strTransactionList = "";
-        SponsorRateStruct storage sponsorRateRec = sponsorRec.sponsorRateMap[_sponsorRateKey];
-        // console.log ("sponsorRateRec.transactionList[0].quantity = ", sponsorRateRec.transactionList[0].quantity);
-        TransactionStruct[] memory transactionList = sponsorRateRec.transactionList;
-        strTransactionList = concat(strTransactionList, getRateTransactionStr(transactionList)); 
-        // console.log("RRRR strTransactionList = ", strTransactionList); 
-        return strTransactionList;
-    }
-
-    function getRateTransactionStr(TransactionStruct[] memory transactionList) public pure returns (string memory) {
-        string memory strTransactionList = "";
-        for (uint idx; idx < transactionList.length; idx++) {
-
-            strTransactionList = concat(strTransactionList,
-            toString(transactionList[idx].insertionTime), ",",
-            toString(transactionList[idx].quantity));
-            if (idx < transactionList.length - 1) {
-                strTransactionList = concat(strTransactionList, "\n");
-            }
-        }
-        return strTransactionList;
-    }
-    */
 }
