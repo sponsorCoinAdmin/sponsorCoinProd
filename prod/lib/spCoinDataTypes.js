@@ -1,6 +1,5 @@
 class AccountStruct {
   constructor() {
-    this.index;
     this.accountKey;
     this.balanceOf;
     this.stakedSPCoins;
@@ -17,7 +16,6 @@ class AccountStruct {
 
 class SponsorStruct {
   constructor() {
-    this.index;
     this.sponsorAccountKey;
     this.totalAgentsSponsored;
     this.insertionTime;
@@ -41,7 +39,6 @@ class SponsorRateStruct {
 
 class AgentStruct {
   constructor() {
-    this.index;
     this.agentAccountKey;
     this.totalRatesSponsored;
     this.insertionTime;
