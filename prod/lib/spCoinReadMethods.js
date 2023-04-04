@@ -148,7 +148,7 @@ getSponsorRecordsByKeys = async(_patreonKey, _sponsorAccountKeys) => {
   let sponsorRecordList = [];
   for (let [idx, sponsorAccountKey] of Object.entries(_sponsorAccountKeys)) {
     logDetail("JS => Loading Sponsor Record " + sponsorAccountKey, idx);
-    let sponsorRec = await getSponsorRecordByKeys(idx, _patreonKey, sponsorAccountKey);
+    let sponsorRec = await getSponsorRecordByKeys(_patreonKey, sponsorAccountKey);
     sponsorRecordList.push(sponsorRec);
     return sponsorRec;
   }
@@ -156,11 +156,10 @@ getSponsorRecordsByKeys = async(_patreonKey, _sponsorAccountKeys) => {
   return sponsorRecordList;
 }
 
-getSponsorRecordByKeys = async(_index, _patreonKey, _sponsorKey) => {
+getSponsorRecordByKeys = async(_patreonKey, _sponsorKey) => {
   logFunctionHeader("getSponsorRecordByKeys(" + _patreonKey + ", " + _sponsorKey + ")");
   let sponsorRecord = new SponsorStruct(_sponsorKey);
   sponsorRecord.sponsorAccountKey = _sponsorKey;
-  // sponsorRecord.index = _index;
   sponsorRecord.totalAgentsSponsored = (await spCoinContractDeployed.getTotalSponsoredAmount(_patreonKey, _sponsorKey)).toNumber();
 
   // ToDo New Robin
@@ -170,12 +169,10 @@ getSponsorRecordByKeys = async(_index, _patreonKey, _sponsorKey) => {
 
 getSponsorRatesByKeys = async(_patreonKey, _sponsorKey) => {
   logFunctionHeader("getAgentRatesByKeys = async(" + _patreonKey + ", " + _sponsorKey+ ", " + ")");
-
   let sponsorRateKeys = await getSponsorRateKeys(_patreonKey, _sponsorKey);
   let sponsorRateList = [];
   for (let [idx, sponsorRateKey] of Object.entries(sponsorRateKeys)) {
-    sponsorRateKey = sponsorRateKey;
-///log("JS => Loading Sponsor Rates " + sponsorRateKey + " idx = " + idx);
+    //log("JS => Loading Sponsor Rates " + sponsorRateKey + " idx = " + idx);
     let sponsorRateRecord = await deSerializeSponsorRateRecordByKeys(_patreonKey, _sponsorKey, sponsorRateKey);
     sponsorRateList.push(sponsorRateRecord);
   }
@@ -196,10 +193,7 @@ getSponsorRateKeys = async(_patreonKey, _sponsorKey) => {
 getSponsorRateRecordByKeys = async(_patreonKey, _sponsorKey, _sponsorRateKey) => {
   logFunctionHeader("getSponsorRateRecordByKeys(" + _patreonKey + ", " + _sponsorKey + ")");
   let sponsorRateRecord = new SponsorRateStruct();
-  // sponsorRateRecord.sponsorAccountKey = _sponsorKey;
-  // sponsorRateRecord.index = _index;
   sponsorRateRecord.sponsorRate = _sponsorRateKey;
-  // sponsorRateRecord.totalAgentsSponsored = "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS";
   sponsorRateRecord.totalAgentsSponsored = bigIntToDecimal(await spCoinContractDeployed.getTotalSponsoredAmount(_patreonKey, _sponsorKey));
   let agentAccountKeys = await getAgentRecordKeys(_patreonKey, _sponsorKey);
   sponsorRateRecord.agentAccountKeys = agentAccountKeys;
@@ -209,48 +203,23 @@ getSponsorRateRecordByKeys = async(_patreonKey, _sponsorKey, _sponsorRateKey) =>
 }
 //  End New Robin
 
-getSponsorRateByKeys = async(_patreonKey, _sponsorKey, _agentKey, _agentRateKey) => {
-  // logFunctionHeader("getAgentsBySponsor = async(" + _patreonKey + ", " + _agentRateRecordKey + ")");
-  // let agentRateKeys = await getAgentRateKeys(_patreonKey, _agentRateRecordKey);
-  // let agentRateRecordList = await getAgentRatesByKeys(_patreonKey, _sponsorKey, _agentRateRecordKey);
-  // return agentRateRecordList;
-  return "ToDo Sponsor Rate";
-}
-
 //////////////////// LOAD SPONSOR TRANSACTION DATA //////////////////////
-
-getSponsorTransactionsByKeys = async(_patreonKey, _sponsorKey, _agentKey) => {
-  // logFunctionHeader("getAgentsBySponsor = async(" + _patreonKey + ", " + _agentRateRecordKey + ")");
-  // let agentRateKeys = await getAgentRateKeys(_patreonKey, _agentRateRecordKey);
-  // let agentRateRecordList = await getAgentRatesByKeys(_patreonKey, _sponsorKey, _agentRateRecordKey);
-  // return agentRateRecordList;
-  return "ToDo Sponsor Transactions";
-}
-//////////////////// LOAD AGENT DATA //////////////////////
-
-// getAgentsBySponsor = async(_patreonKey, _sponsorKey) => {
-//   logFunctionHeader("getAgentsBySponsor = async(" + _patreonKey + ", " + _sponsorKey + ")");
-//   let agentAccountKeys = await getAgentRecordKeys(_patreonKey, _sponsorKey);
-//   let agentRecordList = await getAgentRecordsByKeys(_patreonKey, _sponsorKey, agentAccountKeys);
-//   return agentRecordList;
-// }
 
 getAgentRecordsByKeys = async(_patreonKey, _sponsorKey, _agentAccountKeys) => {
   logFunctionHeader("getAgentRecordsByKeys(" + _patreonKey + ", " + _sponsorKey + ", " + _agentAccountKeys + ")");
   let agentRecordList = [];
   for (let [idx, agentAccountKey] of Object.entries(_agentAccountKeys)) {
       logDetail("JS => Loading Agent Records " + agentAccountKey, idx);
-      let agentRecord = await getAgentRecordByKeys(idx, _patreonKey, _sponsorKey, agentAccountKey);
+      let agentRecord = await getAgentRecordByKeys(_patreonKey, _sponsorKey, agentAccountKey);
       agentRecordList.push(agentRecord);
   }
   return agentRecordList;
 }
 
-getAgentRecordByKeys = async(_index, _patreonKey, _sponsorKey, _agentKey) => {
+getAgentRecordByKeys = async(_patreonKey, _sponsorKey, _agentKey) => {
   logFunctionHeader("getAgentRecordByKeys(" + _patreonKey + ", " + _sponsorKey + ", " + _agentKey + ")");
   agentRecord = new AgentStruct();
   agentRecord.agentAccountKey = _agentKey;
-  // agentRecord.index = _index;
   agentRecord.totalRatesSponsored = bigIntToDecimal(await spCoinContractDeployed.getAgentTotalSponsored(_patreonKey, _sponsorKey, _agentKey));
   agentRecord.agentRateList = await getAgentRatesByKeys(_patreonKey, _sponsorKey, _agentKey);
   return agentRecord;
@@ -287,22 +256,6 @@ getAgentRateKeys = async (_patreonKey, _sponsorKey, _agentKey) => {
   return agentRateKeys;
 };
 
-/*
-getAgentRateRecordsByKeys = async(_patreonKey, _sponsorKey, _agentKey) => {
-  logFunctionHeader("getAgentRatesByKeys = async(" +
-  _patreonKey + ", " + _sponsorKey+ ", " + _agentKey + ")");
-
-  let agentRateKeys = await getAgentRateKeys(_patreonKey, _sponsorKey, _agentKey);
-
-  let agentRateList = [];
-  for (let [idx, agentRateKey] of Object.entries(agentRateKeys)) {
-      logDetail("JS => Loading Agent Rates " + agentRateKeys, idx);
-      let agentRateRecord = await getAgentRateByKeys(_patreonKey, _sponsorKey, agentRateKey);
-      agentRateRecord.index = idx;
-      agentRecordList.push(agentRateRecord);
-  }
-  return agentRateList;
-*/
 //////////////////// LOAD AGENT TRANSACTION DATA //////////////////////
 
 getRateTransactionsByKeys = async(_patreonKey, _sponsorKey, _agentKey, _agentRateKey) => {
@@ -350,7 +303,6 @@ deSerializeAgentRateRecordByKeys = async(_patreonKey, _sponsorKey, _agentKey, _a
   logFunctionHeader("getAgentRateByKeys(" + _patreonKey + ", " + _sponsorKey + ", " + _agentKey+ ", " + _agentRateKey + ")");
   let agentRateRecord = new AgentRateStruct();
   let headerStr = await getAgentRateHeaderDataList(_patreonKey, _sponsorKey, _agentKey, _agentRateKey);
-//  agentRateRecord.agentRate = "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP";
   agentRateRecord.agentRate = _agentRateKey;
   agentRateRecord.insertionTime = hexToDecimal(headerStr[0]);
   agentRateRecord.lastUpdateTime = hexToDecimal(headerStr[1]);
@@ -404,7 +356,6 @@ module.exports = {
   getAgentRecordKeySize,
   getAgentRecordsByKeys,
   //getAgentsBySponsor,
-  getSponsorRateByKeys,
   getSponsorRateRecordByKeys,
   getSponsorRecordByKeys,
   getSponsorRecordsByKeys,
