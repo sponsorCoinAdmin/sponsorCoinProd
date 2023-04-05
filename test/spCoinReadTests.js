@@ -19,15 +19,15 @@ describe("spCoinContract", function () {
   /**/
 
   it("PRINT STRUCTURE TREE TESTS", async function () {
-    // USAGE: addTestNetworkPatreonSponsors(_accountRecIdx, _startSpIdx, _lastSpIdx);
-    await addTestNetworkPatreonSponsors(2, [1, 7, 14, 8, 18, 9]);
-    await addTestNetworkPatreonSponsors(2, [12]);
-    await addTestNetworkPatreonSponsors(3, [14, 17]);
-    await addTestNetworkPatreonSponsors(1, [5, 11, 13, 15]);
-    await addTestNetworkPatreonSponsors(14, [18, 19, 7]);
-    await addTestNetworkPatreonSponsors(3, [4]);
-    await addTestNetworkPatreonSponsors(1, [2, 5]);
-    await addTestNetworkPatreonSponsors(11, [5, 9, 0]);
+    // USAGE: addTestNetworkPatronSponsors(_accountRecIdx, _startSpIdx, _lastSpIdx);
+    await addTestNetworkPatronSponsors(2, [1, 7, 14, 8, 18, 9]);
+    await addTestNetworkPatronSponsors(2, [12]);
+    await addTestNetworkPatronSponsors(3, [14, 17]);
+    await addTestNetworkPatronSponsors(1, [5, 11, 13, 15]);
+    await addTestNetworkPatronSponsors(14, [18, 19, 7]);
+    await addTestNetworkPatronSponsors(3, [4]);
+    await addTestNetworkPatronSponsors(1, [2, 5]);
+    await addTestNetworkPatronSponsors(11, [5, 9, 0]);
 
     // USAGE: addNetworkSponsorAgents(_accountRecIdx, _sponsorRecIdx, _startAgIdx, _lastAgIdx);
     await addTestNetworkSponsorAgents(1, 5, 10, [7, 2, 17, 3, 9, 19]);
@@ -53,24 +53,24 @@ describe("spCoinContract", function () {
     setLogMode(LOG_MODE.LOG, true);
     let expectedErrMsg;
 
-    // Test Successful Record Insertion of Patreon and 
+    // Test Successful Record Insertion of Patron and 
     // Sponsor Accounts to the Blockchain Network.
     // Account, Sponsor and/or Agent are Successfully mutually exclusive.
-    await addTestNetworkPatreonSponsors(4, [3]);
+    await addTestNetworkPatronSponsors(4, [3]);
 
-    // Test Un-Successful Record Insertion of Patreon
+    // Test Un-Successful Record Insertion of Patron
     // and Agent Accounts to the Blockchain Network.
     // Account and Sponsor are not mutually exclusive.
     expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey and _sponsorAccountKey must be Mutually Exclusive)'";
     try {
-      await addTestNetworkPatreonSponsors(4, [4]);
+      await addTestNetworkPatronSponsors(4, [4]);
       throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
     } catch (err) {
       // console.log ("err.message = " + err.message);
       expect(err.message).to.equal(expectedErrMsg);
     }
 
-    // Test Un-Successful Record Insertion of Patreon,
+    // Test Un-Successful Record Insertion of Patron,
     // Sponsor and Agent Accounts to the Blockchain Network.
     // Account, Sponsor and/or Agent are not mutually exclusive.
     expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _sponsorAccountKey and _agentKey must be Mutually Exclusive)'"
@@ -82,14 +82,14 @@ describe("spCoinContract", function () {
       expect(err.message).to.equal(expectedErrMsg);
     }
 
-    // Test Successful Record Insertion of Patreon,
+    // Test Successful Record Insertion of Patron,
     // Sponsor and Agent to the Blockchain Network.
-    // Patreon, Sponsor and/or Agent Accounts are
+    // Patron, Sponsor and/or Agent Accounts are
     // Successfully mutually exclusive.
     await addTestNetworkSponsorAgents(14, 6, 10, [1]);
 
     // Test Un-Successful Record Insertion to Blockchain Network.
-    // Patreon and Sponsor Accounts are Not mutually exclusive.
+    // Patron and Sponsor Accounts are Not mutually exclusive.
     expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _sponsorAccountKey and _agentKey must be Mutually Exclusive)'";
     try {
       await addTestNetworkSponsorAgents(6, 6, 10, [1]);
@@ -100,7 +100,7 @@ describe("spCoinContract", function () {
     }
 
     // Test Un-Successful Record Insertion to Blockchain Network.
-    // Patreon and Agent Accounts are Not mutually exclusive.
+    // Patron and Agent Accounts are Not mutually exclusive.
     expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _sponsorAccountKey and _agentKey must be Mutually Exclusive)'";
     try {
       await addTestNetworkSponsorAgents(6, 5, 10, [6]);
@@ -163,8 +163,8 @@ describe("spCoinContract", function () {
     setLogMode(LOG_MODE.LOG_TREE, true);
 
     // Test Record Insertions to Blockchain Network
-    let arrayKey = await addTestNetworkPatreonSponsors(14, [3, 2]);
-    arrayKey = await addTestNetworkPatreonSponsors(13, [3]);
+    let arrayKey = await addTestNetworkPatronSponsors(14, [3, 2]);
+    arrayKey = await addTestNetworkPatronSponsors(13, [3]);
   
     let accountKeySize = (await getAccountKeySize()).toNumber();
     expect(accountKeySize).to.equal(4);
@@ -172,8 +172,8 @@ describe("spCoinContract", function () {
     let accountArr = await getAccountRecords(spCoinContractDeployed);
     logJSON(accountArr);
 
-    // Test That Patreon at Idx 3 has 2 Record Sponsors in the blockchain and
-    // Validate they are the correct ones in the Patreon Structure
+    // Test That Patron at Idx 3 has 2 Record Sponsors in the blockchain and
+    // Validate they are the correct ones in the Patron Structure
     // Read from Blockchain Network
     let recipientKey = getTestHHAccountKey(3);
 
@@ -192,7 +192,7 @@ describe("spCoinContract", function () {
     let accountKey = TEST_HH_ACCOUNT_LIST[testAccountKey];
     let testSponsorListKeys = [1, 7, 14, 8, 18, 9];
   
-    await addTestNetworkPatreonSponsors(testAccountKey, testSponsorListKeys);
+    await addTestNetworkPatronSponsors(testAccountKey, testSponsorListKeys);
     log("Tree For Account Key: " + accountKey + " With Inserted Sponsors:");
     await logJSONTree();
 

@@ -19,13 +19,18 @@ contract SPCoin is Token{
 //        logDetail("JS => MESSAGE.SENDER: ", msg.sender);
     }
 
-   function initToken(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) public onlyRootAdmin {
-    name = _name;
-    symbol = _symbol;
-    decimals = _decimals;
-    totalSupply = _totalSupply;
-    balanceOf[msg.sender] = _totalSupply;
-    stakedSPCoins = 0;
-}
+    function initToken(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) public onlyRootAdmin {
+        name = _name;
+        symbol = _symbol;
+        decimals = _decimals;
+        totalSupply = _totalSupply;
+        balanceOf[msg.sender] = _totalSupply;
+        stakedSPCoins = 0;
+    }
 
+    function transferAgentRateTransaction(address _patreonKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey, uint _agentRateKey, uint256 _transAmount)
+    public onlyOwnerOrRootAdmin(msg.sender) {
+        transfer(_patreonKey, _transAmount);
+        addAgentRateTransaction( _patreonKey, _sponsorKey, _sponsorRateKey, _agentKey, _agentRateKey, _transAmount);
+    }
 }

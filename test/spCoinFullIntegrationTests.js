@@ -45,8 +45,8 @@ describe("spCoinContract", function () {
 
  it("VALIDATE ADD TRANSACTION RATES", async function () {
   setLogMode("LOG", true);
-  let PATREON_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_0;
-  let PATREON_ACCOUNT_KEY_2 = TEST_HH_ACCOUNT_KEY_1;
+  let PATRON_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_0;
+  let PATRON_ACCOUNT_KEY_2 = TEST_HH_ACCOUNT_KEY_1;
   let SPONSOR_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_2;
   let SPONSOR_ACCOUNT_KEY_2 = TEST_HH_ACCOUNT_KEY_3;
   let AGENT_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_4;
@@ -65,11 +65,11 @@ describe("spCoinContract", function () {
   let TRANSACTION_QTY_6 = 6;
   let TRANSACTION_QTY_7 = 7;
 
-  // Test Successful Record Insertion of Patreon and 
+  // Test Successful Record Insertion of Patron and 
   // Sponsor Accounts to the Blockchain Network.
   // Account, Sponsor and/or Agent are Successfully mutually exclusive.
   await addAgentRateTransaction(
-    PATREON_ACCOUNT_KEY_1,
+    PATRON_ACCOUNT_KEY_1,
     SPONSOR_ACCOUNT_KEY_1,
     SPONSOR_RATE_KEY_10,
     AGENT_ACCOUNT_KEY_1,
@@ -78,7 +78,7 @@ describe("spCoinContract", function () {
     );
 
     // await addAgentRateTransaction(
-    //   PATREON_ACCOUNT_KEY_1,
+    //   PATRON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_2,
     //   SPONSOR_RATE_KEY_10,
     //   AGENT_ACCOUNT_KEY_2,
@@ -87,7 +87,7 @@ describe("spCoinContract", function () {
     // );
 
     // await addAgentRateTransaction(
-    //   PATREON_ACCOUNT_KEY_1,
+    //   PATRON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_1,
     // SPONSOR_RATE_KEY_10,
     //   AGENT_ACCOUNT_KEY_3,
@@ -96,7 +96,7 @@ describe("spCoinContract", function () {
     // );
 
     // await addAgentRateTransaction(
-    //   PATREON_ACCOUNT_KEY_1,
+    //   PATRON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_2,
     // SPONSOR_RATE_KEY_10,
     //   AGENT_ACCOUNT_KEY_3,
@@ -105,7 +105,7 @@ describe("spCoinContract", function () {
     // );
   
     // await addAgentRateTransaction(
-    //   PATREON_ACCOUNT_KEY_1,
+    //   PATRON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_2,
     // SPONSOR_RATE_KEY_10,
     //   AGENT_ACCOUNT_KEY_3,
@@ -114,7 +114,7 @@ describe("spCoinContract", function () {
     // );
   
       // await addAgentRateTransaction(
-      //   PATREON_ACCOUNT_KEY_2,
+      //   PATRON_ACCOUNT_KEY_2,
       //   SPONSOR_ACCOUNT_KEY_1,
     // SPONSOR_RATE_KEY_10,
       //   AGENT_ACCOUNT_KEY_1,
@@ -123,7 +123,7 @@ describe("spCoinContract", function () {
       //   );
   
       // await addAgentRateTransaction(
-      //   PATREON_ACCOUNT_KEY_2,
+      //   PATRON_ACCOUNT_KEY_2,
       //   SPONSOR_ACCOUNT_KEY_1,
     // SPONSOR_RATE_KEY_10,
       //   AGENT_ACCOUNT_KEY_1,
@@ -132,7 +132,7 @@ describe("spCoinContract", function () {
       //   );
     
     // await addAgentRateTransaction(
-    //   PATREON_ACCOUNT_KEY_1,
+    //   PATRON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_1,
     // SPONSOR_RATE_KEY_10,
     //   AGENT_ACCOUNT_KEY_1,
@@ -141,7 +141,7 @@ describe("spCoinContract", function () {
     // );
     
     // await addAgentRateTransaction(
-    //   PATREON_ACCOUNT_KEY_1,
+    //   PATRON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_1,
     // SPONSOR_RATE_KEY_10,
     //   AGENT_ACCOUNT_KEY_1,
@@ -149,7 +149,7 @@ describe("spCoinContract", function () {
     //   TRANSACTION_QTY_3
     // );
     // await addAgentRateTransaction(
-    //   PATREON_ACCOUNT_KEY_1,
+    //   PATRON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_1,
     // SPONSOR_RATE_KEY_10,
     //   AGENT_ACCOUNT_KEY_1,
@@ -158,7 +158,7 @@ describe("spCoinContract", function () {
     // );
 
     // let agentRateKeys = await getAgentRateKeys(
-    //   PATREON_ACCOUNT_KEY_1,
+    //   PATRON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_1,
     // SPONSOR_RATE_KEY_10,
     //   AGENT_ACCOUNT_KEY_1);
@@ -166,20 +166,20 @@ describe("spCoinContract", function () {
     // accountKeySize = (await getAccountKeySize()).toNumber();
     // expect(accountKeySize).to.equal(3);
     await logJSONTree();
-    await deletePatreonSponsorRecord(PATREON_ACCOUNT_KEY_1, SPONSOR_ACCOUNT_KEY_1);
+    await deletePatronSponsorRecord(PATRON_ACCOUNT_KEY_1, SPONSOR_ACCOUNT_KEY_1);
 
     // console.log("--- AFTER DELETE SPONSOR -----------------------------------");
     await logJSONTree();
     // agentRateKeys = await getAgentRateKeys(
-    //   PATREON_ACCOUNT_KEY_1,
+    //   PATRON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_1,
     // SPONSOR_RATE_KEY_10,
     //   AGENT_ACCOUNT_KEY_1);
     //   logJSON(agentRateKeys);
 
     // VALIDATE ACCOUNT CREATION
-    // VALIDATE PATREON ACCOUNT
-    // let patreonAccountRecord = await getAccountRecord(PATREON_ACCOUNT_KEY_1);
+    // VALIDATE PATRON ACCOUNT
+    // let patreonAccountRecord = await getAccountRecord(PATRON_ACCOUNT_KEY_1);
     // logJSON(patreonAccountRecord);
   });
 /**/

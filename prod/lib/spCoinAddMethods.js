@@ -4,9 +4,9 @@ setContractAddMethods = (_spCoinContractDeployed) => {
     spCoinContractDeployed = _spCoinContractDeployed;
 }
 
-addPatreonSponsor = async (_accountKey, _sponsorKey) => {
+addPatronSponsor = async (_accountKey, _sponsorKey) => {
     logFunctionHeader(
-      "addPatreonSponsor = async(" + _accountKey + ", " + _sponsorKey + ")"
+      "addPatronSponsor = async(" + _accountKey + ", " + _sponsorKey + ")"
     );
   
     logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
@@ -14,12 +14,12 @@ addPatreonSponsor = async (_accountKey, _sponsorKey) => {
     );
   
     logDetail("JS => Inserting Sponsor " + _sponsorKey );
-    await spCoinContractDeployed.addPatreonSponsor(_accountKey, _sponsorKey);
+    await spCoinContractDeployed.addPatronSponsor(_accountKey, _sponsorKey);
   };
   
-  addPatreonSponsors = async (_accountKey, _agentRecKeys) => {
+  addPatronSponsors = async (_accountKey, _agentRecKeys) => {
     logFunctionHeader(
-      "addPatreonSponsors = async(" + _accountKey + ", " + _agentRecKeys + ")"
+      "addPatronSponsors = async(" + _accountKey + ", " + _agentRecKeys + ")"
     );
   
     logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
@@ -29,7 +29,7 @@ addPatreonSponsor = async (_accountKey, _sponsorKey) => {
     let sponsorCount = 0;
     for (sponsorCount; sponsorCount < _agentRecKeys.length; sponsorCount++) {
       let _sponsorKey = _agentRecKeys[sponsorCount];
-      await addPatreonSponsor(_accountKey, _sponsorKey);
+      await addPatronSponsor(_accountKey, _sponsorKey);
     }
     logDetail("JS => Inserted = " + sponsorCount + " Sponsor Records");
     return --sponsorCount;
@@ -124,7 +124,7 @@ addAgentRateTransaction = async (
 module.exports = {
     addAccountRecord,
     addAccountRecords,
-    addPatreonSponsors,
+    addPatronSponsors,
     addAgentRateTransaction,
     addSponsorAgent,
     addSponsorAgents,

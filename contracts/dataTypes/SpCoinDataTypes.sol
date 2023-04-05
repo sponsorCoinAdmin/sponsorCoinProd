@@ -25,27 +25,27 @@ contract SpCoinDataTypes {
     // Keep track of account insertions
     // Record relationship rules as Follows:
     // 1. Every Account is the root of a mapping tree in the diagram below:
-    // 2. Every Account can be a Patreon, And/or Sponsor, and/or Agent
-    //    - A Patreon is the, primary steak Holder of the "Sponsor Coin" token.
+    // 2. Every Account can be a Patron, And/or Sponsor, and/or Agent
+    //    - A Patron is the, primary steak Holder of the "Sponsor Coin" token.
     //        The primary purpose of holding "Sponsor Coins" is to share "Proof of Stake"
     //        percentage earnings with the selected sopnsor(s).
-    //    - A Sponsor is considered to be a child of one or more Patreons with the purposes
-    //      of sharing "Proof of Stake" Patreon rewards.
-    //    - An Agent finds Patreon(s) for any specific sponsor and receives a share of the 
+    //    - A Sponsor is considered to be a child of one or more Patrons with the purposes
+    //      of sharing "Proof of Stake" Patron rewards.
+    //    - An Agent finds Patron(s) for any specific sponsor and receives a share of the 
     //      "Proof of Stake" reward allocation for this effort. 
     // 3. Every Account can be a Patrion, Sponsor and/or agent to one or more mutually 
     //    exclusive account(s).
-    // 4. Every Sponsor can have a number of Patreon(s), Sponsor(s) and/or Agent(s)
+    // 4. Every Sponsor can have a number of Patron(s), Sponsor(s) and/or Agent(s)
     // 5. Every Sponsor has an array of sponsorRate structures
     // 6. Every Agent has an array of agentRate structures
     // 7. Every Rate Structure has an array of Transactions
-    // 8. Each Patreon/Sponsor/Agent "MUST BE" mutually exclusive
+    // 8. Each Patron/Sponsor/Agent "MUST BE" mutually exclusive
     //    - This implies no two accounts can be the same for each account structure
     //
     //  The following is a brief diagram of the contractural structure.
     //
     //              |                          |-/Agent(s)/Rate(s)/Transaction(s)
-    // Account(s) =>| Patreon(s)/Sponsor(s)/ =>|
+    // Account(s) =>| Patron(s)/Sponsor(s)/ =>|
     //              |                          |-/Rate(s)/Transaction(s)
 
     // **Additional Sponsor Coin Variables
@@ -67,10 +67,10 @@ contract SpCoinDataTypes {
         uint256 insertionTime;
         bool inserted;
         bool verified;
-        address[] patreonAccountKeys;       // If Sponsor? List of Patreon Accounts
-        address[] agentRecKeys;             // If Patreon List of Sponsored Accounts
+        address[] patreonAccountKeys;       // If Sponsor? List of Patron Accounts
+        address[] agentRecKeys;             // If Patron List of Sponsored Accounts
         address[] agentAccountKeys;         // If Sponsor? List of Agent Accounts
-        address[] parentSponsorAccountKeys; // If Agent? List of Patreon Sponsor Accounts
+        address[] parentSponsorAccountKeys; // If Agent? List of Patron Sponsor Accounts
         mapping(address => SponsorStruct) sponsorMap; 
 //        KYC kyc;
     }

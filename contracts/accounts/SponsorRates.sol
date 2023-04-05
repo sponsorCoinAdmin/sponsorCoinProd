@@ -10,7 +10,7 @@ contract SponsorRates is Sponsors {
 function addSponsorRate(address _patreonKey, address _sponsorKey, uint _sponsorRateKey) 
     public onlyOwnerOrRootAdmin(_patreonKey)
     nonRedundantSponsor ( _patreonKey,  _sponsorKey) {
-    addPatreonSponsor(_patreonKey, _sponsorKey);
+    addPatronSponsor(_patreonKey, _sponsorKey);
     SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patreonKey, _sponsorKey);
     mapping(uint256 => SponsorRateStruct) storage sponsorRateMap = sponsorRec.sponsorRateMap;
     SponsorRateStruct storage sponsorRateRec = sponsorRateMap[_sponsorRateKey];

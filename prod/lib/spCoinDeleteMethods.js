@@ -33,23 +33,23 @@ deleteAccountRecords = async (_accountListKeys) => {
 
 /////////////////////// SPONSOR RECORD FUNCTIONS ///////////////////////
 
-deletePatreonSponsorRecord = async (_patreonKey, _sponsorKey) => {
-  logFunctionHeader("deletePatreonSponsorRecord(" + _patreonKey + ", " + _sponsorKey + ")");
-  await spCoinContractDeployed.deletePatreonSponsorRecord(_patreonKey, _sponsorKey);
+deletePatronSponsorRecord = async (_patreonKey, _sponsorKey) => {
+  logFunctionHeader("deletePatronSponsorRecord(" + _patreonKey + ", " + _sponsorKey + ")");
+  await spCoinContractDeployed.deletePatronSponsorRecord(_patreonKey, _sponsorKey);
 }
 
 /////////////////////// AGENT RECORD FUNCTIONS ////////////////////////
 
-deletePatreonSponsorAgentRecord = async (_accountKey, _sponsorAccountKey, _accountAgentKey) => {
+deletePatronSponsorAgentRecord = async (_accountKey, _sponsorAccountKey, _accountAgentKey) => {
   // ToDo: do Solidity Code and Testing
   logFunctionHeader(
-    "deletePatreonSponsorAgentRecord = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _accountAgentKey + ")"
+    "deletePatronSponsorAgentRecord = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _accountAgentKey + ")"
   );
   logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
   logDetail("JS => Deleting Agent " + _accountAgentKey + " From Blockchain Network");
 
   logDetail("JS =>  " + _accountKey + ". " + "Inserting Agent[" + _accountKey + "]: " + _accountAgentKey );
-  // await spCoinContractDeployed.deletePatreonSponsorAgentRecord( _accountKey, _sponsorAccountKey, _agentKey );
+  // await spCoinContractDeployed.deletePatronSponsorAgentRecord( _accountKey, _sponsorAccountKey, _agentKey );
   logDetail("JS => "+ "Deleted = " + _accountAgentKey + " Agent Record from SponsorKey " + _sponsorAccountKey);
 };
 
@@ -58,7 +58,7 @@ deletePatreonSponsorAgentRecord = async (_accountKey, _sponsorAccountKey, _accou
 module.exports = {
   deleteAccountRecord,
   deleteAccountRecords,
-  deletePatreonSponsorAgentRecord,
-  deletePatreonSponsorRecord,
+  deletePatronSponsorAgentRecord,
+  deletePatronSponsorRecord,
   setContractDeleteMethods,
 };

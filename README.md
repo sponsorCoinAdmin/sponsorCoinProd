@@ -11,10 +11,10 @@ npm install --save-dev hardhat
 //REQUIRED SUPPORT PACKAGES
 "@nomicfoundation/hardhat-toolbox": "^2.0.1"
 npm install --save-dev @nomicfoundation/hardhat-toolbox
-npm install --save-dev @nomiclabs/hardhat-waffle 'ethereum-waffle@^3.0.0' @nomiclabs/hardhat-ethers 'ethers@^5.0.0'
+npm install --save-dev @nomicfoundation/hardhat-toolbox  @nomiclabs/hardhat-ethers 'ethers@^5.0.0'
 
 Add the following code snippet at the top of your hardhat.config.js file
-require("@nomiclabs/hardhat-waffle");
+require("@nomicfoundation/hardhat-toolbox");
 
 npm audit fix --force
 
@@ -65,8 +65,8 @@ Requirements to Delete Agent: Agent Affiliation Program
 4. Then Remove Sponsor Parent from agentAccount.parentSponsorAccountKeys
 5. Optional, If Agent account balanceOf is zero (0), Agent account may be deleted.
 
-Requirements to Delete Sponsor from Patreon: (Delete Patreon sponsorship)
-1. Require Sponsor to be Child of Patreon
+Requirements to Delete Sponsor from Patron: (Delete Patron sponsorship)
+1. Require Sponsor to be Child of Patron
 2. Require Sponsor to have no Parent Patrion balanceOf Token affiliation.
 3. Require Sponsor to have no Child Agent affiliation
 4. Remove associated child agents from Sponsor.agentAccountKeys
@@ -77,5 +77,5 @@ Requirements to Delete Sponsor from Patreon: (Delete Patreon sponsorship)
 Requirements to Delete Account
 1. Require Account to have No Sponsors, account.agentRecKeys must be zero (0).
 2. Require Account to have No Agents, account.agentAccountKeys must be zero (0).
-3. Optional, Require Account to have No Patreons account.patreonAccountKeys must be zero (0).
+3. Optional, Require Account to have No Patrons account.patreonAccountKeys must be zero (0).
 4. Optional, Require Account to have No account.parentSponsorAccountKeys must be zero (0).

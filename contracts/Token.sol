@@ -19,12 +19,14 @@ contract Token is AccountStakingManager{
     /// @param _to receiver of token
     /// @param _value amount value of token to send
     /// @return success as true, for transfer 
-    function transfer(address _to, uint256 _value) external virtual returns (bool success) {
+    function transfer(address _to, uint256 _value) public virtual returns (bool success) {
         require(balanceOf[msg.sender] >= _value);
-        _transfer(msg.sender, _to, _value);
+        balanceOf[msg.sender] = balanceOf[msg.sender] - (_value);
+        balanceOf[_to] = balanceOf[_to] + (_value);
         return true;
     }
 
+    /*
     /// @dev internal helper transfer function with required safety checks
     /// @param _from, where funds coming the sender
     /// @param _to receiver of token
@@ -34,11 +36,11 @@ contract Token is AccountStakingManager{
     function _transfer(address _from, address _to, uint256 _value) internal {
         // Ensure sending is to valid address! 0x0 address cane be used to burn() 
         require(_to != address(0));
-        addAccountRecord(_to);
         balanceOf[_from] = balanceOf[_from] - (_value);
         balanceOf[_to] = balanceOf[_to] + (_value);
         emit Transfer(_from, _to, _value);
     }
+*/
 
     /// @notice Approve other to spend on your behalf eg an exchange 
     /// @param _spender allowed to spend and a max amount allowed to spend
@@ -64,7 +66,8 @@ contract Token is AccountStakingManager{
         require(_value <= balanceOf[_from]);
         require(_value <= allowance[_from][msg.sender]);
         allowance[_from][msg.sender] = allowance[_from][msg.sender] - (_value);
-        _transfer(_from, _to, _value);
+        balanceOf[_from] = balanceOf[_from] - (_value);
+        balanceOf[_to] = balanceOf[_to] + (_value);
         return true;
     }
 }

@@ -35,7 +35,7 @@ getAccountRecord = async (_patreonKey) => {
   let accountStruct = await getAccountSerializedRecord(_patreonKey);
   accountStruct.accountKey = _patreonKey;
   sponsorAccountKeys = await getAccountSponsorKeys(_patreonKey);
-  accountStruct.patreonAccountKeys = await getAccountPatreonKeys(_patreonKey);
+  accountStruct.patreonAccountKeys = await getAccountPatronKeys(_patreonKey);
   accountStruct.parentSponsorAccountKeys = await getAccountParentSponsorKeys(_patreonKey);
   accountStruct.sponsorAccountKeys = sponsorAccountKeys;
   accountStruct.agentAccountKeys = await getAccountAgentKeys(_patreonKey);
@@ -51,11 +51,11 @@ getAccountSponsorKeySize = async (_patreonKey) => {
   return maxSize;
 };
 
-getAccountPatreonSize = async (_patreonKey) => {
-  logFunctionHeader("getAccountPatreonSize = async(" + _patreonKey + ")");
+getAccountPatronSize = async (_patreonKey) => {
+  logFunctionHeader("getAccountPatronSize = async(" + _patreonKey + ")");
 
-  let maxSize = await spCoinContractDeployed.getAccountPatreonSize(_patreonKey);
-  logDetail("JS => Found " + maxSize + " Account Patreon Keys");
+  let maxSize = await spCoinContractDeployed.getAccountPatronSize(_patreonKey);
+  logDetail("JS => Found " + maxSize + " Account Patron Keys");
   return maxSize;
 };
 
@@ -82,19 +82,19 @@ getAccountParentSponsorSize = async () => {
   return maxSize;
 };
 
-getAccountPatreonKeys = async (_patreonKey) => {
-  logFunctionHeader("getAccountPatreonKeys = async(" + _patreonKey + ")");
+getAccountPatronKeys = async (_patreonKey) => {
+  logFunctionHeader("getAccountPatronKeys = async(" + _patreonKey + ")");
 /*
-  let maxSize = await spCoinContractDeployed.getAccountPatreonSize(_patreonKey);
+  let maxSize = await spCoinContractDeployed.getAccountPatronSize(_patreonKey);
 
   let patreonAccountKeys = {};
 
   for (let idx = 0; idx < maxSize; idx++) {
-    let patreon = await spCoinContractDeployed.getAccountPatreonKeyByIndex(_patreonKey, idx );
+    let patreon = await spCoinContractDeployed.getAccountPatronKeyByIndex(_patreonKey, idx );
     patreonAccountKeys[patreon] = idx;
   }
 */
-  patreonAccountKeys = spCoinContractDeployed.getAccountPatreonKeys(_patreonKey);
+  patreonAccountKeys = spCoinContractDeployed.getAccountPatronKeys(_patreonKey);
   return patreonAccountKeys;
 };
 
@@ -344,8 +344,8 @@ module.exports = {
   getAccountKeySize,
   getAccountParentSponsorKeys,
   getAccountParentSponsorSize,
-  getAccountPatreonKeys,
-  getAccountPatreonSize,
+  getAccountPatronKeys,
+  getAccountPatronSize,
   getAccountRecord,
   getAccountRecords,
   getAccountSerializedRecord,

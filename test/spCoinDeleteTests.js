@@ -30,7 +30,7 @@ describe("spCoinContract", function () {
       console.log("*** ACCOUNT STRUCTURE BEFORE DELETE ***");
       await logJSONTree();
   
-      let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Patreon Account has a Sponsor, (Patreon must Un-sponsor Sponsored Account)'";
+      let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Patron Account has a Sponsor, (Patron must Un-sponsor Sponsored Account)'";
       try {
         await deleteTestNetworkAccount(1);
       }
@@ -51,7 +51,7 @@ describe("spCoinContract", function () {
   /**/
 
   it("SUCCESSFUL ERROR MSG CAUGHT: 'ACCOUNT DOES NOT EXIST'", async function () {
-    await addTestNetworkPatreonSponsors(0, [1]);
+    await addTestNetworkPatronSponsors(0, [1]);
     let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Account does not exists'";
     try {
       await deleteTestNetworkAccount(2);
@@ -64,9 +64,9 @@ describe("spCoinContract", function () {
 
   /**/
 
-  it("SUCCESSFUL ERROR MSG CAUGHT: 'PATREON ACCOUNT HAS SPONSOR'", async function () {
-    await addTestNetworkPatreonSponsors(0, [1]);
-    let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Patreon Account has a Sponsor, (Patreon must Un-sponsor Sponsored Account)'";
+  it("SUCCESSFUL ERROR MSG CAUGHT: 'PATRON ACCOUNT HAS SPONSOR'", async function () {
+    await addTestNetworkPatronSponsors(0, [1]);
+    let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Patron Account has a Sponsor, (Patron must Un-sponsor Sponsored Account)'";
     try {
       await deleteTestNetworkAccount(0);
       throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
@@ -78,9 +78,9 @@ describe("spCoinContract", function () {
 
 /**/
 
-    it("SUCCESSFUL ERROR MSG CAUGHT: 'SPONSOR ACCOUNT HAS PATREON'", async function () {
-      await addTestNetworkPatreonSponsors(0, [1]);
-      let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Sponsor Account has a Patreon, (Patreon must Un-sponsor Sponsored Account)'";
+    it("SUCCESSFUL ERROR MSG CAUGHT: 'SPONSOR ACCOUNT HAS PATRON'", async function () {
+      await addTestNetworkPatronSponsors(0, [1]);
+      let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Sponsor Account has a Patron, (Patron must Un-sponsor Sponsored Account)'";
       try {
         await deleteTestNetworkAccount(1);
         throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
@@ -95,7 +95,7 @@ describe("spCoinContract", function () {
   it("SUCCESSFUL ERROR MSG CAUGHT: 'AGENT ACCOUNT HAS PARENT SPONSOR'", async function () {
     await addTestNetworkSponsorAgents(1, 2, 10, [3]);
 
-    let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Agent Account has a Parent Sponsor, (Patreon must Un-sponsor Sponsored Account)'";
+    let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Agent Account has a Parent Sponsor, (Patron must Un-sponsor Sponsored Account)'";
     try {
       await deleteTestNetworkAccount(3);
       throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
@@ -147,5 +147,4 @@ describe("spCoinContract", function () {
     accountArr = await getAccountRecords(spCoinContractDeployed);
     logJSON(accountArr);
   });
-
 });

@@ -7,11 +7,11 @@ contract Sponsors is Accounts {
         constructor() {
     }
 
-    /// @notice Create Patreon and Sponsor accounts if they do not exist
-    /// @notice Relate Patreon and Sponsor accounts for POS sharing
+    /// @notice Create Patron and Sponsor accounts if they do not exist
+    /// @notice Relate Patron and Sponsor accounts for POS sharing
     /// @param _patreonKey public patreon key to get sponsor array
     /// @param _sponsorKey new sponsor to add to account list
-    function addPatreonSponsor(address _patreonKey, address _sponsorKey) 
+    function addPatronSponsor(address _patreonKey, address _sponsorKey) 
         public onlyOwnerOrRootAdmin(_patreonKey)
         nonRedundantSponsor ( _patreonKey,  _sponsorKey) {
         addAccountRecord(_patreonKey);
@@ -56,7 +56,7 @@ contract Sponsors is Accounts {
     /// @notice get address for an account sponsor
     /// @param _patreonKey public account key to get sponsor array
     /// @param _sponsorIdx new sponsor to add to account list
-    function getPatreonSponsorKeyByIndex(address _patreonKey, uint _sponsorIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
+    function getPatronSponsorKeyByIndex(address _patreonKey, uint _sponsorIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         AccountStruct storage accountRec = accountMap[_patreonKey];
         address sponsor = accountRec.agentRecKeys[_sponsorIdx];
         return sponsor;
