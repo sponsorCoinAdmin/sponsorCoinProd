@@ -11,7 +11,7 @@ async function main() {
 
     console.log("Token address:", token.address);
   }
-  
+
   main()
     .then(() => process.exit(0))
     .catch((error) => {
