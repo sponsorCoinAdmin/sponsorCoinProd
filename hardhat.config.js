@@ -1,9 +1,8 @@
-/** @type import('hardhat/config').HardhatUserConfig */
-require("@nomiclabs/hardhat-waffle");
+require("@nomicfoundation/hardhat-toolbox");
+require("@nomiclabs/hardhat-etherscan");
 require("hardhat-contract-sizer");
-/**
- * @type import('hardhat/config').HardhatUserConfig
- */
+require("dotenv").config();
+
 module.exports = {
   solidity: {
     version:  "0.8.17",
@@ -12,7 +11,16 @@ module.exports = {
         enabled: true,
         runs: 2000,
       }
-    }
+    },
+    networks: {
+      goerli: {
+        url: process.env.ALCHEMY_RPC_TESTNET,
+        accounts: [process.env.ACCOUNT_1_PRIVATE_KEY]
+      }
+    },
+    etherscan: {
+      apiKey: process.env.ETHERSCAN_API_KEY
+    },
   },
   contractSizer: {
     alphaSort: true,

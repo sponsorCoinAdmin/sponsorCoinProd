@@ -12,10 +12,10 @@ const {
   TEST_HH_ACCOUNT_KEY_7, TEST_HH_ACCOUNT_KEY_8, TEST_HH_ACCOUNT_KEY_9, TEST_HH_ACCOUNT_KEY_10,
   TEST_HH_ACCOUNT_KEY_11, TEST_HH_ACCOUNT_KEY_12, TEST_HH_ACCOUNT_KEY_13, TEST_HH_ACCOUNT_KEY_14,
   TEST_HH_ACCOUNT_KEY_15, TEST_HH_ACCOUNT_KEY_16, TEST_HH_ACCOUNT_KEY_17, TEST_HH_ACCOUNT_KEY_18,
-  TEST_HH_ACCOUNT_KEY_19, PATREON_ACCOUNT_KEY_0,
-  PATREON_ACCOUNT_KEY_1, PATREON_ACCOUNT_KEY_2, PATREON_ACCOUNT_KEY_3, PATREON_ACCOUNT_KEY_4,
-  PATREON_ACCOUNT_KEY_5, PATREON_ACCOUNT_KEY_6, PATREON_ACCOUNT_KEY_7, PATREON_ACCOUNT_KEY_8,
-  PATREON_ACCOUNT_KEY_9, PATREON_ACCOUNT_KEY_10,
+  TEST_HH_ACCOUNT_KEY_19, PATRON_ACCOUNT_KEY_0,
+  PATRON_ACCOUNT_KEY_1, PATRON_ACCOUNT_KEY_2, PATRON_ACCOUNT_KEY_3, PATRON_ACCOUNT_KEY_4,
+  PATRON_ACCOUNT_KEY_5, PATRON_ACCOUNT_KEY_6, PATRON_ACCOUNT_KEY_7, PATRON_ACCOUNT_KEY_8,
+  PATRON_ACCOUNT_KEY_9, PATRON_ACCOUNT_KEY_10,
   SPONSOR_ACCOUNT_KEY_0, SPONSOR_ACCOUNT_KEY_1, SPONSOR_ACCOUNT_KEY_2, SPONSOR_ACCOUNT_KEY_3,
   SPONSOR_ACCOUNT_KEY_4, SPONSOR_ACCOUNT_KEY_5, SPONSOR_ACCOUNT_KEY_6, SPONSOR_ACCOUNT_KEY_7,
   SPONSOR_ACCOUNT_KEY_8, SPONSOR_ACCOUNT_KEY_9, SPONSOR_ACCOUNT_KEY_10,
@@ -47,124 +47,168 @@ describe("spCoinContract", function () {
 it("VALIDATE ADD TRANSACTION RATES", async function () {
   setLogMode("LOG", true);
 
-  // Test Successful Record Insertion of Patreon and 
+  // Test Successful Record Insertion of Patron and 
   // Sponsor Accounts to the Blockchain Network.
   // Account, Sponsor and/or Agent are Successfully mutually exclusive.
   await addAgentRateTransaction (
-    PATREON_ACCOUNT_KEY_0,
+    PATRON_ACCOUNT_KEY_0,
     SPONSOR_ACCOUNT_KEY_1,
     SPONSOR_RATE_KEY_7,
     AGENT_ACCOUNT_KEY_2,
     AGENT_RATE_10,
     TRANSACTION_QTY_9
   );
+  
   await addAgentRateTransaction (
-    PATREON_ACCOUNT_KEY_0,
-    SPONSOR_ACCOUNT_KEY_2,
+    PATRON_ACCOUNT_KEY_0,
+    SPONSOR_ACCOUNT_KEY_1,
     SPONSOR_RATE_KEY_7,
-    AGENT_ACCOUNT_KEY_3,
-    AGENT_RATE_4,
-    TRANSACTION_QTY_9
+    AGENT_ACCOUNT_KEY_2,
+    AGENT_RATE_10,
+    TRANSACTION_QTY_5
   );
 
-  // await addAgentRateTransaction (
-  //   PATREON_ACCOUNT_KEY_0,
-  //   SPONSOR_ACCOUNT_KEY_1,
-  //   SPONSOR_RATE_KEY_7,
-  //   AGENT_ACCOUNT_KEY_2,
-  //   AGENT_RATE_4,
-  //   TRANSACTION_QTY_2
-  // );
+  await addAgentRateTransaction (
+    PATRON_ACCOUNT_KEY_0,
+    SPONSOR_ACCOUNT_KEY_1,
+    SPONSOR_RATE_KEY_7,
+    AGENT_ACCOUNT_KEY_2,
+    AGENT_RATE_2,
+    TRANSACTION_QTY_5
+  );
 
-  // await addAgentRateTransaction (
-  //   PATREON_ACCOUNT_KEY_0,
-  //   SPONSOR_ACCOUNT_KEY_1,
-  //   SPONSOR_RATE_KEY_7,
-  //   AGENT_ACCOUNT_KEY_2,
-  //   AGENT_RATE_5,
-  //   TRANSACTION_QTY_5
-  // );
+  await addAgentRateTransaction (
+    PATRON_ACCOUNT_KEY_0,
+    SPONSOR_ACCOUNT_KEY_1,
+    SPONSOR_RATE_KEY_7,
+    AGENT_ACCOUNT_KEY_3,
+    AGENT_RATE_2,
+    TRANSACTION_QTY_5
+  );
 
-  // await addAgentRateTransaction(
-  //   PATREON_ACCOUNT_KEY_0,
-  //   SPONSOR_ACCOUNT_KEY_1,
-  //   SPONSOR_RATE_KEY_7,
-  //   AGENT_ACCOUNT_KEY_3,
-  //   AGENT_RATE_3,
-  //   TRANSACTION_QTY_3
-  // );
-  // await addAgentRateTransaction(
-  //   PATREON_ACCOUNT_KEY_0,
-  //   SPONSOR_ACCOUNT_KEY_1,
-  //   SPONSOR_RATE_KEY_7,
-  //   AGENT_ACCOUNT_KEY_3,
-  //   AGENT_RATE_7,
-  //   TRANSACTION_QTY_7
-  // );
-  // // await addAgentRateTransaction (
-  // //   PATREON_ACCOUNT_KEY_0,
-  // //   SPONSOR_ACCOUNT_KEY_1,
-  // //   SPONSOR_RATE_KEY_7,
-  // //   AGENT_ACCOUNT_KEY_2,
-  // //   AGENT_RATE_4,
-  // //   TRANSACTION_QTY_9
-  // // );
+  await addAgentRateTransaction (
+    PATRON_ACCOUNT_KEY_0,
+    SPONSOR_ACCOUNT_KEY_1,
+    SPONSOR_RATE_KEY_9,
+    AGENT_ACCOUNT_KEY_3,
+    AGENT_RATE_2,
+    TRANSACTION_QTY_5
+  );
 
-  // await addAgentRateTransaction (
-  //   PATREON_ACCOUNT_KEY_0,
-  //   SPONSOR_ACCOUNT_KEY_1,
-  //   SPONSOR_RATE_KEY_10,
-  //   AGENT_ACCOUNT_KEY_2,
-  //   AGENT_RATE_4,
-  //   TRANSACTION_QTY_2
-  // );
-
-  // await addAgentRateTransaction (
-  //   PATREON_ACCOUNT_KEY_0,
-  //   SPONSOR_ACCOUNT_KEY_1,
-  //   SPONSOR_RATE_KEY_10,
-  //   AGENT_ACCOUNT_KEY_2,
-  //   AGENT_RATE_5,
-  //   TRANSACTION_QTY_5
-  // );
-
-  // await addAgentRateTransaction(
-  //   PATREON_ACCOUNT_KEY_0,
-  //   SPONSOR_ACCOUNT_KEY_1,
-  //   SPONSOR_RATE_KEY_10,
-  //   AGENT_ACCOUNT_KEY_3,
-  //   AGENT_RATE_3,
-  //   TRANSACTION_QTY_3
-  // );
-  // await addAgentRateTransaction(
-  //   PATREON_ACCOUNT_KEY_0,
-  //   SPONSOR_ACCOUNT_KEY_1,
-  //   SPONSOR_RATE_KEY_10,
-  //   AGENT_ACCOUNT_KEY_3,
-  //   AGENT_RATE_7,
-  //   TRANSACTION_QTY_7
-  // );
-
-    // let agentRateKeys = await getAgentRateKeys(
-    //   PATREON_ACCOUNT_KEY_0,
-    //   SPONSOR_ACCOUNT_KEY_1,
-    //   SPONSOR_RATE_KEY_10,
-    //   AGENT_ACCOUNT_KEY_1);
+  await addAgentRateTransaction (
+    PATRON_ACCOUNT_KEY_0,
+    SPONSOR_ACCOUNT_KEY_1,
+    SPONSOR_RATE_KEY_7,
+    AGENT_ACCOUNT_KEY_2,
+    AGENT_RATE_10,
+    TRANSACTION_QTY_9
+  );
   
+  await addAgentRateTransaction (
+    PATRON_ACCOUNT_KEY_0,
+    SPONSOR_ACCOUNT_KEY_1,
+    SPONSOR_RATE_KEY_7,
+    AGENT_ACCOUNT_KEY_2,
+    AGENT_RATE_10,
+    TRANSACTION_QTY_5
+  );
+
+  await addAgentRateTransaction (
+    PATRON_ACCOUNT_KEY_10,
+    SPONSOR_ACCOUNT_KEY_1,
+    SPONSOR_RATE_KEY_7,
+    AGENT_ACCOUNT_KEY_2,
+    AGENT_RATE_2,
+    TRANSACTION_QTY_5
+  );
+
+  await addAgentRateTransaction (
+    PATRON_ACCOUNT_KEY_10,
+    SPONSOR_ACCOUNT_KEY_1,
+    SPONSOR_RATE_KEY_7,
+    AGENT_ACCOUNT_KEY_3,
+    AGENT_RATE_2,
+    TRANSACTION_QTY_5
+  );
+
+  await addAgentRateTransaction (
+    PATRON_ACCOUNT_KEY_10,
+    SPONSOR_ACCOUNT_KEY_9,
+    SPONSOR_RATE_KEY_9,
+    AGENT_ACCOUNT_KEY_3,
+    AGENT_RATE_2,
+    TRANSACTION_QTY_5
+  );
+
+
+  // await addAgentRateTransaction (
+  //   PATRON_ACCOUNT_KEY_0,
+  //   SPONSOR_ACCOUNT_KEY_1,
+  //   SPONSOR_RATE_KEY_7,
+  //   AGENT_ACCOUNT_KEY_2,
+  //   AGENT_RATE_4,
+  //   TRANSACTION_QTY_2
+  // );
+
+  // await addAgentRateTransaction (
+  //   PATRON_ACCOUNT_KEY_0,
+  //   SPONSOR_ACCOUNT_KEY_1,
+  //   SPONSOR_RATE_KEY_7,
+  //   AGENT_ACCOUNT_KEY_2,
+  //   AGENT_RATE_5,
+  //   TRANSACTION_QTY_9
+  // );
+
+  // await addAgentRateTransaction (
+  //   PATRON_ACCOUNT_KEY_3,
+  //   SPONSOR_ACCOUNT_KEY_1,
+  //   SPONSOR_RATE_KEY_7,
+  //   AGENT_ACCOUNT_KEY_2,
+  //   AGENT_RATE_10,
+  //   TRANSACTION_QTY_9
+  // );
+  
+  // await addAgentRateTransaction (
+  //   PATRON_ACCOUNT_KEY_3,
+  //   SPONSOR_ACCOUNT_KEY_2,
+  //   SPONSOR_RATE_KEY_7,
+  //   AGENT_ACCOUNT_KEY_4,
+  //   AGENT_RATE_4,
+  //   TRANSACTION_QTY_9
+  // );
+
+  // await addAgentRateTransaction (
+  //   PATRON_ACCOUNT_KEY_3,
+  //   SPONSOR_ACCOUNT_KEY_1,
+  //   SPONSOR_RATE_KEY_7,
+  //   AGENT_ACCOUNT_KEY_2,
+  //   AGENT_RATE_4,
+  //   TRANSACTION_QTY_2
+  // );
+
+  // await addAgentRateTransaction (
+  //   PATRON_ACCOUNT_KEY_3,
+  //   SPONSOR_ACCOUNT_KEY_1,
+  //   SPONSOR_RATE_KEY_7,
+  //   AGENT_ACCOUNT_KEY_2,
+  //   AGENT_RATE_5,
+  //   TRANSACTION_QTY_9
+  // );
+
     // accountKeySize = (await getAccountKeySize()).toNumber();
     // expect(accountKeySize).to.equal(3);
     await logJSONTree();
 
     // agentRateKeys = await getAgentRateKeys(
-    //   PATREON_ACCOUNT_KEY_0,
+    //   PATRON_ACCOUNT_KEY_0,
     //   SPONSOR_ACCOUNT_KEY_1,
     //   SPONSOR_RATE_KEY_10,
     //   AGENT_ACCOUNT_KEY_1);
     //   logJSON(agentRateKeys);
 
     // VALIDATE ACCOUNT CREATION
-    // VALIDATE PATREON ACCOUNT
-    // let patreonAccountRecord = await getAccountRecord(PATREON_ACCOUNT_KEY_0);
+    // VALIDATE PATRON ACCOUNT
+    // let patreonAccountRecord = await getAccountRecord(PATRON_ACCOUNT_KEY_0);
     // logJSON(patreonAccountRecord);
   });
 /**/

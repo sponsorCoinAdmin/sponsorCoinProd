@@ -13,8 +13,7 @@ contract StructSerialization is Utils {
         returns (string memory)
     {
         // ToDo Remove Next Line and Serialize the AccountRec
-        string memory index = concat("index: ", toString(_accountRec.index));
-            string memory addr = concat(
+        string memory addr = concat(
             "accountKey: ",
             toString(_accountRec.accountKey)
         );
@@ -41,18 +40,9 @@ contract StructSerialization is Utils {
             _accountRec.patreonAccountKeys
         );
         string memory delimiter = "\\,";
-        string memory seralized = concat(
-            index,
-            delimiter,
-            addr,
-            delimiter,
-            insertionTime
-        );
-//        seralized = concat(seralized, ",", verified);
-        seralized = string(
+
+        string memory seralized = string(
             abi.encodePacked(
-                index,
-                "\\,\n",
                 addr,
                 "\\,\n",
                 insertionTime,

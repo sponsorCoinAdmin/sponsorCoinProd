@@ -39,12 +39,8 @@ const bigIntToDecimal = bigInt => parseInt(bigInt, 10);
 addAccountField = (key, value, accountStruct) => {
   logFunctionHeader("addAccountField = (" + key + "," + value + ")");
   switch (key.trim()) {
-    case "index":
-      logDetail("JS => setting accountStruct.index = " + value);
-      accountStruct.index = hexToDecimal(value);
-      break;
     case "accountKey":
-      logDetail("JS => setting accountStruct.index = " + value);
+      logDetail("JS => setting accountStruct.accountKey = " + value);
       accountStruct.accountKey = value;
       break;
     case "balanceOf":
