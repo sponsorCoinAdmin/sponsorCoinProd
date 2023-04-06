@@ -53,7 +53,7 @@ it("VALIDATE ADD TRANSACTION RATES", async function () {
   await addAgentRateTransaction (
     PATRON_ACCOUNT_KEY_0,
     SPONSOR_ACCOUNT_KEY_1,
-    SPONSOR_RATE_KEY_7,
+    SPONSOR_RATE_KEY_1,
     AGENT_ACCOUNT_KEY_2,
     AGENT_RATE_10,
     TRANSACTION_QTY_9
@@ -62,138 +62,11 @@ it("VALIDATE ADD TRANSACTION RATES", async function () {
   await addAgentRateTransaction (
     PATRON_ACCOUNT_KEY_0,
     SPONSOR_ACCOUNT_KEY_1,
-    SPONSOR_RATE_KEY_7,
-    AGENT_ACCOUNT_KEY_2,
-    AGENT_RATE_10,
-    TRANSACTION_QTY_5
-  );
-
-  await addAgentRateTransaction (
-    PATRON_ACCOUNT_KEY_0,
-    SPONSOR_ACCOUNT_KEY_1,
-    SPONSOR_RATE_KEY_7,
-    AGENT_ACCOUNT_KEY_2,
-    AGENT_RATE_2,
-    TRANSACTION_QTY_5
-  );
-
-  await addAgentRateTransaction (
-    PATRON_ACCOUNT_KEY_0,
-    SPONSOR_ACCOUNT_KEY_1,
-    SPONSOR_RATE_KEY_7,
+    SPONSOR_RATE_KEY_2,
     AGENT_ACCOUNT_KEY_3,
-    AGENT_RATE_2,
+    AGENT_RATE_1,
     TRANSACTION_QTY_5
   );
-
-  await addAgentRateTransaction (
-    PATRON_ACCOUNT_KEY_0,
-    SPONSOR_ACCOUNT_KEY_1,
-    SPONSOR_RATE_KEY_9,
-    AGENT_ACCOUNT_KEY_3,
-    AGENT_RATE_2,
-    TRANSACTION_QTY_5
-  );
-
-  await addAgentRateTransaction (
-    PATRON_ACCOUNT_KEY_0,
-    SPONSOR_ACCOUNT_KEY_1,
-    SPONSOR_RATE_KEY_7,
-    AGENT_ACCOUNT_KEY_2,
-    AGENT_RATE_10,
-    TRANSACTION_QTY_9
-  );
-  
-  await addAgentRateTransaction (
-    PATRON_ACCOUNT_KEY_0,
-    SPONSOR_ACCOUNT_KEY_1,
-    SPONSOR_RATE_KEY_7,
-    AGENT_ACCOUNT_KEY_2,
-    AGENT_RATE_10,
-    TRANSACTION_QTY_5
-  );
-
-  await addAgentRateTransaction (
-    PATRON_ACCOUNT_KEY_10,
-    SPONSOR_ACCOUNT_KEY_1,
-    SPONSOR_RATE_KEY_7,
-    AGENT_ACCOUNT_KEY_2,
-    AGENT_RATE_2,
-    TRANSACTION_QTY_5
-  );
-
-  await addAgentRateTransaction (
-    PATRON_ACCOUNT_KEY_10,
-    SPONSOR_ACCOUNT_KEY_1,
-    SPONSOR_RATE_KEY_7,
-    AGENT_ACCOUNT_KEY_3,
-    AGENT_RATE_2,
-    TRANSACTION_QTY_5
-  );
-
-  await addAgentRateTransaction (
-    PATRON_ACCOUNT_KEY_10,
-    SPONSOR_ACCOUNT_KEY_9,
-    SPONSOR_RATE_KEY_9,
-    AGENT_ACCOUNT_KEY_3,
-    AGENT_RATE_2,
-    TRANSACTION_QTY_5
-  );
-
-
-  // await addAgentRateTransaction (
-  //   PATRON_ACCOUNT_KEY_0,
-  //   SPONSOR_ACCOUNT_KEY_1,
-  //   SPONSOR_RATE_KEY_7,
-  //   AGENT_ACCOUNT_KEY_2,
-  //   AGENT_RATE_4,
-  //   TRANSACTION_QTY_2
-  // );
-
-  // await addAgentRateTransaction (
-  //   PATRON_ACCOUNT_KEY_0,
-  //   SPONSOR_ACCOUNT_KEY_1,
-  //   SPONSOR_RATE_KEY_7,
-  //   AGENT_ACCOUNT_KEY_2,
-  //   AGENT_RATE_5,
-  //   TRANSACTION_QTY_9
-  // );
-
-  // await addAgentRateTransaction (
-  //   PATRON_ACCOUNT_KEY_3,
-  //   SPONSOR_ACCOUNT_KEY_1,
-  //   SPONSOR_RATE_KEY_7,
-  //   AGENT_ACCOUNT_KEY_2,
-  //   AGENT_RATE_10,
-  //   TRANSACTION_QTY_9
-  // );
-  
-  // await addAgentRateTransaction (
-  //   PATRON_ACCOUNT_KEY_3,
-  //   SPONSOR_ACCOUNT_KEY_2,
-  //   SPONSOR_RATE_KEY_7,
-  //   AGENT_ACCOUNT_KEY_4,
-  //   AGENT_RATE_4,
-  //   TRANSACTION_QTY_9
-  // );
-
-  // await addAgentRateTransaction (
-  //   PATRON_ACCOUNT_KEY_3,
-  //   SPONSOR_ACCOUNT_KEY_1,
-  //   SPONSOR_RATE_KEY_7,
-  //   AGENT_ACCOUNT_KEY_2,
-  //   AGENT_RATE_4,
-  //   TRANSACTION_QTY_2
-  // );
-
-  // await addAgentRateTransaction (
-  //   PATRON_ACCOUNT_KEY_3,
-  //   SPONSOR_ACCOUNT_KEY_1,
-  //   SPONSOR_RATE_KEY_7,
-  //   AGENT_ACCOUNT_KEY_2,
-  //   AGENT_RATE_5,
-  //   TRANSACTION_QTY_9
-  // );
 
     // accountKeySize = (await getAccountKeySize()).toNumber();
     // expect(accountKeySize).to.equal(3);
