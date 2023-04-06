@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.17;
+pragma solidity ^0.8.18;
 
 import "./Token.sol";
 
 contract SPCoin is Token{
-    string private defaultName         = "sponsorCoin";
-    string private defaultSymbol       = "SPCoin";
+    string private defaultName         = "sponsorCoin002";
+    string private defaultSymbol       = "SPCT00";
     uint256 private defaultDecimals    = 18;
     uint256 private defaultTotalSupply = 1000000000 * 10**defaultDecimals;
 

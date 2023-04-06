@@ -10,7 +10,6 @@ npm install --save-dev hardhat
 
 //REQUIRED SUPPORT PACKAGES
 "@nomicfoundation/hardhat-toolbox": "^2.0.1"
-npm install --save-dev @nomicfoundation/hardhat-toolbox
 npm install --save-dev @nomicfoundation/hardhat-toolbox  @nomiclabs/hardhat-ethers 'ethers@^5.0.0'
 
 Add the following code snippet at the top of your hardhat.config.js file
