@@ -3,7 +3,7 @@ pragma solidity ^0.8.18;
 /// @title ERC20 Contract
 import "../accounts/Agents.sol";
 
-contract Rates is Agents{
+contract AgentRates is Agents{
 
     constructor() { }
 

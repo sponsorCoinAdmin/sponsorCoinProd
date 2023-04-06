@@ -199,7 +199,7 @@ describe("spCoinContract", function () {
     accountKeySize = (await getAccountKeySize()).toNumber();
     expect(accountKeySize).to.equal(7);
 
-    let sponsorSize = (await getAccountSponsorKeySize(accountKey)).toNumber();
+    let sponsorSize = (await getAccountSponsorKeySize(accountKey));
     expect(sponsorSize).to.equal(6);
 
     let sponsorRecordList = await getAccountSponsorKeys(accountKey);

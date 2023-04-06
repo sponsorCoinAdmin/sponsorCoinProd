@@ -27,6 +27,6 @@ module.exports = {
     disambiguatePaths: false,
     runOnCompile: true,
     strict: true,
-    only: [],
+    only: ["SPCoin"],
   }
 };

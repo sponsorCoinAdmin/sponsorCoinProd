@@ -20,15 +20,18 @@ npm audit fix --force
 // IMPORTANT HARDHAT GLOBAL COMMANDS
 npx hardhat help
 
-dataStructureModel Level
+dataStructureModel Inheritance Level
 SPCoin
   Token
       Staking Manager
         Transactions
-          Rates
+          AgentRates
             Agents
-              Sponsors
-                Accounts
+              SponsorRates
+                Sponsors
+                  Accounts
+
+
 
 To Add a Sponsor Account Agent, add the following:
 Add a Rate Record to Agent

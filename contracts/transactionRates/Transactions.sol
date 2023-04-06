@@ -3,7 +3,7 @@ pragma solidity ^0.8.18;
 /// @title ERC20 Contract
 import "./AgentRates.sol";
 
-contract Transactions is Rates{
+contract Transactions is AgentRates{
     constructor() { }
 
     function addAgentRateTransaction(address _patreonKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey, uint _agentRateKey, uint256 _transAmount)

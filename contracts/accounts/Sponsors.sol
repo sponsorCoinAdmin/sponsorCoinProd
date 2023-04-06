@@ -70,22 +70,6 @@ contract Sponsors is Accounts {
         return sponsorAgentRec;
      }
 
-     /*
-    /// @notice get address for an account sponsor
-    /// @param _sponsorKey public account key to get agent array
-    /// @param _agentIdx new agent to add to account list
-    function getSponsorAgentKey(address _patreonKey, address _sponsorKey, uint _agentIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
-        address[] memory agentKeys = getAgentRecordKeys(_patreonKey, _sponsorKey);
-        address agentAddress = agentKeys[_agentIdx];
-        return agentAddress;
-    }
-*/
-    /// @notice retreives the sponsor array record size a specific address.
-    /// @param _sponsorKey public account key to get Sponsor Record Length
-    function getAgentRecordKeySize(address _patreonKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
-        return getAgentRecordKeys(_patreonKey, _sponsorKey).length;
-    }
-
     function getTotalSponsoredAmount(address _patreonKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
         SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patreonKey, _sponsorKey);
         // console.log("Sponsor.sol:sponsorRec.totalAgentsSponsored  = ", sponsorRec.totalAgentsSponsored);
