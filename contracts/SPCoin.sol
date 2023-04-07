@@ -28,9 +28,9 @@ contract SPCoin is Token{
         stakedSPCoins = 0;
     }
 
-    function transferAgentRateTransaction(address _patreonKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey, uint _agentRateKey, uint256 _transAmount)
+    function transferAgentRateTransaction(address _patronKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey, uint _agentRateKey, uint256 _transAmount)
     public onlyOwnerOrRootAdmin(msg.sender) {
-        transfer(_patreonKey, _transAmount);
-        addAgentRateTransaction( _patreonKey, _sponsorKey, _sponsorRateKey, _agentKey, _agentRateKey, _transAmount);
+        transfer(_patronKey, _transAmount);
+        addAgentRateTransaction( _patronKey, _sponsorKey, _sponsorRateKey, _agentKey, _agentRateKey, _transAmount);
     }
 }

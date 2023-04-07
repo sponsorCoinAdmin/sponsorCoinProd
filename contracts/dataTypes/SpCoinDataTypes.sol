@@ -67,7 +67,7 @@ contract SpCoinDataTypes {
         uint256 insertionTime;
         bool inserted;
         bool verified;
-        address[] patreonAccountKeys;       // If Sponsor? List of Patron Accounts
+        address[] patronAccountKeys;       // If Sponsor? List of Patron Accounts
         address[] sponsorAccount2Keys;             // If Patron List of Sponsored Accounts
         address[] agentAccountKeys;         // If Sponsor? List of Agent Accounts
         address[] parentSponsorAccountKeys; // If Agent? List of Patron Sponsor Accounts
@@ -79,7 +79,7 @@ contract SpCoinDataTypes {
     struct SponsorStruct {
         AccountStruct parent;
         address sponsorAccountKey;
-        uint256 totalAgentsSponsored; // Coins not owned but Sponsored
+        uint256 stakedAgentsSponsored; // Coins not owned but Sponsored
         uint256 insertionTime;
         bool inserted;
         bool verified;
@@ -92,7 +92,7 @@ contract SpCoinDataTypes {
         uint256 sponsorRate;
         uint256 insertionTime;
         uint256 lastUpdateTime;
-        uint256 totalTransactionsSponsored; // Coins not owned but Sponsored
+        uint256 stakedTransactionsSponsored; // Coins not owned but Sponsored
         bool inserted;
         address[] agentAccountKeys;
         mapping(address => AgentStruct) agentMap;
@@ -103,7 +103,7 @@ contract SpCoinDataTypes {
     struct AgentStruct {
         SponsorStruct parent;
         address agentAccountKey;
-        uint256 totalRatesSponsored; // Coins not owned but Sponsored
+        uint256 stakedRatesSponsored; // Coins not owned but Sponsored
         uint256 insertionTime;
         bool inserted;
         bool verified;
@@ -116,7 +116,7 @@ contract SpCoinDataTypes {
         uint256 agentRate;
         uint256 insertionTime;
         uint256 lastUpdateTime;
-        uint256 totalTransactionsSponsored; // Coins not owned but Sponsored
+        uint256 stakedTransactionsSponsored; // Coins not owned but Sponsored
         bool inserted;
         TransactionStruct[] transactionList;
     }

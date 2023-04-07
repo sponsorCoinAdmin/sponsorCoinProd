@@ -102,11 +102,11 @@ deleteTestNetworkAccounts = async (_testHHAccountArr) => {
 
 /////////////////////////// TEST UN-SPONSOR METHODS //////////////////////////
 
-deleteTestPatronSponsor = async (_patreonIdx, _sponsorIdx) => {
-  logFunctionHeader("deleteTestPatronSponsor(" + _patreonIdx + ", " + _sponsorIdx + ")");
-  let patreonKey = getTestHHAccountKey(_patreonIdx);
+deleteTestPatronSponsor = async (_patronIdx, _sponsorIdx) => {
+  logFunctionHeader("deleteTestPatronSponsor(" + _patronIdx + ", " + _sponsorIdx + ")");
+  let patronKey = getTestHHAccountKey(_patronIdx);
   let sponsorKey = getTestHHAccountKey(_sponsorIdx);
-  await deletePatronSponsorRecord(patreonKey, sponsorKey);
+  await deletePatronSponsorRecord(patronKey, sponsorKey);
 }
 
 deleteTestNetworkPatronSponsors = async (_testHHAccountIdx) => {

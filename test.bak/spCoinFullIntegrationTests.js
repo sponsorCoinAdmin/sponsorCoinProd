@@ -179,8 +179,8 @@ describe("spCoinContract", function () {
 
     // VALIDATE ACCOUNT CREATION
     // VALIDATE PATRON ACCOUNT
-    // let patreonAccountRecord = await getAccountRecord(PATRON_ACCOUNT_KEY_1);
-    // logJSON(patreonAccountRecord);
+    // let patronAccountRecord = await getAccountRecord(PATRON_ACCOUNT_KEY_1);
+    // logJSON(patronAccountRecord);
   });
 /**/
 });

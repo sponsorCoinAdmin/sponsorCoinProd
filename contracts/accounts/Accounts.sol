@@ -52,12 +52,12 @@ contract Accounts is StructSerialization {
 
     ////////////////////// PATRON REQUESTS //////////////////////////////
 
-    /// @notice get address for an account patreon
+    /// @notice get address for an account patron
     /// @param _accountKey public account key to get sponsor array
-    /// @param patreonIdx new patreon to add to account list
-    function getAccountPatronKeyByIndex(address _accountKey, uint patreonIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
+    /// @param patronIdx new patron to add to account list
+    function getAccountPatronKeyByIndex(address _accountKey, uint patronIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         AccountStruct storage accountRec = accountMap[_accountKey];
-        address accountSponsorKey = accountRec.patreonAccountKeys[patreonIdx];
+        address accountSponsorKey = accountRec.patronAccountKeys[patronIdx];
         return accountSponsorKey;
     }
 
@@ -66,8 +66,8 @@ contract Accounts is StructSerialization {
     function getAccountPatronKeys(address _accountKey) public view 
         onlyOwnerOrRootAdmin(_accountKey) returns (address[] memory) {
         AccountStruct storage account = accountMap[_accountKey];
-        address[] storage patreonAccountKeys = account.patreonAccountKeys;
-        return patreonAccountKeys;
+        address[] storage patronAccountKeys = account.patronAccountKeys;
+        return patronAccountKeys;
     }
 
     /////////////////////////// SPONSOR REQUESTS //////////////////////////////
@@ -84,7 +84,7 @@ contract Accounts is StructSerialization {
 /*
     /// @notice get address for an account agent
     /// @param _accountKey public account key to get sponsor array
-    /// @param _agentIdx new patreon to add to account list
+    /// @param _agentIdx new patron to add to account list
     function getAccountAgentKeyByIndex(address _accountKey, uint _agentIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         AccountStruct storage accountRec = accountMap[_accountKey];
         address accountAgentKey = accountRec.agentAccountKeys[_agentIdx];
@@ -103,10 +103,10 @@ contract Accounts is StructSerialization {
     }
     
     /// @notice retreives the sponsors of a specific address.
-    /// @param _patreonKey public account key to set new balance
-    function getSponsorKeys(address _patreonKey) public onlyOwnerOrRootAdmin(_patreonKey) view returns (address[] memory) {
-        AccountStruct storage patreonAccount = accountMap[_patreonKey];
-        address[] storage sponsorKeys = patreonAccount.sponsorAccount2Keys;
+    /// @param _patronKey public account key to set new balance
+    function getSponsorKeys(address _patronKey) public onlyOwnerOrRootAdmin(_patronKey) view returns (address[] memory) {
+        AccountStruct storage patronAccount = accountMap[_patronKey];
+        address[] storage sponsorKeys = patronAccount.sponsorAccount2Keys;
         return sponsorKeys;
     }
 
@@ -115,7 +115,7 @@ contract Accounts is StructSerialization {
     function deleteAccountRecord(address _accountKey) public
         accountExists(_accountKey) 
         onlyOwnerOrRootAdmin(_accountKey)
-        patreonDoesNotExist(_accountKey)
+        patronDoesNotExist(_accountKey)
         parentsponsorDoesNotExist(_accountKey)
 //      AgentDoesNotExist(_accountKey)
         sponsorDoesNotExist(_accountKey) {
@@ -162,7 +162,7 @@ contract Accounts is StructSerialization {
         _;
     }
 
-    modifier patreonDoesNotExist(address _accountKey) {
+    modifier patronDoesNotExist(address _accountKey) {
         require (getAccountPatronKeys(_accountKey).length == 0 &&
                  getAccountAgentKeys(_accountKey).length == 0, "Sponsor Account has a Patron, (Patron must Un-sponsor Sponsored Account)");
         _;
@@ -173,8 +173,8 @@ contract Accounts is StructSerialization {
         _;
     }
 
-    modifier sponsorDoesNotExist(address _patreonKey) {
-        require (getSponsorKeys(_patreonKey).length == 0, "Patron Account has a Sponsor, (Patron must Un-sponsor Sponsored Account)");
+    modifier sponsorDoesNotExist(address _patronKey) {
+        require (getSponsorKeys(_patronKey).length == 0, "Patron Account has a Sponsor, (Patron must Un-sponsor Sponsored Account)");
         _;
     }
     

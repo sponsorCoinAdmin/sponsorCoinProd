@@ -68,6 +68,24 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
     TRANSACTION_QTY_2
   );
 
+  await addAgentRateTransaction (
+    PATRON_ACCOUNT_KEY_0,
+    SPONSOR_ACCOUNT_KEY_1,
+    SPONSOR_RATE_KEY_2,
+    AGENT_ACCOUNT_KEY_3,
+    AGENT_RATE_9,
+    TRANSACTION_QTY_4
+  );
+
+  await addAgentRateTransaction (
+    PATRON_ACCOUNT_KEY_0,
+    SPONSOR_ACCOUNT_KEY_1,
+    SPONSOR_RATE_KEY_2,
+    AGENT_ACCOUNT_KEY_2,
+    AGENT_RATE_10,
+    TRANSACTION_QTY_2
+  );
+
     // accountKeySize = (await getAccountKeySize()).toNumber();
     // expect(accountKeySize).to.equal(3);
     await logJSONTree();
@@ -81,8 +99,8 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
 
     // VALIDATE ACCOUNT CREATION
     // VALIDATE PATRON ACCOUNT
-    // let patreonAccountRecord = await getAccountRecord(PATRON_ACCOUNT_KEY_0);
-    // logJSON(patreonAccountRecord);
+    // let patronAccountRecord = await getAccountRecord(PATRON_ACCOUNT_KEY_0);
+    // logJSON(patronAccountRecord);
   });
 /**/
 });

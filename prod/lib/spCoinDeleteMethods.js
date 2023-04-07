@@ -33,9 +33,9 @@ deleteAccountRecords = async (_accountListKeys) => {
 
 /////////////////////// SPONSOR RECORD FUNCTIONS ///////////////////////
 
-deletePatronSponsorRecord = async (_patreonKey, _sponsorKey) => {
-  logFunctionHeader("deletePatronSponsorRecord(" + _patreonKey + ", " + _sponsorKey + ")");
-  await spCoinContractDeployed.deletePatronSponsorRecord(_patreonKey, _sponsorKey);
+deletePatronSponsorRecord = async (_patronKey, _sponsorKey) => {
+  logFunctionHeader("deletePatronSponsorRecord(" + _patronKey + ", " + _sponsorKey + ")");
+  await spCoinContractDeployed.deletePatronSponsorRecord(_patronKey, _sponsorKey);
 }
 
 /////////////////////// AGENT RECORD FUNCTIONS ////////////////////////

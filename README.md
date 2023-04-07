@@ -79,5 +79,5 @@ Requirements to Delete Sponsor from Patron: (Delete Patron sponsorship)
 Requirements to Delete Account
 1. Require Account to have No Sponsors, account.sponsorAccount2Keys must be zero (0).
 2. Require Account to have No Agents, account.agentAccountKeys must be zero (0).
-3. Optional, Require Account to have No Patrons account.patreonAccountKeys must be zero (0).
+3. Optional, Require Account to have No Patrons account.patronAccountKeys must be zero (0).
 4. Optional, Require Account to have No account.parentSponsorAccountKeys must be zero (0).
