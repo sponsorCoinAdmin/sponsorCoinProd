@@ -10,16 +10,15 @@ contract AgentRates is Agents {
     /// @notice insert sponsors Agent
     /// @param _patronKey public Sponsor Coin Account Key
     /// @param _sponsorKey public account key to get sponsor array
+    /// @param _sponsorRateKey public account key to get sponsor Rate for a given sponsor
     /// @param _agentKey new sponsor to add to account list 
     function addAgentRateRecord(address _patronKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey, uint _agentRateKey)
             public onlyOwnerOrRootAdmin(msg.sender) {
 
         addSponsorAgent(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
-
-        AgentStruct storage agentRec = getAgentRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
-        mapping(uint256 => AgentRateStruct) storage agentRateMap = agentRec.agentRateMap;
-        AgentRateStruct storage agentRateRec = agentRateMap[_agentRateKey];
+        AgentRateStruct storage agentRateRec = getAgentRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey, _agentRateKey);
         if (!agentRateRec.inserted) {
+            AgentStruct storage agentRec = getAgentRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
             agentRateRec.agentRate = _agentRateKey;
             agentRateRec.inserted = true;
             agentRateRec.insertionTime = agentRateRec.lastUpdateTime = block.timestamp;
