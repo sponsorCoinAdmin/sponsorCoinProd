@@ -108,15 +108,23 @@ contract Agents is SponsorRates {
         deleteAccountRecordFromSearchKeys(_sponsorKey, parentSponsorKeys);
     }
 
-    /*
-    /// @notice determines if agent address is inserted in account.sponsor.agent.map
-    /// @param _patreonKey public account key validate Insertion
-    /// @param _sponsorKey public sponsor account key validate Insertion
-    /// @param _agentKey public agent account key validate Insertion
-    function isAgentInserted(address _patreonKey,address _sponsorKey,address _agentKey) public onlyOwnerOrRootAdmin(_patreonKey) view returns (bool) {
-        return getAgentRecordByKeys(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey).inserted;
-    }
-*/
+    
+    /// @notice Returns Agent record
+    /// @param _patreonKey account key
+    /// @param _sponsorKey sponsor account key
+    /// @param _sponsorRateKey sponsor rate
+    /// @param _agentKey agent record key to be returned
+    function getAgentRecordByKeys(address _patreonKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (AgentStruct storage) {
+        SponsorRateStruct storage sponsorRateRec = getSponsorRateRecordByKeys(_patreonKey, _sponsorKey, _sponsorRateKey);
+        AgentStruct storage sponsorAgentRec = sponsorRateRec.agentMap[_agentKey];
+        return sponsorAgentRec;
+     }
+
+    /// @notice Total Coin Staked Rates Sponsored
+    /// @param _patreonKey account key
+    /// @param _sponsorKey sponsor account key
+    /// @param _sponsorRateKey sponsor rate
+    /// @param _agentKey agent record key to be returned
     function getAgentTotalSponsored(address _patreonKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey);
         // console.log("Agents.sol:agentRec.totalRatesSponsored  = ", agentRec.totalRatesSponsored);

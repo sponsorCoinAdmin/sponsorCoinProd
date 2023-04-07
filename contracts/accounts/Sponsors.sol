@@ -20,7 +20,6 @@ contract Sponsors is Accounts {
         AccountStruct storage sponsorAccountRec = accountMap[_sponsorKey];
         SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patreonKey, _sponsorKey);
         if (!sponsorRec.inserted) {
-            // sponsorRec.index = patreonAccountRec.agentRecKeys.length;
             sponsorRec.insertionTime = block.timestamp;
             sponsorRec.sponsorAccountKey = _sponsorKey;
             sponsorRec.totalAgentsSponsored = 0; // Coins not owned but Sponsored
@@ -63,12 +62,6 @@ contract Sponsors is Accounts {
     }
 */
     //////////////////// NESTED AGENT METHODS /////////////////////////
-
-    function getAgentRecordByKeys(address _patreonKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (AgentStruct storage) {
-        SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patreonKey, _sponsorKey);
-        AgentStruct storage sponsorAgentRec = sponsorRec.agentMap[_agentKey];
-        return sponsorAgentRec;
-     }
 
     function getTotalSponsoredAmount(address _patreonKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
         SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patreonKey, _sponsorKey);

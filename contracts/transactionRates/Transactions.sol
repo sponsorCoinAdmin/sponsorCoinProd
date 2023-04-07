@@ -10,7 +10,7 @@ contract Transactions is AgentRates{
     public onlyOwnerOrRootAdmin(msg.sender) {
         uint256 transactionTimeStamp = block.timestamp;
 // console.log("Transaction.sol:ADDING RATE REC = ",_agentRateKey, "ADDING TRANSACTION = ",_transAmount);
-        addAgentRate(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey, _agentRateKey);
+        addAgentRateRecord(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey, _agentRateKey);
         AccountStruct storage accountRec = accountMap[_patreonKey];
         SponsorStruct storage sponsorRec = accountRec.sponsorMap[_sponsorKey];
         AgentStruct storage agentRec = sponsorRec.agentMap[_agentKey];

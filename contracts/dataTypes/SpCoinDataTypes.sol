@@ -83,8 +83,8 @@ contract SpCoinDataTypes {
         uint256 insertionTime;
         bool inserted;
         bool verified;
-        address[] agentAccountKeys;
-        mapping(address => AgentStruct) agentMap;
+        // address[] agentAccountKeys;
+        // mapping(address => AgentStruct) agentMap;
         uint256[] sponsorRateKeys;
         mapping(uint256 => SponsorRateStruct) sponsorRateMap;
     }

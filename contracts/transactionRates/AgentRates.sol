@@ -11,7 +11,7 @@ contract AgentRates is Agents{
     /// @param _patreonKey public Sponsor Coin Account Key
     /// @param _sponsorKey public account key to get sponsor array
     /// @param _agentKey new sponsor to add to account list 
-    function addAgentRate(address _patreonKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey, uint _agentRateKey)
+    function addAgentRateRecord(address _patreonKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey, uint _agentRateKey)
             public onlyOwnerOrRootAdmin(msg.sender) {
 
         addSponsorAgent(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey);
