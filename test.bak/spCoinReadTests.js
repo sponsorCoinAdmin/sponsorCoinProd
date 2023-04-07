@@ -169,7 +169,7 @@ describe("spCoinContract", function () {
     let accountKeySize = (await getAccountKeySize()).toNumber();
     expect(accountKeySize).to.equal(4);
 
-    let accountArr = await getAccountRecords(spCoinContractDeployed);
+    let accountArr = await getAccountRecords();
     logJSON(accountArr);
 
     // Test That Patron at Idx 3 has 2 Record Sponsors in the blockchain and
