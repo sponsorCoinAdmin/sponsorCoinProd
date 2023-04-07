@@ -106,7 +106,7 @@ contract Accounts is StructSerialization {
     /// @param _patreonKey public account key to set new balance
     function getSponsorKeys(address _patreonKey) public onlyOwnerOrRootAdmin(_patreonKey) view returns (address[] memory) {
         AccountStruct storage patreonAccount = accountMap[_patreonKey];
-        address[] storage sponsorKeys = patreonAccount.agentRecKeys;
+        address[] storage sponsorKeys = patreonAccount.sponsorAccount2Keys;
         return sponsorKeys;
     }
 

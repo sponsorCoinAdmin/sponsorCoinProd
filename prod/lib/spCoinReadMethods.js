@@ -79,7 +79,7 @@ getAccountAgentKeys = async (_patreonKey) => {
 
 getAgentRecordKeys = async (_patreonKey, _sponsorKey, _sponsorRateKey) => {
   logFunctionHeader("getAgentRecordKeys = async(" + _patreonKey + ", " + _sponsorKey+ ", " + _sponsorRateKey + ")" );
-  agentAccountKeys = spCoinContractDeployed.getAgentRecordKeys(_patreonKey, _sponsorKey);
+  agentAccountKeys = spCoinContractDeployed.getAgentRecordKeys(_patreonKey, _sponsorKey, _sponsorRateKey);
   return agentAccountKeys;
 };
 
@@ -214,7 +214,7 @@ getAgentRatesByKeys = async(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey
 }
 
 getAgentRateKeys = async (_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey) => {
-  logFunctionHeader("getAgentRecordKeys = async(" + _patreonKey + ", " + _sponsorKey + ", " + _sponsorRateKey + ", " + _agentKey + ")" );
+  logFunctionHeader("getAgentRateKeys = async(" + _patreonKey + ", " + _sponsorKey + ", " + _sponsorRateKey + ", " + _agentKey + ")" );
   networkRateKeys = await spCoinContractDeployed.getAgentRateKeys(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey);
   let agentRateKeys = [];
   for (let [idx, netWorkRateKey] of Object.entries(networkRateKeys)) {

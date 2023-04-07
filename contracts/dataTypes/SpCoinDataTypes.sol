@@ -68,7 +68,7 @@ contract SpCoinDataTypes {
         bool inserted;
         bool verified;
         address[] patreonAccountKeys;       // If Sponsor? List of Patron Accounts
-        address[] agentRecKeys;             // If Patron List of Sponsored Accounts
+        address[] sponsorAccount2Keys;             // If Patron List of Sponsored Accounts
         address[] agentAccountKeys;         // If Sponsor? List of Agent Accounts
         address[] parentSponsorAccountKeys; // If Agent? List of Patron Sponsor Accounts
         mapping(address => SponsorStruct) sponsorMap; 
@@ -83,8 +83,6 @@ contract SpCoinDataTypes {
         uint256 insertionTime;
         bool inserted;
         bool verified;
-        // address[] agentAccountKeys;
-        // mapping(address => AgentStruct) agentMap;
         uint256[] sponsorRateKeys;
         mapping(uint256 => SponsorRateStruct) sponsorRateMap;
     }

@@ -13,7 +13,8 @@ contract Transactions is AgentRates{
         addAgentRateRecord(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey, _agentRateKey);
         AccountStruct storage accountRec = accountMap[_patreonKey];
         SponsorStruct storage sponsorRec = accountRec.sponsorMap[_sponsorKey];
-        AgentStruct storage agentRec = sponsorRec.agentMap[_agentKey];
+        SponsorRateStruct storage sponsorRateRec = sponsorRec.sponsorRateMap[_sponsorRateKey];
+        AgentStruct storage agentRec = sponsorRateRec.agentMap[_agentKey];
         AgentRateStruct storage agentRateRec = agentRec.agentRateMap[_agentRateKey];
 // console.log("accountRec.stakedSPCoins = ",accountRec.stakedSPCoins, "Adding ",_transAmount);
 // console.log("   sponsorRec.totalAgentsSponsored = ",sponsorRec.totalAgentsSponsored, "Adding ",_transAmount);

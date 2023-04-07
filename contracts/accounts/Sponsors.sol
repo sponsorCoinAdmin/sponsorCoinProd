@@ -24,7 +24,7 @@ contract Sponsors is Accounts {
             sponsorRec.sponsorAccountKey = _sponsorKey;
             sponsorRec.totalAgentsSponsored = 0; // Coins not owned but Sponsored
             sponsorRec.inserted = true;
-            patreonAccountRec.agentRecKeys.push(_sponsorKey);
+            patreonAccountRec.sponsorAccount2Keys.push(_sponsorKey);
             sponsorAccountRec.patreonAccountKeys.push(_patreonKey);
         }
     }
@@ -57,7 +57,7 @@ contract Sponsors is Accounts {
     /// @param _sponsorIdx new sponsor to add to account list
     function getPatronSponsorKeyByIndex(address _patreonKey, uint _sponsorIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         AccountStruct storage accountRec = accountMap[_patreonKey];
-        address sponsor = accountRec.agentRecKeys[_sponsorIdx];
+        address sponsor = accountRec.sponsorAccount2Keys[_sponsorIdx];
         return sponsor;
     }
 */
@@ -69,14 +69,6 @@ contract Sponsors is Accounts {
         return sponsorRec.totalAgentsSponsored;
     }
 
-    /// @notice retreives the sponsor array records from a specific account address.
-    /// @param _patreonKey patreon Key to retrieve the sponsor list
-    /// @param _sponsorKey sponsor Key to retrieve the agent list
-    function getAgentRecordKeys(address _patreonKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (address[] memory) {
-        SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patreonKey, _sponsorKey);
-        address[] memory agentAccountKeys = sponsorRec.agentAccountKeys;
-        return agentAccountKeys;
-    }
 
     /// @notice retreives the sponsor array records from a specific account address.
     /// @param _patreonKey patreon Key to retrieve the sponsor list
