@@ -215,7 +215,7 @@ getAgentRatesByKeys = async(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey
 
 getAgentRateKeys = async (_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey) => {
   logFunctionHeader("getAgentRecordKeys = async(" + _patreonKey + ", " + _sponsorKey + ", " + _sponsorRateKey + ", " + _agentKey + ")" );
-  networkRateKeys = await spCoinContractDeployed.getAgentRateKeys(_patreonKey, _sponsorKey, _agentKey);
+  networkRateKeys = await spCoinContractDeployed.getAgentRateKeys(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey);
   let agentRateKeys = [];
   for (let [idx, netWorkRateKey] of Object.entries(networkRateKeys)) {
     agentRateKeys.push(netWorkRateKey.toNumber());
@@ -226,14 +226,14 @@ getAgentRateKeys = async (_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey) 
 //////////////////// LOAD AGENT TRANSACTION DATA //////////////////////
 
 getRateTransactionsByKeys = async(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey, _agentRateKey) => {
-  logFunctionHeader("getRateTransactionsByKeys = async(" + _patreonKey + ", " + _sponsorKey + ", " + _agentKey + ", " + _agentRateKey + ")");
-  let agentRateTransactionList = await spCoinContractDeployed.getRateTransactionList(_patreonKey, _sponsorKey, _agentKey, _agentRateKey);
+  logFunctionHeader("getRateTransactionsByKeys = async(" + _patreonKey + ", " + _sponsorKey + ", " + _sponsorRateKey + ", " + _agentKey + ", " + _agentRateKey + ")");
+  let agentRateTransactionList = await spCoinContractDeployed.getRateTransactionList(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey, _agentRateKey);
   return getRateTransactionRecords(agentRateTransactionList);
 }
 
 getAgentRateHeaderDataList = async(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey, _agentRateKey) => {
   logFunctionHeader("getAgentRateHeaderDataList = async(" + _patreonKey + ", " + _sponsorKey + ", " + _agentKey + ", " + _agentRateKey + ")");
-  let agentRateHeaderStr = await spCoinContractDeployed.serializeAgentRateRecordStr(_patreonKey, _sponsorKey, _agentKey, _agentRateKey);
+  let agentRateHeaderStr = await spCoinContractDeployed.serializeAgentRateRecordStr(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey, _agentRateKey);
   let agentRateHeaderList = agentRateHeaderStr.split(",");
   return agentRateHeaderList;
 }

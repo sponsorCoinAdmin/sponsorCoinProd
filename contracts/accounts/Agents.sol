@@ -21,7 +21,7 @@ contract Agents is SponsorRates {
         AccountStruct storage accountSponsorRec = accountMap[_sponsorKey];
         AccountStruct storage accountAgentRec = accountMap[_agentKey];
         SponsorStruct storage patreonSponsorRec = getSponsorRecordByKeys(_patreonKey, _sponsorKey);
-        AgentStruct storage  sponsorAgentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
+        AgentStruct storage  sponsorAgentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey);
         if (!sponsorAgentRec.inserted) {
             // sponsorAgentRec.index = patreonSponsorRec.agentAccountKeys.length;
             sponsorAgentRec.insertionTime = block.timestamp;
@@ -114,11 +114,11 @@ contract Agents is SponsorRates {
     /// @param _sponsorKey public sponsor account key validate Insertion
     /// @param _agentKey public agent account key validate Insertion
     function isAgentInserted(address _patreonKey,address _sponsorKey,address _agentKey) public onlyOwnerOrRootAdmin(_patreonKey) view returns (bool) {
-        return getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey).inserted;
+        return getAgentRecordByKeys(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey).inserted;
     }
 */
     function getAgentTotalSponsored(address _patreonKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
-        AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
+        AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey);
         // console.log("Agents.sol:agentRec.totalRatesSponsored  = ", agentRec.totalRatesSponsored);
         return agentRec.totalRatesSponsored; 
     }
@@ -127,8 +127,8 @@ contract Agents is SponsorRates {
     /// @param _patreonKey patreon Key to retrieve the sponsor list
     /// @param _sponsorKey sponsor Key to retrieve the agent list
     /// @param _agentKey agent Key to retrieve the agentate list
-    function getAgentRateKeys(address _patreonKey, address _sponsorKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint[] memory) {
-        AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
+    function getAgentRateKeys(address _patreonKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint[] memory) {
+        AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey);
         uint[] memory agentRateKeys = agentRec.agentRateKeys;
 // console.log("AGENTS.SOL:addSponsorAgent: _patreonKey, _sponsorKey, _sponsorRateKey, _agentKey = " , _patreonKey, _sponsorKey, _sponsorRateKey, _agentKey);
 // console.log("AGENTS.SOL:addSponsorAgent:agentRec.agentAccountKey = " , agentRec.agentAccountKey);

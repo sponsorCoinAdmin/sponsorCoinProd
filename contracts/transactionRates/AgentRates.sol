@@ -16,7 +16,7 @@ contract AgentRates is Agents{
 
         addSponsorAgent(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey);
 
-        AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
+        AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey);
         mapping(uint256 => AgentRateStruct) storage agentRateMap = agentRec.agentRateMap;
         AgentRateStruct storage agentRateRec = agentRateMap[_agentRateKey];
         if (!agentRateRec.inserted) {
@@ -28,26 +28,13 @@ contract AgentRates is Agents{
         }
     }
 
-    /*
-    /// @notice determines if address Record is inserted in accountKey array
-    /// @param _agentRec agent record containing agentRateMap records
-    /// @param _agentRateKey key for a specific agentRateMap record
-    function isRateInserted(AgentStruct storage _agentRec, uint _agentRateKey) internal view returns (bool) {
-        mapping(uint256 => AgentRateStruct) storage agentRateMap = _agentRec.agentRateMap;
-        if (agentRateMap[_agentRateKey].inserted)
-            return true;
-        else 
-            return false;
-    }
-*/
-
-    function getAgentRateRecordByKeys(address _patreonKey, address _sponsorKey, address _agentKey, uint _agentRateKey) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (AgentRateStruct storage) {
-        AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey) ;
+    function getAgentRateRecordByKeys(address _patreonKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey, uint _agentRateKey) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (AgentRateStruct storage) {
+        AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey) ;
         return agentRec.agentRateMap[_agentRateKey];
     }
 
-     function serializeAgentRateRecordStr(address _patreonKey, address _sponsorKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
-        AgentRateStruct storage agentRateRec =  getAgentRateRecordByKeys(_patreonKey, _sponsorKey, _agentKey, _agentRateKey);
+     function serializeAgentRateRecordStr(address _patreonKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
+        AgentRateStruct storage agentRateRec =  getAgentRateRecordByKeys(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey, _agentRateKey);
         string memory insertionTimeStr = toString(agentRateRec.insertionTime);
         string memory lastUpdateTimeStr = toString(agentRateRec.lastUpdateTime);
         string memory totalAgentsSponsoredStr = toString(agentRateRec.totalTransactionsSponsored);
@@ -55,8 +42,8 @@ contract AgentRates is Agents{
         return strRateHeaderStr;
     }
 
-    function getRateTransactionList(address _patreonKey, address _sponsorKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
-        AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
+    function getRateTransactionList(address _patreonKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
+        AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey);
         string memory strTransactionList = "";
         AgentRateStruct storage agentRateRec = agentRec.agentRateMap[_agentRateKey];
         // console.log ("agentRateRec.transactionList[0].quantity = ", agentRateRec.transactionList[0].quantity);
@@ -65,7 +52,6 @@ contract AgentRates is Agents{
         // console.log("RRRR strTransactionList = ", strTransactionList); 
         return strTransactionList;
     }
-
 
     function getRateTransactionStr(TransactionStruct[] memory transactionList) public pure returns (string memory) {
         string memory strTransactionList = "";

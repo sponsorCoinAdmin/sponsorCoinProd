@@ -36,7 +36,7 @@ contract Sponsors is Accounts {
     /// @param _sponsorKey public sponsor account key validate Insertion
     /// @param _sponsorRateKey public agent account key validate Insertion
     function isAgentRateInserted(address _patreonKey,address _sponsorKey, uint _sponsorRateKey, address _agentKey) public onlyOwnerOrRootAdmin(_patreonKey) view returns (bool) {
-        return getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey).inserted;
+        return getAgentRecordByKeys(_patreonKey, _sponsorKey, _sponsorRateKey, _agentKey).inserted;
     }
 */
 
@@ -64,7 +64,7 @@ contract Sponsors is Accounts {
 */
     //////////////////// NESTED AGENT METHODS /////////////////////////
 
-    function getAgentRecordByKeys(address _patreonKey, address _sponsorKey, address _agentKey) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (AgentStruct storage) {
+    function getAgentRecordByKeys(address _patreonKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey) internal view onlyOwnerOrRootAdmin(_patreonKey) returns (AgentStruct storage) {
         SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patreonKey, _sponsorKey);
         AgentStruct storage sponsorAgentRec = sponsorRec.agentMap[_agentKey];
         return sponsorAgentRec;
