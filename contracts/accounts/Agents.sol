@@ -16,14 +16,13 @@ contract Agents is SponsorRates {
             public onlyOwnerOrRootAdmin(msg.sender) 
             nonRedundantAgent ( _patronKey, _sponsorKey, _agentKey) {
         addSponsorRate(_patronKey, _sponsorKey, _sponsorRateKey);
-        addAccountRecord(_agentKey);
 
-        AccountStruct storage accountSponsorRec = accountMap[_sponsorKey];
-        AccountStruct storage accountAgentRec = accountMap[_agentKey];
-        SponsorStruct storage patronSponsorRec = getSponsorRecordByKeys(_patronKey, _sponsorKey);
-        SponsorRateStruct storage sponsorRateRec = getSponsorRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey);
         AgentStruct storage  sponsorAgentRec = getAgentRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
         if (!sponsorAgentRec.inserted) {
+            addAccountRecord(_agentKey);
+            AccountStruct storage accountSponsorRec = accountMap[_sponsorKey];
+            AccountStruct storage accountAgentRec = accountMap[_agentKey];
+            SponsorRateStruct storage sponsorRateRec = getSponsorRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey);
             sponsorAgentRec.insertionTime = block.timestamp;
             sponsorAgentRec.agentAccountKey = _agentKey;
             sponsorAgentRec.inserted = true;
@@ -44,7 +43,7 @@ contract Agents is SponsorRates {
     
         AccountStruct storage patronAccountRec = accountMap[_patronKey];
         SponsorStruct storage sponsorRec = patronAccountRec.sponsorMap[_sponsorKey];
-        uint256 totalSponsoed = sponsorRec.stakedAgentsSponsored;
+        uint256 totalSponsoed = sponsorRec.stakedSPCoins;
 
         // console.log("BEFORE patronAccountRec.balanceOf     = ", patronAccountRec.balanceOf);
         // console.log("BEFORE patronAccountRec.stakedSPCoins = ", patronAccountRec.stakedSPCoins);
@@ -138,8 +137,8 @@ contract Agents is SponsorRates {
     /// @param _agentKey agent record key to be returned
     function getAgentTotalSponsored(address _patronKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
-        // console.log("Agents.sol:agentRec.stakedRatesSponsored  = ", agentRec.stakedRatesSponsored);
-        return agentRec.stakedRatesSponsored; 
+        // console.log("Agents.sol:agentRec.stakedSPCoins  = ", agentRec.stakedSPCoins);
+        return agentRec.stakedSPCoins; 
     }
 
     /// @notice retreives the sponsor array records from a specific account address.

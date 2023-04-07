@@ -12,7 +12,6 @@ contract Accounts is StructSerialization {
         public onlyOwnerOrRootAdmin(_accountKey) {
         if (!isAccountInserted(_accountKey)) {
             AccountStruct storage accountRec = accountMap[_accountKey];
-            // accountRec.index = accountKeys.length;
             accountRec.accountKey = _accountKey;
             accountRec.insertionTime = block.timestamp;
             accountRec.stakedSPCoins = 0;

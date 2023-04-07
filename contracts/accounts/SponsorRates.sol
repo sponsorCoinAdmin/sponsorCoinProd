@@ -10,19 +10,18 @@ contract SponsorRates is Sponsors {
 function addSponsorRate(address _patronKey, address _sponsorKey, uint _sponsorRateKey) 
     public onlyOwnerOrRootAdmin(_patronKey)
     nonRedundantSponsor ( _patronKey,  _sponsorKey) {
-    addPatronSponsor(_patronKey, _sponsorKey);
-    SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patronKey, _sponsorKey);
-    mapping(uint256 => SponsorRateStruct) storage sponsorRateMap = sponsorRec.sponsorRateMap;
-    SponsorRateStruct storage sponsorRateRec = sponsorRateMap[_sponsorRateKey];
+        addPatronSponsor(_patronKey, _sponsorKey);
 
-    if (!sponsorRateRec.inserted) {
-        sponsorRateRec.sponsorRate = _sponsorRateKey;
-        sponsorRateRec.inserted = true;
-        sponsorRateRec.insertionTime = sponsorRateRec.lastUpdateTime = block.timestamp;
-        sponsorRateRec.stakedTransactionsSponsored = 0;
-        sponsorRec.sponsorRateKeys.push(_sponsorRateKey);
-    } 
-}
+        SponsorRateStruct storage sponsorRateRec = getSponsorRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey);
+        if (!sponsorRateRec.inserted) {
+            SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patronKey, _sponsorKey);
+            sponsorRateRec.sponsorRate = _sponsorRateKey;
+            sponsorRateRec.inserted = true;
+            sponsorRateRec.insertionTime = sponsorRateRec.lastUpdateTime = block.timestamp;
+            sponsorRateRec.stakedSPCoins = 0;
+            sponsorRec.sponsorRateKeys.push(_sponsorRateKey);
+        } 
+    }
 
     function getSponsorRateRecordByKeys(address _patronKey, address _sponsorKey, uint _sponsorRateKey) internal view onlyOwnerOrRootAdmin(_patronKey) returns (SponsorRateStruct storage) {
         SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patronKey, _sponsorKey) ;
@@ -33,8 +32,8 @@ function addSponsorRate(address _patronKey, address _sponsorKey, uint _sponsorRa
         SponsorRateStruct storage sponsorRateRec =  getSponsorRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey);
         string memory insertionTimeStr = toString(sponsorRateRec.insertionTime);
         string memory lastUpdateTimeStr = toString(sponsorRateRec.lastUpdateTime);
-        string memory stakedAgentsSponsoredStr = toString(sponsorRateRec.stakedTransactionsSponsored);
-        string memory strRateHeaderStr = concat(insertionTimeStr, ",", lastUpdateTimeStr, ",", stakedAgentsSponsoredStr);
+        string memory stakedSPCoinsStr = toString(sponsorRateRec.stakedSPCoins);
+        string memory strRateHeaderStr = concat(insertionTimeStr, ",", lastUpdateTimeStr, ",", stakedSPCoinsStr);
         return strRateHeaderStr;
     }
 

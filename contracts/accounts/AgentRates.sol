@@ -22,7 +22,7 @@ contract AgentRates is Agents {
             agentRateRec.agentRate = _agentRateKey;
             agentRateRec.inserted = true;
             agentRateRec.insertionTime = agentRateRec.lastUpdateTime = block.timestamp;
-            agentRateRec.stakedTransactionsSponsored = 0;
+            agentRateRec.stakedSPCoins = 0;
             agentRec.agentRateKeys.push(_agentRateKey);
         }
     }
@@ -36,8 +36,8 @@ contract AgentRates is Agents {
         AgentRateStruct storage agentRateRec =  getAgentRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey, _agentRateKey);
         string memory insertionTimeStr = toString(agentRateRec.insertionTime);
         string memory lastUpdateTimeStr = toString(agentRateRec.lastUpdateTime);
-        string memory stakedAgentsSponsoredStr = toString(agentRateRec.stakedTransactionsSponsored);
-        string memory strRateHeaderStr = concat(insertionTimeStr, ",", lastUpdateTimeStr, ",", stakedAgentsSponsoredStr);
+        string memory stakedSPCoinsStr = toString(agentRateRec.stakedSPCoins);
+        string memory strRateHeaderStr = concat(insertionTimeStr, ",", lastUpdateTimeStr, ",", stakedSPCoinsStr);
         return strRateHeaderStr;
     }
 

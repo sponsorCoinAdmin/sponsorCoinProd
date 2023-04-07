@@ -127,7 +127,7 @@ getSponsorRecordByKeys = async(_patronKey, _sponsorKey) => {
   logFunctionHeader("getSponsorRecordByKeys(" + _patronKey + ", " + _sponsorKey + ")");
   let sponsorRecord = new SponsorStruct(_sponsorKey);
   sponsorRecord.sponsorAccountKey = _sponsorKey;
-  sponsorRecord.stakedAgentsSponsored = (await spCoinContractDeployed.getTotalSponsoredAmount(_patronKey, _sponsorKey)).toNumber();
+  sponsorRecord.stakedSPCoins = (await spCoinContractDeployed.getTotalSponsoredAmount(_patronKey, _sponsorKey)).toNumber();
 
   // ToDo New Robin
   sponsorRecord.sponsorRateList = await getSponsorRatesByKeys(_patronKey, _sponsorKey);
@@ -161,7 +161,7 @@ getSponsorRateRecordByKeys = async(_patronKey, _sponsorKey, _sponsorRateKey) => 
   logFunctionHeader("getSponsorRateRecordByKeys(" + _patronKey + ", " + _sponsorKey + ")");
   let sponsorRateRecord = new SponsorRateStruct();
   sponsorRateRecord.sponsorRate = _sponsorRateKey;
-  sponsorRateRecord.stakedAgentsSponsored = bigIntToDecimal(await spCoinContractDeployed.getTotalSponsoredAmount(_patronKey, _sponsorKey));
+  sponsorRateRecord.stakedSPCoins = bigIntToDecimal(await spCoinContractDeployed.getTotalSponsoredAmount(_patronKey, _sponsorKey));
   let agentAccountKeys = await getAgentRecordKeys(_patronKey, _sponsorKey, _sponsorRateKey);
   sponsorRateRecord.agentAccountKeys = agentAccountKeys;
   sponsorRateRecord.agentRecordList = await getAgentRecordsByKeys(_patronKey, _sponsorKey, _sponsorRateKey, agentAccountKeys);
@@ -187,7 +187,7 @@ getAgentRecordByKeys = async(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey
   logFunctionHeader("getAgentRecordByKeys(" + _patronKey + ", " + _sponsorKey + ", " + _sponsorRateKey + ", " + _agentKey + ")");
   agentRecord = new AgentStruct();
   agentRecord.agentAccountKey = _agentKey;
-  agentRecord.stakedRatesSponsored = bigIntToDecimal(await spCoinContractDeployed.getAgentTotalSponsored(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey));
+  agentRecord.stakedSPCoins = bigIntToDecimal(await spCoinContractDeployed.getAgentTotalSponsored(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey));
   agentRecord.agentRateList = await getAgentRatesByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
   return agentRecord;
 }
@@ -273,7 +273,7 @@ deSerializeAgentRateRecordByKeys = async(_patronKey, _sponsorKey, _sponsorRateKe
   agentRateRecord.agentRate = _agentRateKey;
   agentRateRecord.insertionTime = hexToDecimal(headerStr[0]);
   agentRateRecord.lastUpdateTime = hexToDecimal(headerStr[1]);
-  agentRateRecord.stakedTransactionsSponsored = hexToDecimal(headerStr[2]);
+  agentRateRecord.stakedSPCoins = hexToDecimal(headerStr[2]);
   agentRateRecord.transactions = await getRateTransactionsByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey, _agentRateKey);
   return agentRateRecord;
 }

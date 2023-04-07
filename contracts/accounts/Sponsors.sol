@@ -14,15 +14,15 @@ contract Sponsors is Accounts {
     function addPatronSponsor(address _patronKey, address _sponsorKey) 
         public onlyOwnerOrRootAdmin(_patronKey)
         nonRedundantSponsor ( _patronKey,  _sponsorKey) {
-        addAccountRecord(_patronKey);
-        addAccountRecord(_sponsorKey);
-        AccountStruct storage patronAccountRec = accountMap[_patronKey];
-        AccountStruct storage sponsorAccountRec = accountMap[_sponsorKey];
         SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patronKey, _sponsorKey);
         if (!sponsorRec.inserted) {
+            addAccountRecord(_patronKey);
+            addAccountRecord(_sponsorKey);
+            AccountStruct storage patronAccountRec = accountMap[_patronKey];
+            AccountStruct storage sponsorAccountRec = accountMap[_sponsorKey];
             sponsorRec.insertionTime = block.timestamp;
             sponsorRec.sponsorAccountKey = _sponsorKey;
-            sponsorRec.stakedAgentsSponsored = 0; // Coins not owned but Sponsored
+            sponsorRec.stakedSPCoins = 0; // Coins not owned but Sponsored
             sponsorRec.inserted = true;
             patronAccountRec.sponsorAccount2Keys.push(_sponsorKey);
             sponsorAccountRec.patronAccountKeys.push(_patronKey);
@@ -65,8 +65,8 @@ contract Sponsors is Accounts {
 
     function getTotalSponsoredAmount(address _patronKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
         SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patronKey, _sponsorKey);
-        // console.log("Sponsor.sol:sponsorRec.stakedAgentsSponsored  = ", sponsorRec.stakedAgentsSponsored);
-        return sponsorRec.stakedAgentsSponsored;
+        // console.log("Sponsor.sol:sponsorRec.stakedSPCoins  = ", sponsorRec.stakedSPCoins);
+        return sponsorRec.stakedSPCoins;
     }
 
 

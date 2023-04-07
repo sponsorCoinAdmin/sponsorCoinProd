@@ -17,7 +17,7 @@ class AccountStruct {
 class SponsorStruct {
   constructor() {
     this.sponsorAccountKey;
-    this.stakedAgentsSponsored;
+    this.stakedSPCoins;
     this.insertionTime;
     this.verified;
     this.sponsorRateList;
@@ -28,7 +28,7 @@ class SponsorStruct {
 class SponsorRateStruct {
   constructor() {
     this.sponsorRate;
-    this.stakedTransactionsSponsored;
+    this.stakedSPCoins;
     this.insertionTime;
     this.lastUpdateTime;
     this.transactions;
@@ -40,7 +40,7 @@ class SponsorRateStruct {
 class AgentStruct {
   constructor() {
     this.agentAccountKey;
-    this.stakedRatesSponsored;
+    this.stakedSPCoins;
     this.insertionTime;
     this.verified;
     this.agentRateList;
@@ -50,7 +50,7 @@ class AgentStruct {
 class AgentRateStruct {
   constructor() {
     this.agentRate;
-    this.stakedTransactionsSponsored;
+    this.stakedSPCoins;
     this.insertionTime;
     this.lastUpdateTime;
     this.transactions;
