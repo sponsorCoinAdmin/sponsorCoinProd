@@ -2,7 +2,7 @@
 pragma solidity ^0.8.18;
 /// @title ERC20 Contract
 import "../accounts/Agents.sol";
-import "../transactionRates/Transactions.sol";
+import "../accounts/Transactions.sol";
 
 contract AccountStakingManager is Transactions{
 

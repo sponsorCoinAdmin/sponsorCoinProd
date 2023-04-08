@@ -71,9 +71,9 @@ addAccountField = (key, value, accountStruct) => {
       logDetail("JS => setting accountStruct.KYC = " + value);
       accountStruct.KYC = value;
       break;
-    case "agentRecKeys":
-      logDetail("JS => setting accountStruct.agentRecKeys = " + value);
-      accountStruct.agentRecKeys = value;
+    case "sponsorAccount2Keys":
+      logDetail("JS => setting accountStruct.sponsorAccount2Keys = " + value);
+      accountStruct.sponsorAccount2Keys = value;
       break;
     case "sponsorRecordList":
       logDetail("JS => setting accountStruct.sponsorRecordList = " + value);
@@ -83,9 +83,9 @@ addAccountField = (key, value, accountStruct) => {
       logDetail("JS => setting accountStruct.agentAccountKeys = " + value);
       accountStruct.agentAccountKeys = parseAddressStrRecord(value);
       break;
-    case "patreonAccountKeys":
-      logDetail("JS => setting accountStruct.patreonAccountKeys = " + value);
-      accountStruct.patreonAccountKeys = parseAddressStrRecord(value);
+    case "patronAccountKeys":
+      logDetail("JS => setting accountStruct.patronAccountKeys = " + value);
+      accountStruct.patronAccountKeys = parseAddressStrRecord(value);
       break;
     default:
       break;

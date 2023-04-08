@@ -144,7 +144,7 @@ describe("spCoinContract", function () {
     accountKeySize = (await getAccountKeySize()).toNumber();
     expect(accountKeySize).to.equal(3);
 
-    accountArr = await getAccountRecords(spCoinContractDeployed);
+    accountArr = await getAccountRecords();
     logJSON(accountArr);
   });
 });

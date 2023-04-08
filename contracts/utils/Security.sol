@@ -37,6 +37,4 @@ contract Security is SpCoinDataTypes {
                  _accountKey != _agentKey , "_accountKey, _sponsorAccountKey and _agentKey must be Mutually Exclusive)");
         _;
     }
-
-    // address _accountKey, address _sponsorAccountKey, address _agentKey
 }

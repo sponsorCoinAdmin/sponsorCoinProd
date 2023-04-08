@@ -35,11 +35,11 @@ addTestNetworkPatronSponsor = async (_accountIdx, _sponsorIdx) => {
   await addPatronSponsor(accountKey, sponsorKey);
 };
 
-addTestNetworkPatronSponsors = async (_accountIdx, _agentRecKeysIdx) => {
-  logFunctionHeader("addTestNetworkPatronSponsors = async (" + _accountIdx + ", " + _agentRecKeysIdx + ")");
+addTestNetworkPatronSponsors = async (_accountIdx, _sponsorAccount2KeysIdx) => {
+  logFunctionHeader("addTestNetworkPatronSponsors = async (" + _accountIdx + ", " + _sponsorAccount2KeysIdx + ")");
 
   let accountKey = getTestHHAccountKey(_accountIdx);
-  let accountSponsorRecordKeys = getTestHHAccountListKeys(_agentRecKeysIdx);
+  let accountSponsorRecordKeys = getTestHHAccountListKeys(_sponsorAccount2KeysIdx);
   logDetail("JS => For Account: " + accountKey + " Inserting Sponsor Records:");
   logDetail(accountSponsorRecordKeys);
   await addPatronSponsors(accountKey, accountSponsorRecordKeys);
@@ -102,11 +102,11 @@ deleteTestNetworkAccounts = async (_testHHAccountArr) => {
 
 /////////////////////////// TEST UN-SPONSOR METHODS //////////////////////////
 
-deleteTestPatronSponsor = async (_patreonIdx, _sponsorIdx) => {
-  logFunctionHeader("deleteTestPatronSponsor(" + _patreonIdx + ", " + _sponsorIdx + ")");
-  let patreonKey = getTestHHAccountKey(_patreonIdx);
+deleteTestPatronSponsor = async (_patronIdx, _sponsorIdx) => {
+  logFunctionHeader("deleteTestPatronSponsor(" + _patronIdx + ", " + _sponsorIdx + ")");
+  let patronKey = getTestHHAccountKey(_patronIdx);
   let sponsorKey = getTestHHAccountKey(_sponsorIdx);
-  await deletePatronSponsorRecord(patreonKey, sponsorKey);
+  await deletePatronSponsorRecord(patronKey, sponsorKey);
 }
 
 deleteTestNetworkPatronSponsors = async (_testHHAccountIdx) => {
@@ -116,12 +116,14 @@ deleteTestNetworkPatronSponsors = async (_testHHAccountIdx) => {
   return accountKey;
 };
 
+/*
 deleteTestNetworkSponsorAgents = async (_testHHAccountIdx) => {
   logFunctionHeader("async (" + _testHHAccountIdx+ ")");
   let accountKey = getTestHHAccountKey(_testHHAccountIdx);
   await deletePatronSponsorAgentRecords(accountKey);
   return accountKey;
 };
+*/
 
 module.exports = {
   getTestHHAccountListKeys,

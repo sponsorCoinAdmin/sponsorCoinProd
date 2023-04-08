@@ -43,7 +43,7 @@ describe("spCoinContract", function () {
     await deploySpCoinContract();
   });
 
- it("VALIDATE ADD TRANSACTION RATES", async function () {
+ it("2. VALIDATE ADD TRANSACTION RATES", async function () {
   setLogMode("LOG", true);
   let PATRON_ACCOUNT_KEY_1 = TEST_HH_ACCOUNT_KEY_0;
   let PATRON_ACCOUNT_KEY_2 = TEST_HH_ACCOUNT_KEY_1;
@@ -179,8 +179,8 @@ describe("spCoinContract", function () {
 
     // VALIDATE ACCOUNT CREATION
     // VALIDATE PATRON ACCOUNT
-    // let patreonAccountRecord = await getAccountRecord(PATRON_ACCOUNT_KEY_1);
-    // logJSON(patreonAccountRecord);
+    // let patronAccountRecord = await getAccountRecord(PATRON_ACCOUNT_KEY_1);
+    // logJSON(patronAccountRecord);
   });
 /**/
 });

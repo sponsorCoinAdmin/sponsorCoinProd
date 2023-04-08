@@ -9,70 +9,79 @@ contract Agents is SponsorRates {
     }
 
     /// @notice insert sponsors Agent
-    /// @param _patreonKey public Sponsor Coin Account Key
+    /// @param _patronKey public Sponsor Coin Account Key
     /// @param _sponsorKey public account key to get sponsor array
     /// @param _agentKey new sponsor to add to account list
-    function addSponsorAgent(address _patreonKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey)
+    function addSponsorAgent(address _patronKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey)
             public onlyOwnerOrRootAdmin(msg.sender) 
-            nonRedundantAgent ( _patreonKey, _sponsorKey, _agentKey) {
-        addSponsorRate(_patreonKey, _sponsorKey, _sponsorRateKey);
-        addAccountRecord(_agentKey);
+            nonRedundantAgent ( _patronKey, _sponsorKey, _agentKey) {
+        addSponsorRate(_patronKey, _sponsorKey, _sponsorRateKey);
 
-        AccountStruct storage accountSponsorRec = accountMap[_sponsorKey];
-        AccountStruct storage accountAgentRec = accountMap[_agentKey];
-        SponsorStruct storage patreonSponsorRec = getSponsorRecordByKeys(_patreonKey, _sponsorKey);
-        AgentStruct storage  sponsorAgentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
+        AgentStruct storage  sponsorAgentRec = getAgentRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
         if (!sponsorAgentRec.inserted) {
-            // sponsorAgentRec.index = patreonSponsorRec.agentAccountKeys.length;
+            addAccountRecord(_agentKey);
+            AccountStruct storage accountSponsorRec = accountMap[_sponsorKey];
+            AccountStruct storage accountAgentRec = accountMap[_agentKey];
+            SponsorRateStruct storage sponsorRateRec = getSponsorRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey);
             sponsorAgentRec.insertionTime = block.timestamp;
             sponsorAgentRec.agentAccountKey = _agentKey;
             sponsorAgentRec.inserted = true;
-            patreonSponsorRec.agentAccountKeys.push(_agentKey);
             accountSponsorRec.agentAccountKeys.push(_agentKey);
             accountAgentRec.parentSponsorAccountKeys.push(_sponsorKey);
+            sponsorRateRec.agentAccountKeys.push(_agentKey);
         }
     }
 
     /// @notice Remove all sponsorship relationships for Patron and Sponsor accounts
-    /// @param _patreonKey Patron key containing the Sponsor relationship
+    /// @param _patronKey Patron key containing the Sponsor relationship
     /// @param _sponsorKey Sponsor to be removed from the Sponsor relationship
-    function deletePatronSponsorRecord(address _patreonKey, address _sponsorKey)  
-        public onlyOwnerOrRootAdmin(_patreonKey)
-        accountExists(_patreonKey)
+    function deletePatronSponsorRecord(address _patronKey, address _sponsorKey)  
+        public onlyOwnerOrRootAdmin(_patronKey)
+        accountExists(_patronKey)
         accountExists(_sponsorKey)
-        nonRedundantSponsor ( _patreonKey,  _sponsorKey) {
+        nonRedundantSponsor ( _patronKey,  _sponsorKey) {
     
-        AccountStruct storage patreonAccountRec = accountMap[_patreonKey];
-        SponsorStruct storage sponsorRec = patreonAccountRec.sponsorMap[_sponsorKey];
-        uint256 totalSponsoed = sponsorRec.totalAgentsSponsored;
+        AccountStruct storage patronAccountRec = accountMap[_patronKey];
+        SponsorStruct storage sponsorRec = patronAccountRec.sponsorMap[_sponsorKey];
+        uint256 totalSponsoed = sponsorRec.stakedSPCoins;
 
-        // console.log("BEFORE patreonAccountRec.balanceOf     = ", patreonAccountRec.balanceOf);
-        // console.log("BEFORE patreonAccountRec.stakedSPCoins = ", patreonAccountRec.stakedSPCoins);
+        // console.log("BEFORE patronAccountRec.balanceOf     = ", patronAccountRec.balanceOf);
+        // console.log("BEFORE patronAccountRec.stakedSPCoins = ", patronAccountRec.stakedSPCoins);
         // console.log("BEFORE totalSponsoed                   = ", totalSponsoed);
-        patreonAccountRec.balanceOf += totalSponsoed;
-        patreonAccountRec.stakedSPCoins -= totalSponsoed;
-        // console.log("AFTER patreonAccountRec.balanceOf     = ", patreonAccountRec.balanceOf);
-        // console.log("AFTER patreonAccountRec.stakedSPCoins = ", patreonAccountRec.stakedSPCoins);
+        patronAccountRec.balanceOf += totalSponsoed;
+        patronAccountRec.stakedSPCoins -= totalSponsoed;
+        // console.log("AFTER patronAccountRec.balanceOf     = ", patronAccountRec.balanceOf);
+        // console.log("AFTER patronAccountRec.stakedSPCoins = ", patronAccountRec.stakedSPCoins);
 
-        address[] storage patreonSponsorKeys = patreonAccountRec.agentRecKeys;
-        if (deleteAccountRecordFromSearchKeys(_sponsorKey, patreonSponsorKeys)) {
-            deleteSponsorRecord(_patreonKey, _sponsorKey);
+        address[] storage patronSponsorKeys = patronAccountRec.sponsorAccount2Keys;
+        if (deleteAccountRecordFromSearchKeys(_sponsorKey, patronSponsorKeys)) {
+            deleteSponsorRecord(_patronKey, _sponsorKey);
         }
     }
 
-    function deleteSponsorRecord(address _patreonKey, address _sponsorKey) internal {
+    /// @notice retreives the sponsor array records from a specific account address.
+    /// @param _patronKey patron Key to retrieve the sponsor list
+    /// @param _sponsorKey sponsor Key to retrieve the agent list
+    function getAgentRecordKeys(address _patronKey, address _sponsorKey, uint256 _sponsorRateKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (address[] memory) {
+        SponsorRateStruct storage sponsorRateRec = getSponsorRateRecordByKeys(_patronKey, _sponsorKey,  _sponsorRateKey);
+        address[] memory agentAccountKeys = sponsorRateRec.agentAccountKeys;
+        return agentAccountKeys;
+    }
+
+    function deleteSponsorRecord(address _patronKey, address _sponsorKey) internal {
         AccountStruct storage sponsorAccountRec = accountMap[_sponsorKey];
-        address[] storage patreonAccountKeys = sponsorAccountRec.patreonAccountKeys;
-        if (deleteAccountRecordFromSearchKeys(_patreonKey, patreonAccountKeys)) {
-            deletePatronSponsorAgentRecordRecords (_patreonKey, _sponsorKey);
+        address[] storage patronAccountKeys = sponsorAccountRec.patronAccountKeys;
+        if (deleteAccountRecordFromSearchKeys(_patronKey, patronAccountKeys)) {
+            deletePatronSponsorAgentRecords (_patronKey, _sponsorKey);
         }
         // Optional        delete accountMap[_sponsorKey];
     }
 
-    function deletePatronSponsorAgentRecordRecords (address _patreonKey, address _sponsorKey) internal {
+    function deletePatronSponsorAgentRecords (address _patronKey, address _sponsorKey) internal {
         // Get The Patron Account Record and Remove from the Child Sponsor Relationship account list
-        AccountStruct storage patreonAccountRec = accountMap[_patreonKey];
-        mapping(address => SponsorStruct) storage sponsorMap = patreonAccountRec.sponsorMap;
+/* *** VERY IMPORTANT, FIX DELETE RECORDS
+        AccountStruct storage patronAccountRec = accountMap[_patronKey];
+        mapping(address => SponsorStruct) storage sponsorMap = patronAccountRec.sponsorMap;
 
         // console.log("deleteAgentsFromSponsor(_sponsorKey, sponsorMap)");
         mapping(address => AgentStruct) storage agentMap = sponsorMap[_sponsorKey].agentMap;
@@ -81,7 +90,7 @@ contract Agents is SponsorRates {
         uint i = agentAccountKeys.length - 1;
         // console.log("*** BEFORE AGENT DELETE agentAccountKeys.length = ", agentAccountKeys.length);
          for (i; i >= 0; i--) {
-            deletePatronSponsorAgentRecordRecord(_sponsorKey, agentAccountKeys[i]); 
+            deletePatronSponsorAgentRecord(_sponsorKey, agentAccountKeys[i]); 
             // console.log("***** Deleting agentAccountKeys ", agentStruct.agentAccountKey);
             delete agentMap[agentAccountKeys[i]];
             delete agentAccountKeys[i];
@@ -89,9 +98,10 @@ contract Agents is SponsorRates {
             if (i == 0)
                break;
         }
+        ***/
     }
 
-    function deletePatronSponsorAgentRecordRecord (address _sponsorKey, address _agentKey) public {
+    function deletePatronSponsorAgentRecord (address _sponsorKey, address _agentKey) public {
         // console.log("Deleting Agent Key ", _agentKey, "from Sponsor child Agent Keys ", _sponsorKey); 
         AccountStruct storage accountSponsorRec = accountMap[_sponsorKey];
         address[] storage AgentKeys = accountSponsorRec.agentAccountKeys;
@@ -108,29 +118,37 @@ contract Agents is SponsorRates {
         deleteAccountRecordFromSearchKeys(_sponsorKey, parentSponsorKeys);
     }
 
-    /*
-    /// @notice determines if agent address is inserted in account.sponsor.agent.map
-    /// @param _patreonKey public account key validate Insertion
-    /// @param _sponsorKey public sponsor account key validate Insertion
-    /// @param _agentKey public agent account key validate Insertion
-    function isAgentInserted(address _patreonKey,address _sponsorKey,address _agentKey) public onlyOwnerOrRootAdmin(_patreonKey) view returns (bool) {
-        return getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey).inserted;
-    }
-*/
-    function getAgentTotalSponsored(address _patreonKey, address _sponsorKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
-        AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
-        // console.log("Agents.sol:agentRec.totalRatesSponsored  = ", agentRec.totalRatesSponsored);
-        return agentRec.totalRatesSponsored; 
+    
+    /// @notice Returns Agent record
+    /// @param _patronKey account key
+    /// @param _sponsorKey sponsor account key
+    /// @param _sponsorRateKey sponsor rate
+    /// @param _agentKey agent record key to be returned
+    function getAgentRecordByKeys(address _patronKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey) internal view onlyOwnerOrRootAdmin(_patronKey) returns (AgentStruct storage) {
+        SponsorRateStruct storage sponsorRateRec = getSponsorRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey);
+        AgentStruct storage sponsorAgentRec = sponsorRateRec.agentMap[_agentKey];
+        return sponsorAgentRec;
+     }
+
+    /// @notice Total Coin Staked Rates Sponsored
+    /// @param _patronKey account key
+    /// @param _sponsorKey sponsor account key
+    /// @param _sponsorRateKey sponsor rate
+    /// @param _agentKey agent record key to be returned
+    function getAgentTotalSponsored(address _patronKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
+        AgentStruct storage agentRec = getAgentRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
+        // console.log("Agents.sol:agentRec.stakedSPCoins  = ", agentRec.stakedSPCoins);
+        return agentRec.stakedSPCoins; 
     }
 
     /// @notice retreives the sponsor array records from a specific account address.
-    /// @param _patreonKey patreon Key to retrieve the sponsor list
+    /// @param _patronKey patron Key to retrieve the sponsor list
     /// @param _sponsorKey sponsor Key to retrieve the agent list
     /// @param _agentKey agent Key to retrieve the agentate list
-    function getAgentRateKeys(address _patreonKey, address _sponsorKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint[] memory) {
-        AgentStruct storage agentRec = getAgentRecordByKeys(_patreonKey, _sponsorKey, _agentKey);
+    function getAgentRateKeys(address _patronKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint[] memory) {
+        AgentStruct storage agentRec = getAgentRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
         uint[] memory agentRateKeys = agentRec.agentRateKeys;
-// console.log("AGENTS.SOL:addSponsorAgent: _patreonKey, _sponsorKey, _sponsorRateKey, _agentKey = " , _patreonKey, _sponsorKey, _sponsorRateKey, _agentKey);
+// console.log("AGENTS.SOL:addSponsorAgent: _patronKey, _sponsorKey, _sponsorRateKey, _agentKey = " , _patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
 // console.log("AGENTS.SOL:addSponsorAgent:agentRec.agentAccountKey = " , agentRec.agentAccountKey);
 // console.log("AGENTS.SOL:getAgentRateKeys:agentRateKeys.length = ",agentRateKeys.length);
         return agentRateKeys;
