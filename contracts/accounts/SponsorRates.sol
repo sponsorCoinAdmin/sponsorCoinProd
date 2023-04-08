@@ -30,11 +30,10 @@ function addSponsorRate(address _patronKey, address _sponsorKey, uint _sponsorRa
 
     function serializeSponsorRateRecordStr(address _patronKey, address _sponsorKey, uint256 _sponsorRateKey) public view returns (string memory) {
         SponsorRateStruct storage sponsorRateRec =  getSponsorRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey);
-        string memory insertionTimeStr = toString(sponsorRateRec.insertionTime);
+        string memory sponsorRateRecordStr = toString(sponsorRateRec.insertionTime);
         string memory lastUpdateTimeStr = toString(sponsorRateRec.lastUpdateTime);
         string memory stakedSPCoinsStr = toString(sponsorRateRec.stakedSPCoins);
-        string memory strRateHeaderStr = concat(insertionTimeStr, ",", lastUpdateTimeStr, ",", stakedSPCoinsStr);
-        return strRateHeaderStr;
+        sponsorRateRecordStr = concat(sponsorRateRecordStr, ",", lastUpdateTimeStr, ",", stakedSPCoinsStr);
+        return sponsorRateRecordStr;
     }
-
 }

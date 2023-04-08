@@ -47,28 +47,19 @@ contract Sponsors is Accounts {
     }
     function getSponsorRecordByKeys(address _patronKey, address _sponsorKey) internal view onlyOwnerOrRootAdmin(_patronKey) returns (SponsorStruct storage) {
         AccountStruct storage accountRec = accountMap[_patronKey];
-        SponsorStruct storage accountSponsor = accountRec.sponsorMap[_sponsorKey];
-       return accountSponsor;
+        SponsorStruct storage sponsorRec = accountRec.sponsorMap[_sponsorKey];
+       return sponsorRec;
     }
 
-    /*
-    /// @notice get address for an account sponsor
-    /// @param _patronKey public account key to get sponsor array
-    /// @param _sponsorIdx new sponsor to add to account list
-    function getPatronSponsorKeyByIndex(address _patronKey, uint _sponsorIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
-        AccountStruct storage accountRec = accountMap[_patronKey];
-        address sponsor = accountRec.sponsorAccount2Keys[_sponsorIdx];
-        return sponsor;
+    function serializeSponsorRecordStr(address _patronKey, address _sponsorKey) public view returns (string memory) {
+        SponsorStruct storage sponsorRec =  getSponsorRecordByKeys(_patronKey, _sponsorKey);
+        string memory sponsorRecordStr = toString(sponsorRec.insertionTime);
+        string memory stakedSPCoinsStr = toString(sponsorRec.stakedSPCoins);
+        sponsorRecordStr = concat(sponsorRecordStr, ",", stakedSPCoinsStr);
+        return sponsorRecordStr;
     }
-*/
+
     //////////////////// NESTED AGENT METHODS /////////////////////////
-
-    function getTotalSponsoredAmount(address _patronKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
-        SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patronKey, _sponsorKey);
-        // console.log("Sponsor.sol:sponsorRec.stakedSPCoins  = ", sponsorRec.stakedSPCoins);
-        return sponsorRec.stakedSPCoins;
-    }
-
 
     /// @notice retreives the sponsor array records from a specific account address.
     /// @param _patronKey patron Key to retrieve the sponsor list
