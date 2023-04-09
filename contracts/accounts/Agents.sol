@@ -74,12 +74,13 @@ contract Agents is SponsorRates {
         uint256[] storage sponsorRateKeys = sponsorAccountRec.sponsorRateKeys;
         uint i = sponsorRateKeys.length - 1;
         for (i; i >=0; i--) {
+            console.log("====deleteSponsorRecord: sponsorRateKeys[", i, "] ", sponsorRateKeys[i]);
             uint256 sponsorRateKey = sponsorRateKeys[i];
             SponsorRateStruct storage sponsorRateRec = sponsorAccountRec.sponsorRateMap[sponsorRateKey];
-            // console.log("==== Found _accountKeys[", i, "] ", _accountKeys[i]);
-            // console.log("==== Found accountMap[_accountKeys[", i,  "]].accountKey ", accountMap[_accountKeys[i]].accountKey);
             deleteSponsorRateRecord(sponsorRateRec);
             sponsorRateKeys.pop();
+            if (i == 0)
+              break;
         }
 //        delete sponsorAccountRec;
     }
@@ -88,13 +89,14 @@ contract Agents is SponsorRates {
     function deleteSponsorRateRecord(SponsorRateStruct storage sponsorRateRec) internal {
         address[] storage agentAccountKeys = sponsorRateRec.agentAccountKeys;
         uint i = agentAccountKeys.length - 1;
-        for (i; i >=0; i--) {
+        for (i; i >= 0; i--) {
+            console.log("====deleteSponsorRateRecord: Found agentAccountKey[", i, "] ", agentAccountKeys[i]);
             address agentAccountKey = agentAccountKeys[i];
             AgentStruct storage agentRec = sponsorRateRec.agentMap[agentAccountKey];
-            // console.log("==== Found _accountKeys[", i, "] ", _accountKeys[i]);
-            // console.log("==== Found accountMap[_accountKeys[", i,  "]].accountKey ", accountMap[_accountKeys[i]].accountKey);
             deleteAgentRecord(agentRec);
             agentAccountKeys.pop();
+            if (i == 0)
+              break;
         }
         // delete sponsorRateRec;
     }
@@ -103,13 +105,14 @@ contract Agents is SponsorRates {
     function deleteAgentRecord (AgentStruct storage agentRec) internal {
         uint256[] storage agentRateKeys = agentRec.agentRateKeys;
         uint i = agentRateKeys.length - 1;
-        for (i; i >=0; i--) {
+        for (i; i >= 0; i--) {
+            console.log("====deleteAgentRecord: Found agentRateKeys[", i, "] ", agentRateKeys[i]);
             uint256 agentRateKey = agentRateKeys[i];
             AgentRateStruct storage agentRateRec = agentRec.agentRateMap[agentRateKey];
-            // console.log("==== Found _accountKeys[", i, "] ", _accountKeys[i]);
-            // console.log("==== Found accountMap[_accountKeys[", i,  "]].accountKey ", accountMap[_accountKeys[i]].accountKey);
             deleteAgentRateRecord(agentRateRec);
             agentRateKeys.pop();
+            if (i == 0)
+              break;
         }
         // delete agentRec;
     }
@@ -118,6 +121,7 @@ contract Agents is SponsorRates {
     function deleteAgentRateRecord(AgentRateStruct storage agentRateRec) internal {
         TransactionStruct[] storage transactionList = agentRateRec.transactionList;
         for (uint i=0; i< transactionList.length; i++) { 
+            console.log("====deleteAgentRateRecord: Deleting transactionList[", i, "].quantity ", transactionList[i].quantity);
             delete transactionList[i];
         }
         // delete agentRateRec;
