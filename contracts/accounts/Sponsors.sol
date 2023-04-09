@@ -24,7 +24,7 @@ contract Sponsors is Accounts {
             sponsorRec.sponsorAccountKey = _sponsorKey;
             sponsorRec.stakedSPCoins = 0; // Coins not owned but Sponsored
             sponsorRec.inserted = true;
-            patronAccountRec.sponsorAccount2Keys.push(_sponsorKey);
+            patronAccountRec.sponsorAccountKeys.push(_sponsorKey);
             sponsorAccountRec.patronAccountKeys.push(_patronKey);
         }
     }

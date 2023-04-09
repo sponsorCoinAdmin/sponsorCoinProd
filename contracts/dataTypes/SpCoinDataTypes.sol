@@ -67,8 +67,8 @@ contract SpCoinDataTypes {
         uint256 insertionTime;
         bool inserted;
         bool verified;
-        address[] patronAccountKeys;       // If Sponsor? List of Patron Accounts
-        address[] sponsorAccount2Keys;             // If Patron List of Sponsored Accounts
+        address[] patronAccountKeys;        // If Sponsor? List of Patron Accounts
+        address[] sponsorAccountKeys;      // If Patron List of Sponsored Accounts
         address[] agentAccountKeys;         // If Sponsor? List of Agent Accounts
         address[] parentSponsorAccountKeys; // If Agent? List of Patron Sponsor Accounts
         mapping(address => SponsorStruct) sponsorMap; 
@@ -85,7 +85,7 @@ contract SpCoinDataTypes {
         uint256[] sponsorRateKeys;
         mapping(uint256 => SponsorRateStruct) sponsorRateMap;
     }
-
+ 
     struct SponsorRateStruct {
         uint256 sponsorRate;
         uint256 insertionTime;

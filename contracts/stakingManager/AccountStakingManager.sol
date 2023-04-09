@@ -14,7 +14,6 @@ contract AccountStakingManager is Transactions{
 
 /*
 function allocateStakingRewards() internal view returns(  AccountStruct[] memory ){
-   
    AccountStruct[] memory sponsorRecordList = getSponsorRecordByKeys(msg.sender);
    return sponsorRecordList;
 }
@@ -56,7 +55,7 @@ function gitAddressThis() external view returns(address){
 // ### CALCULATE INDIVIDUAL SPONSOR STAKING REWARDS FOR ACCOUNT ###
 // calcSponsorStakingRewards(accountSponsor)
 //    1. Set sponsorRewards = calculateAccountSteakingReward(accountSponsor.balanceOf, accountSponsor.rewardsRate, accountSponsor.lastUpdateDate)
-//    2. Update balance= accountBalance + stakingRewards
+//    2. Update balance = accountBalance + stakingRewards
 //    3. agentAccountList = accountSponsor.
 //    4. Set agentRewards = calcAllAgentsStakingRewards(agentAccountList)
 //    5. Decrement sponsorRewards -= agentRewards

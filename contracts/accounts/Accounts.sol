@@ -51,15 +51,6 @@ contract Accounts is StructSerialization {
 
     ////////////////////// PATRON REQUESTS //////////////////////////////
 
-    /// @notice get address for an account patron
-    /// @param _accountKey public account key to get sponsor array
-    /// @param patronIdx new patron to add to account list
-    function getAccountPatronKeyByIndex(address _accountKey, uint patronIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
-        AccountStruct storage accountRec = accountMap[_accountKey];
-        address accountSponsorKey = accountRec.patronAccountKeys[patronIdx];
-        return accountSponsorKey;
-    }
-
     /// @notice retreives the sponsor array records for the Patron list
     /// @param _accountKey public account key to get Sponsor Record Length
     function getAccountPatronKeys(address _accountKey) public view 
@@ -80,16 +71,6 @@ contract Accounts is StructSerialization {
     }
 
     /////////////////////////// AGENT REQUESTS //////////////////////////////
-/*
-    /// @notice get address for an account agent
-    /// @param _accountKey public account key to get sponsor array
-    /// @param _agentIdx new patron to add to account list
-    function getAccountAgentKeyByIndex(address _accountKey, uint _agentIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
-        AccountStruct storage accountRec = accountMap[_accountKey];
-        address accountAgentKey = accountRec.agentAccountKeys[_agentIdx];
-        return accountAgentKey;
-    }
-*/
  
     /// @notice retreives the sponsor array records for the Patron list
     /// @param _accountKey public account key to get Sponsor Record Length
@@ -105,7 +86,7 @@ contract Accounts is StructSerialization {
     /// @param _patronKey public account key to set new balance
     function getSponsorKeys(address _patronKey) public onlyOwnerOrRootAdmin(_patronKey) view returns (address[] memory) {
         AccountStruct storage patronAccount = accountMap[_patronKey];
-        address[] storage sponsorKeys = patronAccount.sponsorAccount2Keys;
+        address[] storage sponsorKeys = patronAccount.sponsorAccountKeys;
         return sponsorKeys;
     }
 

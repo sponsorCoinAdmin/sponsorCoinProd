@@ -40,16 +40,16 @@ deletePatronSponsorRecord = async (_patronKey, _sponsorKey) => {
 
 /////////////////////// AGENT RECORD FUNCTIONS ////////////////////////
 
-deletePatronSponsorAgentRecord = async (_accountKey, _sponsorAccountKey, _accountAgentKey) => {
+deleteAgentRecord = async (_accountKey, _sponsorAccountKey, _accountAgentKey) => {
   // ToDo: do Solidity Code and Testing
   logFunctionHeader(
-    "deletePatronSponsorAgentRecord = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _accountAgentKey + ")"
+    "deleteAgentRecord = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _accountAgentKey + ")"
   );
   logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
   logDetail("JS => Deleting Agent " + _accountAgentKey + " From Blockchain Network");
 
   logDetail("JS =>  " + _accountKey + ". " + "Inserting Agent[" + _accountKey + "]: " + _accountAgentKey );
-  // await spCoinContractDeployed.deletePatronSponsorAgentRecord( _accountKey, _sponsorAccountKey, _agentKey );
+  // await spCoinContractDeployed.deleteAgentRecord( _accountKey, _sponsorAccountKey, _agentKey );
   logDetail("JS => "+ "Deleted = " + _accountAgentKey + " Agent Record from SponsorKey " + _sponsorAccountKey);
 };
 
@@ -58,7 +58,7 @@ deletePatronSponsorAgentRecord = async (_accountKey, _sponsorAccountKey, _accoun
 module.exports = {
   deleteAccountRecord,
   deleteAccountRecords,
-  deletePatronSponsorAgentRecord,
+  deleteAgentRecord,
   deletePatronSponsorRecord,
   setContractDeleteMethods,
 };

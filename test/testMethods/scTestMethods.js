@@ -35,11 +35,11 @@ addTestNetworkPatronSponsor = async (_accountIdx, _sponsorIdx) => {
   await addPatronSponsor(accountKey, sponsorKey);
 };
 
-addTestNetworkPatronSponsors = async (_accountIdx, _sponsorAccount2KeysIdx) => {
-  logFunctionHeader("addTestNetworkPatronSponsors = async (" + _accountIdx + ", " + _sponsorAccount2KeysIdx + ")");
+addTestNetworkPatronSponsors = async (_accountIdx, _sponsorAccountKeysIdx) => {
+  logFunctionHeader("addTestNetworkPatronSponsors = async (" + _accountIdx + ", " + _sponsorAccountKeysIdx + ")");
 
   let accountKey = getTestHHAccountKey(_accountIdx);
-  let accountSponsorRecordKeys = getTestHHAccountListKeys(_sponsorAccount2KeysIdx);
+  let accountSponsorRecordKeys = getTestHHAccountListKeys(_sponsorAccountKeysIdx);
   logDetail("JS => For Account: " + accountKey + " Inserting Sponsor Records:");
   logDetail(accountSponsorRecordKeys);
   await addPatronSponsors(accountKey, accountSponsorRecordKeys);
@@ -120,7 +120,7 @@ deleteTestNetworkPatronSponsors = async (_testHHAccountIdx) => {
 deleteTestNetworkSponsorAgents = async (_testHHAccountIdx) => {
   logFunctionHeader("async (" + _testHHAccountIdx+ ")");
   let accountKey = getTestHHAccountKey(_testHHAccountIdx);
-  await deletePatronSponsorAgentRecords(accountKey);
+  await deleteAgentRecords(accountKey);
   return accountKey;
 };
 */
