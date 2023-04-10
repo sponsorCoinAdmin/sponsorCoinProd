@@ -66,5 +66,4 @@ contract AgentRates is Agents {
         return strTransactionList;
     }
 
-
 }

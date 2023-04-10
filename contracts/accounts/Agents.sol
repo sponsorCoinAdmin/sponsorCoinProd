@@ -27,6 +27,8 @@ contract Agents is SponsorRates {
             sponsorAgentRec.agentAccountKey = _agentKey;
             sponsorAgentRec.inserted = true;
             accountSponsorRec.agentAccountKeys.push(_agentKey);
+            string memory agentParentKeys = concat(toString(_patronKey), ", ", toString(_sponsorKey));
+            accountSponsorRec.agentParentKeys.push(agentParentKeys);
             accountAgentRec.parentSponsorAccountKeys.push(_sponsorKey);
             sponsorRateRec.agentAccountKeys.push(_agentKey);
         }
@@ -39,6 +41,41 @@ contract Agents is SponsorRates {
         SponsorRateStruct storage sponsorRateRec = getSponsorRateRecordByKeys(_patronKey, _sponsorKey,  _sponsorRateKey);
         address[] memory agentAccountKeys = sponsorRateRec.agentAccountKeys;
         return agentAccountKeys;
+    }
+
+    /// @notice Returns Agent record
+    /// @param _patronKey account key
+    /// @param _sponsorKey sponsor account key
+    /// @param _sponsorRateKey sponsor rate
+    /// @param _agentKey agent record key to be returned
+    function getAgentRecordByKeys(address _patronKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey) internal view onlyOwnerOrRootAdmin(_patronKey) returns (AgentStruct storage) {
+        SponsorRateStruct storage sponsorRateRec = getSponsorRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey);
+        AgentStruct storage sponsorAgentRec = sponsorRateRec.agentMap[_agentKey];
+        return sponsorAgentRec;
+     }
+
+    /// @notice Total Coin Staked Rates Sponsored
+    /// @param _patronKey account key
+    /// @param _sponsorKey sponsor account key
+    /// @param _sponsorRateKey sponsor rate
+    /// @param _agentKey agent record key to be returned
+    function getAgentTotalSponsored(address _patronKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
+        AgentStruct storage agentRec = getAgentRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
+        // console.log("Agents.sol:agentRec.stakedSPCoins  = ", agentRec.stakedSPCoins);
+        return agentRec.stakedSPCoins; 
+    }
+
+    /// @notice retreives the sponsor array records from a specific account address.
+    /// @param _patronKey patron Key to retrieve the sponsor list
+    /// @param _sponsorKey sponsor Key to retrieve the agent list
+    /// @param _agentKey agent Key to retrieve the agentate list
+    function getAgentRateKeys(address _patronKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint[] memory) {
+        AgentStruct storage agentRec = getAgentRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
+        uint[] memory agentRateKeys = agentRec.agentRateKeys;
+        // console.log("AGENTS.SOL:addSponsorAgent: _patronKey, _sponsorKey, _sponsorRateKey, _agentKey = " , _patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
+        // console.log("AGENTS.SOL:addSponsorAgent:agentRec.agentAccountKey = " , agentRec.agentAccountKey);
+        // console.log("AGENTS.SOL:getAgentRateKeys:agentRateKeys.length = ",agentRateKeys.length);
+        return agentRateKeys;
     }
 
     /// @notice Remove all sponsorship relationships for Patron and Sponsor accounts
@@ -123,42 +160,8 @@ contract Agents is SponsorRates {
         for (uint i=0; i< transactionList.length; i++) { 
             console.log("====deleteAgentRateRecord: Deleting transactionList[", i, "].quantity ", transactionList[i].quantity);
             delete transactionList[i];
+            transactionList.pop();
         }
         // delete agentRateRec;
-    }
-    
-    /// @notice Returns Agent record
-    /// @param _patronKey account key
-    /// @param _sponsorKey sponsor account key
-    /// @param _sponsorRateKey sponsor rate
-    /// @param _agentKey agent record key to be returned
-    function getAgentRecordByKeys(address _patronKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey) internal view onlyOwnerOrRootAdmin(_patronKey) returns (AgentStruct storage) {
-        SponsorRateStruct storage sponsorRateRec = getSponsorRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey);
-        AgentStruct storage sponsorAgentRec = sponsorRateRec.agentMap[_agentKey];
-        return sponsorAgentRec;
-     }
-
-    /// @notice Total Coin Staked Rates Sponsored
-    /// @param _patronKey account key
-    /// @param _sponsorKey sponsor account key
-    /// @param _sponsorRateKey sponsor rate
-    /// @param _agentKey agent record key to be returned
-    function getAgentTotalSponsored(address _patronKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
-        AgentStruct storage agentRec = getAgentRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
-        // console.log("Agents.sol:agentRec.stakedSPCoins  = ", agentRec.stakedSPCoins);
-        return agentRec.stakedSPCoins; 
-    }
-
-    /// @notice retreives the sponsor array records from a specific account address.
-    /// @param _patronKey patron Key to retrieve the sponsor list
-    /// @param _sponsorKey sponsor Key to retrieve the agent list
-    /// @param _agentKey agent Key to retrieve the agentate list
-    function getAgentRateKeys(address _patronKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint[] memory) {
-        AgentStruct storage agentRec = getAgentRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
-        uint[] memory agentRateKeys = agentRec.agentRateKeys;
-        // console.log("AGENTS.SOL:addSponsorAgent: _patronKey, _sponsorKey, _sponsorRateKey, _agentKey = " , _patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
-        // console.log("AGENTS.SOL:addSponsorAgent:agentRec.agentAccountKey = " , agentRec.agentAccountKey);
-        // console.log("AGENTS.SOL:getAgentRateKeys:agentRateKeys.length = ",agentRateKeys.length);
-        return agentRateKeys;
     }
 }

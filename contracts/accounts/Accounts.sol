@@ -40,15 +40,6 @@ contract Accounts is StructSerialization {
         return accountKeys;
     }
 
-    /// @notice retreives the account record of a specific accountKey address.
-    /// @param _accountKey public accountKey to set new balance
-    function getAccountSerializedRecord(address _accountKey)
-        internal view onlyOwnerOrRootAdmin(_accountKey)
-        returns (AccountStruct storage) {
-        require(isAccountInserted(_accountKey));
-        return accountMap[_accountKey];
-    }
-
     ////////////////////// PATRON REQUESTS //////////////////////////////
 
     /// @notice retreives the sponsor array records for the Patron list
@@ -74,12 +65,12 @@ contract Accounts is StructSerialization {
  
     /// @notice retreives the sponsor array records for the Patron list
     /// @param _accountKey public account key to get Sponsor Record Length
-    function getAccountAgentKeys(address _accountKey) public view 
+    function getAgentStringKeys(address _accountKey) public view 
     onlyOwnerOrRootAdmin(_accountKey) 
-    returns (address[] memory) {
+    returns (string[] memory) {
         AccountStruct storage account = accountMap[_accountKey];
-        address[] storage agentAccountKeys = account.agentAccountKeys;
-        return agentAccountKeys;
+        string[] storage agentParentKeys = account.agentParentKeys;
+        return agentParentKeys;
     }
     
     /// @notice retreives the sponsors of a specific address.
@@ -144,7 +135,7 @@ contract Accounts is StructSerialization {
 
     modifier patronDoesNotExist(address _accountKey) {
         require (getAccountPatronKeys(_accountKey).length == 0 &&
-                 getAccountAgentKeys(_accountKey).length == 0, "Sponsor Account has a Patron, (Patron must Un-sponsor Sponsored Account)");
+                 getAgentStringKeys(_accountKey).length == 0, "Sponsor Account has a Patron, (Patron must Un-sponsor Sponsored Account)");
         _;
     }
     
@@ -160,7 +151,7 @@ contract Accounts is StructSerialization {
     
     /*
     modifier AgentDoesNotExist(address _accountKey) {
-        require (getAccountAgentKeys(_accountKey).length == 0, "Sponsor Account has an Agent, (Patron must Un-sponsor Sponsored Account)");
+        require (getAgentStringKeys(_accountKey).length == 0, "Sponsor Account has an Agent, (Patron must Un-sponsor Sponsored Account)");
         _;
     }
     */

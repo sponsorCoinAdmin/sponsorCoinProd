@@ -8,6 +8,7 @@ class AccountStruct {
     this.patronAccountKeys;
     this.sponsorAccountKeys;
     this.agentAccountKeys;
+    this.agentParentKeys;
     this.parentSponsorAccountKeys;
     this.sponsorRecordList;
 //    this.KYC;
