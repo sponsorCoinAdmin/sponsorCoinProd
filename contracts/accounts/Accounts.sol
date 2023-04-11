@@ -64,16 +64,6 @@ contract Accounts is StructSerialization {
 */
     /////////////////////////// AGENT REQUESTS //////////////////////////////
  
-    /// @notice retreives the sponsor array records for the Patron list
-    /// @param _accountKey public account key to get Sponsor Record Length
-    function getAgentParentStringKeys(address _accountKey) public view 
-    onlyOwnerOrRootAdmin(_accountKey) 
-    returns (string[] memory) {
-        AccountStruct storage account = accountMap[_accountKey];
-        string[] storage agentParentKeys = account.agentParentKeys;
-        return agentParentKeys;
-    }
-    
     /// @notice retreives the sponsors of a specific address.
     /// @param _patronKey public account key to set new balance
     function getSponsorKeys(address _patronKey) public onlyOwnerOrRootAdmin(_patronKey) view returns (address[] memory) {
@@ -136,8 +126,8 @@ contract Accounts is StructSerialization {
 
     modifier patronDoesNotExist(address _accountKey) {
         require (accountMap[_accountKey].patronAccountList.length == 0 &&
-                 accountMap[_accountKey].agentParentKeys.length == 0, "Sponsor Account has a Patron, (Patron must Un-sponsor Sponsored Account)");
-        _;
+            accountMap[_accountKey].agentAccountKeys.length == 0, "Sponsor Account has a Patron, (Patron must Un-sponsor Sponsored Account)");
+            _;
     }
     
     modifier parentsponsorDoesNotExist(address _accountKey) {

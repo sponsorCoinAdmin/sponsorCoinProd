@@ -70,7 +70,6 @@ contract SpCoinDataTypes {
         address[] patronAccountList;        // If Sponsor? List of Patron Accounts
         address[] sponsorAccountKeys;      // If Patron List of Sponsored Accounts
         address[] agentAccountKeys;         // If Sponsor? List of Agent Accounts
-        string[]  agentParentKeys;          // If Sponsor? List of Agent Accounts
         address[] parentSponsorAccountKeys; // If Agent? List of Patron Sponsor Accounts
         mapping(address => SponsorStruct) sponsorMap; 
 //        KYC kyc;
@@ -79,9 +78,9 @@ contract SpCoinDataTypes {
     // Each Account has a map of Sponsors and an array of sponsorRate structures
     struct SponsorStruct {
         address sponsorAccountKey;
+        address patronKey;
         uint256 stakedSPCoins; // Coins not owned but Sponsored
         uint256 insertionTime;
-        address patronKey;
         uint256[] sponsorRateKeys;
         mapping(uint256 => SponsorRateStruct) sponsorRateMap;
         bool inserted;
@@ -102,7 +101,6 @@ contract SpCoinDataTypes {
     // Each Sponsor has a map of Agents and an array of agentRate structures
     struct AgentStruct {
         address agentAccountKey;
-        string agentParentKeys;
         uint256 stakedSPCoins; // Coins not owned but Sponsored
         uint256 insertionTime;
         uint256[] agentRateKeys;

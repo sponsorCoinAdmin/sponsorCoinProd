@@ -36,8 +36,6 @@ getAccountRecord = async (_patronKey) => {
   // console.log("ZZZZ accountStruct = " + JSON.stringify(accountStruct));
   accountStruct.accountKey = _patronKey;
   sponsorAccountKeys = await getAccountSponsorKeys(_patronKey);
-  accountStruct.agentParentKeys  = await getAgentParentStringKeys(_patronKey);
-  // console.log("AFTER = accountStruct.agentParentKeys", accountStruct.agentParentKeys);
   accountStruct.sponsorRecordList = await getSponsorRecordsByKeys(_patronKey, sponsorAccountKeys);
   return accountStruct;
 }
@@ -62,13 +60,6 @@ getAccountSponsorKeys = async (_patronKey) => {
   logFunctionHeader("getAccountSponsorKeys = async(" + _patronKey + ")");
   let sponsorAccountKeys = await spCoinContractDeployed.getSponsorKeys(_patronKey);
   return sponsorAccountKeys;
-};
-
-
-getAgentParentStringKeys = async (_patronKey) => {
-  logFunctionHeader("getAgentParentStringKeys = async(" + _patronKey + ")");
-  let agentAccountKeys = await spCoinContractDeployed.getAgentParentStringKeys(_patronKey);
-  return agentAccountKeys;
 };
 
 /////////////////////// SPONSOR RECORD FUNCTIONS ///////////////////////
@@ -177,7 +168,6 @@ getSerializedAgentRecord = async(_patronKey, _sponsorKey, _sponsorRateKey, _agen
   logFunctionHeader("getSerializedAgentRecord(" + _patronKey + ", " + _sponsorKey + ", " + _sponsorRateKey + ", " + _agentKey + ")");
   agentRecord = new AgentStruct();
   agentRecord.agentAccountKey = _agentKey;
-  agentRecord.agentParentKeys = await spCoinContractDeployed.getAgentParentKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
   agentRecord.stakedSPCoins = bigIntToDecimal(await spCoinContractDeployed.getAgentTotalSponsored(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey));
   agentRecord.agentRateList = await getAgentRatesByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
   return agentRecord;

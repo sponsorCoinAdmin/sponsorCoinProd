@@ -53,7 +53,7 @@ string public text;
     }
 
     function toString(address[] storage arrValues) internal view returns(string memory) {
-      string memory strArrValue  = "[";
+      string memory strArrValue  = "";
       for (uint i = 0; i < arrValues.length; i++) {
           if (i == 0) {
               strArrValue = concat(strArrValue, toString(arrValues[i]));
@@ -63,27 +63,10 @@ string public text;
           }
           // console.log(arrValues[i]);
       }
-      strArrValue = concat(strArrValue,"]");
       return strArrValue;
   }
 
-  /*
-  function toString(string[] storage arrValues) internal view returns(string memory) {
-   string memory strArrValue  = "[";
-   for (uint i = 0; i < arrValues.length; i++) {
-       if (i == 0) {
-           strArrValue = concat(strArrValue, '"',  arrValues[i], '"');
-       }
-       else {
-           strArrValue = concat(strArrValue,'\n,"', arrValues[i], '"');
-       }
-       // console.log(arrValues[i]);
-   }
-   strArrValue = concat(strArrValue,"]");
-   return strArrValue;
-   }
-*/
-function toString(bytes memory data) internal pure returns(string memory) {
+  function toString(bytes memory data) internal pure returns(string memory) {
        bytes memory alphabet = "0123456789abcdef";
 
        bytes memory str = new bytes(2 + data.length * 2);

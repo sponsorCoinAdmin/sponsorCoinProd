@@ -80,16 +80,7 @@ addAccountField = (key, value, accountStruct) => {
       logDetail("JS => setting accountStruct.sponsorAccountKeys = " + value);
       accountStruct.sponsorAccountKeys = value;
       break;
-      
-      case "agentParentKeys":
-        logDetail("JS => setting accountStruct.agentParentKeys = " + value);
-        accountStruct.agentParentKeys = value;
-        break;
-        case "agentAccountKeys":
-          logDetail("JS => setting accountStruct.agentAccountKeys = " + value);
-          accountStruct.agentAccountKeys = parseAddressStrRecord(value);
-          break;
-        case "parentSponsorAccountKeys":
+      case "parentSponsorAccountKeys":
         logDetail("JS => setting accountStruct.parentSponsorAccountKeys = " + value);
         accountStruct.parentSponsorAccountKeys = parseAddressStrRecord(value);
         break;
@@ -103,12 +94,13 @@ addAccountField = (key, value, accountStruct) => {
 };
 
 parseAddressStrRecord = (strRecord) => {
-  logFunctionHeader("parseAddressStrRecord = " + strRecord);
-//  console.log("parseAddressStrRecord = " + strRecord);
-
-  strRecord = strRecord.substring(0, strRecord.length - 1);
-  addressStrRecord = strRecord.split(",");
-  return addressStrRecord;
+  if (strRecord == "")
+    return [];
+  else {
+    logFunctionHeader("parseAddressStrRecord = " + strRecord);
+    addressStrRecord = strRecord.split(",");
+    return addressStrRecord;
+  }
 };
 
 module.exports = {

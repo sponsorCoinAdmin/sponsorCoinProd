@@ -89,7 +89,11 @@ describe("spCoinContract", function () {
     // expect(accountKeySize).to.equal(3);
     await logJSONTree();
     await deletePatronSponsorRecord(PATRON_ACCOUNT_KEY_0, SPONSOR_ACCOUNT_KEY_1);
-
+    await deletePatronSponsorRecord(PATRON_ACCOUNT_KEY_3, SPONSOR_ACCOUNT_KEY_1);
+    console.log("********************************************************************************");
+    console.log("*** AFTER DELETE ***************************************************************");
+    console.log("********************************************************************************");
+  
     // console.log("--- AFTER DELETE SPONSOR -----------------------------------");
     await logJSONTree();
     // agentRateKeys = await getAgentRateKeys(
