@@ -32,13 +32,24 @@ getAccountKeys = async () => {
 ////////////////////////// ACCOUNT RECORD FUNCTIONS //////////////////////////
 
 getAccountRecord = async (_patronKey) => {
-  let accountStruct = await getSerializedAccountRec(_patronKey);
+  let accountStruct = await getSerializedAccountRecord(_patronKey);
+  // console.log("ZZZZ accountStruct = " + JSON.stringify(accountStruct));
   accountStruct.accountKey = _patronKey;
+
   sponsorAccountKeys = await getAccountSponsorKeys(_patronKey);
-  accountStruct.patronAccountKeys = await getAccountPatronKeys(_patronKey);
-  accountStruct.parentSponsorAccountKeys = await getAccountParentSponsorKeys(_patronKey);
-  accountStruct.sponsorAccountKeys = sponsorAccountKeys;
-  accountStruct.agentParentKeys  = await getAgentStringKeys(_patronKey);
+
+  // console.log("BEFORE = accountStruct.patronAccountKeys", accountStruct.patronAccountKeys);
+  // accountStruct.patronAccountKeys = await getAccountPatronKeys(_patronKey);
+  // console.log("AFTER = accountStruct.patronAccountKeys", accountStruct.patronAccountKeys);
+
+  // console.log("BEFORE = accountStruct.parentSponsorAccountKeys", accountStruct.parentSponsorAccountKeys);
+  // accountStruct.parentSponsorAccountKeys = await getAccountParentSponsorKeys(_patronKey);
+  // console.log("AFTER = accountStruct.parentSponsorAccountKeys", accountStruct.parentSponsorAccountKeys);
+
+  // console.log("BEFORE = accountStruct.agentParentKeys", accountStruct.agentParentKeys);
+  // accountStruct.agentParentKeys  = await getAgentStringKeys(_patronKey);
+  // console.log("AFTER = accountStruct.agentParentKeys", accountStruct.agentParentKeys);
+
   accountStruct.sponsorRecordList = await getSponsorRecordsByKeys(_patronKey, sponsorAccountKeys);
   return accountStruct;
 }
@@ -51,17 +62,13 @@ getAccountSponsorKeySize = async (_patronKey) => {
   return maxSize;
 };
 
+/*
 getAccountParentSponsorKeys = async (_patronKey) => {
   logFunctionHeader("getAccountParentSponsorKeys = async(" + _patronKey + ")");
   let parentSponsorAccountKeys = spCoinContractDeployed.getAccountParentSponsorKeys(_patronKey);
   return parentSponsorAccountKeys;
 }
-
-getAccountPatronKeys = async (_patronKey) => {
-  logFunctionHeader("getAccountPatronKeys = async(" + _patronKey + ")");
-  patronAccountKeys = spCoinContractDeployed.getAccountPatronKeys(_patronKey);
-  return patronAccountKeys;
-};
+*/
 
 getAccountSponsorKeys = async (_patronKey) => {
   logFunctionHeader("getAccountSponsorKeys = async(" + _patronKey + ")");
@@ -69,11 +76,13 @@ getAccountSponsorKeys = async (_patronKey) => {
   return sponsorAccountKeys;
 };
 
+/*
 getAgentStringKeys = async (_patronKey) => {
   logFunctionHeader("getAgentStringKeys = async(" + _patronKey + ")");
   let agentAccountKeys = await spCoinContractDeployed.getAgentStringKeys(_patronKey);
   return agentAccountKeys;
 };
+*/
 
 /////////////////////// SPONSOR RECORD FUNCTIONS ///////////////////////
 
@@ -84,13 +93,12 @@ getAgentRecordKeys = async (_patronKey, _sponsorKey, _sponsorRateKey) => {
 };
 
 
-
 /////////////////////// AGENT RECORD FUNCTIONS ////////////////////////
 
-getSerializedAccountRec = async (_patronKey) => {
-  logFunctionHeader("getSerializedAccountRec = async(" + _patronKey + ")");
+getSerializedAccountRecord = async (_patronKey) => {
+  logFunctionHeader("getSerializedAccountRecord = async(" + _patronKey + ")");
   let serializedAccountRec =
-    await spCoinContractDeployed.getSerializedAccountRec(_patronKey);
+    await spCoinContractDeployed.getSerializedAccountRecord(_patronKey);
   return deSerializedAccountRec(serializedAccountRec);
 };
 
@@ -308,11 +316,10 @@ deSerializeSponsorRateRecordByKeys = async(_patronKey, _sponsorKey, _sponsorRate
 module.exports = {
   getAccountKeys,
   getAccountKeySize,
-  getAccountParentSponsorKeys,
-  getAccountPatronKeys,
+  // getAccountParentSponsorKeys,
   getAccountRecord,
   getAccountRecords,
-  getSerializedAccountRec,
+  getSerializedAccountRecord,
   getAccountSponsorKeys,
   getAccountSponsorKeySize,
   deSerializeAgentRateRecordByKeys,

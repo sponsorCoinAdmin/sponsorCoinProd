@@ -38,6 +38,7 @@ const bigIntToDecimal = bigInt => parseInt(bigInt, 10);
 
 addAccountField = (key, value, accountStruct) => {
   logFunctionHeader("addAccountField = (" + key + "," + value + ")");
+  // log("addAccountField = (" + key + "," + value + ")");
   switch (key.trim()) {
     case "accountKey":
       logDetail("JS => setting accountStruct.accountKey = " + value);
@@ -71,21 +72,30 @@ addAccountField = (key, value, accountStruct) => {
       logDetail("JS => setting accountStruct.KYC = " + value);
       accountStruct.KYC = value;
       break;
-    case "sponsorAccountKeys":
+      case "patronAccountKeys":
+        logDetail("JS => setting accountStruct.patronAccountKeys = " + value);
+        accountStruct.patronAccountKeys = parseAddressStrRecord(value);
+        break;
+      case "sponsorAccountKeys":
       logDetail("JS => setting accountStruct.sponsorAccountKeys = " + value);
       accountStruct.sponsorAccountKeys = value;
       break;
-    case "sponsorRecordList":
-      logDetail("JS => setting accountStruct.sponsorRecordList = " + value);
-      accountStruct.sponsorRecordList = value;
-      break;
-    case "agentAccountKeys":
-      logDetail("JS => setting accountStruct.agentAccountKeys = " + value);
-      accountStruct.agentAccountKeys = parseAddressStrRecord(value);
-      break;
-    case "patronAccountKeys":
-      logDetail("JS => setting accountStruct.patronAccountKeys = " + value);
-      accountStruct.patronAccountKeys = parseAddressStrRecord(value);
+      
+      case "agentParentKeys":
+        logDetail("JS => setting accountStruct.agentParentKeys = " + value);
+        accountStruct.agentParentKeys = value;
+        break;
+        case "agentAccountKeys":
+          logDetail("JS => setting accountStruct.agentAccountKeys = " + value);
+          accountStruct.agentAccountKeys = parseAddressStrRecord(value);
+          break;
+        case "parentSponsorAccountKeys":
+        logDetail("JS => setting accountStruct.parentSponsorAccountKeys = " + value);
+        accountStruct.parentSponsorAccountKeys = parseAddressStrRecord(value);
+        break;
+      case "sponsorRecordList":
+        logDetail("JS => setting accountStruct.sponsorRecordList = " + value);
+        accountStruct.sponsorRecordList = value;
       break;
     default:
       break;

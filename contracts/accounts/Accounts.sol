@@ -42,6 +42,7 @@ contract Accounts is StructSerialization {
 
     ////////////////////// PATRON REQUESTS //////////////////////////////
 
+    /*
     /// @notice retreives the sponsor array records for the Patron list
     /// @param _accountKey public account key to get Sponsor Record Length
     function getAccountPatronKeys(address _accountKey) public view 
@@ -60,7 +61,7 @@ contract Accounts is StructSerialization {
         address[] storage parentSponsorAccountKeys = account.parentSponsorAccountKeys;
         return parentSponsorAccountKeys;
     }
-
+*/
     /////////////////////////// AGENT REQUESTS //////////////////////////////
  
     /// @notice retreives the sponsor array records for the Patron list
@@ -134,13 +135,13 @@ contract Accounts is StructSerialization {
     }
 
     modifier patronDoesNotExist(address _accountKey) {
-        require (getAccountPatronKeys(_accountKey).length == 0 &&
-                 getAgentStringKeys(_accountKey).length == 0, "Sponsor Account has a Patron, (Patron must Un-sponsor Sponsored Account)");
+        require (accountMap[_accountKey].patronAccountKeys.length == 0 &&
+                 accountMap[_accountKey].agentParentKeys.length == 0, "Sponsor Account has a Patron, (Patron must Un-sponsor Sponsored Account)");
         _;
     }
     
     modifier parentsponsorDoesNotExist(address _accountKey) {
-        require (getAccountParentSponsorKeys(_accountKey).length == 0, "Agent Account has a Parent Sponsor, (Patron must Un-sponsor Sponsored Account)");
+        require (accountMap[_accountKey].parentSponsorAccountKeys.length == 0, "Agent Account has a Parent Sponsor, (Patron must Un-sponsor Sponsored Account)");
         _;
     }
 
@@ -151,7 +152,7 @@ contract Accounts is StructSerialization {
     
     /*
     modifier AgentDoesNotExist(address _accountKey) {
-        require (getAgentStringKeys(_accountKey).length == 0, "Sponsor Account has an Agent, (Patron must Un-sponsor Sponsored Account)");
+        require (accountMap[_accountKey](_accountKey).length == 0, "Sponsor Account has an Agent, (Patron must Un-sponsor Sponsored Account)");
         _;
     }
     */
@@ -159,7 +160,7 @@ contract Accounts is StructSerialization {
 
     /// @notice retreives the account record of a specific accountKey address.
     /// @param _accountKey public accountKey to set new balance
-    function getSerializedAccountRec(address _accountKey)
+    function getSerializedAccountRecord(address _accountKey)
         public view onlyOwnerOrRootAdmin(_accountKey)
         returns (string memory)
     {

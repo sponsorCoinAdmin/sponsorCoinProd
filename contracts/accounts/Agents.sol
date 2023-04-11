@@ -111,7 +111,7 @@ contract Agents is SponsorRates {
         uint256[] storage sponsorRateKeys = sponsorAccountRec.sponsorRateKeys;
         uint i = sponsorRateKeys.length - 1;
         for (i; i >=0; i--) {
-            console.log("====deleteSponsorRecord: sponsorRateKeys[", i, "] ", sponsorRateKeys[i]);
+            // console.log("====deleteSponsorRecord: sponsorRateKeys[", i, "] ", sponsorRateKeys[i]);
             uint256 sponsorRateKey = sponsorRateKeys[i];
             SponsorRateStruct storage sponsorRateRec = sponsorAccountRec.sponsorRateMap[sponsorRateKey];
             deleteSponsorRateRecord(sponsorRateRec);
@@ -127,7 +127,7 @@ contract Agents is SponsorRates {
         address[] storage agentAccountKeys = sponsorRateRec.agentAccountKeys;
         uint i = agentAccountKeys.length - 1;
         for (i; i >= 0; i--) {
-            console.log("====deleteSponsorRateRecord: Found agentAccountKey[", i, "] ", agentAccountKeys[i]);
+            // console.log("====deleteSponsorRateRecord: Found agentAccountKey[", i, "] ", agentAccountKeys[i]);
             address agentAccountKey = agentAccountKeys[i];
             AgentStruct storage agentRec = sponsorRateRec.agentMap[agentAccountKey];
             deleteAgentRecord(agentRec);
@@ -143,7 +143,7 @@ contract Agents is SponsorRates {
         uint256[] storage agentRateKeys = agentRec.agentRateKeys;
         uint i = agentRateKeys.length - 1;
         for (i; i >= 0; i--) {
-            console.log("====deleteAgentRecord: Found agentRateKeys[", i, "] ", agentRateKeys[i]);
+            // console.log("====deleteAgentRecord: Found agentRateKeys[", i, "] ", agentRateKeys[i]);
             uint256 agentRateKey = agentRateKeys[i];
             AgentRateStruct storage agentRateRec = agentRec.agentRateMap[agentRateKey];
             deleteAgentRateRecord(agentRateRec);
@@ -158,7 +158,7 @@ contract Agents is SponsorRates {
     function deleteAgentRateRecord(AgentRateStruct storage agentRateRec) internal {
         TransactionStruct[] storage transactionList = agentRateRec.transactionList;
         for (uint i=0; i< transactionList.length; i++) { 
-            console.log("====deleteAgentRateRecord: Deleting transactionList[", i, "].quantity ", transactionList[i].quantity);
+            // console.log("====deleteAgentRateRecord: Deleting transactionList[", i, "].quantity ", transactionList[i].quantity);
             delete transactionList[i];
             transactionList.pop();
         }
