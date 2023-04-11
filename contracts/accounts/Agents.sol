@@ -17,22 +17,22 @@ contract Agents is SponsorRates {
             nonRedundantAgent ( _patronKey, _sponsorKey, _agentKey) {
         addSponsorRate(_patronKey, _sponsorKey, _sponsorRateKey);
 
-        AgentStruct storage  sponsorAgentRec = getAgentRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
-        if (!sponsorAgentRec.inserted) {
+        AgentStruct storage  agentRecord = getAgentRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
+        if (!agentRecord.inserted) {
             addAccountRecord(_agentKey);
             string memory agentParentKeys = concat(toString(_patronKey), ",", toString(_sponsorKey), ",", toString(_sponsorRateKey));
             agentParentKeys = concat(agentParentKeys, ",", toString(_agentKey));
-            AccountStruct storage accountSponsorRec = accountMap[_sponsorKey];
-            AccountStruct storage accountAgentRec = accountMap[_agentKey];
-            SponsorRateStruct storage sponsorRateRec = getSponsorRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey);
-            sponsorAgentRec.insertionTime = block.timestamp;
-            sponsorAgentRec.agentAccountKey = _agentKey;
-            sponsorAgentRec.agentParentKeys = agentParentKeys;
-            sponsorAgentRec.inserted = true;
-            accountSponsorRec.agentAccountKeys.push(_agentKey);
-            accountSponsorRec.agentParentKeys.push(agentParentKeys);
-            accountAgentRec.parentSponsorAccountKeys.push(_sponsorKey);
-            sponsorRateRec.agentAccountKeys.push(_agentKey);
+            AccountStruct storage sponsorAccount = accountMap[_sponsorKey];
+            AccountStruct storage agentAccount = accountMap[_agentKey];
+            SponsorRateStruct storage sponsorRateRecord = getSponsorRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey);
+            agentRecord.insertionTime = block.timestamp;
+            agentRecord.agentAccountKey = _agentKey;
+            agentRecord.agentParentKeys = agentParentKeys;
+            agentRecord.inserted = true;
+            sponsorAccount.agentAccountKeys.push(_agentKey);
+            sponsorAccount.agentParentKeys.push(agentParentKeys);
+            agentAccount.parentSponsorAccountKeys.push(_sponsorKey);
+            sponsorRateRecord.agentAccountKeys.push(_agentKey);
         }
     }
 
@@ -40,8 +40,8 @@ contract Agents is SponsorRates {
     /// @param _patronKey patron Key to retrieve the sponsor list
     /// @param _sponsorKey sponsor Key to retrieve the agent list
     function getAgentRecordKeys(address _patronKey, address _sponsorKey, uint256 _sponsorRateKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (address[] memory) {
-        SponsorRateStruct storage sponsorRateRec = getSponsorRateRecordByKeys(_patronKey, _sponsorKey,  _sponsorRateKey);
-        address[] memory agentAccountKeys = sponsorRateRec.agentAccountKeys;
+        SponsorRateStruct storage sponsorRateRecord = getSponsorRateRecordByKeys(_patronKey, _sponsorKey,  _sponsorRateKey);
+        address[] memory agentAccountKeys = sponsorRateRecord.agentAccountKeys;
         return agentAccountKeys;
     }
 
@@ -51,9 +51,9 @@ contract Agents is SponsorRates {
     /// @param _sponsorRateKey sponsor rate
     /// @param _agentKey agent record key to be returned
     function getAgentRecordByKeys(address _patronKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey) internal view onlyOwnerOrRootAdmin(_patronKey) returns (AgentStruct storage) {
-        SponsorRateStruct storage sponsorRateRec = getSponsorRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey);
-        AgentStruct storage sponsorAgentRec = sponsorRateRec.agentMap[_agentKey];
-        return sponsorAgentRec;
+        SponsorRateStruct storage sponsorRateRecord = getSponsorRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey);
+        AgentStruct storage agentRecord = sponsorRateRecord.agentMap[_agentKey];
+        return agentRecord;
      }
 
     /// @notice Total Coin Staked Rates Sponsored
@@ -63,8 +63,18 @@ contract Agents is SponsorRates {
     /// @param _agentKey agent record key to be returned
     function getAgentTotalSponsored(address _patronKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
-        // console.log("Agents.sol:agentRec.stakedSPCoins  = ", agentRec.stakedSPCoins);
         return agentRec.stakedSPCoins; 
+    }
+
+   /// @notice Get Agent PArent Keys
+    /// @param _patronKey account key
+    /// @param _sponsorKey sponsor account key
+    /// @param _sponsorRateKey sponsor rate
+    /// @param _agentKey agent record key to be returned
+    function getAgentParentKeys(address _patronKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (string memory) {
+        AgentStruct storage agentRec = getAgentRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
+        // console.log("Agents.sol:agentRec.stakedSPCoins  = ", agentRec.stakedSPCoins);
+        return agentRec.agentParentKeys; 
     }
 
     /// @notice retreives the sponsor array records from a specific account address.
@@ -89,55 +99,55 @@ contract Agents is SponsorRates {
         accountExists(_sponsorKey)
         nonRedundantSponsor ( _patronKey,  _sponsorKey) {
     
-        AccountStruct storage patronAccountRec = accountMap[_patronKey];
-        SponsorStruct storage sponsorRec = patronAccountRec.sponsorMap[_sponsorKey];
-        uint256 totalSponsoed = sponsorRec.stakedSPCoins;
+        AccountStruct storage patronAccount = accountMap[_patronKey];
+        SponsorStruct storage sponsorRecord = patronAccount.sponsorMap[_sponsorKey];
+        uint256 totalSponsoed = sponsorRecord.stakedSPCoins;
 
-        // console.log("BEFORE patronAccountRec.balanceOf     = ", patronAccountRec.balanceOf);
-        // console.log("BEFORE patronAccountRec.stakedSPCoins = ", patronAccountRec.stakedSPCoins);
+        // console.log("BEFORE patronAccount.balanceOf     = ", patronAccount.balanceOf);
+        // console.log("BEFORE patronAccount.stakedSPCoins = ", patronAccount.stakedSPCoins);
         // console.log("BEFORE totalSponsoed                   = ", totalSponsoed);
-        patronAccountRec.balanceOf += totalSponsoed;
-        patronAccountRec.stakedSPCoins -= totalSponsoed;
-        // console.log("AFTER patronAccountRec.balanceOf     = ", patronAccountRec.balanceOf);
-        // console.log("AFTER patronAccountRec.stakedSPCoins = ", patronAccountRec.stakedSPCoins);
+        patronAccount.balanceOf += totalSponsoed;
+        patronAccount.stakedSPCoins -= totalSponsoed;
+        // console.log("AFTER patronAccount.balanceOf     = ", patronAccount.balanceOf);
+        // console.log("AFTER patronAccount.stakedSPCoins = ", patronAccount.stakedSPCoins);
 
-        address[] storage patronSponsorKeys = patronAccountRec.sponsorAccountKeys;
+        address[] storage patronSponsorKeys = patronAccount.sponsorAccountKeys;
         if (deleteAccountRecordFromSearchKeys(_sponsorKey, patronSponsorKeys)) {
-            mapping(address => SponsorStruct) storage sponsorMap = patronAccountRec.sponsorMap;
-            SponsorStruct storage sponsorAccountRec = sponsorMap[_sponsorKey];
-            deleteSponsorRecord(sponsorAccountRec);
+            mapping(address => SponsorStruct) storage sponsorMap = patronAccount.sponsorMap;
+            SponsorStruct storage sponsorAccount = sponsorMap[_sponsorKey];
+            deleteSponsorRecord(sponsorAccount);
         }
     }
 
-    function deleteSponsorRecord(SponsorStruct storage sponsorAccountRec) internal {
-        uint256[] storage sponsorRateKeys = sponsorAccountRec.sponsorRateKeys;
+    function deleteSponsorRecord(SponsorStruct storage sponsorAccount) internal {
+        uint256[] storage sponsorRateKeys = sponsorAccount.sponsorRateKeys;
         uint i = sponsorRateKeys.length - 1;
         for (i; i >=0; i--) {
             // console.log("====deleteSponsorRecord: sponsorRateKeys[", i, "] ", sponsorRateKeys[i]);
             uint256 sponsorRateKey = sponsorRateKeys[i];
-            SponsorRateStruct storage sponsorRateRec = sponsorAccountRec.sponsorRateMap[sponsorRateKey];
-            deleteSponsorRateRecord(sponsorRateRec);
+            SponsorRateStruct storage sponsorRateRecord = sponsorAccount.sponsorRateMap[sponsorRateKey];
+            deletesponsorRateRecord(sponsorRateRecord);
             sponsorRateKeys.pop();
             if (i == 0)
               break;
         }
-//        delete sponsorAccountRec;
+//        delete sponsorAccount;
     }
 
     // Delete sponsor rate list.
-    function deleteSponsorRateRecord(SponsorRateStruct storage sponsorRateRec) internal {
-        address[] storage agentAccountKeys = sponsorRateRec.agentAccountKeys;
+    function deletesponsorRateRecord(SponsorRateStruct storage sponsorRateRecord) internal {
+        address[] storage agentAccountKeys = sponsorRateRecord.agentAccountKeys;
         uint i = agentAccountKeys.length - 1;
         for (i; i >= 0; i--) {
-            // console.log("====deleteSponsorRateRecord: Found agentAccountKey[", i, "] ", agentAccountKeys[i]);
+            // console.log("====deletesponsorRateRecord: Found agentAccountKey[", i, "] ", agentAccountKeys[i]);
             address agentAccountKey = agentAccountKeys[i];
-            AgentStruct storage agentRec = sponsorRateRec.agentMap[agentAccountKey];
+            AgentStruct storage agentRec = sponsorRateRecord.agentMap[agentAccountKey];
             deleteAgentRecord(agentRec);
             agentAccountKeys.pop();
             if (i == 0)
               break;
         }
-        // delete sponsorRateRec;
+        // delete sponsorRateRecord;
     }
 
 /* *** VERY IMPORTANT, FIX DELETE RECORDS */
@@ -147,8 +157,8 @@ contract Agents is SponsorRates {
         for (i; i >= 0; i--) {
             // console.log("====deleteAgentRecord: Found agentRateKeys[", i, "] ", agentRateKeys[i]);
             uint256 agentRateKey = agentRateKeys[i];
-            AgentRateStruct storage agentRateRec = agentRec.agentRateMap[agentRateKey];
-            deleteAgentRateRecord(agentRateRec);
+            AgentRateStruct storage agentRateRecord= agentRec.agentRateMap[agentRateKey];
+            deleteAgentRateRecord(agentRateRecord);
             agentRateKeys.pop();
             if (i == 0)
               break;
@@ -157,13 +167,13 @@ contract Agents is SponsorRates {
     }
 
     // Delete sponsor rate list.
-    function deleteAgentRateRecord(AgentRateStruct storage agentRateRec) internal {
-        TransactionStruct[] storage transactionList = agentRateRec.transactionList;
+    function deleteAgentRateRecord(AgentRateStruct storage agentRateRecord) internal {
+        TransactionStruct[] storage transactionList = agentRateRecord.transactionList;
         for (uint i=0; i< transactionList.length; i++) { 
             // console.log("====deleteAgentRateRecord: Deleting transactionList[", i, "].quantity ", transactionList[i].quantity);
             delete transactionList[i];
             transactionList.pop();
         }
-        // delete agentRateRec;
+        // delete agentRateRecord;
     }
 }

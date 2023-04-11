@@ -16,14 +16,14 @@ contract AgentRates is Agents {
             public onlyOwnerOrRootAdmin(msg.sender) {
 
         addSponsorAgent(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
-        AgentRateStruct storage agentRateRec = getAgentRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey, _agentRateKey);
-        if (!agentRateRec.inserted) {
-            AgentStruct storage agentRec = getAgentRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
-            agentRateRec.agentRate = _agentRateKey;
-            agentRateRec.inserted = true;
-            agentRateRec.insertionTime = agentRateRec.lastUpdateTime = block.timestamp;
-            agentRateRec.stakedSPCoins = 0;
-            agentRec.agentRateKeys.push(_agentRateKey);
+        AgentRateStruct storage agentRateRecord= getAgentRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey, _agentRateKey);
+        if (!agentRateRecord.inserted) {
+            AgentStruct storage agentRecord = getAgentRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
+            agentRateRecord.agentRate = _agentRateKey;
+            agentRateRecord.inserted = true;
+            agentRateRecord.insertionTime = agentRateRecord.lastUpdateTime = block.timestamp;
+            agentRateRecord.stakedSPCoins = 0;
+            agentRecord.agentRateKeys.push(_agentRateKey);
         }
     }
 
@@ -33,10 +33,10 @@ contract AgentRates is Agents {
     }
 
      function serializeAgentRateRecordStr(address _patronKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
-        AgentRateStruct storage agentRateRec =  getAgentRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey, _agentRateKey);
-        string memory insertionTimeStr = toString(agentRateRec.insertionTime);
-        string memory lastUpdateTimeStr = toString(agentRateRec.lastUpdateTime);
-        string memory stakedSPCoinsStr = toString(agentRateRec.stakedSPCoins);
+        AgentRateStruct storage agentRateRecord=  getAgentRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey, _agentRateKey);
+        string memory insertionTimeStr = toString(agentRateRecord.insertionTime);
+        string memory lastUpdateTimeStr = toString(agentRateRecord.lastUpdateTime);
+        string memory stakedSPCoinsStr = toString(agentRateRecord.stakedSPCoins);
         string memory strRateHeaderStr = concat(insertionTimeStr, ",", lastUpdateTimeStr, ",", stakedSPCoinsStr);
         return strRateHeaderStr;
     }
@@ -44,9 +44,9 @@ contract AgentRates is Agents {
     function getRateTransactionList(address _patronKey, address _sponsorKey, uint _sponsorRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
         string memory strTransactionList = "";
-        AgentRateStruct storage agentRateRec = agentRec.agentRateMap[_agentRateKey];
-        // console.log ("agentRateRec.transactionList[0].quantity = ", agentRateRec.transactionList[0].quantity);
-        TransactionStruct[] memory transactionList = agentRateRec.transactionList;
+        AgentRateStruct storage agentRateRecord= agentRec.agentRateMap[_agentRateKey];
+        // console.log ("agentRateRecord.transactionList[0].quantity = ", agentRateRecord.transactionList[0].quantity);
+        TransactionStruct[] memory transactionList = agentRateRecord.transactionList;
         strTransactionList = concat(strTransactionList, getRateTransactionStr(transactionList)); 
         // console.log("RRRR strTransactionList = ", strTransactionList); 
         return strTransactionList;

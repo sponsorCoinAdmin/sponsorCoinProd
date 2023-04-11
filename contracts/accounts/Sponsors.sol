@@ -14,18 +14,18 @@ contract Sponsors is Accounts {
     function addPatronSponsor(address _patronKey, address _sponsorKey) 
         public onlyOwnerOrRootAdmin(_patronKey)
         nonRedundantSponsor ( _patronKey,  _sponsorKey) {
-        SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patronKey, _sponsorKey);
-        if (!sponsorRec.inserted) {
+        SponsorStruct storage sponsorRecord = getSponsorRecordByKeys(_patronKey, _sponsorKey);
+        if (!sponsorRecord.inserted) {
             addAccountRecord(_patronKey);
             addAccountRecord(_sponsorKey);
-            AccountStruct storage patronAccountRec = accountMap[_patronKey];
-            AccountStruct storage sponsorAccountRec = accountMap[_sponsorKey];
-            sponsorRec.insertionTime = block.timestamp;
-            sponsorRec.sponsorAccountKey = _sponsorKey;
-            sponsorRec.stakedSPCoins = 0; // Coins not owned but Sponsored
-            sponsorRec.inserted = true;
-            patronAccountRec.sponsorAccountKeys.push(_sponsorKey);
-            sponsorAccountRec.patronAccountKeys.push(_patronKey);
+            AccountStruct storage patronAccount = accountMap[_patronKey];
+            AccountStruct storage sponsorAccount = accountMap[_sponsorKey];
+            sponsorRecord.insertionTime = block.timestamp;
+            sponsorRecord.sponsorAccountKey = _sponsorKey;
+            sponsorRecord.stakedSPCoins = 0; // Coins not owned but Sponsored
+            sponsorRecord.inserted = true;
+            patronAccount.sponsorAccountKeys.push(_sponsorKey);
+            sponsorAccount.patronAccountKeys.push(_patronKey);
         }
     }
 
@@ -47,14 +47,14 @@ contract Sponsors is Accounts {
     }
     function getSponsorRecordByKeys(address _patronKey, address _sponsorKey) internal view onlyOwnerOrRootAdmin(_patronKey) returns (SponsorStruct storage) {
         AccountStruct storage accountRec = accountMap[_patronKey];
-        SponsorStruct storage sponsorRec = accountRec.sponsorMap[_sponsorKey];
-       return sponsorRec;
+        SponsorStruct storage sponsorRecord = accountRec.sponsorMap[_sponsorKey];
+       return sponsorRecord;
     }
 
     function serializeSponsorRecordStr(address _patronKey, address _sponsorKey) public view returns (string memory) {
-        SponsorStruct storage sponsorRec =  getSponsorRecordByKeys(_patronKey, _sponsorKey);
-        string memory sponsorRecordStr = toString(sponsorRec.insertionTime);
-        string memory stakedSPCoinsStr = toString(sponsorRec.stakedSPCoins);
+        SponsorStruct storage sponsorRecord =  getSponsorRecordByKeys(_patronKey, _sponsorKey);
+        string memory sponsorRecordStr = toString(sponsorRecord.insertionTime);
+        string memory stakedSPCoinsStr = toString(sponsorRecord.stakedSPCoins);
         sponsorRecordStr = concat(sponsorRecordStr, ",", stakedSPCoinsStr);
         return sponsorRecordStr;
     }
@@ -65,10 +65,10 @@ contract Sponsors is Accounts {
     /// @param _patronKey patron Key to retrieve the sponsor list
     /// @param _sponsorKey sponsor Key to retrieve the sponsor list
     function getSponsorRateKeys(address _patronKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint[] memory) {
-        SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patronKey, _sponsorKey);
-        uint[] memory sponsorRateKeys = sponsorRec.sponsorRateKeys;
+        SponsorStruct storage sponsorRecord = getSponsorRecordByKeys(_patronKey, _sponsorKey);
+        uint[] memory sponsorRateKeys = sponsorRecord.sponsorRateKeys;
 // console.log("AGENTS.SOL:addSponsorAgent: _patronKey, _sponsorKey, _sponsorRateKey, _sponsorKey = " , _patronKey, _sponsorKey, _sponsorRateKey, _sponsorKey);
-// console.log("AGENTS.SOL:addSponsorAgent:sponsorRec.sponsorAccountKey = " , sponsorRec.sponsorAccountKey);
+// console.log("AGENTS.SOL:addSponsorAgent:sponsorRecord.sponsorAccountKey = " , sponsorRecord.sponsorAccountKey);
 // console.log("AGENTS.SOL:getAgentRateKeys:sponsorRateKeys.length = ",sponsorRateKeys.length);
         return sponsorRateKeys;
     }
