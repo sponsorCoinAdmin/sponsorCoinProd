@@ -66,7 +66,7 @@ contract Accounts is StructSerialization {
  
     /// @notice retreives the sponsor array records for the Patron list
     /// @param _accountKey public account key to get Sponsor Record Length
-    function getAgentStringKeys(address _accountKey) public view 
+    function getAgentParentStringKeys(address _accountKey) public view 
     onlyOwnerOrRootAdmin(_accountKey) 
     returns (string[] memory) {
         AccountStruct storage account = accountMap[_accountKey];

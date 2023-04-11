@@ -67,6 +67,7 @@ string public text;
       return strArrValue;
   }
 
+  /*
   function toString(string[] storage arrValues) internal view returns(string memory) {
    string memory strArrValue  = "[";
    for (uint i = 0; i < arrValues.length; i++) {
@@ -81,7 +82,7 @@ string public text;
    strArrValue = concat(strArrValue,"]");
    return strArrValue;
    }
-
+*/
 function toString(bytes memory data) internal pure returns(string memory) {
        bytes memory alphabet = "0123456789abcdef";
 

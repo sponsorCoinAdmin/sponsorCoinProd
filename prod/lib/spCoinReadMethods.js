@@ -35,21 +35,9 @@ getAccountRecord = async (_patronKey) => {
   let accountStruct = await getSerializedAccountRecord(_patronKey);
   // console.log("ZZZZ accountStruct = " + JSON.stringify(accountStruct));
   accountStruct.accountKey = _patronKey;
-
   sponsorAccountKeys = await getAccountSponsorKeys(_patronKey);
-
-  // console.log("BEFORE = accountStruct.patronAccountKeys", accountStruct.patronAccountKeys);
-  // accountStruct.patronAccountKeys = await getAccountPatronKeys(_patronKey);
-  // console.log("AFTER = accountStruct.patronAccountKeys", accountStruct.patronAccountKeys);
-
-  // console.log("BEFORE = accountStruct.parentSponsorAccountKeys", accountStruct.parentSponsorAccountKeys);
-  // accountStruct.parentSponsorAccountKeys = await getAccountParentSponsorKeys(_patronKey);
-  // console.log("AFTER = accountStruct.parentSponsorAccountKeys", accountStruct.parentSponsorAccountKeys);
-
-  // console.log("BEFORE = accountStruct.agentParentKeys", accountStruct.agentParentKeys);
-  // accountStruct.agentParentKeys  = await getAgentStringKeys(_patronKey);
+  accountStruct.agentParentKeys  = await getAgentParentStringKeys(_patronKey);
   // console.log("AFTER = accountStruct.agentParentKeys", accountStruct.agentParentKeys);
-
   accountStruct.sponsorRecordList = await getSponsorRecordsByKeys(_patronKey, sponsorAccountKeys);
   return accountStruct;
 }
@@ -76,13 +64,12 @@ getAccountSponsorKeys = async (_patronKey) => {
   return sponsorAccountKeys;
 };
 
-/*
-getAgentStringKeys = async (_patronKey) => {
-  logFunctionHeader("getAgentStringKeys = async(" + _patronKey + ")");
-  let agentAccountKeys = await spCoinContractDeployed.getAgentStringKeys(_patronKey);
+
+getAgentParentStringKeys = async (_patronKey) => {
+  logFunctionHeader("getAgentParentStringKeys = async(" + _patronKey + ")");
+  let agentAccountKeys = await spCoinContractDeployed.getAgentParentStringKeys(_patronKey);
   return agentAccountKeys;
 };
-*/
 
 /////////////////////// SPONSOR RECORD FUNCTIONS ///////////////////////
 

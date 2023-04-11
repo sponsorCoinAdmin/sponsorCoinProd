@@ -20,14 +20,16 @@ contract Agents is SponsorRates {
         AgentStruct storage  sponsorAgentRec = getAgentRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
         if (!sponsorAgentRec.inserted) {
             addAccountRecord(_agentKey);
+            string memory agentParentKeys = concat(toString(_patronKey), ",", toString(_sponsorKey), ",", toString(_sponsorRateKey));
+            agentParentKeys = concat(agentParentKeys, ",", toString(_agentKey));
             AccountStruct storage accountSponsorRec = accountMap[_sponsorKey];
             AccountStruct storage accountAgentRec = accountMap[_agentKey];
             SponsorRateStruct storage sponsorRateRec = getSponsorRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey);
             sponsorAgentRec.insertionTime = block.timestamp;
             sponsorAgentRec.agentAccountKey = _agentKey;
+            sponsorAgentRec.agentParentKeys = agentParentKeys;
             sponsorAgentRec.inserted = true;
             accountSponsorRec.agentAccountKeys.push(_agentKey);
-            string memory agentParentKeys = concat(toString(_patronKey), ", ", toString(_sponsorKey));
             accountSponsorRec.agentParentKeys.push(agentParentKeys);
             accountAgentRec.parentSponsorAccountKeys.push(_sponsorKey);
             sponsorRateRec.agentAccountKeys.push(_agentKey);
