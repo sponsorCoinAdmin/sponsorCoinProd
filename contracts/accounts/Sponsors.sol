@@ -21,11 +21,12 @@ contract Sponsors is Accounts {
             AccountStruct storage patronAccount = accountMap[_patronKey];
             AccountStruct storage sponsorAccount = accountMap[_sponsorKey];
             sponsorRecord.insertionTime = block.timestamp;
+            sponsorRecord.patronKey = _patronKey;
             sponsorRecord.sponsorAccountKey = _sponsorKey;
             sponsorRecord.stakedSPCoins = 0; // Coins not owned but Sponsored
             sponsorRecord.inserted = true;
             patronAccount.sponsorAccountKeys.push(_sponsorKey);
-            sponsorAccount.patronAccountKeys.push(_patronKey);
+            sponsorAccount.patronAccountList.push(_patronKey);
         }
     }
 

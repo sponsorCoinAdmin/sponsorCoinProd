@@ -100,38 +100,40 @@ contract Agents is SponsorRates {
         nonRedundantSponsor ( _patronKey,  _sponsorKey) {
     
         AccountStruct storage patronAccount = accountMap[_patronKey];
-        SponsorStruct storage sponsorRecord = patronAccount.sponsorMap[_sponsorKey];
-        uint256 totalSponsoed = sponsorRecord.stakedSPCoins;
-
-        // console.log("BEFORE patronAccount.balanceOf     = ", patronAccount.balanceOf);
-        // console.log("BEFORE patronAccount.stakedSPCoins = ", patronAccount.stakedSPCoins);
-        // console.log("BEFORE totalSponsoed                   = ", totalSponsoed);
-        patronAccount.balanceOf += totalSponsoed;
-        patronAccount.stakedSPCoins -= totalSponsoed;
-        // console.log("AFTER patronAccount.balanceOf     = ", patronAccount.balanceOf);
-        // console.log("AFTER patronAccount.stakedSPCoins = ", patronAccount.stakedSPCoins);
 
         address[] storage patronSponsorKeys = patronAccount.sponsorAccountKeys;
         if (deleteAccountRecordFromSearchKeys(_sponsorKey, patronSponsorKeys)) {
-            mapping(address => SponsorStruct) storage sponsorMap = patronAccount.sponsorMap;
-            SponsorStruct storage sponsorAccount = sponsorMap[_sponsorKey];
-            deleteSponsorRecord(sponsorAccount);
+            SponsorStruct storage sponsorRecord = patronAccount.sponsorMap[_sponsorKey];
+            deleteSponsorRecord(sponsorRecord);
+            uint256 totalSponsoed = sponsorRecord.stakedSPCoins;
+            patronAccount.balanceOf += totalSponsoed;
+            patronAccount.stakedSPCoins -= totalSponsoed;
         }
     }
 
-    function deleteSponsorRecord(SponsorStruct storage sponsorAccount) internal {
-        uint256[] storage sponsorRateKeys = sponsorAccount.sponsorRateKeys;
+    function deleteSponsorRecord(SponsorStruct storage _sponsorRecord) internal {
+        address sponsorKey = _sponsorRecord.sponsorAccountKey;
+        address[] storage patronAccountList = accountMap[sponsorKey].patronAccountList;
+        // console.log("Sponsor patronKey = ", sponsorKey);
+        // console.log("patronAccountList.length = ", patronAccountList.length);
+        // console.log("patronAccountList[0] = ", patronAccountList[0]);
+        deleteAccountRecordFromSearchKeys(sponsorKey, patronAccountList);
+
+        
+
+        // Delete Agent Rate Keys
+        uint256[] storage sponsorRateKeys = _sponsorRecord.sponsorRateKeys;
         uint i = sponsorRateKeys.length - 1;
         for (i; i >=0; i--) {
             // console.log("====deleteSponsorRecord: sponsorRateKeys[", i, "] ", sponsorRateKeys[i]);
             uint256 sponsorRateKey = sponsorRateKeys[i];
-            SponsorRateStruct storage sponsorRateRecord = sponsorAccount.sponsorRateMap[sponsorRateKey];
+            SponsorRateStruct storage sponsorRateRecord = _sponsorRecord.sponsorRateMap[sponsorRateKey];
             deletesponsorRateRecord(sponsorRateRecord);
             sponsorRateKeys.pop();
             if (i == 0)
               break;
         }
-//        delete sponsorAccount;
+//        delete _sponsorRecord;
     }
 
     // Delete sponsor rate list.

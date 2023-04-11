@@ -126,8 +126,8 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
 
     // VALIDATE ACCOUNT CREATION
     // VALIDATE PATRON ACCOUNT
-    // let patronAccountord = await getAccountRecord(PATRON_ACCOUNT_KEY_0);
-    // logJSON(patronAccountord);
+    // let patronAccount = await getAccountRecord(PATRON_ACCOUNT_KEY_0);
+    // logJSON(patronAccount);
   });
 /**/
 });

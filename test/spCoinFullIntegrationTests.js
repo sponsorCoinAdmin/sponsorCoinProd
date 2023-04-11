@@ -53,18 +53,18 @@ describe("spCoinContract", function () {
   // Account, Sponsor and/or Agent are Successfully mutually exclusive.
   await addAgentRateTransaction(
     PATRON_ACCOUNT_KEY_0,
-    SPONSOR_ACCOUNT_KEY_2,
-    SPONSOR_RATE_KEY_10,
-    AGENT_ACCOUNT_KEY_3,
+    SPONSOR_ACCOUNT_KEY_1,
+    SPONSOR_RATE_KEY_9,
+    AGENT_ACCOUNT_KEY_2,
     AGENT_RATE_1,
     TRANSACTION_QTY_1
     );
 
     await addAgentRateTransaction(
-      PATRON_ACCOUNT_KEY_1,
-      SPONSOR_ACCOUNT_KEY_2,
-      SPONSOR_RATE_KEY_10,
-      AGENT_ACCOUNT_KEY_3,
+      PATRON_ACCOUNT_KEY_3,
+      SPONSOR_ACCOUNT_KEY_1,
+      SPONSOR_RATE_KEY_9,
+      AGENT_ACCOUNT_KEY_2,
       AGENT_RATE_1,
       TRANSACTION_QTY_2
       );
@@ -88,7 +88,7 @@ describe("spCoinContract", function () {
     // accountKeySize = (await getAccountKeySize()).toNumber();
     // expect(accountKeySize).to.equal(3);
     await logJSONTree();
-    await deletePatronSponsorRecord(PATRON_ACCOUNT_KEY_1, SPONSOR_ACCOUNT_KEY_2);
+    await deletePatronSponsorRecord(PATRON_ACCOUNT_KEY_0, SPONSOR_ACCOUNT_KEY_1);
 
     // console.log("--- AFTER DELETE SPONSOR -----------------------------------");
     await logJSONTree();
@@ -101,8 +101,8 @@ describe("spCoinContract", function () {
 
     // VALIDATE ACCOUNT CREATION
     // VALIDATE PATRON ACCOUNT
-    // let patronAccountord = await getAccountRecord(PATRON_ACCOUNT_KEY_1);
-    // logJSON(patronAccountord);
+    // let patronAccount = await getAccountRecord(PATRON_ACCOUNT_KEY_1);
+    // logJSON(patronAccount);
   });
 /**/
 });

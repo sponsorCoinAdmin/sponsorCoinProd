@@ -48,8 +48,8 @@ contract Accounts is StructSerialization {
     function getAccountPatronKeys(address _accountKey) public view 
         onlyOwnerOrRootAdmin(_accountKey) returns (address[] memory) {
         AccountStruct storage account = accountMap[_accountKey];
-        address[] storage patronAccountKeys = account.patronAccountKeys;
-        return patronAccountKeys;
+        address[] storage patronAccountList = account.patronAccountList;
+        return patronAccountList;
     }
 
     /////////////////////////// SPONSOR REQUESTS //////////////////////////////
@@ -97,32 +97,32 @@ contract Accounts is StructSerialization {
     }
 
     function deleteAccountRecordFromSearchKeys(address _accountKey, 
-        address[] storage _accountKeys) internal returns (bool) {
+        address[] storage _accountKeyList) internal returns (bool) {
       // console.log("deleteAccountRecordFromSearchKeys(", _accountKey);
         bool deleted = false;
-        uint i = getAccountListIndex (_accountKey, _accountKeys);
-        for (i; i<_accountKeys.length; i++) { 
-            if (_accountKeys[i] == _accountKey) {
-                // console.log("==== Found _accountKeys[", i, "] ", _accountKeys[i]);
-                // console.log("==== Found accountMap[_accountKeys[", i,  "]].accountKey ", accountMap[_accountKeys[i]].accountKey);
-                delete _accountKeys[i];
-                while ( i < _accountKeys.length - 1) { 
-                    _accountKeys[i] = _accountKeys[i + 1];
+        uint i = getAccountListIndex (_accountKey, _accountKeyList);
+        for (i; i<_accountKeyList.length; i++) { 
+            if (_accountKeyList[i] == _accountKey) {
+                // console.log("==== Found _accountKeyList[", i, "] ", _accountKeyList[i]);
+                // console.log("==== Found accountMap[_accountKeyList[", i,  "]].accountKey ", accountMap[_accountKeyList[i]].accountKey);
+                delete _accountKeyList[i];
+                while ( i < _accountKeyList.length - 1) { 
+                    _accountKeyList[i] = _accountKeyList[i + 1];
                     i++;
                 }
                 deleted = true;
             }
         }
-        _accountKeys.pop();
+        _accountKeyList.pop();
         return deleted;
     }
 
     function getAccountListIndex (address _accountKey, 
-        address[] storage _accountKeys) internal view
+        address[] storage _accountKeyList) internal view
         accountExists(_accountKey) returns (uint) {
         uint i = 0;
-        for (i; i < _accountKeys.length; i++) {
-            if (_accountKeys[i] == _accountKey) {
+        for (i; i < _accountKeyList.length; i++) {
+            if (_accountKeyList[i] == _accountKey) {
                 break;
             }
         }
@@ -135,7 +135,7 @@ contract Accounts is StructSerialization {
     }
 
     modifier patronDoesNotExist(address _accountKey) {
-        require (accountMap[_accountKey].patronAccountKeys.length == 0 &&
+        require (accountMap[_accountKey].patronAccountList.length == 0 &&
                  accountMap[_accountKey].agentParentKeys.length == 0, "Sponsor Account has a Patron, (Patron must Un-sponsor Sponsored Account)");
         _;
     }

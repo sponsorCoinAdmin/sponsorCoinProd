@@ -67,7 +67,7 @@ contract SpCoinDataTypes {
         uint256 insertionTime;
         bool inserted;
         bool verified;
-        address[] patronAccountKeys;        // If Sponsor? List of Patron Accounts
+        address[] patronAccountList;        // If Sponsor? List of Patron Accounts
         address[] sponsorAccountKeys;      // If Patron List of Sponsored Accounts
         address[] agentAccountKeys;         // If Sponsor? List of Agent Accounts
         string[]  agentParentKeys;          // If Sponsor? List of Agent Accounts
@@ -81,21 +81,22 @@ contract SpCoinDataTypes {
         address sponsorAccountKey;
         uint256 stakedSPCoins; // Coins not owned but Sponsored
         uint256 insertionTime;
-        bool inserted;
-        bool verified;
+        address patronKey;
         uint256[] sponsorRateKeys;
         mapping(uint256 => SponsorRateStruct) sponsorRateMap;
+        bool inserted;
+        bool verified;
     }
  
     struct SponsorRateStruct {
         uint256 sponsorRate;
         uint256 insertionTime;
         uint256 lastUpdateTime;
-        uint256 stakedSPCoins; // Coins not owned but Sponsored
-        bool inserted;
         address[] agentAccountKeys;
+        uint256 stakedSPCoins; // Coins not owned but Sponsored
         mapping(address => AgentStruct) agentMap;
         TransactionStruct[] transactionList;
+        bool inserted;
     }
 
     // Each Sponsor has a map of Agents and an array of agentRate structures
@@ -104,10 +105,10 @@ contract SpCoinDataTypes {
         string agentParentKeys;
         uint256 stakedSPCoins; // Coins not owned but Sponsored
         uint256 insertionTime;
-        bool inserted;
-        bool verified;
         uint256[] agentRateKeys;
         mapping(uint256 => AgentRateStruct) agentRateMap;
+        bool inserted;
+        bool verified;
     }
  
     struct AgentRateStruct {
@@ -115,8 +116,8 @@ contract SpCoinDataTypes {
         uint256 insertionTime;
         uint256 lastUpdateTime;
         uint256 stakedSPCoins; // Coins not owned but Sponsored
-        bool inserted;
         TransactionStruct[] transactionList;
+        bool inserted;
     }
 
     struct TransactionStruct {
