@@ -1,11 +1,34 @@
 const { expect } = require("chai");
-const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
-const { LOG_MODE } = require("../prod/lib/utils/logging");
-const { } = require("../test/testMethods/scTestMethods");
+const {
+  TEST_HH_ACCOUNT_LIST, TEST_HH_ACCOUNT_KEY_0, TEST_HH_ACCOUNT_KEY_1, TEST_HH_ACCOUNT_KEY_2,
+  TEST_HH_ACCOUNT_KEY_3, TEST_HH_ACCOUNT_KEY_4, TEST_HH_ACCOUNT_KEY_5, TEST_HH_ACCOUNT_KEY_6,
+  TEST_HH_ACCOUNT_KEY_7, TEST_HH_ACCOUNT_KEY_8, TEST_HH_ACCOUNT_KEY_9, TEST_HH_ACCOUNT_KEY_10,
+  TEST_HH_ACCOUNT_KEY_11, TEST_HH_ACCOUNT_KEY_12, TEST_HH_ACCOUNT_KEY_13, TEST_HH_ACCOUNT_KEY_14,
+  TEST_HH_ACCOUNT_KEY_15, TEST_HH_ACCOUNT_KEY_16, TEST_HH_ACCOUNT_KEY_17, TEST_HH_ACCOUNT_KEY_18,
+  TEST_HH_ACCOUNT_KEY_19, PATRON_ACCOUNT_KEY_0,
+  PATRON_ACCOUNT_KEY_1, PATRON_ACCOUNT_KEY_2, PATRON_ACCOUNT_KEY_3, PATRON_ACCOUNT_KEY_4,
+  PATRON_ACCOUNT_KEY_5, PATRON_ACCOUNT_KEY_6, PATRON_ACCOUNT_KEY_7, PATRON_ACCOUNT_KEY_8,
+  PATRON_ACCOUNT_KEY_9, PATRON_ACCOUNT_KEY_10,
+  SPONSOR_ACCOUNT_KEY_0, SPONSOR_ACCOUNT_KEY_1, SPONSOR_ACCOUNT_KEY_2, SPONSOR_ACCOUNT_KEY_3,
+  SPONSOR_ACCOUNT_KEY_4, SPONSOR_ACCOUNT_KEY_5, SPONSOR_ACCOUNT_KEY_6, SPONSOR_ACCOUNT_KEY_7,
+  SPONSOR_ACCOUNT_KEY_8, SPONSOR_ACCOUNT_KEY_9, SPONSOR_ACCOUNT_KEY_10,
+  AGENT_ACCOUNT_KEY_0, AGENT_ACCOUNT_KEY_1, AGENT_ACCOUNT_KEY_2, AGENT_ACCOUNT_KEY_3,
+  AGENT_ACCOUNT_KEY_4, AGENT_ACCOUNT_KEY_5, AGENT_ACCOUNT_KEY_6, AGENT_ACCOUNT_KEY_7,
+  AGENT_ACCOUNT_KEY_8, AGENT_ACCOUNT_KEY_9, AGENT_ACCOUNT_KEY_10,
+  SPONSOR_RATE_1, SPONSOR_RATE_2, SPONSOR_RATE_3, SPONSOR_RATE_4,
+  SPONSOR_RATE_5, SPONSOR_RATE_6, SPONSOR_RATE_7, SPONSOR_RATE_8,
+  SPONSOR_RATE_9,  SPONSOR_RATE_10,
+  AGENT_RATE_1, AGENT_RATE_2, AGENT_RATE_3, AGENT_RATE_4, AGENT_RATE_5, AGENT_RATE_6,
+  AGENT_RATE_7, AGENT_RATE_8, AGENT_RATE_9, AGENT_RATE_10,
+  TRANSACTION_QTY_1, TRANSACTION_QTY_2, TRANSACTION_QTY_3, TRANSACTION_QTY_4, TRANSACTION_QTY_5,
+  TRANSACTION_QTY_6, TRANSACTION_QTY_7, TRANSACTION_QTY_8, TRANSACTION_QTY_9, TRANSACTION_QTY_10
+ } = require("./testMethods/hhTestAccounts");
+ const { LOG_MODE } = require("../prod/lib/utils/logging");
+const { } = require("./testMethods/scTestMethods");
 const { } = require("../prod/lib/spCoinReadMethods");
 const { } = require("../prod/lib/spCoinDeleteMethods");
-const { } = require("../test/testMethods/scTestMethods");
-const { } = require("../test/deployContract");
+const { } = require("./testMethods/scTestMethods");
+const { } = require("./deployContract");
 
 let spCoinContractDeployed;
 
@@ -18,7 +41,7 @@ describe("spCoinContract", function () {
     spCoinContractDeployed = await deploySpCoinContract();
   });
 
-/**/
+/**
 
     it("SUCCESSFUL EXECUTION: 'SUCCESSFULLY DELETED ACCOUNT'", async function () {
       await addTestNetworkAccounts([0, 1, 2]);
@@ -48,7 +71,7 @@ describe("spCoinContract", function () {
       console.log("============================================================");
     });
 
-  /**/
+  /**
 
   it("SUCCESSFUL ERROR MSG CAUGHT: 'ACCOUNT DOES NOT EXIST'", async function () {
     await addTestNetworkPatronSponsors(0, [1]);
@@ -62,7 +85,7 @@ describe("spCoinContract", function () {
     }
   });
 
-  /**/
+  /**
 
   it("SUCCESSFUL ERROR MSG CAUGHT: 'PATRON ACCOUNT HAS SPONSOR'", async function () {
     await addTestNetworkPatronSponsors(0, [1]);
@@ -76,7 +99,7 @@ describe("spCoinContract", function () {
     }
   });
 
-/**/
+/**
 
     it("SUCCESSFUL ERROR MSG CAUGHT: 'SPONSOR ACCOUNT HAS PATRON'", async function () {
       await addTestNetworkPatronSponsors(0, [1]);
@@ -93,18 +116,18 @@ describe("spCoinContract", function () {
   /**/
 
   it("SUCCESSFUL ERROR MSG CAUGHT: 'AGENT ACCOUNT HAS PARENT SPONSOR'", async function () {
-    await addTestNetworkSponsorAgents(1, 2, 10, [3]);
+    await addSponsorAgents(AGENT_ACCOUNT_KEY_0, SPONSOR_ACCOUNT_KEY_1, SPONSOR_RATE_10, [AGENT_ACCOUNT_KEY_0, SPONSOR_ACCOUNT_KEY_2]);
 
     let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Agent Account has a Parent Sponsor, (Patron must Un-sponsor Sponsored Account)'";
     try {
-      await deleteTestNetworkAccount(3);
+      await deleteAccountRecord(SPONSOR_ACCOUNT_KEY_2);
       throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
     }
     catch (err) {
       expect(err.message).to.equal(expectedErrMsg);
     }
   });
-  /**/
+  /**
 
   it("VALIDATE THAT ACCOUNTS, PATRIOT/SPONSOR/AGENT, ARE ALL MUTUALLY EXCLUSIVE", async function () {
     setLogMode(LOG_MODE.LOG, true);
@@ -147,4 +170,5 @@ describe("spCoinContract", function () {
     accountArr = await getAccountRecords();
     logJSON(accountArr);
   });
+  /**/
 });

@@ -89,28 +89,6 @@ contract Accounts is StructSerialization {
         require (isAccountInserted(_accountKey) , "Account does not exists");
         _;
     }
-/*
-    modifier patronDoesNotExist(address _accountKey) {
-        require (accountMap[_accountKey].patronAccountList.length == 0 &&
-            accountMap[_accountKey].agentAccountKeys.length == 0, "Sponsor Account has a Patron, (Patron must Un-sponsor Sponsored Account)");
-            _;
-    }
-    
-    modifier parentsponsorDoesNotExist(address _accountKey) {
-        require (accountMap[_accountKey].parentSponsorAccountKeys.length == 0, "Agent Account has a Parent Sponsor, (Patron must Un-sponsor Sponsored Account)");
-        _;
-    }
-
-    modifier sponsorDoesNotExist(address _patronKey) {
-        require (getSponsorKeys(_patronKey).length == 0, "Patron Account has a Sponsor, (Patron must Un-sponsor Sponsored Account)");
-        _;
-    }
-    
-    modifier AgentDoesNotExist(address _accountKey) {
-        require (accountMap[_accountKey](_accountKey).length == 0, "Sponsor Account has an Agent, (Patron must Un-sponsor Sponsored Account)");
-        _;
-    }
-    */
     /////////////////// ACCOUNT SERIALIZATION REQUESTS ////////////////////////
 
     /// @notice retreives the account record of a specific accountKey address.

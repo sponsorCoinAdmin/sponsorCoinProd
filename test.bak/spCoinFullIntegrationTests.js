@@ -22,9 +22,9 @@ const {
   AGENT_ACCOUNT_KEY_0, AGENT_ACCOUNT_KEY_1, AGENT_ACCOUNT_KEY_2, AGENT_ACCOUNT_KEY_3,
   AGENT_ACCOUNT_KEY_4, AGENT_ACCOUNT_KEY_5, AGENT_ACCOUNT_KEY_6, AGENT_ACCOUNT_KEY_7,
   AGENT_ACCOUNT_KEY_8, AGENT_ACCOUNT_KEY_9, AGENT_ACCOUNT_KEY_10,
-  SPONSOR_RATE_KEY_1, SPONSOR_RATE_KEY_2, SPONSOR_RATE_KEY_3, SPONSOR_RATE_KEY_4,
-  SPONSOR_RATE_KEY_5, SPONSOR_RATE_KEY_6, SPONSOR_RATE_KEY_7, SPONSOR_RATE_KEY_8,
-  SPONSOR_RATE_KEY_9,  SPONSOR_RATE_KEY_10,
+  SPONSOR_RATE_1, SPONSOR_RATE_2, SPONSOR_RATE_3, SPONSOR_RATE_4,
+  SPONSOR_RATE_5, SPONSOR_RATE_6, SPONSOR_RATE_7, SPONSOR_RATE_8,
+  SPONSOR_RATE_9,  SPONSOR_RATE_10,
   AGENT_RATE_1, AGENT_RATE_2, AGENT_RATE_3, AGENT_RATE_4, AGENT_RATE_5, AGENT_RATE_6,
   AGENT_RATE_7, AGENT_RATE_8, AGENT_RATE_9, AGENT_RATE_10,
   TRANSACTION_QTY_1, TRANSACTION_QTY_2, TRANSACTION_QTY_3, TRANSACTION_QTY_4, TRANSACTION_QTY_5,
@@ -54,7 +54,7 @@ describe("spCoinContract", function () {
   // await addAgentRateTransaction(
   //   PATRON_ACCOUNT_KEY_0,
   //   SPONSOR_ACCOUNT_KEY_1,
-  //   SPONSOR_RATE_KEY_9,
+  //   SPONSOR_RATE_9,
   //   AGENT_ACCOUNT_KEY_2,
   //   AGENT_RATE_1,
   //   TRANSACTION_QTY_1
@@ -63,7 +63,7 @@ describe("spCoinContract", function () {
     await addAgentRateTransaction(
       PATRON_ACCOUNT_KEY_3,
       SPONSOR_ACCOUNT_KEY_1,
-      SPONSOR_RATE_KEY_9,
+      SPONSOR_RATE_9,
       AGENT_ACCOUNT_KEY_2,
       AGENT_RATE_1,
       TRANSACTION_QTY_2
@@ -72,7 +72,7 @@ describe("spCoinContract", function () {
     await addAgentRateTransaction(
       PATRON_ACCOUNT_KEY_1,
       SPONSOR_ACCOUNT_KEY_2,
-      SPONSOR_RATE_KEY_10,
+      SPONSOR_RATE_10,
       AGENT_ACCOUNT_KEY_3,
       AGENT_RATE_1,
       TRANSACTION_QTY_2
@@ -81,7 +81,7 @@ describe("spCoinContract", function () {
     // let agentRateKeys = await getAgentRateKeys(
     //   PATRON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_1,
-    // SPONSOR_RATE_KEY_10,
+    // SPONSOR_RATE_10,
     //   AGENT_ACCOUNT_KEY_1);
   
     // accountKeySize = (await getAccountKeySize()).toNumber();
@@ -98,7 +98,7 @@ describe("spCoinContract", function () {
     // agentRateKeys = await getAgentRateKeys(
     //   PATRON_ACCOUNT_KEY_1,
     //   SPONSOR_ACCOUNT_KEY_1,
-    // SPONSOR_RATE_KEY_10,
+    // SPONSOR_RATE_10,
     //   AGENT_ACCOUNT_KEY_1);
     //   logJSON(agentRateKeys);
 
