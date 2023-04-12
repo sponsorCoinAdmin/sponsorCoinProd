@@ -101,6 +101,10 @@ contract UnSubscribe is Transactions {
 
  /////////////////// DELETE ACCOUNT METHODS ////////////////////////
    
+ /*
+ 
+
+ */
     function deleteAccountRecord(address _accountKey) public
     accountExists(_accountKey) 
     onlyOwnerOrRootAdmin(_accountKey) {
