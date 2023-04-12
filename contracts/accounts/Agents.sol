@@ -112,7 +112,7 @@ contract Agents is SponsorRates {
             uint256 sponsorRateKey = sponsorRateKeys[i];
             SponsorRateStruct storage sponsorRateRecord = _sponsorRecord.sponsorRateMap[sponsorRateKey];
 
-            deletesponsorRateRecord(sponsorAccount, sponsorRateRecord);
+            deleteSponsorRateRecord(sponsorAccount, sponsorRateRecord);
             sponsorRateKeys.pop();
             if (i == 0)
               break;
@@ -121,17 +121,17 @@ contract Agents is SponsorRates {
     }
 
     // Delete sponsor rate list.
-    function deletesponsorRateRecord(AccountStruct storage sponsorAccount, SponsorRateStruct storage sponsorRateRecord) internal {
+    function deleteSponsorRateRecord(AccountStruct storage sponsorAccount, SponsorRateStruct storage sponsorRateRecord) internal {
         address[] storage agentAccountKeys = sponsorRateRecord.agentAccountKeys;
         uint i = agentAccountKeys.length - 1;
         for (i; i >= 0; i--) {
-            // console.log("====deletesponsorRateRecord: Found agentAccountKey[", i, "] ", agentAccountKeys[i]);
+            // console.log("====deleteSponsorRateRecord: Found agentAccountKey[", i, "] ", agentAccountKeys[i]);
             address agentAccountKey = agentAccountKeys[i];
             AgentStruct storage agentRec = sponsorRateRecord.agentMap[agentAccountKey];
             AccountStruct storage agentAccount = accountMap[agentAccountKey];
 
-            console.log("***** Deleting sponsorAccount.accountKey ", sponsorAccount.accountKey,
-             "From agentRec.agentAccountKey ", agentRec.agentAccountKey);
+            // console.log("***** Deleting sponsorAccount.accountKey ", sponsorAccount.accountKey,
+            //  "From agentRec.agentAccountKey ", agentRec.agentAccountKey);
             deleteAccountRecordFromSearchKeys(sponsorAccount.accountKey, agentAccount.parentSponsorAccountKeys);
 
             deleteAgentRecord(agentRec);

@@ -96,10 +96,13 @@ contract Accounts is StructSerialization {
                 // console.log("==== Found _accountKeyList[", i, "] ", _accountKeyList[i]);
                 // console.log("==== Found accountMap[_accountKeyList[", i,  "]].accountKey ", accountMap[_accountKeyList[i]].accountKey);
                 delete _accountKeyList[i];
+                _accountKeyList[i] = _accountKeyList[_accountKeyList.length - 1];
+                /*
                 while ( i < _accountKeyList.length - 1) { 
                     _accountKeyList[i] = _accountKeyList[i + 1];
                     i++;
                 }
+                */
                 deleted = true;
             }
         }
