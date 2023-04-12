@@ -85,18 +85,29 @@ contract Agents is SponsorRates {
         nonRedundantSponsor ( _patronKey,  _sponsorKey) {
     
         AccountStruct storage patronAccount = accountMap[_patronKey];
-
         address[] storage patronSponsorKeys = patronAccount.sponsorAccountKeys;
         if (deleteAccountRecordFromSearchKeys(_sponsorKey, patronSponsorKeys)) {
             SponsorStruct storage sponsorRecord = patronAccount.sponsorMap[_sponsorKey];
+            AccountStruct storage sponsorAccount = accountMap[sponsorRecord.sponsorAccountKey];
+            // deleteAccountRecordFromSearchKeys(_sponsorKey, sponsorAccount.agentAccountKeys);
             deleteSponsorRecord(sponsorRecord);
+            // deleteAccountRecordFromSearchKeys(_sponsorKey, sponsorAccount.patronAccountList);
 
-            address[] storage patronAccountList = accountMap[_sponsorKey].patronAccountList;
-            deleteAccountRecordFromSearchKeys(_sponsorKey, patronAccountList);
 
             uint256 totalSponsoed = sponsorRecord.stakedSPCoins;
             patronAccount.balanceOf += totalSponsoed;
             patronAccount.stakedSPCoins -= totalSponsoed;
+
+            /**** START DEBUG CODING  ****/
+
+            console.log("********* Start Sponsor Record for delete ************");
+            console.log("***  sponsorAccount.patronAccountList.length = ", sponsorAccount.patronAccountList.length);
+            console.log("***  sponsorAccount.sponsorAccountKeys.length = ", sponsorAccount.sponsorAccountKeys.length);
+            console.log("***  sponsorAccount.agentAccountKeys.length = ", sponsorAccount.agentAccountKeys.length);
+            console.log("***  sponsorAccount.parentSponsorAccountKeys.length = ", sponsorAccount.parentSponsorAccountKeys.length);
+            console.log("********* Stop Sponsor Record for delete  ************");
+            /**** STOP DEBUG CODING   ****/
+            // deleteAccountRecord(sponsorRecord.sponsorAccountKey);
         }
     }
 
@@ -145,16 +156,25 @@ contract Agents is SponsorRates {
 /* *** VERY IMPORTANT, FIX DELETE RECORDS */
     function deleteAgentRecord (AgentStruct storage agentRec) internal {
         uint256[] storage agentRateKeys = agentRec.agentRateKeys;
+        // console.log("### BEFORE Delete agentRec.agentRateKeys.length = ", agentRec.agentRateKeys.length);
         uint i = agentRateKeys.length - 1;
         for (i; i >= 0; i--) {
             // console.log("====deleteAgentRecord: Found agentRateKeys[", i, "] ", agentRateKeys[i]);
             uint256 agentRateKey = agentRateKeys[i];
-            AgentRateStruct storage agentRateRecord= agentRec.agentRateMap[agentRateKey];
+            AgentRateStruct storage agentRateRecord = agentRec.agentRateMap[agentRateKey];
             deleteAgentRateRecord(agentRateRecord);
+
+            console.log("###########################################");
+
             agentRateKeys.pop();
             if (i == 0)
               break;
         }
+        // console.log("### AFTER Delete agentRec.agentRateKeys.length = ", agentRec.agentRateKeys.length);
+
+        // delete the Agent Account Record if no References
+        //deleteAccountRecord(agentRec.agentAccountKey);
+
         // delete agentRec;
     }
 
