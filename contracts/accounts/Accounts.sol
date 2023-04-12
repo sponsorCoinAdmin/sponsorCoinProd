@@ -72,44 +72,7 @@ contract Accounts is StructSerialization {
         return sponsorKeys;
     }
 
-     /////////////////// DELETE ACCOUNT METHODS ////////////////////////
-   
-    function deleteAccountRecord(address _accountKey) public
-        accountExists(_accountKey) 
-        onlyOwnerOrRootAdmin(_accountKey)
-        patronDoesNotExist(_accountKey)
-        parentsponsorDoesNotExist(_accountKey)
-//      AgentDoesNotExist(_accountKey)
-        sponsorDoesNotExist(_accountKey) {
-        if (deleteAccountRecordFromSearchKeys( _accountKey,  accountKeys)) {
-            delete accountMap[_accountKey];
-        } 
-    }
-
-    function deleteAccountRecordFromSearchKeys(address _accountKey, 
-        address[] storage _accountKeyList) internal returns (bool) {
-      // console.log("deleteAccountRecordFromSearchKeys(", _accountKey);
-        bool deleted = false;
-        uint i = getAccountListIndex (_accountKey, _accountKeyList);
-        for (i; i<_accountKeyList.length; i++) { 
-            if (_accountKeyList[i] == _accountKey) {
-                // console.log("==== Found _accountKeyList[", i, "] ", _accountKeyList[i]);
-                // console.log("==== Found accountMap[_accountKeyList[", i,  "]].accountKey ", accountMap[_accountKeyList[i]].accountKey);
-                delete _accountKeyList[i];
-                _accountKeyList[i] = _accountKeyList[_accountKeyList.length - 1];
-                /*
-                while ( i < _accountKeyList.length - 1) { 
-                    _accountKeyList[i] = _accountKeyList[i + 1];
-                    i++;
-                }
-                */
-                deleted = true;
-            }
-        }
-        _accountKeyList.pop();
-        return deleted;
-    }
-
+    
     function getAccountListIndex (address _accountKey, 
         address[] storage _accountKeyList) internal view
         accountExists(_accountKey) returns (uint) {
@@ -126,7 +89,7 @@ contract Accounts is StructSerialization {
         require (isAccountInserted(_accountKey) , "Account does not exists");
         _;
     }
-
+/*
     modifier patronDoesNotExist(address _accountKey) {
         require (accountMap[_accountKey].patronAccountList.length == 0 &&
             accountMap[_accountKey].agentAccountKeys.length == 0, "Sponsor Account has a Patron, (Patron must Un-sponsor Sponsored Account)");
@@ -143,7 +106,6 @@ contract Accounts is StructSerialization {
         _;
     }
     
-    /*
     modifier AgentDoesNotExist(address _accountKey) {
         require (accountMap[_accountKey](_accountKey).length == 0, "Sponsor Account has an Agent, (Patron must Un-sponsor Sponsored Account)");
         _;
