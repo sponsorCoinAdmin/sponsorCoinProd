@@ -50,11 +50,11 @@ addTestNetworkPatronSponsors = async (_accountIdx, _sponsorAccountListIdx) => {
 addTestNetworkSponsorAgents = async ( _accountIdx, _sponsorIdx, _sponsorRateKey, _agentListIdx ) => {
   logFunctionHeader("async (" + _accountIdx  + "," + _sponsorIdx + "," + _agentListIdx+ ")");
   let accountKey = getTestHHAccountKey(_accountIdx);
-  let sponsorAccountKey = getTestHHAccountKey(_sponsorIdx);
+  let sponsorKey = getTestHHAccountKey(_sponsorIdx);
   let agentAccountList = getTestHHAccountListKeys(_agentListIdx);
 
-  await addSponsorAgents(accountKey, sponsorAccountKey, _sponsorRateKey, agentAccountList);
-  return sponsorAccountKey;
+  await addSponsorAgents(accountKey, sponsorKey, _sponsorRateKey, agentAccountList);
+  return sponsorKey;
 };
 
 addTestNetworkAccount = async (_testHHAccountIdx) => {

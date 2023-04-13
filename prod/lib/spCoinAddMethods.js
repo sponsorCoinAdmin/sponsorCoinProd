@@ -35,24 +35,24 @@ addPatronSponsor = async (_accountKey, _sponsorKey) => {
     return --sponsorCount;
   };
 
-  addSponsorAgent = async (_accountKey, _sponsorAccountKey, _sponsorRateKey, _accountAgentKey) => {
+  addSponsorAgent = async (_accountKey, _sponsorKey, _sponsorRateKey, _accountAgentKey) => {
     logFunctionHeader(
-      "addSponsorAgent = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _sponsorRateKey + ", " + _accountAgentKey + ")"
+      "addSponsorAgent = async(" + _accountKey + ", " + _sponsorKey + ", " + _sponsorRateKey + ", " + _accountAgentKey + ")"
     );
     logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
     logDetail("JS => Adding Agent " + _accountAgentKey + " To Blockchain Network");
   
     logDetail("JS =>  " + _accountKey + ". " + "Inserting Agent[" + _accountKey + "]: " + _accountAgentKey );
-    await spCoinContractDeployed.addSponsorAgent( _accountKey, _sponsorAccountKey, _sponsorRateKey, _accountAgentKey );
-    logDetail("JS => "+ "Added Agent " + _accountAgentKey + " Record to SponsorKey " + _sponsorAccountKey);
+    await spCoinContractDeployed.addSponsorAgent( _accountKey, _sponsorKey, _sponsorRateKey, _accountAgentKey );
+    logDetail("JS => "+ "Added Agent " + _accountAgentKey + " Record to SponsorKey " + _sponsorKey);
   };
   
-  addSponsorAgents = async (_accountKey, _sponsorAccountKey, _sponsorRateKey, _agentAccountList) => {
+  addSponsorAgents = async (_accountKey, _sponsorKey, _sponsorRateKey, _agentAccountList) => {
     logFunctionHeader(
-      "addSponsorAgents = async(" + _accountKey + ", " + _sponsorAccountKey + ", " + _sponsorRateKey + ", " + _agentAccountList + ")"
+      "addSponsorAgents = async(" + _accountKey + ", " + _sponsorKey + ", " + _sponsorRateKey + ", " + _agentAccountList + ")"
     );
     logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
-    logDetail("JS => For Sponsor[" + _sponsorAccountKey + "]: " + _sponsorAccountKey + ")");
+    logDetail("JS => For Sponsor[" + _sponsorKey + "]: " + _sponsorKey + ")");
     logDetail("JS => Inserting " + _agentAccountList.length + " Agents To Blockchain Network"
     );
     logDetail("JS => _agentAccountList = " + _agentAccountList);
@@ -61,9 +61,9 @@ addPatronSponsor = async (_accountKey, _sponsorKey) => {
     logDetail("JS => agentSize.length = " + agentSize);
     let agentCount = 0;
     for (let agentCount = 0; agentCount < agentSize; agentCount++) {
-      let agentAccountKey = _agentAccountList[agentCount];
-      logDetail("JS =>  " + agentCount + ". " + "Inserting Agent[" + agentCount + "]: " + agentAccountKey );
-      await addSponsorAgent( _accountKey, _sponsorAccountKey, _sponsorRateKey, agentAccountKey );
+      let agentKey = _agentAccountList[agentCount];
+      logDetail("JS =>  " + agentCount + ". " + "Inserting Agent[" + agentCount + "]: " + agentKey );
+      await addSponsorAgent( _accountKey, _sponsorKey, _sponsorRateKey, agentKey );
     }
     logDetail("JS => "+ "Inserted = " + agentSize + " Agent Records");
     return agentCount;
@@ -94,7 +94,7 @@ addAccountRecords = async (_accountListKeys) => {
 
 addAgentRateTransaction = async (
   _accountKey, 
-  _sponsorAccountKey,
+  _sponsorKey,
   _sponsorRateKey,
   _accountAgentKey,
   _agentRateKey,
@@ -102,7 +102,7 @@ addAgentRateTransaction = async (
     logFunctionHeader(
       "addAgentRateTransaction = async(" + 
       _accountKey + ", " + 
-      _sponsorAccountKey + ", " + 
+      _sponsorKey + ", " + 
       _sponsorRateKey + ", " + 
       _accountAgentKey + ", " +
       _agentRateKey + ", " +
@@ -111,12 +111,12 @@ addAgentRateTransaction = async (
 
   await spCoinContractDeployed.addAgentRateTransaction(
     _accountKey,
-    _sponsorAccountKey,
+    _sponsorKey,
     _sponsorRateKey,
     _accountAgentKey,
     _agentRateKey,
     _transactionQtyKey );
-    logDetail("JS => "+ "Added Agent " + _accountAgentKey + " Record to SponsorKey " + _sponsorAccountKey);
+    logDetail("JS => "+ "Added Agent " + _accountAgentKey + " Record to SponsorKey " + _sponsorKey);
 };
 
 //////////////////// MODULE EXPORTS //////////////////////

@@ -77,7 +77,7 @@ contract SpCoinDataTypes {
 
     // Each Account has a map of Sponsors and an array of sponsorRate structures
     struct SponsorStruct {
-        address sponsorAccountKey;
+        address sponsorKey;
         address patronKey;
         uint256 stakedSPCoins; // Coins not owned but Sponsored
         uint256 insertionTime;
@@ -100,7 +100,7 @@ contract SpCoinDataTypes {
 
     // Each Sponsor has a map of Agents and an array of agentRate structures
     struct AgentStruct {
-        address agentAccountKey;
+        address agentKey;
         uint256 stakedSPCoins; // Coins not owned but Sponsored
         uint256 insertionTime;
         uint256[] agentRateKeys;

@@ -24,7 +24,7 @@ contract Agents is SponsorRates {
             AccountStruct storage agentAccount = accountMap[_agentKey];
             SponsorRateStruct storage sponsorRateRecord = getSponsorRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey);
             agentRecord.insertionTime = block.timestamp;
-            agentRecord.agentAccountKey = _agentKey;
+            agentRecord.agentKey = _agentKey;
             agentRecord.inserted = true;
             sponsorAccount.agentAccountList.push(_agentKey);
             agentAccount.parentSponsorAccountList.push(_sponsorKey);
@@ -70,7 +70,7 @@ contract Agents is SponsorRates {
         AgentStruct storage agentRec = getAgentRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
         uint[] memory agentRateKeys = agentRec.agentRateKeys;
         // console.log("AGENTS.SOL:addSponsorAgent: _patronKey, _sponsorKey, _sponsorRateKey, _agentKey = " , _patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
-        // console.log("AGENTS.SOL:addSponsorAgent:agentRec.agentAccountKey = " , agentRec.agentAccountKey);
+        // console.log("AGENTS.SOL:addSponsorAgent:agentRec.agentKey = " , agentRec.agentKey);
         // console.log("AGENTS.SOL:getAgentRateKeys:agentRateKeys.length = ",agentRateKeys.length);
         return agentRateKeys;
     }

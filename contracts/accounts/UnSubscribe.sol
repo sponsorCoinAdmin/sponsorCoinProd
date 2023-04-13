@@ -20,21 +20,21 @@ contract UnSubscribe is Transactions {
         if (deleteAccountRecordFromSearchKeys(_sponsorKey, patronAccount.sponsorAccountList)) {
             SponsorStruct storage sponsorRecord = patronAccount.sponsorMap[_sponsorKey];
             uint256 totalSponsoed = sponsorRecord.stakedSPCoins;
-            AccountStruct storage sponsorAccount = accountMap[sponsorRecord.sponsorAccountKey];
+            AccountStruct storage sponsorAccount = accountMap[sponsorRecord.sponsorKey];
             deleteAccountRecordFromSearchKeys(_sponsorKey, sponsorAccount.patronAccountList);
             deleteAccountRecordFromSearchKeys(_sponsorKey, sponsorAccount.agentAccountList);
             deleteSponsorRateRecords(sponsorRecord);
  
             patronAccount.balanceOf += totalSponsoed;
             patronAccount.stakedSPCoins -= totalSponsoed;
-            deleteAccountRecordInternal(sponsorRecord.sponsorAccountKey);
+            deleteAccountRecordInternal(sponsorRecord.sponsorKey);
         }
     }
 
     function deleteSponsorRateRecords(SponsorStruct storage _sponsorRecord) internal {
         // Delete Agent Rate Keys
         uint256[] storage sponsorRateKeys = _sponsorRecord.sponsorRateKeys;
-        AccountStruct storage sponsorAccount = accountMap[_sponsorRecord.sponsorAccountKey];
+        AccountStruct storage sponsorAccount = accountMap[_sponsorRecord.sponsorKey];
 
         uint i = sponsorRateKeys.length - 1;
         for (i; i >=0; i--) {
@@ -54,13 +54,13 @@ contract UnSubscribe is Transactions {
         address[] storage agentAccountList = sponsorRateRecord.agentAccountList;
         uint i = agentAccountList.length - 1;
         for (i; i >= 0; i--) {
-            // console.log("====deleteSponsorRateRecord: Found agentAccountKey[", i, "] ", agentAccountList[i]);
-            address agentAccountKey = agentAccountList[i];
-            AgentStruct storage agentRec = sponsorRateRecord.agentMap[agentAccountKey];
-            AccountStruct storage agentAccount = accountMap[agentAccountKey];
+            // console.log("====deleteSponsorRateRecord: Found agentKey[", i, "] ", agentAccountList[i]);
+            address agentKey = agentAccountList[i];
+            AgentStruct storage agentRec = sponsorRateRecord.agentMap[agentKey];
+            AccountStruct storage agentAccount = accountMap[agentKey];
 
             // console.log("***** Deleting sponsorAccount.accountKey ", sponsorAccount.accountKey,
-            //  "From agentRec.agentAccountKey ", agentRec.agentAccountKey);
+            //  "From agentRec.agentKey ", agentRec.agentKey);
             deleteAccountRecordFromSearchKeys(sponsorAccount.accountKey, agentAccount.parentSponsorAccountList);
 
             deleteAgentRateRecords(agentRec);
@@ -85,7 +85,7 @@ contract UnSubscribe is Transactions {
               break;
         }
         // delete the Agent Account Record if no References
-        deleteAccountRecordInternal(agentRec.agentAccountKey);
+        deleteAccountRecordInternal(agentRec.agentKey);
     }
 
     // Delete sponsor rate list.

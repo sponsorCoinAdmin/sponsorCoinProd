@@ -92,9 +92,9 @@ getSponsorsByAccount = async(_patronKey) => {
 getSponsorRecordsByKeys = async(_patronKey, _sponsorAccountList) => {
   logFunctionHeader("getSponsorRecordsByKeys(" + _patronKey + ", " + _sponsorAccountList + ")");
   let sponsorRecordList = [];
-  for (let [idx, sponsorAccountKey] of Object.entries(_sponsorAccountList)) {
-    logDetail("JS => Loading Sponsor Record " + sponsorAccountKey, idx);
-    let sponsorRecord = await getSponsorRecordByKeys(_patronKey, sponsorAccountKey);
+  for (let [idx, sponsorKey] of Object.entries(_sponsorAccountList)) {
+    logDetail("JS => Loading Sponsor Record " + sponsorKey, idx);
+    let sponsorRecord = await getSponsorRecordByKeys(_patronKey, sponsorKey);
     sponsorRecordList.push(sponsorRecord);
     return sponsorRecord;
   }
@@ -105,7 +105,7 @@ getSponsorRecordsByKeys = async(_patronKey, _sponsorAccountList) => {
 getSponsorRecordByKeys = async(_patronKey, _sponsorKey) => {
   logFunctionHeader("getSponsorRecordByKeys(" + _patronKey + ", " + _sponsorKey + ")");
   let sponsorRecord = new SponsorStruct(_sponsorKey);
-  sponsorRecord.sponsorAccountKey = _sponsorKey;
+  sponsorRecord.sponsorKey = _sponsorKey;
 
   let recordStr = await getSerializedSponsorRecordList(_patronKey, _sponsorKey);
   sponsorRecord.insertionTime = hexToDecimal(recordStr[0]);
@@ -156,9 +156,9 @@ getSponsorRateRecordByKeys = async(_patronKey, _sponsorKey, _sponsorRateKey) => 
 getAgentRecordsByKeys = async(_patronKey, _sponsorKey, _sponsorRateKey, _agentAccountList) => {
   logFunctionHeader("getAgentRecordsByKeys(" + _patronKey + ", " + _sponsorKey + ", " + _sponsorRateKey + ", " + _agentAccountList + ")");
   let agentRecordList = [];
-  for (let [idx, agentAccountKey] of Object.entries(_agentAccountList)) {
-      logDetail("JS => Loading Agent Records " + agentAccountKey, idx);
-      let agentRecord = await getSerializedAgentRecord(_patronKey, _sponsorKey, _sponsorRateKey, agentAccountKey);
+  for (let [idx, agentKey] of Object.entries(_agentAccountList)) {
+      logDetail("JS => Loading Agent Records " + agentKey, idx);
+      let agentRecord = await getSerializedAgentRecord(_patronKey, _sponsorKey, _sponsorRateKey, agentKey);
       agentRecordList.push(agentRecord);
   }
   return agentRecordList;
@@ -167,7 +167,7 @@ getAgentRecordsByKeys = async(_patronKey, _sponsorKey, _sponsorRateKey, _agentAc
 getSerializedAgentRecord = async(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey) => {
   logFunctionHeader("getSerializedAgentRecord(" + _patronKey + ", " + _sponsorKey + ", " + _sponsorRateKey + ", " + _agentKey + ")");
   agentRecord = new AgentStruct();
-  agentRecord.agentAccountKey = _agentKey;
+  agentRecord.agentKey = _agentKey;
   agentRecord.stakedSPCoins = bigIntToDecimal(await spCoinContractDeployed.getAgentTotalSponsored(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey));
   agentRecord.agentRateList = await getAgentRatesByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
   return agentRecord;
