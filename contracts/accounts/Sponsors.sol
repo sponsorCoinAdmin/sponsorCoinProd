@@ -65,13 +65,13 @@ contract Sponsors is Accounts {
     /// @notice retreives the sponsor array records from a specific account address.
     /// @param _patronKey patron Key to retrieve the sponsor list
     /// @param _sponsorKey sponsor Key to retrieve the sponsor list
-    function getSponsorRateKeys(address _patronKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint[] memory) {
+    function getsponsorRateList(address _patronKey, address _sponsorKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (uint[] memory) {
         SponsorStruct storage sponsorRecord = getSponsorRecordByKeys(_patronKey, _sponsorKey);
-        uint[] memory sponsorRateKeys = sponsorRecord.sponsorRateKeys;
+        uint[] memory sponsorRateList = sponsorRecord.sponsorRateList;
 // console.log("AGENTS.SOL:addSponsorAgent: _patronKey, _sponsorKey, _sponsorRateKey, _sponsorKey = " , _patronKey, _sponsorKey, _sponsorRateKey, _sponsorKey);
 // console.log("AGENTS.SOL:addSponsorAgent:sponsorRecord.sponsorKey = " , sponsorRecord.sponsorKey);
-// console.log("AGENTS.SOL:getAgentRateKeys:sponsorRateKeys.length = ",sponsorRateKeys.length);
-        return sponsorRateKeys;
+// console.log("AGENTS.SOL:getAgentRateKeys:sponsorRateList.length = ",sponsorRateList.length);
+        return sponsorRateList;
     }
 
     /*

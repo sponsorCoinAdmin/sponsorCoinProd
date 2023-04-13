@@ -81,7 +81,7 @@ contract SpCoinDataTypes {
         address patronKey;
         uint256 stakedSPCoins; // Coins not owned but Sponsored
         uint256 insertionTime;
-        uint256[] sponsorRateKeys;
+        uint256[] sponsorRateList;
         mapping(uint256 => SponsorRateStruct) sponsorRateMap;
         bool inserted;
         bool verified;

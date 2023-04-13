@@ -33,17 +33,17 @@ contract UnSubscribe is Transactions {
 
     function deleteSponsorRateRecords(SponsorStruct storage _sponsorRecord) internal {
         // Delete Agent Rate Keys
-        uint256[] storage sponsorRateKeys = _sponsorRecord.sponsorRateKeys;
+        uint256[] storage sponsorRateList = _sponsorRecord.sponsorRateList;
         AccountStruct storage sponsorAccount = accountMap[_sponsorRecord.sponsorKey];
 
-        uint i = sponsorRateKeys.length - 1;
+        uint i = sponsorRateList.length - 1;
         for (i; i >=0; i--) {
-            // console.log("====deleteSponsorRateRecords: sponsorRateKeys[", i, "] ", sponsorRateKeys[i]);
-            uint256 sponsorRateKey = sponsorRateKeys[i];
+            // console.log("====deleteSponsorRateRecords: sponsorRateList[", i, "] ", sponsorRateList[i]);
+            uint256 sponsorRateKey = sponsorRateList[i];
             SponsorRateStruct storage sponsorRateRecord = _sponsorRecord.sponsorRateMap[sponsorRateKey];
 
             deleteSponsorRateRecord(sponsorAccount, sponsorRateRecord);
-            sponsorRateKeys.pop();
+            sponsorRateList.pop();
             if (i == 0)
               break;
         }

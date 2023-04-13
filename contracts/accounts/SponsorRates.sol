@@ -19,7 +19,7 @@ function addSponsorRate(address _patronKey, address _sponsorKey, uint _sponsorRa
             sponsorRateRecord.inserted = true;
             sponsorRateRecord.insertionTime = sponsorRateRecord.lastUpdateTime = block.timestamp;
             sponsorRateRecord.stakedSPCoins = 0;
-            sponsorRecord.sponsorRateKeys.push(_sponsorRateKey);
+            sponsorRecord.sponsorRateList.push(_sponsorRateKey);
         } 
     }
 

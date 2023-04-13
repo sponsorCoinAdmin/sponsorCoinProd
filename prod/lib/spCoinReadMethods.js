@@ -112,29 +112,29 @@ getSponsorRecordByKeys = async(_patronKey, _sponsorKey) => {
   sponsorRecord.stakedSPCoins = hexToDecimal(recordStr[1]);
 
   // ToDo New Robin
-  sponsorRecord.sponsorRateList = await getSponsorRatesByKeys(_patronKey, _sponsorKey);
+  sponsorRecord.sponsorRateList2 = await getSponsorRatesByKeys(_patronKey, _sponsorKey);
   return sponsorRecord;
 }
 
 getSponsorRatesByKeys = async(_patronKey, _sponsorKey) => {
   logFunctionHeader("getAgentRatesByKeys = async(" + _patronKey + ", " + _sponsorKey+ ", " + ")");
-  let sponsorRateKeys = await getSponsorRateKeys(_patronKey, _sponsorKey);
-  let sponsorRateList = [];
-  for (let [idx, sponsorRateKey] of Object.entries(sponsorRateKeys)) {
+  let sponsorRateList = await getsponsorRateList(_patronKey, _sponsorKey);
+  let sponsorRateList2 = [];
+  for (let [idx, sponsorRateKey] of Object.entries(sponsorRateList)) {
     //log("JS => Loading Sponsor Rates " + sponsorRateKey + " idx = " + idx);
     let sponsorRateRecord = await deSerializesponsorRateRecordByKeys(_patronKey, _sponsorKey, sponsorRateKey);
-    sponsorRateList.push(sponsorRateRecord);
+    sponsorRateList2.push(sponsorRateRecord);
   }
-  return sponsorRateList;
+  return sponsorRateList2;
 }
 
-getSponsorRateKeys = async(_patronKey, _sponsorKey) => {
-  let networkRateKeys = await spCoinContractDeployed.getSponsorRateKeys(_patronKey, _sponsorKey);
-  let sponsorRateKeys = [];
+getsponsorRateList = async(_patronKey, _sponsorKey) => {
+  let networkRateKeys = await spCoinContractDeployed.getsponsorRateList(_patronKey, _sponsorKey);
+  let sponsorRateList = [];
   for (let [idx, netWorkRateKey] of Object.entries(networkRateKeys)) {
-    sponsorRateKeys.push(netWorkRateKey.toNumber());
+    sponsorRateList.push(netWorkRateKey.toNumber());
   }
-  return sponsorRateKeys;
+  return sponsorRateList;
 }
 
 //////////////////// LOAD SPONSOR RATE DATA //////////////////////

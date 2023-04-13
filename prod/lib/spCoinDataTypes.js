@@ -20,7 +20,7 @@ class SponsorStruct {
     this.stakedSPCoins;
     this.insertionTime;
     this.verified;
-    this.sponsorRateList;
+    this.sponsorRateList2;
   }
 }
 
