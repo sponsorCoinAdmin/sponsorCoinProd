@@ -26,9 +26,9 @@ contract Agents is SponsorRates {
             agentRecord.insertionTime = block.timestamp;
             agentRecord.agentAccountKey = _agentKey;
             agentRecord.inserted = true;
-            sponsorAccount.agentAccountKeys.push(_agentKey);
-            agentAccount.parentSponsorAccountKeys.push(_sponsorKey);
-            sponsorRateRecord.agentAccountKeys.push(_agentKey);
+            sponsorAccount.agentAccountList.push(_agentKey);
+            agentAccount.parentSponsorAccountList.push(_sponsorKey);
+            sponsorRateRecord.agentAccountList.push(_agentKey);
         }
     }
 
@@ -37,8 +37,8 @@ contract Agents is SponsorRates {
     /// @param _sponsorKey sponsor Key to retrieve the agent list
     function getAgentRecordKeys(address _patronKey, address _sponsorKey, uint256 _sponsorRateKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (address[] memory) {
         SponsorRateStruct storage sponsorRateRecord = getSponsorRateRecordByKeys(_patronKey, _sponsorKey,  _sponsorRateKey);
-        address[] memory agentAccountKeys = sponsorRateRecord.agentAccountKeys;
-        return agentAccountKeys;
+        address[] memory agentAccountList = sponsorRateRecord.agentAccountList;
+        return agentAccountList;
     }
 
     /// @notice Returns Agent record

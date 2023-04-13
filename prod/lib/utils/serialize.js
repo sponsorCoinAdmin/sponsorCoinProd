@@ -67,14 +67,14 @@ addAccountField = (key, value, accountStruct) => {
       case "patronAccountList":
         accountStruct.patronAccountList = parseAddressStrRecord(value);
         break;
-      case "sponsorAccountKeys":
-        accountStruct.sponsorAccountKeys = parseAddressStrRecord(value);
+      case "sponsorAccountList":
+        accountStruct.sponsorAccountList = parseAddressStrRecord(value);
       break;
-      case "agentAccountKeys":
-          accountStruct.agentAccountKeys = parseAddressStrRecord(value);
+      case "agentAccountList":
+          accountStruct.agentAccountList = parseAddressStrRecord(value);
         break;
-      case "parentSponsorAccountKeys":
-        accountStruct.parentSponsorAccountKeys = parseAddressStrRecord(value);
+      case "parentSponsorAccountList":
+        accountStruct.parentSponsorAccountList = parseAddressStrRecord(value);
       break;
       case "sponsorRecordList":
         accountStruct.sponsorRecordList = value;

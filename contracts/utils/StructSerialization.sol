@@ -51,18 +51,18 @@ contract StructSerialization is Utils {
         seralized = concat(seralized, delimiter, stakedSPCoins);
 
         // console.log("AAAAAAAAAAAAAAAAAAAAAAA patronAccountList.length = ", _accountRec.patronAccountList.length);
-        // console.log("BBBBBBBBBBBBBBBBBBBBBBB sponsorAccountKeys.length = ", _accountRec.sponsorAccountKeys.length);
-        // console.log("CCCCCCCCCCCCCCCCCCCCCCC agentAccountKeys.length = ", _accountRec.agentAccountKeys.length);
-        // console.log("DDDDDDDDDDDDDDDDDDDDDDD parentSponsorAccountKeys.length = ", _accountRec.parentSponsorAccountKeys.length);
+        // console.log("BBBBBBBBBBBBBBBBBBBBBBB sponsorAccountList.length = ", _accountRec.sponsorAccountList.length);
+        // console.log("CCCCCCCCCCCCCCCCCCCCCCC agentAccountList.length = ", _accountRec.agentAccountList.length);
+        // console.log("DDDDDDDDDDDDDDDDDDDDDDD parentSponsorAccountList.length = ", _accountRec.parentSponsorAccountList.length);
         string memory patronAccountList = toString(_accountRec.patronAccountList);
-        string memory sponsorAccountKeys = toString(_accountRec.sponsorAccountKeys);
-        string memory agentAccountKeys = toString(_accountRec.agentAccountKeys);
-        string memory parentSponsorAccountKeys = toString(_accountRec.parentSponsorAccountKeys);
+        string memory sponsorAccountList = toString(_accountRec.sponsorAccountList);
+        string memory agentAccountList = toString(_accountRec.agentAccountList);
+        string memory parentSponsorAccountList = toString(_accountRec.parentSponsorAccountList);
 
         seralized = concat(seralized, delimiter, "patronAccountList:",patronAccountList);
-        seralized = concat(seralized, delimiter, "sponsorAccountKeys:",sponsorAccountKeys);
-        seralized = concat(seralized, delimiter, "agentAccountKeys:", agentAccountKeys);
-        seralized = concat(seralized, delimiter, "parentSponsorAccountKeys:", parentSponsorAccountKeys);
+        seralized = concat(seralized, delimiter, "sponsorAccountList:",sponsorAccountList);
+        seralized = concat(seralized, delimiter, "agentAccountList:", agentAccountList);
+        seralized = concat(seralized, delimiter, "parentSponsorAccountList:", parentSponsorAccountList);
 
         // console.log("_accountRec.accountKey:", _accountRec.accountKey);
         // console.log( "toString(_accountRec.accountKey)", toString(_accountRec.accountKey));
