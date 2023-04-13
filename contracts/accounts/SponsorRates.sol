@@ -12,27 +12,27 @@ function addSponsorRate(address _patronKey, address _sponsorKey, uint _sponsorRa
     nonRedundantSponsor ( _patronKey,  _sponsorKey) {
         addPatronSponsor(_patronKey, _sponsorKey);
 
-        SponsorRateStruct storage sponsorRateRec = getSponsorRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey);
-        if (!sponsorRateRec.inserted) {
-            SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patronKey, _sponsorKey);
-            sponsorRateRec.sponsorRate = _sponsorRateKey;
-            sponsorRateRec.inserted = true;
-            sponsorRateRec.insertionTime = sponsorRateRec.lastUpdateTime = block.timestamp;
-            sponsorRateRec.stakedSPCoins = 0;
-            sponsorRec.sponsorRateKeys.push(_sponsorRateKey);
+        SponsorRateStruct storage sponsorRateRecord = getSponsorRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey);
+        if (!sponsorRateRecord.inserted) {
+            SponsorStruct storage sponsorRecord = getSponsorRecordByKeys(_patronKey, _sponsorKey);
+            sponsorRateRecord.sponsorRate = _sponsorRateKey;
+            sponsorRateRecord.inserted = true;
+            sponsorRateRecord.insertionTime = sponsorRateRecord.lastUpdateTime = block.timestamp;
+            sponsorRateRecord.stakedSPCoins = 0;
+            sponsorRecord.sponsorRateKeys.push(_sponsorRateKey);
         } 
     }
 
     function getSponsorRateRecordByKeys(address _patronKey, address _sponsorKey, uint _sponsorRateKey) internal view onlyOwnerOrRootAdmin(_patronKey) returns (SponsorRateStruct storage) {
-        SponsorStruct storage sponsorRec = getSponsorRecordByKeys(_patronKey, _sponsorKey) ;
-        return sponsorRec.sponsorRateMap[_sponsorRateKey];
+        SponsorStruct storage sponsorRecord = getSponsorRecordByKeys(_patronKey, _sponsorKey) ;
+        return sponsorRecord.sponsorRateMap[_sponsorRateKey];
     }
 
-    function serializeSponsorRateRecordStr(address _patronKey, address _sponsorKey, uint256 _sponsorRateKey) public view returns (string memory) {
-        SponsorRateStruct storage sponsorRateRec =  getSponsorRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey);
-        string memory sponsorRateRecordStr = toString(sponsorRateRec.insertionTime);
-        string memory lastUpdateTimeStr = toString(sponsorRateRec.lastUpdateTime);
-        string memory stakedSPCoinsStr = toString(sponsorRateRec.stakedSPCoins);
+    function serializesponsorRateRecordStr(address _patronKey, address _sponsorKey, uint256 _sponsorRateKey) public view returns (string memory) {
+        SponsorRateStruct storage sponsorRateRecord =  getSponsorRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey);
+        string memory sponsorRateRecordStr = toString(sponsorRateRecord.insertionTime);
+        string memory lastUpdateTimeStr = toString(sponsorRateRecord.lastUpdateTime);
+        string memory stakedSPCoinsStr = toString(sponsorRateRecord.stakedSPCoins);
         sponsorRateRecordStr = concat(sponsorRateRecordStr, ",", lastUpdateTimeStr, ",", stakedSPCoinsStr);
         return sponsorRateRecordStr;
     }

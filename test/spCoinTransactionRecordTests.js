@@ -22,18 +22,18 @@ const {
   AGENT_ACCOUNT_KEY_0, AGENT_ACCOUNT_KEY_1, AGENT_ACCOUNT_KEY_2, AGENT_ACCOUNT_KEY_3,
   AGENT_ACCOUNT_KEY_4, AGENT_ACCOUNT_KEY_5, AGENT_ACCOUNT_KEY_6, AGENT_ACCOUNT_KEY_7,
   AGENT_ACCOUNT_KEY_8, AGENT_ACCOUNT_KEY_9, AGENT_ACCOUNT_KEY_10,
-  SPONSOR_RATE_KEY_1, SPONSOR_RATE_KEY_2, SPONSOR_RATE_KEY_3, SPONSOR_RATE_KEY_4,
-  SPONSOR_RATE_KEY_5, SPONSOR_RATE_KEY_6, SPONSOR_RATE_KEY_7, SPONSOR_RATE_KEY_8,
-  SPONSOR_RATE_KEY_9,  SPONSOR_RATE_KEY_10,
+  SPONSOR_RATE_1, SPONSOR_RATE_2, SPONSOR_RATE_3, SPONSOR_RATE_4,
+  SPONSOR_RATE_5, SPONSOR_RATE_6, SPONSOR_RATE_7, SPONSOR_RATE_8,
+  SPONSOR_RATE_9,  SPONSOR_RATE_10,
   AGENT_RATE_1, AGENT_RATE_2, AGENT_RATE_3, AGENT_RATE_4, AGENT_RATE_5, AGENT_RATE_6,
   AGENT_RATE_7, AGENT_RATE_8, AGENT_RATE_9, AGENT_RATE_10,
   TRANSACTION_QTY_1, TRANSACTION_QTY_2, TRANSACTION_QTY_3, TRANSACTION_QTY_4, TRANSACTION_QTY_5,
   TRANSACTION_QTY_6, TRANSACTION_QTY_7, TRANSACTION_QTY_8, TRANSACTION_QTY_9, TRANSACTION_QTY_10
  } = require("./testMethods/hhTestAccounts");
 const { LOG_MODE, LOG, setLogMode, log, logJSON } = require("../prod/lib/utils/logging");
-const { } = require("./testMethods/scTestMethods");
+const { } = require("../test/testMethods/scTestMethods");
 const { } = require("../prod/lib/spCoinReadMethods");
-const { } = require("./deployContract");
+const { } = require("../test/deployContract");
 
 let spCoinContractDeployed;
 
@@ -53,25 +53,43 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   await addAgentRateTransaction (
     PATRON_ACCOUNT_KEY_0,
     SPONSOR_ACCOUNT_KEY_1,
-    SPONSOR_RATE_KEY_1,
+    SPONSOR_RATE_1,
     AGENT_ACCOUNT_KEY_2,
     AGENT_RATE_10,
     TRANSACTION_QTY_1
   );
+
+  // await addAgentRateTransaction (
+  //   PATRON_ACCOUNT_KEY_3,
+  //   SPONSOR_ACCOUNT_KEY_1,
+  //   SPONSOR_RATE_1,
+  //   AGENT_ACCOUNT_KEY_2,
+  //   AGENT_RATE_5,
+  //   TRANSACTION_QTY_2
+  // );
   
-  await addAgentRateTransaction (
-    PATRON_ACCOUNT_KEY_0,
-    SPONSOR_ACCOUNT_KEY_1,
-    SPONSOR_RATE_KEY_2,
-    AGENT_ACCOUNT_KEY_2,
-    AGENT_RATE_10,
-    TRANSACTION_QTY_2
-  );
+  // await addAgentRateTransaction (
+  //   PATRON_ACCOUNT_KEY_0,
+  //   SPONSOR_ACCOUNT_KEY_1,
+  //   SPONSOR_RATE_1,
+  //   AGENT_ACCOUNT_KEY_2,
+  //   AGENT_RATE_5,
+  //   TRANSACTION_QTY_9
+  // );
+  
+  // await addAgentRateTransaction (
+  //   PATRON_ACCOUNT_KEY_0,
+  //   SPONSOR_ACCOUNT_KEY_1,
+  //   SPONSOR_RATE_2,
+  //   AGENT_ACCOUNT_KEY_2,
+  //   AGENT_RATE_10,
+  //   TRANSACTION_QTY_2
+  // );
 
   // await addAgentRateTransaction (
   //   PATRON_ACCOUNT_KEY_0,
   //   SPONSOR_ACCOUNT_KEY_1,
-  //   SPONSOR_RATE_KEY_2,
+  //   SPONSOR_RATE_2,
   //   AGENT_ACCOUNT_KEY_3,
   //   AGENT_RATE_9,
   //   TRANSACTION_QTY_4
@@ -80,10 +98,19 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   // await addAgentRateTransaction (
   //   PATRON_ACCOUNT_KEY_0,
   //   SPONSOR_ACCOUNT_KEY_1,
-  //   SPONSOR_RATE_KEY_2,
+  //   SPONSOR_RATE_2,
   //   AGENT_ACCOUNT_KEY_2,
   //   AGENT_RATE_10,
   //   TRANSACTION_QTY_2
+  // );
+
+  // await addAgentRateTransaction (
+  //   PATRON_ACCOUNT_KEY_0,
+  //   SPONSOR_ACCOUNT_KEY_1,
+  //   SPONSOR_RATE_2,
+  //   AGENT_ACCOUNT_KEY_2,
+  //   AGENT_RATE_10,
+  //   TRANSACTION_QTY_8
   // );
 
     // accountKeySize = (await getAccountKeySize()).toNumber();
@@ -93,14 +120,14 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
     // agentRateKeys = await getAgentRateKeys(
     //   PATRON_ACCOUNT_KEY_0,
     //   SPONSOR_ACCOUNT_KEY_1,
-    //   SPONSOR_RATE_KEY_10,
+    //   SPONSOR_RATE_10,
     //   AGENT_ACCOUNT_KEY_1);
     //   logJSON(agentRateKeys);
 
     // VALIDATE ACCOUNT CREATION
     // VALIDATE PATRON ACCOUNT
-    // let patronAccountRecord = await getAccountRecord(PATRON_ACCOUNT_KEY_0);
-    // logJSON(patronAccountRecord);
+    // let patronAccount = await getAccountRecord(PATRON_ACCOUNT_KEY_0);
+    // logJSON(patronAccount);
   });
 /**/
 });

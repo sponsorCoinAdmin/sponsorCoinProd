@@ -67,8 +67,8 @@ contract SpCoinDataTypes {
         uint256 insertionTime;
         bool inserted;
         bool verified;
-        address[] patronAccountKeys;       // If Sponsor? List of Patron Accounts
-        address[] sponsorAccount2Keys;             // If Patron List of Sponsored Accounts
+        address[] patronAccountList;        // If Sponsor? List of Patron Accounts
+        address[] sponsorAccountKeys;      // If Patron List of Sponsored Accounts
         address[] agentAccountKeys;         // If Sponsor? List of Agent Accounts
         address[] parentSponsorAccountKeys; // If Agent? List of Patron Sponsor Accounts
         mapping(address => SponsorStruct) sponsorMap; 
@@ -78,45 +78,44 @@ contract SpCoinDataTypes {
     // Each Account has a map of Sponsors and an array of sponsorRate structures
     struct SponsorStruct {
         address sponsorAccountKey;
+        address patronKey;
         uint256 stakedSPCoins; // Coins not owned but Sponsored
         uint256 insertionTime;
-        bool inserted;
-        bool verified;
         uint256[] sponsorRateKeys;
         mapping(uint256 => SponsorRateStruct) sponsorRateMap;
+        bool inserted;
+        bool verified;
     }
-
+ 
     struct SponsorRateStruct {
         uint256 sponsorRate;
         uint256 insertionTime;
         uint256 lastUpdateTime;
-        uint256 stakedSPCoins; // Coins not owned but Sponsored
-        bool inserted;
         address[] agentAccountKeys;
+        uint256 stakedSPCoins; // Coins not owned but Sponsored
         mapping(address => AgentStruct) agentMap;
         TransactionStruct[] transactionList;
+        bool inserted;
     }
 
     // Each Sponsor has a map of Agents and an array of agentRate structures
     struct AgentStruct {
-        SponsorStruct parent;
         address agentAccountKey;
         uint256 stakedSPCoins; // Coins not owned but Sponsored
         uint256 insertionTime;
-        bool inserted;
-        bool verified;
         uint256[] agentRateKeys;
         mapping(uint256 => AgentRateStruct) agentRateMap;
+        bool inserted;
+        bool verified;
     }
-
+ 
     struct AgentRateStruct {
-        TransactionStruct TS;
         uint256 agentRate;
         uint256 insertionTime;
         uint256 lastUpdateTime;
         uint256 stakedSPCoins; // Coins not owned but Sponsored
-        bool inserted;
         TransactionStruct[] transactionList;
+        bool inserted;
     }
 
     struct TransactionStruct {
