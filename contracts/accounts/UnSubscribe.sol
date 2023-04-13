@@ -100,24 +100,6 @@ contract UnSubscribe is Transactions {
     }
 
  /////////////////// DELETE ACCOUNT METHODS ////////////////////////
-   
- /*
- 
-
- */
-    function deleteAccountRecord(address _accountKey) public
-    accountExists(_accountKey) 
-    onlyOwnerOrRootAdmin(_accountKey) {
-
-        if(accountMap[_accountKey].patronAccountList.length == 0 &&
-            accountMap[_accountKey].sponsorAccountKeys.length == 0 &&
-            accountMap[_accountKey].agentAccountKeys.length == 0 &&
-            accountMap[_accountKey].parentSponsorAccountKeys.length == 0) {
-            if (deleteAccountRecordFromSearchKeys( _accountKey,  accountKeys)) {
-                delete accountMap[_accountKey];
-            } 
-        }
-    }
 
     function deleteAccountRecordFromSearchKeys(address _accountKey, 
     address[] storage _accountKeyList) internal returns (bool) {
@@ -138,7 +120,34 @@ contract UnSubscribe is Transactions {
     return deleted;
     }
 
+    function deleteAccountRecord(address _accountKey) internal
+    accountExists(_accountKey) 
+    onlyOwnerOrRootAdmin(_accountKey) {
+
+        if(accountMap[_accountKey].patronAccountList.length == 0 &&
+            accountMap[_accountKey].sponsorAccountKeys.length == 0 &&
+            accountMap[_accountKey].agentAccountKeys.length == 0 &&
+            accountMap[_accountKey].parentSponsorAccountKeys.length == 0) {
+            if (deleteAccountRecordFromSearchKeys(_accountKey,  accountKeys)) {
+                delete accountMap[_accountKey];
+            } 
+        }
+    }
+
 /*
+   
+    function deleteAccountRecord(address _accountKey) public
+        accountExists(_accountKey) 
+        onlyOwnerOrRootAdmin(_accountKey)
+        patronDoesNotExist(_accountKey)
+        parentsponsorDoesNotExist(_accountKey)
+//      AgentDoesNotExist(_accountKey)
+        sponsorDoesNotExist(_accountKey) {
+        if (deleteAccountRecordFromSearchKeys( _accountKey,  accountKeys)) {
+            delete accountMap[_accountKey];
+        } 
+    }
+
     modifier patronDoesNotExist(address _accountKey) {
         require (accountMap[_accountKey].patronAccountList.length == 0 &&
             accountMap[_accountKey].agentAccountKeys.length == 0, "Sponsor Account has a Patron, (Patron must Un-sponsor Sponsored Account)");
