@@ -10,7 +10,7 @@ contract SpCoinDataTypes {
     string public symbol;
     uint256 public decimals;
     uint256 public totalSupply;
-    
+
     // Keep track balances and allowances approved
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;
@@ -51,12 +51,12 @@ contract SpCoinDataTypes {
     // **Additional Sponsor Coin Variables
 
     address burnAddress = 0x0000000000000000000000000000000000000000;
-    address[] public accountKeys;
+    address[] public AccountList;
 
     mapping(address => AccountStruct) accountMap;
 
     struct arrayMappedData {
-        address[] accountKeys;
+        address[] AccountList;
         mapping(address => AccountStruct) accountMap;
     }
  
@@ -68,16 +68,16 @@ contract SpCoinDataTypes {
         bool inserted;
         bool verified;
         address[] patronAccountList;        // If Sponsor? List of Patron Accounts
-        address[] sponsorAccountKeys;      // If Patron List of Sponsored Accounts
-        address[] agentAccountKeys;         // If Sponsor? List of Agent Accounts
-        address[] parentSponsorAccountKeys; // If Agent? List of Patron Sponsor Accounts
+        address[] sponsorAccountList;      // If Patron List of Sponsored Accounts
+        address[] agentAccountList;         // If Sponsor? List of Agent Accounts
+        address[] parentSponsorAccountList; // If Agent? List of Patron Sponsor Accounts
         mapping(address => SponsorStruct) sponsorMap; 
 //        KYC kyc;
     }
 
     // Each Account has a map of Sponsors and an array of sponsorRate structures
     struct SponsorStruct {
-        address sponsorAccountKey;
+        address sponsorKey;
         address patronKey;
         uint256 stakedSPCoins; // Coins not owned but Sponsored
         uint256 insertionTime;
@@ -91,7 +91,7 @@ contract SpCoinDataTypes {
         uint256 sponsorRate;
         uint256 insertionTime;
         uint256 lastUpdateTime;
-        address[] agentAccountKeys;
+        address[] agentAccountList;
         uint256 stakedSPCoins; // Coins not owned but Sponsored
         mapping(address => AgentStruct) agentMap;
         TransactionStruct[] transactionList;
@@ -100,7 +100,7 @@ contract SpCoinDataTypes {
 
     // Each Sponsor has a map of Agents and an array of agentRate structures
     struct AgentStruct {
-        address agentAccountKey;
+        address agentKey;
         uint256 stakedSPCoins; // Coins not owned but Sponsored
         uint256 insertionTime;
         uint256[] agentRateKeys;

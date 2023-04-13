@@ -63,21 +63,21 @@ Example: AddAgentRate(1, 2, 6, 10, 10, 123.1230);
 Requirements to Delete Agent: Agent Affiliation Program
 1. Require Agent to be child of Sponsor
 2. Require Agent to have No SponsorCoin balanceOf Token affiliation with Parent.
-3. Must Remove from parent Sponsor.agentAccountKeys
-4. Then Remove Sponsor Parent from agentAccount.parentSponsorAccountKeys
+3. Must Remove from parent Sponsor.agentAccountList
+4. Then Remove Sponsor Parent from agentAccount.parentSponsorAccountList
 5. Optional, If Agent account balanceOf is zero (0), Agent account may be deleted.
 
 Requirements to Delete Sponsor from Patron: (Delete Patron sponsorship)
 1. Require Sponsor to be Child of Patron
 2. Require Sponsor to have no Parent Patrion balanceOf Token affiliation.
 3. Require Sponsor to have no Child Agent affiliation
-4. Remove associated child agents from Sponsor.agentAccountKeys
-5. Remove from Account ParentKeys, account.sponsorAccountKeys
+4. Remove associated child agents from Sponsor.agentAccountList
+5. Remove from Account ParentKeys, account.sponsorAccountList
 6. Remove from Account.sponsorMap, 
 7. Optional, If Sponsor account balanceOf is zero (0), Sponsor account may be deleted.
 
 Requirements to Delete Account
-1. Require Account to have No Sponsors, account.sponsorAccountKeys must be zero (0).
-2. Require Account to have No Agents, account.agentAccountKeys must be zero (0).
+1. Require Account to have No Sponsors, account.sponsorAccountList must be zero (0).
+2. Require Account to have No Agents, account.agentAccountList must be zero (0).
 3. Optional, Require Account to have No Patrons account.patronAccountList must be zero (0).
-4. Optional, Require Account to have No account.parentSponsorAccountKeys must be zero (0).
+4. Optional, Require Account to have No account.parentSponsorAccountList must be zero (0).

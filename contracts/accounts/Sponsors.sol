@@ -22,10 +22,10 @@ contract Sponsors is Accounts {
             AccountStruct storage sponsorAccount = accountMap[_sponsorKey];
             sponsorRecord.insertionTime = block.timestamp;
             sponsorRecord.patronKey = _patronKey;
-            sponsorRecord.sponsorAccountKey = _sponsorKey;
+            sponsorRecord.sponsorKey = _sponsorKey;
             sponsorRecord.stakedSPCoins = 0; // Coins not owned but Sponsored
             sponsorRecord.inserted = true;
-            patronAccount.sponsorAccountKeys.push(_sponsorKey);
+            patronAccount.sponsorAccountList.push(_sponsorKey);
             sponsorAccount.patronAccountList.push(_patronKey);
         }
     }
@@ -69,7 +69,7 @@ contract Sponsors is Accounts {
         SponsorStruct storage sponsorRecord = getSponsorRecordByKeys(_patronKey, _sponsorKey);
         uint[] memory sponsorRateKeys = sponsorRecord.sponsorRateKeys;
 // console.log("AGENTS.SOL:addSponsorAgent: _patronKey, _sponsorKey, _sponsorRateKey, _sponsorKey = " , _patronKey, _sponsorKey, _sponsorRateKey, _sponsorKey);
-// console.log("AGENTS.SOL:addSponsorAgent:sponsorRecord.sponsorAccountKey = " , sponsorRecord.sponsorAccountKey);
+// console.log("AGENTS.SOL:addSponsorAgent:sponsorRecord.sponsorKey = " , sponsorRecord.sponsorKey);
 // console.log("AGENTS.SOL:getAgentRateKeys:sponsorRateKeys.length = ",sponsorRateKeys.length);
         return sponsorRateKeys;
     }

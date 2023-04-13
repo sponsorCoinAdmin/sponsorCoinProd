@@ -24,11 +24,11 @@ contract Agents is SponsorRates {
             AccountStruct storage agentAccount = accountMap[_agentKey];
             SponsorRateStruct storage sponsorRateRecord = getSponsorRateRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey);
             agentRecord.insertionTime = block.timestamp;
-            agentRecord.agentAccountKey = _agentKey;
+            agentRecord.agentKey = _agentKey;
             agentRecord.inserted = true;
-            sponsorAccount.agentAccountKeys.push(_agentKey);
-            agentAccount.parentSponsorAccountKeys.push(_sponsorKey);
-            sponsorRateRecord.agentAccountKeys.push(_agentKey);
+            sponsorAccount.agentAccountList.push(_agentKey);
+            agentAccount.parentSponsorAccountList.push(_sponsorKey);
+            sponsorRateRecord.agentAccountList.push(_agentKey);
         }
     }
 
@@ -37,8 +37,8 @@ contract Agents is SponsorRates {
     /// @param _sponsorKey sponsor Key to retrieve the agent list
     function getAgentRecordKeys(address _patronKey, address _sponsorKey, uint256 _sponsorRateKey) public view onlyOwnerOrRootAdmin(_sponsorKey) returns (address[] memory) {
         SponsorRateStruct storage sponsorRateRecord = getSponsorRateRecordByKeys(_patronKey, _sponsorKey,  _sponsorRateKey);
-        address[] memory agentAccountKeys = sponsorRateRecord.agentAccountKeys;
-        return agentAccountKeys;
+        address[] memory agentAccountList = sponsorRateRecord.agentAccountList;
+        return agentAccountList;
     }
 
     /// @notice Returns Agent record
@@ -70,7 +70,7 @@ contract Agents is SponsorRates {
         AgentStruct storage agentRec = getAgentRecordByKeys(_patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
         uint[] memory agentRateKeys = agentRec.agentRateKeys;
         // console.log("AGENTS.SOL:addSponsorAgent: _patronKey, _sponsorKey, _sponsorRateKey, _agentKey = " , _patronKey, _sponsorKey, _sponsorRateKey, _agentKey);
-        // console.log("AGENTS.SOL:addSponsorAgent:agentRec.agentAccountKey = " , agentRec.agentAccountKey);
+        // console.log("AGENTS.SOL:addSponsorAgent:agentRec.agentKey = " , agentRec.agentKey);
         // console.log("AGENTS.SOL:getAgentRateKeys:agentRateKeys.length = ",agentRateKeys.length);
         return agentRateKeys;
     }

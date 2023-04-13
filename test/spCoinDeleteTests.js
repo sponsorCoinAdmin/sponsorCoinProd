@@ -45,7 +45,7 @@ describe("spCoinContract", function () {
 
     it("SUCCESSFUL EXECUTION: 'SUCCESSFULLY DELETED ACCOUNT'", async function () {
       await addTestNetworkAccounts([0, 1, 2]);
-      let keys = await getAccountKeys();
+      let keys = await getAccountList();
       console.log("============================================================");
       console.log("*** DELETE SECOND ACCOUNT EXAMPLE ***");
       console.log("*** ACCOUNT KEYS BEFORE DELETE ***\n", keys);
@@ -61,7 +61,7 @@ describe("spCoinContract", function () {
         expect(err.message).to.equal(expectedErrMsg);
       }
 
-      keys = await getAccountKeys();
+      keys = await getAccountList();
       console.log("============================================================");
       console.log("*** ACCOUNTS KEYS AFTER DELETE ***\n", keys);
       console.log("============================================================");
@@ -133,38 +133,38 @@ describe("spCoinContract", function () {
 
     // Test Successful Record Insertion of Account Records 
     // Validate Account Size is zero
-    let accountKeySize = (await getAccountKeySize()).toNumber();
-    expect(accountKeySize).to.equal(0);
+    let AccountListize = (await getAccountListize()).toNumber();
+    expect(AccountListize).to.equal(0);
 
     // Add 1 Record Validate Size is 1
     await addTestNetworkAccount(0);
-    accountKeySize = (await getAccountKeySize()).toNumber();
-    expect(accountKeySize).to.equal(1);
+    AccountListize = (await getAccountListize()).toNumber();
+    expect(AccountListize).to.equal(1);
 
     // Add duplicate Record Validate Size is still 1
     await addTestNetworkAccount(0);
-    accountKeySize = (await getAccountKeySize()).toNumber();
+    AccountListize = (await getAccountListize()).toNumber();
 
     // delete Record Validate Size should reduce to 1
     await deleteTestNetworkAccount(0);
-    accountKeySize = (await getAccountKeySize()).toNumber();
-    expect(accountKeySize).to.equal(0);
+    AccountListize = (await getAccountListize()).toNumber();
+    expect(AccountListize).to.equal(0);
 
     // Add additional Record Validate Size is 2
     await addTestNetworkAccount(0);
     await addTestNetworkAccount(1);
-    accountKeySize = (await getAccountKeySize()).toNumber();
-    expect(accountKeySize).to.equal(2);
+    AccountListize = (await getAccountListize()).toNumber();
+    expect(AccountListize).to.equal(2);
 
     // Add 5 additional Records Validate Size is now 7
     await addTestNetworkAccounts([4,6,9,10,8]);
-    accountKeySize = (await getAccountKeySize()).toNumber();
-    expect(accountKeySize).to.equal(7);
+    AccountListize = (await getAccountListize()).toNumber();
+    expect(AccountListize).to.equal(7);
 
     // Add 4 Records Validate Size is now 3
     await deleteTestNetworkAccounts([10,8,4,0]);
-    accountKeySize = (await getAccountKeySize()).toNumber();
-    expect(accountKeySize).to.equal(3);
+    AccountListize = (await getAccountListize()).toNumber();
+    expect(AccountListize).to.equal(3);
 
     accountArr = await getAccountRecords();
     logJSON(accountArr);
