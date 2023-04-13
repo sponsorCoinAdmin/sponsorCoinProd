@@ -41,7 +41,7 @@ describe("spCoinContract", function () {
     spCoinContractDeployed = await deploySpCoinContract();
   });
 
-/**
+/* */
 
     it("SUCCESSFUL EXECUTION: 'SUCCESSFULLY DELETED ACCOUNT'", async function () {
       await addTestNetworkAccounts([0, 1, 2]);
@@ -71,7 +71,7 @@ describe("spCoinContract", function () {
       console.log("============================================================");
     });
 
-  /**
+  /* */
 
   it("SUCCESSFUL ERROR MSG CAUGHT: 'ACCOUNT DOES NOT EXIST'", async function () {
     await addTestNetworkPatronSponsors(0, [1]);
@@ -85,7 +85,7 @@ describe("spCoinContract", function () {
     }
   });
 
-  /**
+  /* */
 
   it("SUCCESSFUL ERROR MSG CAUGHT: 'PATRON ACCOUNT HAS SPONSOR'", async function () {
     await addTestNetworkPatronSponsors(0, [1]);
@@ -99,7 +99,7 @@ describe("spCoinContract", function () {
     }
   });
 
-/**
+/* */
 
     it("SUCCESSFUL ERROR MSG CAUGHT: 'SPONSOR ACCOUNT HAS PATRON'", async function () {
       await addTestNetworkPatronSponsors(0, [1]);
@@ -113,7 +113,7 @@ describe("spCoinContract", function () {
       }
     });
   
-  /**/
+  /*
 
   it("SUCCESSFUL ERROR MSG CAUGHT: 'AGENT ACCOUNT HAS PARENT SPONSOR'", async function () {
     await addSponsorAgents(AGENT_ACCOUNT_KEY_0, SPONSOR_ACCOUNT_KEY_1, SPONSOR_RATE_10, [AGENT_ACCOUNT_KEY_0, SPONSOR_ACCOUNT_KEY_2]);
@@ -127,7 +127,6 @@ describe("spCoinContract", function () {
       expect(err.message).to.equal(expectedErrMsg);
     }
   });
-  /**
 
   it("VALIDATE THAT ACCOUNTS, PATRIOT/SPONSOR/AGENT, ARE ALL MUTUALLY EXCLUSIVE", async function () {
     setLogMode(LOG_MODE.LOG, true);

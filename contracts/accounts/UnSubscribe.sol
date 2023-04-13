@@ -27,7 +27,7 @@ contract UnSubscribe is Transactions {
  
             patronAccount.balanceOf += totalSponsoed;
             patronAccount.stakedSPCoins -= totalSponsoed;
-            deleteAccountRecord(sponsorRecord.sponsorAccountKey);
+            deleteAccountRecordInternal(sponsorRecord.sponsorAccountKey);
         }
     }
 
@@ -85,7 +85,7 @@ contract UnSubscribe is Transactions {
               break;
         }
         // delete the Agent Account Record if no References
-        deleteAccountRecord(agentRec.agentAccountKey);
+        deleteAccountRecordInternal(agentRec.agentAccountKey);
     }
 
     // Delete sponsor rate list.
@@ -120,7 +120,7 @@ contract UnSubscribe is Transactions {
     return deleted;
     }
 
-    function deleteAccountRecord(address _accountKey) internal
+    function deleteAccountRecordInternal(address _accountKey) internal
     accountExists(_accountKey) 
     onlyOwnerOrRootAdmin(_accountKey) {
 
@@ -134,14 +134,13 @@ contract UnSubscribe is Transactions {
         }
     }
 
-/*
+/* */
    
     function deleteAccountRecord(address _accountKey) public
         accountExists(_accountKey) 
         onlyOwnerOrRootAdmin(_accountKey)
         patronDoesNotExist(_accountKey)
         parentsponsorDoesNotExist(_accountKey)
-//      AgentDoesNotExist(_accountKey)
         sponsorDoesNotExist(_accountKey) {
         if (deleteAccountRecordFromSearchKeys( _accountKey,  accountKeys)) {
             delete accountMap[_accountKey];
@@ -163,7 +162,7 @@ contract UnSubscribe is Transactions {
         require (getSponsorKeys(_patronKey).length == 0, "Patron Account has a Sponsor, (Patron must Un-sponsor Sponsored Account)");
         _;
     }
-    
+/*   
     modifier AgentDoesNotExist(address _accountKey) {
         require (accountMap[_accountKey](_accountKey).length == 0, "Sponsor Account has an Agent, (Patron must Un-sponsor Sponsored Account)");
         _;
