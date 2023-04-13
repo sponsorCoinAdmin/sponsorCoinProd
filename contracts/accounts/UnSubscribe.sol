@@ -107,8 +107,8 @@ contract UnSubscribe is Transactions {
     uint i = getAccountListIndex (_accountKey, _accountKeyList);
     for (i; i<_accountKeyList.length; i++) { 
         if (_accountKeyList[i] == _accountKey) {
-            // console.log("==== Found _accountKeyList[", i, "] ", _accountKeyList[i]);
-            // console.log("==== Found accountMap[_accountKeyList[", i,  "]].accountKey ", accountMap[_accountKeyList[i]].accountKey);
+            console.log("==== Found _accountKeyList[", i, "] ", _accountKeyList[i]);
+            console.log("==== Found accountMap[_accountKeyList[", i,  "]].accountKey ", accountMap[_accountKeyList[i]].accountKey);
             delete _accountKeyList[i];
             if (i > 0)
                 _accountKeyList[i] = _accountKeyList[_accountKeyList.length - 1];
@@ -124,10 +124,16 @@ contract UnSubscribe is Transactions {
     accountExists(_accountKey) 
     onlyOwnerOrRootAdmin(_accountKey) {
 
+        console.log("*** deleteAccountRecordInternal(", _accountKey,")");
+        console.log("accountMap[",_accountKey,"].patronAccountList.length =", accountMap[_accountKey].patronAccountList.length);
+        console.log("accountMap[",_accountKey,"].sponsorAccountList.length =", accountMap[_accountKey].sponsorAccountList.length);
+        console.log("accountMap[",_accountKey,"].agentAccountList.length =", accountMap[_accountKey].agentAccountList.length);
+        console.log("accountMap[",_accountKey,"].parentSponsorAccountList.length =", accountMap[_accountKey].parentSponsorAccountList.length);
         if(accountMap[_accountKey].patronAccountList.length == 0 &&
             accountMap[_accountKey].sponsorAccountList.length == 0 &&
             accountMap[_accountKey].agentAccountList.length == 0 &&
             accountMap[_accountKey].parentSponsorAccountList.length == 0) {
+            console.log("*** DELETING ACCOUNT ", _accountKey);
             if (deleteAccountRecordFromSearchKeys(_accountKey,  AccountList)) {
                 delete accountMap[_accountKey];
             } 
