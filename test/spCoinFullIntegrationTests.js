@@ -12,10 +12,10 @@ const {
   TEST_HH_ACCOUNT_KEY_7, TEST_HH_ACCOUNT_KEY_8, TEST_HH_ACCOUNT_KEY_9, TEST_HH_ACCOUNT_KEY_10,
   TEST_HH_ACCOUNT_KEY_11, TEST_HH_ACCOUNT_KEY_12, TEST_HH_ACCOUNT_KEY_13, TEST_HH_ACCOUNT_KEY_14,
   TEST_HH_ACCOUNT_KEY_15, TEST_HH_ACCOUNT_KEY_16, TEST_HH_ACCOUNT_KEY_17, TEST_HH_ACCOUNT_KEY_18,
-  TEST_HH_ACCOUNT_KEY_19, PATRON_ACCOUNT_KEY_0,
-  PATRON_ACCOUNT_KEY_1, PATRON_ACCOUNT_KEY_2, PATRON_ACCOUNT_KEY_3, PATRON_ACCOUNT_KEY_4,
-  PATRON_ACCOUNT_KEY_5, PATRON_ACCOUNT_KEY_6, PATRON_ACCOUNT_KEY_7, PATRON_ACCOUNT_KEY_8,
-  PATRON_ACCOUNT_KEY_9, PATRON_ACCOUNT_KEY_10,
+  TEST_HH_ACCOUNT_KEY_19, SPONSOR_ACCOUNT_KEY_0,
+  SPONSOR_ACCOUNT_KEY_1, SPONSOR_ACCOUNT_KEY_2, SPONSOR_ACCOUNT_KEY_3, SPONSOR_ACCOUNT_KEY_4,
+  SPONSOR_ACCOUNT_KEY_5, SPONSOR_ACCOUNT_KEY_6, SPONSOR_ACCOUNT_KEY_7, SPONSOR_ACCOUNT_KEY_8,
+  SPONSOR_ACCOUNT_KEY_9, SPONSOR_ACCOUNT_KEY_10,
   RECIPIENT_ACCOUNT_KEY_0, RECIPIENT_ACCOUNT_KEY_1, RECIPIENT_ACCOUNT_KEY_2, RECIPIENT_ACCOUNT_KEY_3,
   RECIPIENT_ACCOUNT_KEY_4, RECIPIENT_ACCOUNT_KEY_5, RECIPIENT_ACCOUNT_KEY_6, RECIPIENT_ACCOUNT_KEY_7,
   RECIPIENT_ACCOUNT_KEY_8, RECIPIENT_ACCOUNT_KEY_9, RECIPIENT_ACCOUNT_KEY_10,
@@ -48,11 +48,11 @@ describe("spCoinContract", function () {
   setLogMode("LOG", true);
 
 
-  // Test Successful Record Insertion of Patron and 
+  // Test Successful Record Insertion of Sponsor and 
   // Recipient Accounts to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
   // await addAgentRateTransaction(
-  //   PATRON_ACCOUNT_KEY_0,
+  //   SPONSOR_ACCOUNT_KEY_0,
   //   RECIPIENT_ACCOUNT_KEY_1,
   //   RECIPIENT_RATE_9,
   //   AGENT_ACCOUNT_KEY_2,
@@ -61,7 +61,7 @@ describe("spCoinContract", function () {
   //   );
 
     await addAgentRateTransaction(
-      PATRON_ACCOUNT_KEY_3,
+      SPONSOR_ACCOUNT_KEY_3,
       RECIPIENT_ACCOUNT_KEY_1,
       RECIPIENT_RATE_9,
       AGENT_ACCOUNT_KEY_2,
@@ -70,7 +70,7 @@ describe("spCoinContract", function () {
       );
       
     await addAgentRateTransaction(
-      PATRON_ACCOUNT_KEY_1,
+      SPONSOR_ACCOUNT_KEY_1,
       RECIPIENT_ACCOUNT_KEY_2,
       RECIPIENT_RATE_10,
       AGENT_ACCOUNT_KEY_3,
@@ -79,7 +79,7 @@ describe("spCoinContract", function () {
     );
 
     // let agentRateKeys = await getAgentRateKeys(
-    //   PATRON_ACCOUNT_KEY_1,
+    //   SPONSOR_ACCOUNT_KEY_1,
     //   RECIPIENT_ACCOUNT_KEY_1,
     // RECIPIENT_RATE_10,
     //   AGENT_ACCOUNT_KEY_1);
@@ -87,8 +87,8 @@ describe("spCoinContract", function () {
     // AccountListize = (await getAccountListize()).toNumber();
     // expect(AccountListize).to.equal(3);
     await logJSONTree();
-    // await deletePatronRecipientRecord(PATRON_ACCOUNT_KEY_0, RECIPIENT_ACCOUNT_KEY_1);
-    await deletePatronRecipientRecord(PATRON_ACCOUNT_KEY_3, RECIPIENT_ACCOUNT_KEY_1);
+    // await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEY_0, RECIPIENT_ACCOUNT_KEY_1);
+    await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEY_3, RECIPIENT_ACCOUNT_KEY_1);
     console.log("********************************************************************************");
     console.log("*** AFTER DELETE ***************************************************************");
     console.log("********************************************************************************");
@@ -96,16 +96,16 @@ describe("spCoinContract", function () {
     // console.log("--- AFTER DELETE RECIPIENT -----------------------------------");
     await logJSONTree();
     // agentRateKeys = await getAgentRateKeys(
-    //   PATRON_ACCOUNT_KEY_1,
+    //   SPONSOR_ACCOUNT_KEY_1,
     //   RECIPIENT_ACCOUNT_KEY_1,
     // RECIPIENT_RATE_10,
     //   AGENT_ACCOUNT_KEY_1);
     //   logJSON(agentRateKeys);
 
     // VALIDATE ACCOUNT CREATION
-    // VALIDATE PATRON ACCOUNT
-    // let patronAccount = await getAccountRecord(PATRON_ACCOUNT_KEY_1);
-    // logJSON(patronAccount);
+    // VALIDATE SPONSOR ACCOUNT
+    // let sponsorAccount = await getAccountRecord(SPONSOR_ACCOUNT_KEY_1);
+    // logJSON(sponsorAccount);
   });
 /**/
 });

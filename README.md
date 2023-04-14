@@ -67,8 +67,8 @@ Requirements to Delete Agent: Agent Affiliation Program
 4. Then Remove Recipient Parent from agentAccount.parentRecipientAccountList
 5. Optional, If Agent account balanceOf is zero (0), Agent account may be deleted.
 
-Requirements to Delete Recipient from Patron: (Delete Patron recipientship)
-1. Require Recipient to be Child of Patron
+Requirements to Delete Recipient from Sponsor: (Delete Sponsor recipientship)
+1. Require Recipient to be Child of Sponsor
 2. Require Recipient to have no Parent Patrion balanceOf Token affiliation.
 3. Require Recipient to have no Child Agent affiliation
 4. Remove associated child agents from Recipient.agentAccountList
@@ -79,5 +79,5 @@ Requirements to Delete Recipient from Patron: (Delete Patron recipientship)
 Requirements to Delete Account
 1. Require Account to have No Recipients, account.recipientAccountList must be zero (0).
 2. Require Account to have No Agents, account.agentAccountList must be zero (0).
-3. Optional, Require Account to have No Patrons account.patronAccountList must be zero (0).
+3. Optional, Require Account to have No Sponsors account.sponsorAccountList must be zero (0).
 4. Optional, Require Account to have No account.parentRecipientAccountList must be zero (0).

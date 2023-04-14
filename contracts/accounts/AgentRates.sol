@@ -8,17 +8,17 @@ contract AgentRates is Agents {
     constructor() { }
 
     /// @notice insert recipients Agent
-    /// @param _patronKey public Recipient Coin Account Key
+    /// @param _sponsorKey public Recipient Coin Account Key
     /// @param _recipientKey public account key to get recipient array
     /// @param _recipientRateKey public account key to get recipient Rate for a given recipient
     /// @param _agentKey new recipient to add to account list 
-    function addAgentRateRecord(address _patronKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey)
+    function addAgentRateRecord(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey)
             public onlyOwnerOrRootAdmin(msg.sender) {
 
-        addRecipientAgent(_patronKey, _recipientKey, _recipientRateKey, _agentKey);
-        AgentRateStruct storage agentRateRecord= getAgentRateRecordByKeys(_patronKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
+        addRecipientAgent(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
+        AgentRateStruct storage agentRateRecord= getAgentRateRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
         if (!agentRateRecord.inserted) {
-            AgentStruct storage agentRecord = getAgentRecordByKeys(_patronKey, _recipientKey, _recipientRateKey, _agentKey);
+            AgentStruct storage agentRecord = getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
             agentRateRecord.agentRate = _agentRateKey;
             agentRateRecord.inserted = true;
             agentRateRecord.insertionTime = agentRateRecord.lastUpdateTime = block.timestamp;
@@ -27,13 +27,13 @@ contract AgentRates is Agents {
         }
     }
 
-    function getAgentRateRecordByKeys(address _patronKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey) internal view onlyOwnerOrRootAdmin(_patronKey) returns (AgentRateStruct storage) {
-        AgentStruct storage agentRec = getAgentRecordByKeys(_patronKey, _recipientKey, _recipientRateKey, _agentKey) ;
+    function getAgentRateRecordByKeys(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey) internal view onlyOwnerOrRootAdmin(_sponsorKey) returns (AgentRateStruct storage) {
+        AgentStruct storage agentRec = getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey) ;
         return agentRec.agentRateMap[_agentRateKey];
     }
 
-     function serializeAgentRateRecordStr(address _patronKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
-        AgentRateStruct storage agentRateRecord=  getAgentRateRecordByKeys(_patronKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
+     function serializeAgentRateRecordStr(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
+        AgentRateStruct storage agentRateRecord=  getAgentRateRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
         string memory insertionTimeStr = toString(agentRateRecord.insertionTime);
         string memory lastUpdateTimeStr = toString(agentRateRecord.lastUpdateTime);
         string memory stakedSPCoinsStr = toString(agentRateRecord.stakedSPCoins);
@@ -41,8 +41,8 @@ contract AgentRates is Agents {
         return strRateHeaderStr;
     }
 
-    function getRateTransactionList(address _patronKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
-        AgentStruct storage agentRec = getAgentRecordByKeys(_patronKey, _recipientKey, _recipientRateKey, _agentKey);
+    function getRateTransactionList(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
+        AgentStruct storage agentRec = getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
         string memory strTransactionList = "";
         AgentRateStruct storage agentRateRecord= agentRec.agentRateMap[_agentRateKey];
         // console.log ("agentRateRecord.transactionList[0].quantity = ", agentRateRecord.transactionList[0].quantity);

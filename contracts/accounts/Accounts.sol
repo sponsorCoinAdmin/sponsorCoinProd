@@ -40,21 +40,21 @@ contract Accounts is StructSerialization {
         return AccountList;
     }
 
-    ////////////////////// PATRON REQUESTS //////////////////////////////
+    ////////////////////// SPONSOR REQUESTS //////////////////////////////
 
     /*
-    /// @notice retreives the recipient array records for the Patron list
+    /// @notice retreives the recipient array records for the Sponsor list
     /// @param _accountKey public account key to get Recipient Record Length
-    function getAccountPatronKeys(address _accountKey) public view 
+    function getAccountSponsorKeys(address _accountKey) public view 
         onlyOwnerOrRootAdmin(_accountKey) returns (address[] memory) {
         AccountStruct storage account = accountMap[_accountKey];
-        address[] storage patronAccountList = account.patronAccountList;
-        return patronAccountList;
+        address[] storage sponsorAccountList = account.sponsorAccountList;
+        return sponsorAccountList;
     }
 
     /////////////////////////// RECIPIENT REQUESTS //////////////////////////////
 
-    /// @notice retreives the recipient array records for the Patron list
+    /// @notice retreives the recipient array records for the Sponsor list
     /// @param _accountKey public account key to get Recipient Record Length
     function getAccountParentRecipientKeys(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
         AccountStruct storage account = accountMap[_accountKey];
@@ -65,10 +65,10 @@ contract Accounts is StructSerialization {
     /////////////////////////// AGENT REQUESTS //////////////////////////////
  
     /// @notice retreives the recipients of a specific address.
-    /// @param _patronKey public account key to set new balance
-    function getRecipientKeys(address _patronKey) public onlyOwnerOrRootAdmin(_patronKey) view returns (address[] memory) {
-        AccountStruct storage patronAccount = accountMap[_patronKey];
-        address[] storage recipientKeys = patronAccount.recipientAccountList;
+    /// @param _sponsorKey public account key to set new balance
+    function getRecipientKeys(address _sponsorKey) public onlyOwnerOrRootAdmin(_sponsorKey) view returns (address[] memory) {
+        AccountStruct storage sponsorAccount = accountMap[_sponsorKey];
+        address[] storage recipientKeys = sponsorAccount.recipientAccountList;
         return recipientKeys;
     }
 

@@ -33,9 +33,9 @@ deleteAccountRecords = async (_accountListKeys) => {
 
 /////////////////////// RECIPIENT RECORD FUNCTIONS ///////////////////////
 
-deletePatronRecipientRecord = async (_patronKey, _recipientKey) => {
-  logFunctionHeader("deletePatronRecipientRecord(" + _patronKey + ", " + _recipientKey + ")");
-  await spCoinContractDeployed.deletePatronRecipientRecord(_patronKey, _recipientKey);
+deleteSponsorRecipientRecord = async (_sponsorKey, _recipientKey) => {
+  logFunctionHeader("deleteSponsorRecipientRecord(" + _sponsorKey + ", " + _recipientKey + ")");
+  await spCoinContractDeployed.deleteSponsorRecipientRecord(_sponsorKey, _recipientKey);
 }
 
 /////////////////////// AGENT RECORD FUNCTIONS ////////////////////////
@@ -59,6 +59,6 @@ module.exports = {
   deleteAccountRecord,
   deleteAccountRecords,
   deleteAgentRecord,
-  deletePatronRecipientRecord,
+  deleteSponsorRecipientRecord,
   setContractDeleteMethods,
 };

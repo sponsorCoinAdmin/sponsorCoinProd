@@ -5,7 +5,7 @@ class AccountStruct {
     this.stakedSPCoins;
     this.insertionTime;
     this.verified;
-    this.patronAccountList;
+    this.sponsorAccountList;
     this.recipientAccountList;
     this.agentAccountList;
     this.parentRecipientAccountList;

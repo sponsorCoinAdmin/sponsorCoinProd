@@ -5,10 +5,10 @@ const {
   TEST_HH_ACCOUNT_KEY_7, TEST_HH_ACCOUNT_KEY_8, TEST_HH_ACCOUNT_KEY_9, TEST_HH_ACCOUNT_KEY_10,
   TEST_HH_ACCOUNT_KEY_11, TEST_HH_ACCOUNT_KEY_12, TEST_HH_ACCOUNT_KEY_13, TEST_HH_ACCOUNT_KEY_14,
   TEST_HH_ACCOUNT_KEY_15, TEST_HH_ACCOUNT_KEY_16, TEST_HH_ACCOUNT_KEY_17, TEST_HH_ACCOUNT_KEY_18,
-  TEST_HH_ACCOUNT_KEY_19, PATRON_ACCOUNT_KEY_0,
-  PATRON_ACCOUNT_KEY_1, PATRON_ACCOUNT_KEY_2, PATRON_ACCOUNT_KEY_3, PATRON_ACCOUNT_KEY_4,
-  PATRON_ACCOUNT_KEY_5, PATRON_ACCOUNT_KEY_6, PATRON_ACCOUNT_KEY_7, PATRON_ACCOUNT_KEY_8,
-  PATRON_ACCOUNT_KEY_9, PATRON_ACCOUNT_KEY_10,
+  TEST_HH_ACCOUNT_KEY_19, SPONSOR_ACCOUNT_KEY_0,
+  SPONSOR_ACCOUNT_KEY_1, SPONSOR_ACCOUNT_KEY_2, SPONSOR_ACCOUNT_KEY_3, SPONSOR_ACCOUNT_KEY_4,
+  SPONSOR_ACCOUNT_KEY_5, SPONSOR_ACCOUNT_KEY_6, SPONSOR_ACCOUNT_KEY_7, SPONSOR_ACCOUNT_KEY_8,
+  SPONSOR_ACCOUNT_KEY_9, SPONSOR_ACCOUNT_KEY_10,
   RECIPIENT_ACCOUNT_KEY_0, RECIPIENT_ACCOUNT_KEY_1, RECIPIENT_ACCOUNT_KEY_2, RECIPIENT_ACCOUNT_KEY_3,
   RECIPIENT_ACCOUNT_KEY_4, RECIPIENT_ACCOUNT_KEY_5, RECIPIENT_ACCOUNT_KEY_6, RECIPIENT_ACCOUNT_KEY_7,
   RECIPIENT_ACCOUNT_KEY_8, RECIPIENT_ACCOUNT_KEY_9, RECIPIENT_ACCOUNT_KEY_10,
@@ -53,7 +53,7 @@ describe("spCoinContract", function () {
       console.log("*** ACCOUNT STRUCTURE BEFORE DELETE ***");
       await logJSONTree();
   
-      let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Patron Account has a Recipient, (Patron must Un-recipient Recipiented Account)'";
+      let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Sponsor Account has a Recipient, (Sponsor must Un-recipient Recipiented Account)'";
       try {
         await deleteTestNetworkAccount(1);
       }
@@ -74,7 +74,7 @@ describe("spCoinContract", function () {
   /* */
 
   it("SUCCESSFUL ERROR MSG CAUGHT: 'ACCOUNT DOES NOT EXIST'", async function () {
-    await addTestNetworkPatronRecipients(0, [1]);
+    await addTestNetworkSponsorRecipients(0, [1]);
     let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Account does not exists'";
     try {
       await deleteTestNetworkAccount(2);
@@ -87,9 +87,9 @@ describe("spCoinContract", function () {
 
   /* */
 
-  it("SUCCESSFUL ERROR MSG CAUGHT: 'PATRON ACCOUNT HAS RECIPIENT'", async function () {
-    await addTestNetworkPatronRecipients(0, [1]);
-    let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Patron Account has a Recipient, (Patron must Un-recipient Recipiented Account)'";
+  it("SUCCESSFUL ERROR MSG CAUGHT: 'SPONSOR ACCOUNT HAS RECIPIENT'", async function () {
+    await addTestNetworkSponsorRecipients(0, [1]);
+    let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Sponsor Account has a Recipient, (Sponsor must Un-recipient Recipiented Account)'";
     try {
       await deleteTestNetworkAccount(0);
       throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
@@ -101,9 +101,9 @@ describe("spCoinContract", function () {
 
 /* */
 
-    it("SUCCESSFUL ERROR MSG CAUGHT: 'RECIPIENT ACCOUNT HAS PATRON'", async function () {
-      await addTestNetworkPatronRecipients(0, [1]);
-      let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Recipient Account has a Patron, (Patron must Un-recipient Recipiented Account)'";
+    it("SUCCESSFUL ERROR MSG CAUGHT: 'RECIPIENT ACCOUNT HAS SPONSOR'", async function () {
+      await addTestNetworkSponsorRecipients(0, [1]);
+      let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Recipient Account has a Sponsor, (Sponsor must Un-recipient Recipiented Account)'";
       try {
         await deleteTestNetworkAccount(1);
         throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
@@ -118,7 +118,7 @@ describe("spCoinContract", function () {
   it("SUCCESSFUL ERROR MSG CAUGHT: 'AGENT ACCOUNT HAS PARENT RECIPIENT'", async function () {
     await addRecipientAgents(AGENT_ACCOUNT_KEY_0, RECIPIENT_ACCOUNT_KEY_1, RECIPIENT_RATE_10, [AGENT_ACCOUNT_KEY_0, RECIPIENT_ACCOUNT_KEY_2]);
 
-    let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Agent Account has a Parent Recipient, (Patron must Un-recipient Recipiented Account)'";
+    let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Agent Account has a Parent Recipient, (Sponsor must Un-recipient Recipiented Account)'";
     try {
       await deleteAccountRecord(RECIPIENT_ACCOUNT_KEY_2);
       throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);

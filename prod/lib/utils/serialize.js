@@ -64,8 +64,8 @@ addAccountField = (key, value, accountStruct) => {
     case "KYC":
       accountStruct.KYC = value;
       break;
-      case "patronAccountList":
-        accountStruct.patronAccountList = parseAddressStrRecord(value);
+      case "sponsorAccountList":
+        accountStruct.sponsorAccountList = parseAddressStrRecord(value);
         break;
       case "recipientAccountList":
         accountStruct.recipientAccountList = parseAddressStrRecord(value);

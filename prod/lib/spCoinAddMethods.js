@@ -4,9 +4,9 @@ setContractAddMethods = (_spCoinContractDeployed) => {
     spCoinContractDeployed = _spCoinContractDeployed;
 }
 
-addPatronRecipient = async (_accountKey, _recipientKey) => {
+addSponsorRecipient = async (_accountKey, _recipientKey) => {
     logFunctionHeader(
-      "addPatronRecipient = async(" + _accountKey + ", " + _recipientKey + ")"
+      "addSponsorRecipient = async(" + _accountKey + ", " + _recipientKey + ")"
     );
   
     logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
@@ -14,12 +14,12 @@ addPatronRecipient = async (_accountKey, _recipientKey) => {
     );
   
     logDetail("JS => Inserting Recipient " + _recipientKey );
-    await spCoinContractDeployed.addPatronRecipient(_accountKey, _recipientKey);
+    await spCoinContractDeployed.addSponsorRecipient(_accountKey, _recipientKey);
   };
   
-  addPatronRecipients = async (_accountKey, _recipientAccountList) => {
+  addSponsorRecipients = async (_accountKey, _recipientAccountList) => {
     logFunctionHeader(
-      "addPatronRecipients = async(" + _accountKey + ", " + _recipientAccountList + ")"
+      "addSponsorRecipients = async(" + _accountKey + ", " + _recipientAccountList + ")"
     );
   
     logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
@@ -29,7 +29,7 @@ addPatronRecipient = async (_accountKey, _recipientKey) => {
     let recipientCount = 0;
     for (recipientCount; recipientCount < _recipientAccountList.length; recipientCount++) {
       let _recipientKey = _recipientAccountList[recipientCount];
-      await addPatronRecipient(_accountKey, _recipientKey);
+      await addSponsorRecipient(_accountKey, _recipientKey);
     }
     logDetail("JS => Inserted = " + recipientCount + " Recipient Records");
     return --recipientCount;
@@ -124,7 +124,7 @@ addAgentRateTransaction = async (
 module.exports = {
     addAccountRecord,
     addAccountRecords,
-    addPatronRecipients,
+    addSponsorRecipients,
     addAgentRateTransaction,
     addRecipientAgent,
     addRecipientAgents,
