@@ -33,17 +33,17 @@ contract UnSubscribe is Transactions {
 
     function deleteSponsorRateRecords(SponsorStruct storage _sponsorRecord) internal {
         // Delete Agent Rate Keys
-        uint256[] storage sponsorRateKeys = _sponsorRecord.sponsorRateKeys;
+        uint256[] storage sponsorRateList = _sponsorRecord.sponsorRateList;
         AccountStruct storage sponsorAccount = accountMap[_sponsorRecord.sponsorKey];
 
-        uint i = sponsorRateKeys.length - 1;
+        uint i = sponsorRateList.length - 1;
         for (i; i >=0; i--) {
-            // console.log("====deleteSponsorRateRecords: sponsorRateKeys[", i, "] ", sponsorRateKeys[i]);
-            uint256 sponsorRateKey = sponsorRateKeys[i];
+            // console.log("====deleteSponsorRateRecords: sponsorRateList[", i, "] ", sponsorRateList[i]);
+            uint256 sponsorRateKey = sponsorRateList[i];
             SponsorRateStruct storage sponsorRateRecord = _sponsorRecord.sponsorRateMap[sponsorRateKey];
 
             deleteSponsorRateRecord(sponsorAccount, sponsorRateRecord);
-            sponsorRateKeys.pop();
+            sponsorRateList.pop();
             if (i == 0)
               break;
         }
@@ -107,8 +107,8 @@ contract UnSubscribe is Transactions {
     uint i = getAccountListIndex (_accountKey, _accountKeyList);
     for (i; i<_accountKeyList.length; i++) { 
         if (_accountKeyList[i] == _accountKey) {
-            // console.log("==== Found _accountKeyList[", i, "] ", _accountKeyList[i]);
-            // console.log("==== Found accountMap[_accountKeyList[", i,  "]].accountKey ", accountMap[_accountKeyList[i]].accountKey);
+            console.log("==== Found _accountKeyList[", i, "] ", _accountKeyList[i]);
+            console.log("==== Found accountMap[_accountKeyList[", i,  "]].accountKey ", accountMap[_accountKeyList[i]].accountKey);
             delete _accountKeyList[i];
             if (i > 0)
                 _accountKeyList[i] = _accountKeyList[_accountKeyList.length - 1];
@@ -124,10 +124,16 @@ contract UnSubscribe is Transactions {
     accountExists(_accountKey) 
     onlyOwnerOrRootAdmin(_accountKey) {
 
+        console.log("*** deleteAccountRecordInternal(", _accountKey,")");
+        console.log("accountMap[",_accountKey,"].patronAccountList.length =", accountMap[_accountKey].patronAccountList.length);
+        console.log("accountMap[",_accountKey,"].sponsorAccountList.length =", accountMap[_accountKey].sponsorAccountList.length);
+        console.log("accountMap[",_accountKey,"].agentAccountList.length =", accountMap[_accountKey].agentAccountList.length);
+        console.log("accountMap[",_accountKey,"].parentSponsorAccountList.length =", accountMap[_accountKey].parentSponsorAccountList.length);
         if(accountMap[_accountKey].patronAccountList.length == 0 &&
             accountMap[_accountKey].sponsorAccountList.length == 0 &&
             accountMap[_accountKey].agentAccountList.length == 0 &&
             accountMap[_accountKey].parentSponsorAccountList.length == 0) {
+            console.log("*** DELETING ACCOUNT ", _accountKey);
             if (deleteAccountRecordFromSearchKeys(_accountKey,  AccountList)) {
                 delete accountMap[_accountKey];
             } 
