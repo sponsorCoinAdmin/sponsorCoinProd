@@ -6,34 +6,34 @@ class AccountStruct {
     this.insertionTime;
     this.verified;
     this.patronAccountList;
-    this.sponsorAccountList;
+    this.benificiaryAccountList;
     this.agentAccountList;
-    this.parentSponsorAccountList;
-    this.sponsorRecordList;
+    this.parentBenificiaryAccountList;
+    this.benificiaryRecordList;
 //    this.KYC;
   }
 }
 
-class SponsorStruct {
+class BenificiaryStruct {
   constructor() {
-    this.sponsorKey;
+    this.benificiaryKey;
     this.stakedSPCoins;
     this.insertionTime;
     this.verified;
-    this.sponsorRateList2;
+    this.benificiaryRateList2;
   }
 }
 
 
-class SponsorRateStruct {
+class BenificiaryRateStruct {
   constructor() {
-    this.sponsorRate;
+    this.benificiaryRate;
     this.stakedSPCoins;
     this.insertionTime;
     this.lastUpdateTime;
     this.transactions;
     this.agentAccountList;
-    this.sponsorRecordList;
+    this.benificiaryRecordList;
   }
 }
 
@@ -68,7 +68,7 @@ module.exports = {
   AccountStruct,
   AgentRateStruct,
   AgentStruct,
-  SponsorStruct,
-  SponsorRateStruct,
+  BenificiaryStruct,
+  BenificiaryRateStruct,
   TransactionStruct
 };

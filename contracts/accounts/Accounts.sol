@@ -43,8 +43,8 @@ contract Accounts is StructSerialization {
     ////////////////////// PATRON REQUESTS //////////////////////////////
 
     /*
-    /// @notice retreives the sponsor array records for the Patron list
-    /// @param _accountKey public account key to get Sponsor Record Length
+    /// @notice retreives the benificiary array records for the Patron list
+    /// @param _accountKey public account key to get Benificiary Record Length
     function getAccountPatronKeys(address _accountKey) public view 
         onlyOwnerOrRootAdmin(_accountKey) returns (address[] memory) {
         AccountStruct storage account = accountMap[_accountKey];
@@ -52,24 +52,24 @@ contract Accounts is StructSerialization {
         return patronAccountList;
     }
 
-    /////////////////////////// SPONSOR REQUESTS //////////////////////////////
+    /////////////////////////// BENIFICIARY REQUESTS //////////////////////////////
 
-    /// @notice retreives the sponsor array records for the Patron list
-    /// @param _accountKey public account key to get Sponsor Record Length
-    function getAccountParentSponsorKeys(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
+    /// @notice retreives the benificiary array records for the Patron list
+    /// @param _accountKey public account key to get Benificiary Record Length
+    function getAccountParentBenificiaryKeys(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
         AccountStruct storage account = accountMap[_accountKey];
-        address[] storage parentSponsorAccountList = account.parentSponsorAccountList;
-        return parentSponsorAccountList;
+        address[] storage parentBenificiaryAccountList = account.parentBenificiaryAccountList;
+        return parentBenificiaryAccountList;
     }
 */
     /////////////////////////// AGENT REQUESTS //////////////////////////////
  
-    /// @notice retreives the sponsors of a specific address.
+    /// @notice retreives the benificiarias of a specific address.
     /// @param _patronKey public account key to set new balance
-    function getSponsorKeys(address _patronKey) public onlyOwnerOrRootAdmin(_patronKey) view returns (address[] memory) {
+    function getBenificiaryKeys(address _patronKey) public onlyOwnerOrRootAdmin(_patronKey) view returns (address[] memory) {
         AccountStruct storage patronAccount = accountMap[_patronKey];
-        address[] storage sponsorKeys = patronAccount.sponsorAccountList;
-        return sponsorKeys;
+        address[] storage benificiaryKeys = patronAccount.benificiaryAccountList;
+        return benificiaryKeys;
     }
 
     

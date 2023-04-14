@@ -8,14 +8,14 @@ contract AccountStakingManager is UnSubscribe{
 
 // ###  ALGORITHMIC ARCHITECTURAL DESIGN FOR STAKING REWARDS ALLOCATION ###
 // allocateStakingRewards()
-// 1. Get the sponsors accounts Record as (sponsorRecordList)
-// 2. Set totalRewards = calcAllSponsorsStakingRewards(sponsorRecordList)
-// 3. Update all account balances updateAllSponsorsStakingRewards()
+// 1. Get the benificiarias accounts Record as (benificiaryRecordList)
+// 2. Set totalRewards = calcAllBenificiariasStakingRewards(benificiaryRecordList)
+// 3. Update all account balances updateAllBenificiariasStakingRewards()
 
 /*
 function allocateStakingRewards() internal view returns(  AccountStruct[] memory ){
-   AccountStruct[] memory sponsorRecordList = getSponsorRecordByKeys(msg.sender);
-   return sponsorRecordList;
+   AccountStruct[] memory benificiaryRecordList = getBenificiaryRecordByKeys(msg.sender);
+   return benificiaryRecordList;
 }
 */// @title A title that should describe the contract/interface
 /// @notice Explain to an end user what this does
@@ -45,44 +45,44 @@ function gitAddressThis() external view returns(address){
 //    3. Set stakingRewards = accountBalance * rewardsMultiplier
 //    4. return stakingRewards
 
-// ### CALCULATE STAKING REWARDS FOR ALL SPONSORS ###
-// calcAllSponsorsStakingRewards(sponsorRecordList)
-//    1. Set totalSponsorRewards = 0
-//    2. For each accountSponsor in sponsorRecordList calculate the Staking Rewards as:
-//    2.1   Increment totalSponsorRewards += calcSponsorStakingRewards(accountSponsor)
-//    3. return totalSponsorRewards
+// ### CALCULATE STAKING REWARDS FOR ALL BENIFICIARYS ###
+// calcAllBenificiariasStakingRewards(benificiaryRecordList)
+//    1. Set totalBenificiaryRewards = 0
+//    2. For each accountBenificiary in benificiaryRecordList calculate the Staking Rewards as:
+//    2.1   Increment totalBenificiaryRewards += calcBenificiaryStakingRewards(accountBenificiary)
+//    3. return totalBenificiaryRewards
 
-// ### CALCULATE INDIVIDUAL SPONSOR STAKING REWARDS FOR ACCOUNT ###
-// calcSponsorStakingRewards(accountSponsor)
-//    1. Set sponsorRewards = calculateAccountSteakingReward(accountSponsor.balanceOf, accountSponsor.rewardsRate, accountSponsor.lastUpdateDate)
+// ### CALCULATE INDIVIDUAL BENIFICIARY STAKING REWARDS FOR ACCOUNT ###
+// calcBenificiaryStakingRewards(accountBenificiary)
+//    1. Set benificiaryRewards = calculateAccountSteakingReward(accountBenificiary.balanceOf, accountBenificiary.rewardsRate, accountBenificiary.lastUpdateDate)
 //    2. Update balance = accountBalance + stakingRewards
-//    3. agentAccountList = accountSponsor.
+//    3. agentAccountList = accountBenificiary.
 //    4. Set agentRewards = calcAllAgentsStakingRewards(agentAccountList)
-//    5. Decrement sponsorRewards -= agentRewards
-//    6. addAccountRecordsToUpdateStakingRewards(accountSponsor, sponsorRewards)
-//    7. return sponsorRewards
+//    5. Decrement benificiaryRewards -= agentRewards
+//    6. addAccountRecordsToUpdateStakingRewards(accountBenificiary, benificiaryRewards)
+//    7. return benificiaryRewards
 
 // ### CALCULATE STAKING REWARDS FOR ALL AGENTS ###
 // calcAllAgentsStakingRewards(agentAccountList)
 //    1. Set totalAgentsRewards = 0
 //    3. For each agentAccount in agentAccountList calculate the Staking Rewards as:
 //    4.    Increment totalAgentsRewards += calculateAccountSteakingReward(agentAccount)
-//    5. addAccountRecordsToUpdateStakingRewards(accountSponsor, sponsorRewards)
+//    5. addAccountRecordsToUpdateStakingRewards(accountBenificiary, benificiaryRewards)
 //    6. return totalAgentsRewards
 
 //*****************************************************************************************************
 
-// ### CALCULATE INDIVIDUAL SPONSOR STAKING REWARDS FOR ACCOUNT ###
-// calcSponsorStakingRewards(accountSponsor, rewardsMultiplier)
+// ### CALCULATE INDIVIDUAL BENIFICIARY STAKING REWARDS FOR ACCOUNT ###
+// calcBenificiaryStakingRewards(accountBenificiary, rewardsMultiplier)
 //    1. Get a list of the agents accounts (agentAccountList)
 //    2. Get the current currBalance with balanceOf() ERC20 function;
-//    3. Get the lastUpdate for the sponsors Account
+//    3. Get the lastUpdate for the benificiarias Account
 //    4. Update Balances of all accounts updateBalances()
 
 //    3. For each agentAccount in agentAccountList calculate the Staking Rewards as:
 //       accountStakingReward = calcAgentStakingRewards(agentAccount)
 
-//    3. Add new elementto Record accountsToBeUpdated(account, "Sponsor", StakingRewards, currBalance, newBalance)
+//    3. Add new elementto Record accountsToBeUpdated(account, "Benificiary", StakingRewards, currBalance, newBalance)
 //    4. Calculate newBalance as currBalance + stakingRewards 
 //    3. return accountStakingReward;
 
@@ -90,27 +90,27 @@ function gitAddressThis() external view returns(address){
 
 
 
-// calcAgentsStakingRewards(sponsorsRewards, agentKeys)
+// calcAgentsStakingRewards(benificiariasRewards, agentKeys)
 //    1. Initialize local totalAgentsReward to zero (0).
 // ### FOR EACH AGENT PROCESS AS FOLLOWS ###
 //    2. Get the agents account, (agentsAccount).
-//    3. Get the agents Staking Rewards Interest Rate, (agentsRewardsRate), (between 2% and and 20% of sponsorsRewards).
+//    3. Get the agents Staking Rewards Interest Rate, (agentsRewardsRate), (between 2% and and 20% of benificiariasRewards).
 //    4. Get the Agents SPCoin Quantity (agentSCoinQty)
 //    5. Calculate the agents SPCoin staking rewards as:
-//             agentsReward = (SPCoin Sponsor Quanty) * elapsedProratedDays * sponsorsRewardsRate
+//             agentsReward = (SPCoin Benificiary Quanty) * elapsedProratedDays * benificiariasRewardsRate
 //    6. Increment totalAgentsReward = totalAgentsReward + agentsReward
 //    7. return totalAgentsReward
 
 
 
-// 8. For the sponsoredAccount, get the Sponsors Account Rate, (sponsorAccountRate), (between 2% and sponsorsRewardsRate).
-// 9. Calculate the Sponsored Reward, (sponsorRewards as stakingRewards * stakingRewardsRate;
+// 8. For the benificiaryedAccount, get the Benificiarias Account Rate, (benificiaryAccountRate), (between 2% and benificiariasRewardsRate).
+// 9. Calculate the Benificiaryed Reward, (benificiaryRewards as stakingRewards * stakingRewardsRate;
 
-// 10. Get the Sponsors Agent (sponsorsAgent)
+// 10. Get the Benificiarias Agent (benificiariasAgent)
 //     10.1 If no agent found set agentRewards at 0.
-// 11. For the sponsoredAccount, get the Sponsored Agent Rate, (sponsorAgentRate), (between 1% and sponsorAccountRate).
+// 11. For the benificiaryedAccount, get the Benificiaryed Agent Rate, (benificiaryAgentRate), (between 1% and benificiaryAccountRate).
 // 10. If Agent not found, AgentRewardRate = 0, otherwise AgentRewardRate = agentRate read, default 1%.
-// 11. Calculate the SponsorsReward as, SponsorsRewards = stakingRewards * (1 - (AgentRewardRate/SponsorsRewardRate)).
+// 11. Calculate the BenificiariasReward as, BenificiariasRewards = stakingRewards * (1 - (AgentRewardRate/BenificiariasRewardRate)).
 // 12. Update the TotalQuanty
 // 13. Update the Agents TotalQuanty 
 

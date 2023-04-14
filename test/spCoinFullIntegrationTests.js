@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const {
   AccountStruct,
-  SponsorStruct,
+  BenificiaryStruct,
   AgentStruct,
   AgentRateStruct,
   TransactionStruct,
@@ -16,15 +16,15 @@ const {
   PATRON_ACCOUNT_KEY_1, PATRON_ACCOUNT_KEY_2, PATRON_ACCOUNT_KEY_3, PATRON_ACCOUNT_KEY_4,
   PATRON_ACCOUNT_KEY_5, PATRON_ACCOUNT_KEY_6, PATRON_ACCOUNT_KEY_7, PATRON_ACCOUNT_KEY_8,
   PATRON_ACCOUNT_KEY_9, PATRON_ACCOUNT_KEY_10,
-  SPONSOR_ACCOUNT_KEY_0, SPONSOR_ACCOUNT_KEY_1, SPONSOR_ACCOUNT_KEY_2, SPONSOR_ACCOUNT_KEY_3,
-  SPONSOR_ACCOUNT_KEY_4, SPONSOR_ACCOUNT_KEY_5, SPONSOR_ACCOUNT_KEY_6, SPONSOR_ACCOUNT_KEY_7,
-  SPONSOR_ACCOUNT_KEY_8, SPONSOR_ACCOUNT_KEY_9, SPONSOR_ACCOUNT_KEY_10,
+  BENIFICIARY_ACCOUNT_KEY_0, BENIFICIARY_ACCOUNT_KEY_1, BENIFICIARY_ACCOUNT_KEY_2, BENIFICIARY_ACCOUNT_KEY_3,
+  BENIFICIARY_ACCOUNT_KEY_4, BENIFICIARY_ACCOUNT_KEY_5, BENIFICIARY_ACCOUNT_KEY_6, BENIFICIARY_ACCOUNT_KEY_7,
+  BENIFICIARY_ACCOUNT_KEY_8, BENIFICIARY_ACCOUNT_KEY_9, BENIFICIARY_ACCOUNT_KEY_10,
   AGENT_ACCOUNT_KEY_0, AGENT_ACCOUNT_KEY_1, AGENT_ACCOUNT_KEY_2, AGENT_ACCOUNT_KEY_3,
   AGENT_ACCOUNT_KEY_4, AGENT_ACCOUNT_KEY_5, AGENT_ACCOUNT_KEY_6, AGENT_ACCOUNT_KEY_7,
   AGENT_ACCOUNT_KEY_8, AGENT_ACCOUNT_KEY_9, AGENT_ACCOUNT_KEY_10,
-  SPONSOR_RATE_1, SPONSOR_RATE_2, SPONSOR_RATE_3, SPONSOR_RATE_4,
-  SPONSOR_RATE_5, SPONSOR_RATE_6, SPONSOR_RATE_7, SPONSOR_RATE_8,
-  SPONSOR_RATE_9,  SPONSOR_RATE_10,
+  BENIFICIARY_RATE_1, BENIFICIARY_RATE_2, BENIFICIARY_RATE_3, BENIFICIARY_RATE_4,
+  BENIFICIARY_RATE_5, BENIFICIARY_RATE_6, BENIFICIARY_RATE_7, BENIFICIARY_RATE_8,
+  BENIFICIARY_RATE_9,  BENIFICIARY_RATE_10,
   AGENT_RATE_1, AGENT_RATE_2, AGENT_RATE_3, AGENT_RATE_4, AGENT_RATE_5, AGENT_RATE_6,
   AGENT_RATE_7, AGENT_RATE_8, AGENT_RATE_9, AGENT_RATE_10,
   TRANSACTION_QTY_1, TRANSACTION_QTY_2, TRANSACTION_QTY_3, TRANSACTION_QTY_4, TRANSACTION_QTY_5,
@@ -49,12 +49,12 @@ describe("spCoinContract", function () {
 
 
   // Test Successful Record Insertion of Patron and 
-  // Sponsor Accounts to the Blockchain Network.
-  // Account, Sponsor and/or Agent are Successfully mutually exclusive.
+  // Benificiary Accounts to the Blockchain Network.
+  // Account, Benificiary and/or Agent are Successfully mutually exclusive.
   // await addAgentRateTransaction(
   //   PATRON_ACCOUNT_KEY_0,
-  //   SPONSOR_ACCOUNT_KEY_1,
-  //   SPONSOR_RATE_9,
+  //   BENIFICIARY_ACCOUNT_KEY_1,
+  //   BENIFICIARY_RATE_9,
   //   AGENT_ACCOUNT_KEY_2,
   //   AGENT_RATE_1,
   //   TRANSACTION_QTY_1
@@ -62,8 +62,8 @@ describe("spCoinContract", function () {
 
     await addAgentRateTransaction(
       PATRON_ACCOUNT_KEY_3,
-      SPONSOR_ACCOUNT_KEY_1,
-      SPONSOR_RATE_9,
+      BENIFICIARY_ACCOUNT_KEY_1,
+      BENIFICIARY_RATE_9,
       AGENT_ACCOUNT_KEY_2,
       AGENT_RATE_1,
       TRANSACTION_QTY_2
@@ -71,8 +71,8 @@ describe("spCoinContract", function () {
       
     await addAgentRateTransaction(
       PATRON_ACCOUNT_KEY_1,
-      SPONSOR_ACCOUNT_KEY_2,
-      SPONSOR_RATE_10,
+      BENIFICIARY_ACCOUNT_KEY_2,
+      BENIFICIARY_RATE_10,
       AGENT_ACCOUNT_KEY_3,
       AGENT_RATE_1,
       TRANSACTION_QTY_2
@@ -80,25 +80,25 @@ describe("spCoinContract", function () {
 
     // let agentRateKeys = await getAgentRateKeys(
     //   PATRON_ACCOUNT_KEY_1,
-    //   SPONSOR_ACCOUNT_KEY_1,
-    // SPONSOR_RATE_10,
+    //   BENIFICIARY_ACCOUNT_KEY_1,
+    // BENIFICIARY_RATE_10,
     //   AGENT_ACCOUNT_KEY_1);
   
     // AccountListize = (await getAccountListize()).toNumber();
     // expect(AccountListize).to.equal(3);
     await logJSONTree();
-    // await deletePatronSponsorRecord(PATRON_ACCOUNT_KEY_0, SPONSOR_ACCOUNT_KEY_1);
-    await deletePatronSponsorRecord(PATRON_ACCOUNT_KEY_3, SPONSOR_ACCOUNT_KEY_1);
+    // await deletePatronBenificiaryRecord(PATRON_ACCOUNT_KEY_0, BENIFICIARY_ACCOUNT_KEY_1);
+    await deletePatronBenificiaryRecord(PATRON_ACCOUNT_KEY_3, BENIFICIARY_ACCOUNT_KEY_1);
     console.log("********************************************************************************");
     console.log("*** AFTER DELETE ***************************************************************");
     console.log("********************************************************************************");
   
-    // console.log("--- AFTER DELETE SPONSOR -----------------------------------");
+    // console.log("--- AFTER DELETE BENIFICIARY -----------------------------------");
     await logJSONTree();
     // agentRateKeys = await getAgentRateKeys(
     //   PATRON_ACCOUNT_KEY_1,
-    //   SPONSOR_ACCOUNT_KEY_1,
-    // SPONSOR_RATE_10,
+    //   BENIFICIARY_ACCOUNT_KEY_1,
+    // BENIFICIARY_RATE_10,
     //   AGENT_ACCOUNT_KEY_1);
     //   logJSON(agentRateKeys);
 

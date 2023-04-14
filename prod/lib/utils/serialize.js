@@ -1,6 +1,6 @@
 const {
   AccountStruct,
-  SponsorStruct,
+  BenificiaryStruct,
   AgentStruct,
   AgentRateStruct,
   TransactionStruct,
@@ -67,17 +67,17 @@ addAccountField = (key, value, accountStruct) => {
       case "patronAccountList":
         accountStruct.patronAccountList = parseAddressStrRecord(value);
         break;
-      case "sponsorAccountList":
-        accountStruct.sponsorAccountList = parseAddressStrRecord(value);
+      case "benificiaryAccountList":
+        accountStruct.benificiaryAccountList = parseAddressStrRecord(value);
       break;
       case "agentAccountList":
           accountStruct.agentAccountList = parseAddressStrRecord(value);
         break;
-      case "parentSponsorAccountList":
-        accountStruct.parentSponsorAccountList = parseAddressStrRecord(value);
+      case "parentBenificiaryAccountList":
+        accountStruct.parentBenificiaryAccountList = parseAddressStrRecord(value);
       break;
-      case "sponsorRecordList":
-        accountStruct.sponsorRecordList = value;
+      case "benificiaryRecordList":
+        accountStruct.benificiaryRecordList = value;
       break;
     default:
       break;

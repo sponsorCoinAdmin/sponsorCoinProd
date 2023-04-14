@@ -7,61 +7,61 @@ contract UnSubscribe is Transactions {
     constructor() { }
 
     
-    /// @notice Remove all sponsorship relationships for Patron and Sponsor accounts
-    /// @param _patronKey Patron key containing the Sponsor relationship
-    /// @param _sponsorKey Sponsor to be removed from the Sponsor relationship
-    function deletePatronSponsorRecord(address _patronKey, address _sponsorKey)  
+    /// @notice Remove all benificiariaship relationships for Patron and Benificiary accounts
+    /// @param _patronKey Patron key containing the Benificiary relationship
+    /// @param _benificiaryKey Benificiary to be removed from the Benificiary relationship
+    function deletePatronBenificiaryRecord(address _patronKey, address _benificiaryKey)  
         public onlyOwnerOrRootAdmin(_patronKey)
         accountExists(_patronKey)
-        accountExists(_sponsorKey)
-        nonRedundantSponsor ( _patronKey,  _sponsorKey) {
+        accountExists(_benificiaryKey)
+        nonRedundantBenificiary ( _patronKey,  _benificiaryKey) {
     
         AccountStruct storage patronAccount = accountMap[_patronKey];
-        if (deleteAccountRecordFromSearchKeys(_sponsorKey, patronAccount.sponsorAccountList)) {
-            SponsorStruct storage sponsorRecord = patronAccount.sponsorMap[_sponsorKey];
-            uint256 totalSponsoed = sponsorRecord.stakedSPCoins;
-            AccountStruct storage sponsorAccount = accountMap[sponsorRecord.sponsorKey];
-            deleteAccountRecordFromSearchKeys(_sponsorKey, sponsorAccount.patronAccountList);
-            deleteAccountRecordFromSearchKeys(_sponsorKey, sponsorAccount.agentAccountList);
-            deleteSponsorRateRecords(sponsorRecord);
+        if (deleteAccountRecordFromSearchKeys(_benificiaryKey, patronAccount.benificiaryAccountList)) {
+            BenificiaryStruct storage benificiaryRecord = patronAccount.benificiaryMap[_benificiaryKey];
+            uint256 totalSponsoed = benificiaryRecord.stakedSPCoins;
+            AccountStruct storage benificiaryAccount = accountMap[benificiaryRecord.benificiaryKey];
+            deleteAccountRecordFromSearchKeys(_benificiaryKey, benificiaryAccount.patronAccountList);
+            deleteAccountRecordFromSearchKeys(_benificiaryKey, benificiaryAccount.agentAccountList);
+            deleteBenificiaryRateRecords(benificiaryRecord);
  
             patronAccount.balanceOf += totalSponsoed;
             patronAccount.stakedSPCoins -= totalSponsoed;
-            deleteAccountRecordInternal(sponsorRecord.sponsorKey);
+            deleteAccountRecordInternal(benificiaryRecord.benificiaryKey);
         }
     }
 
-    function deleteSponsorRateRecords(SponsorStruct storage _sponsorRecord) internal {
+    function deleteBenificiaryRateRecords(BenificiaryStruct storage _benificiaryRecord) internal {
         // Delete Agent Rate Keys
-        uint256[] storage sponsorRateList = _sponsorRecord.sponsorRateList;
-        AccountStruct storage sponsorAccount = accountMap[_sponsorRecord.sponsorKey];
+        uint256[] storage benificiaryRateList = _benificiaryRecord.benificiaryRateList;
+        AccountStruct storage benificiaryAccount = accountMap[_benificiaryRecord.benificiaryKey];
 
-        uint i = sponsorRateList.length - 1;
+        uint i = benificiaryRateList.length - 1;
         for (i; i >=0; i--) {
-            // console.log("====deleteSponsorRateRecords: sponsorRateList[", i, "] ", sponsorRateList[i]);
-            uint256 sponsorRateKey = sponsorRateList[i];
-            SponsorRateStruct storage sponsorRateRecord = _sponsorRecord.sponsorRateMap[sponsorRateKey];
+            // console.log("====deleteBenificiaryRateRecords: benificiaryRateList[", i, "] ", benificiaryRateList[i]);
+            uint256 benificiaryRateKey = benificiaryRateList[i];
+            BenificiaryRateStruct storage benificiaryRateRecord = _benificiaryRecord.benificiaryRateMap[benificiaryRateKey];
 
-            deleteSponsorRateRecord(sponsorAccount, sponsorRateRecord);
-            sponsorRateList.pop();
+            deleteBenificiaryRateRecord(benificiaryAccount, benificiaryRateRecord);
+            benificiaryRateList.pop();
             if (i == 0)
               break;
         }
     }
 
-    // Delete sponsor rate list.
-    function deleteSponsorRateRecord(AccountStruct storage sponsorAccount, SponsorRateStruct storage sponsorRateRecord) internal {
-        address[] storage agentAccountList = sponsorRateRecord.agentAccountList;
+    // Delete benificiary rate list.
+    function deleteBenificiaryRateRecord(AccountStruct storage benificiaryAccount, BenificiaryRateStruct storage benificiaryRateRecord) internal {
+        address[] storage agentAccountList = benificiaryRateRecord.agentAccountList;
         uint i = agentAccountList.length - 1;
         for (i; i >= 0; i--) {
-            // console.log("====deleteSponsorRateRecord: Found agentKey[", i, "] ", agentAccountList[i]);
+            // console.log("====deleteBenificiaryRateRecord: Found agentKey[", i, "] ", agentAccountList[i]);
             address agentKey = agentAccountList[i];
-            AgentStruct storage agentRec = sponsorRateRecord.agentMap[agentKey];
+            AgentStruct storage agentRec = benificiaryRateRecord.agentMap[agentKey];
             AccountStruct storage agentAccount = accountMap[agentKey];
 
-            // console.log("***** Deleting sponsorAccount.accountKey ", sponsorAccount.accountKey,
+            // console.log("***** Deleting benificiaryAccount.accountKey ", benificiaryAccount.accountKey,
             //  "From agentRec.agentKey ", agentRec.agentKey);
-            deleteAccountRecordFromSearchKeys(sponsorAccount.accountKey, agentAccount.parentSponsorAccountList);
+            deleteAccountRecordFromSearchKeys(benificiaryAccount.accountKey, agentAccount.parentBenificiaryAccountList);
 
             deleteAgentRateRecords(agentRec);
             agentAccountList.pop();
@@ -88,7 +88,7 @@ contract UnSubscribe is Transactions {
         deleteAccountRecordInternal(agentRec.agentKey);
     }
 
-    // Delete sponsor rate list.
+    // Delete benificiary rate list.
     function deleteAgentTransactions(AgentRateStruct storage agentRateRecord) internal {
         TransactionStruct[] storage transactionList = agentRateRecord.transactionList;
         for (uint i=0; i< transactionList.length; i++) { 
@@ -126,13 +126,13 @@ contract UnSubscribe is Transactions {
 
         console.log("*** deleteAccountRecordInternal(", _accountKey,")");
         console.log("accountMap[",_accountKey,"].patronAccountList.length =", accountMap[_accountKey].patronAccountList.length);
-        console.log("accountMap[",_accountKey,"].sponsorAccountList.length =", accountMap[_accountKey].sponsorAccountList.length);
+        console.log("accountMap[",_accountKey,"].benificiaryAccountList.length =", accountMap[_accountKey].benificiaryAccountList.length);
         console.log("accountMap[",_accountKey,"].agentAccountList.length =", accountMap[_accountKey].agentAccountList.length);
-        console.log("accountMap[",_accountKey,"].parentSponsorAccountList.length =", accountMap[_accountKey].parentSponsorAccountList.length);
+        console.log("accountMap[",_accountKey,"].parentBenificiaryAccountList.length =", accountMap[_accountKey].parentBenificiaryAccountList.length);
         if(accountMap[_accountKey].patronAccountList.length == 0 &&
-            accountMap[_accountKey].sponsorAccountList.length == 0 &&
+            accountMap[_accountKey].benificiaryAccountList.length == 0 &&
             accountMap[_accountKey].agentAccountList.length == 0 &&
-            accountMap[_accountKey].parentSponsorAccountList.length == 0) {
+            accountMap[_accountKey].parentBenificiaryAccountList.length == 0) {
             console.log("*** DELETING ACCOUNT ", _accountKey);
             if (deleteAccountRecordFromSearchKeys(_accountKey,  AccountList)) {
                 delete accountMap[_accountKey];
@@ -146,8 +146,8 @@ contract UnSubscribe is Transactions {
         accountExists(_accountKey) 
         onlyOwnerOrRootAdmin(_accountKey)
         patronDoesNotExist(_accountKey)
-        parentsponsorDoesNotExist(_accountKey)
-        sponsorDoesNotExist(_accountKey) {
+        parentbenificiaryDoesNotExist(_accountKey)
+        benificiaryDoesNotExist(_accountKey) {
         if (deleteAccountRecordFromSearchKeys( _accountKey,  AccountList)) {
             delete accountMap[_accountKey];
         } 
@@ -155,22 +155,22 @@ contract UnSubscribe is Transactions {
 
     modifier patronDoesNotExist(address _accountKey) {
         require (accountMap[_accountKey].patronAccountList.length == 0 &&
-            accountMap[_accountKey].agentAccountList.length == 0, "Sponsor Account has a Patron, (Patron must Un-sponsor Sponsored Account)");
+            accountMap[_accountKey].agentAccountList.length == 0, "Benificiary Account has a Patron, (Patron must Un-benificiary Benificiaryed Account)");
             _;
     }
     
-    modifier parentsponsorDoesNotExist(address _accountKey) {
-        require (accountMap[_accountKey].parentSponsorAccountList.length == 0, "Agent Account has a Parent Sponsor, (Patron must Un-sponsor Sponsored Account)");
+    modifier parentbenificiaryDoesNotExist(address _accountKey) {
+        require (accountMap[_accountKey].parentBenificiaryAccountList.length == 0, "Agent Account has a Parent Benificiary, (Patron must Un-benificiary Benificiaryed Account)");
         _;
     }
 
-    modifier sponsorDoesNotExist(address _patronKey) {
-        require (getSponsorKeys(_patronKey).length == 0, "Patron Account has a Sponsor, (Patron must Un-sponsor Sponsored Account)");
+    modifier benificiaryDoesNotExist(address _patronKey) {
+        require (getBenificiaryKeys(_patronKey).length == 0, "Patron Account has a Benificiary, (Patron must Un-benificiary Benificiaryed Account)");
         _;
     }
 /*   
     modifier AgentDoesNotExist(address _accountKey) {
-        require (accountMap[_accountKey](_accountKey).length == 0, "Sponsor Account has an Agent, (Patron must Un-sponsor Sponsored Account)");
+        require (accountMap[_accountKey](_accountKey).length == 0, "Benificiary Account has an Agent, (Patron must Un-benificiary Benificiaryed Account)");
         _;
     }
 */
