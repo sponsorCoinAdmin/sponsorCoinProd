@@ -4,7 +4,7 @@ pragma solidity ^0.8.18;
 import "./Token.sol";
 
 contract SPCoin is Token{
-    string private defaultName         = "benificiaryCoin002";
+    string private defaultName         = "recipientCoin002";
     string private defaultSymbol       = "SPCT00";
     uint256 private defaultDecimals    = 18;
     uint256 private defaultTotalSupply = 1000000000 * 10**defaultDecimals;
@@ -28,9 +28,9 @@ contract SPCoin is Token{
         stakedSPCoins = 0;
     }
 
-    function transferAgentRateTransaction(address _patronKey, address _benificiaryKey, uint _benificiaryRateKey, address _agentKey, uint _agentRateKey, uint256 _transAmount)
+    function transferAgentRateTransaction(address _patronKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey, uint256 _transAmount)
     public onlyOwnerOrRootAdmin(msg.sender) {
         transfer(_patronKey, _transAmount);
-        addAgentRateTransaction( _patronKey, _benificiaryKey, _benificiaryRateKey, _agentKey, _agentRateKey, _transAmount);
+        addAgentRateTransaction( _patronKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey, _transAmount);
     }
 }

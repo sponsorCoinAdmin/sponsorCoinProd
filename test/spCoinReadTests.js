@@ -19,29 +19,29 @@ describe("spCoinContract", function () {
   /**/
 
   it("PRINT STRUCTURE TREE TESTS", async function () {
-    // USAGE: addTestNetworkPatronBenificiarias(_accountRecIdx, _startSpIdx, _lastSpIdx);
-    await addTestNetworkPatronBenificiarias(2, [1, 7, 14, 8, 18, 9]);
-    await addTestNetworkPatronBenificiarias(2, [12]);
-    await addTestNetworkPatronBenificiarias(3, [14, 17]);
-    await addTestNetworkPatronBenificiarias(1, [5, 11, 13, 15]);
-    await addTestNetworkPatronBenificiarias(14, [18, 19, 7]);
-    await addTestNetworkPatronBenificiarias(3, [4]);
-    await addTestNetworkPatronBenificiarias(1, [2, 5]);
-    await addTestNetworkPatronBenificiarias(11, [5, 9, 0]);
+    // USAGE: addTestNetworkPatronRecipients(_accountRecIdx, _startSpIdx, _lastSpIdx);
+    await addTestNetworkPatronRecipients(2, [1, 7, 14, 8, 18, 9]);
+    await addTestNetworkPatronRecipients(2, [12]);
+    await addTestNetworkPatronRecipients(3, [14, 17]);
+    await addTestNetworkPatronRecipients(1, [5, 11, 13, 15]);
+    await addTestNetworkPatronRecipients(14, [18, 19, 7]);
+    await addTestNetworkPatronRecipients(3, [4]);
+    await addTestNetworkPatronRecipients(1, [2, 5]);
+    await addTestNetworkPatronRecipients(11, [5, 9, 0]);
 
-    // USAGE: addNetworkBenificiaryAgents(_accountRecIdx, _benificiaryRecIdx, _startAgIdx, _lastAgIdx);
-    await addTestNetworkBenificiaryAgents(1, 5, 10, [7, 2, 17, 3, 9, 19]);
-    await addTestNetworkBenificiaryAgents(11, 18, 10, [5, 7, 9, 6]);
-    await addTestNetworkBenificiaryAgents(0, 2, 10, [6, 7, 16]);
-    await addTestNetworkBenificiaryAgents(14, 6, 10, [1]);
-    await addTestNetworkBenificiaryAgents(14, 0, 10, [1, 11, 5, 12, 2]);
-    await addTestNetworkBenificiaryAgents(0, 1, 10, [2, 3]);
-    await addTestNetworkBenificiaryAgents(3, 4, 10, [5]);
+    // USAGE: addNetworkRecipientAgents(_accountRecIdx, _recipientRecIdx, _startAgIdx, _lastAgIdx);
+    await addTestNetworkRecipientAgents(1, 5, 10, [7, 2, 17, 3, 9, 19]);
+    await addTestNetworkRecipientAgents(11, 18, 10, [5, 7, 9, 6]);
+    await addTestNetworkRecipientAgents(0, 2, 10, [6, 7, 16]);
+    await addTestNetworkRecipientAgents(14, 6, 10, [1]);
+    await addTestNetworkRecipientAgents(14, 0, 10, [1, 11, 5, 12, 2]);
+    await addTestNetworkRecipientAgents(0, 1, 10, [2, 3]);
+    await addTestNetworkRecipientAgents(3, 4, 10, [5]);
 
-    await addTestNetworkBenificiaryAgents(0, 1, 10, [3,4,5,6]);
-    await addTestNetworkBenificiaryAgents(2, 1, 10, [4]);
-    await addTestNetworkBenificiaryAgents(0, 1, 10, [2,3,4]);
-    await addTestNetworkBenificiaryAgents(1, 0, 10, [4]);
+    await addTestNetworkRecipientAgents(0, 1, 10, [3,4,5,6]);
+    await addTestNetworkRecipientAgents(2, 1, 10, [4]);
+    await addTestNetworkRecipientAgents(0, 1, 10, [2,3,4]);
+    await addTestNetworkRecipientAgents(1, 0, 10, [4]);
 
     await logJSONTree();
 
@@ -49,21 +49,21 @@ describe("spCoinContract", function () {
 
   /**/
   
-  it("VALIDATE THAT ACCOUNTS, PATRIOT/BENIFICIARY/AGENT, ARE ALL MUTUALLY EXCLUSIVE", async function () {
+  it("VALIDATE THAT ACCOUNTS, PATRIOT/RECIPIENT/AGENT, ARE ALL MUTUALLY EXCLUSIVE", async function () {
     setLogMode(LOG_MODE.LOG, true);
     let expectedErrMsg;
 
     // Test Successful Record Insertion of Patron and 
-    // Benificiary Accounts to the Blockchain Network.
-    // Account, Benificiary and/or Agent are Successfully mutually exclusive.
-    await addTestNetworkPatronBenificiarias(4, [3]);
+    // Recipient Accounts to the Blockchain Network.
+    // Account, Recipient and/or Agent are Successfully mutually exclusive.
+    await addTestNetworkPatronRecipients(4, [3]);
 
     // Test Un-Successful Record Insertion of Patron
     // and Agent Accounts to the Blockchain Network.
-    // Account and Benificiary are not mutually exclusive.
-    expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey and _benificiaryKey must be Mutually Exclusive)'";
+    // Account and Recipient are not mutually exclusive.
+    expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey and _recipientKey must be Mutually Exclusive)'";
     try {
-      await addTestNetworkPatronBenificiarias(4, [4]);
+      await addTestNetworkPatronRecipients(4, [4]);
       throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
     } catch (err) {
       // console.log ("err.message = " + err.message);
@@ -71,11 +71,11 @@ describe("spCoinContract", function () {
     }
 
     // Test Un-Successful Record Insertion of Patron,
-    // Benificiary and Agent Accounts to the Blockchain Network.
-    // Account, Benificiary and/or Agent are not mutually exclusive.
-    expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _benificiaryKey and _agentKey must be Mutually Exclusive)'"
+    // Recipient and Agent Accounts to the Blockchain Network.
+    // Account, Recipient and/or Agent are not mutually exclusive.
+    expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _recipientKey and _agentKey must be Mutually Exclusive)'"
     try {
-      await addTestNetworkBenificiaryAgents(6, 6, 10, [1]);
+      await addTestNetworkRecipientAgents(6, 6, 10, [1]);
       throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
     } catch (err) {
       // console.log ("err.message = " + err.message);
@@ -83,16 +83,16 @@ describe("spCoinContract", function () {
     }
 
     // Test Successful Record Insertion of Patron,
-    // Benificiary and Agent to the Blockchain Network.
-    // Patron, Benificiary and/or Agent Accounts are
+    // Recipient and Agent to the Blockchain Network.
+    // Patron, Recipient and/or Agent Accounts are
     // Successfully mutually exclusive.
-    await addTestNetworkBenificiaryAgents(14, 6, 10, [1]);
+    await addTestNetworkRecipientAgents(14, 6, 10, [1]);
 
     // Test Un-Successful Record Insertion to Blockchain Network.
-    // Patron and Benificiary Accounts are Not mutually exclusive.
-    expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _benificiaryKey and _agentKey must be Mutually Exclusive)'";
+    // Patron and Recipient Accounts are Not mutually exclusive.
+    expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _recipientKey and _agentKey must be Mutually Exclusive)'";
     try {
-      await addTestNetworkBenificiaryAgents(6, 6, 10, [1]);
+      await addTestNetworkRecipientAgents(6, 6, 10, [1]);
       throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
     } catch (err) {
       // console.log ("err.message = " + err.message);
@@ -101,9 +101,9 @@ describe("spCoinContract", function () {
 
     // Test Un-Successful Record Insertion to Blockchain Network.
     // Patron and Agent Accounts are Not mutually exclusive.
-    expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _benificiaryKey and _agentKey must be Mutually Exclusive)'";
+    expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _recipientKey and _agentKey must be Mutually Exclusive)'";
     try {
-      await addTestNetworkBenificiaryAgents(6, 5, 10, [6]);
+      await addTestNetworkRecipientAgents(6, 5, 10, [6]);
       throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
     } catch (err) {
       // console.log ("err.message = " + err.message);
@@ -111,10 +111,10 @@ describe("spCoinContract", function () {
     }
 
     // Test Un-Successful Record Insertion to Blockchain Network.
-    // Benificiary and Agent Accounts are Not mutually exclusive.
-    expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _benificiaryKey and _agentKey must be Mutually Exclusive)'";
+    // Recipient and Agent Accounts are Not mutually exclusive.
+    expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _recipientKey and _agentKey must be Mutually Exclusive)'";
     try {
-      await addTestNetworkBenificiaryAgents(5, 6, 10, [6]);
+      await addTestNetworkRecipientAgents(5, 6, 10, [6]);
       throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
     } catch (err) {
       // console.log ("err.message = " + err.message);
@@ -158,13 +158,13 @@ describe("spCoinContract", function () {
 
   /**/
   
-  it("PRINT STRUCTURE BENIFICIARYS DATA RECORD", async function () {
+  it("PRINT STRUCTURE RECIPIENTS DATA RECORD", async function () {
     setLogMode(LOG_MODE.LOG, true);
     setLogMode(LOG_MODE.LOG_TREE, true);
 
     // Test Record Insertions to Blockchain Network
-    let arrayKey = await addTestNetworkPatronBenificiarias(14, [3, 2]);
-    arrayKey = await addTestNetworkPatronBenificiarias(13, [3]);
+    let arrayKey = await addTestNetworkPatronRecipients(14, [3, 2]);
+    arrayKey = await addTestNetworkPatronRecipients(13, [3]);
   
     let AccountListize = (await getAccountListize()).toNumber();
     expect(AccountListize).to.equal(4);
@@ -172,7 +172,7 @@ describe("spCoinContract", function () {
     let accountArr = await getAccountRecords();
     logJSON(accountArr);
 
-    // Test That Patron at Idx 3 has 2 Record Benificiarias in the blockchain and
+    // Test That Patron at Idx 3 has 2 Record Recipients in the blockchain and
     // Validate they are the correct ones in the Patron Structure
     // Read from Blockchain Network
     let recipientKey = getTestHHAccountKey(3);
@@ -185,30 +185,30 @@ describe("spCoinContract", function () {
 
   /**/
 
-  it("PRINT ACCOUNT BENIFICIARY ARRAY LISTS", async function () {
+  it("PRINT ACCOUNT RECIPIENT ARRAY LISTS", async function () {
     setLogMode(LOG_MODE.LOG, true);
     setLogMode(LOG_MODE.LOG_TREE, true);
     let testAccountKey = 2;
     let accountKey = TEST_HH_ACCOUNT_LIST[testAccountKey];
-    let testBenificiaryListKeys = [1, 7, 14, 8, 18, 9];
+    let testRecipientListKeys = [1, 7, 14, 8, 18, 9];
   
-    await addTestNetworkPatronBenificiarias(testAccountKey, testBenificiaryListKeys);
-    log("Tree For Account Key: " + accountKey + " With Inserted Benificiarias:");
+    await addTestNetworkPatronRecipients(testAccountKey, testRecipientListKeys);
+    log("Tree For Account Key: " + accountKey + " With Inserted Recipients:");
     await logJSONTree();
 
     AccountListize = (await getAccountListize()).toNumber();
     expect(AccountListize).to.equal(7);
 
-    let benificiarySize = (await getAccountBenificiaryKeySize(accountKey));
-    expect(benificiarySize).to.equal(6);
+    let recipientSize = (await getAccountRecipientKeySize(accountKey));
+    expect(recipientSize).to.equal(6);
 
-    let benificiaryRecordList = await getAccountBenificiaryKeys(accountKey);
+    let recipientRecordList = await getAccountRecipientKeys(accountKey);
 
-    logJSON(benificiaryRecordList);
-    let benificiaryRecordListLength = Object.keys(benificiaryRecordList).length;
-    expect(benificiaryRecordListLength).to.equal(6);
+    logJSON(recipientRecordList);
+    let recipientRecordListLength = Object.keys(recipientRecordList).length;
+    expect(recipientRecordListLength).to.equal(6);
 
-    getAccountBenificiaryKeys();
+    getAccountRecipientKeys();
   });
   /**/
 });

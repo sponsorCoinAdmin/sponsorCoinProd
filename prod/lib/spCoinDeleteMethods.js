@@ -31,26 +31,26 @@ deleteAccountRecords = async (_accountListKeys) => {
   logDetail("JS => Inserted " + maxCount + " Accounts to Blockchain Network");
 };
 
-/////////////////////// BENIFICIARY RECORD FUNCTIONS ///////////////////////
+/////////////////////// RECIPIENT RECORD FUNCTIONS ///////////////////////
 
-deletePatronBenificiaryRecord = async (_patronKey, _benificiaryKey) => {
-  logFunctionHeader("deletePatronBenificiaryRecord(" + _patronKey + ", " + _benificiaryKey + ")");
-  await spCoinContractDeployed.deletePatronBenificiaryRecord(_patronKey, _benificiaryKey);
+deletePatronRecipientRecord = async (_patronKey, _recipientKey) => {
+  logFunctionHeader("deletePatronRecipientRecord(" + _patronKey + ", " + _recipientKey + ")");
+  await spCoinContractDeployed.deletePatronRecipientRecord(_patronKey, _recipientKey);
 }
 
 /////////////////////// AGENT RECORD FUNCTIONS ////////////////////////
 
-deleteAgentRecord = async (_accountKey, _benificiaryKey, _accountAgentKey) => {
+deleteAgentRecord = async (_accountKey, _recipientKey, _accountAgentKey) => {
   // ToDo: do Solidity Code and Testing
   logFunctionHeader(
-    "deleteAgentRecord = async(" + _accountKey + ", " + _benificiaryKey + ", " + _accountAgentKey + ")"
+    "deleteAgentRecord = async(" + _accountKey + ", " + _recipientKey + ", " + _accountAgentKey + ")"
   );
   logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
   logDetail("JS => Deleting Agent " + _accountAgentKey + " From Blockchain Network");
 
   logDetail("JS =>  " + _accountKey + ". " + "Inserting Agent[" + _accountKey + "]: " + _accountAgentKey );
-  // await spCoinContractDeployed.deleteAgentRecord( _accountKey, _benificiaryKey, _agentKey );
-  logDetail("JS => "+ "Deleted = " + _accountAgentKey + " Agent Record from BenificiaryKey " + _benificiaryKey);
+  // await spCoinContractDeployed.deleteAgentRecord( _accountKey, _recipientKey, _agentKey );
+  logDetail("JS => "+ "Deleted = " + _accountAgentKey + " Agent Record from RecipientKey " + _recipientKey);
 };
 
 /////////////////////// EXPORT MODULE FUNCTIONS ///////////////////////
@@ -59,6 +59,6 @@ module.exports = {
   deleteAccountRecord,
   deleteAccountRecords,
   deleteAgentRecord,
-  deletePatronBenificiaryRecord,
+  deletePatronRecipientRecord,
   setContractDeleteMethods,
 };

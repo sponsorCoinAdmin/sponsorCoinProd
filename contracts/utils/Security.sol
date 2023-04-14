@@ -26,15 +26,15 @@ contract Security is SpCoinDataTypes {
         _;
     }
 
-    modifier nonRedundantBenificiary (address _accountKey, address _benificiaryKey) {
-        require (_accountKey != _benificiaryKey , "_accountKey and _benificiaryKey must be Mutually Exclusive)");
+    modifier nonRedundantRecipient (address _accountKey, address _recipientKey) {
+        require (_accountKey != _recipientKey , "_accountKey and _recipientKey must be Mutually Exclusive)");
         _;
     }
 
-    modifier nonRedundantAgent (address _accountKey, address _benificiaryKey, address _agentKey) {
-        require (_accountKey != _benificiaryKey && 
-                 _benificiaryKey != _agentKey && 
-                 _accountKey != _agentKey , "_accountKey, _benificiaryKey and _agentKey must be Mutually Exclusive)");
+    modifier nonRedundantAgent (address _accountKey, address _recipientKey, address _agentKey) {
+        require (_accountKey != _recipientKey && 
+                 _recipientKey != _agentKey && 
+                 _accountKey != _agentKey , "_accountKey, _recipientKey and _agentKey must be Mutually Exclusive)");
         _;
     }
 }

@@ -7,61 +7,61 @@ contract UnSubscribe is Transactions {
     constructor() { }
 
     
-    /// @notice Remove all benificiariaship relationships for Patron and Benificiary accounts
-    /// @param _patronKey Patron key containing the Benificiary relationship
-    /// @param _benificiaryKey Benificiary to be removed from the Benificiary relationship
-    function deletePatronBenificiaryRecord(address _patronKey, address _benificiaryKey)  
+    /// @notice Remove all recipientship relationships for Patron and Recipient accounts
+    /// @param _patronKey Patron key containing the Recipient relationship
+    /// @param _recipientKey Recipient to be removed from the Recipient relationship
+    function deletePatronRecipientRecord(address _patronKey, address _recipientKey)  
         public onlyOwnerOrRootAdmin(_patronKey)
         accountExists(_patronKey)
-        accountExists(_benificiaryKey)
-        nonRedundantBenificiary ( _patronKey,  _benificiaryKey) {
+        accountExists(_recipientKey)
+        nonRedundantRecipient ( _patronKey,  _recipientKey) {
     
         AccountStruct storage patronAccount = accountMap[_patronKey];
-        if (deleteAccountRecordFromSearchKeys(_benificiaryKey, patronAccount.benificiaryAccountList)) {
-            BenificiaryStruct storage benificiaryRecord = patronAccount.benificiaryMap[_benificiaryKey];
-            uint256 totalSponsoed = benificiaryRecord.stakedSPCoins;
-            AccountStruct storage benificiaryAccount = accountMap[benificiaryRecord.benificiaryKey];
-            deleteAccountRecordFromSearchKeys(_benificiaryKey, benificiaryAccount.patronAccountList);
-            deleteAccountRecordFromSearchKeys(_benificiaryKey, benificiaryAccount.agentAccountList);
-            deleteBenificiaryRateRecords(benificiaryRecord);
+        if (deleteAccountRecordFromSearchKeys(_recipientKey, patronAccount.recipientAccountList)) {
+            RecipientStruct storage recipientRecord = patronAccount.recipientMap[_recipientKey];
+            uint256 totalSponsoed = recipientRecord.stakedSPCoins;
+            AccountStruct storage recipientAccount = accountMap[recipientRecord.recipientKey];
+            deleteAccountRecordFromSearchKeys(_recipientKey, recipientAccount.patronAccountList);
+            deleteAccountRecordFromSearchKeys(_recipientKey, recipientAccount.agentAccountList);
+            deleteRecipientRateRecords(recipientRecord);
  
             patronAccount.balanceOf += totalSponsoed;
             patronAccount.stakedSPCoins -= totalSponsoed;
-            deleteAccountRecordInternal(benificiaryRecord.benificiaryKey);
+            deleteAccountRecordInternal(recipientRecord.recipientKey);
         }
     }
 
-    function deleteBenificiaryRateRecords(BenificiaryStruct storage _benificiaryRecord) internal {
+    function deleteRecipientRateRecords(RecipientStruct storage _recipientRecord) internal {
         // Delete Agent Rate Keys
-        uint256[] storage benificiaryRateList = _benificiaryRecord.benificiaryRateList;
-        AccountStruct storage benificiaryAccount = accountMap[_benificiaryRecord.benificiaryKey];
+        uint256[] storage recipientRateList = _recipientRecord.recipientRateList;
+        AccountStruct storage recipientAccount = accountMap[_recipientRecord.recipientKey];
 
-        uint i = benificiaryRateList.length - 1;
+        uint i = recipientRateList.length - 1;
         for (i; i >=0; i--) {
-            // console.log("====deleteBenificiaryRateRecords: benificiaryRateList[", i, "] ", benificiaryRateList[i]);
-            uint256 benificiaryRateKey = benificiaryRateList[i];
-            BenificiaryRateStruct storage benificiaryRateRecord = _benificiaryRecord.benificiaryRateMap[benificiaryRateKey];
+            // console.log("====deleteRecipientRateRecords: recipientRateList[", i, "] ", recipientRateList[i]);
+            uint256 recipientRateKey = recipientRateList[i];
+            RecipientRateStruct storage recipientRateRecord = _recipientRecord.recipientRateMap[recipientRateKey];
 
-            deleteBenificiaryRateRecord(benificiaryAccount, benificiaryRateRecord);
-            benificiaryRateList.pop();
+            deleteRecipientRateRecord(recipientAccount, recipientRateRecord);
+            recipientRateList.pop();
             if (i == 0)
               break;
         }
     }
 
-    // Delete benificiary rate list.
-    function deleteBenificiaryRateRecord(AccountStruct storage benificiaryAccount, BenificiaryRateStruct storage benificiaryRateRecord) internal {
-        address[] storage agentAccountList = benificiaryRateRecord.agentAccountList;
+    // Delete recipient rate list.
+    function deleteRecipientRateRecord(AccountStruct storage recipientAccount, RecipientRateStruct storage recipientRateRecord) internal {
+        address[] storage agentAccountList = recipientRateRecord.agentAccountList;
         uint i = agentAccountList.length - 1;
         for (i; i >= 0; i--) {
-            // console.log("====deleteBenificiaryRateRecord: Found agentKey[", i, "] ", agentAccountList[i]);
+            // console.log("====deleteRecipientRateRecord: Found agentKey[", i, "] ", agentAccountList[i]);
             address agentKey = agentAccountList[i];
-            AgentStruct storage agentRec = benificiaryRateRecord.agentMap[agentKey];
+            AgentStruct storage agentRec = recipientRateRecord.agentMap[agentKey];
             AccountStruct storage agentAccount = accountMap[agentKey];
 
-            // console.log("***** Deleting benificiaryAccount.accountKey ", benificiaryAccount.accountKey,
+            // console.log("***** Deleting recipientAccount.accountKey ", recipientAccount.accountKey,
             //  "From agentRec.agentKey ", agentRec.agentKey);
-            deleteAccountRecordFromSearchKeys(benificiaryAccount.accountKey, agentAccount.parentBenificiaryAccountList);
+            deleteAccountRecordFromSearchKeys(recipientAccount.accountKey, agentAccount.parentRecipientAccountList);
 
             deleteAgentRateRecords(agentRec);
             agentAccountList.pop();
@@ -88,7 +88,7 @@ contract UnSubscribe is Transactions {
         deleteAccountRecordInternal(agentRec.agentKey);
     }
 
-    // Delete benificiary rate list.
+    // Delete recipient rate list.
     function deleteAgentTransactions(AgentRateStruct storage agentRateRecord) internal {
         TransactionStruct[] storage transactionList = agentRateRecord.transactionList;
         for (uint i=0; i< transactionList.length; i++) { 
@@ -126,13 +126,13 @@ contract UnSubscribe is Transactions {
 
         console.log("*** deleteAccountRecordInternal(", _accountKey,")");
         console.log("accountMap[",_accountKey,"].patronAccountList.length =", accountMap[_accountKey].patronAccountList.length);
-        console.log("accountMap[",_accountKey,"].benificiaryAccountList.length =", accountMap[_accountKey].benificiaryAccountList.length);
+        console.log("accountMap[",_accountKey,"].recipientAccountList.length =", accountMap[_accountKey].recipientAccountList.length);
         console.log("accountMap[",_accountKey,"].agentAccountList.length =", accountMap[_accountKey].agentAccountList.length);
-        console.log("accountMap[",_accountKey,"].parentBenificiaryAccountList.length =", accountMap[_accountKey].parentBenificiaryAccountList.length);
+        console.log("accountMap[",_accountKey,"].parentRecipientAccountList.length =", accountMap[_accountKey].parentRecipientAccountList.length);
         if(accountMap[_accountKey].patronAccountList.length == 0 &&
-            accountMap[_accountKey].benificiaryAccountList.length == 0 &&
+            accountMap[_accountKey].recipientAccountList.length == 0 &&
             accountMap[_accountKey].agentAccountList.length == 0 &&
-            accountMap[_accountKey].parentBenificiaryAccountList.length == 0) {
+            accountMap[_accountKey].parentRecipientAccountList.length == 0) {
             console.log("*** DELETING ACCOUNT ", _accountKey);
             if (deleteAccountRecordFromSearchKeys(_accountKey,  AccountList)) {
                 delete accountMap[_accountKey];
@@ -146,8 +146,8 @@ contract UnSubscribe is Transactions {
         accountExists(_accountKey) 
         onlyOwnerOrRootAdmin(_accountKey)
         patronDoesNotExist(_accountKey)
-        parentbenificiaryDoesNotExist(_accountKey)
-        benificiaryDoesNotExist(_accountKey) {
+        parentrecipientDoesNotExist(_accountKey)
+        recipientDoesNotExist(_accountKey) {
         if (deleteAccountRecordFromSearchKeys( _accountKey,  AccountList)) {
             delete accountMap[_accountKey];
         } 
@@ -155,22 +155,22 @@ contract UnSubscribe is Transactions {
 
     modifier patronDoesNotExist(address _accountKey) {
         require (accountMap[_accountKey].patronAccountList.length == 0 &&
-            accountMap[_accountKey].agentAccountList.length == 0, "Benificiary Account has a Patron, (Patron must Un-benificiary Benificiaryed Account)");
+            accountMap[_accountKey].agentAccountList.length == 0, "Recipient Account has a Patron, (Patron must Un-recipient Recipiented Account)");
             _;
     }
     
-    modifier parentbenificiaryDoesNotExist(address _accountKey) {
-        require (accountMap[_accountKey].parentBenificiaryAccountList.length == 0, "Agent Account has a Parent Benificiary, (Patron must Un-benificiary Benificiaryed Account)");
+    modifier parentrecipientDoesNotExist(address _accountKey) {
+        require (accountMap[_accountKey].parentRecipientAccountList.length == 0, "Agent Account has a Parent Recipient, (Patron must Un-recipient Recipiented Account)");
         _;
     }
 
-    modifier benificiaryDoesNotExist(address _patronKey) {
-        require (getBenificiaryKeys(_patronKey).length == 0, "Patron Account has a Benificiary, (Patron must Un-benificiary Benificiaryed Account)");
+    modifier recipientDoesNotExist(address _patronKey) {
+        require (getRecipientKeys(_patronKey).length == 0, "Patron Account has a Recipient, (Patron must Un-recipient Recipiented Account)");
         _;
     }
 /*   
     modifier AgentDoesNotExist(address _accountKey) {
-        require (accountMap[_accountKey](_accountKey).length == 0, "Benificiary Account has an Agent, (Patron must Un-benificiary Benificiaryed Account)");
+        require (accountMap[_accountKey](_accountKey).length == 0, "Recipient Account has an Agent, (Patron must Un-recipient Recipiented Account)");
         _;
     }
 */

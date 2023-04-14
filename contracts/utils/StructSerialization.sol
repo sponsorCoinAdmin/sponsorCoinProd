@@ -51,18 +51,18 @@ contract StructSerialization is Utils {
         seralized = concat(seralized, delimiter, stakedSPCoins);
 
         // console.log("AAAAAAAAAAAAAAAAAAAAAAA patronAccountList.length = ", _accountRec.patronAccountList.length);
-        // console.log("BBBBBBBBBBBBBBBBBBBBBBB benificiaryAccountList.length = ", _accountRec.benificiaryAccountList.length);
+        // console.log("BBBBBBBBBBBBBBBBBBBBBBB recipientAccountList.length = ", _accountRec.recipientAccountList.length);
         // console.log("CCCCCCCCCCCCCCCCCCCCCCC agentAccountList.length = ", _accountRec.agentAccountList.length);
-        // console.log("DDDDDDDDDDDDDDDDDDDDDDD parentBenificiaryAccountList.length = ", _accountRec.parentBenificiaryAccountList.length);
+        // console.log("DDDDDDDDDDDDDDDDDDDDDDD parentRecipientAccountList.length = ", _accountRec.parentRecipientAccountList.length);
         string memory patronAccountList = toString(_accountRec.patronAccountList);
-        string memory benificiaryAccountList = toString(_accountRec.benificiaryAccountList);
+        string memory recipientAccountList = toString(_accountRec.recipientAccountList);
         string memory agentAccountList = toString(_accountRec.agentAccountList);
-        string memory parentBenificiaryAccountList = toString(_accountRec.parentBenificiaryAccountList);
+        string memory parentRecipientAccountList = toString(_accountRec.parentRecipientAccountList);
 
         seralized = concat(seralized, delimiter, "patronAccountList:",patronAccountList);
-        seralized = concat(seralized, delimiter, "benificiaryAccountList:",benificiaryAccountList);
+        seralized = concat(seralized, delimiter, "recipientAccountList:",recipientAccountList);
         seralized = concat(seralized, delimiter, "agentAccountList:", agentAccountList);
-        seralized = concat(seralized, delimiter, "parentBenificiaryAccountList:", parentBenificiaryAccountList);
+        seralized = concat(seralized, delimiter, "parentRecipientAccountList:", parentRecipientAccountList);
 
         // console.log("_accountRec.accountKey:", _accountRec.accountKey);
         // console.log( "toString(_accountRec.accountKey)", toString(_accountRec.accountKey));

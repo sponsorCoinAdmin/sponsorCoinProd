@@ -4,55 +4,55 @@ setContractAddMethods = (_spCoinContractDeployed) => {
     spCoinContractDeployed = _spCoinContractDeployed;
 }
 
-addPatronBenificiary = async (_accountKey, _benificiaryKey) => {
+addPatronRecipient = async (_accountKey, _recipientKey) => {
     logFunctionHeader(
-      "addPatronBenificiary = async(" + _accountKey + ", " + _benificiaryKey + ")"
+      "addPatronRecipient = async(" + _accountKey + ", " + _recipientKey + ")"
     );
   
     logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
-    logDetail("JS => Inserting " + _benificiaryKey + " Benificiarias To Blockchain Network"
+    logDetail("JS => Inserting " + _recipientKey + " Recipients To Blockchain Network"
     );
   
-    logDetail("JS => Inserting Benificiary " + _benificiaryKey );
-    await spCoinContractDeployed.addPatronBenificiary(_accountKey, _benificiaryKey);
+    logDetail("JS => Inserting Recipient " + _recipientKey );
+    await spCoinContractDeployed.addPatronRecipient(_accountKey, _recipientKey);
   };
   
-  addPatronBenificiarias = async (_accountKey, _benificiaryAccountList) => {
+  addPatronRecipients = async (_accountKey, _recipientAccountList) => {
     logFunctionHeader(
-      "addPatronBenificiarias = async(" + _accountKey + ", " + _benificiaryAccountList + ")"
+      "addPatronRecipients = async(" + _accountKey + ", " + _recipientAccountList + ")"
     );
   
     logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
-    logDetail("JS => Adding " + _benificiaryAccountList.length + " Benificiarias To Blockchain Network"
+    logDetail("JS => Adding " + _recipientAccountList.length + " Recipients To Blockchain Network"
     );
   
-    let benificiaryCount = 0;
-    for (benificiaryCount; benificiaryCount < _benificiaryAccountList.length; benificiaryCount++) {
-      let _benificiaryKey = _benificiaryAccountList[benificiaryCount];
-      await addPatronBenificiary(_accountKey, _benificiaryKey);
+    let recipientCount = 0;
+    for (recipientCount; recipientCount < _recipientAccountList.length; recipientCount++) {
+      let _recipientKey = _recipientAccountList[recipientCount];
+      await addPatronRecipient(_accountKey, _recipientKey);
     }
-    logDetail("JS => Inserted = " + benificiaryCount + " Benificiary Records");
-    return --benificiaryCount;
+    logDetail("JS => Inserted = " + recipientCount + " Recipient Records");
+    return --recipientCount;
   };
 
-  addBenificiaryAgent = async (_accountKey, _benificiaryKey, _benificiaryRateKey, _accountAgentKey) => {
+  addRecipientAgent = async (_accountKey, _recipientKey, _recipientRateKey, _accountAgentKey) => {
     logFunctionHeader(
-      "addBenificiaryAgent = async(" + _accountKey + ", " + _benificiaryKey + ", " + _benificiaryRateKey + ", " + _accountAgentKey + ")"
+      "addRecipientAgent = async(" + _accountKey + ", " + _recipientKey + ", " + _recipientRateKey + ", " + _accountAgentKey + ")"
     );
     logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
     logDetail("JS => Adding Agent " + _accountAgentKey + " To Blockchain Network");
   
     logDetail("JS =>  " + _accountKey + ". " + "Inserting Agent[" + _accountKey + "]: " + _accountAgentKey );
-    await spCoinContractDeployed.addBenificiaryAgent( _accountKey, _benificiaryKey, _benificiaryRateKey, _accountAgentKey );
-    logDetail("JS => "+ "Added Agent " + _accountAgentKey + " Record to BenificiaryKey " + _benificiaryKey);
+    await spCoinContractDeployed.addRecipientAgent( _accountKey, _recipientKey, _recipientRateKey, _accountAgentKey );
+    logDetail("JS => "+ "Added Agent " + _accountAgentKey + " Record to RecipientKey " + _recipientKey);
   };
   
-  addBenificiaryAgents = async (_accountKey, _benificiaryKey, _benificiaryRateKey, _agentAccountList) => {
+  addRecipientAgents = async (_accountKey, _recipientKey, _recipientRateKey, _agentAccountList) => {
     logFunctionHeader(
-      "addBenificiaryAgents = async(" + _accountKey + ", " + _benificiaryKey + ", " + _benificiaryRateKey + ", " + _agentAccountList + ")"
+      "addRecipientAgents = async(" + _accountKey + ", " + _recipientKey + ", " + _recipientRateKey + ", " + _agentAccountList + ")"
     );
     logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
-    logDetail("JS => For Benificiary[" + _benificiaryKey + "]: " + _benificiaryKey + ")");
+    logDetail("JS => For Recipient[" + _recipientKey + "]: " + _recipientKey + ")");
     logDetail("JS => Inserting " + _agentAccountList.length + " Agents To Blockchain Network"
     );
     logDetail("JS => _agentAccountList = " + _agentAccountList);
@@ -63,7 +63,7 @@ addPatronBenificiary = async (_accountKey, _benificiaryKey) => {
     for (let agentCount = 0; agentCount < agentSize; agentCount++) {
       let agentKey = _agentAccountList[agentCount];
       logDetail("JS =>  " + agentCount + ". " + "Inserting Agent[" + agentCount + "]: " + agentKey );
-      await addBenificiaryAgent( _accountKey, _benificiaryKey, _benificiaryRateKey, agentKey );
+      await addRecipientAgent( _accountKey, _recipientKey, _recipientRateKey, agentKey );
     }
     logDetail("JS => "+ "Inserted = " + agentSize + " Agent Records");
     return agentCount;
@@ -94,16 +94,16 @@ addAccountRecords = async (_accountListKeys) => {
 
 addAgentRateTransaction = async (
   _accountKey, 
-  _benificiaryKey,
-  _benificiaryRateKey,
+  _recipientKey,
+  _recipientRateKey,
   _accountAgentKey,
   _agentRateKey,
   _transactionQtyKey ) => {
     logFunctionHeader(
       "addAgentRateTransaction = async(" + 
       _accountKey + ", " + 
-      _benificiaryKey + ", " + 
-      _benificiaryRateKey + ", " + 
+      _recipientKey + ", " + 
+      _recipientRateKey + ", " + 
       _accountAgentKey + ", " +
       _agentRateKey + ", " +
       _transactionQtyKey + ")"
@@ -111,12 +111,12 @@ addAgentRateTransaction = async (
 
   await spCoinContractDeployed.addAgentRateTransaction(
     _accountKey,
-    _benificiaryKey,
-    _benificiaryRateKey,
+    _recipientKey,
+    _recipientRateKey,
     _accountAgentKey,
     _agentRateKey,
     _transactionQtyKey );
-    logDetail("JS => "+ "Added Agent " + _accountAgentKey + " Record to BenificiaryKey " + _benificiaryKey);
+    logDetail("JS => "+ "Added Agent " + _accountAgentKey + " Record to RecipientKey " + _recipientKey);
 };
 
 //////////////////// MODULE EXPORTS //////////////////////
@@ -124,9 +124,9 @@ addAgentRateTransaction = async (
 module.exports = {
     addAccountRecord,
     addAccountRecords,
-    addPatronBenificiarias,
+    addPatronRecipients,
     addAgentRateTransaction,
-    addBenificiaryAgent,
-    addBenificiaryAgents,
+    addRecipientAgent,
+    addRecipientAgents,
     setContractAddMethods,
 }

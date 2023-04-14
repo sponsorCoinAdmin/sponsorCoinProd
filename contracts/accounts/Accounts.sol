@@ -43,8 +43,8 @@ contract Accounts is StructSerialization {
     ////////////////////// PATRON REQUESTS //////////////////////////////
 
     /*
-    /// @notice retreives the benificiary array records for the Patron list
-    /// @param _accountKey public account key to get Benificiary Record Length
+    /// @notice retreives the recipient array records for the Patron list
+    /// @param _accountKey public account key to get Recipient Record Length
     function getAccountPatronKeys(address _accountKey) public view 
         onlyOwnerOrRootAdmin(_accountKey) returns (address[] memory) {
         AccountStruct storage account = accountMap[_accountKey];
@@ -52,24 +52,24 @@ contract Accounts is StructSerialization {
         return patronAccountList;
     }
 
-    /////////////////////////// BENIFICIARY REQUESTS //////////////////////////////
+    /////////////////////////// RECIPIENT REQUESTS //////////////////////////////
 
-    /// @notice retreives the benificiary array records for the Patron list
-    /// @param _accountKey public account key to get Benificiary Record Length
-    function getAccountParentBenificiaryKeys(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
+    /// @notice retreives the recipient array records for the Patron list
+    /// @param _accountKey public account key to get Recipient Record Length
+    function getAccountParentRecipientKeys(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
         AccountStruct storage account = accountMap[_accountKey];
-        address[] storage parentBenificiaryAccountList = account.parentBenificiaryAccountList;
-        return parentBenificiaryAccountList;
+        address[] storage parentRecipientAccountList = account.parentRecipientAccountList;
+        return parentRecipientAccountList;
     }
 */
     /////////////////////////// AGENT REQUESTS //////////////////////////////
  
-    /// @notice retreives the benificiarias of a specific address.
+    /// @notice retreives the recipients of a specific address.
     /// @param _patronKey public account key to set new balance
-    function getBenificiaryKeys(address _patronKey) public onlyOwnerOrRootAdmin(_patronKey) view returns (address[] memory) {
+    function getRecipientKeys(address _patronKey) public onlyOwnerOrRootAdmin(_patronKey) view returns (address[] memory) {
         AccountStruct storage patronAccount = accountMap[_patronKey];
-        address[] storage benificiaryKeys = patronAccount.benificiaryAccountList;
-        return benificiaryKeys;
+        address[] storage recipientKeys = patronAccount.recipientAccountList;
+        return recipientKeys;
     }
 
     
