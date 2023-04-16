@@ -62,39 +62,39 @@ describe("spCoinContract", function () {
 
     await addAgentRateTransaction(
       SPONSOR_ACCOUNT_KEY_0,
-      RECIPIENT_ACCOUNT_KEY_1,
-      RECIPIENT_RATE_9,
-      AGENT_ACCOUNT_KEY_3,
-      AGENT_RATE_10,
-      TRANSACTION_QTY_2
-      );
-
-      await addAgentRateTransaction(
-        SPONSOR_ACCOUNT_KEY_0,
-        RECIPIENT_ACCOUNT_KEY_1,
-        RECIPIENT_RATE_9,
-        AGENT_ACCOUNT_KEY_3,
-        AGENT_RATE_3,
-        TRANSACTION_QTY_5
-        );
-
-        await addAgentRateTransaction(
-          SPONSOR_ACCOUNT_KEY_0,
-          RECIPIENT_ACCOUNT_KEY_6,
-          RECIPIENT_RATE_9,
-          AGENT_ACCOUNT_KEY_3,
-          AGENT_RATE_3,
-          TRANSACTION_QTY_3
-          );
-          
-    await addAgentRateTransaction(
-      SPONSOR_ACCOUNT_KEY_1,
       RECIPIENT_ACCOUNT_KEY_2,
-      RECIPIENT_RATE_7,
-      AGENT_ACCOUNT_KEY_3,
-      AGENT_RATE_6,
-      TRANSACTION_QTY_9
+      RECIPIENT_RATE_9,
+      AGENT_ACCOUNT_KEY_6,
+      AGENT_RATE_1,
+      TRANSACTION_QTY_2
     );
+
+  //   await addAgentRateTransaction(
+  //     SPONSOR_ACCOUNT_KEY_0,
+  //     RECIPIENT_ACCOUNT_KEY_1,
+  //     RECIPIENT_RATE_9,
+  //     AGENT_ACCOUNT_KEY_3,
+  //     AGENT_RATE_3,
+  //     TRANSACTION_QTY_5
+  //     );
+
+  // await addAgentRateTransaction(
+  //   SPONSOR_ACCOUNT_KEY_0,
+  //   RECIPIENT_ACCOUNT_KEY_6,
+  //   RECIPIENT_RATE_9,
+  //   AGENT_ACCOUNT_KEY_3,
+  //   AGENT_RATE_3,
+  //   TRANSACTION_QTY_3
+  // );
+          
+    // await addAgentRateTransaction(
+    //   SPONSOR_ACCOUNT_KEY_1,
+    //   RECIPIENT_ACCOUNT_KEY_2,
+    //   RECIPIENT_RATE_7,
+    //   AGENT_ACCOUNT_KEY_3,
+    //   AGENT_RATE_6,
+    //   TRANSACTION_QTY_9
+    // );
 
     // let agentRateKeys = await getAgentRateKeys(
     //   SPONSOR_ACCOUNT_KEY_1,
@@ -102,12 +102,12 @@ describe("spCoinContract", function () {
     // RECIPIENT_RATE_10,
     //   AGENT_ACCOUNT_KEY_1);
   
-    // AccountListize = (await getAccountListize()).toNumber();
+    // AccountListize = (await getAccountListSize()).toNumber();
     // expect(AccountListize).to.equal(3);
     await logJSONTree();
     await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEY_0, RECIPIENT_ACCOUNT_KEY_1);
     // await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEY_3, RECIPIENT_ACCOUNT_KEY_1);
-     await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEY_1, RECIPIENT_ACCOUNT_KEY_2);
+    await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEY_0, RECIPIENT_ACCOUNT_KEY_2);
     console.log("********************************************************************************");
     console.log("*** AFTER DELETE ***************************************************************");
     console.log("********************************************************************************");

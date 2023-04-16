@@ -113,7 +113,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   //   TRANSACTION_QTY_8
   // );
 
-    // AccountListize = (await getAccountListize()).toNumber();
+    // AccountListize = (await getAccountListSize()).toNumber();
     // expect(AccountListize).to.equal(3);
     await logJSONTree();
 

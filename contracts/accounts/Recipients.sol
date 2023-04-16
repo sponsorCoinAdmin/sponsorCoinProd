@@ -61,7 +61,7 @@ contract Recipients is Accounts {
     /// @notice retreives the recipient array records from a specific account address.
     /// @param _sponsorKey sponsor Key to retrieve the recipient list
     /// @param _recipientKey recipient Key to retrieve the recipient list
-    function getrecipientRateList(address _sponsorKey, address _recipientKey) public view onlyOwnerOrRootAdmin(_recipientKey) returns (uint[] memory) {
+    function getRecipientRateList(address _sponsorKey, address _recipientKey) public view onlyOwnerOrRootAdmin(_recipientKey) returns (uint[] memory) {
         RecipientStruct storage recipientRecord = getRecipientRecordByKeys(_sponsorKey, _recipientKey);
         uint[] memory recipientRateList = recipientRecord.recipientRateList;
 // console.log("AGENTS.SOL:addRecipientAgent: _sponsorKey, _recipientKey, _recipientRateKey, _recipientKey = " , _sponsorKey, _recipientKey, _recipientRateKey, _recipientKey);

@@ -31,7 +31,7 @@ contract Accounts is StructSerialization {
     }
 
     /// @notice retreives the number of accounts inserted.
-    function getAccountListize() public view returns (uint) {
+    function getAccountListSize() public view returns (uint) {
         return AccountList.length;
     }
 
