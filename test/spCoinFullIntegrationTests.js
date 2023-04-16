@@ -102,8 +102,8 @@ describe("spCoinContract", function () {
     // RECIPIENT_RATE_10,
     //   AGENT_ACCOUNT_KEY_1);
   
-    // AccountListize = (await getAccountListSize()).toNumber();
-    // expect(AccountListize).to.equal(3);
+    // AccountListSize = (await getAccountListSize()).toNumber();
+    // expect(AccountListSize).to.equal(3);
     await logJSONTree();
     await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEY_0, RECIPIENT_ACCOUNT_KEY_1);
     // await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEY_3, RECIPIENT_ACCOUNT_KEY_1);

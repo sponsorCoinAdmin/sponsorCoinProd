@@ -18,7 +18,7 @@ setContractReadMethods = (_spCoinContractDeployed) => {
 
 getAccountListSize = async () => {
   logFunctionHeader("getAccountListSize = async()");
-  let maxSize = await spCoinContractDeployed.getAccountListSize();
+  let maxSize = (await getAccountList()).length;
   logDetail("JS => Found " + maxSize + " Account Keys");
   return maxSize;
 };

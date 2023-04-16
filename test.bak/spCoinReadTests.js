@@ -128,8 +128,8 @@ describe("spCoinContract", function () {
     setLogMode(LOG_MODE.LOG, true);
     // Test Record Insertion to Blockchain Network
     let accountKey = await addTestNetworkAccount(0);
-    let AccountListize = (await getAccountListSize()).toNumber();
-    expect(AccountListize).to.equal(1);
+    let AccountListSize = (await getAccountListSize()).toNumber();
+    expect(AccountListSize).to.equal(1);
 
     // Test Record Structure Read from Blockchain Network
     let accountStruct = await getAccountRecord(accountKey);
@@ -139,21 +139,21 @@ describe("spCoinContract", function () {
 
     // Test Duplicate Record Cannot be Inserted to Blockchain Network
     accountKey = await addTestNetworkAccount(0);
-    AccountListize = (await getAccountListSize()).toNumber();
-    expect(AccountListize).to.equal(1);
+    AccountListSize = (await getAccountListSize()).toNumber();
+    expect(AccountListSize).to.equal(1);
 
     // Test Second Record Insertion to blockchain Network
     accountKey = await addTestNetworkAccount(4);
-    AccountListize = (await getAccountListSize()).toNumber();
-    expect(AccountListize).to.equal(2);
+    AccountListSize = (await getAccountListSize()).toNumber();
+    expect(AccountListSize).to.equal(2);
 
     // Test N Record Insertions to blockchain Network
     accountKey = await addTestNetworkAccount(7);
     accountKey = await addTestNetworkAccount(6);
     accountKey = await addTestNetworkAccount(12);
     accountKey = await addTestNetworkAccount(15);
-    AccountListize = (await getAccountListSize()).toNumber();
-    expect(AccountListize).to.equal(6);
+    AccountListSize = (await getAccountListSize()).toNumber();
+    expect(AccountListSize).to.equal(6);
   });
 
   /**/
@@ -166,8 +166,8 @@ describe("spCoinContract", function () {
     let arrayKey = await addTestNetworkSponsorRecipients(14, [3, 2]);
     arrayKey = await addTestNetworkSponsorRecipients(13, [3]);
   
-    let AccountListize = (await getAccountListSize()).toNumber();
-    expect(AccountListize).to.equal(4);
+    let AccountListSize = (await getAccountListSize()).toNumber();
+    expect(AccountListSize).to.equal(4);
 
     let accountArr = await getAccountRecords();
     logJSON(accountArr);
@@ -196,8 +196,8 @@ describe("spCoinContract", function () {
     log("Tree For Account Key: " + accountKey + " With Inserted Recipients:");
     await logJSONTree();
 
-    AccountListize = (await getAccountListSize()).toNumber();
-    expect(AccountListize).to.equal(7);
+    AccountListSize = (await getAccountListSize()).toNumber();
+    expect(AccountListSize).to.equal(7);
 
     let recipientSize = (await getAccountRecipientKeySize(accountKey));
     expect(recipientSize).to.equal(6);
