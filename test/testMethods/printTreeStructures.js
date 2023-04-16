@@ -12,10 +12,10 @@ printStructureTree = (_structure) => {
     console.log(structure);
 }
 
-printStructurePatronSponsors = async(_accountStruct) => {
-    logFunctionHeader("printStructurePatronSponsors (" + _accountStruct + ")");
-    let accountSponsors = getJSONStructurePatronSponsors(_accountKey);
-    console.log(accountSponsors);
+printStructureSponsorRecipients = async(_accountStruct) => {
+    logFunctionHeader("printStructureSponsorRecipients (" + _accountStruct + ")");
+    let accountRecipients = getJSONStructureSponsorRecipients(_accountKey);
+    console.log(accountRecipients);
 }
 
 printStructureAccountKYC = async(_accountStruct) => {
@@ -24,10 +24,10 @@ printStructureAccountKYC = async(_accountStruct) => {
     console.log(accountKYC);
 }
 
-printStructureSponsorAgents = async(_sponsorStruct) => {
-    logFunctionHeader("printStructureSponsorAgents (" + _sponsorStruct + ")");
-    let sponsorAgents = getJSONStructureSponsorAgents(_accountKey, _sponsorKey);
-    console.log(sponsorAgents);
+printStructureRecipientAgents = async(_recipientStruct) => {
+    logFunctionHeader("printStructureRecipientAgents (" + _recipientStruct + ")");
+    let recipientAgents = getJSONStructureRecipientAgents(_accountKey, _recipientKey);
+    console.log(recipientAgents);
 }
 
 ///////////////////////////////// Structure Data //////////////////////////////
@@ -37,9 +37,9 @@ getJSONStructureTree = (_structure) => {
     return JSON.stringify(_structure, null, 2);
 }
 
-getJSONStructurePatronSponsors = async(_accountStruct) => {
-    logFunctionHeader("getJSONStructurePatronSponsors (" + _accountStruct + ")");
-    return JSON.stringify(_accountSponsors, null, 2);
+getJSONStructureSponsorRecipients = async(_accountStruct) => {
+    logFunctionHeader("getJSONStructureSponsorRecipients (" + _accountStruct + ")");
+    return JSON.stringify(_accountRecipients, null, 2);
 }
 
 getJSONStructureAccountKYC = async(_accountStruct) => {
@@ -47,17 +47,17 @@ getJSONStructureAccountKYC = async(_accountStruct) => {
     return JSON.stringify(_accountStruct.KYC, null, 2);
 }
 
-getJSONStructureSponsorAgents = async(_sponsorStruct) => {
-    logFunctionHeader("getJSONStructureSponsorAgents (" + _sponsorStruct + ")");
-    return JSON.stringify(_sponsorStruct, null, 2);
+getJSONStructureRecipientAgents = async(_recipientStruct) => {
+    logFunctionHeader("getJSONStructureRecipientAgents (" + _recipientStruct + ")");
+    return JSON.stringify(_recipientStruct, null, 2);
 }
 
 ///////////////////////////////// NetWork Stuff //////////////////////////////
 
-printNetworkPatronSponsors = async(_accountKey) => {
-    logFunctionHeader("printNetworkPatronSponsors (" + _accountKey + ")");
-    let accountSponsors = getJSONNetworkPatronSponsors(_accountKey);
-    console.log(accountSponsors);
+printNetworkSponsorRecipients = async(_accountKey) => {
+    logFunctionHeader("printNetworkSponsorRecipients (" + _accountKey + ")");
+    let accountRecipients = getJSONNetworkSponsorRecipients(_accountKey);
+    console.log(accountRecipients);
 }
 
 printNetworkAccountKYC = async(_accountKey) => {
@@ -66,18 +66,18 @@ printNetworkAccountKYC = async(_accountKey) => {
     console.log(accountKYC);
 }
 
-printNetworkSponsorAgents = async(_accountKey, _sponsorKey) => {
-    logFunctionHeader("printNetworkSponsorAgents (" + _accountKey + ", " + _sponsorKey + ")");
-    let sponsorAgents = getJSONNetworkSponsorAgents(_accountKey, _sponsorKey);
-    console.log(sponsorAgents);
+printNetworkRecipientAgents = async(_accountKey, _recipientKey) => {
+    logFunctionHeader("printNetworkRecipientAgents (" + _accountKey + ", " + _recipientKey + ")");
+    let recipientAgents = getJSONNetworkRecipientAgents(_accountKey, _recipientKey);
+    console.log(recipientAgents);
 }
 
 ///////////////////////////////// NetWork Stuff //////////////////////////////
 
-getJSONNetworkPatronSponsors = async(_accountKey) => {
-    logFunctionHeader("getJSONNetworkPatronSponsors (" + _accountKey + ")");
-    let accountSponsors = getNetworkPatronSponsors(_accountKey);
-    return JSON.stringify(accountSponsors, null, 2);
+getJSONNetworkSponsorRecipients = async(_accountKey) => {
+    logFunctionHeader("getJSONNetworkSponsorRecipients (" + _accountKey + ")");
+    let accountRecipients = getNetworkSponsorRecipients(_accountKey);
+    return JSON.stringify(accountRecipients, null, 2);
 }
 
 getJSONNetworkAccountKYC = async(_accountKey) => {
@@ -86,18 +86,18 @@ getJSONNetworkAccountKYC = async(_accountKey) => {
     return JSON.stringify(accountKYC, null, 2);
 }
 
-getJSONNetworkSponsorAgents = async(_accountKey, _sponsorKey) => {
-    logFunctionHeader("getJSONNetworkSponsorAgents (" + _accountKey + ", " + _sponsorKey + ")");
-    let sponsorAgents = getNetworkSponsorAgents(_accountKey, _sponsorKey);
-    return JSON.stringify(sponsorAgents, null, 2);
+getJSONNetworkRecipientAgents = async(_accountKey, _recipientKey) => {
+    logFunctionHeader("getJSONNetworkRecipientAgents (" + _accountKey + ", " + _recipientKey + ")");
+    let recipientAgents = getNetworkRecipientAgents(_accountKey, _recipientKey);
+    return JSON.stringify(recipientAgents, null, 2);
 }
 
 ////////////////////////// To Do Get From Network ////////////////////////////
 
-getNetworkPatronSponsors = async(_accountKey) => {
-    logFunctionHeader("getNetworkPatronSponsors (" + _accountKey + ")");
-    let accountSponsors = await getNetworkPatronSponsors(_accountKey);
-    return JSON.stringify(accountSponsors, null, 2);
+getNetworkSponsorRecipients = async(_accountKey) => {
+    logFunctionHeader("getNetworkSponsorRecipients (" + _accountKey + ")");
+    let accountRecipients = await getNetworkSponsorRecipients(_accountKey);
+    return JSON.stringify(accountRecipients, null, 2);
 }
 
 getNetworkAccountKYC = async(_accountKey) => {
@@ -106,30 +106,30 @@ getNetworkAccountKYC = async(_accountKey) => {
     return JSON.stringify(accountKYC, null, 2);
 }
 
-getNetworkSponsorAgents = async(_accountKey, _sponsorKey) => {
-    logFunctionHeader("getNetworkSponsorAgents (" + _accountKey + ", " + _sponsorKey + ")");
-    let sponsorAgents = await getNetworkSponsorAgents(_accountKey, _sponsorKey);
-    return JSON.stringify(sponsorAgents, null, 2);
+getNetworkRecipientAgents = async(_accountKey, _recipientKey) => {
+    logFunctionHeader("getNetworkRecipientAgents (" + _accountKey + ", " + _recipientKey + ")");
+    let recipientAgents = await getNetworkRecipientAgents(_accountKey, _recipientKey);
+    return JSON.stringify(recipientAgents, null, 2);
 }
 
 module.exports = {
 // Local Calls
     printTestHHAccounts,
     printStructureTree,
-    printStructurePatronSponsors,
+    printStructureSponsorRecipients,
     printStructureAccountKYC,
-    printStructureSponsorAgents,
-    getJSONStructurePatronSponsors,
+    printStructureRecipientAgents,
+    getJSONStructureSponsorRecipients,
     getJSONStructureAccountKYC,
-    getJSONStructureSponsorAgents,
+    getJSONStructureRecipientAgents,
     // NetWork Calls
-    printNetworkPatronSponsors,
+    printNetworkSponsorRecipients,
     printNetworkAccountKYC,
-    printNetworkSponsorAgents,
-    getJSONNetworkPatronSponsors,
+    printNetworkRecipientAgents,
+    getJSONNetworkSponsorRecipients,
     getJSONNetworkAccountKYC,
-    getJSONNetworkSponsorAgents,
-    getNetworkPatronSponsors,
+    getJSONNetworkRecipientAgents,
+    getNetworkSponsorRecipients,
     getNetworkAccountKYC,
-    getNetworkSponsorAgents
+    getNetworkRecipientAgents
 }

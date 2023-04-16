@@ -9,4 +9,3 @@ artifacts
 /.env
 .env
 */.env
-*.env

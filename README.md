@@ -27,57 +27,57 @@ SPCoin
         Transactions
           AgentRates
             Agents
-              SponsorRates
-                Sponsors
+              RecipientRates
+                Recipients
                   Accounts
 
 
 
-To Add a Sponsor Account Agent, add the following:
+To Add a Recipient Account Agent, add the following:
 Add a Rate Record to Agent
 
-Using: addSponsorAgents(Account, Sponsor, SponsroRate, [Agents])
-Example: addSponsorAgents(1, 2, 10, [6]); 
+Using: addRecipientAgents(Account, Recipient, SponsroRate, [Agents])
+Example: addRecipientAgents(1, 2, 10, [6]); 
 
-Add a Rate Record to Sponsor
+Add a Rate Record to Recipient
 ================================================
-Create:  AddSponsorRate(Account, Sponsor, SponsorRatePercent);
-Example: AddSponsorRate(1, 2, 10);
+Create:  AddRecipientRate(Account, Recipient, RecipientRatePercent);
+Example: AddRecipientRate(1, 2, 10);
 
-Add a Rate Record to Sponsor
+Add a Rate Record to Recipient
 ================================================
-Create: AddAgentRate(Account, Sponsor, Agent, SponsorRatePercent, AgentRatePercent);
+Create: AddAgentRate(Account, Recipient, Agent, RecipientRatePercent, AgentRatePercent);
 Example: AddAgentRate(1, 2, 6, 10, 10);
 
-Add a Sponsor Transaction
+Add a Recipient Transaction
 ================================================
-Create AddSponsorTransaction(Account, Sponsor, SponsorRate, amount);
-Example: AddSponsorTransaction(1, 2, 10, 123.1230);
+Create AddRecipientTransaction(Account, Recipient, RecipientRate, amount);
+Example: AddRecipientTransaction(1, 2, 10, 123.1230);
 
 Add aa Agent Transaction
 ================================================
-Create AddAgentRateTransaction(Account, Sponsor, SponsorRate, Agent, AgentRate, Amount)
+Create AddAgentRateTransaction(Account, Recipient, RecipientRate, Agent, AgentRate, Amount)
 Example: AddAgentRate(1, 2, 6, 10, 10, 123.1230);
 
 
 Requirements to Delete Agent: Agent Affiliation Program
-1. Require Agent to be child of Sponsor
-2. Require Agent to have No SponsorCoin balanceOf Token affiliation with Parent.
-3. Must Remove from parent Sponsor.agentAccountList
-4. Then Remove Sponsor Parent from agentAccount.parentSponsorAccountList
+1. Require Agent to be child of Recipient
+2. Require Agent to have No RecipientCoin balanceOf Token affiliation with Parent.
+3. Must Remove from parent Recipient.agentAccountList
+4. Then Remove Recipient Parent from agentAccount.parentRecipientAccountList
 5. Optional, If Agent account balanceOf is zero (0), Agent account may be deleted.
 
-Requirements to Delete Sponsor from Patron: (Delete Patron sponsorship)
-1. Require Sponsor to be Child of Patron
-2. Require Sponsor to have no Parent Patrion balanceOf Token affiliation.
-3. Require Sponsor to have no Child Agent affiliation
-4. Remove associated child agents from Sponsor.agentAccountList
-5. Remove from Account ParentKeys, account.sponsorAccountList
-6. Remove from Account.sponsorMap, 
-7. Optional, If Sponsor account balanceOf is zero (0), Sponsor account may be deleted.
+Requirements to Delete Recipient from Sponsor: (Delete Sponsor recipientship)
+1. Require Recipient to be Child of Sponsor
+2. Require Recipient to have no Parent Patrion balanceOf Token affiliation.
+3. Require Recipient to have no Child Agent affiliation
+4. Remove associated child agents from Recipient.agentAccountList
+5. Remove from Account ParentKeys, account.recipientAccountList
+6. Remove from Account.recipientMap, 
+7. Optional, If Recipient account balanceOf is zero (0), Recipient account may be deleted.
 
 Requirements to Delete Account
-1. Require Account to have No Sponsors, account.sponsorAccountList must be zero (0).
+1. Require Account to have No Recipients, account.recipientAccountList must be zero (0).
 2. Require Account to have No Agents, account.agentAccountList must be zero (0).
-3. Optional, Require Account to have No Patrons account.patronAccountList must be zero (0).
-4. Optional, Require Account to have No account.parentSponsorAccountList must be zero (0).
+3. Optional, Require Account to have No Sponsors account.sponsorAccountList must be zero (0).
+4. Optional, Require Account to have No account.parentRecipientAccountList must be zero (0).

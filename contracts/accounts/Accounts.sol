@@ -40,39 +40,36 @@ contract Accounts is StructSerialization {
         return AccountList;
     }
 
-    ////////////////////// PATRON REQUESTS //////////////////////////////
+    ////////////////////// SPONSOR REQUESTS //////////////////////////////
 
     /*
-    /// @notice retreives the sponsor array records for the Patron list
-    /// @param _accountKey public account key to get Sponsor Record Length
-    function getAccountPatronKeys(address _accountKey) public view 
+    /// @notice retreives the recipient array records for the Sponsor list
+    /// @param _accountKey public account key to get Recipient Record Length
+    function getAccountSponsorKeys(address _accountKey) public view 
         onlyOwnerOrRootAdmin(_accountKey) returns (address[] memory) {
         AccountStruct storage account = accountMap[_accountKey];
-        address[] storage patronAccountList = account.patronAccountList;
-        return patronAccountList;
+        address[] storage sponsorAccountList = account.sponsorAccountList;
+        return sponsorAccountList;
     }
 
-    /////////////////////////// SPONSOR REQUESTS //////////////////////////////
+    /////////////////////////// RECIPIENT REQUESTS //////////////////////////////
 
-    /// @notice retreives the sponsor array records for the Patron list
-    /// @param _accountKey public account key to get Sponsor Record Length
-    function getAccountParentSponsorKeys(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
+    /// @notice retreives the recipient array records for the Sponsor list
+    /// @param _accountKey public account key to get Recipient Record Length
+    function getAccountParentRecipientKeys(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
         AccountStruct storage account = accountMap[_accountKey];
-        address[] storage parentSponsorAccountList = account.parentSponsorAccountList;
-        return parentSponsorAccountList;
+        address[] storage parentRecipientAccountList = account.parentRecipientAccountList;
+        return parentRecipientAccountList;
     }
 */
     /////////////////////////// AGENT REQUESTS //////////////////////////////
  
-    /// @notice retreives the sponsors of a specific address.
-    /// @param _patronKey public account key to set new balance
-    function getSponsorKeys(address _patronKey) public onlyOwnerOrRootAdmin(_patronKey) view returns (address[] memory) {
-        AccountStruct storage patronAccount = accountMap[_patronKey];
-        address[] storage sponsorKeys = patronAccount.sponsorAccountList;
-        return sponsorKeys;
+    /// @notice retreives the recipients of a specific address.
+    /// @param _sponsorKey public account key to set new balance
+    function getRecipientKeys(address _sponsorKey) public onlyOwnerOrRootAdmin(_sponsorKey) view returns (address[] memory) {
+        return accountMap[_sponsorKey].recipientAccountList;
     }
-
-    
+  
     function getAccountListIndex (address _accountKey, 
         address[] storage _accountKeyList) internal view
         accountExists(_accountKey) returns (uint) {

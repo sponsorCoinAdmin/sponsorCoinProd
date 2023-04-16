@@ -1,44 +1,48 @@
 class AccountStruct {
   constructor() {
+    this.TYPE = "--ACCOUNT--";
     this.accountKey;
     this.balanceOf;
     this.stakedSPCoins;
     this.insertionTime;
     this.verified;
-    this.patronAccountList;
     this.sponsorAccountList;
+    this.recipientAccountList;
     this.agentAccountList;
-    this.parentSponsorAccountList;
-    this.sponsorRecordList;
+    this.parentRecipientAccountList;
+    this.recipientRecordList;
 //    this.KYC;
   }
 }
 
-class SponsorStruct {
+class RecipientStruct {
   constructor() {
-    this.sponsorKey;
+    this.TYPE = "--RECIPIENT--";
+    this.recipientKey;
     this.stakedSPCoins;
     this.insertionTime;
     this.verified;
-    this.sponsorRateList2;
+    this.recipientRateList2;
   }
 }
 
 
-class SponsorRateStruct {
+class RecipientRateStruct {
   constructor() {
-    this.sponsorRate;
+    this.TYPE = "--RECIPIENT_RATE--";
+    this.recipientRate;
     this.stakedSPCoins;
     this.insertionTime;
     this.lastUpdateTime;
     this.transactions;
     this.agentAccountList;
-    this.sponsorRecordList;
+    this.recipientRecordList;
   }
 }
 
 class AgentStruct {
   constructor() {
+    this.TYPE = "--AGENT--";
     this.agentKey;
     this.stakedSPCoins;
     this.insertionTime;
@@ -49,6 +53,7 @@ class AgentStruct {
 
 class AgentRateStruct {
   constructor() {
+    this.TYPE = "--AGENT_RATE--";
     this.agentRate;
     this.stakedSPCoins;
     this.insertionTime;
@@ -68,7 +73,7 @@ module.exports = {
   AccountStruct,
   AgentRateStruct,
   AgentStruct,
-  SponsorStruct,
-  SponsorRateStruct,
+  RecipientStruct,
+  RecipientRateStruct,
   TransactionStruct
 };

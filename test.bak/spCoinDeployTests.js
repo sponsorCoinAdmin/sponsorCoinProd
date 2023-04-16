@@ -22,7 +22,7 @@ describe("spCoinContract", function() {
         // setLogMode(LOG_MODE.LOG_FUNCTION_HEADER, true);
         // setLogMode(LOG_MODE.LOG_SETUP, true);
         logTestHeader("ACCOUNT DEPLOYMENT");
-        let testName        = "sponsorTestCoin";
+        let testName        = "recipientTestCoin";
         let testSymbol      = "SPTest";
         let testDecimals    = 3;
         let testTotalSupply = 10 * 10**testDecimals;
@@ -85,13 +85,13 @@ describe("spCoinContract", function() {
 
     /**/
 
-    it("Insert 4 Sponsor Coin Records 1 count, 1 sponsor and 2 Agents", async function () {
-        logTestHeader("TEST MORE HARDHAT SPONSOR RECORD INSERTIONS")
+    it("Insert 4 Recipient Coin Records 1 count, 1 recipient and 2 Agents", async function () {
+        logTestHeader("TEST MORE HARDHAT RECIPIENT RECORD INSERTIONS")
 
-        logDetail("JS => *** Insert Sponsor to AccountRecord[2] as AccountRecord[5] ***")
+        logDetail("JS => *** Insert Recipient to AccountRecord[2] as AccountRecord[5] ***")
         let startRec = 4;
         let endRec = 15;
-        await addTestNetworkSponsorAgents(3, 6, 10, [1, 2]);
+        await addTestNetworkRecipientAgents(3, 6, 10, [1, 2]);
         let insertCount = (await spCoinContractDeployed.getAccountListize()).toNumber();
         expect(insertCount).to.equal(4);
     });

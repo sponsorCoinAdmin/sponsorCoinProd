@@ -5,63 +5,61 @@ import "./Transactions.sol";
 
 contract UnSubscribe is Transactions {
     constructor() { }
-
     
-    /// @notice Remove all sponsorship relationships for Patron and Sponsor accounts
-    /// @param _patronKey Patron key containing the Sponsor relationship
-    /// @param _sponsorKey Sponsor to be removed from the Sponsor relationship
-    function deletePatronSponsorRecord(address _patronKey, address _sponsorKey)  
-        public onlyOwnerOrRootAdmin(_patronKey)
-        accountExists(_patronKey)
+    /// @notice Remove all recipientship relationships for Sponsor and Recipient accounts
+    /// @param _sponsorKey Sponsor key containing the Recipient relationship
+    /// @param _recipientKey Recipient to be removed from the Recipient relationship
+    function deleteSponsorRecipientRecord(address _sponsorKey, address _recipientKey)  
+        public onlyOwnerOrRootAdmin(_sponsorKey)
         accountExists(_sponsorKey)
-        nonRedundantSponsor ( _patronKey,  _sponsorKey) {
+        accountExists(_recipientKey)
+        nonRedundantRecipient ( _sponsorKey,  _recipientKey) {
     
-        AccountStruct storage patronAccount = accountMap[_patronKey];
-        if (deleteAccountRecordFromSearchKeys(_sponsorKey, patronAccount.sponsorAccountList)) {
-            SponsorStruct storage sponsorRecord = patronAccount.sponsorMap[_sponsorKey];
-            uint256 totalSponsoed = sponsorRecord.stakedSPCoins;
-            AccountStruct storage sponsorAccount = accountMap[sponsorRecord.sponsorKey];
-            deleteAccountRecordFromSearchKeys(_sponsorKey, sponsorAccount.patronAccountList);
-            deleteAccountRecordFromSearchKeys(_sponsorKey, sponsorAccount.agentAccountList);
-            deleteSponsorRateRecords(sponsorRecord);
+        AccountStruct storage sponsorAccount = accountMap[_sponsorKey];
+        if (deleteAccountRecordFromSearchKeys(_recipientKey, sponsorAccount.recipientAccountList)) {
+            RecipientStruct storage recipientRecord = sponsorAccount.recipientMap[_recipientKey];
+            uint256 totalSponsoed = recipientRecord.stakedSPCoins;
+            AccountStruct storage recipientAccount = accountMap[recipientRecord.recipientKey];
+            deleteAccountRecordFromSearchKeys(_recipientKey, recipientAccount.sponsorAccountList);
+            deleteAccountRecordFromSearchKeys(_recipientKey, recipientAccount.agentAccountList);
+            deleteRecipientRateRecords(recipientRecord);
  
-            patronAccount.balanceOf += totalSponsoed;
-            patronAccount.stakedSPCoins -= totalSponsoed;
-            deleteAccountRecordInternal(sponsorRecord.sponsorKey);
+            sponsorAccount.balanceOf += totalSponsoed;
+            sponsorAccount.stakedSPCoins -= totalSponsoed;
+            deleteAccountRecordInternal(recipientRecord.recipientKey);
         }
     }
 
-    function deleteSponsorRateRecords(SponsorStruct storage _sponsorRecord) internal {
+    function deleteRecipientRateRecords(RecipientStruct storage _recipientRecord) internal {
         // Delete Agent Rate Keys
-        uint256[] storage sponsorRateList = _sponsorRecord.sponsorRateList;
-        AccountStruct storage sponsorAccount = accountMap[_sponsorRecord.sponsorKey];
+        uint256[] storage recipientRateList = _recipientRecord.recipientRateList;
+        AccountStruct storage recipientAccount = accountMap[_recipientRecord.recipientKey];
 
-        uint i = sponsorRateList.length - 1;
+        uint i = recipientRateList.length - 1;
         for (i; i >=0; i--) {
-            // console.log("====deleteSponsorRateRecords: sponsorRateList[", i, "] ", sponsorRateList[i]);
-            uint256 sponsorRateKey = sponsorRateList[i];
-            SponsorRateStruct storage sponsorRateRecord = _sponsorRecord.sponsorRateMap[sponsorRateKey];
+            // console.log("====deleteRecipientRateRecords: recipientRateList[", i, "] ", recipientRateList[i]);
+            uint256 recipientRateKey = recipientRateList[i];
+            RecipientRateStruct storage recipientRateRecord = _recipientRecord.recipientRateMap[recipientRateKey];
 
-            deleteSponsorRateRecord(sponsorAccount, sponsorRateRecord);
-            sponsorRateList.pop();
+            deleteRecipientRateRecord(recipientAccount, recipientRateRecord);
+            recipientRateList.pop();
             if (i == 0)
               break;
         }
     }
 
-    // Delete sponsor rate list.
-    function deleteSponsorRateRecord(AccountStruct storage sponsorAccount, SponsorRateStruct storage sponsorRateRecord) internal {
-        address[] storage agentAccountList = sponsorRateRecord.agentAccountList;
+    // Delete recipient rate list.
+    function deleteRecipientRateRecord(AccountStruct storage recipientAccount, RecipientRateStruct storage recipientRateRecord) internal {
+        address[] storage agentAccountList = recipientRateRecord.agentAccountList;
         uint i = agentAccountList.length - 1;
         for (i; i >= 0; i--) {
-            // console.log("====deleteSponsorRateRecord: Found agentKey[", i, "] ", agentAccountList[i]);
+            // console.log("====deleteRecipientRateRecord: Found agentKey[", i, "] ", agentAccountList[i]);
             address agentKey = agentAccountList[i];
-            AgentStruct storage agentRec = sponsorRateRecord.agentMap[agentKey];
-            AccountStruct storage agentAccount = accountMap[agentKey];
+            AgentStruct storage agentRec = recipientRateRecord.agentMap[agentKey];
 
-            // console.log("***** Deleting sponsorAccount.accountKey ", sponsorAccount.accountKey,
+            // console.log("***** Deleting recipientAccount.accountKey ", recipientAccount.accountKey,
             //  "From agentRec.agentKey ", agentRec.agentKey);
-            deleteAccountRecordFromSearchKeys(sponsorAccount.accountKey, agentAccount.parentSponsorAccountList);
+            deleteAccountRecordFromSearchKeys(recipientAccount.accountKey, accountMap[agentKey].parentRecipientAccountList);
 
             deleteAgentRateRecords(agentRec);
             agentAccountList.pop();
@@ -88,7 +86,7 @@ contract UnSubscribe is Transactions {
         deleteAccountRecordInternal(agentRec.agentKey);
     }
 
-    // Delete sponsor rate list.
+    // Delete recipient rate list.
     function deleteAgentTransactions(AgentRateStruct storage agentRateRecord) internal {
         TransactionStruct[] storage transactionList = agentRateRecord.transactionList;
         for (uint i=0; i< transactionList.length; i++) { 
@@ -103,37 +101,60 @@ contract UnSubscribe is Transactions {
 
     function deleteAccountRecordFromSearchKeys(address _accountKey, 
     address[] storage _accountKeyList) internal returns (bool) {
-    bool deleted = false;
-    uint i = getAccountListIndex (_accountKey, _accountKeyList);
-    for (i; i<_accountKeyList.length; i++) { 
-        if (_accountKeyList[i] == _accountKey) {
-            console.log("==== Found _accountKeyList[", i, "] ", _accountKeyList[i]);
-            console.log("==== Found accountMap[_accountKeyList[", i,  "]].accountKey ", accountMap[_accountKeyList[i]].accountKey);
-            delete _accountKeyList[i];
-            if (i > 0)
-                _accountKeyList[i] = _accountKeyList[_accountKeyList.length - 1];
-            deleted = true;
+        // console.log("************************************************************");
+        // dumpAccounts("BEFORE", _accountKey, _accountKeyList);
+        bool deleted = false;
+        uint i = getAccountListIndex (_accountKey, _accountKeyList);
+        for (i; i<_accountKeyList.length; i++) { 
+            if (_accountKeyList[i] == _accountKey) {
+                // console.log("==== Found _accountKeyList[", i, "] ", _accountKeyList[i]);
+                // console.log("==== Found accountMap[_accountKeyList[", i,  "]].accountKey ", accountMap[_accountKeyList[i]].accountKey);
+                delete _accountKeyList[i];
+                if (_accountKeyList.length > 0)
+                    _accountKeyList[i] = _accountKeyList[_accountKeyList.length - 1];
+                deleted = true;
+                break;
+            }
+        }
+        // dumpAccounts("AFTER", _accountKey, _accountKeyList);
+        _accountKeyList.pop();
+        // console.log("************************************************************");
+        return deleted;
+    }
+
+    /*
+    function dumpAccounts(string memory str, address _accountKey, 
+        address[] storage _accountKeyList) internal view {
+        console.log("_accountKeyList.length = ", _accountKeyList.length);
+        console.log(str," dumpAccounts()", "searching for account ", _accountKey);
+        uint i = getAccountListIndex (_accountKey, _accountKeyList);
+        for (i; i<_accountKeyList.length; i++) { 
+            if (_accountKeyList[i] == _accountKey) {
+                console.log("**** Found _accountKeyList[", i, "] ", _accountKeyList[i]);
+                // console.log("==== Found accountMap[_accountKeyList[", i,  "]].accountKey ", accountMap[_accountKeyList[i]].accountKey);
+            }
+            else {
+                console.log("==== Found _accountKeyList[", i, "] ", _accountKeyList[i]);
+            }
         }
     }
-    _accountKeyList.pop();
-
-    return deleted;
-    }
+*/
 
     function deleteAccountRecordInternal(address _accountKey) internal
     accountExists(_accountKey) 
     onlyOwnerOrRootAdmin(_accountKey) {
 
-        console.log("*** deleteAccountRecordInternal(", _accountKey,")");
-        console.log("accountMap[",_accountKey,"].patronAccountList.length =", accountMap[_accountKey].patronAccountList.length);
-        console.log("accountMap[",_accountKey,"].sponsorAccountList.length =", accountMap[_accountKey].sponsorAccountList.length);
-        console.log("accountMap[",_accountKey,"].agentAccountList.length =", accountMap[_accountKey].agentAccountList.length);
-        console.log("accountMap[",_accountKey,"].parentSponsorAccountList.length =", accountMap[_accountKey].parentSponsorAccountList.length);
-        if(accountMap[_accountKey].patronAccountList.length == 0 &&
-            accountMap[_accountKey].sponsorAccountList.length == 0 &&
+        // console.log("*** deleteAccountRecordInternal(", _accountKey,")");
+        // console.log("accountMap[",_accountKey,"].sponsorAccountList.length =", accountMap[_accountKey].sponsorAccountList.length);
+        // console.log("accountMap[",_accountKey,"].recipientAccountList.length =", accountMap[_accountKey].recipientAccountList.length);
+        // console.log("accountMap[",_accountKey,"].agentAccountList.length =", accountMap[_accountKey].agentAccountList.length);
+        // console.log("accountMap[",_accountKey,"].parentRecipientAccountList.length =", accountMap[_accountKey].parentRecipientAccountList.length);
+        if(accountMap[_accountKey].sponsorAccountList.length == 0 &&
+            accountMap[_accountKey].recipientAccountList.length == 0 &&
             accountMap[_accountKey].agentAccountList.length == 0 &&
-            accountMap[_accountKey].parentSponsorAccountList.length == 0) {
-            console.log("*** DELETING ACCOUNT ", _accountKey);
+            accountMap[_accountKey].parentRecipientAccountList.length == 0 &&
+            accountMap[_accountKey].balanceOf == 0) {
+            // console.log("*** DELETING ACCOUNT ", _accountKey);
             if (deleteAccountRecordFromSearchKeys(_accountKey,  AccountList)) {
                 delete accountMap[_accountKey];
             } 
@@ -145,32 +166,38 @@ contract UnSubscribe is Transactions {
     function deleteAccountRecord(address _accountKey) public
         accountExists(_accountKey) 
         onlyOwnerOrRootAdmin(_accountKey)
-        patronDoesNotExist(_accountKey)
-        parentsponsorDoesNotExist(_accountKey)
-        sponsorDoesNotExist(_accountKey) {
+        sponsorDoesNotExist(_accountKey)
+        parentrecipientDoesNotExist(_accountKey)
+        recipientDoesNotExist(_accountKey) 
+        balanceOfIsEmpty(_accountKey) {
         if (deleteAccountRecordFromSearchKeys( _accountKey,  AccountList)) {
             delete accountMap[_accountKey];
         } 
     }
 
-    modifier patronDoesNotExist(address _accountKey) {
-        require (accountMap[_accountKey].patronAccountList.length == 0 &&
-            accountMap[_accountKey].agentAccountList.length == 0, "Sponsor Account has a Patron, (Patron must Un-sponsor Sponsored Account)");
+    modifier sponsorDoesNotExist(address _accountKey) {
+        require (accountMap[_accountKey].sponsorAccountList.length == 0 &&
+            accountMap[_accountKey].agentAccountList.length == 0, "Recipient Account has a Sponsor, (Sponsor must Un-recipient Recipiented Account)");
             _;
     }
     
-    modifier parentsponsorDoesNotExist(address _accountKey) {
-        require (accountMap[_accountKey].parentSponsorAccountList.length == 0, "Agent Account has a Parent Sponsor, (Patron must Un-sponsor Sponsored Account)");
+    modifier balanceOfIsEmpty(address _accountKey) {
+        require (accountMap[_accountKey].balanceOf == 0, "Agent Account has a Parent Recipient, (Sponsor must Un-recipient Recipiented Account)");
         _;
     }
 
-    modifier sponsorDoesNotExist(address _patronKey) {
-        require (getSponsorKeys(_patronKey).length == 0, "Patron Account has a Sponsor, (Patron must Un-sponsor Sponsored Account)");
+    modifier parentrecipientDoesNotExist(address _accountKey) {
+        require (accountMap[_accountKey].parentRecipientAccountList.length == 0, "Agent Account has a Parent Recipient, (Sponsor must Un-recipient Recipiented Account)");
+        _;
+    }
+
+    modifier recipientDoesNotExist(address _sponsorKey) {
+        require (getRecipientKeys(_sponsorKey).length == 0, "Sponsor Account has a Recipient, (Sponsor must Un-recipient Recipiented Account)");
         _;
     }
 /*   
     modifier AgentDoesNotExist(address _accountKey) {
-        require (accountMap[_accountKey](_accountKey).length == 0, "Sponsor Account has an Agent, (Patron must Un-sponsor Sponsored Account)");
+        require (accountMap[_accountKey](_accountKey).length == 0, "Recipient Account has an Agent, (Sponsor must Un-recipient Recipiented Account)");
         _;
     }
 */

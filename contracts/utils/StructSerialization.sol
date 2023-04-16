@@ -50,19 +50,19 @@ contract StructSerialization is Utils {
 
         seralized = concat(seralized, delimiter, stakedSPCoins);
 
-        // console.log("AAAAAAAAAAAAAAAAAAAAAAA patronAccountList.length = ", _accountRec.patronAccountList.length);
-        // console.log("BBBBBBBBBBBBBBBBBBBBBBB sponsorAccountList.length = ", _accountRec.sponsorAccountList.length);
+        // console.log("AAAAAAAAAAAAAAAAAAAAAAA sponsorAccountList.length = ", _accountRec.sponsorAccountList.length);
+        // console.log("BBBBBBBBBBBBBBBBBBBBBBB recipientAccountList.length = ", _accountRec.recipientAccountList.length);
         // console.log("CCCCCCCCCCCCCCCCCCCCCCC agentAccountList.length = ", _accountRec.agentAccountList.length);
-        // console.log("DDDDDDDDDDDDDDDDDDDDDDD parentSponsorAccountList.length = ", _accountRec.parentSponsorAccountList.length);
-        string memory patronAccountList = toString(_accountRec.patronAccountList);
+        // console.log("DDDDDDDDDDDDDDDDDDDDDDD parentRecipientAccountList.length = ", _accountRec.parentRecipientAccountList.length);
         string memory sponsorAccountList = toString(_accountRec.sponsorAccountList);
+        string memory recipientAccountList = toString(_accountRec.recipientAccountList);
         string memory agentAccountList = toString(_accountRec.agentAccountList);
-        string memory parentSponsorAccountList = toString(_accountRec.parentSponsorAccountList);
+        string memory parentRecipientAccountList = toString(_accountRec.parentRecipientAccountList);
 
-        seralized = concat(seralized, delimiter, "patronAccountList:",patronAccountList);
         seralized = concat(seralized, delimiter, "sponsorAccountList:",sponsorAccountList);
+        seralized = concat(seralized, delimiter, "recipientAccountList:",recipientAccountList);
         seralized = concat(seralized, delimiter, "agentAccountList:", agentAccountList);
-        seralized = concat(seralized, delimiter, "parentSponsorAccountList:", parentSponsorAccountList);
+        seralized = concat(seralized, delimiter, "parentRecipientAccountList:", parentRecipientAccountList);
 
         // console.log("_accountRec.accountKey:", _accountRec.accountKey);
         // console.log( "toString(_accountRec.accountKey)", toString(_accountRec.accountKey));

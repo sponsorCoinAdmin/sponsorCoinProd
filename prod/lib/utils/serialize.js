@@ -1,6 +1,6 @@
 const {
   AccountStruct,
-  SponsorStruct,
+  RecipientStruct,
   AgentStruct,
   AgentRateStruct,
   TransactionStruct,
@@ -64,20 +64,20 @@ addAccountField = (key, value, accountStruct) => {
     case "KYC":
       accountStruct.KYC = value;
       break;
-      case "patronAccountList":
-        accountStruct.patronAccountList = parseAddressStrRecord(value);
-        break;
       case "sponsorAccountList":
         accountStruct.sponsorAccountList = parseAddressStrRecord(value);
+        break;
+      case "recipientAccountList":
+        accountStruct.recipientAccountList = parseAddressStrRecord(value);
       break;
       case "agentAccountList":
           accountStruct.agentAccountList = parseAddressStrRecord(value);
         break;
-      case "parentSponsorAccountList":
-        accountStruct.parentSponsorAccountList = parseAddressStrRecord(value);
+      case "parentRecipientAccountList":
+        accountStruct.parentRecipientAccountList = parseAddressStrRecord(value);
       break;
-      case "sponsorRecordList":
-        accountStruct.sponsorRecordList = value;
+      case "recipientRecordList":
+        accountStruct.recipientRecordList = value;
       break;
     default:
       break;

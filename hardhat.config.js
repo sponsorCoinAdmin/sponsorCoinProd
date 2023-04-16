@@ -15,10 +15,14 @@ module.exports = {
   },
   networks: {
     goerli: {
-        url: process.env.ALCHEMY_RPC_TESTNET,
-        accounts: [process.env.ACCOUNT_1_PRIVATE_KEY]
-    }
+      url: process.env.GOERLI_ALCHEMY_RPC_TESTNET,
+      accounts: [process.env.GOERLI_ACCOUNT_1_PRIVATE_KEY]
   },
+    sepolia: {
+      url: process.env.SEPOLIA_ALCHEMY_RPC_TESTNET,
+      accounts: [process.env.SEPOLIA_ACCOUNT_1_PRIVATE_KEY]
+  }
+},
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY
   },
