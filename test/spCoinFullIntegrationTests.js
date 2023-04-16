@@ -51,31 +51,49 @@ describe("spCoinContract", function () {
   // Test Successful Record Insertion of Sponsor and 
   // Recipient Accounts to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
-  // await addAgentRateTransaction(
-  //   SPONSOR_ACCOUNT_KEY_0,
-  //   RECIPIENT_ACCOUNT_KEY_1,
-  //   RECIPIENT_RATE_9,
-  //   AGENT_ACCOUNT_KEY_2,
-  //   AGENT_RATE_1,
-  //   TRANSACTION_QTY_1
-  //   );
+  await addAgentRateTransaction(
+    SPONSOR_ACCOUNT_KEY_0,
+    RECIPIENT_ACCOUNT_KEY_1,
+    RECIPIENT_RATE_9,
+    AGENT_ACCOUNT_KEY_2,
+    AGENT_RATE_1,
+    TRANSACTION_QTY_10
+    );
 
     await addAgentRateTransaction(
-      SPONSOR_ACCOUNT_KEY_3,
+      SPONSOR_ACCOUNT_KEY_0,
       RECIPIENT_ACCOUNT_KEY_1,
       RECIPIENT_RATE_9,
-      AGENT_ACCOUNT_KEY_2,
-      AGENT_RATE_1,
+      AGENT_ACCOUNT_KEY_3,
+      AGENT_RATE_10,
       TRANSACTION_QTY_2
       );
-      
+
+      await addAgentRateTransaction(
+        SPONSOR_ACCOUNT_KEY_0,
+        RECIPIENT_ACCOUNT_KEY_1,
+        RECIPIENT_RATE_9,
+        AGENT_ACCOUNT_KEY_3,
+        AGENT_RATE_3,
+        TRANSACTION_QTY_5
+        );
+
+        await addAgentRateTransaction(
+          SPONSOR_ACCOUNT_KEY_0,
+          RECIPIENT_ACCOUNT_KEY_6,
+          RECIPIENT_RATE_9,
+          AGENT_ACCOUNT_KEY_3,
+          AGENT_RATE_3,
+          TRANSACTION_QTY_3
+          );
+          
     await addAgentRateTransaction(
       SPONSOR_ACCOUNT_KEY_1,
       RECIPIENT_ACCOUNT_KEY_2,
-      RECIPIENT_RATE_10,
+      RECIPIENT_RATE_7,
       AGENT_ACCOUNT_KEY_3,
-      AGENT_RATE_1,
-      TRANSACTION_QTY_2
+      AGENT_RATE_6,
+      TRANSACTION_QTY_9
     );
 
     // let agentRateKeys = await getAgentRateKeys(
@@ -87,8 +105,9 @@ describe("spCoinContract", function () {
     // AccountListize = (await getAccountListize()).toNumber();
     // expect(AccountListize).to.equal(3);
     await logJSONTree();
-    // await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEY_0, RECIPIENT_ACCOUNT_KEY_1);
-    await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEY_3, RECIPIENT_ACCOUNT_KEY_1);
+    await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEY_0, RECIPIENT_ACCOUNT_KEY_1);
+    // await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEY_3, RECIPIENT_ACCOUNT_KEY_1);
+     await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEY_1, RECIPIENT_ACCOUNT_KEY_2);
     console.log("********************************************************************************");
     console.log("*** AFTER DELETE ***************************************************************");
     console.log("********************************************************************************");

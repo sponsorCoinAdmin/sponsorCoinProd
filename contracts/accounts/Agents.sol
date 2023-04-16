@@ -20,14 +20,14 @@ contract Agents is RecipientRates {
         AgentStruct storage  agentRecord = getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
         if (!agentRecord.inserted) {
             addAccountRecord(_agentKey);
-            AccountStruct storage recipientAccount = accountMap[_recipientKey];
-            AccountStruct storage agentAccount = accountMap[_agentKey];
             RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey);
             agentRecord.insertionTime = block.timestamp;
+            agentRecord.sponsorKey = _sponsorKey;
+            agentRecord.recipientKey = _recipientKey;
             agentRecord.agentKey = _agentKey;
             agentRecord.inserted = true;
-            recipientAccount.agentAccountList.push(_agentKey);
-            agentAccount.parentRecipientAccountList.push(_recipientKey);
+            accountMap[_recipientKey].agentAccountList.push(_agentKey);
+            accountMap[_agentKey].parentRecipientAccountList.push(_recipientKey);
             recipientRateRecord.agentAccountList.push(_agentKey);
         }
     }

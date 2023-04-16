@@ -67,12 +67,9 @@ contract Accounts is StructSerialization {
     /// @notice retreives the recipients of a specific address.
     /// @param _sponsorKey public account key to set new balance
     function getRecipientKeys(address _sponsorKey) public onlyOwnerOrRootAdmin(_sponsorKey) view returns (address[] memory) {
-        AccountStruct storage sponsorAccount = accountMap[_sponsorKey];
-        address[] storage recipientKeys = sponsorAccount.recipientAccountList;
-        return recipientKeys;
+        return accountMap[_sponsorKey].recipientAccountList;
     }
-
-    
+  
     function getAccountListIndex (address _accountKey, 
         address[] storage _accountKeyList) internal view
         accountExists(_accountKey) returns (uint) {

@@ -33,7 +33,7 @@ contract AgentRates is Agents {
     }
 
      function serializeAgentRateRecordStr(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
-        AgentRateStruct storage agentRateRecord=  getAgentRateRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
+        AgentRateStruct storage agentRateRecord =  getAgentRateRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
         string memory insertionTimeStr = toString(agentRateRecord.insertionTime);
         string memory lastUpdateTimeStr = toString(agentRateRecord.lastUpdateTime);
         string memory stakedSPCoinsStr = toString(agentRateRecord.stakedSPCoins);

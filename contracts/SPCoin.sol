@@ -4,8 +4,8 @@ pragma solidity ^0.8.18;
 import "./Token.sol";
 
 contract SPCoin is Token{
-    string private defaultName         = "recipientCoin002";
-    string private defaultSymbol       = "SPCT00";
+    string private defaultName         = "sponsorCoin002";
+    string private defaultSymbol       = "SPCT002";
     uint256 private defaultDecimals    = 18;
     uint256 private defaultTotalSupply = 1000000000 * 10**defaultDecimals;
 
@@ -15,8 +15,12 @@ contract SPCoin is Token{
 
     constructor()  {
 //        logDetail("JS => MESSAGE.SENDER: ", msg.sender);
-        initToken(defaultName,  defaultSymbol, defaultDecimals, defaultTotalSupply);
 //        logDetail("JS => MESSAGE.SENDER: ", msg.sender);
+          init();
+    }
+
+    function init() public {
+        initToken(defaultName,  defaultSymbol, defaultDecimals, defaultTotalSupply);
     }
 
     function initToken(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) public onlyRootAdmin {

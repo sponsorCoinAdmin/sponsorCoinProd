@@ -18,15 +18,13 @@ contract Recipients is Accounts {
         if (!recipientRecord.inserted) {
             addAccountRecord(_sponsorKey);
             addAccountRecord(_recipientKey);
-            AccountStruct storage sponsorAccount = accountMap[_sponsorKey];
-            AccountStruct storage recipientAccount = accountMap[_recipientKey];
             recipientRecord.insertionTime = block.timestamp;
             recipientRecord.sponsorKey = _sponsorKey;
             recipientRecord.recipientKey = _recipientKey;
             recipientRecord.stakedSPCoins = 0; // Coins not owned but Recipiented
             recipientRecord.inserted = true;
-            sponsorAccount.recipientAccountList.push(_recipientKey);
-            recipientAccount.sponsorAccountList.push(_sponsorKey);
+            accountMap[_sponsorKey].recipientAccountList.push(_recipientKey);
+            accountMap[_recipientKey].sponsorAccountList.push(_sponsorKey);
         }
     }
 
@@ -47,9 +45,7 @@ contract Recipients is Accounts {
         return getRecipientRecordByKeys(_sponsorKey, _recipientKey).inserted;
     }
     function getRecipientRecordByKeys(address _sponsorKey, address _recipientKey) internal view onlyOwnerOrRootAdmin(_sponsorKey) returns (RecipientStruct storage) {
-        AccountStruct storage accountRec = accountMap[_sponsorKey];
-        RecipientStruct storage recipientRecord = accountRec.recipientMap[_recipientKey];
-       return recipientRecord;
+       return accountMap[_sponsorKey].recipientMap[_recipientKey];
     }
 
     function serializeRecipientRecordStr(address _sponsorKey, address _recipientKey) public view returns (string memory) {
