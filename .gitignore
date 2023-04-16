@@ -7,3 +7,6 @@ node_modules
 cache
 artifacts
 /.env
+.env
+*/.env
+*.env
