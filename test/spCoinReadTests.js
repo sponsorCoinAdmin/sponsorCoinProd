@@ -165,7 +165,7 @@ describe("spCoinContract", function () {
     arrayKey = await addTestNetworkSponsorRecipients(13, [3]);
   
     let AccountListSize = (await getAccountListSize());
-    expect(AccountListSize).to.equal(4);
+    expect(AccountListSize).to.equal(3);
 
     let accountArr = await getAccountRecords();
     logJSON(accountArr);

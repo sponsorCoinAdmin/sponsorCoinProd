@@ -14,7 +14,7 @@ function addRecipientRate(address _recipientKey, uint _recipientRateKey)
 
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_recipientKey, _recipientRateKey);
         if (!recipientRateRecord.inserted) {
-            RecipientStruct storage recipientRecord = getRecipientRecordByKeys(msg.sender, _recipientKey);
+            RecipientStruct storage recipientRecord = getRecipientRecordByKeys(_recipientKey);
             recipientRateRecord.recipientRate = _recipientRateKey;
             recipientRateRecord.inserted = true;
             recipientRateRecord.insertionTime = recipientRateRecord.lastUpdateTime = block.timestamp;
@@ -24,7 +24,7 @@ function addRecipientRate(address _recipientKey, uint _recipientRateKey)
     }
 
     function getRecipientRateRecordByKeys(address _recipientKey, uint _recipientRateKey) internal view onlyOwnerOrRootAdmin(msg.sender) returns (RecipientRateStruct storage) {
-        RecipientStruct storage recipientRecord = getRecipientRecordByKeys(msg.sender, _recipientKey) ;
+        RecipientStruct storage recipientRecord = getRecipientRecordByKeys(_recipientKey) ;
         return recipientRecord.recipientRateMap[_recipientRateKey];
     }
 

@@ -104,7 +104,7 @@ describe("spCoinContract", function () {
     // AccountListSize = (await getAccountListSize()).toNumber();
     // expect(AccountListSize).to.equal(3);
     await logJSONTree();
-    await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEY_0, RECIPIENT_ACCOUNT_KEY_1);
+    // await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEY_0, RECIPIENT_ACCOUNT_KEY_1);
     // await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEY_3, RECIPIENT_ACCOUNT_KEY_1);
     // await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEY_0, RECIPIENT_ACCOUNT_KEY_2);
     console.log("********************************************************************************");
@@ -112,7 +112,7 @@ describe("spCoinContract", function () {
     console.log("********************************************************************************");
   
     // console.log("--- AFTER DELETE RECIPIENT -----------------------------------");
-    await logJSONTree();
+    // await logJSONTree();
     // agentRateKeys = await getAgentRateKeys(
     //   SPONSOR_ACCOUNT_KEY_1,
     //   RECIPIENT_ACCOUNT_KEY_1,
