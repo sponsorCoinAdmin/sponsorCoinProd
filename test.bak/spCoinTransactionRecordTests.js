@@ -50,7 +50,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   // Test Successful Record Insertion of Sponsor and 
   // Recipient Accounts to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
-  await addAgentRateTransaction (
+  await addAgentTransaction (
     SPONSOR_ACCOUNT_KEY_0,
     RECIPIENT_ACCOUNT_KEY_1,
     RECIPIENT_RATE_1,
@@ -59,7 +59,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
     TRANSACTION_QTY_1
   );
 
-  // await addAgentRateTransaction (
+  // await addAgentTransaction (
   //   SPONSOR_ACCOUNT_KEY_3,
   //   RECIPIENT_ACCOUNT_KEY_1,
   //   RECIPIENT_RATE_1,
@@ -68,7 +68,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   //   TRANSACTION_QTY_2
   // );
   
-  // await addAgentRateTransaction (
+  // await addAgentTransaction (
   //   SPONSOR_ACCOUNT_KEY_0,
   //   RECIPIENT_ACCOUNT_KEY_1,
   //   RECIPIENT_RATE_1,
@@ -77,7 +77,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   //   TRANSACTION_QTY_9
   // );
   
-  // await addAgentRateTransaction (
+  // await addAgentTransaction (
   //   SPONSOR_ACCOUNT_KEY_0,
   //   RECIPIENT_ACCOUNT_KEY_1,
   //   RECIPIENT_RATE_2,
@@ -86,7 +86,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   //   TRANSACTION_QTY_2
   // );
 
-  // await addAgentRateTransaction (
+  // await addAgentTransaction (
   //   SPONSOR_ACCOUNT_KEY_0,
   //   RECIPIENT_ACCOUNT_KEY_1,
   //   RECIPIENT_RATE_2,
@@ -95,7 +95,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   //   TRANSACTION_QTY_4
   // );
 
-  // await addAgentRateTransaction (
+  // await addAgentTransaction (
   //   SPONSOR_ACCOUNT_KEY_0,
   //   RECIPIENT_ACCOUNT_KEY_1,
   //   RECIPIENT_RATE_2,
@@ -104,7 +104,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   //   TRANSACTION_QTY_2
   // );
 
-  // await addAgentRateTransaction (
+  // await addAgentTransaction (
   //   SPONSOR_ACCOUNT_KEY_0,
   //   RECIPIENT_ACCOUNT_KEY_1,
   //   RECIPIENT_RATE_2,

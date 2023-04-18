@@ -92,31 +92,33 @@ addAccountRecords = async (_accountListKeys) => {
 
 //////////////////// ADD TRANSACTIONS METHODS //////////////////////
 
-addAgentRateTransaction = async (
+addAgentTransaction = async (
   _accountKey, 
   _recipientKey,
   _recipientRateKey,
   _accountAgentKey,
   _agentRateKey,
-  _transactionQtyKey ) => {
+  _transactionQty ) => {
     logFunctionHeader(
-      "addAgentRateTransaction = async(" + 
+      "addAgentTransaction = async(" + 
       _accountKey + ", " + 
       _recipientKey + ", " + 
       _recipientRateKey + ", " + 
       _accountAgentKey + ", " +
       _agentRateKey + ", " +
-      _transactionQtyKey + ")"
+      _transactionQty + ")"
     );
 
-  await spCoinContractDeployed.addAgentRateTransaction(
-    _accountKey,
+    // do decimal power operation for quantity
+    let decimals = 18;
+    let transactionQty = Math.round(_transactionQty * (10 ** decimals));
+    await spCoinContractDeployed.addAgentTransaction(
     _recipientKey,
     _recipientRateKey,
     _accountAgentKey,
     _agentRateKey,
-    _transactionQtyKey );
-    logDetail("JS => "+ "Added Agent " + _accountAgentKey + " Record to RecipientKey " + _recipientKey);
+    transactionQty.toString());
+    logDetail("JS => "+ "Added Agent Transaction " + _accountAgentKey + " transactionQty = " + transactionQty);
 };
 
 //////////////////// MODULE EXPORTS //////////////////////
@@ -125,7 +127,7 @@ module.exports = {
     addAccountRecord,
     addAccountRecords,
     addSponsorRecipients,
-    addAgentRateTransaction,
+    addAgentTransaction,
     addRecipientAgent,
     addRecipientAgents,
     setContractAddMethods,

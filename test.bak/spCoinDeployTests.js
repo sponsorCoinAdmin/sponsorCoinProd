@@ -1,8 +1,8 @@
 const { expect } = require("chai");
 const { LOG_MODE } = require("../prod/lib/utils/logging");
 const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
-const { } = require("./testMethods/scTestMethods");
-const { } = require("./deployContract");
+const { } = require("../test/testMethods/scTestMethods");
+const { } = require("../test/deployContract");
 
 logSetup("JS => Setup Test");
 
@@ -13,8 +13,7 @@ describe("spCoinContract", function() {
         spCoinContractDeployed = await deploySpCoinContract();
     });
 
-/**/
-
+/**
     it("Deployment ~ Validating ERC20 standard parameter settings", async function () {
         // setLogMode(LOG_MODE.LOG, true);
         // setLogMode(LOG_MODE.LOG_DETAIL, true);
@@ -45,21 +44,20 @@ describe("spCoinContract", function() {
         expect(solBalanceOf).to.equal(testTotalSupply);
         expect(solDecimals).to.equal(testDecimals);
     });
-
 /**/
 
     it("Account Insertion Validation", async function () {
         logTestHeader("TEST ACCOUNT INSERTION");
         let accountKey = TEST_HH_ACCOUNT_LIST[0];
-        let recCount = await spCoinContractDeployed.getAccountListSize();
-        expect(recCount.toNumber()).to.equal(0);
+        let recCount = await getAccountListSize();
+        expect(recCount).to.equal(0);
         logDetail("JS => ** Before Inserted Record Count = " + recCount);
         let isAccountInserted = await spCoinContractDeployed.isAccountInserted(accountKey);
         logDetail("JS => Address "+ accountKey + " Before Inserted Record Found = " + isAccountInserted);
         await spCoinContractDeployed.addAccountRecord(accountKey);
         isAccountInserted = await spCoinContractDeployed.isAccountInserted(accountKey);
         logDetail("JS => Address "+ accountKey + " After Inserted Record Found = " + isAccountInserted);
-        recCount = (await spCoinContractDeployed.getAccountListSize()).toNumber();
+        recCount = (await getAccountListSize());
         logDetail("JS => ** After Inserted Record Count = " + await recCount);        
         expect(recCount).to.equal(1);
     });
@@ -92,7 +90,7 @@ describe("spCoinContract", function() {
         let startRec = 4;
         let endRec = 15;
         await addTestNetworkRecipientAgents(3, 6, 10, [1, 2]);
-        let insertCount = (await spCoinContractDeployed.getAccountListSize()).toNumber();
+        let insertCount = (await getAccountListSize());
         expect(insertCount).to.equal(4);
     });
     /**/

@@ -57,7 +57,7 @@ contract Agents is RecipientRates {
     /// @param _recipientKey recipient account key
     /// @param _recipientRateKey recipient rate
     /// @param _agentKey agent record key to be returned
-    function getAgentTotalRecipiented(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey) public view onlyOwnerOrRootAdmin(_recipientKey) returns (uint) {
+    function getAgentTotalRecipient(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey) public view onlyOwnerOrRootAdmin(_recipientKey) returns (uint) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
         return agentRec.stakedSPCoins; 
     }

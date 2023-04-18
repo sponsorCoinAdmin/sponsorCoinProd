@@ -1,20 +1,19 @@
 async function main() {
     const [deployer] = await ethers.getSigners();
-
-    const network = "https://sepolia.etherscan.io/address/";
   
     console.log("Deploying SPCoin contract with the account:", deployer.address);
   
     console.log("Account balance:", (await deployer.getBalance()).toString());
   
-    const Token = await ethers.getContractFactory("SPCoin");
-    const token = await Token.deploy();
-    // await token.init();
+    const SPCoin = await ethers.getContractFactory("SPCoin");
+    const spCoin = await SPCoin.deploy();
+    // await spCoin.init();
 
-    console.log("Token address:", token.address);
-    console.log("Token name:", await token.name());
+    console.log("SPCoin address:", spCoin.address);
+    console.log("SPCoin name:", await spCoin.name());
 
-    console.log("Contract Address:", network+token.address);
+    const network = "https://sepolia.etherscan.io/address/";
+    console.log("Contract Address:", network+spCoin.address);
     console.log("Deployer Address:", network+deployer.address);
 
   }

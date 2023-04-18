@@ -9,16 +9,21 @@ contract SPCoin is Token{
     uint256 private defaultDecimals    = 18;
     uint256 private defaultTotalSupply = 1000000000 * 10**defaultDecimals;
 
-    // constructor()  {
-    //     initToken("Test", "Test0001", 18, 100000000000000000000000000);
-    // } 
-
     constructor()  {
 //        logDetail("JS => MESSAGE.SENDER: ", msg.sender);
 //        logDetail("JS => MESSAGE.SENDER: ", msg.sender);
-          init();
+// initToken(defaultName,  defaultSymbol, defaultDecimals, defaultTotalSupply);
+
+        name = defaultName;
+        symbol = defaultSymbol;
+        decimals = defaultDecimals;
+        balanceOf[msg.sender] = totalSupply = defaultTotalSupply;
+        stakedSPCoins = 0;
+        // console.log("msg.sender = ", msg.sender);
+        // console.log("balanceOf[msg.sender] = ", balanceOf[msg.sender]);
     }
 
+    /*
     function init() public {
         initToken(defaultName,  defaultSymbol, defaultDecimals, defaultTotalSupply);
     }
@@ -31,10 +36,15 @@ contract SPCoin is Token{
         balanceOf[msg.sender] = _totalSupply;
         stakedSPCoins = 0;
     }
+*/
 
-    function transferAgentRateTransaction(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey, uint256 _transAmount)
+    function transferAgentRateTransaction(address _recipientKey,
+                                          uint _recipientRateKey,
+                                          address _agentKey,
+                                          uint _agentRateKey,
+                                          uint256 _transAmount)
     public onlyOwnerOrRootAdmin(msg.sender) {
-        transfer(_sponsorKey, _transAmount);
-        addAgentRateTransaction( _sponsorKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey, _transAmount);
+        transfer(_recipientKey, _transAmount);
+        addAgentTransaction(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey, _transAmount);
     }
 }

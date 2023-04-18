@@ -10,10 +10,13 @@ contract Accounts is StructSerialization {
     /// @param _accountKey public accountKey to set new balance
     function addAccountRecord(address _accountKey)
         public onlyOwnerOrRootAdmin(_accountKey) {
+            // console.log("addAccountRecord ", _accountKey);
+            // console.log("msg.sender = ", msg.sender);
         if (!isAccountInserted(_accountKey)) {
             AccountStruct storage accountRec = accountMap[_accountKey];
             accountRec.accountKey = _accountKey;
             accountRec.insertionTime = block.timestamp;
+            accountRec.decimals = decimals;
             accountRec.stakedSPCoins = 0;
             accountRec.inserted = true;
             AccountList.push(_accountKey);
@@ -30,7 +33,6 @@ contract Accounts is StructSerialization {
             return false;
     }
 
-    
     /// @notice retreives array list AccountList.
     function getAccountList() public view returns (address[] memory) {
         return AccountList;

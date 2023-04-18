@@ -7,25 +7,23 @@ contract UnSubscribe is Transactions {
     constructor() { }
     
     /// @notice Remove all recipientship relationships for Sponsor and Recipient accounts
-    /// @param _sponsorKey Sponsor key containing the Recipient relationship
     /// @param _recipientKey Recipient to be removed from the Recipient relationship
-    function deleteSponsorRecipientRecord(address _sponsorKey, address _recipientKey)  
-        public onlyOwnerOrRootAdmin(_sponsorKey)
-        accountExists(_sponsorKey)
+    function deleteSponsorRecipientRecord(address _recipientKey)  
+        public onlyOwnerOrRootAdmin(msg.sender)
+        accountExists(msg.sender)
         accountExists(_recipientKey)
-        nonRedundantRecipient ( _sponsorKey,  _recipientKey) {
-    
-        AccountStruct storage sponsorAccount = accountMap[_sponsorKey];
+        nonRedundantRecipient ( msg.sender,  _recipientKey) {
+
+        AccountStruct storage sponsorAccount = accountMap[msg.sender];
         if (deleteAccountRecordFromSearchKeys(_recipientKey, sponsorAccount.recipientAccountList)) {
             RecipientStruct storage recipientRecord = sponsorAccount.recipientMap[_recipientKey];
-            uint256 totalSponsoed = recipientRecord.stakedSPCoins;
+            uint256 totalSponsored = recipientRecord.stakedSPCoins;
             AccountStruct storage recipientAccount = accountMap[recipientRecord.recipientKey];
             deleteAccountRecordFromSearchKeys(_recipientKey, recipientAccount.sponsorAccountList);
             deleteAccountRecordFromSearchKeys(_recipientKey, recipientAccount.agentAccountList);
             deleteRecipientRateRecords(recipientRecord);
- 
-            sponsorAccount.balanceOf += totalSponsoed;
-            sponsorAccount.stakedSPCoins -= totalSponsoed;
+            balanceOf[sponsorAccount.accountKey] += totalSponsored;
+            sponsorAccount.stakedSPCoins -= totalSponsored;
             deleteAccountRecordInternal(recipientRecord.recipientKey);
         }
     }
@@ -122,24 +120,6 @@ contract UnSubscribe is Transactions {
         return deleted;
     }
 
-    /*
-    function dumpAccounts(string memory str, address _accountKey, 
-        address[] storage _accountKeyList) internal view {
-        console.log("_accountKeyList.length = ", _accountKeyList.length);
-        console.log(str," dumpAccounts()", "searching for account ", _accountKey);
-        uint i = getAccountListIndex (_accountKey, _accountKeyList);
-        for (i; i<_accountKeyList.length; i++) { 
-            if (_accountKeyList[i] == _accountKey) {
-                console.log("**** Found _accountKeyList[", i, "] ", _accountKeyList[i]);
-                // console.log("==== Found accountMap[_accountKeyList[", i,  "]].accountKey ", accountMap[_accountKeyList[i]].accountKey);
-            }
-            else {
-                console.log("==== Found _accountKeyList[", i, "] ", _accountKeyList[i]);
-            }
-        }
-    }
-*/
-
     function deleteAccountRecordInternal(address _accountKey) internal
     accountExists(_accountKey) 
     onlyOwnerOrRootAdmin(_accountKey) {
@@ -153,7 +133,7 @@ contract UnSubscribe is Transactions {
             accountMap[_accountKey].recipientAccountList.length == 0 &&
             accountMap[_accountKey].agentAccountList.length == 0 &&
             accountMap[_accountKey].parentRecipientAccountList.length == 0 &&
-            accountMap[_accountKey].balanceOf == 0) {
+            balanceOf[accountMap[_accountKey].accountKey] == 0) {
             // console.log("*** DELETING ACCOUNT ", _accountKey);
             if (deleteAccountRecordFromSearchKeys(_accountKey,  AccountList)) {
                 delete accountMap[_accountKey];
@@ -182,7 +162,7 @@ contract UnSubscribe is Transactions {
     }
     
     modifier balanceOfIsEmpty(address _accountKey) {
-        require (accountMap[_accountKey].balanceOf == 0, "Agent Account has a Parent Recipient, (Sponsor must Un-recipient Recipiented Account)");
+        require (balanceOf[accountMap[_accountKey].accountKey] == 0, "Agent Account has a Parent Recipient, (Sponsor must Un-recipient Recipiented Account)");
         _;
     }
 

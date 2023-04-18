@@ -54,7 +54,7 @@ function gitAddressThis() external view returns(address){
 
 // ### CALCULATE INDIVIDUAL RECIPIENT STAKING REWARDS FOR ACCOUNT ###
 // calcRecipientStakingRewards(accountRecipient)
-//    1. Set recipientRewards = calculateAccountSteakingReward(accountRecipient.balanceOf, accountRecipient.rewardsRate, accountRecipient.lastUpdateDate)
+//    1. Set recipientRewards = calculateAccountSteakingReward(balanceOf[sponsorAccount.accountKey], accountRecipient.rewardsRate, accountRecipient.lastUpdateDate)
 //    2. Update balance = accountBalance + stakingRewards
 //    3. agentAccountList = accountRecipient.
 //    4. Set agentRewards = calcAllAgentsStakingRewards(agentAccountList)
