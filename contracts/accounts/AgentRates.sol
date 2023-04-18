@@ -16,7 +16,7 @@ contract AgentRates is Agents {
         addRecipientAgent(_recipientKey, _recipientRateKey, _agentKey);
         AgentRateStruct storage agentRateRecord= getAgentRateRecordByKeys(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
         if (!agentRateRecord.inserted) {
-            AgentStruct storage agentRecord = getAgentRecordByKeys(msg.sender, _recipientKey, _recipientRateKey, _agentKey);
+            AgentStruct storage agentRecord = getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey);
             agentRateRecord.agentRate = _agentRateKey;
             agentRateRecord.inserted = true;
             agentRateRecord.insertionTime = agentRateRecord.lastUpdateTime = block.timestamp;
@@ -26,7 +26,7 @@ contract AgentRates is Agents {
     }
 
     function getAgentRateRecordByKeys(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey) internal view onlyOwnerOrRootAdmin(msg.sender) returns (AgentRateStruct storage) {
-        AgentStruct storage agentRec = getAgentRecordByKeys(msg.sender, _recipientKey, _recipientRateKey, _agentKey) ;
+        AgentStruct storage agentRec = getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey) ;
         return agentRec.agentRateMap[_agentRateKey];
     }
 
@@ -40,7 +40,7 @@ contract AgentRates is Agents {
     }
 
     function getRateTransactionList(address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
-        AgentStruct storage agentRec = getAgentRecordByKeys(msg.sender, _recipientKey, _recipientRateKey, _agentKey);
+        AgentStruct storage agentRec = getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey);
         string memory strTransactionList = "";
         AgentRateStruct storage agentRateRecord= agentRec.agentRateMap[_agentRateKey];
         // console.log ("agentRateRecord.transactionList[0].quantity = ", agentRateRecord.transactionList[0].quantity);
