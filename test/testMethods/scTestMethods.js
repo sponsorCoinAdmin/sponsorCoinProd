@@ -47,13 +47,11 @@ addTestNetworkSponsorRecipients = async (_accountIdx, _recipientAccountListIdx) 
 
 //////////////////////////// TEST AGENT METHODS ////////////////////////////
 
-addTestNetworkRecipientAgents = async ( _accountIdx, _recipientIdx, _recipientRateKey, _agentListIdx ) => {
-  logFunctionHeader("async (" + _accountIdx  + "," + _recipientIdx + "," + _agentListIdx+ ")");
-  let accountKey = getTestHHAccountKey(_accountIdx);
+addTestNetworkRecipientAgents = async (_recipientIdx, _recipientRateKey, _agentListIdx ) => {
+  logFunctionHeader("async (" + _recipientIdx + "," + _agentListIdx+ ")");
   let recipientKey = getTestHHAccountKey(_recipientIdx);
   let agentAccountList = getTestHHAccountListKeys(_agentListIdx);
-
-  await addRecipientAgents(accountKey, recipientKey, _recipientRateKey, agentAccountList);
+  await addAgents(recipientKey, _recipientRateKey, agentAccountList);
   return recipientKey;
 };
 

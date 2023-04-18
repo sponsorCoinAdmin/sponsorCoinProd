@@ -11,10 +11,10 @@ contract Agents is RecipientRates {
     /// @notice insert recipients Agent
     /// @param _recipientKey public account key to get recipient array
     /// @param _agentKey new recipient to add to account list
-    function addRecipientAgent(address _recipientKey, uint _recipientRateKey, address _agentKey)
+    function addAgent(address _recipientKey, uint _recipientRateKey, address _agentKey)
             public onlyOwnerOrRootAdmin(msg.sender) 
             nonRedundantAgent ( msg.sender, _recipientKey, _agentKey) {
-        addRecipientRate(msg.sender, _recipientKey, _recipientRateKey);
+        addRecipientRate(_recipientKey, _recipientRateKey);
 
         AgentStruct storage  agentRecord = getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey);
         if (!agentRecord.inserted) {
@@ -62,12 +62,9 @@ contract Agents is RecipientRates {
     /// @param _recipientKey recipient Key to retrieve the agent list
     /// @param _agentKey agent Key to retrieve the agentate list
     function getAgentRateKeys(address _recipientKey, uint _recipientRateKey, address _agentKey) public view onlyOwnerOrRootAdmin(_recipientKey) returns (uint[] memory) {
-console.log("AAAA");
         AgentStruct storage agentRec = getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey);
-        console.log("BBBB");
         uint[] memory agentRateKeys = agentRec.agentRateKeys;
-        console.log("CCCC");
-        // console.log("AGENTS.SOL:addRecipientAgent:agentRec.agentKey = " , agentRec.agentKey);
+        // console.log("AGENTS.SOL:addAgent:agentRec.agentKey = " , agentRec.agentKey);
         // console.log("AGENTS.SOL:getAgentRateKeys:agentRateKeys.length = ",agentRateKeys.length);
         return agentRateKeys;
     }

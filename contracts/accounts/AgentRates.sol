@@ -13,7 +13,7 @@ contract AgentRates is Agents {
     /// @param _agentKey new recipient to add to account list 
     function addAgentRateRecord(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey)
         public onlyOwnerOrRootAdmin(msg.sender) {
-        addRecipientAgent(_recipientKey, _recipientRateKey, _agentKey);
+        addAgent(_recipientKey, _recipientRateKey, _agentKey);
         AgentRateStruct storage agentRateRecord= getAgentRateRecordByKeys(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
         if (!agentRateRecord.inserted) {
             AgentStruct storage agentRecord = getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey);

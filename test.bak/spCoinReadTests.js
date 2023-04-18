@@ -27,29 +27,27 @@ describe("spCoinContract", function () {
     await addTestNetworkSponsorRecipients(14, [18, 19, 7]);
     await addTestNetworkSponsorRecipients(3, [4]);
     await addTestNetworkSponsorRecipients(1, [2, 5]);
-    await addTestNetworkSponsorRecipients(11, [5, 9, 0]);
 
     // USAGE: addNetworkRecipientAgents(_accountRecIdx, _recipientRecIdx, _startAgIdx, _lastAgIdx);
-    await addTestNetworkRecipientAgents(1, 5, 10, [7, 2, 17, 3, 9, 19]);
-    await addTestNetworkRecipientAgents(11, 18, 10, [5, 7, 9, 6]);
-    await addTestNetworkRecipientAgents(0, 2, 10, [6, 7, 16]);
-    await addTestNetworkRecipientAgents(14, 6, 10, [1]);
-    await addTestNetworkRecipientAgents(14, 0, 10, [1, 11, 5, 12, 2]);
-    await addTestNetworkRecipientAgents(0, 1, 10, [2, 3]);
-    await addTestNetworkRecipientAgents(3, 4, 10, [5]);
+    await addTestNetworkRecipientAgents(5, 10, [7, 2, 17, 3, 9, 19]);
+    await addTestNetworkRecipientAgents(18, 10, [5, 7, 9, 6]);
+    await addTestNetworkRecipientAgents(2, 10, [6, 7, 16]);
+    await addTestNetworkRecipientAgents(6, 10, [1]);
+    await addTestNetworkRecipientAgents(1, 10, [2, 3]);
+    await addTestNetworkRecipientAgents(4, 10, [5]);
 
-    await addTestNetworkRecipientAgents(0, 1, 10, [3,4,5,6]);
-    await addTestNetworkRecipientAgents(2, 1, 10, [4]);
-    await addTestNetworkRecipientAgents(0, 1, 10, [2,3,4]);
-    await addTestNetworkRecipientAgents(1, 0, 10, [4]);
+    await addTestNetworkRecipientAgents(1, 10, [3,4,5,6]);
+    await addTestNetworkRecipientAgents(1, 10, [4]);
+    await addTestNetworkRecipientAgents(1, 10, [2,3,4]);
+    await addTestNetworkRecipientAgents(2, 10, [4]);
 
     await logJSONTree();
 
   });
 
-  /**/
+  /*
   
-  it("VALIDATE THAT ACCOUNTS, PATRIOT/RECIPIENT/AGENT, ARE ALL MUTUALLY EXCLUSIVE", async function () {
+  it("VALIDATE THAT ACCOUNTS, RECIPIENT/AGENT, ARE ALL MUTUALLY EXCLUSIVE", async function () {
     setLogMode(LOG_MODE.LOG, true);
     let expectedErrMsg;
 
@@ -75,7 +73,7 @@ describe("spCoinContract", function () {
     // Account, Recipient and/or Agent are not mutually exclusive.
     expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _recipientKey and _agentKey must be Mutually Exclusive)'"
     try {
-      await addTestNetworkRecipientAgents(6, 6, 10, [1]);
+      await addTestNetworkRecipientAgents(6, 10, [1]);
       throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
     } catch (err) {
       // console.log ("err.message = " + err.message);
@@ -86,13 +84,13 @@ describe("spCoinContract", function () {
     // Recipient and Agent to the Blockchain Network.
     // Sponsor, Recipient and/or Agent Accounts are
     // Successfully mutually exclusive.
-    await addTestNetworkRecipientAgents(14, 6, 10, [1]);
+    await addTestNetworkRecipientAgents(6, 10, [1]);
 
     // Test Un-Successful Record Insertion to Blockchain Network.
     // Sponsor and Recipient Accounts are Not mutually exclusive.
     expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _recipientKey and _agentKey must be Mutually Exclusive)'";
     try {
-      await addTestNetworkRecipientAgents(6, 6, 10, [1]);
+      await addTestNetworkRecipientAgents(6, 10, [1]);
       throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
     } catch (err) {
       // console.log ("err.message = " + err.message);
@@ -103,7 +101,7 @@ describe("spCoinContract", function () {
     // Sponsor and Agent Accounts are Not mutually exclusive.
     expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _recipientKey and _agentKey must be Mutually Exclusive)'";
     try {
-      await addTestNetworkRecipientAgents(6, 5, 10, [6]);
+      await addTestNetworkRecipientAgents(5, 10, [6]);
       throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
     } catch (err) {
       // console.log ("err.message = " + err.message);
@@ -114,7 +112,7 @@ describe("spCoinContract", function () {
     // Recipient and Agent Accounts are Not mutually exclusive.
     expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _recipientKey and _agentKey must be Mutually Exclusive)'";
     try {
-      await addTestNetworkRecipientAgents(5, 6, 10, [6]);
+      await addTestNetworkRecipientAgents(6, 10, [6]);
       throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
     } catch (err) {
       // console.log ("err.message = " + err.message);

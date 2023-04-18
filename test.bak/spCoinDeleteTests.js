@@ -116,7 +116,7 @@ describe("spCoinContract", function () {
   /*
 
   it("SUCCESSFUL ERROR MSG CAUGHT: 'AGENT ACCOUNT HAS PARENT RECIPIENT'", async function () {
-    await addRecipientAgents(AGENT_ACCOUNT_KEY_0, RECIPIENT_ACCOUNT_KEY_1, RECIPIENT_RATE_10, [AGENT_ACCOUNT_KEY_0, RECIPIENT_ACCOUNT_KEY_2]);
+    await addAgents(RECIPIENT_ACCOUNT_KEY_1, RECIPIENT_RATE_10, [AGENT_ACCOUNT_KEY_0, RECIPIENT_ACCOUNT_KEY_2]);
 
     let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Agent Account has a Parent Recipient, (Sponsor must Un-recipient Recipiented Account)'";
     try {

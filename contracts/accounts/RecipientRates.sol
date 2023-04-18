@@ -7,14 +7,14 @@ contract RecipientRates is Recipients {
 
     constructor() { }
 
-function addRecipientRate(address _sponsorKey, address _recipientKey, uint _recipientRateKey) 
+function addRecipientRate(address _recipientKey, uint _recipientRateKey) 
     public onlyOwnerOrRootAdmin(msg.sender)
-    nonRedundantRecipient ( _sponsorKey,  _recipientKey) {
-        addSponsorRecipient(_sponsorKey, _recipientKey);
+    nonRedundantRecipient ( msg.sender,  _recipientKey) {
+        addSponsorRecipient(msg.sender, _recipientKey);
 
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_recipientKey, _recipientRateKey);
         if (!recipientRateRecord.inserted) {
-            RecipientStruct storage recipientRecord = getRecipientRecordByKeys(_sponsorKey, _recipientKey);
+            RecipientStruct storage recipientRecord = getRecipientRecordByKeys(msg.sender, _recipientKey);
             recipientRateRecord.recipientRate = _recipientRateKey;
             recipientRateRecord.inserted = true;
             recipientRateRecord.insertionTime = recipientRateRecord.lastUpdateTime = block.timestamp;
@@ -24,7 +24,6 @@ function addRecipientRate(address _sponsorKey, address _recipientKey, uint _reci
     }
 
     function getRecipientRateRecordByKeys(address _recipientKey, uint _recipientRateKey) internal view onlyOwnerOrRootAdmin(msg.sender) returns (RecipientRateStruct storage) {
-console.log("GGGGGGGGGGGGGGGGGGGGG");
         RecipientStruct storage recipientRecord = getRecipientRecordByKeys(msg.sender, _recipientKey) ;
         return recipientRecord.recipientRateMap[_recipientRateKey];
     }

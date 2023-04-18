@@ -64,8 +64,8 @@ contract Recipients is Accounts {
     function getRecipientRateList(address _sponsorKey, address _recipientKey) public view onlyOwnerOrRootAdmin(_recipientKey) returns (uint[] memory) {
         RecipientStruct storage recipientRecord = getRecipientRecordByKeys(_sponsorKey, _recipientKey);
         uint[] memory recipientRateList = recipientRecord.recipientRateList;
-// console.log("AGENTS.SOL:addRecipientAgent: _sponsorKey, _recipientKey, _recipientRateKey, _recipientKey = " , _sponsorKey, _recipientKey, _recipientRateKey, _recipientKey);
-// console.log("AGENTS.SOL:addRecipientAgent:recipientRecord.recipientKey = " , recipientRecord.recipientKey);
+// console.log("AGENTS.SOL:addAgent: _sponsorKey, _recipientKey, _recipientRateKey, _recipientKey = " , _sponsorKey, _recipientKey, _recipientRateKey, _recipientKey);
+// console.log("AGENTS.SOL:addAgent:recipientRecord.recipientKey = " , recipientRecord.recipientKey);
 // console.log("AGENTS.SOL:getAgentRateKeys:recipientRateList.length = ",recipientRateList.length);
         return recipientRateList;
     }

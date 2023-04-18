@@ -1,8 +1,8 @@
 const { expect } = require("chai");
 const { LOG_MODE } = require("../prod/lib/utils/logging");
 const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
-const { } = require("../test/testMethods/scTestMethods");
-const { } = require("../test/deployContract");
+const { } = require("./testMethods/scTestMethods");
+const { } = require("./deployContract");
 
 logSetup("JS => Setup Test");
 
@@ -87,9 +87,7 @@ describe("spCoinContract", function() {
         logTestHeader("TEST MORE HARDHAT RECIPIENT RECORD INSERTIONS")
 
         logDetail("JS => *** Insert Recipient to AccountRecord[2] as AccountRecord[5] ***")
-        let startRec = 4;
-        let endRec = 15;
-        await addTestNetworkRecipientAgents(3, 6, 10, [1, 2]);
+        await addTestNetworkRecipientAgents(6, 10, [1, 2]);
         let insertCount = (await getAccountListSize());
         expect(insertCount).to.equal(4);
     });
