@@ -46,16 +46,16 @@ contract Transactions is AgentRates {
 
     function updateRecipientTransaction(address _recipientKey, uint256 _transAmount)
        internal returns (RecipientStruct storage) {
-        AccountStruct storage patreonRec = updatePatreonTransaction(_transAmount);
-        RecipientStruct storage recipientRecord = patreonRec.recipientMap[_recipientKey];
+        AccountStruct storage sponsorRec = updateSponsorTransaction(_transAmount);
+        RecipientStruct storage recipientRecord = sponsorRec.recipientMap[_recipientKey];
         recipientRecord.stakedSPCoins += _transAmount;
         return recipientRecord;
     }
 
-    function updatePatreonTransaction(uint256 _transAmount)
+    function updateSponsorTransaction(uint256 _transAmount)
        internal returns (AccountStruct storage) {
-        AccountStruct storage patreonRec = accountMap[msg.sender];
-        patreonRec.stakedSPCoins += _transAmount;
-        return patreonRec;
+        AccountStruct storage sponsorRec = accountMap[msg.sender];
+        sponsorRec.stakedSPCoins += _transAmount;
+        return sponsorRec;
     }
 }

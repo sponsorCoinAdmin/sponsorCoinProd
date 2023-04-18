@@ -9,20 +9,19 @@ contract Agents is RecipientRates {
     }
 
     /// @notice insert recipients Agent
-    /// @param _sponsorKey public Recipient Coin Account Key
     /// @param _recipientKey public account key to get recipient array
     /// @param _agentKey new recipient to add to account list
-    function addRecipientAgent(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey)
+    function addRecipientAgent(address _recipientKey, uint _recipientRateKey, address _agentKey)
             public onlyOwnerOrRootAdmin(msg.sender) 
-            nonRedundantAgent ( _sponsorKey, _recipientKey, _agentKey) {
-        addRecipientRate(_sponsorKey, _recipientKey, _recipientRateKey);
+            nonRedundantAgent ( msg.sender, _recipientKey, _agentKey) {
+        addRecipientRate(msg.sender, _recipientKey, _recipientRateKey);
 
-        AgentStruct storage  agentRecord = getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
+        AgentStruct storage  agentRecord = getAgentRecordByKeys(msg.sender, _recipientKey, _recipientRateKey, _agentKey);
         if (!agentRecord.inserted) {
             addAccountRecord(_agentKey);
-            RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey);
+            RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(msg.sender, _recipientKey, _recipientRateKey);
             agentRecord.insertionTime = block.timestamp;
-            agentRecord.sponsorKey = _sponsorKey;
+            agentRecord.sponsorKey = msg.sender;
             agentRecord.recipientKey = _recipientKey;
             agentRecord.agentKey = _agentKey;
             agentRecord.inserted = true;
@@ -46,7 +45,7 @@ contract Agents is RecipientRates {
     /// @param _recipientKey recipient account key
     /// @param _recipientRateKey recipient rate
     /// @param _agentKey agent record key to be returned
-    function getAgentRecordByKeys(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey) internal view onlyOwnerOrRootAdmin(_sponsorKey) returns (AgentStruct storage) {
+    function getAgentRecordByKeys(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey) internal view onlyOwnerOrRootAdmin(msg.sender) returns (AgentStruct storage) {
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey);
         AgentStruct storage agentRecord = recipientRateRecord.agentMap[_agentKey];
         return agentRecord;

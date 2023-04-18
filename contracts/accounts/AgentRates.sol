@@ -13,7 +13,7 @@ contract AgentRates is Agents {
     /// @param _agentKey new recipient to add to account list 
     function addAgentRateRecord(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey)
         public onlyOwnerOrRootAdmin(msg.sender) {
-        addRecipientAgent(msg.sender, _recipientKey, _recipientRateKey, _agentKey);
+        addRecipientAgent(_recipientKey, _recipientRateKey, _agentKey);
         AgentRateStruct storage agentRateRecord= getAgentRateRecordByKeys(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
         if (!agentRateRecord.inserted) {
             AgentStruct storage agentRecord = getAgentRecordByKeys(msg.sender, _recipientKey, _recipientRateKey, _agentKey);
@@ -31,7 +31,6 @@ contract AgentRates is Agents {
     }
 
      function serializeAgentRateRecordStr(address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
-console.log("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
         AgentRateStruct storage agentRateRecord =  getAgentRateRecordByKeys(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
         string memory insertionTimeStr = toString(agentRateRecord.insertionTime);
         string memory lastUpdateTimeStr = toString(agentRateRecord.lastUpdateTime);
