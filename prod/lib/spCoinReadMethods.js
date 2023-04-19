@@ -41,27 +41,19 @@ getAccountRecord = async (_accountKey) => {
   return accountStruct;
 }
 
-getAccountRecipientKeySize = async (_sponsorKey) => {
+getRecipientKeySize = async (_accountKey) => {
   // console.log("HERE 2");
-  logFunctionHeader("getAccountRecipientKeySize = async(" + _sponsorKey + ")");
+  logFunctionHeader("getRecipientKeySize = async(" + _accountKey + ")");
 
-  let maxSize = (await getAccountRecipientKeys(_sponsorKey)).length;
+  let maxSize = (await getAccountRecipientKeys(_accountKey)).length;
   logDetail("JS => Found " + maxSize + " Account Recipient Keys");
   return maxSize;
 };
 
-/*
-getAccountParentRecipientKeys = async (_agentKey) => {
-  logFunctionHeader("getAccountParentRecipientKeys = async(" + _agentKey + ")");
-  let parentRecipientAccountList = spCoinContractDeployed.getAccountParentRecipientKeys(_agentKey);
-  return parentRecipientAccountList;
-}
-*/
-
-getAccountRecipientKeys = async (_sponsorKey) => {
+getAccountRecipientKeys = async (_accountKey) => {
   // console.log("HERE 3");
-  logFunctionHeader("getAccountRecipientKeys = async(" + _sponsorKey + ")");
-  let recipientAccountList = await spCoinContractDeployed.getRecipientKeys(_sponsorKey);
+  logFunctionHeader("getAccountRecipientKeys = async(" + _accountKey + ")");
+  let recipientAccountList = await spCoinContractDeployed.getRecipientKeys(_accountKey);
   return recipientAccountList;
 };
 
@@ -78,19 +70,19 @@ getAgentRecordKeys = async (_recipientKey, _recipientRateKey) => {
 
 /////////////////////// AGENT RECORD FUNCTIONS ////////////////////////
 
-getSerializedAccountRecord = async (_sponsorKey) => {
+getSerializedAccountRecord = async (_accountKey) => {
   // console.log("HERE 5");
-  logFunctionHeader("getSerializedAccountRecord = async(" + _sponsorKey + ")");
+  logFunctionHeader("getSerializedAccountRecord = async(" + _accountKey + ")");
   let serializedAccountRec =
-    await spCoinContractDeployed.getSerializedAccountRecord(_sponsorKey);
+    await spCoinContractDeployed.getSerializedAccountRecord(_accountKey);
   return deSerializedAccountRec(serializedAccountRec);
 };
 
 //////////////////// LOAD ACCOUNT DATA //////////////////////
-getRecipientsByAccount = async(_sponsorKey) => {    
+getRecipientsByAccount = async(_accountKey) => {    
   // console.log("HERE 6");
-  logFunctionHeader("getRecipientsByAccount("  + _sponsorKey + ")");
-  recipientAccountList = await getAccountRecipientKeys(_sponsorKey);
+  logFunctionHeader("getRecipientsByAccount("  + _accountKey + ")");
+  recipientAccountList = await getAccountRecipientKeys(_accountKey);
   recipientRecordList = await getRecipientRecordsByKeys(recipientAccountList);
   return recipientRecordList;
 }
@@ -166,7 +158,6 @@ getRecipientRateRecordByKeys = async(_recipientKey, _recipientRateKey) => {
 
   return recipientRateRecord;
 }
-//  End New Robin
 
 //////////////////// LOAD RECIPIENT TRANSACTION DATA //////////////////////
 
@@ -320,6 +311,16 @@ deSerializeRecipientRateRecordByKeys = async(_recipientKey, _recipientRateKey) =
   return recipientRateRecord;
 }
 
+///////////////////////// CONNECTION FUNCTIONS /////////////////////////
+
+connectAccount = async(_accountKey) => {
+    // let recipientRateRecordStr = await spCoinContractDeployed.connectAccount(_recipientKey, _recipientRateKey);
+    // let connectStr = await spCoinContractDeployed.connectAccount(_accountKey);
+    // spCoinContractDeployed.attach(_accountKey);
+    await spCoinContractDeployed.connect(_accountKey).isAccountInserted(_accountKey);
+    return "connectStr";
+  }
+
 /////////////////////// EXPORT MODULE FUNCTIONS ///////////////////////
 
 module.exports = {
@@ -329,7 +330,7 @@ module.exports = {
   getAccountRecord,
   getAccountRecords,
   getAccountRecipientKeys,
-  getAccountRecipientKeySize,
+  getRecipientKeySize,
   getAgentRatesByKeys,
   getAgentRecordKeys,
   getAgentRecordsByKeys,

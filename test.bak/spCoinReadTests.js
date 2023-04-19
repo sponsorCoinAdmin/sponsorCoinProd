@@ -224,7 +224,7 @@ describe("spCoinContract", function () {
     AccountListSize = (await getAccountListSize());
     expect(AccountListSize).to.equal(7);
 
-    let recipientSize = (await getAccountRecipientKeySize(accountKey));
+    let recipientSize = (await getRecipientKeySize(accountKey));
     expect(recipientSize).to.equal(6);
 
     let recipientRecordList = await getAccountRecipientKeys(accountKey);

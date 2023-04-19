@@ -27,7 +27,10 @@ contract Accounts is StructSerialization {
     /// @param _accountKey public accountKey validate Insertion
     function isAccountInserted(address _accountKey)
         public view onlyOwnerOrRootAdmin(_accountKey) returns (bool) {
-        if (accountMap[_accountKey].inserted) 
+            console.log("Current account is ", _accountKey);
+            console.log("msg.sender      is ", msg.sender);
+            console.log("************************************************************");
+            if (accountMap[_accountKey].inserted) 
             return true;
         else
             return false;
@@ -38,28 +41,6 @@ contract Accounts is StructSerialization {
         return AccountList;
     }
 
-    ////////////////////// SPONSOR REQUESTS //////////////////////////////
-
-    /*
-    /// @notice retreives the recipient array records for the Sponsor list
-    /// @param _accountKey public account key to get Recipient Record Length
-    function getAccountSponsorKeys(address _accountKey) public view 
-        onlyOwnerOrRootAdmin(_accountKey) returns (address[] memory) {
-        AccountStruct storage account = accountMap[_accountKey];
-        address[] storage sponsorAccountList = account.sponsorAccountList;
-        return sponsorAccountList;
-    }
-
-    /////////////////////////// RECIPIENT REQUESTS //////////////////////////////
-
-    /// @notice retreives the recipient array records for the Sponsor list
-    /// @param _accountKey public account key to get Recipient Record Length
-    function getAccountParentRecipientKeys(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
-        AccountStruct storage account = accountMap[_accountKey];
-        address[] storage parentRecipientAccountList = account.parentRecipientAccountList;
-        return parentRecipientAccountList;
-    }
-*/
     /////////////////////////// AGENT REQUESTS //////////////////////////////
  
     /// @notice retreives the recipients of a specific address.

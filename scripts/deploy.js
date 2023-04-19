@@ -15,7 +15,6 @@ async function main() {
     const network = "https://sepolia.etherscan.io/address/";
     console.log("Contract Address:", network+spCoin.address);
     console.log("Deployer Address:", network+deployer.address);
-
   }
 
   main()
