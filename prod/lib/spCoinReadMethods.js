@@ -31,12 +31,12 @@ getAccountList = async () => {
 
 ////////////////////////// ACCOUNT RECORD FUNCTIONS //////////////////////////
 
-getAccountRecord = async (_sponsorKey) => {
+getAccountRecord = async (_accountKey) => {
   // console.log("HERE 1");
-  let accountStruct = await getSerializedAccountRecord(_sponsorKey);
+  let accountStruct = await getSerializedAccountRecord(_accountKey);
   // console.log("ZZZZ accountStruct = " + JSON.stringify(accountStruct));
-  accountStruct.accountKey = _sponsorKey;
-  recipientAccountList = await getAccountRecipientKeys(_sponsorKey);
+  accountStruct.accountKey = _accountKey;
+  recipientAccountList = await getAccountRecipientKeys(_accountKey);
   accountStruct.recipientRecordList = await getRecipientRecordsByKeys(recipientAccountList);
   return accountStruct;
 }
@@ -51,9 +51,9 @@ getAccountRecipientKeySize = async (_sponsorKey) => {
 };
 
 /*
-getAccountParentRecipientKeys = async (_sponsorKey) => {
-  logFunctionHeader("getAccountParentRecipientKeys = async(" + _sponsorKey + ")");
-  let parentRecipientAccountList = spCoinContractDeployed.getAccountParentRecipientKeys(_sponsorKey);
+getAccountParentRecipientKeys = async (_agentKey) => {
+  logFunctionHeader("getAccountParentRecipientKeys = async(" + _agentKey + ")");
+  let parentRecipientAccountList = spCoinContractDeployed.getAccountParentRecipientKeys(_agentKey);
   return parentRecipientAccountList;
 }
 */
@@ -316,9 +316,6 @@ deSerializeRecipientRateRecordByKeys = async(_recipientKey, _recipientRateKey) =
   recipientRateRecord.insertionTime = hexToDecimal(recordStr[0]);
   recipientRateRecord.lastUpdateTime = hexToDecimal(recordStr[1]);
   recipientRateRecord.stakedSPCoins = hexToDecimal(recordStr[2]);
-  
-  // ToDo Robin Here
-  // recipientAccountList = await getAccountRecipientKeys(_sponsorKey);
   recipientRateRecord.recipientRecordList = await getRecipientRateRecordByKeys(_recipientKey, _recipientRateKey);
   return recipientRateRecord;
 }

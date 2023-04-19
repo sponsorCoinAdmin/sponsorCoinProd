@@ -100,11 +100,10 @@ deleteTestNetworkAccounts = async (_testHHAccountArr) => {
 
 /////////////////////////// TEST UN-RECIPIENT METHODS //////////////////////////
 
-deleteTestRecipient = async (_sponsorIdx, _recipientIdx) => {
+deleteTestRecipient = async (_recipientIdx) => {
   logFunctionHeader("deleteTestRecipient(" + _sponsorIdx + ", " + _recipientIdx + ")");
-  let sponsorKey = getTestHHAccountKey(_sponsorIdx);
   let recipientKey = getTestHHAccountKey(_recipientIdx);
-  await deleteRecipientRecord(sponsorKey, recipientKey);
+  await deleteRecipientRecord(recipientKey);
 }
 
 deleteTestNetworkRecipients = async (_testHHAccountIdx) => {
