@@ -56,7 +56,7 @@ Example: AddRecipientTransaction(1, 2, 10, 123.1230);
 
 Add aa Agent Transaction
 ================================================
-Create addAgentTransaction(Account, Recipient, RecipientRate, Agent, AgentRate, Amount)
+Create addAgentTransaction(Recipient, RecipientRate, Agent, AgentRate, Amount)
 Example: AddAgentRate(1, 2, 6, 10, 10, 123.1230);
 
 

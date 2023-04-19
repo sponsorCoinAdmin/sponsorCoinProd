@@ -11,8 +11,8 @@ contract AgentRates is Agents {
     /// @param _recipientKey public account key to get recipient array
     /// @param _recipientRateKey public account key to get recipient Rate for a given recipient
     /// @param _agentKey new recipient to add to account list 
-    function addAgentRateRecord(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey)
-        public onlyOwnerOrRootAdmin(msg.sender) {
+    function addAgentRateRecord(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey) public 
+        {
         addAgent(_recipientKey, _recipientRateKey, _agentKey);
         AgentRateStruct storage agentRateRecord= getAgentRateRecordByKeys(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
         if (!agentRateRecord.inserted) {
@@ -25,7 +25,7 @@ contract AgentRates is Agents {
         }
     }
 
-    function getAgentRateRecordByKeys(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey) internal view onlyOwnerOrRootAdmin(msg.sender) returns (AgentRateStruct storage) {
+    function getAgentRateRecordByKeys(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey) internal view returns (AgentRateStruct storage) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey) ;
         return agentRec.agentRateMap[_agentRateKey];
     }

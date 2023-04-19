@@ -12,8 +12,8 @@ contract Agents is RecipientRates {
     /// @param _recipientKey public account key to get recipient array
     /// @param _agentKey new recipient to add to account list
     function addAgent(address _recipientKey, uint _recipientRateKey, address _agentKey)
-            public onlyOwnerOrRootAdmin(msg.sender) 
-            nonRedundantAgent ( msg.sender, _recipientKey, _agentKey) {
+            public  
+            nonRedundantAgent (_recipientKey, _agentKey) {
         addRecipientRate(_recipientKey, _recipientRateKey);
 
         AgentStruct storage  agentRecord = getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey);
@@ -43,7 +43,7 @@ contract Agents is RecipientRates {
     /// @param _recipientKey recipient account key
     /// @param _recipientRateKey recipient rate
     /// @param _agentKey agent record key to be returned
-    function getAgentRecordByKeys(address _recipientKey, uint _recipientRateKey, address _agentKey) internal view onlyOwnerOrRootAdmin(msg.sender) returns (AgentStruct storage) {
+    function getAgentRecordByKeys(address _recipientKey, uint _recipientRateKey, address _agentKey) internal view returns (AgentStruct storage) {
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_recipientKey, _recipientRateKey);
         AgentStruct storage agentRecord = recipientRateRecord.agentMap[_agentKey];
         return agentRecord;

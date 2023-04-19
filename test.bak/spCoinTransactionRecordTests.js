@@ -51,7 +51,6 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   // Recipient Accounts to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
   await addAgentTransaction (
-    SPONSOR_ACCOUNT_KEY_0,
     RECIPIENT_ACCOUNT_KEY_1,
     RECIPIENT_RATE_1,
     AGENT_ACCOUNT_KEY_2,
@@ -60,7 +59,6 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   );
 
   // await addAgentTransaction (
-  //   SPONSOR_ACCOUNT_KEY_3,
   //   RECIPIENT_ACCOUNT_KEY_1,
   //   RECIPIENT_RATE_1,
   //   AGENT_ACCOUNT_KEY_2,
@@ -69,7 +67,6 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   // );
   
   // await addAgentTransaction (
-  //   SPONSOR_ACCOUNT_KEY_0,
   //   RECIPIENT_ACCOUNT_KEY_1,
   //   RECIPIENT_RATE_1,
   //   AGENT_ACCOUNT_KEY_2,
@@ -78,7 +75,6 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   // );
   
   // await addAgentTransaction (
-  //   SPONSOR_ACCOUNT_KEY_0,
   //   RECIPIENT_ACCOUNT_KEY_1,
   //   RECIPIENT_RATE_2,
   //   AGENT_ACCOUNT_KEY_2,
@@ -87,7 +83,6 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   // );
 
   // await addAgentTransaction (
-  //   SPONSOR_ACCOUNT_KEY_0,
   //   RECIPIENT_ACCOUNT_KEY_1,
   //   RECIPIENT_RATE_2,
   //   AGENT_ACCOUNT_KEY_3,
@@ -96,7 +91,6 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   // );
 
   // await addAgentTransaction (
-  //   SPONSOR_ACCOUNT_KEY_0,
   //   RECIPIENT_ACCOUNT_KEY_1,
   //   RECIPIENT_RATE_2,
   //   AGENT_ACCOUNT_KEY_2,
@@ -105,7 +99,6 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   // );
 
   // await addAgentTransaction (
-  //   SPONSOR_ACCOUNT_KEY_0,
   //   RECIPIENT_ACCOUNT_KEY_1,
   //   RECIPIENT_RATE_2,
   //   AGENT_ACCOUNT_KEY_2,
@@ -118,7 +111,6 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
     await logJSONTree();
 
     // agentRateKeys = await getAgentRateKeys(
-    //   SPONSOR_ACCOUNT_KEY_0,
     //   RECIPIENT_ACCOUNT_KEY_1,
     //   RECIPIENT_RATE_10,
     //   AGENT_ACCOUNT_KEY_1);

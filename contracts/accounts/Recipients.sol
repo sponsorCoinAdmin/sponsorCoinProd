@@ -11,8 +11,7 @@ contract Recipients is Accounts {
     /// @notice Relate Sponsor and Recipient accounts for POS sharing
     /// @param _recipientKey new recipient to add to account list
     function addSponsorRecipient(address _recipientKey) 
-        public onlyOwnerOrRootAdmin(msg.sender)
-        nonRedundantRecipient ( msg.sender,  _recipientKey) {
+        public nonRedundantRecipient (_recipientKey) {
         RecipientStruct storage recipientRecord = getRecipientRecordByKeys(_recipientKey);
         if (!recipientRecord.inserted) {
             addAccountRecord(msg.sender);
@@ -26,7 +25,7 @@ contract Recipients is Accounts {
             accountMap[_recipientKey].sponsorAccountList.push(msg.sender);
         }
     }
-    
+
     /*
     /// @notice determines if agent address is inserted in account.recipient.agent.map
     /// @param _sponsorKey public account key validate Insertion
@@ -39,11 +38,11 @@ contract Recipients is Accounts {
 
     /// @notice determines if recipient address is inserted in account.recipient.map
     /// @param _recipientKey public recipient account key validate Insertion
-    function isRecipientInserted(address _recipientKey) public onlyOwnerOrRootAdmin(msg.sender) view returns (bool) {
+    function isRecipientInserted(address _recipientKey) public view returns (bool) {
         return getRecipientRecordByKeys(_recipientKey).inserted;
     }
 
-    function getRecipientRecordByKeys(address _recipientKey) internal view onlyOwnerOrRootAdmin(msg.sender) returns (RecipientStruct storage) {
+    function getRecipientRecordByKeys(address _recipientKey) internal view  returns (RecipientStruct storage) {
        return accountMap[msg.sender].recipientMap[_recipientKey];
     }
 

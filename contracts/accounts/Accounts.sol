@@ -67,7 +67,7 @@ contract Accounts is StructSerialization {
     function getRecipientKeys(address _sponsorKey) public onlyOwnerOrRootAdmin(_sponsorKey) view returns (address[] memory) {
         return accountMap[_sponsorKey].recipientAccountList;
     }
-  
+
     function getAccountListIndex (address _accountKey, 
         address[] storage _accountKeyList) internal view
         accountExists(_accountKey) returns (uint) {

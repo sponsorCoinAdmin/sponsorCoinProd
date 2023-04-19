@@ -8,8 +8,7 @@ contract RecipientRates is Recipients {
     constructor() { }
 
 function addRecipientRate(address _recipientKey, uint _recipientRateKey) 
-    public onlyOwnerOrRootAdmin(msg.sender)
-    nonRedundantRecipient ( msg.sender,  _recipientKey) {
+    public nonRedundantRecipient (_recipientKey) {
         addSponsorRecipient(_recipientKey);
 
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_recipientKey, _recipientRateKey);
@@ -23,7 +22,7 @@ function addRecipientRate(address _recipientKey, uint _recipientRateKey)
         } 
     }
 
-    function getRecipientRateRecordByKeys(address _recipientKey, uint _recipientRateKey) internal view onlyOwnerOrRootAdmin(msg.sender) returns (RecipientRateStruct storage) {
+    function getRecipientRateRecordByKeys(address _recipientKey, uint _recipientRateKey) internal view  returns (RecipientRateStruct storage) {
         RecipientStruct storage recipientRecord = getRecipientRecordByKeys(_recipientKey) ;
         return recipientRecord.recipientRateMap[_recipientRateKey];
     }

@@ -90,7 +90,6 @@ addAccountRecords = async (_accountListKeys) => {
 //////////////////// ADD TRANSACTIONS METHODS //////////////////////
 
 addAgentTransaction = async (
-  _accountKey, 
   _recipientKey,
   _recipientRateKey,
   _accountAgentKey,
@@ -98,7 +97,6 @@ addAgentTransaction = async (
   _transactionQty ) => {
     logFunctionHeader(
       "addAgentTransaction = async(" + 
-      _accountKey + ", " + 
       _recipientKey + ", " + 
       _recipientRateKey + ", " + 
       _accountAgentKey + ", " +

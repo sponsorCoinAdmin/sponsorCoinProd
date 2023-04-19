@@ -43,7 +43,7 @@ contract SPCoin is Token{
                                           address _agentKey,
                                           uint _agentRateKey,
                                           uint256 _transAmount)
-    public onlyOwnerOrRootAdmin(msg.sender) {
+    public  {
         transfer(_recipientKey, _transAmount);
         addAgentTransaction(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey, _transAmount);
     }

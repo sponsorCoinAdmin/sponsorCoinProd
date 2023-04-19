@@ -51,7 +51,6 @@ describe("spCoinContract", function () {
   // Recipient Accounts to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
   await addAgentTransaction(
-      SPONSOR_ACCOUNT_KEY_0,
       RECIPIENT_ACCOUNT_KEY_1,
       RECIPIENT_RATE_9,
       AGENT_ACCOUNT_KEY_2,
@@ -60,7 +59,6 @@ describe("spCoinContract", function () {
     );
 
     // await addAgentTransaction(
-    //   SPONSOR_ACCOUNT_KEY_1,
     //   RECIPIENT_ACCOUNT_KEY_2,
     //   RECIPIENT_RATE_9,
     //   AGENT_ACCOUNT_KEY_6,
@@ -69,7 +67,6 @@ describe("spCoinContract", function () {
     // );
 
   //   await addAgentTransaction(
-  //     SPONSOR_ACCOUNT_KEY_0,
   //     RECIPIENT_ACCOUNT_KEY_1,
   //     RECIPIENT_RATE_9,
   //     AGENT_ACCOUNT_KEY_3,
@@ -78,7 +75,6 @@ describe("spCoinContract", function () {
   //     );
 
   // await addAgentTransaction(
-  //   SPONSOR_ACCOUNT_KEY_0,
   //   RECIPIENT_ACCOUNT_KEY_6,
   //   RECIPIENT_RATE_9,
   //   AGENT_ACCOUNT_KEY_3,
@@ -87,7 +83,6 @@ describe("spCoinContract", function () {
   // );
           
     // await addAgentTransaction(
-    //   SPONSOR_ACCOUNT_KEY_1,
     //   RECIPIENT_ACCOUNT_KEY_2,
     //   RECIPIENT_RATE_7,
     //   AGENT_ACCOUNT_KEY_3,
@@ -96,7 +91,6 @@ describe("spCoinContract", function () {
     // );
 
     // let agentRateKeys = await getAgentRateKeys(
-    //   SPONSOR_ACCOUNT_KEY_1,
     //   RECIPIENT_ACCOUNT_KEY_1,
     // RECIPIENT_RATE_10,
     //   AGENT_ACCOUNT_KEY_1);
@@ -114,7 +108,6 @@ describe("spCoinContract", function () {
     // console.log("--- AFTER DELETE RECIPIENT -----------------------------------");
     // await logJSONTree();
     // agentRateKeys = await getAgentRateKeys(
-    //   SPONSOR_ACCOUNT_KEY_1,
     //   RECIPIENT_ACCOUNT_KEY_1,
     // RECIPIENT_RATE_10,
     //   AGENT_ACCOUNT_KEY_1);
