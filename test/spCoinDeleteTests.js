@@ -24,11 +24,11 @@ const {
   TRANSACTION_QTY_6, TRANSACTION_QTY_7, TRANSACTION_QTY_8, TRANSACTION_QTY_9, TRANSACTION_QTY_10
  } = require("./testMethods/hhTestAccounts");
  const { LOG_MODE } = require("../prod/lib/utils/logging");
-const { } = require("../test/testMethods/scTestMethods");
+const { } = require("./testMethods/scTestMethods");
 const { } = require("../prod/lib/spCoinReadMethods");
 const { } = require("../prod/lib/spCoinDeleteMethods");
-const { } = require("../test/testMethods/scTestMethods");
-const { } = require("../test/deployContract");
+const { } = require("./testMethods/scTestMethods");
+const { } = require("./deployContract");
 
 let spCoinContractDeployed;
 
@@ -74,7 +74,7 @@ describe("spCoinContract", function () {
   /* */
 
   it("SUCCESSFUL ERROR MSG CAUGHT: 'ACCOUNT DOES NOT EXIST'", async function () {
-    await addTestNetworkSponsorRecipients(0, [1]);
+    await addTestNetworkRecipients(0, [1]);
     let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Account does not exists'";
     try {
       await deleteTestNetworkAccount(2);
@@ -88,7 +88,7 @@ describe("spCoinContract", function () {
   /* */
 
   it("SUCCESSFUL ERROR MSG CAUGHT: 'SPONSOR ACCOUNT HAS RECIPIENT'", async function () {
-    await addTestNetworkSponsorRecipients(0, [1]);
+    await addTestNetworkRecipients(0, [1]);
     let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Sponsor Account has a Recipient, (Sponsor must Un-recipient Recipiented Account)'";
     try {
       await deleteTestNetworkAccount(0);
@@ -102,7 +102,7 @@ describe("spCoinContract", function () {
 /* */
 
     it("SUCCESSFUL ERROR MSG CAUGHT: 'RECIPIENT ACCOUNT HAS SPONSOR'", async function () {
-      await addTestNetworkSponsorRecipients(0, [1]);
+      await addTestNetworkRecipients(0, [1]);
       let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Recipient Account has a Sponsor, (Sponsor must Un-recipient Recipiented Account)'";
       try {
         await deleteTestNetworkAccount(1);

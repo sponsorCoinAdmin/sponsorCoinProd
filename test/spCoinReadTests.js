@@ -42,14 +42,14 @@ describe("spCoinContract", function () {
   /**/
 
   it("PRINT STRUCTURE TREE TESTS", async function () {
-    // USAGE: addTestNetworkSponsorRecipients(_accountRecIdx, _startSpIdx, _lastSpIdx);
-    await addTestNetworkSponsorRecipients(2, [1, 7, 14, 8, 18, 9]);
-    await addTestNetworkSponsorRecipients(2, [12]);
-    await addTestNetworkSponsorRecipients(3, [14, 17]);
-    await addTestNetworkSponsorRecipients(1, [5, 11, 13, 15]);
-    await addTestNetworkSponsorRecipients(14, [18, 19, 7]);
-    await addTestNetworkSponsorRecipients(3, [4]);
-    await addTestNetworkSponsorRecipients(1, [2, 5]);
+    // USAGE: addTestNetworkRecipients(_accountRecIdx, _startSpIdx, _lastSpIdx);
+    await addTestNetworkRecipients(2, [1, 7, 14, 8, 18, 9]);
+    await addTestNetworkRecipients(2, [12]);
+    await addTestNetworkRecipients(3, [14, 17]);
+    await addTestNetworkRecipients(1, [5, 11, 13, 15]);
+    await addTestNetworkRecipients(14, [18, 19, 7]);
+    await addTestNetworkRecipients(3, [4]);
+    await addTestNetworkRecipients(1, [2, 5]);
 
     // USAGE: addNetworkRecipientAgents(_accountRecIdx, _recipientRecIdx, _startAgIdx, _lastAgIdx);
     await addTestNetworkRecipientAgents(5, 10, [7, 2, 17, 3, 9, 19]);
@@ -77,14 +77,14 @@ describe("spCoinContract", function () {
     // Test Successful Record Insertion of Sponsor and 
     // Recipient Accounts to the Blockchain Network.
     // Account, Recipient and/or Agent are Successfully mutually exclusive.
-    await addTestNetworkSponsorRecipients(4, [3]);
+    await addTestNetworkRecipients(4, [3]);
 
     // Test Un-Successful Record Insertion of Sponsor
     // and Agent Accounts to the Blockchain Network.
     // Account and Recipient are not mutually exclusive.
     expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey and _recipientKey must be Mutually Exclusive)'";
     try {
-      await addTestNetworkSponsorRecipients(4, [4]);
+      await addTestNetworkRecipients(4, [4]);
       throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
     } catch (err) {
       // console.log ("err.message = " + err.message);
@@ -184,8 +184,8 @@ describe("spCoinContract", function () {
     setLogMode(LOG_MODE.LOG_TREE, true);
 
     // Test Record Insertions to Blockchain Network
-    let arrayKey = await addTestNetworkSponsorRecipients(14, [3, 2]);
-    arrayKey = await addTestNetworkSponsorRecipients(13, [3]);
+    let arrayKey = await addTestNetworkRecipients(14, [3, 2]);
+    arrayKey = await addTestNetworkRecipients(13, [3]);
   
     let AccountListSize = (await getAccountListSize());
     expect(AccountListSize).to.equal(3);
@@ -216,7 +216,7 @@ describe("spCoinContract", function () {
       TEST_HH_ACCOUNT_KEY_8, TEST_HH_ACCOUNT_KEY_18,
       TEST_HH_ACCOUNT_KEY_9];
   
-    await addSponsorRecipients(accountKey, recipientListKeys);
+    await addRecipients(accountKey, recipientListKeys);
 
     log("Tree For Account Key: " + accountKey + " With Inserted Recipients:");
     await logJSONTree();

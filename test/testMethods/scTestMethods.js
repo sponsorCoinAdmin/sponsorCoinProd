@@ -25,24 +25,24 @@ addTestNetworkAccounts = async (_AccountList) => {
 
 //////////////////////////// TEST RECIPIENT METHODS ////////////////////////////
 
-addTestNetworkSponsorRecipient = async (_accountIdx, _recipientIdx) => {
-  logFunctionHeader("addTestNetworkSponsorRecipient = async (" + _accountIdx + ", " + _recipientIdx + ")");
+addTestNetworkRecipient = async (_accountIdx, _recipientIdx) => {
+  logFunctionHeader("addTestNetworkRecipient = async (" + _accountIdx + ", " + _recipientIdx + ")");
 
   let accountKey = getTestHHAccountKey(_accountIdx);
   let recipientKey = getTestHHAccountKey(_recipientIdx);  
   logDetail("JS => For Account: " + accountKey + " Inserting Recipient Records");
   logDetail(recipientKey);
-  await addSponsorRecipient(recipientKey);
+  await addRecipient(recipientKey);
 };
 
-addTestNetworkSponsorRecipients = async (_accountIdx, _recipientAccountListIdx) => {
-  logFunctionHeader("addTestNetworkSponsorRecipients = async (" + _accountIdx + ", " + _recipientAccountListIdx + ")");
+addTestNetworkRecipients = async (_accountIdx, _recipientAccountListIdx) => {
+  logFunctionHeader("addTestNetworkRecipients = async (" + _accountIdx + ", " + _recipientAccountListIdx + ")");
 
   let accountKey = getTestHHAccountKey(_accountIdx);
   let recipientAccountList = getTestHHAccountListKeys(_recipientAccountListIdx);
   logDetail("JS => For Account: " + accountKey + " Inserting Recipient Records:");
   logDetail(recipientAccountList);
-  await addSponsorRecipients(accountKey, recipientAccountList);
+  await addRecipients(accountKey, recipientAccountList);
 };
 
 //////////////////////////// TEST AGENT METHODS ////////////////////////////
@@ -100,14 +100,14 @@ deleteTestNetworkAccounts = async (_testHHAccountArr) => {
 
 /////////////////////////// TEST UN-RECIPIENT METHODS //////////////////////////
 
-deleteTestSponsorRecipient = async (_sponsorIdx, _recipientIdx) => {
-  logFunctionHeader("deleteTestSponsorRecipient(" + _sponsorIdx + ", " + _recipientIdx + ")");
+deleteTestRecipient = async (_sponsorIdx, _recipientIdx) => {
+  logFunctionHeader("deleteTestRecipient(" + _sponsorIdx + ", " + _recipientIdx + ")");
   let sponsorKey = getTestHHAccountKey(_sponsorIdx);
   let recipientKey = getTestHHAccountKey(_recipientIdx);
-  await deleteSponsorRecipientRecord(sponsorKey, recipientKey);
+  await deleteRecipientRecord(sponsorKey, recipientKey);
 }
 
-deleteTestNetworkSponsorRecipients = async (_testHHAccountIdx) => {
+deleteTestNetworkRecipients = async (_testHHAccountIdx) => {
   logFunctionHeader("async (" + _testHHAccountIdx+ ")");
   let accountKey = getTestHHAccountKey(_testHHAccountIdx);
   await (accountKey);
@@ -127,11 +127,11 @@ module.exports = {
   getTestHHAccountListKeys,
   addTestNetworkAccount,
   addTestNetworkAccounts,
-  addTestNetworkSponsorRecipient,
-  addTestNetworkSponsorRecipients,
+  addTestNetworkRecipient,
+  addTestNetworkRecipients,
   addTestNetworkRecipientAgents,
   deleteTestNetworkAccount,
-  deleteTestSponsorRecipient,
+  deleteTestRecipient,
   getTestHHAccountKey,
   getTestHHAccountRecord,
   logTestHHAccountRecord

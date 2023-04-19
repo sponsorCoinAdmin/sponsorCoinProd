@@ -9,7 +9,7 @@ contract RecipientRates is Recipients {
 
 function addRecipientRate(address _recipientKey, uint _recipientRateKey) 
     public nonRedundantRecipient (_recipientKey) {
-        addSponsorRecipient(_recipientKey);
+        addRecipient(_recipientKey);
 
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_recipientKey, _recipientRateKey);
         if (!recipientRateRecord.inserted) {

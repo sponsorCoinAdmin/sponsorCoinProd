@@ -10,7 +10,7 @@ contract Recipients is Accounts {
     /// @notice Create Sponsor and Recipient accounts if they do not exist
     /// @notice Relate Sponsor and Recipient accounts for POS sharing
     /// @param _recipientKey new recipient to add to account list
-    function addSponsorRecipient(address _recipientKey) 
+    function addRecipient(address _recipientKey) 
         public nonRedundantRecipient (_recipientKey) {
         RecipientStruct storage recipientRecord = getRecipientRecordByKeys(_recipientKey);
         if (!recipientRecord.inserted) {

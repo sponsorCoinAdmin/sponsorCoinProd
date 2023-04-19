@@ -4,21 +4,21 @@ setContractAddMethods = (_spCoinContractDeployed) => {
     spCoinContractDeployed = _spCoinContractDeployed;
 }
 
-addSponsorRecipient = async (_recipientKey) => {
+addRecipient = async (_recipientKey) => {
     logFunctionHeader(
-      "addSponsorRecipient = async(" + _recipientKey + ")"
+      "addRecipient = async(" + _recipientKey + ")"
     );
   
     logDetail("JS => Inserting " + _recipientKey + " Recipients To Blockchain Network"
     );
   
     logDetail("JS => Inserting Recipient " + _recipientKey );
-    await spCoinContractDeployed.addSponsorRecipient(_recipientKey);
+    await spCoinContractDeployed.addRecipient(_recipientKey);
   };
   
-  addSponsorRecipients = async (_accountKey, _recipientAccountList) => {
+  addRecipients = async (_accountKey, _recipientAccountList) => {
     logFunctionHeader(
-      "addSponsorRecipients = async(" + _accountKey + ", " + _recipientAccountList + ")"
+      "addRecipients = async(" + _accountKey + ", " + _recipientAccountList + ")"
     );
   
     logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
@@ -28,7 +28,7 @@ addSponsorRecipient = async (_recipientKey) => {
     let recipientCount = 0;
     for (recipientCount; recipientCount < _recipientAccountList.length; recipientCount++) {
       let _recipientKey = _recipientAccountList[recipientCount];
-      await addSponsorRecipient(_recipientKey);
+      await addRecipient(_recipientKey);
     }
     logDetail("JS => Inserted = " + recipientCount + " Recipient Records");
     return --recipientCount;
@@ -121,8 +121,8 @@ addAgentTransaction = async (
 module.exports = {
     addAccountRecord,
     addAccountRecords,
-    addSponsorRecipient,
-    addSponsorRecipients,
+    addRecipient,
+    addRecipients,
     addAgentTransaction,
     addAgent,
     addAgents,
