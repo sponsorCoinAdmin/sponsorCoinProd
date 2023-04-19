@@ -9,25 +9,24 @@ contract Recipients is Accounts {
 
     /// @notice Create Sponsor and Recipient accounts if they do not exist
     /// @notice Relate Sponsor and Recipient accounts for POS sharing
-    /// @param _sponsorKey public sponsor key to get recipient array
     /// @param _recipientKey new recipient to add to account list
-    function addSponsorRecipient(address _sponsorKey, address _recipientKey) 
-        public onlyOwnerOrRootAdmin(_sponsorKey)
-        nonRedundantRecipient ( _sponsorKey,  _recipientKey) {
+    function addSponsorRecipient(address _recipientKey) 
+        public onlyOwnerOrRootAdmin(msg.sender)
+        nonRedundantRecipient ( msg.sender,  _recipientKey) {
         RecipientStruct storage recipientRecord = getRecipientRecordByKeys(_recipientKey);
         if (!recipientRecord.inserted) {
-            addAccountRecord(_sponsorKey);
+            addAccountRecord(msg.sender);
             addAccountRecord(_recipientKey);
             recipientRecord.insertionTime = block.timestamp;
-            recipientRecord.sponsorKey = _sponsorKey;
+            recipientRecord.sponsorKey = msg.sender;
             recipientRecord.recipientKey = _recipientKey;
             recipientRecord.stakedSPCoins = 0; // Coins not owned but Recipiented
             recipientRecord.inserted = true;
-            accountMap[_sponsorKey].recipientAccountList.push(_recipientKey);
-            accountMap[_recipientKey].sponsorAccountList.push(_sponsorKey);
+            accountMap[msg.sender].recipientAccountList.push(_recipientKey);
+            accountMap[_recipientKey].sponsorAccountList.push(msg.sender);
         }
     }
-
+    
     /*
     /// @notice determines if agent address is inserted in account.recipient.agent.map
     /// @param _sponsorKey public account key validate Insertion

@@ -32,7 +32,7 @@ addTestNetworkSponsorRecipient = async (_accountIdx, _recipientIdx) => {
   let recipientKey = getTestHHAccountKey(_recipientIdx);  
   logDetail("JS => For Account: " + accountKey + " Inserting Recipient Records");
   logDetail(recipientKey);
-  await addSponsorRecipient(accountKey, recipientKey);
+  await addSponsorRecipient(recipientKey);
 };
 
 addTestNetworkSponsorRecipients = async (_accountIdx, _recipientAccountListIdx) => {

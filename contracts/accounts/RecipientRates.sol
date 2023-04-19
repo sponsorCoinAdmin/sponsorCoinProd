@@ -10,7 +10,7 @@ contract RecipientRates is Recipients {
 function addRecipientRate(address _recipientKey, uint _recipientRateKey) 
     public onlyOwnerOrRootAdmin(msg.sender)
     nonRedundantRecipient ( msg.sender,  _recipientKey) {
-        addSponsorRecipient(msg.sender, _recipientKey);
+        addSponsorRecipient(_recipientKey);
 
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_recipientKey, _recipientRateKey);
         if (!recipientRateRecord.inserted) {
