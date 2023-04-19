@@ -31,9 +31,9 @@ const {
   TRANSACTION_QTY_6, TRANSACTION_QTY_7, TRANSACTION_QTY_8, TRANSACTION_QTY_9, TRANSACTION_QTY_10
  } = require("./testMethods/hhTestAccounts");
 const { LOG_MODE, LOG, setLogMode, log, logJSON } = require("../prod/lib/utils/logging");
-const { } = require("../test/testMethods/scTestMethods");
+const { } = require("./testMethods/scTestMethods");
 const { } = require("../prod/lib/spCoinReadMethods");
-const { } = require("../test/deployContract");
+const { } = require("./deployContract");
 
 let spCoinContractDeployed;
 
@@ -44,89 +44,85 @@ describe("spCoinContract", function () {
     await deploySpCoinContract();
   });
 
-it("1 VALIDATE ADD TRANSACTION RATES", async function () {
+ it("2. VALIDATE ADD TRANSACTION RATES", async function () {
   setLogMode("LOG", true);
 
   // Test Successful Record Insertion of Sponsor and 
   // Recipient Accounts to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
-  await addAgentTransaction (
-    SPONSOR_ACCOUNT_KEY_0,
-    RECIPIENT_ACCOUNT_KEY_1,
-    RECIPIENT_RATE_1,
-    AGENT_ACCOUNT_KEY_2,
-    AGENT_RATE_10,
-    TRANSACTION_QTY_1
-  );
+  await addAgentTransaction(
+      SPONSOR_ACCOUNT_KEY_0,
+      RECIPIENT_ACCOUNT_KEY_1,
+      RECIPIENT_RATE_9,
+      AGENT_ACCOUNT_KEY_2,
+      AGENT_RATE_1,
+      100
+    );
 
-  // await addAgentTransaction (
-  //   SPONSOR_ACCOUNT_KEY_3,
-  //   RECIPIENT_ACCOUNT_KEY_1,
-  //   RECIPIENT_RATE_1,
-  //   AGENT_ACCOUNT_KEY_2,
-  //   AGENT_RATE_5,
-  //   TRANSACTION_QTY_2
-  // );
-  
-  // await addAgentTransaction (
-  //   SPONSOR_ACCOUNT_KEY_0,
-  //   RECIPIENT_ACCOUNT_KEY_1,
-  //   RECIPIENT_RATE_1,
-  //   AGENT_ACCOUNT_KEY_2,
-  //   AGENT_RATE_5,
-  //   TRANSACTION_QTY_9
-  // );
-  
-  // await addAgentTransaction (
-  //   SPONSOR_ACCOUNT_KEY_0,
-  //   RECIPIENT_ACCOUNT_KEY_1,
-  //   RECIPIENT_RATE_2,
-  //   AGENT_ACCOUNT_KEY_2,
-  //   AGENT_RATE_10,
-  //   TRANSACTION_QTY_2
-  // );
+    // await addAgentTransaction(
+    //   SPONSOR_ACCOUNT_KEY_1,
+    //   RECIPIENT_ACCOUNT_KEY_2,
+    //   RECIPIENT_RATE_9,
+    //   AGENT_ACCOUNT_KEY_6,
+    //   AGENT_RATE_1,
+    //   TRANSACTION_QTY_2
+    // );
 
-  // await addAgentTransaction (
+  //   await addAgentTransaction(
+  //     SPONSOR_ACCOUNT_KEY_0,
+  //     RECIPIENT_ACCOUNT_KEY_1,
+  //     RECIPIENT_RATE_9,
+  //     AGENT_ACCOUNT_KEY_3,
+  //     AGENT_RATE_3,
+  //     TRANSACTION_QTY_5
+  //     );
+
+  // await addAgentTransaction(
   //   SPONSOR_ACCOUNT_KEY_0,
-  //   RECIPIENT_ACCOUNT_KEY_1,
-  //   RECIPIENT_RATE_2,
+  //   RECIPIENT_ACCOUNT_KEY_6,
+  //   RECIPIENT_RATE_9,
   //   AGENT_ACCOUNT_KEY_3,
-  //   AGENT_RATE_9,
-  //   TRANSACTION_QTY_4
+  //   AGENT_RATE_3,
+  //   TRANSACTION_QTY_3
   // );
+          
+    // await addAgentTransaction(
+    //   SPONSOR_ACCOUNT_KEY_1,
+    //   RECIPIENT_ACCOUNT_KEY_2,
+    //   RECIPIENT_RATE_7,
+    //   AGENT_ACCOUNT_KEY_3,
+    //   AGENT_RATE_6,
+    //   TRANSACTION_QTY_9
+    // );
 
-  // await addAgentTransaction (
-  //   SPONSOR_ACCOUNT_KEY_0,
-  //   RECIPIENT_ACCOUNT_KEY_1,
-  //   RECIPIENT_RATE_2,
-  //   AGENT_ACCOUNT_KEY_2,
-  //   AGENT_RATE_10,
-  //   TRANSACTION_QTY_2
-  // );
-
-  // await addAgentTransaction (
-  //   SPONSOR_ACCOUNT_KEY_0,
-  //   RECIPIENT_ACCOUNT_KEY_1,
-  //   RECIPIENT_RATE_2,
-  //   AGENT_ACCOUNT_KEY_2,
-  //   AGENT_RATE_10,
-  //   TRANSACTION_QTY_8
-  // );
-
+    // let agentRateKeys = await getAgentRateKeys(
+    //   SPONSOR_ACCOUNT_KEY_1,
+    //   RECIPIENT_ACCOUNT_KEY_1,
+    // RECIPIENT_RATE_10,
+    //   AGENT_ACCOUNT_KEY_1);
+  
     // AccountListSize = (await getAccountListSize()).toNumber();
     // expect(AccountListSize).to.equal(3);
     await logJSONTree();
-
+    // await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEY_0, RECIPIENT_ACCOUNT_KEY_1);
+    // await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEY_3, RECIPIENT_ACCOUNT_KEY_1);
+    // await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEY_0, RECIPIENT_ACCOUNT_KEY_2);
+    console.log("********************************************************************************");
+    console.log("*** AFTER DELETE ***************************************************************");
+    console.log("********************************************************************************");
+  
+    // console.log("--- AFTER DELETE RECIPIENT -----------------------------------");
+    // await logJSONTree();
     // agentRateKeys = await getAgentRateKeys(
-    //   SPONSOR_ACCOUNT_KEY_0,
+    //   SPONSOR_ACCOUNT_KEY_1,
     //   RECIPIENT_ACCOUNT_KEY_1,
-    //   RECIPIENT_RATE_10,
+    // RECIPIENT_RATE_10,
     //   AGENT_ACCOUNT_KEY_1);
     //   logJSON(agentRateKeys);
 
     // VALIDATE ACCOUNT CREATION
     // VALIDATE SPONSOR ACCOUNT
-    // let sponsorAccount = await getAccountRecord(SPONSOR_ACCOUNT_KEY_0);
+    // let sponsorAccount = await getAccountRecord(SPONSOR_ACCOUNT_KEY_1);
     // logJSON(sponsorAccount);
   });
 /**/

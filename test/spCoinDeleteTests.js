@@ -24,11 +24,11 @@ const {
   TRANSACTION_QTY_6, TRANSACTION_QTY_7, TRANSACTION_QTY_8, TRANSACTION_QTY_9, TRANSACTION_QTY_10
  } = require("./testMethods/hhTestAccounts");
  const { LOG_MODE } = require("../prod/lib/utils/logging");
-const { } = require("../test/testMethods/scTestMethods");
+const { } = require("./testMethods/scTestMethods");
 const { } = require("../prod/lib/spCoinReadMethods");
 const { } = require("../prod/lib/spCoinDeleteMethods");
-const { } = require("../test/testMethods/scTestMethods");
-const { } = require("../test/deployContract");
+const { } = require("./testMethods/scTestMethods");
+const { } = require("./deployContract");
 
 let spCoinContractDeployed;
 
