@@ -34,7 +34,8 @@ deSerializedAccountRec = async (serializedAccountRec) => {
   return accountStruct;
 };
 const hexToDecimal = hex => parseInt(hex, 16);
-const bigIntToDecimal = bigInt => parseInt(bigInt, 10);
+const bigIntToDecimal = bigInt => parseInt(bigInt).toLocaleString('fullwide', {useGrouping:false});
+// parseInt(bigInt, 10);
 
 addAccountField = (key, value, accountStruct) => {
   logFunctionHeader("addAccountField = (" + key + "," + value + ")");
@@ -44,7 +45,7 @@ addAccountField = (key, value, accountStruct) => {
       accountStruct.accountKey = value;
       break;
     case "balanceOf":
-      accountStruct.balanceOf = hexToDecimal(value);
+      accountStruct.balanceOf = bigIntToDecimal(value);
     break;
     case "stakedSPCoins":
       accountStruct.stakedSPCoins = hexToDecimal(value);

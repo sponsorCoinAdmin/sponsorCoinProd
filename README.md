@@ -36,8 +36,8 @@ SPCoin
 To Add a Recipient Account Agent, add the following:
 Add a Rate Record to Agent
 
-Using: addRecipientAgents(Account, Recipient, SponsroRate, [Agents])
-Example: addRecipientAgents(1, 2, 10, [6]); 
+Using: addAgents(Recipient, SponsroRate, [Agents])
+Example: addAgents(2, 10, [6]); 
 
 Add a Rate Record to Recipient
 ================================================
@@ -56,7 +56,7 @@ Example: AddRecipientTransaction(1, 2, 10, 123.1230);
 
 Add aa Agent Transaction
 ================================================
-Create AddAgentRateTransaction(Account, Recipient, RecipientRate, Agent, AgentRate, Amount)
+Create addAgentTransaction(Recipient, RecipientRate, Agent, AgentRate, Amount)
 Example: AddAgentRate(1, 2, 6, 10, 10, 123.1230);
 
 

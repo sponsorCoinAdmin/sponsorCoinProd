@@ -21,20 +21,21 @@ contract Security is SpCoinDataTypes {
         _;
     }
 
+
     modifier onlyOwnerOrRootAdmin (address _account) {
         require (msg.sender == rootAdmin || msg.sender == _account, "Owner or Root Admin Security Access Violation");
         _;
     }
 
-    modifier nonRedundantRecipient (address _accountKey, address _recipientKey) {
-        require (_accountKey != _recipientKey , "_accountKey and _recipientKey must be Mutually Exclusive)");
+    modifier nonRedundantRecipient (address _recipientKey) {
+        require (msg.sender != _recipientKey , "_accountKey and _recipientKey must be Mutually Exclusive)");
         _;
     }
 
-    modifier nonRedundantAgent (address _accountKey, address _recipientKey, address _agentKey) {
-        require (_accountKey != _recipientKey && 
+    modifier nonRedundantAgent (address _recipientKey, address _agentKey) {
+        require (msg.sender != _recipientKey && 
                  _recipientKey != _agentKey && 
-                 _accountKey != _agentKey , "_accountKey, _recipientKey and _agentKey must be Mutually Exclusive)");
+                 msg.sender != _agentKey , "_accountKey, _recipientKey and _agentKey must be Mutually Exclusive)");
         _;
     }
 }

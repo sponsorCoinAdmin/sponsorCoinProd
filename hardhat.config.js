@@ -20,7 +20,7 @@ module.exports = {
   },
     sepolia: {
       url: process.env.SEPOLIA_ALCHEMY_RPC_TESTNET,
-      accounts: [process.env.SEPOLIA_ACCOUNT_1_PRIVATE_KEY]
+      accounts: [process.env.SEPOLIA_ACCOUNT_3_PRIVATE_KEY]
   }
 },
   etherscan: {

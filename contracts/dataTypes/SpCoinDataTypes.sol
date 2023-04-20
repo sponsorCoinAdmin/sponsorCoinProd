@@ -63,6 +63,7 @@ contract SpCoinDataTypes {
     struct AccountStruct {
         address accountKey;
         uint256 balanceOf;
+        uint256 decimals;
         uint256 insertionTime;
         uint256 stakedSPCoins; // Coins Owned but steaked to recipients
         bool inserted;

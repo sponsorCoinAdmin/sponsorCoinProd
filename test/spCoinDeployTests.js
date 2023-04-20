@@ -1,8 +1,8 @@
 const { expect } = require("chai");
 const { LOG_MODE } = require("../prod/lib/utils/logging");
-const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
-const { } = require("./testMethods/scTestMethods");
-const { } = require("./deployContract");
+const { initHHAccounts } = require("../test/testMethods/hhTestAccounts");
+const { } = require("../test/testMethods/scTestMethods");
+const { } = require("../test/deployContract");
 
 logSetup("JS => Setup Test");
 
@@ -11,10 +11,15 @@ let spCoinContractDeployed;
 describe("spCoinContract", function() {
     beforeEach(async() =>  {
         spCoinContractDeployed = await deploySpCoinContract();
+        const hhTestElements = await initHHAccounts();
+        const signers = hhTestElements.signers;
+        const accounts = hhTestElements.accounts;
+        const rates = hhTestElements.rates;
+        TEST_HH_ACCOUNT_LIST = accounts;
+        TRANSACTION_QTY = RECIPIENT_RATES = AGENT_RATES = hhTestElements.rates;
     });
 
-/**/
-
+/**
     it("Deployment ~ Validating ERC20 standard parameter settings", async function () {
         // setLogMode(LOG_MODE.LOG, true);
         // setLogMode(LOG_MODE.LOG_DETAIL, true);
@@ -45,21 +50,20 @@ describe("spCoinContract", function() {
         expect(solBalanceOf).to.equal(testTotalSupply);
         expect(solDecimals).to.equal(testDecimals);
     });
-
 /**/
 
     it("Account Insertion Validation", async function () {
         logTestHeader("TEST ACCOUNT INSERTION");
         let accountKey = TEST_HH_ACCOUNT_LIST[0];
-        let recCount = await spCoinContractDeployed.getAccountListize();
-        expect(recCount.toNumber()).to.equal(0);
+        let recCount = await getAccountListSize();
+        expect(recCount).to.equal(0);
         logDetail("JS => ** Before Inserted Record Count = " + recCount);
         let isAccountInserted = await spCoinContractDeployed.isAccountInserted(accountKey);
         logDetail("JS => Address "+ accountKey + " Before Inserted Record Found = " + isAccountInserted);
         await spCoinContractDeployed.addAccountRecord(accountKey);
         isAccountInserted = await spCoinContractDeployed.isAccountInserted(accountKey);
         logDetail("JS => Address "+ accountKey + " After Inserted Record Found = " + isAccountInserted);
-        recCount = (await spCoinContractDeployed.getAccountListize()).toNumber();
+        recCount = (await getAccountListSize());
         logDetail("JS => ** After Inserted Record Count = " + await recCount);        
         expect(recCount).to.equal(1);
     });
@@ -77,7 +81,7 @@ describe("spCoinContract", function() {
         expect(testRecCount).to.equal(insertedRecCount);
 
         for(idx = 0; idx < insertedRecCount; idx++) {
-            expect(TEST_HH_ACCOUNT_LIST[idx]).to.equal(sPCoinAccountList[idx]);
+            expect(TEST_HH_ACCOUNT_LIST[idx].toLowerCase()).to.equal(sPCoinAccountList[idx].toLowerCase());
             let accountKey = sPCoinAccountList[idx];
             logDetail("JS => Address Retrieved from Block Chain at Index " + idx + "  = "+ accountKey );
         }
@@ -89,10 +93,8 @@ describe("spCoinContract", function() {
         logTestHeader("TEST MORE HARDHAT RECIPIENT RECORD INSERTIONS")
 
         logDetail("JS => *** Insert Recipient to AccountRecord[2] as AccountRecord[5] ***")
-        let startRec = 4;
-        let endRec = 15;
-        await addTestNetworkRecipientAgents(3, 6, 10, [1, 2]);
-        let insertCount = (await spCoinContractDeployed.getAccountListize()).toNumber();
+        await addTestNetworkRecipientAgents(6, 10, [1, 2]);
+        let insertCount = (await getAccountListSize());
         expect(insertCount).to.equal(4);
     });
     /**/

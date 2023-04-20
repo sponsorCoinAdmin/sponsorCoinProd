@@ -10,10 +10,13 @@ contract Accounts is StructSerialization {
     /// @param _accountKey public accountKey to set new balance
     function addAccountRecord(address _accountKey)
         public onlyOwnerOrRootAdmin(_accountKey) {
+            // console.log("addAccountRecord ", _accountKey);
+            // console.log("msg.sender = ", msg.sender);
         if (!isAccountInserted(_accountKey)) {
             AccountStruct storage accountRec = accountMap[_accountKey];
             accountRec.accountKey = _accountKey;
             accountRec.insertionTime = block.timestamp;
+            accountRec.decimals = decimals;
             accountRec.stakedSPCoins = 0;
             accountRec.inserted = true;
             AccountList.push(_accountKey);
@@ -30,38 +33,11 @@ contract Accounts is StructSerialization {
             return false;
     }
 
-    /// @notice retreives the number of accounts inserted.
-    function getAccountListize() public view returns (uint) {
-        return AccountList.length;
-    }
-
     /// @notice retreives array list AccountList.
     function getAccountList() public view returns (address[] memory) {
         return AccountList;
     }
 
-    ////////////////////// SPONSOR REQUESTS //////////////////////////////
-
-    /*
-    /// @notice retreives the recipient array records for the Sponsor list
-    /// @param _accountKey public account key to get Recipient Record Length
-    function getAccountSponsorKeys(address _accountKey) public view 
-        onlyOwnerOrRootAdmin(_accountKey) returns (address[] memory) {
-        AccountStruct storage account = accountMap[_accountKey];
-        address[] storage sponsorAccountList = account.sponsorAccountList;
-        return sponsorAccountList;
-    }
-
-    /////////////////////////// RECIPIENT REQUESTS //////////////////////////////
-
-    /// @notice retreives the recipient array records for the Sponsor list
-    /// @param _accountKey public account key to get Recipient Record Length
-    function getAccountParentRecipientKeys(address _accountKey) public onlyOwnerOrRootAdmin(_accountKey) view returns (address[] memory) {
-        AccountStruct storage account = accountMap[_accountKey];
-        address[] storage parentRecipientAccountList = account.parentRecipientAccountList;
-        return parentRecipientAccountList;
-    }
-*/
     /////////////////////////// AGENT REQUESTS //////////////////////////////
  
     /// @notice retreives the recipients of a specific address.
@@ -69,7 +45,7 @@ contract Accounts is StructSerialization {
     function getRecipientKeys(address _sponsorKey) public onlyOwnerOrRootAdmin(_sponsorKey) view returns (address[] memory) {
         return accountMap[_sponsorKey].recipientAccountList;
     }
-  
+
     function getAccountListIndex (address _accountKey, 
         address[] storage _accountKeyList) internal view
         accountExists(_accountKey) returns (uint) {

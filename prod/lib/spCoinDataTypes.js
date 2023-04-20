@@ -29,7 +29,7 @@ class RecipientStruct {
 
 class RecipientRateStruct {
   constructor() {
-    this.TYPE = "--RECIPIENT_RATE--";
+    this.TYPE = "--RECIPIENT_RATES--";
     this.recipientRate;
     this.stakedSPCoins;
     this.insertionTime;
@@ -53,7 +53,7 @@ class AgentStruct {
 
 class AgentRateStruct {
   constructor() {
-    this.TYPE = "--AGENT_RATE--";
+    this.TYPE = "--AGENT_RATES--";
     this.agentRate;
     this.stakedSPCoins;
     this.insertionTime;

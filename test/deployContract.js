@@ -31,15 +31,16 @@ const {
 
     logSetup("JS => spCoinContract retrieved from Factory");
     let spCoinContract = await hre.ethers.getContractFactory("SPCoin");
-
+    
     logSetup("JS => Deploying spCoinContract to Network");
     spCoinContractDeployed = await spCoinContract.deploy();
     logSetup("JS => spCoinContract is currently being mined");
 
     await spCoinContractDeployed.deployed();
     logSetup("JS => spCoinContract is mined and Deployed to the BlockChain Network");
-//    let msgSender = await spCoinContractDeployed.msgSender();
-     return spCoinContractDeployed;
+
+    // let msgSender = await spCoinContractDeployed.msgSender();
+    return spCoinContractDeployed;
 }
 
 module.exports = {

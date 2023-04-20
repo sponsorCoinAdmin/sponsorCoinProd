@@ -23,14 +23,16 @@ contract StructSerialization is Utils {
         );
         string memory balanceOf = concat(
             "balanceOf: ",
-            toString(_accountRec.balanceOf)
+            toString(balanceOf[_accountRec.accountKey])
         );
-
+        string memory decimals = concat(
+            "decimals: ",
+            toString(_accountRec.decimals)
+        );
         string memory stakedSPCoins = concat(
             "stakedSPCoins: ",
             toString(_accountRec.stakedSPCoins)
         );
-
         string memory verified = concat(
             "verified: ",
             toString(_accountRec.verified)
@@ -47,13 +49,10 @@ contract StructSerialization is Utils {
             )
         );
         seralized = concat(seralized, delimiter, balanceOf);
+        seralized = concat(seralized, delimiter, decimals);
 
         seralized = concat(seralized, delimiter, stakedSPCoins);
 
-        // console.log("AAAAAAAAAAAAAAAAAAAAAAA sponsorAccountList.length = ", _accountRec.sponsorAccountList.length);
-        // console.log("BBBBBBBBBBBBBBBBBBBBBBB recipientAccountList.length = ", _accountRec.recipientAccountList.length);
-        // console.log("CCCCCCCCCCCCCCCCCCCCCCC agentAccountList.length = ", _accountRec.agentAccountList.length);
-        // console.log("DDDDDDDDDDDDDDDDDDDDDDD parentRecipientAccountList.length = ", _accountRec.parentRecipientAccountList.length);
         string memory sponsorAccountList = toString(_accountRec.sponsorAccountList);
         string memory recipientAccountList = toString(_accountRec.recipientAccountList);
         string memory agentAccountList = toString(_accountRec.agentAccountList);
