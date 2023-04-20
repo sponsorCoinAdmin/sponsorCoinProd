@@ -111,7 +111,7 @@ getRecipientRecordByKeys = async(_recipientKey) => {
   recipientRecord.stakedSPCoins = hexToDecimal(recordStr[1]);
 
   // ToDo New Robin
-  recipientRecord.recipientRateList2 = await getRecipientRatesByKeys(_recipientKey);
+  recipientRecord.recipientRateList = await getRecipientRatesByKeys(_recipientKey);
   return recipientRecord;
 }
 
@@ -119,13 +119,13 @@ getRecipientRatesByKeys = async(_recipientKey) => {
   // console.log("HERE 9");
   logFunctionHeader("getAgentRatesByKeys = async(" + _recipientKey+ ", " + ")");
   let networkRateList = await getRecipientRateList(_recipientKey);
-  let recipientRateList2 = [];
+  let recipientRateList = [];
   for (let [idx, recipientRateKey] of Object.entries(networkRateList)) {
     //log("JS => Loading Recipient Rates " + recipientRateKey + " idx = " + idx);
     let recipientRateRecord = await deSerializeRecipientRateRecordByKeys(_recipientKey, recipientRateKey);
-    recipientRateList2.push(recipientRateRecord);
+    recipientRateList.push(recipientRateRecord);
   }
-  return recipientRateList2;
+  return recipientRateList;
 }
 
 getRecipientRateList = async(_recipientKey) => {
