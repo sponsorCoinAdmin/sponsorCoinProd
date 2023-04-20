@@ -55,6 +55,8 @@ contract SpCoinDataTypes {
 
     mapping(address => AccountStruct) accountMap;
 
+    uint JUNK_COUNTER = 0;
+
     struct arrayMappedData {
         address[] AccountList;
         mapping(address => AccountStruct) accountMap;

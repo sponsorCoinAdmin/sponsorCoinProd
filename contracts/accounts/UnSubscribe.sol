@@ -9,13 +9,15 @@ contract UnSubscribe is Transactions {
     /// @notice Remove all recipientship relationships for Sponsor and Recipient accounts
     /// @param _recipientKey Recipient to be removed from the Recipient relationship
     function deleteSponsorRecipientRecord(address _recipientKey)  
-        public onlyOwnerOrRootAdmin(msg.sender)
+        public onlyOwnerOrRootAdmin("deleteSponsorRecipientRecord", msg.sender)
         accountExists(msg.sender)
         accountExists(_recipientKey)
         nonRedundantRecipient (_recipientKey) {
+console.log(JUNK_COUNTER++,"deleteSponsorRecipientRecord"); 
 
         AccountStruct storage sponsorAccount = accountMap[msg.sender];
         if (deleteAccountRecordFromSearchKeys(_recipientKey, sponsorAccount.recipientAccountList)) {
+console.log(JUNK_COUNTER++,"deleteSponsorRecipientRecord 2"); 
             RecipientStruct storage recipientRecord = sponsorAccount.recipientMap[_recipientKey];
             uint256 totalSponsored = recipientRecord.stakedSPCoins;
             AccountStruct storage recipientAccount = accountMap[recipientRecord.recipientKey];
@@ -55,7 +57,7 @@ contract UnSubscribe is Transactions {
             address agentKey = agentAccountList[i];
             AgentStruct storage agentRec = recipientRateRecord.agentMap[agentKey];
 
-            // console.log("***** Deleting recipientAccount.accountKey ", recipientAccount.accountKey,
+            // console.log(JUNK_COUNTER++,"Deleting recipientAccount.accountKey ", recipientAccount.accountKey,
             //  "From agentRec.agentKey ", agentRec.agentKey);
             deleteAccountRecordFromSearchKeys(recipientAccount.accountKey, accountMap[agentKey].parentRecipientAccountList);
 
@@ -122,7 +124,7 @@ contract UnSubscribe is Transactions {
 
     function deleteAccountRecordInternal(address _accountKey) internal
     accountExists(_accountKey) 
-    onlyOwnerOrRootAdmin(_accountKey) {
+    onlyOwnerOrRootAdmin("deleteAccountRecordInternal", _accountKey) {
 
         // console.log("*** deleteAccountRecordInternal(", _accountKey,")");
         // console.log("accountMap[",_accountKey,"].sponsorAccountList.length =", accountMap[_accountKey].sponsorAccountList.length);
@@ -145,7 +147,7 @@ contract UnSubscribe is Transactions {
    
     function deleteAccountRecord(address _accountKey) public
         accountExists(_accountKey) 
-        onlyOwnerOrRootAdmin(_accountKey)
+        onlyOwnerOrRootAdmin("deleteAccountRecord", _accountKey)
         sponsorDoesNotExist(_accountKey)
         parentrecipientDoesNotExist(_accountKey)
         recipientDoesNotExist(_accountKey) 

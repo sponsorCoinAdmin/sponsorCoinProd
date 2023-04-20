@@ -9,10 +9,11 @@ contract Accounts is StructSerialization {
     /// @notice insert block chain network address for spCoin Management
     /// @param _accountKey public accountKey to set new balance
     function addAccountRecord(address _accountKey)
-        public onlyOwnerOrRootAdmin(_accountKey) {
+        public {
             // console.log("addAccountRecord ", _accountKey);
             // console.log("msg.sender = ", msg.sender);
-        if (!isAccountInserted(_accountKey)) {
+// console.log(JUNK_COUNTER++," addAccountRecord"); 
+            if (!isAccountInserted(_accountKey)) {
             AccountStruct storage accountRec = accountMap[_accountKey];
             accountRec.accountKey = _accountKey;
             accountRec.insertionTime = block.timestamp;
@@ -26,7 +27,7 @@ contract Accounts is StructSerialization {
     /// @notice determines if address Record is inserted in accountKey array
     /// @param _accountKey public accountKey validate Insertion
     function isAccountInserted(address _accountKey)
-        public view onlyOwnerOrRootAdmin(_accountKey) returns (bool) {
+        public view returns (bool) {
         if (accountMap[_accountKey].inserted) 
             return true;
         else
@@ -42,7 +43,8 @@ contract Accounts is StructSerialization {
  
     /// @notice retreives the recipients of a specific address.
     /// @param _sponsorKey public account key to set new balance
-    function getRecipientKeys(address _sponsorKey) public onlyOwnerOrRootAdmin(_sponsorKey) view returns (address[] memory) {
+    function getRecipientKeys(address _sponsorKey) 
+    public onlyOwnerOrRootAdmin("getRecipientKeys", _sponsorKey) view returns (address[] memory) {
         return accountMap[_sponsorKey].recipientAccountList;
     }
 
@@ -67,7 +69,7 @@ contract Accounts is StructSerialization {
     /// @notice retreives the account record of a specific accountKey address.
     /// @param _accountKey public accountKey to set new balance
     function getSerializedAccountRecord(address _accountKey)
-        public view onlyOwnerOrRootAdmin(_accountKey)
+        public view onlyOwnerOrRootAdmin("getSerializedAccountRecord", _accountKey)
         returns (string memory)
     {
         require(isAccountInserted(_accountKey));

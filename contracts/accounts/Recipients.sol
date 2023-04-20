@@ -12,10 +12,14 @@ contract Recipients is Accounts {
     /// @param _recipientKey new recipient to add to account list
     function addRecipient(address _recipientKey) 
         public nonRedundantRecipient (_recipientKey) {
+console.log(JUNK_COUNTER++,"addRecipient"); 
         RecipientStruct storage recipientRecord = getRecipientRecordByKeys(_recipientKey);
+        console.log(JUNK_COUNTER++,"addRecipient 1"); 
         if (!recipientRecord.inserted) {
+console.log(JUNK_COUNTER++,"addRecipient 2"); 
             addAccountRecord(msg.sender);
             addAccountRecord(_recipientKey);
+console.log(JUNK_COUNTER++,"addRecipient 3"); 
             recipientRecord.insertionTime = block.timestamp;
             recipientRecord.sponsorKey = msg.sender;
             recipientRecord.recipientKey = _recipientKey;
@@ -23,6 +27,7 @@ contract Recipients is Accounts {
             recipientRecord.inserted = true;
             accountMap[msg.sender].recipientAccountList.push(_recipientKey);
             accountMap[_recipientKey].sponsorAccountList.push(msg.sender);
+console.log(JUNK_COUNTER++,"addRecipient 4"); 
         }
     }
 
@@ -31,7 +36,8 @@ contract Recipients is Accounts {
     /// @param _sponsorKey public account key validate Insertion
     /// @param _recipientKey public recipient account key validate Insertion
     /// @param _recipientRateKey public agent account key validate Insertion
-    function isAgentRateInserted(address _sponsorKey,address _recipientKey, uint _recipientRateKey, address _agentKey) public onlyOwnerOrRootAdmin(_sponsorKey) view returns (bool) {
+    function isAgentRateInserted(address _sponsorKey,address _recipientKey, uint _recipientRateKey, address _agentKey) 
+    public onlyOwnerOrRootAdmin("isAgentRateInserted", _sponsorKey) view returns (bool) {
         return getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey).inserted;
     }
 */
@@ -58,7 +64,8 @@ contract Recipients is Accounts {
 
     /// @notice retreives the recipient array records from a specific account address.
     /// @param _recipientKey recipient Key to retrieve the recipient list
-    function getRecipientRateList(address _recipientKey) public view onlyOwnerOrRootAdmin(_recipientKey) returns (uint[] memory) {
+    function getRecipientRateList(address _recipientKey)
+     public view onlyOwnerOrRootAdmin(",getRecipientRateList", _recipientKey) returns (uint[] memory) {
         RecipientStruct storage recipientRecord = getRecipientRecordByKeys(_recipientKey);
         uint[] memory recipientRateList = recipientRecord.recipientRateList;
     // console.log("AGENTS.SOL:addAgent: _sponsorKey, _recipientKey, _recipientRateKey, _recipientKey = " , _sponsorKey, _recipientKey, _recipientRateKey, _recipientKey);

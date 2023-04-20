@@ -90,7 +90,7 @@ addAccountRecords = async (_accountListKeys) => {
 //////////////////// ADD TRANSACTIONS METHODS //////////////////////
 
 addAgentTransaction = async (
-  _accountKey,
+  _sponsorKey,
   _recipientKey,
   _recipientRateKey,
   _accountAgentKey,
@@ -98,7 +98,7 @@ addAgentTransaction = async (
   _transactionQty ) => {
     logFunctionHeader(
       "addAgentTransaction = async(" + 
-      _accountKey + ", " + 
+      _sponsorKey + ", " + 
       _recipientKey + ", " + 
       _recipientRateKey + ", " + 
       _accountAgentKey + ", " +
@@ -111,8 +111,9 @@ addAgentTransaction = async (
     let transactionQty = Math.round(_transactionQty * (10 ** decimals));
     signers = await ethers.getSigners();
 
-    await spCoinContractDeployed.connect(signers[0]).addAgentTransaction(
-    _recipientKey,
+    // await spCoinContractDeployed.connect(signers[7]).addAgentTransaction(
+    await spCoinContractDeployed.connect(_sponsorKey).addAgentTransaction(
+        _recipientKey,
     _recipientRateKey,
     _accountAgentKey,
     _agentRateKey,

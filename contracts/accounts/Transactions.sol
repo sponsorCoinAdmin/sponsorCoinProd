@@ -7,8 +7,9 @@ contract Transactions is AgentRates {
     constructor() { }
 
     function addAgentTransaction(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey, uint256 _transAmount)
-    public onlyOwnerOrRootAdmin(msg.sender) {
+    public onlyOwnerOrRootAdmin("addAgentTransaction", msg.sender) {
         // console.log("**** Transaction.sol:ADDING RATE REC = ",_agentRateKey, "ADDING TRANSACTION = ",_transAmount);
+console.log(JUNK_COUNTER++,"addAgentTransaction"); 
         uint256 transactionTimeStamp = block.timestamp;
         addAgentRateRecord(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
     

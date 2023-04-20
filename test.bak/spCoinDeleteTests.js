@@ -1,11 +1,11 @@
 const { expect } = require("chai");
-const { initHHAccounts } = require("./testMethods/hhTestAccounts");
+const { initHHAccounts } = require("../test/testMethods/hhTestAccounts");
 const { LOG_MODE } = require("../prod/lib/utils/logging");
-const { } = require("./testMethods/scTestMethods");
+const { } = require("../test/testMethods/scTestMethods");
 const { } = require("../prod/lib/spCoinReadMethods");
 const { } = require("../prod/lib/spCoinDeleteMethods");
-const { } = require("./testMethods/scTestMethods");
-const { } = require("./deployContract");
+const { } = require("../test/testMethods/scTestMethods");
+const { } = require("../test/deployContract");
 
 let spCoinContractDeployed;
 

@@ -22,7 +22,8 @@ contract Security is SpCoinDataTypes {
     }
 
 
-    modifier onlyOwnerOrRootAdmin (address _account) {
+    modifier onlyOwnerOrRootAdmin (string memory callingMethod, address _account) {
+        console.log(callingMethod, " => onlyOwnerOrRootAdmin (", _account, msg.sender);
         require (msg.sender == rootAdmin || msg.sender == _account, "Owner or Root Admin Security Access Violation");
         _;
     }

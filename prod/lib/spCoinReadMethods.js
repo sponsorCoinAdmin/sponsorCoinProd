@@ -118,9 +118,9 @@ getRecipientRecordByKeys = async(_recipientKey) => {
 getRecipientRatesByKeys = async(_recipientKey) => {
   // console.log("HERE 9");
   logFunctionHeader("getAgentRatesByKeys = async(" + _recipientKey+ ", " + ")");
-  let recipientRateList = await getRecipientRateList(_recipientKey);
+  let networkRateList = await getRecipientRateList(_recipientKey);
   let recipientRateList2 = [];
-  for (let [idx, recipientRateKey] of Object.entries(recipientRateList)) {
+  for (let [idx, recipientRateKey] of Object.entries(networkRateList)) {
     //log("JS => Loading Recipient Rates " + recipientRateKey + " idx = " + idx);
     let recipientRateRecord = await deSerializeRecipientRateRecordByKeys(_recipientKey, recipientRateKey);
     recipientRateList2.push(recipientRateRecord);

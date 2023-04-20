@@ -9,16 +9,21 @@ contract RecipientRates is Recipients {
 
 function addRecipientRate(address _recipientKey, uint _recipientRateKey) 
     public nonRedundantRecipient (_recipientKey) {
+console.log(JUNK_COUNTER++,"addRecipientRate", _recipientKey, _recipientRateKey); 
         addRecipient(_recipientKey);
+console.log(JUNK_COUNTER++,"addRecipientRate 1"); 
 
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_recipientKey, _recipientRateKey);
+console.log(JUNK_COUNTER++,"addRecipientRate 2"); 
         if (!recipientRateRecord.inserted) {
+console.log(JUNK_COUNTER++,"addRecipientRate 3"); 
             RecipientStruct storage recipientRecord = getRecipientRecordByKeys(_recipientKey);
             recipientRateRecord.recipientRate = _recipientRateKey;
             recipientRateRecord.inserted = true;
             recipientRateRecord.insertionTime = recipientRateRecord.lastUpdateTime = block.timestamp;
             recipientRateRecord.stakedSPCoins = 0;
             recipientRecord.recipientRateList.push(_recipientRateKey);
+console.log(JUNK_COUNTER++,"addRecipientRate 4"); 
         } 
     }
 

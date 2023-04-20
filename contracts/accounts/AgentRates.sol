@@ -13,9 +13,11 @@ contract AgentRates is Agents {
     /// @param _agentKey new recipient to add to account list 
     function addAgentRateRecord(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey) public 
         {
+console.log(JUNK_COUNTER++,"addAgentRateRecord"); 
         addAgent(_recipientKey, _recipientRateKey, _agentKey);
         AgentRateStruct storage agentRateRecord= getAgentRateRecordByKeys(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
         if (!agentRateRecord.inserted) {
+console.log(JUNK_COUNTER++,"addAgentRateRecord 2"); 
             AgentStruct storage agentRecord = getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey);
             agentRateRecord.agentRate = _agentRateKey;
             agentRateRecord.inserted = true;

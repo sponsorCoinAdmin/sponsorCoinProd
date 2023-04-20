@@ -26,21 +26,21 @@ describe("spCoinContract", function () {
     SPONSOR_ACCOUNT_KEYS = signers;
     RECIPIENT_ACCOUNT_KEYS = AGENT_ACCOUNT_KEYS = accounts;
     TRANSACTION_QTY = RECIPIENT_RATES = AGENT_RATES = hhTestElements.rates;
-    log("=== SIGNERS ==========================================");
-    logJSON(signers);
-  // signers = await ethers.getSigners();
-    log("=== ACCOUNTS ==========================================");
-    logJSON(accounts);
-    log("=== SIGNERS 1 ========================================");
-    logJSON(signers[1]);
-    [deployer, account0, account1] = await ethers.getSigners();
-    log("=== DEPLOYER =========================================");
-    logJSON(deployer);
-    log("=== ACCOUNT 0 ========================================");
-    logJSON(account0);
-    log("=== ACCOUNT 1 ========================================");
-    logJSON(account1);
-    log("=== ACCOUNT ADDRESS========================================");
+  //   log("=== SIGNERS ==========================================");
+  //   logJSON(signers);
+  // // signers = await ethers.getSigners();
+  //   log("=== ACCOUNTS ==========================================");
+  //   logJSON(accounts);
+  //   log("=== SIGNERS 1 ========================================");
+  //   logJSON(signers[1]);
+  //   [deployer, account0, account1] = await ethers.getSigners();
+  //   log("=== DEPLOYER =========================================");
+  //   logJSON(deployer);
+  //   log("=== ACCOUNT 0 ========================================");
+  //   logJSON(account0);
+  //   log("=== ACCOUNT 1 ========================================");
+  //   logJSON(account1);
+  //   log("=== ACCOUNT ADDRESS========================================");
   });
 
  it("2. VALIDATE ADD TRANSACTION RATES", async function () {
@@ -50,13 +50,38 @@ describe("spCoinContract", function () {
   // Recipient Accounts to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
   await addAgentTransaction(
-      SPONSOR_ACCOUNT_KEYS[0],
-      RECIPIENT_ACCOUNT_KEYS[1],
-      RECIPIENT_RATES[9],
-      AGENT_ACCOUNT_KEYS[2],
-      AGENT_RATES[1],
-      100
-    );
+    SPONSOR_ACCOUNT_KEYS[3],
+    RECIPIENT_ACCOUNT_KEYS[1],
+    RECIPIENT_RATES[9],
+    AGENT_ACCOUNT_KEYS[2],
+    AGENT_RATES[1],
+    100
+  );
+  // await addAgentTransaction(
+  //   SPONSOR_ACCOUNT_KEYS[3],
+  //   RECIPIENT_ACCOUNT_KEYS[1],
+  //   RECIPIENT_RATES[9],
+  //   AGENT_ACCOUNT_KEYS[2],
+  //   AGENT_RATES[1],
+  //   100
+  // );
+
+  // await addAgentTransaction(
+  //   SPONSOR_ACCOUNT_KEYS[12],
+  //   RECIPIENT_ACCOUNT_KEYS[1],
+  //   RECIPIENT_RATES[9],
+  //   AGENT_ACCOUNT_KEYS[2],
+  //   AGENT_RATES[1],
+  //   100
+  // );
+  // await addAgentTransaction(
+  //   SPONSOR_ACCOUNT_KEYS[9],
+  //   RECIPIENT_ACCOUNT_KEYS[1],
+  //   RECIPIENT_RATES[9],
+  //   AGENT_ACCOUNT_KEYS[2],
+  //   AGENT_RATES[1],
+  //   100
+  // );
 
     // await addAgentTransaction(
     //   SPONSOR_ACCOUNT_KEYS[1],
