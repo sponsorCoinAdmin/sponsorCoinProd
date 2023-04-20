@@ -2,23 +2,31 @@ const { TEST_HH_ACCOUNT_LIST } = require("./hhTestAccounts");
 const {} = require("../../prod//lib/spCoinAddMethods");
 const {} = require("../../prod//lib/spCoinReadMethods");
 const {} = require("../../prod//lib/utils/logging");
+let hhTestElements = undefined;
+
 
 getTestHHAccountKey = async (idx) => {
-  return TEST_HH_ACCOUNT_LIST[idx].toLowerCase();
+  if (hhTestElements === undefined) {
+     hhTestElements = await initHHAccounts();
+  }
+  const signers = hhTestElements.signers;
+  const accounts = hhTestElements.accounts;
+  const rates = hhTestElements.rates;
+  return accounts[idx];
 }
 
 //////////////////////////// TEST ACCOUNT METHODS ////////////////////////////
 
 addTestNetworkAccount = async (_accountIdx) => {
   logFunctionHeader("addTestNetworkAccount = async (" + _accountIdx + ")");
-  let accountKey = getTestHHAccountKey(_accountIdx);
+  let accountKey = await getTestHHAccountKey(_accountIdx);
   logDetail("JS => For Adding Account Record: " + accountKey );
   await addAccountRecord(accountKey);
 };
 
 addTestNetworkAccounts = async (_AccountList) => {
   logFunctionHeader("addTestNetworkAccounts = async (" + _AccountList + ")");
-  let testHHAccountList = getTestHHAccountListKeys(_AccountList);
+  let testHHAccountList = await getTestHHAccountListKeys(_AccountList);
   logDetail("JS => For Adding Account Records: " + testHHAccountList );
   await addAccountRecords(testHHAccountList);
 };
@@ -28,8 +36,8 @@ addTestNetworkAccounts = async (_AccountList) => {
 addTestNetworkRecipient = async (_accountIdx, _recipientIdx) => {
   logFunctionHeader("addTestNetworkRecipient = async (" + _accountIdx + ", " + _recipientIdx + ")");
 
-  let accountKey = getTestHHAccountKey(_accountIdx);
-  let recipientKey = getTestHHAccountKey(_recipientIdx);  
+  let accountKey = await getTestHHAccountKey(_accountIdx);
+  let recipientKey = await getTestHHAccountKey(_recipientIdx);  
   logDetail("JS => For Account: " + accountKey + " Inserting Recipient Records");
   logDetail(recipientKey);
   await addRecipient(recipientKey);
@@ -38,8 +46,8 @@ addTestNetworkRecipient = async (_accountIdx, _recipientIdx) => {
 addTestNetworkRecipients = async (_accountIdx, _recipientAccountListIdx) => {
   logFunctionHeader("addTestNetworkRecipients = async (" + _accountIdx + ", " + _recipientAccountListIdx + ")");
 
-  let accountKey = getTestHHAccountKey(_accountIdx);
-  let recipientAccountList = getTestHHAccountListKeys(_recipientAccountListIdx);
+  let accountKey = await getTestHHAccountKey(_accountIdx);
+  let recipientAccountList = await getTestHHAccountListKeys(_recipientAccountListIdx);
   logDetail("JS => For Account: " + accountKey + " Inserting Recipient Records:");
   logDetail(recipientAccountList);
   await addRecipients(accountKey, recipientAccountList);
@@ -49,36 +57,36 @@ addTestNetworkRecipients = async (_accountIdx, _recipientAccountListIdx) => {
 
 addTestNetworkRecipientAgents = async (_recipientIdx, _recipientRateKey, _agentListIdx ) => {
   logFunctionHeader("async (" + _recipientIdx + "," + _agentListIdx+ ")");
-  let recipientKey = getTestHHAccountKey(_recipientIdx);
-  let agentAccountList = getTestHHAccountListKeys(_agentListIdx);
+  let recipientKey = await getTestHHAccountKey(_recipientIdx);
+  let agentAccountList = await getTestHHAccountListKeys(_agentListIdx);
   await addAgents(recipientKey, _recipientRateKey, agentAccountList);
   return recipientKey;
 };
 
 addTestNetworkAccount = async (_testHHAccountIdx) => {
   logFunctionHeader("async (" + _testHHAccountIdx+ ")");
-  let accountKey = getTestHHAccountKey(_testHHAccountIdx);
+  let accountKey = await getTestHHAccountKey(_testHHAccountIdx);
   await addAccountRecord(accountKey);
   return accountKey;
 };
 
-getTestHHAccountListKeys = (testAccountIdxArr) => {
-  logFunctionHeader("getTestHHAccountListKeys (" + testAccountIdxArr + ")");
+getTestHHAccountListKeys = async (testAccountIdxArr) => {
+  logFunctionHeader("await getTestHHAccountListKeys (" + testAccountIdxArr + ")");
   let AccountListKeys = [];
   for (let i = 0; i < testAccountIdxArr.length; i++) {
-    AccountListKeys.push(getTestHHAccountKey(testAccountIdxArr[i]));
+    AccountListKeys.push(await getTestHHAccountKey(testAccountIdxArr[i]));
   }
   return AccountListKeys;
 };
 
-getTestHHAccountRecord = (testHHAccountIdx) => {
-  testHHAccountKey = getTestHHAccountKey(testHHAccountIdx);
+getTestHHAccountRecord = async (testHHAccountIdx) => {
+  testHHAccountKey = await getTestHHAccountKey(testHHAccountIdx);
   testHHAccountRecord = getAccountRecord(testHHAccountKey);
   return testHHAccountRecord;
 }
 
-logTestHHAccountRecord = (testHHAccountIdx) => {
-  testHHAccountKey = getTestHHAccountKey(testHHAccountIdx);
+logTestHHAccountRecord = async (testHHAccountIdx) => {
+  testHHAccountKey = await getTestHHAccountKey(testHHAccountIdx);
   testHHAccountRecord = logJSONAccount(testHHAccountKey);
   return testHHAccountRecord;
 }
@@ -87,14 +95,14 @@ logTestHHAccountRecord = (testHHAccountIdx) => {
 
 deleteTestNetworkAccount = async (_testHHAccountIdx) => {
   logFunctionHeader("async (" + _testHHAccountIdx+ ")");
-  let accountKey = getTestHHAccountKey(_testHHAccountIdx);
+  let accountKey = await getTestHHAccountKey(_testHHAccountIdx);
   await deleteAccountRecord(accountKey);
   return accountKey;
 };
 
 deleteTestNetworkAccounts = async (_testHHAccountArr) => {
   logFunctionHeader("async (" + _testHHAccountArr+ ")");
-  testHHAccountList = getTestHHAccountListKeys(_testHHAccountArr);
+  testHHAccountList = await getTestHHAccountListKeys(_testHHAccountArr);
   await deleteAccountRecords(testHHAccountList);
 };
 
@@ -102,13 +110,13 @@ deleteTestNetworkAccounts = async (_testHHAccountArr) => {
 
 deleteTestRecipient = async (_recipientIdx) => {
   logFunctionHeader("deleteTestRecipient(" + _sponsorIdx + ", " + _recipientIdx + ")");
-  let recipientKey = getTestHHAccountKey(_recipientIdx);
+  let recipientKey = await getTestHHAccountKey(_recipientIdx);
   await deleteRecipientRecord(recipientKey);
 }
 
 deleteTestNetworkRecipients = async (_testHHAccountIdx) => {
   logFunctionHeader("async (" + _testHHAccountIdx+ ")");
-  let accountKey = getTestHHAccountKey(_testHHAccountIdx);
+  let accountKey = await getTestHHAccountKey(_testHHAccountIdx);
   await (accountKey);
   return accountKey;
 };
@@ -116,7 +124,7 @@ deleteTestNetworkRecipients = async (_testHHAccountIdx) => {
 /*
 deleteTestNetworkRecipientAgents = async (_testHHAccountIdx) => {
   logFunctionHeader("async (" + _testHHAccountIdx+ ")");
-  let accountKey = getTestHHAccountKey(_testHHAccountIdx);
+  let accountKey = await getTestHHAccountKey(_testHHAccountIdx);
   await deleteAgentRecords(accountKey);
   return accountKey;
 };

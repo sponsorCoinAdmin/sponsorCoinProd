@@ -1,8 +1,8 @@
 const { expect } = require("chai");
 const { LOG_MODE } = require("../prod/lib/utils/logging");
-const { TEST_HH_ACCOUNT_LIST } = require("./testMethods/hhTestAccounts");
-const { } = require("./testMethods/scTestMethods");
-const { } = require("./deployContract");
+const { initHHAccounts } = require("../test/testMethods/hhTestAccounts");
+const { } = require("../test/testMethods/scTestMethods");
+const { } = require("../test/deployContract");
 
 logSetup("JS => Setup Test");
 
@@ -11,6 +11,12 @@ let spCoinContractDeployed;
 describe("spCoinContract", function() {
     beforeEach(async() =>  {
         spCoinContractDeployed = await deploySpCoinContract();
+        const hhTestElements = await initHHAccounts();
+        const signers = hhTestElements.signers;
+        const accounts = hhTestElements.accounts;
+        const rates = hhTestElements.rates;
+        TEST_HH_ACCOUNT_LIST = accounts;
+        TRANSACTION_QTY = RECIPIENT_RATES = AGENT_RATES = hhTestElements.rates;
     });
 
 /**
@@ -75,7 +81,7 @@ describe("spCoinContract", function() {
         expect(testRecCount).to.equal(insertedRecCount);
 
         for(idx = 0; idx < insertedRecCount; idx++) {
-            expect(TEST_HH_ACCOUNT_LIST[idx]).to.equal(sPCoinAccountList[idx]);
+            expect(TEST_HH_ACCOUNT_LIST[idx].toLowerCase()).to.equal(sPCoinAccountList[idx].toLowerCase());
             let accountKey = sPCoinAccountList[idx];
             logDetail("JS => Address Retrieved from Block Chain at Index " + idx + "  = "+ accountKey );
         }

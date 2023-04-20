@@ -27,10 +27,7 @@ contract Accounts is StructSerialization {
     /// @param _accountKey public accountKey validate Insertion
     function isAccountInserted(address _accountKey)
         public view onlyOwnerOrRootAdmin(_accountKey) returns (bool) {
-            console.log("Current account is ", _accountKey);
-            console.log("msg.sender      is ", msg.sender);
-            console.log("************************************************************");
-            if (accountMap[_accountKey].inserted) 
+        if (accountMap[_accountKey].inserted) 
             return true;
         else
             return false;

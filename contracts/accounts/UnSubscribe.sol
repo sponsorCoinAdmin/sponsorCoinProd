@@ -8,8 +8,8 @@ contract UnSubscribe is Transactions {
     
     /// @notice Remove all recipientship relationships for Sponsor and Recipient accounts
     /// @param _recipientKey Recipient to be removed from the Recipient relationship
-    function deleteRecipientRecord(address _recipientKey)  
-        public 
+    function deleteSponsorRecipientRecord(address _recipientKey)  
+        public onlyOwnerOrRootAdmin(msg.sender)
         accountExists(msg.sender)
         accountExists(_recipientKey)
         nonRedundantRecipient (_recipientKey) {
@@ -147,7 +147,7 @@ contract UnSubscribe is Transactions {
         accountExists(_accountKey) 
         onlyOwnerOrRootAdmin(_accountKey)
         sponsorDoesNotExist(_accountKey)
-        parentRecipientDoesNotExist(_accountKey)
+        parentrecipientDoesNotExist(_accountKey)
         recipientDoesNotExist(_accountKey) 
         balanceOfIsEmpty(_accountKey) {
         if (deleteAccountRecordFromSearchKeys( _accountKey,  AccountList)) {
@@ -166,8 +166,8 @@ contract UnSubscribe is Transactions {
         _;
     }
 
-    modifier parentRecipientDoesNotExist(address _agentKey) {
-        require (accountMap[_agentKey].parentRecipientAccountList.length == 0, "Agent Account has a Parent Recipient, (Sponsor must Un-recipient Recipiented Account)");
+    modifier parentrecipientDoesNotExist(address _accountKey) {
+        require (accountMap[_accountKey].parentRecipientAccountList.length == 0, "Agent Account has a Parent Recipient, (Sponsor must Un-recipient Recipiented Account)");
         _;
     }
 
