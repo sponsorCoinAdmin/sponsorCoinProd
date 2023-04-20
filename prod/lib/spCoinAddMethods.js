@@ -112,7 +112,6 @@ addAgentTransaction = async (
     signers = await ethers.getSigners();
 
     await spCoinContractDeployed.connect(signers[0]).addAgentTransaction(
-    // await spCoinContractDeployed.addAgentTransaction(
     _recipientKey,
     _recipientRateKey,
     _accountAgentKey,

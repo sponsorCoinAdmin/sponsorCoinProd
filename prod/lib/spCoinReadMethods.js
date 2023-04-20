@@ -311,15 +311,6 @@ deSerializeRecipientRateRecordByKeys = async(_recipientKey, _recipientRateKey) =
   return recipientRateRecord;
 }
 
-///////////////////////// CONNECTION FUNCTIONS /////////////////////////
-
-connectAccount = async(_accountKey) => {
-    // let recipientRateRecordStr = await spCoinContractDeployed.connectAccount(_recipientKey, _recipientRateKey);
-    // let connectStr = await spCoinContractDeployed.connectAccount(_accountKey);
-    // spCoinContractDeployed.attach(_accountKey);
-    await spCoinContractDeployed.connect(_accountKey).isAccountInserted(_accountKey);
-    return "connectStr";
-  }
 
 /////////////////////// EXPORT MODULE FUNCTIONS ///////////////////////
 
