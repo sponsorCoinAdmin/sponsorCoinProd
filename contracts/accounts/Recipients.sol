@@ -38,13 +38,7 @@ console.log(JUNK_COUNTER++,"addRecipient ", _recipientKey);
     }
 */
 
-    /// @notice determines if recipient address is inserted in account.recipient.map
-    /// @param _recipientKey public recipient account key validate Insertion
-    function isRecipientInserted(address _recipientKey) public view returns (bool) {
-        return getRecipientRecordByKeys(_recipientKey).inserted;
-    }
-
-    function getRecipientRecordByKeys(address _recipientKey) internal view  returns (RecipientStruct storage) {
+function getRecipientRecordByKeys(address _recipientKey) internal view  returns (RecipientStruct storage) {
 ///////////////// **** WORKING HERE ****
         console.log("XXXX-- Recipients.sol:msg.sender = ",msg.sender);
         console.log("XXXX-- Recipients.sol:getRecipientRecordByKeys(",_recipientKey,")");
@@ -55,7 +49,6 @@ console.log(JUNK_COUNTER++,"addRecipient ", _recipientKey);
     }
 
     function serializeRecipientRecordStr(address _recipientKey) public view returns (string memory) {
-console.log("AAAAAAAAAAAAAAAAAAAAAAAAA");
         RecipientStruct storage recipientRecord =  getRecipientRecordByKeys(_recipientKey);
         string memory recipientRecordStr = toString(recipientRecord.insertionTime);
         string memory stakedSPCoinsStr = toString(recipientRecord.stakedSPCoins);
@@ -68,7 +61,7 @@ console.log("AAAAAAAAAAAAAAAAAAAAAAAAA");
     /// @notice retreives the recipient array records from a specific account address.
     /// @param _recipientKey recipient Key to retrieve the recipient list
     function getRecipientRateList(address _recipientKey)
-     public view onlyOwnerOrRootAdmin("getRecipientRateList", _recipientKey) returns (uint[] memory) {
+     public view  returns (uint[] memory) {
         console.log("Recipients.sol:getRecipientRateList (", _recipientKey, ")");
         RecipientStruct storage recipientRecord = getRecipientRecordByKeys(_recipientKey);
         uint[] memory recipientRateList = recipientRecord.recipientRateList;

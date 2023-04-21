@@ -44,7 +44,7 @@ contract Accounts is StructSerialization {
     /// @notice retreives the recipients of a specific address.
     /// @param _sponsorKey public account key to set new balance
     function getRecipientKeys(address _sponsorKey) 
-    public onlyOwnerOrRootAdmin("getRecipientKeys", _sponsorKey) view returns (address[] memory) {
+    public view returns (address[] memory) {
         return accountMap[_sponsorKey].recipientAccountList;
     }
 
@@ -69,9 +69,7 @@ contract Accounts is StructSerialization {
     /// @notice retreives the account record of a specific accountKey address.
     /// @param _accountKey public accountKey to set new balance
     function getSerializedAccountRecord(address _accountKey)
-        public view onlyOwnerOrRootAdmin("getSerializedAccountRecord", _accountKey)
-        returns (string memory)
-    {
+        public view returns (string memory) {
         require(isAccountInserted(_accountKey));
         return serializeAccount(accountMap[_accountKey]);
     }
