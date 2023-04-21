@@ -10,6 +10,7 @@ const {
   } = require("../prod/lib/utils/logging");
 
   let spCoinContractDeployed;
+  let signers;
 
   deploySpCoinContract = async () => {
     spCoinContractDeployed = await deployContract();
@@ -18,10 +19,21 @@ const {
   }
 
   injectContract = (spCoinContractDeployed) => {
-    setContractReadMethods(spCoinContractDeployed);
-    setContractDeleteMethods(spCoinContractDeployed);
-    setContractAddMethods(spCoinContractDeployed);
+    injectReadMethodsContract(spCoinContractDeployed);
+    injectDeleteMethodsContract(spCoinContractDeployed);
+    injectAddMethodsContract(spCoinContractDeployed);
     return spCoinContractDeployed;
+  }
+
+  setSigners = (_signers) => {
+    signers = _signers;
+    setSigner(0);
+  }
+
+  setSigner = (_signerIxd) => {
+    injectReadMethodsSigner(signers[_signerIxd]);
+    injectDeleteMethodsSigner(signers[_signerIxd]);
+    injectAddMethodsSigner(signers[_signerIxd]);
   }
   
   deployContract = async () => {

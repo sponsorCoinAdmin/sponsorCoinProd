@@ -20,7 +20,6 @@ console.log(JUNK_COUNTER++,"addAgent");
 
         AgentStruct storage  agentRecord = getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey);
         if (!agentRecord.inserted) {
-console.log(JUNK_COUNTER++,"addAgent 2"); 
             addAccountRecord(_agentKey);
             RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_recipientKey, _recipientRateKey);
             agentRecord.insertionTime = block.timestamp;

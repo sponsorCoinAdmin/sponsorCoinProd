@@ -18,9 +18,10 @@ logSetup("JS => Setup Test");
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
-    await deploySpCoinContract();
+    spCoinContractDeployed = await deploySpCoinContract();
     const hhTestElements = await initHHAccounts();
     const signers = hhTestElements.signers;
+    setSigners(signers);
     const accounts = hhTestElements.accounts;
     const rates = hhTestElements.rates;
     SPONSOR_ACCOUNT_KEYS = signers;
@@ -49,6 +50,7 @@ describe("spCoinContract", function () {
   // Test Successful Record Insertion of Sponsor and 
   // Recipient Accounts to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
+  setSigner(6);
   await addAgentTransaction(
     SPONSOR_ACCOUNT_KEYS[3],
     RECIPIENT_ACCOUNT_KEYS[1],

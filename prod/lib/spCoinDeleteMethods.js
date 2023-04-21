@@ -2,11 +2,16 @@ const {} = require("./utils/serialize");
 const {} = require("./utils/logging");
 
 let spCoinContractDeployed;
+let signer;
 
 //////////////////////////// ROOT LEVEL FUNCTIONS ////////////////////////////
 
-setContractDeleteMethods = (_spCoinContractDeployed) => {
+injectDeleteMethodsContract = (_spCoinContractDeployed) => {
   spCoinContractDeployed = _spCoinContractDeployed;
+};
+
+injectDeleteMethodsSigner = (_signer) => {
+  signer = _signer;
 };
 
 ////////////////////////// DELETE ACCOUNT FUNCTIONS //////////////////////////
@@ -15,7 +20,7 @@ deleteAccountRecord = async (_accountKey) => {
   // ToDo: do Solidity Code and Testing
     logFunctionHeader("deleteAccountRecord = async(" + _accountKey + ")");
     logDetail("JS => Deleting Account " + _accountKey + " From Blockchain Network");
-    await spCoinContractDeployed.deleteAccountRecord(_accountKey);
+    await spCoinContractDeployed.connect(signer).deleteAccountRecord(_accountKey);
 };
 
 deleteAccountRecords = async (_accountListKeys) => {
@@ -35,7 +40,7 @@ deleteAccountRecords = async (_accountListKeys) => {
 
 deleteRecipientRecord = async (_recipientKey) => {
   logFunctionHeader("deleteRecipientRecord(" + _recipientKey + ")");
-  await spCoinContractDeployed.deleteRecipientRecord(_recipientKey);
+  await spCoinContractDeployed.connect(signer).deleteRecipientRecord(_recipientKey);
 }
 
 /////////////////////// AGENT RECORD FUNCTIONS ////////////////////////
@@ -49,7 +54,7 @@ deleteAgentRecord = async (_accountKey, _recipientKey, _accountAgentKey) => {
   logDetail("JS => Deleting Agent " + _accountAgentKey + " From Blockchain Network");
 
   logDetail("JS =>  " + _accountKey + ". " + "Inserting Agent[" + _accountKey + "]: " + _accountAgentKey );
-  // await spCoinContractDeployed.deleteAgentRecord( _accountKey, _recipientKey, _agentKey );
+  // await spCoinContractDeployed.connect(signer).deleteAgentRecord( _accountKey, _recipientKey, _agentKey );
   logDetail("JS => "+ "Deleted = " + _accountAgentKey + " Agent Record from RecipientKey " + _recipientKey);
 };
 
@@ -60,5 +65,5 @@ module.exports = {
   deleteAccountRecords,
   deleteAgentRecord,
   deleteRecipientRecord,
-  setContractDeleteMethods,
+  injectDeleteMethodsContract,
 };

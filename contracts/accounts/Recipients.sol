@@ -12,14 +12,11 @@ contract Recipients is Accounts {
     /// @param _recipientKey new recipient to add to account list
     function addRecipient(address _recipientKey) 
         public nonRedundantRecipient (_recipientKey) {
-console.log(JUNK_COUNTER++,"addRecipient"); 
+console.log(JUNK_COUNTER++,"addRecipient ", _recipientKey); 
         RecipientStruct storage recipientRecord = getRecipientRecordByKeys(_recipientKey);
-        console.log(JUNK_COUNTER++,"addRecipient 1"); 
         if (!recipientRecord.inserted) {
-console.log(JUNK_COUNTER++,"addRecipient 2"); 
             addAccountRecord(msg.sender);
             addAccountRecord(_recipientKey);
-console.log(JUNK_COUNTER++,"addRecipient 3"); 
             recipientRecord.insertionTime = block.timestamp;
             recipientRecord.sponsorKey = msg.sender;
             recipientRecord.recipientKey = _recipientKey;
@@ -27,7 +24,6 @@ console.log(JUNK_COUNTER++,"addRecipient 3");
             recipientRecord.inserted = true;
             accountMap[msg.sender].recipientAccountList.push(_recipientKey);
             accountMap[_recipientKey].sponsorAccountList.push(msg.sender);
-console.log(JUNK_COUNTER++,"addRecipient 4"); 
         }
     }
 
@@ -49,10 +45,17 @@ console.log(JUNK_COUNTER++,"addRecipient 4");
     }
 
     function getRecipientRecordByKeys(address _recipientKey) internal view  returns (RecipientStruct storage) {
-       return accountMap[msg.sender].recipientMap[_recipientKey];
+///////////////// **** WORKING HERE ****
+        console.log("XXXX-- Recipients.sol:msg.sender = ",msg.sender);
+        console.log("XXXX-- Recipients.sol:getRecipientRecordByKeys(",_recipientKey,")");
+        RecipientStruct storage recipientRecord = accountMap[msg.sender].recipientMap[_recipientKey];
+        console.log("XXXX-- recipientRecord.recipientKey = ", recipientRecord.recipientKey);
+        return recipientRecord;
+        // return accountMap[msg.sender].recipientMap[_recipientKey];
     }
 
     function serializeRecipientRecordStr(address _recipientKey) public view returns (string memory) {
+console.log("AAAAAAAAAAAAAAAAAAAAAAAAA");
         RecipientStruct storage recipientRecord =  getRecipientRecordByKeys(_recipientKey);
         string memory recipientRecordStr = toString(recipientRecord.insertionTime);
         string memory stakedSPCoinsStr = toString(recipientRecord.stakedSPCoins);
@@ -65,12 +68,14 @@ console.log(JUNK_COUNTER++,"addRecipient 4");
     /// @notice retreives the recipient array records from a specific account address.
     /// @param _recipientKey recipient Key to retrieve the recipient list
     function getRecipientRateList(address _recipientKey)
-     public view onlyOwnerOrRootAdmin(",getRecipientRateList", _recipientKey) returns (uint[] memory) {
+     public view onlyOwnerOrRootAdmin("getRecipientRateList", _recipientKey) returns (uint[] memory) {
+        console.log("Recipients.sol:getRecipientRateList (", _recipientKey, ")");
         RecipientStruct storage recipientRecord = getRecipientRecordByKeys(_recipientKey);
         uint[] memory recipientRateList = recipientRecord.recipientRateList;
-    // console.log("AGENTS.SOL:addAgent: _sponsorKey, _recipientKey, _recipientRateKey, _recipientKey = " , _sponsorKey, _recipientKey, _recipientRateKey, _recipientKey);
-// console.log("AGENTS.SOL:addAgent:recipientRecord.recipientKey = " , recipientRecord.recipientKey);
-// console.log("AGENTS.SOL:getAgentRateKeys:recipientRateList.length = ",recipientRateList.length);
+        console.log("Recipients.sol:getRecipientRateList recipientRateList.length = ", recipientRateList.length);
+        // console.log("AGENTS.SOL:addAgent: _sponsorKey, _recipientKey, _recipientRateKey, _recipientKey = " , _sponsorKey, _recipientKey, _recipientRateKey, _recipientKey);
+        // console.log("AGENTS.SOL:addAgent:recipientRecord.recipientKey = " , recipientRecord.recipientKey);
+        // console.log("AGENTS.SOL:getAgentRateKeys:recipientRateList.length = ",recipientRateList.length);
         return recipientRateList;
     }
 
