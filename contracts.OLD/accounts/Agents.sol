@@ -14,9 +14,8 @@ contract Agents is RecipientRates {
     function addAgent(address _recipientKey, uint _recipientRateKey, address _agentKey)
             public  
             nonRedundantAgent (_recipientKey, _agentKey) {
+            addRecipientRate(_recipientKey, _recipientRateKey);
 console.log(JUNK_COUNTER++,"addAgent"); 
-    
-        addRecipientRate(_recipientKey, _recipientRateKey);
 
         AgentStruct storage  agentRecord = getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey);
         if (!agentRecord.inserted) {
@@ -36,7 +35,7 @@ console.log(JUNK_COUNTER++,"addAgent");
     /// @notice retreives the recipient array records from a specific account address.
     /// @param _recipientKey recipient Key to retrieve the agent list
     function getAgentRecordKeys(address _recipientKey, uint256 _recipientRateKey) 
-    public view returns (address[] memory) {
+    public returns (address[] memory) {
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys( _recipientKey,  _recipientRateKey);
         address[] memory agentAccountList = recipientRateRecord.agentAccountList;
         return agentAccountList;
@@ -46,7 +45,7 @@ console.log(JUNK_COUNTER++,"addAgent");
     /// @param _recipientKey recipient account key
     /// @param _recipientRateKey recipient rate
     /// @param _agentKey agent record key to be returned
-    function getAgentRecordByKeys(address _recipientKey, uint _recipientRateKey, address _agentKey) internal view returns (AgentStruct storage) {
+    function getAgentRecordByKeys(address _recipientKey, uint _recipientRateKey, address _agentKey) internal returns (AgentStruct storage) {
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_recipientKey, _recipientRateKey);
         AgentStruct storage agentRecord = recipientRateRecord.agentMap[_agentKey];
         return agentRecord;
@@ -57,7 +56,7 @@ console.log(JUNK_COUNTER++,"addAgent");
     /// @param _recipientRateKey recipient rate
     /// @param _agentKey agent record key to be returned
     function getAgentTotalRecipient(address _recipientKey, uint _recipientRateKey, address _agentKey) 
-    public view returns (uint) {
+    public returns (uint) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey);
         return agentRec.stakedSPCoins; 
     }
@@ -66,7 +65,7 @@ console.log(JUNK_COUNTER++,"addAgent");
     /// @param _recipientKey recipient Key to retrieve the agent list
     /// @param _agentKey agent Key to retrieve the agentate list
     function getAgentRateKeys(address _recipientKey, uint _recipientRateKey, address _agentKey) 
-    public view returns (uint[] memory) {
+    public returns (uint[] memory) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey);
         uint[] memory agentRateKeys = agentRec.agentRateKeys;
         // console.log("AGENTS.SOL:addAgent:agentRec.agentKey = " , agentRec.agentKey);
