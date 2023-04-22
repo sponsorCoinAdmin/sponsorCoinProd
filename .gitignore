@@ -1,4 +1,5 @@
 */artifacts/
+/.contracts.OLD
 /.deps
 
 node_modules
