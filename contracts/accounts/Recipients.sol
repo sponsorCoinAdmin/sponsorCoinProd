@@ -13,14 +13,14 @@ contract Recipients is Sponsor {
     function addRecipient(address _recipientKey) 
     public nonRedundantRecipient (msg.sender, _recipientKey) {
         getRecipientRecord(msg.sender, _recipientKey);
-        console.log(JUNK_COUNTER++, "addRecipient", _recipientKey); 
+        // console.log(JUNK_COUNTER++, "addRecipient", _recipientKey); 
     }
 
     function getRecipientRecord(address sponsor, address _recipientKey)
     internal nonRedundantRecipient (msg.sender, _recipientKey)
     returns (RecipientStruct storage) {
         AccountStruct storage sponsorRecord = getSponsorAccountRecord(sponsor);
-        console.log("getRecipientRecord(",sponsor , _recipientKey,")"); 
+        // console.log("getRecipientRecord(",sponsor , _recipientKey,")"); 
 
         RecipientStruct storage recipientRecord = accountMap[sponsor].recipientMap[_recipientKey];
         if (!recipientRecord.inserted) {
@@ -71,10 +71,10 @@ contract Recipients is Sponsor {
     /// @param _recipientKey recipient Key to retrieve the recipient list
     function getRecipientRateList(address _recipientKey)
      public view  returns (uint[] memory) {
-        console.log("Recipients.sol:getRecipientRateList (", _recipientKey, ")");
+        // console.log("Recipients.sol:getRecipientRateList (", _recipientKey, ")");
         RecipientStruct storage recipientRecord = getRecipientRecordByKeys(msg.sender, _recipientKey);
         uint[] memory recipientRateList = recipientRecord.recipientRateList;
-        console.log("Recipients.sol:getRecipientRateList recipientRateList.length = ", recipientRateList.length);
+        // console.log("Recipients.sol:getRecipientRateList recipientRateList.length = ", recipientRateList.length);
         // console.log("AGENTS.SOL:addAgent: _sponsorKey, _recipientKey, _recipientRateKey, _recipientKey = " , _sponsorKey, _recipientKey, _recipientRateKey, _recipientKey);
         // console.log("AGENTS.SOL:addAgent:recipientRecord.recipientKey = " , recipientRecord.recipientKey);
         // console.log("AGENTS.SOL:getAgentRateKeys:recipientRateList.length = ",recipientRateList.length);

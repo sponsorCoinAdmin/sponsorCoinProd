@@ -11,7 +11,7 @@ contract Accounts is StructSerialization {
     function addAccountRecord(string memory accountType, address _accountKey)
         internal {
         if (!isAccountInserted(_accountKey)) {
-            console.log("addAccountRecord(", accountType, _accountKey, ")");
+            // console.log("addAccountRecord(", accountType, _accountKey, ")");
 // console.log(JUNK_COUNTER++, "addAccountRecord(", accountType, _accountKey, ")"); 
             AccountStruct storage accountRec = accountMap[_accountKey];
             accountRec.accountKey = _accountKey;
@@ -26,7 +26,7 @@ contract Accounts is StructSerialization {
     function getAccountRecord(string memory accountType, address account)
         internal returns (AccountStruct storage accountRecord) {
             addAccountRecord(accountType, account);
-            console.log(JUNK_COUNTER++, "getAccountRecord", account);
+            // console.log(JUNK_COUNTER++, "getAccountRecord", account);
             return accountMap[account];
     }
 

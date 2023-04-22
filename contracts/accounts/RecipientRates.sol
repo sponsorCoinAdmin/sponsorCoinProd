@@ -10,18 +10,18 @@ contract RecipientRates is Recipients {
     function addRecipientRate(address _recipientKey, uint _recipientRateKey) 
     public nonRedundantRecipient (msg.sender, _recipientKey) {
         getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
-        console.log(JUNK_COUNTER++, "getRecipientRecord", _recipientKey); 
+        // console.log(JUNK_COUNTER++, "getRecipientRecord", _recipientKey); 
     }
 
     function getRecipientRateRecord(address _sponsorKey, address _recipientKey, uint _recipientRateKey) 
     internal nonRedundantRecipient (_sponsorKey, _recipientKey)
     returns (RecipientRateStruct storage) {
         RecipientStruct storage recipientRecord = getRecipientRecord(_sponsorKey, _recipientKey);
-console.log(JUNK_COUNTER++,"Recipients.sol:getRecipientRateRecord", _recipientKey, _recipientRateKey); 
+// console.log(JUNK_COUNTER++,"Recipients.sol:getRecipientRateRecord", _recipientKey, _recipientRateKey); 
 
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_recipientKey, _recipientRateKey);
         if (!recipientRateRecord.inserted) {
-            console.log(JUNK_COUNTER,"Recipients.sol:recipientRateRecord.inserted = ", recipientRecord.inserted); 
+            // console.log(JUNK_COUNTER,"Recipients.sol:recipientRateRecord.inserted = ", recipientRecord.inserted); 
             recipientRateRecord.recipientRate = _recipientRateKey;
             recipientRateRecord.inserted = true;
             recipientRateRecord.insertionTime = recipientRateRecord.lastUpdateTime = block.timestamp;

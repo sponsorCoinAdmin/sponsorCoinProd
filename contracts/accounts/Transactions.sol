@@ -10,7 +10,7 @@ contract Transactions is AgentRates {
     public onlyOwnerOrRootAdmin("addAgentTransaction", msg.sender) {
         // console.log("**** Transaction.sol:ADDING RATE REC = ",_agentRateKey, "ADDING TRANSACTION = ",_transAmount);
         AgentRateStruct storage agentRateRecord = getAgentRateRecord(msg.sender, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
-console.log(JUNK_COUNTER++,"addAgentTransaction"); 
+// console.log(JUNK_COUNTER++,"addAgentTransaction"); 
         uint256 transactionTimeStamp = block.timestamp;
     
         agentRateRecord.lastUpdateTime = transactionTimeStamp;

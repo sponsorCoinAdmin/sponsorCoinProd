@@ -13,7 +13,7 @@ contract Agents is RecipientRates {
     function addAgent(address _recipientKey, uint _recipientRateKey, address _agentKey)
             public nonRedundantAgent (_recipientKey, _agentKey) {
         getAgentRecord(msg.sender, _recipientKey, _recipientRateKey, _agentKey);
-        console.log(JUNK_COUNTER++,"addAgent"); 
+        // console.log(JUNK_COUNTER++,"addAgent"); 
     }
 
     /// @notice insert recipients Agent
@@ -23,7 +23,7 @@ contract Agents is RecipientRates {
         internal nonRedundantAgent (_recipientKey, _agentKey) 
         returns (AgentStruct storage) {
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecord(_sponsorKey, _recipientKey, _recipientRateKey);
-        console.log(JUNK_COUNTER++,"getAgentRecord");
+        // console.log(JUNK_COUNTER++,"getAgentRecord");
 
         AgentStruct storage  agentRecord = getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey);
         if (!agentRecord.inserted) {

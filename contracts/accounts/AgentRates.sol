@@ -14,14 +14,14 @@ contract AgentRates is Agents {
     function addAgentRateRecord(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey) public 
     {
         getAgentRateRecord(msg.sender, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
-        console.log(JUNK_COUNTER++,"addAgentRateRecord"); 
+        // console.log(JUNK_COUNTER++,"addAgentRateRecord"); 
     }
 
     function getAgentRateRecord(address _sponsor, address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey)
      internal returns (AgentRateStruct storage) 
     {
         AgentStruct storage agentRecord = getAgentRecord(_sponsor, _recipientKey, _recipientRateKey, _agentKey);
-        console.log(JUNK_COUNTER++,"getAgentRateRecord"); 
+        // console.log(JUNK_COUNTER++,"getAgentRateRecord"); 
         AgentRateStruct storage agentRateRecord= getAgentRateRecordByKeys(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
         if (!agentRateRecord.inserted) {
             agentRateRecord.agentRate = _agentRateKey;

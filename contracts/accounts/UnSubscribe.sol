@@ -13,11 +13,11 @@ contract UnSubscribe is Transactions {
         accountExists(msg.sender)
         accountExists(_recipientKey)
         nonRedundantRecipient (msg.sender, _recipientKey) {
-console.log(JUNK_COUNTER++,"deleteSponsorRecipientRecord"); 
+// console.log(JUNK_COUNTER++,"deleteSponsorRecipientRecord"); 
 
         AccountStruct storage sponsorAccount = accountMap[msg.sender];
         if (deleteAccountRecordFromSearchKeys(_recipientKey, sponsorAccount.recipientAccountList)) {
-console.log(JUNK_COUNTER++,"deleteSponsorRecipientRecord 2"); 
+// console.log(JUNK_COUNTER++,"deleteSponsorRecipientRecord 2"); 
             RecipientStruct storage recipientRecord = sponsorAccount.recipientMap[_recipientKey];
             uint256 totalSponsored = recipientRecord.stakedSPCoins;
             AccountStruct storage recipientAccount = accountMap[recipientRecord.recipientKey];
