@@ -30,7 +30,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   setLogMode("LOG", true);
 
   // Test Successful Record Insertion of Sponsor and 
-  // Recipient Accounts to the Blockchain Network.
+  // Recipient Account to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
   await addAgentTransaction (
     SPONSOR_ACCOUNT_KEYS[0],

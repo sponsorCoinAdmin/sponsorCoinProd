@@ -33,7 +33,7 @@ deleteAccountRecords = async (_accountListKeys) => {
     logDetail("JS => Deleting " + idx + ", " + accountKey);
     await deleteAccountRecord(accountKey);
   }
-  logDetail("JS => Inserted " + maxCount + " Accounts to Blockchain Network");
+  logDetail("JS => Inserted " + maxCount + " Account to Blockchain Network");
 };
 
 /////////////////////// RECIPIENT RECORD FUNCTIONS ///////////////////////

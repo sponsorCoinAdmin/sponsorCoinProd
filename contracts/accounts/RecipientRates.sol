@@ -1,12 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 /// @title ERC20 Contract
-import "./Recipients.sol";
+import "./Recipient.sol";
 
-contract RecipientRates is Recipients {
+contract RecipientRates is Recipient {
 
     constructor() { }
 
+    /// @notice insert recipients Agent
+    /// @param _recipientKey public account key to get recipient array
+    /// @param _recipientRateKey public account key to get recipient Rate for a given recipient
     function addRecipientRate(address _recipientKey, uint _recipientRateKey) 
     public nonRedundantRecipient (msg.sender, _recipientKey) {
         getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
@@ -17,11 +20,11 @@ contract RecipientRates is Recipients {
     internal nonRedundantRecipient (_sponsorKey, _recipientKey)
     returns (RecipientRateStruct storage) {
         RecipientStruct storage recipientRecord = getRecipientRecord(_sponsorKey, _recipientKey);
-// console.log(JUNK_COUNTER++,"Recipients.sol:getRecipientRateRecord", _recipientKey, _recipientRateKey); 
+// console.log(JUNK_COUNTER++,"Recipient.sol:getRecipientRateRecord", _recipientKey, _recipientRateKey); 
 
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_recipientKey, _recipientRateKey);
         if (!recipientRateRecord.inserted) {
-            // console.log(JUNK_COUNTER,"Recipients.sol:recipientRateRecord.inserted = ", recipientRecord.inserted); 
+            // console.log(JUNK_COUNTER,"Recipient.sol:recipientRateRecord.inserted = ", recipientRecord.inserted); 
             recipientRateRecord.recipientRate = _recipientRateKey;
             recipientRateRecord.inserted = true;
             recipientRateRecord.insertionTime = recipientRateRecord.lastUpdateTime = block.timestamp;

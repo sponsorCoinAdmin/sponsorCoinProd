@@ -3,7 +3,7 @@ pragma solidity ^0.8.18;
 /// @title ERC20 Contract
 import "../utils/StructSerialization.sol";
 
-contract Accounts is StructSerialization {
+contract Account is StructSerialization {
     constructor() {}
 
     /// @notice insert block chain network address for spCoin Management

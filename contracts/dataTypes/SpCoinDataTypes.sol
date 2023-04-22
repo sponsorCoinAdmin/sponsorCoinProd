@@ -70,15 +70,15 @@ contract SpCoinDataTypes {
         uint256 stakedSPCoins; // Coins Owned but steaked to recipients
         bool inserted;
         bool verified;
-        address[] sponsorAccountList;         // If Recipient? List of Sponsor Accounts
-        address[] recipientAccountList;       // If Sponsor List of Recipiented Accounts
-        address[] agentAccountList;           // If Recipient? List of Agent Accounts
-        address[] parentRecipientAccountList; // If Agent? List of Sponsor Recipient Accounts
+        address[] sponsorAccountList;         // If Recipient? List of Sponsor Account
+        address[] recipientAccountList;       // If Sponsor List of Recipiented Account
+        address[] agentAccountList;           // If Recipient? List of Agent Account
+        address[] parentRecipientAccountList; // If Agent? List of Sponsor Recipient Account
         mapping(address => RecipientStruct) recipientMap; 
 //        KYC kyc;
     }
 
-    // Each Account has a map of Recipients and an array of recipientRate structures
+    // Each Account has a map of Recipient and an array of recipientRate structures
     struct RecipientStruct {
         address sponsorKey;
         address recipientKey;
@@ -101,7 +101,7 @@ contract SpCoinDataTypes {
         bool inserted;
     }
 
-    // Each Recipient has a map of Agents and an array of agentRate structures
+    // Each Recipient has a map of Agent and an array of agentRate structures
     struct AgentStruct {
         address sponsorKey;
         address recipientKey;

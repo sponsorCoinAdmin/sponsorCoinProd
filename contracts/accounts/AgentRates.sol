@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 /// @title ERC20 Contract
-import "./Agents.sol";
+import "./Agent.sol";
 
-contract AgentRates is Agents {
+contract AgentRates is Agent {
 
     constructor() { }
 
@@ -38,7 +38,7 @@ contract AgentRates is Agents {
         return agentRec.agentRateMap[_agentRateKey];
     }
 
-     function serializeAgentRateRecordStr(address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
+    function serializeAgentRateRecordStr(address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
         AgentRateStruct storage agentRateRecord =  getAgentRateRecordByKeys(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
         string memory insertionTimeStr = toString(agentRateRecord.insertionTime);
         string memory lastUpdateTimeStr = toString(agentRateRecord.lastUpdateTime);
@@ -47,29 +47,5 @@ contract AgentRates is Agents {
         return strRateHeaderStr;
     }
 
-    function getRateTransactionList(address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
-        AgentStruct storage agentRec = getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey);
-        string memory strTransactionList = "";
-        AgentRateStruct storage agentRateRecord= agentRec.agentRateMap[_agentRateKey];
-        // console.log ("agentRateRecord.transactionList[0].quantity = ", agentRateRecord.transactionList[0].quantity);
-        TransactionStruct[] memory transactionList = agentRateRecord.transactionList;
-        strTransactionList = concat(strTransactionList, getRateTransactionStr(transactionList)); 
-        // console.log("RRRR strTransactionList = ", strTransactionList); 
-        return strTransactionList;
-    }
-
-    function getRateTransactionStr(TransactionStruct[] memory transactionList) public pure returns (string memory) {
-        string memory strTransactionList = "";
-        for (uint idx; idx < transactionList.length; idx++) {
-
-            strTransactionList = concat(strTransactionList,
-            toString(transactionList[idx].insertionTime), ",",
-            toString(transactionList[idx].quantity));
-            if (idx < transactionList.length - 1) {
-                strTransactionList = concat(strTransactionList, "\n");
-            }
-        }
-        return strTransactionList;
-    }
 
 }

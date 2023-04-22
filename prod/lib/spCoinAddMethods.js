@@ -15,7 +15,7 @@ addRecipient = async (_recipientKey) => {
       "addRecipient = async(" + _recipientKey + ")"
     );
   
-    logDetail("JS => Inserting " + _recipientKey + " Recipients To Blockchain Network"
+    logDetail("JS => Inserting " + _recipientKey + " Recipient To Blockchain Network"
     );
   
     logDetail("JS => Inserting Recipient " + _recipientKey );
@@ -28,7 +28,7 @@ addRecipient = async (_recipientKey) => {
     );
   
     logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
-    logDetail("JS => Adding " + _recipientAccountList.length + " Recipients To Blockchain Network"
+    logDetail("JS => Adding " + _recipientAccountList.length + " Recipient To Blockchain Network"
     );
   
     let recipientCount = 0;
@@ -56,7 +56,7 @@ addRecipient = async (_recipientKey) => {
       "addAgents = async(" + _recipientKey + ", " + _recipientRateKey + ", " + _agentAccountList + ")"
     );
     logDetail("JS => For Recipient[" + _recipientKey + "]: " + _recipientKey + ")");
-    logDetail("JS => Inserting " + _agentAccountList.length + " Agents To Blockchain Network"
+    logDetail("JS => Inserting " + _agentAccountList.length + " Agent To Blockchain Network"
     );
     logDetail("JS => _agentAccountList = " + _agentAccountList);
   
@@ -88,7 +88,7 @@ addAccountRecords = async (_accountListKeys) => {
       logDetail("JS => Inserting " + idx + ", " + account);
       await spCoinContractDeployed.connect(signer).addAccountRecord(account);
     }
-    logDetail("JS => Inserted " + maxCount + " Accounts to Blockchain Network");
+    logDetail("JS => Inserted " + maxCount + " Account to Blockchain Network");
   
     return maxCount;
 };

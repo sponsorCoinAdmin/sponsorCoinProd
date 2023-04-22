@@ -95,7 +95,7 @@ function gitAddressThis() external view returns(address){
 // ### FOR EACH AGENT PROCESS AS FOLLOWS ###
 //    2. Get the agents account, (agentsAccount).
 //    3. Get the agents Staking Rewards Interest Rate, (agentsRewardsRate), (between 2% and and 20% of recipientsRewards).
-//    4. Get the Agents SPCoin Quantity (agentSCoinQty)
+//    4. Get the Agent SPCoin Quantity (agentSCoinQty)
 //    5. Calculate the agents SPCoin staking rewards as:
 //             agentsReward = (SPCoin Recipient Quanty) * elapsedProratedDays * recipientsRewardsRate
 //    6. Increment totalAgentsReward = totalAgentsReward + agentsReward
@@ -103,16 +103,16 @@ function gitAddressThis() external view returns(address){
 
 
 
-// 8. For the recipientedAccount, get the Recipients Account Rate, (recipientAccountRate), (between 2% and recipientsRewardsRate).
+// 8. For the recipientedAccount, get the Recipient Account Rate, (recipientAccountRate), (between 2% and recipientsRewardsRate).
 // 9. Calculate the Recipiented Reward, (recipientRewards as stakingRewards * stakingRewardsRate;
 
-// 10. Get the Recipients Agent (recipientsAgent)
+// 10. Get the Recipient Agent (recipientsAgent)
 //     10.1 If no agent found set agentRewards at 0.
 // 11. For the recipientedAccount, get the Recipiented Agent Rate, (recipientAgentRate), (between 1% and recipientAccountRate).
 // 10. If Agent not found, AgentRewardRate = 0, otherwise AgentRewardRate = agentRate read, default 1%.
 // 11. Calculate the RecipientsReward as, RecipientsRewards = stakingRewards * (1 - (AgentRewardRate/RecipientsRewardRate)).
 // 12. Update the TotalQuanty
-// 13. Update the Agents TotalQuanty 
+// 13. Update the Agent TotalQuanty 
 
     constructor(){
     }

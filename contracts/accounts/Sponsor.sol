@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 /// @title ERC20 Contract
-import "./Accounts.sol";
+import "./Account.sol";
 
-contract Sponsor is Accounts {
+contract Sponsor is Account {
     constructor() {}
 
     /// @notice insert block chain network address for spCoin Management

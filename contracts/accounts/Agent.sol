@@ -4,7 +4,7 @@ pragma solidity ^0.8.18;
 import "./RecipientRates.sol";
 import "../utils/StructSerialization.sol";
 
-contract Agents is RecipientRates {
+contract Agent is RecipientRates {
         constructor(){  }
 
     /// @notice insert recipients Agent
