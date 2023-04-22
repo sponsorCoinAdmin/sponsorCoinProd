@@ -7,21 +7,27 @@ contract RecipientRates is Recipients {
 
     constructor() { }
 
-function addRecipientRate(address _recipientKey, uint _recipientRateKey) 
+    function addRecipientRate(address _recipientKey, uint _recipientRateKey) 
     public nonRedundantRecipient (msg.sender, _recipientKey) {
-console.log(JUNK_COUNTER++,"Recipients.sol:addRecipientRate", _recipientKey, _recipientRateKey); 
-        addRecipient(_recipientKey);
+        getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
+        console.log(JUNK_COUNTER++, "getRecipientRecord", _recipientKey); 
+    }
+
+    function getRecipientRateRecord(address sponsor, address _recipientKey, uint _recipientRateKey) 
+    internal nonRedundantRecipient (sponsor, _recipientKey) returns (RecipientStruct storage) {
+        RecipientStruct storage recipientRecord = getRecipientRecord(sponsor, _recipientKey);
+console.log(JUNK_COUNTER++,"Recipients.sol:getRecipientRateRecord", _recipientKey, _recipientRateKey); 
 
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_recipientKey, _recipientRateKey);
         if (!recipientRateRecord.inserted) {
-            RecipientStruct storage recipientRecord = getRecipientRecordByKeys(msg.sender, _recipientKey);
             console.log(JUNK_COUNTER,"Recipients.sol:recipientRateRecord.inserted = ", recipientRecord.inserted); 
             recipientRateRecord.recipientRate = _recipientRateKey;
             recipientRateRecord.inserted = true;
             recipientRateRecord.insertionTime = recipientRateRecord.lastUpdateTime = block.timestamp;
             recipientRateRecord.stakedSPCoins = 0;
             recipientRecord.recipientRateList.push(_recipientRateKey);
-        } 
+        }
+        return recipientRecord; 
     }
 
     function getRecipientRateRecordByKeys(address _recipientKey, uint _recipientRateKey) internal view  returns (RecipientRateStruct storage) {

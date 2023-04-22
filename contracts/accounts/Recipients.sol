@@ -33,7 +33,7 @@ contract Recipients is Sponsor {
             sponsorRecord.recipientAccountList.push(_recipientKey);
             accountMap[_recipientKey].sponsorAccountList.push(msg.sender);
         }
-    return recipientRecord;
+        return recipientRecord;
     }
 
     /*
