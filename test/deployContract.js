@@ -27,15 +27,19 @@ const {
 
   setSigners = (_signers) => {
     signers = _signers;
-    setSigner(0);
+    setSignerByIndex(0);
   }
 
-  setSigner = (_signerIxd) => {
-    injectReadMethodsSigner(signers[_signerIxd]);
-    injectDeleteMethodsSigner(signers[_signerIxd]);
-    injectAddMethodsSigner(signers[_signerIxd]);
+  setSignerByIndex = (_signerIxd) => {
+    setSigner(signers[_signerIxd]);
   }
   
+  setSigner = (_signer) => {
+    injectReadMethodsSigner(_signer);
+    injectDeleteMethodsSigner(_signer);
+    injectAddMethodsSigner(_signer);
+  }
+
   deployContract = async () => {
     //setLogMode(LOG_MODE.LOG_SETUP, true);
 

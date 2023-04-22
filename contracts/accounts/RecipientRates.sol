@@ -10,12 +10,6 @@ contract RecipientRates is Recipient {
     /// @notice insert recipients Agent
     /// @param _recipientKey public account key to get recipient array
     /// @param _recipientRateKey public account key to get recipient Rate for a given recipient
-    function addRecipientRate(address _recipientKey, uint _recipientRateKey) 
-    public nonRedundantRecipient (msg.sender, _recipientKey) {
-        getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
-        // console.log(JUNK_COUNTER++, "getRecipientRecord", _recipientKey); 
-    }
-
     function getRecipientRateRecord(address _sponsorKey, address _recipientKey, uint _recipientRateKey) 
     internal nonRedundantRecipient (_sponsorKey, _recipientKey)
     returns (RecipientRateStruct storage) {

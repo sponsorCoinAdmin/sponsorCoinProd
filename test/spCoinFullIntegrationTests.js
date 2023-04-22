@@ -50,7 +50,6 @@ describe("spCoinContract", function () {
   // Test Successful Record Insertion of Sponsor and 
   // Recipient Account to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
-  setSigner(3);
   await addAgentTransaction(
     SPONSOR_ACCOUNT_KEYS[3],
     RECIPIENT_ACCOUNT_KEYS[1],
@@ -60,73 +59,68 @@ describe("spCoinContract", function () {
     100
   );
 
-  // await addAgentTransaction(
-  //   SPONSOR_ACCOUNT_KEYS[3],
-  //   RECIPIENT_ACCOUNT_KEYS[1],
-  //   RECIPIENT_RATES[9],
-  //   AGENT_ACCOUNT_KEYS[2],
-  //   AGENT_RATES[1],
-  //   9
-  // );
+  await addAgentTransaction(
+    SPONSOR_ACCOUNT_KEYS[3],
+    RECIPIENT_ACCOUNT_KEYS[1],
+    RECIPIENT_RATES[9],
+    AGENT_ACCOUNT_KEYS[2],
+    AGENT_RATES[1],
+    9
+  );
 
-  // setSigner(0);
-  // await addAgentTransaction(
-  //   SPONSOR_ACCOUNT_KEYS[0],
-  //   RECIPIENT_ACCOUNT_KEYS[5],
-  //   RECIPIENT_RATES[3],
-  //   AGENT_ACCOUNT_KEYS[2],
-  //   AGENT_RATES[1],
-  //   6
-  // );
+  await addAgentTransaction(
+    SPONSOR_ACCOUNT_KEYS[0],
+    RECIPIENT_ACCOUNT_KEYS[5],
+    RECIPIENT_RATES[3],
+    AGENT_ACCOUNT_KEYS[2],
+    AGENT_RATES[1],
+    6
+  );
 
-  // setSigner(9);
-  // await addAgentTransaction(
-  //   SPONSOR_ACCOUNT_KEYS[9],
-  //   RECIPIENT_ACCOUNT_KEYS[1],
-  //   RECIPIENT_RATES[10],
-  //   AGENT_ACCOUNT_KEYS[2],
-  //   AGENT_RATES[1],
-  //   10
-  // );
+  await addAgentTransaction(
+    SPONSOR_ACCOUNT_KEYS[9],
+    RECIPIENT_ACCOUNT_KEYS[1],
+    RECIPIENT_RATES[10],
+    AGENT_ACCOUNT_KEYS[2],
+    AGENT_RATES[1],
+    10
+  );
 
-  // setSigner(1);
-  // await addAgentTransaction(
-  //   SPONSOR_ACCOUNT_KEYS[1],
-  //   RECIPIENT_ACCOUNT_KEYS[2],
-  //   RECIPIENT_RATES[9],
-  //   AGENT_ACCOUNT_KEYS[6],
-  //   AGENT_RATES[4],
-  //   TRANSACTION_QTY[2]
-  // );
+  await addAgentTransaction(
+    SPONSOR_ACCOUNT_KEYS[1],
+    RECIPIENT_ACCOUNT_KEYS[2],
+    RECIPIENT_RATES[9],
+    AGENT_ACCOUNT_KEYS[6],
+    AGENT_RATES[4],
+    TRANSACTION_QTY[2]
+  );
 
-  // setSigner(0);
-  // await addAgentTransaction(
-  //   SPONSOR_ACCOUNT_KEYS[0],
-  //   RECIPIENT_ACCOUNT_KEYS[1],
-  //   RECIPIENT_RATES[9],
-  //   AGENT_ACCOUNT_KEYS[3],
-  //   AGENT_RATES[3],
-  //   TRANSACTION_QTY[5]
-  // );
+  await addAgentTransaction(
+    SPONSOR_ACCOUNT_KEYS[0],
+    RECIPIENT_ACCOUNT_KEYS[1],
+    RECIPIENT_RATES[9],
+    AGENT_ACCOUNT_KEYS[3],
+    AGENT_RATES[3],
+    TRANSACTION_QTY[5]
+  );
 
-  // await addAgentTransaction(
-  //   SPONSOR_ACCOUNT_KEYS[0],
-  //   RECIPIENT_ACCOUNT_KEYS[6],
-  //   RECIPIENT_RATES[9],
-  //   AGENT_ACCOUNT_KEYS[3],
-  //   AGENT_RATES[3],
-  //   TRANSACTION_QTY[3]
-  // );
+  await addAgentTransaction(
+    SPONSOR_ACCOUNT_KEYS[0],
+    RECIPIENT_ACCOUNT_KEYS[6],
+    RECIPIENT_RATES[9],
+    AGENT_ACCOUNT_KEYS[3],
+    AGENT_RATES[3],
+    TRANSACTION_QTY[3]
+  );
           
-  // setSigner(1);
-  // await addAgentTransaction(
-  //   SPONSOR_ACCOUNT_KEYS[1],
-  //   RECIPIENT_ACCOUNT_KEYS[2],
-  //   RECIPIENT_RATES[7],
-  //   AGENT_ACCOUNT_KEYS[3],
-  //   AGENT_RATES[6],
-  //   TRANSACTION_QTY[9]
-  // );
+  await addAgentTransaction(
+    SPONSOR_ACCOUNT_KEYS[1],
+    RECIPIENT_ACCOUNT_KEYS[2],
+    RECIPIENT_RATES[7],
+    AGENT_ACCOUNT_KEYS[3],
+    AGENT_RATES[6],
+    TRANSACTION_QTY[9]
+  );
 
     // let agentRateKeys = await getAgentRateKeys(
     //   SPONSOR_ACCOUNT_KEYS[1],

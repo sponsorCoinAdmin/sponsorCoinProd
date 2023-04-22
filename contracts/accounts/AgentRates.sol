@@ -11,12 +11,6 @@ contract AgentRates is Agent {
     /// @param _recipientKey public account key to get recipient array
     /// @param _recipientRateKey public account key to get recipient Rate for a given recipient
     /// @param _agentKey new recipient to add to account list 
-    function addAgentRateRecord(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey) public 
-    {
-        getAgentRateRecord(msg.sender, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
-        // console.log(JUNK_COUNTER++,"addAgentRateRecord"); 
-    }
-
     function getAgentRateRecord(address _sponsor, address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey)
      internal returns (AgentRateStruct storage) 
     {

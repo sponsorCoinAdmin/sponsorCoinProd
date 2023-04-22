@@ -115,10 +115,9 @@ addAgentTransaction = async (
     // do decimal power operation for quantity
     let decimals = 18;
     let transactionQty = Math.round(_transactionQty * (10 ** decimals));
-    signers = await ethers.getSigners();
+    setSigner(_sponsorKey);
 
-    // await spCoinContractDeployed.connect(signer).connect(signers[7]).addAgentTransaction(
-    await spCoinContractDeployed.connect(_sponsorKey).addAgentTransaction(
+    await spCoinContractDeployed.connect(signer).addAgentTransaction(
       _recipientKey,
       _recipientRateKey,
       _accountAgentKey,
