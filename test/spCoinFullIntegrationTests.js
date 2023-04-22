@@ -51,7 +51,7 @@ describe("spCoinContract", function () {
   // Recipient Account to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
   await addAgentTransaction(
-    SPONSOR_ACCOUNT_KEYS[3],
+    SPONSOR_ACCOUNT_KEYS[0],
     RECIPIENT_ACCOUNT_KEYS[1],
     RECIPIENT_RATES[9],
     AGENT_ACCOUNT_KEYS[2],
@@ -60,75 +60,25 @@ describe("spCoinContract", function () {
   );
 
   await addAgentTransaction(
-    SPONSOR_ACCOUNT_KEYS[3],
-    RECIPIENT_ACCOUNT_KEYS[1],
-    RECIPIENT_RATES[9],
-    AGENT_ACCOUNT_KEYS[2],
-    AGENT_RATES[1],
-    9
-  );
-
-  await addAgentTransaction(
-    SPONSOR_ACCOUNT_KEYS[0],
-    RECIPIENT_ACCOUNT_KEYS[5],
-    RECIPIENT_RATES[3],
-    AGENT_ACCOUNT_KEYS[2],
-    AGENT_RATES[1],
-    6
-  );
-
-  await addAgentTransaction(
-    SPONSOR_ACCOUNT_KEYS[9],
-    RECIPIENT_ACCOUNT_KEYS[1],
-    RECIPIENT_RATES[10],
-    AGENT_ACCOUNT_KEYS[2],
-    AGENT_RATES[1],
-    10
-  );
-
-  await addAgentTransaction(
     SPONSOR_ACCOUNT_KEYS[1],
     RECIPIENT_ACCOUNT_KEYS[2],
-    RECIPIENT_RATES[9],
-    AGENT_ACCOUNT_KEYS[6],
-    AGENT_RATES[4],
-    TRANSACTION_QTY[2]
-  );
-
-  await addAgentTransaction(
-    SPONSOR_ACCOUNT_KEYS[0],
-    RECIPIENT_ACCOUNT_KEYS[1],
-    RECIPIENT_RATES[9],
-    AGENT_ACCOUNT_KEYS[3],
+    RECIPIENT_RATES[8],
+    AGENT_ACCOUNT_KEYS[0],
     AGENT_RATES[3],
     TRANSACTION_QTY[5]
   );
 
   await addAgentTransaction(
-    SPONSOR_ACCOUNT_KEYS[0],
-    RECIPIENT_ACCOUNT_KEYS[6],
-    RECIPIENT_RATES[9],
-    AGENT_ACCOUNT_KEYS[3],
-    AGENT_RATES[3],
-    TRANSACTION_QTY[3]
-  );
-          
-  await addAgentTransaction(
-    SPONSOR_ACCOUNT_KEYS[1],
-    RECIPIENT_ACCOUNT_KEYS[2],
+    SPONSOR_ACCOUNT_KEYS[2],
+    RECIPIENT_ACCOUNT_KEYS[0],
     RECIPIENT_RATES[7],
-    AGENT_ACCOUNT_KEYS[3],
+    AGENT_ACCOUNT_KEYS[1],
     AGENT_RATES[6],
     TRANSACTION_QTY[9]
   );
-
-    // let agentRateKeys = await getAgentRateKeys(
-    //   SPONSOR_ACCOUNT_KEYS[1],
-    //   RECIPIENT_ACCOUNT_KEYS[1],
-    // RECIPIENT_RATES[10,
-    //   AGENT_ACCOUNT_KEYS[1]);
   
-    // AccountListSize = (await getAccountListSize()).toNumber();
+
+     // AccountListSize = (await getAccountListSize()).toNumber();
     // expect(AccountListSize).to.equal(3);
     await logJSONTree();
     // await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEYS[0], RECIPIENT_ACCOUNT_KEYS[1);

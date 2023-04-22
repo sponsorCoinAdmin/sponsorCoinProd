@@ -123,7 +123,6 @@ getRecipientRecordByKeys = async(_recipientKey) => {
 getRecipientRatesByKeys = async(_recipientKey) => {
 // console.log("HERE 9");
   logFunctionHeader("getAgentRatesByKeys = async(" + _recipientKey + ")");
-  log("getAgentRatesByKeys = async(" + _recipientKey + ")");
   let networkRateList = await getRecipientRateList(_recipientKey);
   let recipientRateList = [];
 
