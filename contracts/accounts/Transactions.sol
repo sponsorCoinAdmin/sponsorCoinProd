@@ -9,12 +9,10 @@ contract Transactions is AgentRates {
     function addAgentTransaction(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey, uint256 _transAmount)
     public onlyOwnerOrRootAdmin("addAgentTransaction", msg.sender) {
         // console.log("**** Transaction.sol:ADDING RATE REC = ",_agentRateKey, "ADDING TRANSACTION = ",_transAmount);
+        AgentRateStruct storage agentRateRecord = getAgentRateRecord(msg.sender, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
 console.log(JUNK_COUNTER++,"addAgentTransaction"); 
         uint256 transactionTimeStamp = block.timestamp;
-        addAgentRateRecord(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
     
-        AgentRateStruct storage agentRateRecord= updateAgentRateTransaction(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey, _transAmount);
-
         agentRateRecord.lastUpdateTime = transactionTimeStamp;
         TransactionStruct memory transRec = TransactionStruct(
             {insertionTime: transactionTimeStamp, quantity: _transAmount});

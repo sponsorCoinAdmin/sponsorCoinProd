@@ -13,9 +13,10 @@ contract RecipientRates is Recipients {
         console.log(JUNK_COUNTER++, "getRecipientRecord", _recipientKey); 
     }
 
-    function getRecipientRateRecord(address sponsor, address _recipientKey, uint _recipientRateKey) 
-    internal nonRedundantRecipient (sponsor, _recipientKey) returns (RecipientStruct storage) {
-        RecipientStruct storage recipientRecord = getRecipientRecord(sponsor, _recipientKey);
+    function getRecipientRateRecord(address _sponsorKey, address _recipientKey, uint _recipientRateKey) 
+    internal nonRedundantRecipient (_sponsorKey, _recipientKey)
+    returns (RecipientRateStruct storage) {
+        RecipientStruct storage recipientRecord = getRecipientRecord(_sponsorKey, _recipientKey);
 console.log(JUNK_COUNTER++,"Recipients.sol:getRecipientRateRecord", _recipientKey, _recipientRateKey); 
 
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_recipientKey, _recipientRateKey);
@@ -27,7 +28,7 @@ console.log(JUNK_COUNTER++,"Recipients.sol:getRecipientRateRecord", _recipientKe
             recipientRateRecord.stakedSPCoins = 0;
             recipientRecord.recipientRateList.push(_recipientRateKey);
         }
-        return recipientRecord; 
+        return recipientRateRecord; 
     }
 
     function getRecipientRateRecordByKeys(address _recipientKey, uint _recipientRateKey) internal view  returns (RecipientRateStruct storage) {

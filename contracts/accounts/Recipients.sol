@@ -49,12 +49,12 @@ contract Recipients is Sponsor {
 
     function getRecipientRecordByKeys(address sponsor, address _recipientKey) internal view  returns (RecipientStruct storage) {
     ///////////////// **** WORKING HERE ****
-        // console.log("XXXX-- Recipients.sol:msg.sender = ",msg.sender);
+        // console.log("XXXX-- Recipients.sol:sponsor = ",sponsor);
         // console.log("XXXX-- Recipients.sol:getRecipientRecordByKeys(",_recipientKey,")");
-        RecipientStruct storage recipientRecord = accountMap[msg.sender].recipientMap[_recipientKey];
+        RecipientStruct storage recipientRecord = accountMap[sponsor].recipientMap[_recipientKey];
         // console.log("XXXX-- recipientRecord.recipientKey = ", recipientRecord.recipientKey);
         return recipientRecord;
-        // return accountMap[msg.sender].recipientMap[_recipientKey];
+        // return accountMap[sponsor].recipientMap[_recipientKey];
     }
 
     function serializeRecipientRecordStr(address _recipientKey) public view returns (string memory) {

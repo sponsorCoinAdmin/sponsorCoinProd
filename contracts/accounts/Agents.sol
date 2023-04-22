@@ -12,41 +12,24 @@ contract Agents is RecipientRates {
     /// @param _agentKey new recipient to add to account list
     function addAgent(address _recipientKey, uint _recipientRateKey, address _agentKey)
             public nonRedundantAgent (_recipientKey, _agentKey) {
-console.log(JUNK_COUNTER++,"addAgent"); 
-    
-        addRecipientRate(_recipientKey, _recipientRateKey);
-
-        AgentStruct storage  agentRecord = getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey);
-        if (!agentRecord.inserted) {
-            addAccountRecord("Agent", _agentKey);
-            RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_recipientKey, _recipientRateKey);
-            agentRecord.insertionTime = block.timestamp;
-            agentRecord.sponsorKey = msg.sender;
-            agentRecord.recipientKey = _recipientKey;
-            agentRecord.agentKey = _agentKey;
-            agentRecord.inserted = true;
-            accountMap[_recipientKey].agentAccountList.push(_agentKey);
-            accountMap[_agentKey].parentRecipientAccountList.push(_recipientKey);
-            recipientRateRecord.agentAccountList.push(_agentKey);
-        }
+        getAgentRecord(msg.sender, _recipientKey, _recipientRateKey, _agentKey);
+        console.log(JUNK_COUNTER++,"addAgent"); 
     }
 
     /// @notice insert recipients Agent
     /// @param _recipientKey public account key to get recipient array
     /// @param _agentKey new recipient to add to account list
-    function getAgentRecord(address _recipientKey, uint _recipientRateKey, address _agentKey)
-            public  
-            nonRedundantAgent (_recipientKey, _agentKey) {
-console.log(JUNK_COUNTER++,"addAgent"); 
-    
-        addRecipientRate(_recipientKey, _recipientRateKey);
+    function getAgentRecord(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey)
+        internal nonRedundantAgent (_recipientKey, _agentKey) 
+        returns (AgentStruct storage) {
+        RecipientRateStruct storage recipientRateRecord = getRecipientRateRecord(_sponsorKey, _recipientKey, _recipientRateKey);
+        console.log(JUNK_COUNTER++,"getAgentRecord");
 
         AgentStruct storage  agentRecord = getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey);
         if (!agentRecord.inserted) {
             addAccountRecord("Agent", _agentKey);
-            RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_recipientKey, _recipientRateKey);
             agentRecord.insertionTime = block.timestamp;
-            agentRecord.sponsorKey = msg.sender;
+            agentRecord.sponsorKey = _sponsorKey;
             agentRecord.recipientKey = _recipientKey;
             agentRecord.agentKey = _agentKey;
             agentRecord.inserted = true;
@@ -54,6 +37,7 @@ console.log(JUNK_COUNTER++,"addAgent");
             accountMap[_agentKey].parentRecipientAccountList.push(_recipientKey);
             recipientRateRecord.agentAccountList.push(_agentKey);
         }
+        return agentRecord;
     }
 
     /// @notice retreives the recipient array records from a specific account address.
