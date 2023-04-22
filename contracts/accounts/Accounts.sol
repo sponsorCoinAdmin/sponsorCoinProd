@@ -23,14 +23,12 @@ contract Accounts is StructSerialization {
         }
     }
 
-    
     function getAccountRecord(string memory accountType, address account)
         internal returns (AccountStruct storage accountRecord) {
             addAccountRecord(accountType, account);
             console.log(JUNK_COUNTER++, "getAccountRecord", account);
             return accountMap[account];
     }
-
 
     /// @notice determines if address Record is inserted in accountKey array
     /// @param _accountKey public accountKey validate Insertion
