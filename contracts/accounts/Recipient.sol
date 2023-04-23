@@ -55,17 +55,17 @@ contract Recipient is Sponsor {
 
     function getRecipientRecordByKeys(address _sponsorKey, address _recipientKey) internal view  returns (RecipientStruct storage) {
     ///////////////// **** WORKING HERE ****
-        console.log("===============================================================");
-        console.log("=========> Recipient.sol:getRecipientRecordByKeys(",_sponsorKey ,_recipientKey,")");
+        // console.log("===============================================================");
+        // console.log("=========> Recipient.sol:getRecipientRecordByKeys(",_sponsorKey ,_recipientKey,")");
         RecipientStruct storage recipientRecord = accountMap[_sponsorKey].recipientMap[_recipientKey];
-        console.log("=========> recipientRecord.recipientKey = ", recipientRecord.recipientKey);
-        console.log("===============================================================");
+        // console.log("=========> recipientRecord.recipientKey = ", recipientRecord.recipientKey);
+        // console.log("===============================================================");
         return recipientRecord;
         // return accountMap[sponsor].recipientMap[_recipientKey];
     }
 
     function serializeRecipientRecordStr(address _sponsorKey, address _recipientKey) public view returns (string memory) {
-console.log("Recipient.sol:serializeRecipientRecordStr(", _sponsorKey, ",", _recipientKey);
+// console.log("Recipient.sol:serializeRecipientRecordStr(", _sponsorKey, ",", _recipientKey);
         RecipientStruct storage recipientRecord =  getRecipientRecordByKeys(_sponsorKey, _recipientKey);
         string memory recipientRecordStr = toString(recipientRecord.insertionTime);
         string memory stakedSPCoinsStr = toString(recipientRecord.stakedSPCoins);
@@ -77,16 +77,16 @@ console.log("Recipient.sol:serializeRecipientRecordStr(", _sponsorKey, ",", _rec
 
     /// @notice retreives the recipient array records from a specific account address.
     /// @param _recipientKey recipient Key to retrieve the recipient list
-    function getRecipientRateList(address _sponsorKey, address _recipientKey)
-     public view  returns (uint[] memory) {
-        console.log("Recipient.sol:getRecipientRateList (", toString(_sponsorKey), ",", toString(_recipientKey));
+    function getRecipientRateRecordList(address _sponsorKey, address _recipientKey)
+        public view  returns (uint[] memory) {
+        // console.log("Recipient.sol:getRecipientRateRecordList (", toString(_sponsorKey), ",", toString(_recipientKey));
         RecipientStruct storage recipientRecord = getRecipientRecordByKeys(_sponsorKey, _recipientKey);
-        uint[] memory recipientRateList = recipientRecord.recipientRateList;
-        // console.log("Recipient.sol:getRecipientRateList recipientRateList.length = ", recipientRateList.length);
+        uint[] memory recipientRateRecordList = recipientRecord.recipientRateRecordList;
+        // console.log("Recipient.sol:getRecipientRateRecordList recipientRateRecordList.length = ", recipientRateRecordList.length);
         // console.log("AGENTS.SOL:addAgent: _sponsorKey, _recipientKey, _recipientRateKey, _recipientKey = " , _sponsorKey, _recipientKey, _recipientRateKey, _recipientKey);
         // console.log("AGENTS.SOL:addAgent:recipientRecord.recipientKey = " , recipientRecord.recipientKey);
-        // console.log("AGENTS.SOL:getAgentRateKeys:recipientRateList.length = ",recipientRateList.length);
-        return recipientRateList;
+        // console.log("AGENTS.SOL:getAgentRateKeys:recipientRateRecordList.length = ",recipientRateRecordList.length);
+        return recipientRateRecordList;
     }
 
     /*

@@ -84,7 +84,7 @@ contract SpCoinDataTypes {
         address recipientKey;
         uint256 insertionTime;
         uint256 stakedSPCoins; // Coins not owned but Recipiented
-        uint256[] recipientRateList;
+        uint256[] recipientRateRecordList;
         mapping(uint256 => RecipientRateStruct) recipientRateMap;
         bool inserted;
         bool verified;

@@ -110,7 +110,7 @@ getRecipientRecordsByKeys = async(_sponsorKey, _recipientAccountList) => {
 getRecipientRecordByKeys = async(_sponsorKey, _recipientKey) => {
   // console.log("HERE  8");
   logFunctionHeader("getRecipientRecordByKeys(" +_sponsorKey, + ",", + _recipientKey + ")");
-  log("CCCCCCCCCCCCCCCCCCCCCC getRecipientRecordByKeys(" + _sponsorKey + ",", + _recipientKey + ")");
+  log("CCCCCCCCCCCCCCCCCCCCCC getRecipientRecordByKeys(" + _sponsorKey + ", ", + _recipientKey + ")");
   let recipientRecord = new RecipientStruct(_recipientKey);
   recipientRecord.recipientKey = _recipientKey;
 
@@ -119,39 +119,41 @@ getRecipientRecordByKeys = async(_sponsorKey, _recipientKey) => {
   recipientRecord.stakedSPCoins = hexToDecimal(recordStr[1]);
 
   // ToDo New Robin
-  recipientRecord.recipientRateList = await getRecipientRatesByKeys(_sponsorKey, _recipientKey);
+  recipientRecord.recipientRateRecordList = await getRecipientRatesByKeys(_sponsorKey, _recipientKey);
   return recipientRecord;
 }
 
 getRecipientRatesByKeys = async(_sponsorKey, _recipientKey) => {
 // console.log("HERE  9");
 logFunctionHeader("getAgentRatesByKeys = async(" + _sponsorKey +","  + _recipientKey + ")");
-log("DDDDDDDDDDDDDDDD getAgentRatesByKeys = async(" + _sponsorKey +","  + _recipientKey + ")");
-let networkRateList = await getRecipientRateList(_sponsorKey, _recipientKey);
-  let recipientRateList = [];
+log("EEEEEEEEEEEEEEEEEE getAgentRatesByKeys = async(" + _sponsorKey +","  + _recipientKey + ")");
+let networkRateList = await getRecipientRateRecordList(_sponsorKey, _recipientKey);
+  let recipientRateRecordList = [];
 
-// console.log("HERE  9.1 recipientRateList.length = " + recipientRateList.length);
+// console.log("HERE  9.1 recipientRateRecordList.length = " + recipientRateRecordList.length);
 
   for (let [idx, recipientRateKey] of Object.entries(networkRateList)) {
     //log("JS => Loading Recipient Rates " + recipientRateKey + " idx = " + idx);
     let recipientRateRecord = await deSerializeRecipientRateRecordByKeys(_sponsorKey, _recipientKey, recipientRateKey);
 
-
-
-    recipientRateList.push(recipientRateRecord);
+    recipientRateRecordList.push(recipientRateRecord);
   }
-  return recipientRateList;
+  return recipientRateRecordList;
 }
 
-getRecipientRateList = async(_sponsorKey, _recipientKey) => {
+getRecipientRateRecordList = async(_sponsorKey, _recipientKey) => {
+  logFunctionHeader("getRecipientRateRecordList = async(" + _sponsorKey +","  + _recipientKey + ")");
+  log("FFFFFFFFFFFF getRecipientRateRecordList = async(" + _sponsorKey +","  + _recipientKey + ")");
+
 // console.log("HERE  10 _recipientKey = " + _recipientKey);
-  let networkRateKeys = await spCoinContractDeployed.connect(signer).getRecipientRateList(_sponsorKey, _recipientKey);
+  let networkRateKeys = await spCoinContractDeployed.connect(signer).getRecipientRateRecordList(_sponsorKey, _recipientKey);
+  logJSON(networkRateKeys);
   // console.log("HERE  10.1");
-  let recipientRateList = [];
+  let recipientRateRecordList = [];
   for (let [idx, netWorkRateKey] of Object.entries(networkRateKeys)) {
-    recipientRateList.push(netWorkRateKey.toNumber());
+    recipientRateRecordList.push(netWorkRateKey.toNumber());
   }
-  return recipientRateList;
+  return recipientRateRecordList;
 }
 
 //////////////////// LOAD RECIPIENT RATE DATA //////////////////////
@@ -159,6 +161,7 @@ getRecipientRateList = async(_sponsorKey, _recipientKey) => {
 getRecipientRateRecordByKeys = async(_sponsorKey, _recipientKey, _recipientRateKey) => {
   // console.log("HERE  11");
   logFunctionHeader("getRecipientRateRecordByKeys("+_sponsorKey,  + _recipientKey + ")");
+  log("getRecipientRateRecordByKeys("+_sponsorKey,  + _recipientKey + ")");
   // console.log("HERE  11.1");
   let recipientRateRecord = new RecipientRateStruct();
   // console.log("HERE  11.2");
@@ -195,7 +198,7 @@ getSerializedAgentRecord = async(_recipientKey, _recipientRateKey, _agentKey) =>
   agentRecord = new AgentStruct();
   agentRecord.agentKey = _agentKey;
   agentRecord.stakedSPCoins = bigIntToDecimal(await spCoinContractDeployed.connect(signer).getAgentTotalRecipient(_recipientKey, _recipientRateKey, _agentKey));
-  agentRecord.agentRateList = await getAgentRatesByKeys(_recipientKey, _recipientRateKey, _agentKey);
+  agentRecord.agentRateRecordList = await getAgentRatesByKeys(_recipientKey, _recipientRateKey, _agentKey);
   return agentRecord;
 }
 
@@ -210,13 +213,13 @@ getAgentRatesByKeys = async(_recipientKey, _recipientRateKey, _agentKey) => {
    let agentRateKeys = await getAgentRateKeys(_recipientKey, _recipientRateKey, _agentKey);
 
    // console.log("HERE  14.2");
-  let agentRateList = [];
+  let agentRateRecordList = [];
   for (let [idx, agentRateKey] of Object.entries(agentRateKeys)) {
     logDetail("JS => Loading Agent Rates " + agentRateKey + " idx = " + idx);
    let agentRateRecord = await deSerializeAgentRateRecordByKeys(_recipientKey, _recipientRateKey, _agentKey, agentRateKey);
-    agentRateList.push(agentRateRecord);
+    agentRateRecordList.push(agentRateRecord);
   }
-  return agentRateList;
+  return agentRateRecordList;
 }
 
 getAgentRateKeys = async (_recipientKey, _recipientRateKey, _agentKey) => {
@@ -299,32 +302,33 @@ deSerializeAgentRateRecordByKeys = async(_recipientKey, _recipientRateKey, _agen
 }
 
 getSerializedRecipientRecordList = async(_sponsorKey, _recipientKey) => {
-  console.log("EEEEEEEEEEEEEEEEEEEEEEE", _sponsorKey, _recipientKey);
   // console.log("HERE  21");
-  logFunctionHeader("getSerializedRecipientRecordList = async(" + _sponsorKey+ ", " + _recipientKey+ ", " + ")");
+  logFunctionHeader("getSerializedRecipientRecordList = async(" + _sponsorKey + ", " + _recipientKey+ ", " + ")");
+  log("DDDDDDDDDDDDDDDD getSerializedRecipientRecordList = async(" + _sponsorKey + ", " + _recipientKey+ ", " + ")");
   let recipientRecordStr = await spCoinContractDeployed.connect(signer).serializeRecipientRecordStr(_sponsorKey, _recipientKey);
   let recipientRecordList = recipientRecordStr.split(",");
   return recipientRecordList;
 }
 
 getSerializedRecipientRateRecordList = async(_sponsorKey, _recipientKey, _recipientRateKey) => {
-  console.log("HHHHHHHHHHHHHH", _sponsorKey, _recipientKey);
   // console.log("HERE  22");
   logFunctionHeader("getSerializedRecipientRateRecordList = async(" + _sponsorKey + _recipientKey + ", " + _recipientRateKey + ")");
-  log("getSerializedRecipientRateRecordList = async(" + _sponsorKey + _recipientKey + ", " + _recipientRateKey + ")");
+  log("HHHHHHHHHHHHHH getSerializedRecipientRecordList = async(" + _sponsorKey + ", " + _recipientKey + ", "+ _recipientRateKey + ", " + ")");
   // console.log("HERE  22.1");
   let recipientRateRecordStr = await spCoinContractDeployed.connect(signer).serializeRecipientRateRecordStr(_sponsorKey, _recipientKey, _recipientRateKey);
   // console.log("HERE  22.2");
   let recipientRateRecordList = recipientRateRecordStr.split(",");
+  logJSON(recipientRateRecordList);
   return recipientRateRecordList;
 }
 
 deSerializeRecipientRateRecordByKeys = async(_sponsorKey, _recipientKey, _recipientRateKey) => {
 // console.log("HERE  23");
 logFunctionHeader("deSerializeRecipientRateRecordByKeys(" + _sponsorKey  + _recipientKey + ", " + _recipientRateKey + ")");
-log("LLLLLLLLL deSerializeRecipientRateRecordByKeys(" + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ")");
+log("GGGGGGG deSerializeRecipientRateRecordByKeys(" + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ")");
 let recipientRateRecord = new RecipientRateStruct();
   let recordStr = await getSerializedRecipientRateRecordList(_sponsorKey, _recipientKey, _recipientRateKey);
+logJSON(recordStr);
   recipientRateRecord.recipientRate = _recipientRateKey;
   recipientRateRecord.insertionTime = hexToDecimal(recordStr[0]);
   recipientRateRecord.lastUpdateTime = hexToDecimal(recordStr[1]);

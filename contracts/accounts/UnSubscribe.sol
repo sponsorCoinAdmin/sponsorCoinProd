@@ -32,17 +32,17 @@ contract UnSubscribe is Transactions {
 
     function deleteRecipientRateRecords(RecipientStruct storage _recipientRecord) internal {
         // Delete Agent Rate Keys
-        uint256[] storage recipientRateList = _recipientRecord.recipientRateList;
+        uint256[] storage recipientRateRecordList = _recipientRecord.recipientRateRecordList;
         AccountStruct storage recipientAccount = accountMap[_recipientRecord.recipientKey];
 
-        uint i = recipientRateList.length - 1;
+        uint i = recipientRateRecordList.length - 1;
         for (i; i >=0; i--) {
-            // console.log("====deleteRecipientRateRecords: recipientRateList[", i, "] ", recipientRateList[i]);
-            uint256 recipientRateKey = recipientRateList[i];
+            // console.log("====deleteRecipientRateRecords: recipientRateRecordList[", i, "] ", recipientRateRecordList[i]);
+            uint256 recipientRateKey = recipientRateRecordList[i];
             RecipientRateStruct storage recipientRateRecord = _recipientRecord.recipientRateMap[recipientRateKey];
 
             deleteRecipientRateRecord(recipientAccount, recipientRateRecord);
-            recipientRateList.pop();
+            recipientRateRecordList.pop();
             if (i == 0)
               break;
         }

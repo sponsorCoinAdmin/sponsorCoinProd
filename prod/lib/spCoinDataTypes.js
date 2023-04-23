@@ -22,7 +22,7 @@ class RecipientStruct {
     this.stakedSPCoins;
     this.insertionTime;
     this.verified;
-    this.recipientRateList;
+    this.recipientRateRecordList;
   }
 }
 
@@ -47,7 +47,7 @@ class AgentStruct {
     this.stakedSPCoins;
     this.insertionTime;
     this.verified;
-    this.agentRateList;
+    this.agentRateRecordList;
   }
 }
 
