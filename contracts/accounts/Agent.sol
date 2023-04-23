@@ -25,7 +25,7 @@ contract Agent is RecipientRates {
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecord(_sponsorKey, _recipientKey, _recipientRateKey);
         // console.log(JUNK_COUNTER++,"getAgentRecord");
 
-        AgentStruct storage  agentRecord = getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey);
+        AgentStruct storage  agentRecord = getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
         if (!agentRecord.inserted) {
             addAccountRecord("Agent", _agentKey);
             agentRecord.insertionTime = block.timestamp;
@@ -42,9 +42,9 @@ contract Agent is RecipientRates {
 
     /// @notice retreives the recipient array records from a specific account address.
     /// @param _recipientKey recipient Key to retrieve the agent list
-    function getAgentRecordKeys(address _recipientKey, uint256 _recipientRateKey) 
+    function getAgentRecordKeys(address _sponsorKey, address _recipientKey, uint256 _recipientRateKey) 
     public view returns (address[] memory) {
-        RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys( msg.sender, _recipientKey,  _recipientRateKey);
+        RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys( _sponsorKey, _recipientKey,  _recipientRateKey);
         address[] memory agentAccountList = recipientRateRecord.agentAccountList;
         return agentAccountList;
     }
@@ -53,8 +53,8 @@ contract Agent is RecipientRates {
     /// @param _recipientKey recipient account key
     /// @param _recipientRateKey recipient rate
     /// @param _agentKey agent record key to be returned
-    function getAgentRecordByKeys(address _recipientKey, uint _recipientRateKey, address _agentKey) internal view returns (AgentStruct storage) {
-        RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(msg.sender, _recipientKey, _recipientRateKey);
+    function getAgentRecordByKeys(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey) internal view returns (AgentStruct storage) {
+        RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey);
         AgentStruct storage agentRecord = recipientRateRecord.agentMap[_agentKey];
         return agentRecord;
      }
@@ -63,18 +63,18 @@ contract Agent is RecipientRates {
     /// @param _recipientKey recipient account key
     /// @param _recipientRateKey recipient rate
     /// @param _agentKey agent record key to be returned
-    function getAgentTotalRecipient(address _recipientKey, uint _recipientRateKey, address _agentKey) 
+    function getAgentTotalRecipient(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey) 
     public view returns (uint) {
-        AgentStruct storage agentRec = getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey);
+        AgentStruct storage agentRec = getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
         return agentRec.stakedSPCoins; 
     }
 
     /// @notice retreives the recipient array records from a specific account address.
     /// @param _recipientKey recipient Key to retrieve the agent list
     /// @param _agentKey agent Key to retrieve the agentate list
-    function getAgentRateKeys(address _recipientKey, uint _recipientRateKey, address _agentKey) 
+    function getAgentRateKeys(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey) 
     public view returns (uint[] memory) {
-        AgentStruct storage agentRec = getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey);
+        AgentStruct storage agentRec = getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
         uint[] memory agentRateKeys = agentRec.agentRateKeys;
         // console.log("AGENTS.SOL:addAgent:agentRec.agentKey = " , agentRec.agentKey);
         // console.log("AGENTS.SOL:getAgentRateKeys:agentRateKeys.length = ",agentRateKeys.length);

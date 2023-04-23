@@ -16,7 +16,7 @@ contract AgentRates is Agent {
     {
         AgentStruct storage agentRecord = getAgentRecord(_sponsor, _recipientKey, _recipientRateKey, _agentKey);
         // console.log(JUNK_COUNTER++,"getAgentRateRecord"); 
-        AgentRateStruct storage agentRateRecord= getAgentRateRecordByKeys(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
+        AgentRateStruct storage agentRateRecord= getAgentRateRecordByKeys(_sponsor, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
         if (!agentRateRecord.inserted) {
             agentRateRecord.agentRate = _agentRateKey;
             agentRateRecord.inserted = true;
@@ -27,13 +27,13 @@ contract AgentRates is Agent {
         return agentRateRecord;
     }
 
-    function getAgentRateRecordByKeys(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey) internal view returns (AgentRateStruct storage) {
-        AgentStruct storage agentRec = getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey) ;
+    function getAgentRateRecordByKeys(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey) internal view returns (AgentRateStruct storage) {
+        AgentStruct storage agentRec = getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey) ;
         return agentRec.agentRateMap[_agentRateKey];
     }
 
-    function serializeAgentRateRecordStr(address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
-        AgentRateStruct storage agentRateRecord =  getAgentRateRecordByKeys(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
+    function serializeAgentRateRecordStr(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
+        AgentRateStruct storage agentRateRecord =  getAgentRateRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
         string memory insertionTimeStr = toString(agentRateRecord.insertionTime);
         string memory lastUpdateTimeStr = toString(agentRateRecord.lastUpdateTime);
         string memory stakedSPCoinsStr = toString(agentRateRecord.stakedSPCoins);

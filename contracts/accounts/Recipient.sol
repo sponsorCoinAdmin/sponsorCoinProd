@@ -49,7 +49,7 @@ contract Recipient is Sponsor {
     /// @param _recipientRateKey public agent account key validate Insertion
     function isAgentRateInserted(address _sponsorKey,address _recipientKey, uint _recipientRateKey, address _agentKey) 
     public onlyOwnerOrRootAdmin("isAgentRateInserted", _sponsorKey) view returns (bool) {
-        return getAgentRecordByKeys(_recipientKey, _recipientRateKey, _agentKey).inserted;
+        return getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey).inserted;
     }
     */
 
@@ -77,12 +77,12 @@ contract Recipient is Sponsor {
 
     /// @notice retreives the recipient array records from a specific account address.
     /// @param _recipientKey recipient Key to retrieve the recipient list
-    function getRecipientRateRecordList(address _sponsorKey, address _recipientKey)
+    function getRecipientRecordList(address _sponsorKey, address _recipientKey)
         public view  returns (uint[] memory) {
-        // console.log("Recipient.sol:getRecipientRateRecordList (", toString(_sponsorKey), ",", toString(_recipientKey));
+        // console.log("Recipient.sol:getRecipientRecordList (", toString(_sponsorKey), ",", toString(_recipientKey));
         RecipientStruct storage recipientRecord = getRecipientRecordByKeys(_sponsorKey, _recipientKey);
         uint[] memory recipientRateRecordList = recipientRecord.recipientRateRecordList;
-        // console.log("Recipient.sol:getRecipientRateRecordList recipientRateRecordList.length = ", recipientRateRecordList.length);
+        // console.log("Recipient.sol:getRecipientRecordList recipientRateRecordList.length = ", recipientRateRecordList.length);
         // console.log("AGENTS.SOL:addAgent: _sponsorKey, _recipientKey, _recipientRateKey, _recipientKey = " , _sponsorKey, _recipientKey, _recipientRateKey, _recipientKey);
         // console.log("AGENTS.SOL:addAgent:recipientRecord.recipientKey = " , recipientRecord.recipientKey);
         // console.log("AGENTS.SOL:getAgentRateKeys:recipientRateRecordList.length = ",recipientRateRecordList.length);

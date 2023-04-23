@@ -51,28 +51,28 @@ describe("spCoinContract", function () {
   // Recipient Account to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
   await addAgentTransaction(
-    SPONSOR_ACCOUNT_KEYS[0],
-    RECIPIENT_ACCOUNT_KEYS[1],
+    SPONSOR_ACCOUNT_KEYS[1],
+    RECIPIENT_ACCOUNT_KEYS[2],
     RECIPIENT_RATES[9],
-    AGENT_ACCOUNT_KEYS[2],
+    AGENT_ACCOUNT_KEYS[3],
     AGENT_RATES[1],
     100
   );
 
   await addAgentTransaction(
-    SPONSOR_ACCOUNT_KEYS[1],
-    RECIPIENT_ACCOUNT_KEYS[2],
+    SPONSOR_ACCOUNT_KEYS[2],
+    RECIPIENT_ACCOUNT_KEYS[3],
     RECIPIENT_RATES[8],
-    AGENT_ACCOUNT_KEYS[0],
+    AGENT_ACCOUNT_KEYS[1],
     AGENT_RATES[3],
     TRANSACTION_QTY[5]
   );
 
   await addAgentTransaction(
-    SPONSOR_ACCOUNT_KEYS[2],
-    RECIPIENT_ACCOUNT_KEYS[0],
+    SPONSOR_ACCOUNT_KEYS[3],
+    RECIPIENT_ACCOUNT_KEYS[1],
     RECIPIENT_RATES[7],
-    AGENT_ACCOUNT_KEYS[1],
+    AGENT_ACCOUNT_KEYS[2],
     AGENT_RATES[6],
     TRANSACTION_QTY[9]
   );
