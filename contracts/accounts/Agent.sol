@@ -44,8 +44,16 @@ contract Agent is RecipientRates {
     /// @param _recipientKey recipient Key to retrieve the agent list
     function getAgentRecordKeys(address _sponsorKey, address _recipientKey, uint256 _recipientRateKey) 
     public view returns (address[] memory) {
+        // console.log("============================================================================");
+        // console.log("getAgentRecordKeys(", _sponsorKey, ", ", _recipientKey);
+        // console.log(", ", _recipientRateKey,")");
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys( _sponsorKey, _recipientKey,  _recipientRateKey);
+        // console.log("recipientRateRecord.inserted = ", recipientRateRecord.inserted);
+    
         address[] memory agentAccountList = recipientRateRecord.agentAccountList;
+        // console.log("agentAccountList.length = ", agentAccountList.length);
+        // console.log("agentAccountList[0]     = ", agentAccountList[0]);
+        // console.log("============================================================================");
         return agentAccountList;
     }
 
