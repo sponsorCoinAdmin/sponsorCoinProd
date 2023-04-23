@@ -14,7 +14,7 @@ contract AccountStakingManager is UnSubscribe{
 
 /*
 function allocateStakingRewards() internal view returns(  AccountStruct[] memory ){
-   AccountStruct[] memory recipientRecordList = getRecipientRecordByKeys(msg.sender);
+   AccountStruct[] memory recipientRecordList = getRecipientRecordByKeys(accountKey,recipientKey);
    return recipientRecordList;
 }
 */// @title A title that should describe the contract/interface

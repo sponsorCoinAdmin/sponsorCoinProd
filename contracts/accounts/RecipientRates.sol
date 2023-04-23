@@ -15,8 +15,7 @@ contract RecipientRates is Recipient {
     returns (RecipientRateStruct storage) {
         RecipientStruct storage recipientRecord = getRecipientRecord(_sponsorKey, _recipientKey);
 // console.log(JUNK_COUNTER++,"Recipient.sol:getRecipientRateRecord", _recipientKey, _recipientRateKey); 
-
-        RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_recipientKey, _recipientRateKey);
+        RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey);
         if (!recipientRateRecord.inserted) {
             // console.log(JUNK_COUNTER,"Recipient.sol:recipientRateRecord.inserted = ", recipientRecord.inserted); 
             recipientRateRecord.recipientRate = _recipientRateKey;
@@ -28,14 +27,14 @@ contract RecipientRates is Recipient {
         return recipientRateRecord; 
     }
 
-    function getRecipientRateRecordByKeys(address _recipientKey, uint _recipientRateKey) internal view  returns (RecipientRateStruct storage) {
-        RecipientStruct storage recipientRecord = getRecipientRecordByKeys(msg.sender, _recipientKey) ;
+    function getRecipientRateRecordByKeys(address _sponsorKey, address _recipientKey, uint _recipientRateKey) internal view  returns (RecipientRateStruct storage) {
+        RecipientStruct storage recipientRecord = getRecipientRecordByKeys(_sponsorKey, _recipientKey) ;
         return recipientRecord.recipientRateMap[_recipientRateKey];
     }
 
-    function serializeRecipientRateRecordStr(address _recipientKey, uint256 _recipientRateKey) public view returns (string memory) {
+    function serializeRecipientRateRecordStr(address _sponsorKey, address _recipientKey, uint256 _recipientRateKey) public view returns (string memory) {
         // console.log("ZZZZ serializeRecipientRateRecordStr recipientRateRecordStr ", _recipientKey, _recipientRateKey);
-        RecipientRateStruct storage recipientRateRecord =  getRecipientRateRecordByKeys(_recipientKey, _recipientRateKey);
+        RecipientRateStruct storage recipientRateRecord =  getRecipientRateRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey);
         string memory recipientRateRecordStr = toString(recipientRateRecord.insertionTime);
         string memory lastUpdateTimeStr = toString(recipientRateRecord.lastUpdateTime);
         string memory stakedSPCoinsStr = toString(recipientRateRecord.stakedSPCoins);

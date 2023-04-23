@@ -77,6 +77,9 @@ describe("spCoinContract", function () {
     TRANSACTION_QTY[9]
   );
   
+    console.log("********************************************************************************");
+    console.log("*** AFTER CREATE ***************************************************************");
+    console.log("********************************************************************************");
 
      // AccountListSize = (await getAccountListSize()).toNumber();
     // expect(AccountListSize).to.equal(3);

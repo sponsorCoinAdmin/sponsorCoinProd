@@ -44,7 +44,7 @@ contract Agent is RecipientRates {
     /// @param _recipientKey recipient Key to retrieve the agent list
     function getAgentRecordKeys(address _recipientKey, uint256 _recipientRateKey) 
     public view returns (address[] memory) {
-        RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys( _recipientKey,  _recipientRateKey);
+        RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys( msg.sender, _recipientKey,  _recipientRateKey);
         address[] memory agentAccountList = recipientRateRecord.agentAccountList;
         return agentAccountList;
     }
@@ -54,7 +54,7 @@ contract Agent is RecipientRates {
     /// @param _recipientRateKey recipient rate
     /// @param _agentKey agent record key to be returned
     function getAgentRecordByKeys(address _recipientKey, uint _recipientRateKey, address _agentKey) internal view returns (AgentStruct storage) {
-        RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_recipientKey, _recipientRateKey);
+        RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(msg.sender, _recipientKey, _recipientRateKey);
         AgentStruct storage agentRecord = recipientRateRecord.agentMap[_agentKey];
         return agentRecord;
      }
