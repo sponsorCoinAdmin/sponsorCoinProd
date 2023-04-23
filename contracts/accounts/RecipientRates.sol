@@ -33,14 +33,14 @@ contract RecipientRates is Recipient {
     }
 
     function serializeRecipientRateRecordStr(address _sponsorKey, address _recipientKey, uint256 _recipientRateKey) public view returns (string memory) {
-        console.log("ZZZZ RecipientRates.sol:serializeRecipientRateRecordStr ", ",", _sponsorKey,", "); 
-        console.log("ZZZZ", _recipientKey, ", ",  _recipientRateKey);
+        // console.log("ZZZZ RecipientRates.sol:serializeRecipientRateRecordStr ", ",", _sponsorKey,", "); 
+        // console.log("ZZZZ", _recipientKey, ", ",  _recipientRateKey);
         RecipientRateStruct storage recipientRateRecord =  getRecipientRateRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey);
         string memory recipientRateRecordStr = toString(recipientRateRecord.insertionTime);
         string memory lastUpdateTimeStr = toString(recipientRateRecord.lastUpdateTime);
         string memory stakedSPCoinsStr = toString(recipientRateRecord.stakedSPCoins);
         recipientRateRecordStr = concat(recipientRateRecordStr, ",", lastUpdateTimeStr, ",", stakedSPCoinsStr);
-        console.log("ZZZZ serializeRecipientRateRecordStr recipientRateRecordStr ", recipientRateRecordStr);
+        // console.log("ZZZZ serializeRecipientRateRecordStr recipientRateRecordStr ", recipientRateRecordStr);
         return recipientRateRecordStr;
     }
 }
