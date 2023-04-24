@@ -54,7 +54,7 @@ describe("spCoinContract", function () {
     RECIPIENT_RATES[8],
     AGENT_ACCOUNT_KEYS[1],
     AGENT_RATES[3],
-    TRANSACTION_QTY[5]
+    29
   );
 
   await addAgentTransaction(
@@ -63,7 +63,7 @@ describe("spCoinContract", function () {
     RECIPIENT_RATES[3],
     AGENT_ACCOUNT_KEYS[0],
     AGENT_RATES[6],
-    TRANSACTION_QTY[9]
+    .00003422
   );
 
   await addAgentTransaction(
@@ -72,7 +72,7 @@ describe("spCoinContract", function () {
     RECIPIENT_RATES[2],
     AGENT_ACCOUNT_KEYS[2],
     AGENT_RATES[6],
-    TRANSACTION_QTY[9]
+    1
   );
   
   await addAgentTransaction(
@@ -81,7 +81,7 @@ describe("spCoinContract", function () {
     RECIPIENT_RATES[0],
     AGENT_ACCOUNT_KEYS[1],
     AGENT_RATES[6],
-    TRANSACTION_QTY[9]
+    49
   );
 
   await addAgentTransaction(
@@ -90,7 +90,7 @@ describe("spCoinContract", function () {
     RECIPIENT_RATES[2],
     AGENT_ACCOUNT_KEYS[0],
     AGENT_RATES[6],
-    TRANSACTION_QTY[9]
+    5
   );
   
     console.log("********************************************************************************");

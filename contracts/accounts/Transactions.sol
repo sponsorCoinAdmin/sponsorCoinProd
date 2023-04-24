@@ -11,7 +11,8 @@ contract Transactions is AgentRates {
         // console.log(JUNK_COUNTER++, "**** Transaction.sol:ADDING RATE REC = ",_agentRateKey, "ADDING TRANSACTION = ",_transAmount);
         AgentRateStruct storage agentRateRecord = getAgentRateRecord(msg.sender, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
         uint256 transactionTimeStamp = block.timestamp;
-    
+
+        updateAgentRateTransaction(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey, _transAmount);
         agentRateRecord.lastUpdateTime = transactionTimeStamp;
         TransactionStruct memory transRec = TransactionStruct(
             {insertionTime: transactionTimeStamp, quantity: _transAmount});
