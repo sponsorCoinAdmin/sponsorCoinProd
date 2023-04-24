@@ -70,8 +70,8 @@ contract SpCoinDataTypes {
         uint256 stakedSPCoins; // Coins Owned but steaked to recipients
         bool inserted;
         bool verified;
-        address[] sponsorAccountList;         // If Recipient? List of Sponsor Account
         address[] recipientAccountList;       // If Sponsor List of Recipiented Account
+        address[] sponsorAccountList;         // If Recipient? List of Sponsor Account
         address[] agentAccountList;           // If Recipient? List of Agent Account
         address[] parentRecipientAccountList; // If Agent? List of Sponsor Recipient Account
         mapping(address => RecipientStruct) recipientMap; 

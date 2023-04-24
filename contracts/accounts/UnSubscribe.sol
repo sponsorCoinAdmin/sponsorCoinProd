@@ -13,12 +13,12 @@ contract UnSubscribe is Transactions {
         accountExists(msg.sender)
         accountExists(_recipientKey)
         nonRedundantRecipient (msg.sender, _recipientKey) {
-console.log("*** ATTEMPTING DELETE FOR ACCOUNT ",_recipientKey); 
-
+console.log("UN-SPONSOR FROM ACCOUNT", msg.sender, "FOR RECIPIANT",_recipientKey); 
+ 
         // Clean up Sponsor References and Balances
         // Move Recipient's steaked Coins back to Sponsors BalanceOf
         AccountStruct storage sponsorAccount = accountMap[msg.sender];
-        // Delete Recipient from Sponsors recipientAccountList
+        // Remove Sponsors reference to Recipient in recipientAccountList
         if (deleteAccountRecordFromSearchKeys(_recipientKey, sponsorAccount.recipientAccountList)) {
 
             RecipientStruct storage recipientRecord = sponsorAccount.recipientMap[_recipientKey];
@@ -27,23 +27,29 @@ console.log("*** ATTEMPTING DELETE FOR ACCOUNT ",_recipientKey);
             sponsorAccount.stakedSPCoins -= totalSponsored;
 
             //Clean up Recipient's References
-
-            AccountStruct storage recipientAccount = accountMap[recipientRecord.recipientKey];
-            //Remove Recipient from sponsorAccountList
-            deleteAccountRecordFromSearchKeys(_recipientKey, recipientAccount.sponsorAccountList);
-            // deleteAccountRecordFromSearchKeys(_recipientKey, recipientAccount.agentAccountList);
-            deleteRecipientRateRecords(recipientRecord);
-        
-            deleteAccountRecordInternal(recipientRecord.recipientKey);
-            deleteAccountRecordInternal(msg.sender);
-        }
+            deleteRecipientsReferences(recipientRecord);
+         }
     }
 
-    // function deleteRecipientsReferencesToSponsor(address _recipientKey)  
-    // internal {
-        
-    // }
+    function deleteRecipientsReferences(RecipientStruct storage recipientRecord)  
+    internal {
+        AccountStruct storage recipientAccount = accountMap[recipientRecord.recipientKey];
+        // console.log("*** deleteRecipientsReferences ***"); 
+        // console.log("*** sponsorKey = ",recipientRecord.sponsorKey, "recipientKey = ", recipientRecord.recipientKey); 
+        // console.log("*** recipientAccount.sponsorAccountList.length = ",recipientAccount.sponsorAccountList.length); 
+        // for (uint i = 0; i < recipientAccount.sponsorAccountList.length ; i++)
+        // console.log("*** BEFORE DELETE recipientAccount.sponsorAccountList[", i, "] = ",recipientAccount.sponsorAccountList[i]); 
 
+        // Remove Recipients reference to the former Sponsor
+        deleteAccountRecordFromSearchKeys(recipientRecord.sponsorKey, recipientAccount.sponsorAccountList);
+        // deleteAccountRecordFromSearchKeys(_recipientKey, recipientAccount.agentAccountList);
+        // for (uint i = 0; i < recipientAccount.sponsorAccountList.length ; i++)
+        // console.log("*** AFTER DELETE recipientAccount.sponsorAccountList[", i, "] = ",recipientAccount.sponsorAccountList[i]); 
+        deleteRecipientRateRecords(recipientRecord);
+    
+        deleteAccountRecordInternal(recipientRecord.recipientKey);
+        deleteAccountRecordInternal(msg.sender);
+    }
 
     function deleteRecipientRateRecords(RecipientStruct storage _recipientRecord) internal {
         // Delete Agent Rate Keys
@@ -51,7 +57,7 @@ console.log("*** ATTEMPTING DELETE FOR ACCOUNT ",_recipientKey);
         AccountStruct storage recipientAccount = accountMap[_recipientRecord.recipientKey];
 
         uint i = recipientRateRecordList.length - 1;
-        for (i; i >=0; i--) {
+        for (i; i >= 0; i--) {
             // console.log("====deleteRecipientRateRecords: recipientRateRecordList[", i, "] ", recipientRateRecordList[i]);
             uint256 recipientRateKey = recipientRateRecordList[i];
             RecipientRateStruct storage recipientRateRecord = _recipientRecord.recipientRateMap[recipientRateKey];
@@ -73,7 +79,7 @@ console.log("*** ATTEMPTING DELETE FOR ACCOUNT ",_recipientKey);
             AccountStruct storage agentAccount = accountMap[agentKey];
             AgentStruct storage agentRec = recipientRateRecord.agentMap[agentKey];
 
-            console.log("***deleteAgentRecord:agentAccount.parentRecipientAccountList.length =", agentAccount.parentRecipientAccountList.length);
+            // console.log("***deleteAgentRecord:agentAccount.parentRecipientAccountList.length =", agentAccount.parentRecipientAccountList.length);
 
             // console.log(JUNK_COUNTER++,"Deleting recipientAccount.accountKey ", recipientAccount.accountKey,
             //  "From agentRec.agentKey ", agentRec.agentKey);
@@ -107,7 +113,7 @@ console.log("*** ATTEMPTING DELETE FOR ACCOUNT ",_recipientKey);
     // Delete recipient rate list.
     function deleteAgentTransactions(AgentRateStruct storage agentRateRecord) internal {
         TransactionStruct[] storage transactionList = agentRateRecord.transactionList;
-        for (uint i=0; i< transactionList.length; i++) { 
+        for (uint i= 0; i< transactionList.length; i++) { 
             // console.log("====deleteAgentRateRecord: Deleting transactionList[", i, "].quantity ", transactionList[i].quantity);
             delete transactionList[i];
             transactionList.pop();

@@ -17,9 +17,9 @@ contract Recipient is Sponsor {
     }
 
     function getRecipientRecord(address _sponsor, address _recipientKey)
-    internal nonRedundantRecipient (msg.sender, _recipientKey)
-    returns (RecipientStruct storage) {
+    internal returns (RecipientStruct storage) {
         AccountStruct storage sponsorRecord = getSponsorAccountRecord(_sponsor);
+        console.log("getRecipientRecord(", _sponsor, ", ", _recipientKey);
 
         // START DEBUG AREA
         // string memory myMsg = concat("getRecipientRecord(",
@@ -32,7 +32,7 @@ contract Recipient is Sponsor {
         if (!recipientRecord.inserted) {
             addAccountRecord("Recipient", _recipientKey);
             recipientRecord.insertionTime = block.timestamp;
-            recipientRecord.sponsorKey = msg.sender;
+            recipientRecord.sponsorKey = _sponsor;
             recipientRecord.recipientKey = _recipientKey;
             recipientRecord.stakedSPCoins = 0; // Coins not owned but Recipiented
             recipientRecord.inserted = true;
