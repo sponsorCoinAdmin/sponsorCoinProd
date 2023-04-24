@@ -7,14 +7,18 @@ const {
   TransactionStruct,
 } = require("../prod/lib/spCoinDataTypes");
 const { initHHAccounts } = require("../test/testMethods/hhTestAccounts");
-const { LOG_MODE, LOG, setLogMode, log, logJSON } = require("../prod/lib/utils/logging");
+const { logSetup, setLogMode, logJSON,  LOG_MODE, LOG, LOG_DETAIL, 
+        LOG_TEST_HEADER, LOG_FUNCTION_HEADER, LOG_SETUP,
+        LOG_TREE } = require("../prod/lib/utils/logging");
 const { } = require("../test/testMethods/scTestMethods");
 const { } = require("../prod/lib/spCoinReadMethods");
+const { deleteRecipientRecord } = require("../prod/lib/spCoinDeleteMethods");
 const { } = require("../test/deployContract");
 
 let spCoinContractDeployed;
 
 logSetup("JS => Setup Test");
+setLogMode(LOG_MODE.LOG_FUNCTION_HEADER, false);
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
@@ -24,24 +28,9 @@ describe("spCoinContract", function () {
     setSigners(signers);
     const accounts = hhTestElements.accounts;
     const rates = hhTestElements.rates;
-    SPONSOR_ACCOUNT_KEYS = signers;
+    SPONSOR_ACCOUNT_SIGNERS = signers;
     RECIPIENT_ACCOUNT_KEYS = AGENT_ACCOUNT_KEYS = accounts;
     TRANSACTION_QTY = RECIPIENT_RATES = AGENT_RATES = hhTestElements.rates;
-  //   log("=== SIGNERS ==========================================");
-  //   logJSON(signers);
-  // // signers = await ethers.getSigners();
-  //   log("=== ACCOUNTS ==========================================");
-  //   logJSON(accounts);
-  //   log("=== SIGNERS 1 ========================================");
-  //   logJSON(signers[1]);
-  //   [deployer, account0, account1] = await ethers.getSigners();
-  //   log("=== DEPLOYER =========================================");
-  //   logJSON(deployer);
-  //   log("=== ACCOUNT 0 ========================================");
-  //   logJSON(account0);
-  //   log("=== ACCOUNT 1 ========================================");
-  //   logJSON(account1);
-  //   log("=== ACCOUNT ADDRESS========================================");
   });
 
  it("2. VALIDATE ADD TRANSACTION RATES", async function () {
@@ -51,17 +40,17 @@ describe("spCoinContract", function () {
   // Recipient Account to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
   await addAgentTransaction(
-    SPONSOR_ACCOUNT_KEYS[1],
-    RECIPIENT_ACCOUNT_KEYS[2],
+    SPONSOR_ACCOUNT_SIGNERS[0],
+    RECIPIENT_ACCOUNT_KEYS[1],
     RECIPIENT_RATES[9],
-    AGENT_ACCOUNT_KEYS[3],
+    AGENT_ACCOUNT_KEYS[2],
     AGENT_RATES[1],
     100
   );
 
   await addAgentTransaction(
-    SPONSOR_ACCOUNT_KEYS[2],
-    RECIPIENT_ACCOUNT_KEYS[3],
+    SPONSOR_ACCOUNT_SIGNERS[0],
+    RECIPIENT_ACCOUNT_KEYS[2],
     RECIPIENT_RATES[8],
     AGENT_ACCOUNT_KEYS[1],
     AGENT_RATES[3],
@@ -69,10 +58,37 @@ describe("spCoinContract", function () {
   );
 
   await addAgentTransaction(
-    SPONSOR_ACCOUNT_KEYS[3],
-    RECIPIENT_ACCOUNT_KEYS[1],
-    RECIPIENT_RATES[7],
+    SPONSOR_ACCOUNT_SIGNERS[1],
+    RECIPIENT_ACCOUNT_KEYS[2],
+    RECIPIENT_RATES[3],
+    AGENT_ACCOUNT_KEYS[0],
+    AGENT_RATES[6],
+    TRANSACTION_QTY[9]
+  );
+
+  await addAgentTransaction(
+    SPONSOR_ACCOUNT_SIGNERS[1],
+    RECIPIENT_ACCOUNT_KEYS[0],
+    RECIPIENT_RATES[2],
     AGENT_ACCOUNT_KEYS[2],
+    AGENT_RATES[6],
+    TRANSACTION_QTY[9]
+  );
+  
+  await addAgentTransaction(
+    SPONSOR_ACCOUNT_SIGNERS[2],
+    RECIPIENT_ACCOUNT_KEYS[0],
+    RECIPIENT_RATES[0],
+    AGENT_ACCOUNT_KEYS[1],
+    AGENT_RATES[6],
+    TRANSACTION_QTY[9]
+  );
+
+  await addAgentTransaction(
+    SPONSOR_ACCOUNT_SIGNERS[2],
+    RECIPIENT_ACCOUNT_KEYS[1],
+    RECIPIENT_RATES[2],
+    AGENT_ACCOUNT_KEYS[0],
     AGENT_RATES[6],
     TRANSACTION_QTY[9]
   );
@@ -84,17 +100,21 @@ describe("spCoinContract", function () {
      // AccountListSize = (await getAccountListSize()).toNumber();
     // expect(AccountListSize).to.equal(3);
     await logJSONTree();
-    // await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEYS[0], RECIPIENT_ACCOUNT_KEYS[1);
-    // await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEYS[3], RECIPIENT_ACCOUNT_KEYS[1);
-    // await deleteSponsorRecipientRecord(SPONSOR_ACCOUNT_KEYS[0], RECIPIENT_ACCOUNT_KEYS[2);
+    await deleteRecipientRecord(SPONSOR_ACCOUNT_SIGNERS[0], RECIPIENT_ACCOUNT_KEYS[1]);
+    await deleteRecipientRecord(SPONSOR_ACCOUNT_SIGNERS[0], RECIPIENT_ACCOUNT_KEYS[2]);
+    await deleteRecipientRecord(SPONSOR_ACCOUNT_SIGNERS[1], RECIPIENT_ACCOUNT_KEYS[2]);
+    await deleteRecipientRecord(SPONSOR_ACCOUNT_SIGNERS[1], RECIPIENT_ACCOUNT_KEYS[0]);
+    await deleteRecipientRecord(SPONSOR_ACCOUNT_SIGNERS[2], RECIPIENT_ACCOUNT_KEYS[0]);
+    await deleteRecipientRecord(SPONSOR_ACCOUNT_SIGNERS[2], RECIPIENT_ACCOUNT_KEYS[1]);
+    // await spCoinContractDeployed.deleteAccountRecordInternal(RECIPIENT_ACCOUNT_KEYS[2]);
     console.log("********************************************************************************");
     console.log("*** AFTER DELETE ***************************************************************");
     console.log("********************************************************************************");
   
     // console.log("--- AFTER DELETE RECIPIENT -----------------------------------");
-    // await logJSONTree();
+    await logJSONTree();
     // agentRateKeys = await getAgentRateKeys(
-    //   SPONSOR_ACCOUNT_KEYS[1],
+    //   SPONSOR_ACCOUNT_SIGNERS[1],
     //   RECIPIENT_ACCOUNT_KEYS[1],
     // RECIPIENT_RATES[10],
     //   AGENT_ACCOUNT_KEYS[1]);
@@ -102,7 +122,7 @@ describe("spCoinContract", function () {
 
     // VALIDATE ACCOUNT CREATION
     // VALIDATE SPONSOR ACCOUNT
-    // let sponsorAccount = await getAccountRecord(SPONSOR_ACCOUNT_KEYS[1]);
+    // let sponsorAccount = await getAccountRecord(SPONSOR_ACCOUNT_SIGNERS[1]);
     // logJSON(sponsorAccount);
   });
 /**/

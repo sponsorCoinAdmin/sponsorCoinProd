@@ -21,6 +21,7 @@ deleteAccountRecord = async (_accountKey) => {
     logFunctionHeader("deleteAccountRecord = async(" + _accountKey + ")");
     logDetail("JS => Deleting Account " + _accountKey + " From Blockchain Network");
     await spCoinContractDeployed.connect(signer).deleteAccountRecord(_accountKey);
+    logExitFunction();
 };
 
 deleteAccountRecords = async (_accountListKeys) => {
@@ -34,13 +35,17 @@ deleteAccountRecords = async (_accountListKeys) => {
     await deleteAccountRecord(accountKey);
   }
   logDetail("JS => Inserted " + maxCount + " Account to Blockchain Network");
+  logExitFunction();
 };
 
 /////////////////////// RECIPIENT RECORD FUNCTIONS ///////////////////////
 
-deleteRecipientRecord = async (_recipientKey) => {
-  logFunctionHeader("deleteRecipientRecord(" + _recipientKey + ")");
+deleteRecipientRecord = async (_sponsorKey, _recipientKey) => {
+  setSigner(_sponsorKey);
+  logFunctionHeader("deleteRecipientRecord(" + _sponsorKey.accountKey + ", " + _recipientKey + ")");
+  log("deleteRecipientRecord(" + _sponsorKey.accountKey + ", " + _recipientKey + ")");
   await spCoinContractDeployed.connect(signer).deleteRecipientRecord(_recipientKey);
+  logExitFunction();
 }
 
 /////////////////////// AGENT RECORD FUNCTIONS ////////////////////////
@@ -56,6 +61,7 @@ deleteAgentRecord = async (_accountKey, _recipientKey, _accountAgentKey) => {
   logDetail("JS =>  " + _accountKey + ". " + "Inserting Agent[" + _accountKey + "]: " + _accountAgentKey );
   // await spCoinContractDeployed.connect(signer).deleteAgentRecord( _accountKey, _recipientKey, _agentKey );
   logDetail("JS => "+ "Deleted = " + _accountAgentKey + " Agent Record from RecipientKey " + _recipientKey);
+  logExitFunction();
 };
 
 /////////////////////// EXPORT MODULE FUNCTIONS ///////////////////////

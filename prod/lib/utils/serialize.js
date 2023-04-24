@@ -31,6 +31,7 @@ deSerializedAccountRec = async (serializedAccountRec) => {
   );
   logDetail("JS => ============================================================================"
   );
+  logExitFunction();
   return accountStruct;
 };
 const hexToDecimal = hex => parseInt(hex, 16);
@@ -83,14 +84,18 @@ addAccountField = (key, value, accountStruct) => {
     default:
       break;
   }
+  logExitFunction();
 };
 
 parseAddressStrRecord = (strRecord) => {
-  if (strRecord == "")
+  if (strRecord == "") {
+    logExitFunction();
     return [];
+  }
   else {
-    logFunctionHeader("parseAddressStrRecord = " + strRecord);
+    logFunctionHeader("parseAddressStrRecord = " + strRecord + ")");
     addressStrRecord = strRecord.split(",");
+    logExitFunction();
     return addressStrRecord;
   }
 };

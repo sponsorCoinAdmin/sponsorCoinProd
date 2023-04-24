@@ -67,7 +67,7 @@ contract Account is StructSerialization {
     }
 
     modifier accountExists (address _accountKey) {
-        require (isAccountInserted(_accountKey) , "Account does not exists");
+        require (isAccountInserted(_accountKey) , concat("Account ", toString(_accountKey), " not found"));
         _;
     }
     /////////////////// ACCOUNT SERIALIZATION REQUESTS ////////////////////////
