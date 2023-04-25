@@ -73,7 +73,21 @@ contract UnSubscribe is Transactions {
         
         // ToDo Delete Sponsor Account List
         deleteAgentRateRecord (_agentRecord);
-        deleteAccountRecordFromSearchKeys(_agentRecord.agentKey, agentAccount.agentsParentRecipientAccountList);
+
+        console.log("===================================================================================================================");
+        console.log("DELETING from agentAccount.agentsParentRecipientAccountList recipientKey", _agentRecord.recipientKey);
+        console.log("SPONSOR   =" , _agentRecord.sponsorKey);
+        console.log("RECIPIENT =" , _agentRecord.recipientKey);
+        console.log("AGENT     =" , _agentRecord.agentKey);
+        console.log("-------------------------------------------------------------------------------------------------------------------");
+        for (uint j = 0; j < agentAccount.agentsParentRecipientAccountList.length ; j++)
+        console.log("*** BEFORE DELETE agentAccount.agentsParentRecipientAccountList[", j, "] = ",agentAccount.agentsParentRecipientAccountList[j]); 
+
+        console.log("-------------------------------------------------------------------------------------------------------------------");
+        deleteAccountRecordFromSearchKeys(_agentRecord.recipientKey, agentAccount.agentsParentRecipientAccountList);
+
+         for (uint j = 0; j < agentAccount.agentsParentRecipientAccountList.length ; j++)
+         console.log("*** AFTER DELETE agentAccount.agentsParentRecipientAccountList[", j, "] = ",agentAccount.agentsParentRecipientAccountList[j]); 
     }
 
     function deleteAgentRateRecord (AgentStruct storage agentRecord) internal {
