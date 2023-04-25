@@ -131,7 +131,7 @@ deleteTestNetworkRecipients = async (_testHHAccountIdx) => {
 deleteTestNetworkRecipientAgents = async (_testHHAccountIdx) => {
   logFunctionHeader("async (" + _testHHAccountIdx+ ")");
   let accountKey = await getTestHHAccountKey(_testHHAccountIdx);
-  await deleteAgentRecords(accountKey);
+  await deleteAgentAccountReferences(accountKey);
     logExitFunction();
   return accountKey;
 };

@@ -56,12 +56,12 @@ contract StructSerialization is Utils {
         string memory sponsorAccountList = toString(_accountRec.sponsorAccountList);
         string memory recipientAccountList = toString(_accountRec.recipientAccountList);
         string memory agentAccountList = toString(_accountRec.agentAccountList);
-        string memory parentRecipientAccountList = toString(_accountRec.parentRecipientAccountList);
+        string memory agentsParentRecipientAccountList = toString(_accountRec.agentsParentRecipientAccountList);
 
         seralized = concat(seralized, delimiter, "sponsorAccountList:",sponsorAccountList);
         seralized = concat(seralized, delimiter, "recipientAccountList:",recipientAccountList);
         seralized = concat(seralized, delimiter, "agentAccountList:", agentAccountList);
-        seralized = concat(seralized, delimiter, "parentRecipientAccountList:", parentRecipientAccountList);
+        seralized = concat(seralized, delimiter, "agentsParentRecipientAccountList:", agentsParentRecipientAccountList);
 
         // console.log("_accountRec.accountKey:", _accountRec.accountKey);
         // console.log( "toString(_accountRec.accountKey)", toString(_accountRec.accountKey));

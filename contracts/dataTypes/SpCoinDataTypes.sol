@@ -73,7 +73,7 @@ contract SpCoinDataTypes {
         address[] recipientAccountList;       // If Sponsor List of Recipiented Account
         address[] sponsorAccountList;         // If Recipient? List of Sponsor Account
         address[] agentAccountList;           // If Recipient? List of Agent Account
-        address[] parentRecipientAccountList; // If Agent? List of Sponsor Recipient Account
+        address[] agentsParentRecipientAccountList; // If Agent? List of Sponsor Recipient Account
         mapping(address => RecipientStruct) recipientMap; 
 //        KYC kyc;
     }

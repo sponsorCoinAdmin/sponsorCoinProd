@@ -75,8 +75,8 @@ addAccountField = (key, value, accountStruct) => {
       case "agentAccountList":
           accountStruct.agentAccountList = parseAddressStrRecord(value);
         break;
-      case "parentRecipientAccountList":
-        accountStruct.parentRecipientAccountList = parseAddressStrRecord(value);
+      case "agentsParentRecipientAccountList":
+        accountStruct.agentsParentRecipientAccountList = parseAddressStrRecord(value);
       break;
       case "recipientRecordList":
         accountStruct.recipientRecordList = value;

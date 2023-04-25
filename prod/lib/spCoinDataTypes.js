@@ -9,7 +9,7 @@ class AccountStruct {
     this.sponsorAccountList;
     this.recipientAccountList;
     this.agentAccountList;
-    this.parentRecipientAccountList;
+    this.agentsParentRecipientAccountList;
     this.recipientRecordList;
 //    this.KYC;
   }
