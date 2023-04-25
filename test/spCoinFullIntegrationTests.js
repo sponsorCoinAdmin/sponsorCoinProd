@@ -84,14 +84,14 @@ describe("spCoinContract", function () {
     49
   );
 
-  await addAgentTransaction(
-    SPONSOR_ACCOUNT_SIGNERS[2],
-    RECIPIENT_ACCOUNT_KEYS[1],
-    RECIPIENT_RATES[2],
-    AGENT_ACCOUNT_KEYS[0],
-    AGENT_RATES[6],
-    5
-  );
+  // await addAgentTransaction(
+  //   SPONSOR_ACCOUNT_SIGNERS[2],
+  //   RECIPIENT_ACCOUNT_KEYS[1],
+  //   RECIPIENT_RATES[2],
+  //   AGENT_ACCOUNT_KEYS[0],
+  //   AGENT_RATES[6],
+  //   5
+  // );
   
     console.log("********************************************************************************");
     console.log("*** AFTER CREATE ***************************************************************");

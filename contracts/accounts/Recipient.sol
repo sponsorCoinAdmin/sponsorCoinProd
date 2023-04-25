@@ -19,7 +19,7 @@ contract Recipient is Sponsor {
     function getRecipientRecord(address _sponsor, address _recipientKey)
     internal returns (RecipientStruct storage) {
         AccountStruct storage sponsorRecord = getSponsorAccountRecord(_sponsor);
-        console.log("getRecipientRecord(", _sponsor, ", ", _recipientKey);
+        // console.log("getRecipientRecord(", _sponsor, ", ", _recipientKey);
 
         // START DEBUG AREA
         // string memory myMsg = concat("getRecipientRecord(",
