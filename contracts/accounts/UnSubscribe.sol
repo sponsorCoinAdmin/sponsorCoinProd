@@ -96,8 +96,8 @@ contract UnSubscribe is Transactions {
         // console.log("-------------------------------------------------------------------------------------------------------------------");
         deleteAccountRecordFromSearchKeys(_agentRecord.recipientKey, agentAccount.agentsParentRecipientAccountList);
 
-         for (uint j = 0; j < agentAccount.agentsParentRecipientAccountList.length ; j++)
-         console.log("*** AFTER DELETE agentAccount.agentsParentRecipientAccountList[", j, "] = ",agentAccount.agentsParentRecipientAccountList[j]);
+        //  for (uint j = 0; j < agentAccount.agentsParentRecipientAccountList.length ; j++)
+        //  console.log("*** AFTER DELETE agentAccount.agentsParentRecipientAccountList[", j, "] = ",agentAccount.agentsParentRecipientAccountList[j]);
          deleteAccountFromMaster(agentKey);
     }
 
@@ -175,7 +175,7 @@ contract UnSubscribe is Transactions {
             // console.log("*** DELETING ACCOUNT ", _accountKey);
             if (deleteAccountRecordFromSearchKeys(_accountKey,  masterAccountList)) {
                 delete accountMap[_accountKey];
-                console.log("TRUE XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+                // console.log("TRUE XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
                 return true;
             } 
         }
