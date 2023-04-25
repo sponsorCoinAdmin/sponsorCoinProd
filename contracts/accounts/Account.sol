@@ -19,7 +19,7 @@ contract Account is StructSerialization {
             accountRec.decimals = decimals;
             accountRec.stakedSPCoins = 0;
             accountRec.inserted = true;
-            AccountList.push(_accountKey);
+            MasterAccountList.push(_accountKey);
         }
     }
 
@@ -40,9 +40,9 @@ contract Account is StructSerialization {
             return false;
     }
 
-    /// @notice retreives array list AccountList.
+    /// @notice retreives array list MasterAccountList.
     function getAccountList() public view returns (address[] memory) {
-        return AccountList;
+        return MasterAccountList;
     }
 
     /////////////////////////// AGENT REQUESTS //////////////////////////////
