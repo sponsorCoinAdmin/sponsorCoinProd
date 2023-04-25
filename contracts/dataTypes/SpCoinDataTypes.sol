@@ -51,14 +51,14 @@ contract SpCoinDataTypes {
     // **Additional Recipient Coin Variables
 
     address burnAddress = 0x0000000000000000000000000000000000000000;
-    address[] public MasterAccountList;
+    address[] public masterAccountList;
 
     mapping(address => AccountStruct) accountMap;
 
     uint JUNK_COUNTER = 0;
 
     struct arrayMappedData {
-        address[] MasterAccountList;
+        address[] masterAccountList;
         mapping(address => AccountStruct) accountMap;
     }
  

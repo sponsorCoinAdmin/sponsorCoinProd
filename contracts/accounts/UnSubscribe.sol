@@ -183,7 +183,7 @@ console.log("**** DELETING agentRecord for agentKey", agentKey);
             accountMap[_accountKey].agentsParentRecipientAccountList.length == 0 &&
             balanceOf[accountMap[_accountKey].accountKey] == 0) {
             // console.log("*** DELETING ACCOUNT ", _accountKey);
-            if (deleteAccountRecordFromSearchKeys(_accountKey,  MasterAccountList)) {
+            if (deleteAccountRecordFromSearchKeys(_accountKey,  masterAccountList)) {
                 delete accountMap[_accountKey];
                 return true;
             } 
@@ -200,7 +200,7 @@ console.log("**** DELETING agentRecord for agentKey", agentKey);
         parentRecipientDoesNotExist(_accountKey)
         recipientDoesNotExist(_accountKey) 
         balanceOfIsEmpty(_accountKey) returns (bool) {
-        if (deleteAccountRecordFromSearchKeys( _accountKey,  MasterAccountList)) {
+        if (deleteAccountRecordFromSearchKeys( _accountKey,  masterAccountList)) {
             delete accountMap[_accountKey];
             return true;
         }
