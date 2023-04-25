@@ -47,6 +47,14 @@ describe("spCoinContract", function () {
     AGENT_RATES[1],
     100
   );
+  await addAgentTransaction(
+    SPONSOR_ACCOUNT_SIGNERS[0],
+    RECIPIENT_ACCOUNT_KEYS[1],
+    RECIPIENT_RATES[4],
+    AGENT_ACCOUNT_KEYS[12],
+    AGENT_RATES[2],
+    10
+  );
 
   await addAgentTransaction(
     SPONSOR_ACCOUNT_SIGNERS[0],
@@ -101,7 +109,7 @@ describe("spCoinContract", function () {
     // expect(AccountListSize).to.equal(3);
     await logJSONTree();
     await deleteRecipientRecord(SPONSOR_ACCOUNT_SIGNERS[0], RECIPIENT_ACCOUNT_KEYS[1]);
-    // await deleteRecipientRecord(SPONSOR_ACCOUNT_SIGNERS[0], RECIPIENT_ACCOUNT_KEYS[2]);
+    //  await deleteRecipientRecord(SPONSOR_ACCOUNT_SIGNERS[0], RECIPIENT_ACCOUNT_KEYS[2]);
     // await deleteRecipientRecord(SPONSOR_ACCOUNT_SIGNERS[1], RECIPIENT_ACCOUNT_KEYS[2]);
     await deleteRecipientRecord(SPONSOR_ACCOUNT_SIGNERS[1], RECIPIENT_ACCOUNT_KEYS[0]);
     await deleteRecipientRecord(SPONSOR_ACCOUNT_SIGNERS[2], RECIPIENT_ACCOUNT_KEYS[0]);

@@ -50,17 +50,37 @@ contract UnSubscribe is Transactions {
         uint256[] storage recipientRateRecordList = _recipientRecord.recipientRateRecordList;
         uint i = recipientRateRecordList.length - 1;
         // Traverse Recipient Records for deletion of recipientRateRecordList elements
+        console.log("====recipientRateRecordList.length =", recipientRateRecordList.length);
+
+        // Traverse Recipient Rate Records for removal of Recipiant Rate Records
         for (i; i >= 0; i--) {
             // console.log("====deleteRecipientRateRecords: recipientRateRecordList[", i, "] ", recipientRateRecordList[i]);
             uint256 recipientRateKey = recipientRateRecordList[i];
-            RecipientRateStruct storage recipientRateRecord = _recipientRecord.recipientRateMap[recipientRateKey];
+            console.log("====deleteRecipientRateRecord[", i,"] =", recipientRateRecordList[i]);
 
-            address agentKey = recipientRateRecord.agentAccountList[i];
-            AgentStruct storage agentRecord = recipientRateRecord.agentMap[agentKey];
+            deleteRecipientRateRecord(_recipientRecord.recipientRateMap[recipientRateKey]);
 
-            deleteAgentRecord(agentRecord);
             delete recipientRateRecordList[i];
             recipientRateRecordList.pop();
+            if (i == 0)
+              break;
+        }
+    }
+
+    function deleteRecipientRateRecord(RecipientRateStruct storage recipientRateRecord) internal {
+        address[] storage agentAccountList = recipientRateRecord.agentAccountList;
+
+        uint i = agentAccountList.length - 1;
+
+        console.log("   ====agentAccountList.length =", agentAccountList.length);
+
+        // Traverse Recipient Rate Records for removal of Recipiant Rate Records
+        for (i; i >= 0; i--) {
+            address agentKey = recipientRateRecord.agentAccountList[i];
+console.log("**** DELETING agentRecord for agentKey", agentKey); 
+            AgentStruct storage agentRecord = recipientRateRecord.agentMap[agentKey];
+            deleteAgentRecord(agentRecord);
+            agentAccountList.pop();
             if (i == 0)
               break;
         }
