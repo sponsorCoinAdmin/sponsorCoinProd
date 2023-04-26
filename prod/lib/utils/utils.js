@@ -6,6 +6,7 @@ dumpList = (_prefix, _arr) => {
         let element = _arr[idx];
         log(_prefix + idx + ": " + element );
       }
+    logExitFunction();
 }
 
 module.exports = {

@@ -26,17 +26,17 @@ SPCoin
       Staking Manager
         Transactions
           AgentRates
-            Agents
+            Agent
               RecipientRates
-                Recipients
-                  Accounts
+                Recipient
+                  Account
 
 
 
 To Add a Recipient Account Agent, add the following:
 Add a Rate Record to Agent
 
-Using: addAgents(Recipient, SponsroRate, [Agents])
+Using: addAgents(Recipient, SponsroRate, [Agent])
 Example: addAgents(2, 10, [6]); 
 
 Add a Rate Record to Recipient
@@ -64,7 +64,7 @@ Requirements to Delete Agent: Agent Affiliation Program
 1. Require Agent to be child of Recipient
 2. Require Agent to have No RecipientCoin balanceOf Token affiliation with Parent.
 3. Must Remove from parent Recipient.agentAccountList
-4. Then Remove Recipient Parent from agentAccount.parentRecipientAccountList
+4. Then Remove Recipient Parent from agentAccount.agentsParentRecipientAccountList
 5. Optional, If Agent account balanceOf is zero (0), Agent account may be deleted.
 
 Requirements to Delete Recipient from Sponsor: (Delete Sponsor recipientship)
@@ -77,7 +77,7 @@ Requirements to Delete Recipient from Sponsor: (Delete Sponsor recipientship)
 7. Optional, If Recipient account balanceOf is zero (0), Recipient account may be deleted.
 
 Requirements to Delete Account
-1. Require Account to have No Recipients, account.recipientAccountList must be zero (0).
-2. Require Account to have No Agents, account.agentAccountList must be zero (0).
+1. Require Account to have No Recipient, account.recipientAccountList must be zero (0).
+2. Require Account to have No Agent, account.agentAccountList must be zero (0).
 3. Optional, Require Account to have No Sponsors account.sponsorAccountList must be zero (0).
-4. Optional, Require Account to have No account.parentRecipientAccountList must be zero (0).
+4. Optional, Require Account to have No account.agentsParentRecipientAccountList must be zero (0).

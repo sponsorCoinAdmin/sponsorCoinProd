@@ -21,7 +21,7 @@ describe("spCoinContract", function () {
     spCoinContractDeployed = await deploySpCoinContract();
     const hhTestElements = await initHHAccounts();
     const accounts = hhTestElements.accounts;
-    SPONSOR_ACCOUNT_KEYS = accounts;
+    SPONSOR_ACCOUNT_SIGNERS = accounts;
     RECIPIENT_ACCOUNT_KEYS = AGENT_ACCOUNT_KEYS = accounts;
     TRANSACTION_QTY = RECIPIENT_RATES = AGENT_RATES = hhTestElements.rates;
   });
@@ -30,10 +30,10 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   setLogMode("LOG", true);
 
   // Test Successful Record Insertion of Sponsor and 
-  // Recipient Accounts to the Blockchain Network.
+  // Recipient Account to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
   await addAgentTransaction (
-    SPONSOR_ACCOUNT_KEYS[0],
+    SPONSOR_ACCOUNT_SIGNERS[0],
     RECIPIENT_ACCOUNT_KEYS[1],
     RECIPIENT_RATES[2],
     AGENT_ACCOUNT_KEYS[2],
@@ -42,7 +42,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   );
 
   // await addAgentTransaction (
-  //   SPONSOR_ACCOUNT_KEYS[0],
+  //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[1],
   //   AGENT_ACCOUNT_KEYS[2],
@@ -51,7 +51,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   // );
   
   // await addAgentTransaction (
-  //   SPONSOR_ACCOUNT_KEYS[0],
+  //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[1],
   //   AGENT_ACCOUNT_KEYS[2],
@@ -60,7 +60,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   // );
   
   // await addAgentTransaction (
-  //   SPONSOR_ACCOUNT_KEYS[0],
+  //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[2],
   //   AGENT_ACCOUNT_KEYS[2],
@@ -69,7 +69,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   // );
 
   // await addAgentTransaction (
-  //   SPONSOR_ACCOUNT_KEYS[0],
+  //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[2],
   //   AGENT_ACCOUNT_KEYS[3],
@@ -78,7 +78,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   // );
 
   // await addAgentTransaction (
-  //   SPONSOR_ACCOUNT_KEYS[0],
+  //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[2],
   //   AGENT_ACCOUNT_KEYS[2],
@@ -87,7 +87,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   // );
 
   // await addAgentTransaction (
-  //   SPONSOR_ACCOUNT_KEYS[0],
+  //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[2],
   //   AGENT_ACCOUNT_KEYS[2],
@@ -107,7 +107,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
 
     // VALIDATE ACCOUNT CREATION
     // VALIDATE SPONSOR ACCOUNT
-    // let sponsorAccount = await getAccountRecord(SPONSOR_ACCOUNT_KEYS[0);
+    // let sponsorAccount = await getAccountRecord(SPONSOR_ACCOUNT_SIGNERS[0);
     // logJSON(sponsorAccount);
   });
 /**/

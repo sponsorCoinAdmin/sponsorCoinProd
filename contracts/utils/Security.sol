@@ -22,13 +22,14 @@ contract Security is SpCoinDataTypes {
     }
 
 
-    modifier onlyOwnerOrRootAdmin (address _account) {
+    modifier onlyOwnerOrRootAdmin (string memory callingMethod, address _account) {
+        // console.log(callingMethod, " => onlyOwnerOrRootAdmin (", _account, msg.sender);
         require (msg.sender == rootAdmin || msg.sender == _account, "Owner or Root Admin Security Access Violation");
         _;
     }
 
-    modifier nonRedundantRecipient (address _recipientKey) {
-        require (msg.sender != _recipientKey , "_accountKey and _recipientKey must be Mutually Exclusive)");
+    modifier nonRedundantRecipient (address _sponsorKey, address _recipientKey) {
+        require (_sponsorKey != _recipientKey , "_sponsorKey and _recipientKey must be Mutually Exclusive)");
         _;
     }
 

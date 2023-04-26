@@ -51,12 +51,14 @@ contract SpCoinDataTypes {
     // **Additional Recipient Coin Variables
 
     address burnAddress = 0x0000000000000000000000000000000000000000;
-    address[] public AccountList;
+    address[] public masterAccountList;
 
     mapping(address => AccountStruct) accountMap;
 
+    uint JUNK_COUNTER = 0;
+
     struct arrayMappedData {
-        address[] AccountList;
+        address[] masterAccountList;
         mapping(address => AccountStruct) accountMap;
     }
  
@@ -68,21 +70,21 @@ contract SpCoinDataTypes {
         uint256 stakedSPCoins; // Coins Owned but steaked to recipients
         bool inserted;
         bool verified;
-        address[] sponsorAccountList;         // If Recipient? List of Sponsor Accounts
-        address[] recipientAccountList;       // If Sponsor List of Recipiented Accounts
-        address[] agentAccountList;           // If Recipient? List of Agent Accounts
-        address[] parentRecipientAccountList; // If Agent? List of Sponsor Recipient Accounts
+        address[] recipientAccountList;       // If Sponsor List of Recipiented Account
+        address[] sponsorAccountList;         // If Recipient? List of Sponsor Account
+        address[] agentAccountList;           // If Recipient? List of Agent Account
+        address[] agentsParentRecipientAccountList; // If Agent? List of Sponsor Recipient Account
         mapping(address => RecipientStruct) recipientMap; 
 //        KYC kyc;
     }
 
-    // Each Account has a map of Recipients and an array of recipientRate structures
+    // Each Account has a map of Recipient and an array of recipientRate structures
     struct RecipientStruct {
         address sponsorKey;
         address recipientKey;
         uint256 insertionTime;
         uint256 stakedSPCoins; // Coins not owned but Recipiented
-        uint256[] recipientRateList;
+        uint256[] recipientRateRecordList;
         mapping(uint256 => RecipientRateStruct) recipientRateMap;
         bool inserted;
         bool verified;
@@ -99,7 +101,7 @@ contract SpCoinDataTypes {
         bool inserted;
     }
 
-    // Each Recipient has a map of Agents and an array of agentRate structures
+    // Each Recipient has a map of Agent and an array of agentRate structures
     struct AgentStruct {
         address sponsorKey;
         address recipientKey;

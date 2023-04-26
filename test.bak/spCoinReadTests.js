@@ -57,12 +57,12 @@ describe("spCoinContract", function () {
     let expectedErrMsg;
 
     // Test Successful Record Insertion of Sponsor and 
-    // Recipient Accounts to the Blockchain Network.
+    // Recipient Account to the Blockchain Network.
     // Account, Recipient and/or Agent are Successfully mutually exclusive.
     await addTestNetworkRecipients(4, [3]);
 
     // Test Un-Successful Record Insertion of Sponsor
-    // and Agent Accounts to the Blockchain Network.
+    // and Agent Account to the Blockchain Network.
     // Account and Recipient are not mutually exclusive.
     expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey and _recipientKey must be Mutually Exclusive)'";
     try {
@@ -74,7 +74,7 @@ describe("spCoinContract", function () {
     }
 
     // Test Un-Successful Record Insertion of Sponsor,
-    // Recipient and Agent Accounts to the Blockchain Network.
+    // Recipient and Agent Account to the Blockchain Network.
     // Account, Recipient and/or Agent are not mutually exclusive.
     expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _recipientKey and _agentKey must be Mutually Exclusive)'"
     try {
@@ -87,12 +87,12 @@ describe("spCoinContract", function () {
 
     // Test Successful Record Insertion of Sponsor,
     // Recipient and Agent to the Blockchain Network.
-    // Sponsor, Recipient and/or Agent Accounts are
+    // Sponsor, Recipient and/or Agent Account are
     // Successfully mutually exclusive.
     await addTestNetworkRecipientAgents(6, 10, [1]);
 
     // Test Un-Successful Record Insertion to Blockchain Network.
-    // Sponsor and Recipient Accounts are Not mutually exclusive.
+    // Sponsor and Recipient Account are Not mutually exclusive.
     expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _recipientKey and _agentKey must be Mutually Exclusive)'";
     try {
       await addTestNetworkRecipientAgents(6, 10, [1]);
@@ -103,7 +103,7 @@ describe("spCoinContract", function () {
     }
 
     // Test Un-Successful Record Insertion to Blockchain Network.
-    // Sponsor and Agent Accounts are Not mutually exclusive.
+    // Sponsor and Agent Account are Not mutually exclusive.
     expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _recipientKey and _agentKey must be Mutually Exclusive)'";
     try {
       await addTestNetworkRecipientAgents(5, 10, [6]);
@@ -114,7 +114,7 @@ describe("spCoinContract", function () {
     }
 
     // Test Un-Successful Record Insertion to Blockchain Network.
-    // Recipient and Agent Accounts are Not mutually exclusive.
+    // Recipient and Agent Account are Not mutually exclusive.
     expectedErrMsg = "VM Exception while processing transaction: reverted with reason string '_accountKey, _recipientKey and _agentKey must be Mutually Exclusive)'";
     try {
       await addTestNetworkRecipientAgents(6, 10, [6]);
@@ -175,7 +175,7 @@ describe("spCoinContract", function () {
     let accountArr = await getAccountRecords();
     logJSON(accountArr);
 
-    // Test That Sponsor at Idx 3 has 2 Record Recipients in the blockchain and
+    // Test That Sponsor at Idx 3 has 2 Record Recipient in the blockchain and
     // Validate they are the correct ones in the Sponsor Structure
     // Read from Blockchain Network
     let recipientKey = getTestHHAccountKey(3);
@@ -200,7 +200,7 @@ describe("spCoinContract", function () {
   
     await addRecipients(accountKey, recipientListKeys);
 
-    log("Tree For Account Key: " + accountKey + " With Inserted Recipients:");
+    log("Tree For Account Key: " + accountKey + " With Inserted Recipient:");
     await logJSONTree();
 
     AccountListSize = (await getAccountListSize());

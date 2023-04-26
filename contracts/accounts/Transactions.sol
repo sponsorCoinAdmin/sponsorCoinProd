@@ -7,13 +7,12 @@ contract Transactions is AgentRates {
     constructor() { }
 
     function addAgentTransaction(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey, uint256 _transAmount)
-    public onlyOwnerOrRootAdmin(msg.sender) {
-        // console.log("**** Transaction.sol:ADDING RATE REC = ",_agentRateKey, "ADDING TRANSACTION = ",_transAmount);
+    public onlyOwnerOrRootAdmin("addAgentTransaction", msg.sender) {
+        // console.log(JUNK_COUNTER++, "**** Transaction.sol:ADDING RATE REC = ",_agentRateKey, "ADDING TRANSACTION = ",_transAmount);
+        AgentRateStruct storage agentRateRecord = getAgentRateRecord(msg.sender, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
         uint256 transactionTimeStamp = block.timestamp;
-        addAgentRateRecord(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
-    
-        AgentRateStruct storage agentRateRecord= updateAgentRateTransaction(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey, _transAmount);
 
+        updateAgentRateTransaction(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey, _transAmount);
         agentRateRecord.lastUpdateTime = transactionTimeStamp;
         TransactionStruct memory transRec = TransactionStruct(
             {insertionTime: transactionTimeStamp, quantity: _transAmount});
@@ -57,5 +56,30 @@ contract Transactions is AgentRates {
         AccountStruct storage sponsorRec = accountMap[msg.sender];
         sponsorRec.stakedSPCoins += _transAmount;
         return sponsorRec;
+    }
+
+    function getRateTransactionList(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
+        AgentStruct storage agentRec = getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
+        string memory strTransactionList = "";
+        AgentRateStruct storage agentRateRecord= agentRec.agentRateMap[_agentRateKey];
+        // console.log ("agentRateRecord.transactionList[0].quantity = ", agentRateRecord.transactionList[0].quantity);
+        TransactionStruct[] memory transactionList = agentRateRecord.transactionList;
+        strTransactionList = concat(strTransactionList, getRateTransactionStr(transactionList)); 
+        // console.log("RRRR strTransactionList = ", strTransactionList); 
+        return strTransactionList;
+    }
+
+    function getRateTransactionStr(TransactionStruct[] memory transactionList) public pure returns (string memory) {
+        string memory strTransactionList = "";
+        for (uint idx; idx < transactionList.length; idx++) {
+
+            strTransactionList = concat(strTransactionList,
+            toString(transactionList[idx].insertionTime), ",",
+            toString(transactionList[idx].quantity));
+            if (idx < transactionList.length - 1) {
+                strTransactionList = concat(strTransactionList, "\n");
+            }
+        }
+        return strTransactionList;
     }
 }

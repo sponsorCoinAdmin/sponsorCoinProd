@@ -9,7 +9,7 @@ class AccountStruct {
     this.sponsorAccountList;
     this.recipientAccountList;
     this.agentAccountList;
-    this.parentRecipientAccountList;
+    this.agentsParentRecipientAccountList;
     this.recipientRecordList;
 //    this.KYC;
   }
@@ -22,7 +22,7 @@ class RecipientStruct {
     this.stakedSPCoins;
     this.insertionTime;
     this.verified;
-    this.recipientRateList2;
+    this.recipientRateRecordList;
   }
 }
 
@@ -47,7 +47,7 @@ class AgentStruct {
     this.stakedSPCoins;
     this.insertionTime;
     this.verified;
-    this.agentRateList;
+    this.agentRateRecordList;
   }
 }
 

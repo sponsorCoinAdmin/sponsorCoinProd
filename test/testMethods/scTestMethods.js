@@ -22,6 +22,7 @@ addTestNetworkAccount = async (_accountIdx) => {
   let accountKey = await getTestHHAccountKey(_accountIdx);
   logDetail("JS => For Adding Account Record: " + accountKey );
   await addAccountRecord(accountKey);
+  logExitFunction();
 };
 
 addTestNetworkAccounts = async (_AccountList) => {
@@ -29,6 +30,7 @@ addTestNetworkAccounts = async (_AccountList) => {
   let testHHAccountList = await getTestHHAccountListKeys(_AccountList);
   logDetail("JS => For Adding Account Records: " + testHHAccountList );
   await addAccountRecords(testHHAccountList);
+  logExitFunction();
 };
 
 //////////////////////////// TEST RECIPIENT METHODS ////////////////////////////
@@ -41,6 +43,7 @@ addTestNetworkRecipient = async (_accountIdx, _recipientIdx) => {
   logDetail("JS => For Account: " + accountKey + " Inserting Recipient Records");
   logDetail(recipientKey);
   await addRecipient(recipientKey);
+  logExitFunction();
 };
 
 addTestNetworkRecipients = async (_accountIdx, _recipientAccountListIdx) => {
@@ -51,6 +54,7 @@ addTestNetworkRecipients = async (_accountIdx, _recipientAccountListIdx) => {
   logDetail("JS => For Account: " + accountKey + " Inserting Recipient Records:");
   logDetail(recipientAccountList);
   await addRecipients(accountKey, recipientAccountList);
+  logExitFunction();
 };
 
 //////////////////////////// TEST AGENT METHODS ////////////////////////////
@@ -61,6 +65,7 @@ addTestNetworkRecipientAgents = async (_recipientIdx, _recipientRateKey, _agentL
   let agentAccountList = await getTestHHAccountListKeys(_agentListIdx);
   await addAgents(recipientKey, _recipientRateKey, agentAccountList);
   return recipientKey;
+  logExitFunction();
 };
 
 addTestNetworkAccount = async (_testHHAccountIdx) => {
@@ -68,6 +73,7 @@ addTestNetworkAccount = async (_testHHAccountIdx) => {
   let accountKey = await getTestHHAccountKey(_testHHAccountIdx);
   await addAccountRecord(accountKey);
   return accountKey;
+  logExitFunction();
 };
 
 getTestHHAccountListKeys = async (testAccountIdxArr) => {
@@ -76,6 +82,7 @@ getTestHHAccountListKeys = async (testAccountIdxArr) => {
   for (let i = 0; i < testAccountIdxArr.length; i++) {
     AccountListKeys.push(await getTestHHAccountKey(testAccountIdxArr[i]));
   }
+  logExitFunction();
   return AccountListKeys;
 };
 
@@ -88,6 +95,7 @@ getTestHHAccountRecord = async (testHHAccountIdx) => {
 logTestHHAccountRecord = async (testHHAccountIdx) => {
   testHHAccountKey = await getTestHHAccountKey(testHHAccountIdx);
   testHHAccountRecord = logJSONAccount(testHHAccountKey);
+  logExitFunction();
   return testHHAccountRecord;
 }
 
@@ -97,6 +105,7 @@ deleteTestNetworkAccount = async (_testHHAccountIdx) => {
   logFunctionHeader("async (" + _testHHAccountIdx+ ")");
   let accountKey = await getTestHHAccountKey(_testHHAccountIdx);
   await deleteAccountRecord(accountKey);
+  logExitFunction();
   return accountKey;
 };
 
@@ -104,20 +113,17 @@ deleteTestNetworkAccounts = async (_testHHAccountArr) => {
   logFunctionHeader("async (" + _testHHAccountArr+ ")");
   testHHAccountList = await getTestHHAccountListKeys(_testHHAccountArr);
   await deleteAccountRecords(testHHAccountList);
+  logExitFunction();
 };
 
 /////////////////////////// TEST UN-RECIPIENT METHODS //////////////////////////
 
-deleteTestRecipient = async (_recipientIdx) => {
-  logFunctionHeader("deleteTestRecipient(" + _sponsorIdx + ", " + _recipientIdx + ")");
-  let recipientKey = await getTestHHAccountKey(_recipientIdx);
-  await deleteRecipientRecord(recipientKey);
-}
 
 deleteTestNetworkRecipients = async (_testHHAccountIdx) => {
   logFunctionHeader("async (" + _testHHAccountIdx+ ")");
   let accountKey = await getTestHHAccountKey(_testHHAccountIdx);
   await (accountKey);
+  logExitFunction();
   return accountKey;
 };
 
@@ -125,7 +131,8 @@ deleteTestNetworkRecipients = async (_testHHAccountIdx) => {
 deleteTestNetworkRecipientAgents = async (_testHHAccountIdx) => {
   logFunctionHeader("async (" + _testHHAccountIdx+ ")");
   let accountKey = await getTestHHAccountKey(_testHHAccountIdx);
-  await deleteAgentRecords(accountKey);
+  await deleteAgentAccountReferences(accountKey);
+    logExitFunction();
   return accountKey;
 };
 */
@@ -138,7 +145,6 @@ module.exports = {
   addTestNetworkRecipients,
   addTestNetworkRecipientAgents,
   deleteTestNetworkAccount,
-  deleteTestRecipient,
   getTestHHAccountKey,
   getTestHHAccountRecord,
   logTestHHAccountRecord

@@ -31,6 +31,7 @@ deSerializedAccountRec = async (serializedAccountRec) => {
   );
   logDetail("JS => ============================================================================"
   );
+  logExitFunction();
   return accountStruct;
 };
 const hexToDecimal = hex => parseInt(hex, 16);
@@ -74,8 +75,8 @@ addAccountField = (key, value, accountStruct) => {
       case "agentAccountList":
           accountStruct.agentAccountList = parseAddressStrRecord(value);
         break;
-      case "parentRecipientAccountList":
-        accountStruct.parentRecipientAccountList = parseAddressStrRecord(value);
+      case "agentsParentRecipientAccountList":
+        accountStruct.agentsParentRecipientAccountList = parseAddressStrRecord(value);
       break;
       case "recipientRecordList":
         accountStruct.recipientRecordList = value;
@@ -83,14 +84,18 @@ addAccountField = (key, value, accountStruct) => {
     default:
       break;
   }
+  logExitFunction();
 };
 
 parseAddressStrRecord = (strRecord) => {
-  if (strRecord == "")
+  if (strRecord == "") {
+    logExitFunction();
     return [];
+  }
   else {
-    logFunctionHeader("parseAddressStrRecord = " + strRecord);
+    logFunctionHeader("parseAddressStrRecord = " + strRecord + ")");
     addressStrRecord = strRecord.split(",");
+    logExitFunction();
     return addressStrRecord;
   }
 };

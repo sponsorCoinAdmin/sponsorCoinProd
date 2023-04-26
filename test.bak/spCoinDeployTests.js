@@ -70,7 +70,7 @@ describe("spCoinContract", function() {
 
 /**/
 
-    it("Insertion 20 Hardhat Accounts for Validation", async function () {
+    it("Insertion 20 Hardhat Account for Validation", async function () {
         logTestHeader("ADD MORE HARDHAT ACCOUNTS")
         await addAccountRecords(TEST_HH_ACCOUNT_LIST);
 
@@ -89,7 +89,7 @@ describe("spCoinContract", function() {
 
     /**/
 
-    it("Insert 4 Recipient Coin Records 1 count, 1 recipient and 2 Agents", async function () {
+    it("Insert 4 Recipient Coin Records 1 count, 1 recipient and 2 Agent", async function () {
         logTestHeader("TEST MORE HARDHAT RECIPIENT RECORD INSERTIONS")
 
         logDetail("JS => *** Insert Recipient to AccountRecord[2] as AccountRecord[5] ***")

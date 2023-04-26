@@ -8,7 +8,8 @@ let LOG_TEST_HEADER = false;
 let LOG_FUNCTION_HEADER = false;
 let LOG_SETUP = false;
 let LOG_TREE = false;
-prefix = "  ";
+let prefix = "";
+let indent = "  ";
 
 const LOG_MODE = {
     LOG : "LOG",
@@ -27,7 +28,7 @@ const LOG_MODE = {
     LOG_SETUP = false;
     LOG_TREE = false;
   }
-    
+
   setLogMode = (_log_mode, _state) => {
     console.log("EXECUTING setLogMode = (" + _log_mode + ", " + _state + ")");
 
@@ -68,13 +69,21 @@ logSetup = (_text) => {
 
 logTestHeader = (_testHeader) => {
     if (LOG_TEST_HEADER) {
-        log("=============== TEST HEADER " + _testHeader + " ===============");
+        log(prefix + _testHeader);
     }
 }
 
 logFunctionHeader = (_functionHeader) => {
     if (LOG_FUNCTION_HEADER) {
-        log("************** HEADER FUNCTION " + _functionHeader + " **************");
+        log(prefix + _functionHeader);
+    }
+    prefix += indent;
+}
+
+logExitFunction = () => {
+    if (LOG_FUNCTION_HEADER) {
+        prefix = prefix.slice(0, -indent)
+console.log("EXITING");
     }
 }
 
