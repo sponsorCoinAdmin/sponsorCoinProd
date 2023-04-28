@@ -56,7 +56,7 @@ contract Account is StructSerialization {
 
     function getAccountListIndex (address _accountKey, 
         address[] storage _accountKeyList) internal view
-        accountExists(_accountKey) returns (uint) {
+        returns (uint) {
         uint i = 0;
         for (i; i < _accountKeyList.length; i++) {
             if (_accountKeyList[i] == _accountKey) {
