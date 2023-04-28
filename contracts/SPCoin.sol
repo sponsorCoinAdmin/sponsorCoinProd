@@ -42,9 +42,13 @@ contract SPCoin is Token{
                                           uint _recipientRateKey,
                                           address _agentKey,
                                           uint _agentRateKey,
-                                          uint256 _transAmount)
+                                          string memory _strTransAmount)
     public  {
-        transfer(_recipientKey, _transAmount);
-        addAgentTransaction(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey, _transAmount);
+        uint256 transAmount;
+        bool  success; 
+        (transAmount, success) = strToUint(_strTransAmount);
+
+        transfer(_recipientKey, transAmount);
+        addAgentTransaction(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey, _strTransAmount);
     }
 }

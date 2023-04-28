@@ -13,12 +13,13 @@ contract UnSubscribe is Transactions {
         accountExists(msg.sender)
         accountExists(_recipientKey)
         nonRedundantRecipient (msg.sender, _recipientKey) {
-// console.log("UN-SPONSOR FROM ACCOUNT", msg.sender, "FOR RECIPIANT",_recipientKey); 
+console.log("UN-SPONSOR FROM ACCOUNT", msg.sender, "FOR RECIPIANT",_recipientKey); 
  
         // Clean up Sponsor References and Balances
         // Move Recipient's steaked Coins back to Sponsors BalanceOf
         AccountStruct storage sponsorAccount = accountMap[msg.sender];
         // Remove Sponsors reference to Recipient in recipientAccountList
+        console.log("DELETE RECIPIENT KEY",_recipientKey, "FROM SPONSOR ACCOUNT",sponsorAccount.accountKey);
         if (deleteAccountRecordFromSearchKeys(_recipientKey, sponsorAccount.recipientAccountList)) {
 
             RecipientStruct storage recipientRecord = sponsorAccount.recipientMap[_recipientKey];
@@ -35,12 +36,14 @@ contract UnSubscribe is Transactions {
     internal {
         address recipientKey = recipientRecord.recipientKey;
         AccountStruct storage recipientAccount = accountMap[recipientKey];
+        console.log("DELETE SPONSOR KEY",recipientRecord.sponsorKey, "FROM RECIPIANT ACCOUNT", recipientAccount.accountKey);
         deleteAccountRecordFromSearchKeys(recipientRecord.sponsorKey, recipientAccount.sponsorAccountList);
         deleteRecipientRateRecords(recipientRecord);
 
-        // Delete Agent Account List
-        deleteAccountRecordFromSearchKeys(recipientRecord.sponsorKey, recipientAccount.agentAccountList);
-        deleteAccountFromMaster(recipientKey);
+        // // Delete Agent Account List
+        // console.log("DELETE SPONSOR KEY",recipientRecord.sponsorKey, "FROM RECIPIANT ACCOUNT", recipientAccount.accountKey);
+        // deleteAccountRecordFromSearchKeys(recipientRecord.sponsorKey, recipientAccount.agentAccountList);
+        // deleteAccountFromMaster(recipientKey);
      }
 
     //  For each Recipient Rate Record,
@@ -84,12 +87,12 @@ contract UnSubscribe is Transactions {
         // ToDo Delete Sponsor Account List
         deleteAgentRateRecord (_agentRecord);
 
-        // console.log("===================================================================================================================");
-        // console.log("DELETING from agentAccount.agentsParentRecipientAccountList recipientKey", _agentRecord.recipientKey);
-        // console.log("SPONSOR   =" , _agentRecord.sponsorKey);
-        // console.log("RECIPIENT =" , _agentRecord.recipientKey);
-        // console.log("AGENT     =" , agentKey);
-        // console.log("-------------------------------------------------------------------------------------------------------------------");
+        console.log("===================================================================================================================");
+        console.log("DELETING from agentAccount.agentsParentRecipientAccountList recipientKey", _agentRecord.recipientKey);
+        console.log("SPONSOR   =" , _agentRecord.sponsorKey);
+        console.log("RECIPIENT =" , _agentRecord.recipientKey);
+        console.log("AGENT     =" , agentKey);
+        console.log("-------------------------------------------------------------------------------------------------------------------");
         for (uint j = 0; j < agentAccount.agentsParentRecipientAccountList.length ; j++)
         // console.log("*** BEFORE DELETE agentAccount.agentsParentRecipientAccountList[", j, "] = ",agentAccount.agentsParentRecipientAccountList[j]); 
 
@@ -133,7 +136,7 @@ contract UnSubscribe is Transactions {
 
     function deleteAccountRecordFromSearchKeys(address _accountKey, 
     address[] storage _accountKeyList) internal returns (bool) {
-        // console.log("************************************************************");
+        console.log("**** deleteAccountRecordFromSearchKeys ****************************");
         // dumpAccounts("BEFORE", _accountKey, _accountKeyList);
         bool deleted = false;
         uint i = getAccountListIndex (_accountKey, _accountKeyList);
@@ -142,13 +145,13 @@ contract UnSubscribe is Transactions {
         // and delete the last element off the end of the accountKeyList with pop().
         for (i; i<_accountKeyList.length; i++) { 
             if (_accountKeyList[i] == _accountKey) {
-                // console.log("==== Found _accountKeyList[", i, "] ", _accountKeyList[i]);
-                // console.log("==== Found accountMap[_accountKeyList[", i,  "]].accountKey ", accountMap[_accountKeyList[i]].accountKey);
+                console.log("==== Found _accountKeyList[", i, "] ", _accountKeyList[i]);
+                console.log("==== Found accountMap[_accountKeyList[", i,  "]].accountKey ", accountMap[_accountKeyList[i]].accountKey);
                 delete _accountKeyList[i];
                 if (_accountKeyList.length > 0)
                     _accountKeyList[i] = _accountKeyList[_accountKeyList.length - 1];
                 _accountKeyList.pop();
-                // deleteAccountFromMaster(_accountKey);
+                deleteAccountFromMaster(_accountKey);
                 deleted = true;
                 break;
             }
@@ -160,12 +163,12 @@ contract UnSubscribe is Transactions {
 
     function deleteAccountFromMaster(address _accountKey) 
     public returns (bool){
-        // console.log("XXXXXXXXXXXXXXXXXXXX deleteAccountFromMaster(",_accountKey,") XXXXXXXXXXXXXXXXXXXX");
-        // console.log("accountMap[",_accountKey,"].sponsorAccountList.length =", accountMap[_accountKey].sponsorAccountList.length);
-        // console.log("accountMap[",_accountKey,"].recipientAccountList.length =", accountMap[_accountKey].recipientAccountList.length);
-        // console.log("accountMap[",_accountKey,"].agentAccountList.length =", accountMap[_accountKey].agentAccountList.length);
-        // console.log("accountMap[",_accountKey,"].agentsParentRecipientAccountList.length =", accountMap[_accountKey].agentsParentRecipientAccountList.length);
-        // console.log("****balanceOf[",accountMap[_accountKey].accountKey,"] =", balanceOf[accountMap[_accountKey].accountKey]);
+        console.log("XXXXXXXXXXXXXXXXXXXX deleteAccountFromMaster(",_accountKey,") XXXXXXXXXXXXXXXXXXXX");
+        console.log("accountMap[",_accountKey,"].sponsorAccountList.length =", accountMap[_accountKey].sponsorAccountList.length);
+        console.log("accountMap[",_accountKey,"].recipientAccountList.length =", accountMap[_accountKey].recipientAccountList.length);
+        console.log("accountMap[",_accountKey,"].agentAccountList.length =", accountMap[_accountKey].agentAccountList.length);
+        console.log("accountMap[",_accountKey,"].agentsParentRecipientAccountList.length =", accountMap[_accountKey].agentsParentRecipientAccountList.length);
+        console.log("****balanceOf[",accountMap[_accountKey].accountKey,"] =", balanceOf[accountMap[_accountKey].accountKey]);
 
         if(accountMap[_accountKey].sponsorAccountList.length == 0 &&
             accountMap[_accountKey].recipientAccountList.length == 0 &&
