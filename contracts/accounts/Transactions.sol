@@ -22,38 +22,38 @@ contract Transactions is AgentRates {
         AgentRateStruct storage agentRateRecord = getAgentRateRecord(msg.sender, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
         uint256 transactionTimeStamp = block.timestamp;
 
-        updateAgentRateTransaction(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey, sponsorAmount);
+        updateAgentRateSponsorship(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey, sponsorAmount);
         agentRateRecord.lastUpdateTime = transactionTimeStamp;
         TransactionStruct memory transRec = TransactionStruct(
             {insertionTime: transactionTimeStamp, quantity: sponsorAmount});
         agentRateRecord.transactionList.push(transRec);
     }
 
-    function updateAgentRateTransaction(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey, uint256 _transAmount)
+    function updateAgentRateSponsorship(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey, uint256 _transAmount)
        internal returns (AgentRateStruct storage) {
-        AgentStruct storage agentRec = updateAgentTransaction(_recipientKey, _recipientRateKey, _agentKey, _transAmount);
+        AgentStruct storage agentRec = updateAgentSponsorship(_recipientKey, _recipientRateKey, _agentKey, _transAmount);
         AgentRateStruct storage agentRateRecord= agentRec.agentRateMap[_agentRateKey];
         agentRateRecord.stakedSPCoins += _transAmount;
         return agentRateRecord;
     }
 
-    function updateAgentTransaction(address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _transAmount)
+    function updateAgentSponsorship(address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _transAmount)
        internal returns (AgentStruct storage) {
-        RecipientRateStruct storage recipientRateRecord = updateRecipientRateTransaction(_recipientKey, _recipientRateKey, _transAmount);
+        RecipientRateStruct storage recipientRateRecord = updateRecipientRateSponsorship(_recipientKey, _recipientRateKey, _transAmount);
         AgentStruct storage agentRecord = recipientRateRecord.agentMap[_agentKey];
         agentRecord.stakedSPCoins += _transAmount;
         return agentRecord;
     }
 
-    function updateRecipientRateTransaction(address _recipientKey, uint _recipientRateKey, uint256 _transAmount)
+    function updateRecipientRateSponsorship(address _recipientKey, uint _recipientRateKey, uint256 _transAmount)
        internal returns (RecipientRateStruct storage) {
-        RecipientStruct storage recipientRecord = updateRecipientTransaction(_recipientKey, _transAmount);
+        RecipientStruct storage recipientRecord = updateRecipientSponsorship(_recipientKey, _transAmount);
         RecipientRateStruct storage recipientRateRecord = recipientRecord.recipientRateMap[_recipientRateKey];
         recipientRateRecord.stakedSPCoins += _transAmount;
         return recipientRateRecord;
     }
 
-    function updateRecipientTransaction(address _recipientKey, uint256 _transAmount)
+    function updateRecipientSponsorship(address _recipientKey, uint256 _transAmount)
        internal returns (RecipientStruct storage) {
         AccountStruct storage sponsorRec = updateSponsorTransaction(_transAmount);
         RecipientStruct storage recipientRecord = sponsorRec.recipientMap[_recipientKey];
