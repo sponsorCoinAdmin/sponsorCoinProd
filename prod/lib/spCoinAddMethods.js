@@ -101,7 +101,7 @@ addAccountRecords = async (_accountListKeys) => {
 
 //////////////////// ADD TRANSACTIONS METHODS //////////////////////
 
-addAgentTransaction = async (
+addAgentSponsorship = async (
   _sponsorSigner,
   _recipientKey,
   _recipientRateKey,
@@ -109,7 +109,7 @@ addAgentTransaction = async (
   _agentRateKey,
   _transactionQty ) => {
     logFunctionHeader(
-      "addAgentTransaction = async(" + 
+      "addAgentSponsorship = async(" + 
       _sponsorSigner + ", " + 
       _recipientKey + ", " + 
       _recipientRateKey + ", " + 
@@ -120,15 +120,19 @@ addAgentTransaction = async (
 
     // do decimal power operation for quantity
     let decimals = 18;
-    let transactionQty = Math.round(_transactionQty * (10 ** decimals));
+    let transactionQty = BigInt(Math.round(_transactionQty) * (10 ** decimals));
     setSigner(_sponsorSigner);
-
-    await spCoinContractDeployed.connect(signer).addAgentTransaction(
+    console.log("TransactionQty = " + transactionQty);
+    
+    await spCoinContractDeployed.connect(signer).addAgentSponsorship(
       _recipientKey,
       _recipientRateKey,
       _accountAgentKey,
       _agentRateKey,
-      transactionQty.toString());
+      transactionQty);
+      // BigInt("11579208923731619542357098500868790785326998466564056403945"));
+      // transactionQty.toString());
+      
       logDetail("JS => "+ "Added Agent Transaction " + _accountAgentKey + " transactionQty = " + transactionQty);
       logExitFunction();
     };
@@ -140,7 +144,7 @@ module.exports = {
     addAccountRecords,
     addRecipient,
     addRecipients,
-    addAgentTransaction,
+    addAgentSponsorship,
     addAgent,
     addAgents,
     injectAddMethodsContract,

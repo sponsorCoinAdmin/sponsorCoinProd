@@ -28,11 +28,11 @@ contract UnSubscribe is Transactions {
             sponsorAccount.stakedSPCoins -= totalSponsored;
 
             //Delete Recipient and Clean up Recipient's References
-            deleteRecipientRecord(recipientRecord);
+            unSponsorRecipient(recipientRecord);
         }
     }
 
-    function deleteRecipientRecord(RecipientStruct storage recipientRecord)  
+    function unSponsorRecipient(RecipientStruct storage recipientRecord)  
     internal {
         address recipientKey = recipientRecord.recipientKey;
         AccountStruct storage recipientAccount = accountMap[recipientKey];

@@ -20,7 +20,6 @@ contract Token is AccountStakingManager{
     /// @param _value amount value of token to send
     /// @return success as true, for transfer 
     function transfer(address _to, uint256 _value) public virtual returns (bool success) {
-        require(balanceOf[msg.sender] >= _value);
         balanceOf[msg.sender] = balanceOf[msg.sender] - (_value);
         balanceOf[_to] = balanceOf[_to] + (_value);
         return true;

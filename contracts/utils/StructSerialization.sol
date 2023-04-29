@@ -63,6 +63,7 @@ contract StructSerialization is Utils {
 
         // console.log("_accountRec.accountKey:", _accountRec.accountKey);
         // console.log( "toString(_accountRec.accountKey)", toString(_accountRec.accountKey));
+        // console.log("balanceOf[_accountRec.accountKey]", balanceOf);
 
         return seralized;
     }
