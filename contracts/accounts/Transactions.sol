@@ -8,8 +8,8 @@ contract Transactions is AgentRates {
 
     function addAgentTransaction(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey, string memory _strTransAmount)
     public onlyOwnerOrRootAdmin("addAgentTransaction", msg.sender) {
-        
-        console.log("_strTransAmount = ",_strTransAmount);
+
+        // console.log("_strTransAmount = ",_strTransAmount);
 
 // string memory testJunk = "115792089237316195423570985008687907853269984665640564039457584007913129639935";
 uint256 transAmount;
@@ -18,7 +18,7 @@ bool  success;
 //(transAmount, success) = strToUint("115792089237316195423570985008687907853269984665640564039457584007913129639936");
 (transAmount, success) = strToUint(_strTransAmount);
 
-console.log("transAmount = ",transAmount);
+// console.log("transAmount = ",transAmount);
 
         // console.log(JUNK_COUNTER++, "**** Transaction.sol:ADDING RATE REC = ",_agentRateKey, "ADDING TRANSACTION = ",_transAmount);
         AgentRateStruct storage agentRateRecord = getAgentRateRecord(msg.sender, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);

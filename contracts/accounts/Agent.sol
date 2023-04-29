@@ -20,8 +20,7 @@ contract Agent is RecipientRates {
     /// @param _recipientKey public account key to get recipient array
     /// @param _agentKey new recipient to add to account list
     function getAgentRecord(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey)
-        internal nonRedundantAgent (_recipientKey, _agentKey) 
-        returns (AgentStruct storage) {
+        internal returns (AgentStruct storage) {
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecord(_sponsorKey, _recipientKey, _recipientRateKey);
         // console.log(JUNK_COUNTER++,"getAgentRecord");
 
@@ -61,7 +60,8 @@ contract Agent is RecipientRates {
     /// @param _recipientKey recipient account key
     /// @param _recipientRateKey recipient rate
     /// @param _agentKey agent record key to be returned
-    function getAgentRecordByKeys(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey) internal view returns (AgentStruct storage) {
+    function getAgentRecordByKeys(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey)
+     internal view returns (AgentStruct storage) {
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey);
         AgentStruct storage agentRecord = recipientRateRecord.agentMap[_agentKey];
         return agentRecord;

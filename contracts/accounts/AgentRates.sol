@@ -27,7 +27,8 @@ contract AgentRates is Agent {
         return agentRateRecord;
     }
 
-    function getAgentRateRecordByKeys(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey) internal view returns (AgentRateStruct storage) {
+    function getAgentRateRecordByKeys(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey)
+    internal view returns (AgentRateStruct storage) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey) ;
         return agentRec.agentRateMap[_agentRateKey];
     }

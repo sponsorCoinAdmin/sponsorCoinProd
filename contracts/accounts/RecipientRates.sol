@@ -11,8 +11,7 @@ contract RecipientRates is Recipient {
     /// @param _recipientKey public account key to get recipient array
     /// @param _recipientRateKey public account key to get recipient Rate for a given recipient
     function getRecipientRateRecord(address _sponsorKey, address _recipientKey, uint _recipientRateKey) 
-    internal nonRedundantRecipient (_sponsorKey, _recipientKey)
-    returns (RecipientRateStruct storage) {
+    internal returns (RecipientRateStruct storage) {
         RecipientStruct storage recipientRecord = getRecipientRecord(_sponsorKey, _recipientKey);
 // console.log(JUNK_COUNTER++,"Recipient.sol:getRecipientRateRecord", _recipientKey, _recipientRateKey); 
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey);
@@ -27,7 +26,8 @@ contract RecipientRates is Recipient {
         return recipientRateRecord; 
     }
 
-    function getRecipientRateRecordByKeys(address _sponsorKey, address _recipientKey, uint _recipientRateKey) internal view  returns (RecipientRateStruct storage) {
+    function getRecipientRateRecordByKeys(address _sponsorKey, address _recipientKey, uint _recipientRateKey)
+    internal view  returns (RecipientRateStruct storage) {
         RecipientStruct storage recipientRecord = getRecipientRecordByKeys(_sponsorKey, _recipientKey) ;
         return recipientRecord.recipientRateMap[_recipientRateKey];
     }

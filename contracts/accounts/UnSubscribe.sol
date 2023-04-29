@@ -27,7 +27,7 @@ contract UnSubscribe is Transactions {
             balanceOf[sponsorAccount.accountKey] += totalSponsored;
             sponsorAccount.stakedSPCoins -= totalSponsored;
 
-            //Clean up Recipient's References
+            //Delete Recipient and Clean up Recipient's References
             deleteRecipientRecord(recipientRecord);
         }
     }
@@ -36,14 +36,10 @@ contract UnSubscribe is Transactions {
     internal {
         address recipientKey = recipientRecord.recipientKey;
         AccountStruct storage recipientAccount = accountMap[recipientKey];
-        // console.log("DELETE SPONSOR KEY",recipientRecord.sponsorKey, "FROM RECIPIANT ACCOUNT", recipientAccount.accountKey);
+        // console.log("DELETE SPONSOR KEY",recipientRecord.sponsorKey, "FROM RECIPIANT ACCOUNT LIST", recipientAccount.accountKey);
         deleteAccountRecordFromSearchKeys(recipientRecord.sponsorKey, recipientAccount.sponsorAccountList);
         deleteRecipientRateRecords(recipientRecord);
 
-        // // Delete Agent Account List
-        // console.log("DELETE SPONSOR KEY",recipientRecord.sponsorKey, "FROM RECIPIANT ACCOUNT", recipientAccount.accountKey);
-        // deleteAccountRecordFromSearchKeys(recipientRecord.sponsorKey, recipientAccount.agentAccountList);
-        // deleteAccountFromMaster(recipientKey);
      }
 
     //  For each Recipient Rate Record,
@@ -64,7 +60,8 @@ contract UnSubscribe is Transactions {
         }
     }
 
-    function deleteRecipientRateRecord(RecipientRateStruct storage recipientRateRecord) internal {
+    function deleteRecipientRateRecord(RecipientRateStruct storage recipientRateRecord)
+    internal {
         address[] storage agentAccountList = recipientRateRecord.agentAccountList;
         uint i = agentAccountList.length - 1;
         // Traverse Recipient Rate Records for removal of Recipiant Rate Records
@@ -77,8 +74,6 @@ contract UnSubscribe is Transactions {
               break;
         }
     }
-
-    ///// PERFECT TO HERE
 
     function deleteAgentRecord(AgentStruct storage _agentRecord) internal {
         address agentKey = _agentRecord.agentKey;
@@ -95,13 +90,12 @@ contract UnSubscribe is Transactions {
         // console.log("RECIPIENT =" , _agentRecord.recipientKey);
         // console.log("AGENT     =" , agentKey);
         // console.log("-------------------------------------------------------------------------------------------------------------------");
-        for (uint j = 0; j < agentAccount.agentsParentRecipientAccountList.length ; j++)
+        // for (uint j = 0; j < agentAccount.agentsParentRecipientAccountList.length ; j++)
         // console.log("*** BEFORE DELETE agentAccount.agentsParentRecipientAccountList[", j, "] = ",agentAccount.agentsParentRecipientAccountList[j]); 
-
         // console.log("deleteAccountRecordFromSearchKeys(",_agentRecord.recipientKey, agentAccount.accountKey,")");
         deleteAccountRecordFromSearchKeys(_agentRecord.recipientKey, agentAccount.agentsParentRecipientAccountList);
 
-        // Delete Agent Key FromRecipient,agentAccountList
+        // Delete Reference Agent Key From Recipient.agentAccountList
         deleteAccountRecordFromSearchKeys(agentKey, recipientAccount.agentAccountList );
         deleteAccountFromMaster(recipientKey);
 

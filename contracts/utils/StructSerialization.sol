@@ -8,9 +8,7 @@ contract StructSerialization is Utils {
     constructor() {}
 
     function serializeAccount(AccountStruct storage _accountRec)
-        internal
-        view
-        returns (string memory)
+        internal view returns (string memory)
     {
         // ToDo Remove Next Line and Serialize the AccountRec
         string memory addr = concat(
