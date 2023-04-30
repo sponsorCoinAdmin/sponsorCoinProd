@@ -6,17 +6,25 @@ import "./AgentRates.sol";
 contract Transactions is AgentRates {
     constructor() { }
 
-//    function addAgentSponsorship(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey, string memory _strTransAmount)
     function addAgentSponsorship(address _recipientKey, 
                                  uint _recipientRateKey,
                                  address _agentKey,
                                  uint _agentRateKey,
-                                 uint256 sponsorAmount)
-    public onlyOwnerOrRootAdmin("addAgentSponsorship", msg.sender) {
-        // require(balanceOf[msg.sender] >= sponsorAmount);
+                                 string memory _strTransAmount)
+                                //  uint256 _sponsorAmount)
+    public onlyOwnerOrRootAdmin("addAgentSponsorship", msg.sender)
+    // validateSufficientAccountBalance(sponsorAmount)
+    {
+        uint256 sponsorAmount;
+        bool result;
+        (sponsorAmount, result) = strToUint(_strTransAmount);
+
+        console.log("sponsorAmount = ",sponsorAmount);
+        console.log("balanceOf[", msg.sender, "] = ",balanceOf[msg.sender]);
+        require(balanceOf[msg.sender] >= sponsorAmount, "Insufficient Balance");
 
         console.log("sponsorAmount =", sponsorAmount);
-        console.log("balanceOf   =", balanceOf[msg.sender]);
+        console.log("balanceOf     =", balanceOf[msg.sender]);
 
         // console.log(JUNK_COUNTER++, "**** Transaction.sol:ADDING RATE REC = ",_agentRateKey, "ADDING TRANSACTION = ",_transAmount);
         AgentRateStruct storage agentRateRecord = getAgentRateRecord(msg.sender, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
@@ -27,6 +35,8 @@ contract Transactions is AgentRates {
         TransactionStruct memory transRec = TransactionStruct(
             {insertionTime: transactionTimeStamp, quantity: sponsorAmount});
         agentRateRecord.transactionList.push(transRec);
+
+        balanceOf[msg.sender] -= sponsorAmount;
     }
 
     function updateAgentRateSponsorship(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey, uint256 _transAmount)

@@ -61,7 +61,7 @@ string public text;
           else {
               strArrValue = concat(strArrValue, ",", toString(arrValues[i]));
           }
-          // console.log(arrValues[i]);
+         //  console.log(arrValues[i]);
       }
       return strArrValue;
   }
@@ -79,15 +79,18 @@ string public text;
        return string(str);
    }
 
-   function strToUint(string memory _str) public pure returns(uint256 res, bool err) {
-    
+   function strToUint(string memory _str) public pure returns(uint256 response, bool err) {
+   
+      // console.log("strToUint(", _str, ")");  
       for (uint256 i = 0; i < bytes(_str).length; i++) {
           if ((uint8(bytes(_str)[i]) - 48) < 0 || (uint8(bytes(_str)[i]) - 48) > 9) {
               return (0, false);
           }
-          res += (uint8(bytes(_str)[i]) - 48) * 10**(bytes(_str).length - i - 1);
+          response += (uint8(bytes(_str)[i]) - 48) * 10**(bytes(_str).length - i - 1);
+         //  console.log("strToUint response = ", response, ")");  
       }
-      
-      return (res, true);
+      // console.log("SUCCESS response = ", response, ")");  
+
+      return (response, true);
   }
 }

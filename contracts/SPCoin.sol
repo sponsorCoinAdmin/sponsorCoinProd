@@ -39,13 +39,4 @@ contract SPCoin is Token{
     }
 */
 
-    function sponsorAgentRateTransaction(address _recipientKey,
-                                          uint _recipientRateKey,
-                                          address _agentKey,
-                                          uint _agentRateKey,
-                                          uint256 sponsorAmount)
-    public  {
-        transfer(_recipientKey, sponsorAmount);
-        addAgentSponsorship(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey, sponsorAmount);
-    }
 }

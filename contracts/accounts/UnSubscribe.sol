@@ -24,10 +24,16 @@ contract UnSubscribe is Transactions {
 
             RecipientStruct storage recipientRecord = sponsorAccount.recipientMap[_recipientKey];
             uint256 totalSponsored = recipientRecord.stakedSPCoins;
+            console.log("BEFORE balanceOf() msg.sender = ", balanceOf[msg.sender]);
             balanceOf[sponsorAccount.accountKey] += totalSponsored;
             sponsorAccount.stakedSPCoins -= totalSponsored;
+            // ToDo: Robin Here
+            balanceOf[msg.sender] += totalSponsored;
 
-            //Delete Recipient and Clean up Recipient's References
+            // Delete Recipient and Clean up Recipient's References
+            console.log("AFTER unSponsorRecipient() msg.sender = ", msg.sender);
+            console.log("AFTER balanceOf() msg.sender = ", balanceOf[msg.sender]);
+            console.log("unSponsorRecipient(", totalSponsored, ")");
             unSponsorRecipient(recipientRecord);
         }
     }

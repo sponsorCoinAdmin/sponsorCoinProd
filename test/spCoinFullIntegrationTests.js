@@ -45,7 +45,7 @@ describe("spCoinContract", function () {
     RECIPIENT_RATES[9],
     AGENT_ACCOUNT_KEYS[2],
     AGENT_RATES[1],
-    "123456789123456789"
+    "9999"
   );
 
   // await addAgentSponsorship(

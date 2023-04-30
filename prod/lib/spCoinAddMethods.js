@@ -119,21 +119,17 @@ addAgentSponsorship = async (
     );
 
     // do decimal power operation for quantity
-    let decimals = 18;
-    let transactionQty = BigInt(Math.round(_transactionQty) * (10 ** decimals));
     setSigner(_sponsorSigner);
-    console.log("TransactionQty = " + transactionQty);
+    // console.log("JS==> TransactionQty = " + BigInt(transactionQty ** offset));
     
     await spCoinContractDeployed.connect(signer).addAgentSponsorship(
       _recipientKey,
       _recipientRateKey,
       _accountAgentKey,
       _agentRateKey,
-      transactionQty);
-      // BigInt("11579208923731619542357098500868790785326998466564056403945"));
-      // transactionQty.toString());
+      _transactionQty);
       
-      logDetail("JS => "+ "Added Agent Transaction " + _accountAgentKey + " transactionQty = " + transactionQty);
+      logDetail("JS => "+ "Added Agent Transaction " + _accountAgentKey + " _transactionQty = " + _transactionQty);
       logExitFunction();
     };
 
