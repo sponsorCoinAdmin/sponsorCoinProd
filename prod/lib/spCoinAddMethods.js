@@ -121,13 +121,25 @@ addAgentSponsorship = async (
     // do decimal power operation for quantity
     setSigner(_sponsorSigner);
     // console.log("JS==> TransactionQty = " + BigInt(transactionQty ** offset));
+
+    let components = _transactionQty.toString().split(".");
+    let wholePart = components[0].length > 0   ? components[0] : "0";
+    let fractionalPart = components.length > 1 ? components[1] : "0";
+
+    // console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+    // console.log("_transactionQty   = " + _transactionQty);
+    // console.log("components.length = " + components.length);
+    // console.log("wholePart         = " + wholePart);
+    // console.log("fractionalPart    = " + fractionalPart);
+    // console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
     
     await spCoinContractDeployed.connect(signer).addAgentSponsorship(
       _recipientKey,
       _recipientRateKey,
       _accountAgentKey,
       _agentRateKey,
-      _transactionQty);
+      wholePart,
+      fractionalPart);
       
       logDetail("JS => "+ "Added Agent Transaction " + _accountAgentKey + " _transactionQty = " + _transactionQty);
       logExitFunction();

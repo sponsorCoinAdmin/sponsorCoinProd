@@ -12,6 +12,7 @@ const { logSetup, setLogMode, logJSON,  LOG_MODE, LOG, LOG_DETAIL,
         LOG_TREE } = require("../prod/lib/utils/logging");
 const { } = require("../test/testMethods/scTestMethods");
 const { } = require("../prod/lib/spCoinReadMethods");
+const { } = require("../prod/lib/spCoinTransferMethods");
 const { unSponsorRecipient } = require("../prod/lib/spCoinDeleteMethods");
 const { } = require("../test/deployContract");
 
@@ -34,8 +35,6 @@ describe("spCoinContract", function () {
   });
 
  it("2. VALIDATE ADD TRANSACTION RATES", async function () {
-  setLogMode("LOG", true);
-
   // Test Successful Record Insertion of Sponsor and 
   // Recipient Account to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
@@ -45,8 +44,14 @@ describe("spCoinContract", function () {
     RECIPIENT_RATES[9],
     AGENT_ACCOUNT_KEYS[2],
     AGENT_RATES[1],
-    "9999"
+    // ".8"
+    "1.000000000000000008"
   );
+
+  // await transfer(
+  //   RECIPIENT_ACCOUNT_KEYS,
+  //   10
+  // ) 
 
   // await addAgentSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[0],
@@ -110,7 +115,7 @@ describe("spCoinContract", function () {
     // expect(AccountListSize).to.equal(3);
     await logJSONTree();
     await unSponsorRecipient(SPONSOR_ACCOUNT_SIGNERS[0], RECIPIENT_ACCOUNT_KEYS[1]);
-    // await spCoinContractDeployed.deleteAccountFromMaster(RECIPIENT_ACCOUNT_KEYS[1]);
+    await spCoinContractDeployed.deleteAccountFromMaster(RECIPIENT_ACCOUNT_KEYS[1]);
     // await unSponsorRecipient(SPONSOR_ACCOUNT_SIGNERS[0], RECIPIENT_ACCOUNT_KEYS[2]);
     // await unSponsorRecipient(SPONSOR_ACCOUNT_SIGNERS[1], RECIPIENT_ACCOUNT_KEYS[2]);
     // await unSponsorRecipient(SPONSOR_ACCOUNT_SIGNERS[1], RECIPIENT_ACCOUNT_KEYS[0]);
@@ -120,7 +125,7 @@ describe("spCoinContract", function () {
     console.log("*** AFTER DELETE ***************************************************************");
     console.log("********************************************************************************");
   
-    // console.log("--- AFTER DELETE RECIPIENT -----------------------------------");
+    console.log("--- AFTER DELETE RECIPIENT -----------------------------------");
     await logJSONTree();
     // agentRateKeys = await getAgentRateKeys(
     //   SPONSOR_ACCOUNT_SIGNERS[1],

@@ -1,5 +1,5 @@
-const {} = require("../spCoinReadMethods");
-const {} = require("../spCoinAddMethods");
+const { } = require("../spCoinReadMethods");
+const { } = require("../spCoinAddMethods");
 
 // ************************* LOG SECTION ******************************/
 let LOG = true;
@@ -48,8 +48,8 @@ const LOG_MODE = {
          case LOG_MODE.LOG_FUNCTION_HEADER:
             console.log("Setting _log_mode LOG_FUNCTION_HEADER: " + _state)
             LOG_FUNCTION_HEADER = _state;
-         break;
-         case LOG_MODE.LOG_SETUP:
+        break;
+        case LOG_MODE.LOG_SETUP:
             console.log("Setting _log_mode LOG_SETUP: " + _state)
             LOG_SETUP = _state;
         case LOG_MODE.LOG_TREE:
@@ -79,6 +79,8 @@ logFunctionHeader = (_functionHeader) => {
     }
     prefix += indent;
 }
+
+
 
 logExitFunction = () => {
     if (LOG_FUNCTION_HEADER) {

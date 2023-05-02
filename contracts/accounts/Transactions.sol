@@ -10,21 +10,21 @@ contract Transactions is AgentRates {
                                  uint _recipientRateKey,
                                  address _agentKey,
                                  uint _agentRateKey,
-                                 string memory _strTransAmount)
+                                 string memory _strWholeAmount,
+                                 string memory _strDecimalAmount)
                                 //  uint256 _sponsorAmount)
     public onlyOwnerOrRootAdmin("addAgentSponsorship", msg.sender)
     // validateSufficientAccountBalance(sponsorAmount)
     {
+        // console.log("balanceOf[", msg.sender, "] = ",balanceOf[msg.sender]);
         uint256 sponsorAmount;
         bool result;
-        (sponsorAmount, result) = strToUint(_strTransAmount);
+        (sponsorAmount, result) = decimalStringToUint(_strWholeAmount, _strDecimalAmount, decimals);
 
-        console.log("sponsorAmount = ",sponsorAmount);
-        console.log("balanceOf[", msg.sender, "] = ",balanceOf[msg.sender]);
+        require(result,concat("Unparsable Sponsor Amount ", _strWholeAmount));
+
         require(balanceOf[msg.sender] >= sponsorAmount, "Insufficient Balance");
 
-        console.log("sponsorAmount =", sponsorAmount);
-        console.log("balanceOf     =", balanceOf[msg.sender]);
 
         // console.log(JUNK_COUNTER++, "**** Transaction.sol:ADDING RATE REC = ",_agentRateKey, "ADDING TRANSACTION = ",_transAmount);
         AgentRateStruct storage agentRateRecord = getAgentRateRecord(msg.sender, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
@@ -36,7 +36,11 @@ contract Transactions is AgentRates {
             {insertionTime: transactionTimeStamp, quantity: sponsorAmount});
         agentRateRecord.transactionList.push(transRec);
 
+        // console.log("BEFORE balanceOf     =", balanceOf[msg.sender]);
+        // console.log("BEFORE sponsorAmount ",sponsorAmount);
         balanceOf[msg.sender] -= sponsorAmount;
+        // console.log("AFTER balanceOf     =", balanceOf[msg.sender]);
+        // console.log("AFTER sponsorAmount ",sponsorAmount);
     }
 
     function updateAgentRateSponsorship(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey, uint256 _transAmount)
