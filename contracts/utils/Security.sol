@@ -21,7 +21,6 @@ contract Security is SpCoinDataTypes {
         _;
     }
 
-
     modifier onlyOwnerOrRootAdmin (string memory callingMethod, address _account) {
         // console.log(callingMethod, " => onlyOwnerOrRootAdmin (", _account, msg.sender);
         require (msg.sender == rootAdmin || msg.sender == _account, "Owner or Root Admin Security Access Violation");
@@ -39,4 +38,9 @@ contract Security is SpCoinDataTypes {
                  msg.sender != _agentKey , "_accountKey, _recipientKey and _agentKey must be Mutually Exclusive)");
         _;
     }
+
+    // modifier validateSufficientAccountBalance (uint256 _amount) {
+    //     require(balanceOf[msg.sender] >= _amount, "Insufficient Balance");
+    //     _;
+    // }
 }

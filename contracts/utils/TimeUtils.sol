@@ -11,7 +11,6 @@ contract TimeUtils {
         uint AccountTimeInSecondeSinceUpdate = block.timestamp -TokenLastUpdate;
         return AccountTimeInSecondeSinceUpdate;
     }
-
 }
 
 /*

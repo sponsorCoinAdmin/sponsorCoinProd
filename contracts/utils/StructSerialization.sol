@@ -8,9 +8,7 @@ contract StructSerialization is Utils {
     constructor() {}
 
     function serializeAccount(AccountStruct storage _accountRec)
-        internal
-        view
-        returns (string memory)
+        internal view returns (string memory)
     {
         // ToDo Remove Next Line and Serialize the AccountRec
         string memory addr = concat(
@@ -25,6 +23,7 @@ contract StructSerialization is Utils {
             "balanceOf: ",
             toString(balanceOf[_accountRec.accountKey])
         );
+        console.log("SERIALIZED balanceOf = ", balanceOf);
         string memory decimals = concat(
             "decimals: ",
             toString(_accountRec.decimals)
@@ -65,6 +64,7 @@ contract StructSerialization is Utils {
 
         // console.log("_accountRec.accountKey:", _accountRec.accountKey);
         // console.log( "toString(_accountRec.accountKey)", toString(_accountRec.accountKey));
+        // console.log("balanceOf[_accountRec.accountKey]", balanceOf);
 
         return seralized;
     }

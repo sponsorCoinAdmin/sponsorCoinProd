@@ -1,3 +1,8 @@
+// const { BigNumber } = require('bignumber.js');
+// const { ethers } = require("ethers");
+
+const { BigNumber, ethers, utils } = require("ethers");
+
 const {
   AccountStruct,
   RecipientStruct,
@@ -34,7 +39,7 @@ deSerializedAccountRec = async (serializedAccountRec) => {
   logExitFunction();
   return accountStruct;
 };
-const hexToDecimal = hex => parseInt(hex, 16);
+const hexToDecimal = hex => { let dec = BigInt(hex); return dec.toString(10) };
 const bigIntToDecimal = bigInt => parseInt(bigInt).toLocaleString('fullwide', {useGrouping:false});
 // parseInt(bigInt, 10);
 
@@ -46,7 +51,13 @@ addAccountField = (key, value, accountStruct) => {
       accountStruct.accountKey = value;
       break;
     case "balanceOf":
-      accountStruct.balanceOf = bigIntToDecimal(value);
+      console.log("balanceOf: " + value + "," + accountStruct.balance)
+
+      console.log("PPPP value", "0xf000000039fd6e51aad88f6f4ce6ab8827279cfffb92266", "= DEC", hexToDecimal("0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"));
+      dec = hexToDecimal("0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266");
+      console.log( dec);
+
+      accountStruct.balanceOf = hexToDecimal(value);
     break;
     case "stakedSPCoins":
       accountStruct.stakedSPCoins = hexToDecimal(value);
@@ -99,6 +110,8 @@ parseAddressStrRecord = (strRecord) => {
     return addressStrRecord;
   }
 };
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 module.exports = {
   addAccountField,

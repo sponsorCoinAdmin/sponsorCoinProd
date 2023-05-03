@@ -53,7 +53,8 @@ contract Recipient is Sponsor {
     }
     */
 
-    function getRecipientRecordByKeys(address _sponsorKey, address _recipientKey) internal view  returns (RecipientStruct storage) {
+    function getRecipientRecordByKeys(address _sponsorKey, address _recipientKey)
+    internal view  returns (RecipientStruct storage) {
     ///////////////// **** WORKING HERE ****
         // console.log("===============================================================");
         // console.log("=========> Recipient.sol:getRecipientRecordByKeys(",_sponsorKey ,_recipientKey,")");

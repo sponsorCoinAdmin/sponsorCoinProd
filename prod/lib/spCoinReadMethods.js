@@ -1,4 +1,4 @@
-const { logFunctionHeader } = require("./utils/logging");
+const { } = require("./utils/logging");
 const {
   AccountStruct,
   AgentRateStruct,
@@ -37,6 +37,21 @@ getAccountList = async () => {
 };
 
 ////////////////////////// ACCOUNT RECORD FUNCTIONS //////////////////////////
+
+
+getAccountRecords = async() => {
+  // console.log("==>1 getAccountRecords()");
+  logFunctionHeader("getAccountRecords()");
+  let accountArr = [];
+  let AccountList = await spCoinContractDeployed.connect(signer).getAccountList();
+
+  for (let i in AccountList) {
+      let accountStruct = await getAccountRecord(AccountList[i]);
+      accountArr.push(accountStruct);
+  }
+  logExitFunction();
+  return accountArr;
+}
 
 getAccountRecord = async (_accountKey) => {
   // console.log("==>2 getAccountRecord = async(", _accountKey,")");
@@ -258,20 +273,6 @@ getRateTransactionRecords = (transactionStr) => {
   }
   logExitFunction();
   return transactionRecs;
-}
-
-getAccountRecords = async() => {
-  // console.log("==>1 getAccountRecords()");
-  logFunctionHeader("getAccountRecords()");
-  let accountArr = [];
-  let AccountList = await spCoinContractDeployed.connect(signer).getAccountList();
-
-  for (let i in AccountList) {
-      let accountStruct = await getAccountRecord(AccountList[i]);
-      accountArr.push(accountStruct);
-  }
-  logExitFunction();
-  return accountArr;
 }
 
 ////////////////  RECORD DE-SERIALIZATION FUNCTIONS ///////////////////

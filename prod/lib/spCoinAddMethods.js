@@ -101,7 +101,7 @@ addAccountRecords = async (_accountListKeys) => {
 
 //////////////////// ADD TRANSACTIONS METHODS //////////////////////
 
-addAgentTransaction = async (
+addAgentSponsorship = async (
   _sponsorSigner,
   _recipientKey,
   _recipientRateKey,
@@ -109,7 +109,7 @@ addAgentTransaction = async (
   _agentRateKey,
   _transactionQty ) => {
     logFunctionHeader(
-      "addAgentTransaction = async(" + 
+      "addAgentSponsorship = async(" + 
       _sponsorSigner + ", " + 
       _recipientKey + ", " + 
       _recipientRateKey + ", " + 
@@ -119,17 +119,29 @@ addAgentTransaction = async (
     );
 
     // do decimal power operation for quantity
-    let decimals = 18;
-    let transactionQty = Math.round(_transactionQty * (10 ** decimals));
     setSigner(_sponsorSigner);
+    // console.log("JS==> TransactionQty = " + BigInt(transactionQty ** offset));
 
-    await spCoinContractDeployed.connect(signer).addAgentTransaction(
+    let components = _transactionQty.toString().split(".");
+    let wholePart = components[0].length > 0   ? components[0] : "0";
+    let fractionalPart = components.length > 1 ? components[1] : "0";
+
+    // console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+    // console.log("_transactionQty   = " + _transactionQty);
+    // console.log("components.length = " + components.length);
+    // console.log("wholePart         = " + wholePart);
+    // console.log("fractionalPart    = " + fractionalPart);
+    // console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+    
+    await spCoinContractDeployed.connect(signer).addAgentSponsorship(
       _recipientKey,
       _recipientRateKey,
       _accountAgentKey,
       _agentRateKey,
-      transactionQty.toString());
-      logDetail("JS => "+ "Added Agent Transaction " + _accountAgentKey + " transactionQty = " + transactionQty);
+      wholePart,
+      fractionalPart);
+      
+      logDetail("JS => "+ "Added Agent Transaction " + _accountAgentKey + " _transactionQty = " + _transactionQty);
       logExitFunction();
     };
 
@@ -140,7 +152,7 @@ module.exports = {
     addAccountRecords,
     addRecipient,
     addRecipients,
-    addAgentTransaction,
+    addAgentSponsorship,
     addAgent,
     addAgents,
     injectAddMethodsContract,

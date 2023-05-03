@@ -4,10 +4,11 @@ pragma solidity ^0.8.18;
 import "./Token.sol";
 
 contract SPCoin is Token{
+    uint256 defaultTSPCoinSupply       = 1000000000;
     string private defaultName         = "sponsorCoin002";
     string private defaultSymbol       = "SPCT002";
     uint256 private defaultDecimals    = 18;
-    uint256 private defaultTotalSupply = 1000000000 * 10**defaultDecimals;
+    uint256 private defaultTotalSupply = defaultTSPCoinSupply * (10**defaultDecimals);
 
     constructor()  {
 //        logDetail("JS => MESSAGE.SENDER: ", msg.sender);
@@ -38,13 +39,4 @@ contract SPCoin is Token{
     }
 */
 
-    function transferAgentRateTransaction(address _recipientKey,
-                                          uint _recipientRateKey,
-                                          address _agentKey,
-                                          uint _agentRateKey,
-                                          uint256 _transAmount)
-    public  {
-        transfer(_recipientKey, _transAmount);
-        addAgentTransaction(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey, _transAmount);
-    }
 }

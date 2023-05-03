@@ -1,6 +1,7 @@
-const { } = require("../prod/lib/spCoinReadMethods");
-const { } = require("../prod/lib/spCoinDeleteMethods");
 const { } = require("../prod/lib/spCoinAddMethods");
+const { } = require("../prod/lib/spCoinDeleteMethods");
+const { } = require("../prod/lib/spCoinReadMethods");
+const { } = require("../prod/lib/spCoinTransferMethods");
 
 const {
     LOG_MODE,
@@ -22,6 +23,7 @@ const {
     injectReadMethodsContract(spCoinContractDeployed);
     injectDeleteMethodsContract(spCoinContractDeployed);
     injectAddMethodsContract(spCoinContractDeployed);
+    injectTransferMethodsContract(spCoinContractDeployed);
     return spCoinContractDeployed;
   }
 
@@ -38,6 +40,7 @@ const {
     injectReadMethodsSigner(_signer);
     injectDeleteMethodsSigner(_signer);
     injectAddMethodsSigner(_signer);
+    injectTransferMethodsSigner(_signer);
   }
 
   deployContract = async () => {
