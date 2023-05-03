@@ -23,6 +23,7 @@ contract StructSerialization is Utils {
             "balanceOf: ",
             toString(balanceOf[_accountRec.accountKey])
         );
+        console.log("SERIALIZED balanceOf = ", balanceOf);
         string memory decimals = concat(
             "decimals: ",
             toString(_accountRec.decimals)

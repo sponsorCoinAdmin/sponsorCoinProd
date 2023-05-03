@@ -12,7 +12,7 @@ injectTransferMethodsSigner = (_signer) => {
 
 
 transfer = async ( _to, _value) => {
-  await spCoinContractDeployed.transfer(_to, uint256);
+  await spCoinContractDeployed.transfer(_to, _value.toString());
 }
   
 //////////////////// MODULE EXPORTS //////////////////////
