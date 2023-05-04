@@ -20,13 +20,10 @@ contract Token is AccountStakingManager{
     /// @param _value amount value of token to send
     /// @return success as true, for transfer 
     function transfer(address _to, uint256 _value) public virtual returns (bool success) {
-        console.log("msg.sender =", msg.sender, "_value =", _value);
-        console.log("msg.sender =", msg.sender, "_value =", _value);
-        addAccountRecord("TransFer", _to);
-        console.log("BEFORE balanceOf[",msg.sender,"] =", balanceOf[msg.sender]); 
+        // console.log("transfer:msg.sender =", msg.sender, "_value =", _value);
+        addAccountRecord("Transfer", _to);
         balanceOf[msg.sender] = balanceOf[msg.sender] - (_value);
         balanceOf[_to] = balanceOf[_to] + (_value);
-        console.log("AFTER  balanceOf[",msg.sender,"] =", balanceOf[msg.sender]); 
         return true;
     }
 

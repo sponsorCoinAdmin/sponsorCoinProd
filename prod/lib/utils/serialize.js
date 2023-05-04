@@ -39,9 +39,9 @@ deSerializedAccountRec = async (serializedAccountRec) => {
   logExitFunction();
   return accountStruct;
 };
-const hexToDecimal = hex => { let dec = BigInt(hex); return dec.toString(10) };
-const bigIntToDecimal = bigInt => parseInt(bigInt).toLocaleString('fullwide', {useGrouping:false});
-// parseInt(bigInt, 10);
+const bigIntToDecString = ( value ) => { return bigIntToString(value, 10) };
+const bigIntToHexString = ( value ) => { return bigIntToString(value, 16) };
+const bigIntToString = ( value, base ) => { let dec = BigInt(value); return dec.toString(base) };
 
 addAccountField = (key, value, accountStruct) => {
   logFunctionHeader("addAccountField = (" + key + "," + value + ")");
@@ -51,22 +51,16 @@ addAccountField = (key, value, accountStruct) => {
       accountStruct.accountKey = value;
       break;
     case "balanceOf":
-      console.log("balanceOf: " + value + "," + accountStruct.balance)
-
-      console.log("PPPP value", "0xf000000039fd6e51aad88f6f4ce6ab8827279cfffb92266", "= DEC", hexToDecimal("0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"));
-      dec = hexToDecimal("0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266");
-      console.log( dec);
-
-      accountStruct.balanceOf = hexToDecimal(value);
+      accountStruct.balanceOf = bigIntToDecString(value);
     break;
     case "stakedSPCoins":
-      accountStruct.stakedSPCoins = hexToDecimal(value);
+      accountStruct.stakedSPCoins = bigIntToDecString(value);
     break;
     case "decimals":
-      accountStruct.decimals = hexToDecimal(value);
+      accountStruct.decimals = bigIntToDecString(value);
     break;
     case "insertionTime":
-      accountStruct.insertionTime = hexToDecimal(value);
+      accountStruct.insertionTime = bigIntToDecString(value);
       break;
     case "inserted":
       accountStruct.inserted = value;
@@ -116,6 +110,7 @@ parseAddressStrRecord = (strRecord) => {
 module.exports = {
   addAccountField,
   deSerializedAccountRec,
-  hexToDecimal,
-  bigIntToDecimal
+  bigIntToDecString,
+  bigIntToHexString,
+  bigIntToString
 };

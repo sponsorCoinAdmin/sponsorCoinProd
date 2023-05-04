@@ -38,7 +38,7 @@ describe("spCoinContract", function () {
   // Test Successful Record Insertion of Sponsor and 
   // Recipient Account to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
-  await addAgentSponsorship(
+  await addSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[0],
     RECIPIENT_ACCOUNT_KEYS[1],
     RECIPIENT_RATES[9],

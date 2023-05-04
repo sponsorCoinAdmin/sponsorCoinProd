@@ -6,7 +6,7 @@ const {
   RecipientStruct,
   RecipientRateStruct,
   TransactionStruct } = require("./spCoinDataTypes");
-const { hexToDecimal, bigIntToDecimal } = require("./utils/serialize");
+const { bigIntToDecString } = require("./utils/serialize");
 
 let spCoinContractDeployed;
 let signer;
@@ -37,7 +37,6 @@ getAccountList = async () => {
 };
 
 ////////////////////////// ACCOUNT RECORD FUNCTIONS //////////////////////////
-
 
 getAccountRecords = async() => {
   // console.log("==>1 getAccountRecords()");
@@ -132,8 +131,8 @@ getRecipientRecordByKeys = async(_sponsorKey, _recipientKey) => {
   recipientRecord.recipientKey = _recipientKey;
 
   let recordStr = await getSerializedRecipientRecordList(_sponsorKey, _recipientKey);
-  recipientRecord.insertionTime = hexToDecimal(recordStr[0]);
-  recipientRecord.stakedSPCoins = hexToDecimal(recordStr[1]);
+  recipientRecord.insertionTime = bigIntToDecString(recordStr[0]);
+  recipientRecord.stakedSPCoins = bigIntToDecString(recordStr[1]);
 
   // ToDo New Robin
   recipientRecord.recipientRateRecordList = await getRecipientRatesByKeys(_sponsorKey, _recipientKey);
@@ -204,7 +203,7 @@ getSerializedAgentRecord = async(_sponsorKey, _recipientKey, _recipientRateKey, 
   logFunctionHeader("getSerializedAgentRecord = async(" + ", " + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ", " + _agentKey + ")");
   agentRecord = new AgentStruct();
   agentRecord.agentKey = _agentKey;
-  agentRecord.stakedSPCoins = bigIntToDecimal(await spCoinContractDeployed.connect(signer).getAgentTotalRecipient(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey));
+  agentRecord.stakedSPCoins = bigIntToDecString(await spCoinContractDeployed.connect(signer).getAgentTotalRecipient(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey));
   agentRecord.agentRateRecordList = await getAgentRatesByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
   logExitFunction();
   return agentRecord;
@@ -266,8 +265,8 @@ getRateTransactionRecords = (transactionStr) => {
   for (let row in transactionRows) {
     let transactionFields = transactionRows[row].split(",");
     let transactionRec = new TransactionStruct();
-    transactionRec.insertionTime = hexToDecimal(transactionFields[0]);
-    transactionRec.quantity = hexToDecimal(transactionFields[1]);
+    transactionRec.insertionTime = bigIntToDecString(transactionFields[0]);
+    transactionRec.quantity = bigIntToDecString(transactionFields[1]);
     transactionRecs.push(transactionRec);
     // logJSON(transactionRec);
   }
@@ -283,9 +282,9 @@ deSerializeAgentRateRecordByKeys = async(_sponsorKey, _recipientKey, _recipientR
   let agentRateRecord = new AgentRateStruct();
   let recordStr = await getAgentRateRecordDataList(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
   agentRateRecord.agentRate = _agentRateKey;
-  agentRateRecord.insertionTime = hexToDecimal(recordStr[0]);
-  agentRateRecord.lastUpdateTime = hexToDecimal(recordStr[1]);
-  agentRateRecord.stakedSPCoins = hexToDecimal(recordStr[2]);
+  agentRateRecord.insertionTime = bigIntToDecString(recordStr[0]);
+  agentRateRecord.lastUpdateTime = bigIntToDecString(recordStr[1]);
+  agentRateRecord.stakedSPCoins = bigIntToDecString(recordStr[2]);
   
   agentRateRecord.transactions = await getRateTransactionsByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
   logExitFunction();
@@ -316,9 +315,9 @@ logFunctionHeader("deSerializeRecipientRateRecordByKeys(" + _sponsorKey  + _reci
 let recipientRateRecord = new RecipientRateStruct();
   let recordStr = await getSerializedRecipientRateRecordList(_sponsorKey, _recipientKey, _recipientRateKey);
   recipientRateRecord.recipientRate = _recipientRateKey;
-  recipientRateRecord.insertionTime = hexToDecimal(recordStr[0]);
-  recipientRateRecord.lastUpdateTime = hexToDecimal(recordStr[1]);
-  recipientRateRecord.stakedSPCoins = hexToDecimal(recordStr[2]);
+  recipientRateRecord.insertionTime = bigIntToDecString(recordStr[0]);
+  recipientRateRecord.lastUpdateTime = bigIntToDecString(recordStr[1]);
+  recipientRateRecord.stakedSPCoins = bigIntToDecString(recordStr[2]);
   recipientRateRecord.recipientRecordList = await getRecipientRateRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey);
   logExitFunction();
   return recipientRateRecord;

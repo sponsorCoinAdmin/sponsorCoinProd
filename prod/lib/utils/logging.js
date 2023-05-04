@@ -80,8 +80,6 @@ logFunctionHeader = (_functionHeader) => {
     prefix += indent;
 }
 
-
-
 logExitFunction = () => {
     if (LOG_FUNCTION_HEADER) {
         prefix = prefix.slice(0, -indent)

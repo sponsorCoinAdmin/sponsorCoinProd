@@ -72,15 +72,20 @@ contract UnSubscribe is Transactions {
     function deleteRecipientRateRecord(RecipientRateStruct storage recipientRateRecord)
     internal {
         address[] storage agentAccountList = recipientRateRecord.agentAccountList;
-        uint i = agentAccountList.length - 1;
-        // Traverse Recipient Rate Records for removal of Recipiant Rate Records
-        for (i; i >= 0; i--) {
-            address agentKey = recipientRateRecord.agentAccountList[i];
-            AgentStruct storage agentRecord = recipientRateRecord.agentMap[agentKey];
-            deleteAgentRecord(agentRecord);
-            agentAccountList.pop();
-            if (i == 0)
-              break;
+
+        // console.log(agentAccountList);
+
+        if ( agentAccountList.length > 0 ) {
+            uint i = agentAccountList.length - 1;
+            // Traverse Recipient Rate Records for removal of Recipiant Rate Records
+            for (i; i >= 0; i--) {
+                address agentKey = recipientRateRecord.agentAccountList[i];
+                AgentStruct storage agentRecord = recipientRateRecord.agentMap[agentKey];
+                deleteAgentRecord(agentRecord);
+                agentAccountList.pop();
+                if (i == 0)
+                    break;
+                }
         }
     }
 
