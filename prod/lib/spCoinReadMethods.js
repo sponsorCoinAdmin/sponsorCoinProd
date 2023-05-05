@@ -191,16 +191,16 @@ getAgentRecordsByKeys = async(_sponsorKey, _recipientKey, _recipientRateKey, _ag
   logFunctionHeader("getAgentRecordsByKeys = async("+_sponsorKey, + ", " + _recipientKey + ", " + _recipientRateKey + ")");
   let agentRecordList = [];
   for (let [idx, agentKey] of Object.entries(_agentAccountList)) {
-    let agentRecord = await getSerializedAgentRecord(_sponsorKey, _recipientKey, _recipientRateKey, agentKey);
+    let agentRecord = await getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, agentKey);
       agentRecordList.push(agentRecord);
   }
   logExitFunction();
   return agentRecordList;
 }
 
-getSerializedAgentRecord = async(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey) => {
-  // console.log("==>15 getSerializedAgentRecord = async(" + ", " + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ", " + _agentKey + ")");
-  logFunctionHeader("getSerializedAgentRecord = async(" + ", " + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ", " + _agentKey + ")");
+getAgentRecordByKeys = async(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey) => {
+  // console.log("==>15 getAgentRecordByKeys = async(" + ", " + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ", " + _agentKey + ")");
+  logFunctionHeader("getAgentRecordByKeys = async(" + ", " + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ", " + _agentKey + ")");
   agentRecord = new AgentStruct();
   agentRecord.agentKey = _agentKey;
   agentRecord.stakedSPCoins = bigIntToDecString(await spCoinContractDeployed.connect(signer).getAgentTotalRecipient(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey));
@@ -279,7 +279,7 @@ getRateTransactionRecords = (transactionStr) => {
 getSerializedRecipientRecordList = async(_sponsorKey, _recipientKey) => {
   // console.log("==>7 getSerializedRecipientRecordList = async(" + _sponsorKey + ", " + _recipientKey+ ", " + ")");
   logFunctionHeader("getSerializedRecipientRecordList = async(" + _sponsorKey + ", " + _recipientKey+ ", " + ")");
-  let recipientRecordStr = await spCoinContractDeployed.connect(signer).serializeRecipientRecordStr(_sponsorKey, _recipientKey);
+  let recipientRecordStr = await spCoinContractDeployed.connect(signer).getSerializedRecipientRecordList(_sponsorKey, _recipientKey);
   let recipientRecordList = recipientRecordStr.split(",");
   logExitFunction();
   return recipientRecordList;
@@ -338,6 +338,7 @@ module.exports = {
   getAgentRateList,
   getAgentRateRecordList,
   getAgentRecordKeys,
+  getAgentRecordByKeys,
   getAgentRecordsByKeys,
 
   getRecipientKeySize,
@@ -350,9 +351,10 @@ module.exports = {
 
   getSerializedAccountRecord,
   getSerializedAgentRateList,
-  getSerializedAgentRecord,
+  
 
   getSerializedRecipientRateList,
+  getSerializedRecipientRecordList,
 
   injectReadMethodsContract,
 };

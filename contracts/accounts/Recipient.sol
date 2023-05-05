@@ -65,8 +65,8 @@ contract Recipient is Sponsor {
         // return accountMap[sponsor].recipientMap[_recipientKey];
     }
 
-    function serializeRecipientRecordStr(address _sponsorKey, address _recipientKey) public view returns (string memory) {
-// console.log("Recipient.sol:serializeRecipientRecordStr(", _sponsorKey, ",", _recipientKey);
+    function getSerializedRecipientRecordList(address _sponsorKey, address _recipientKey) public view returns (string memory) {
+// console.log("Recipient.sol:getSerializedRecipientRecordList(", _sponsorKey, ",", _recipientKey);
         RecipientStruct storage recipientRecord =  getRecipientRecordByKeys(_sponsorKey, _recipientKey);
         string memory recipientRecordStr = toString(recipientRecord.insertionTime);
         string memory stakedSPCoinsStr = toString(recipientRecord.stakedSPCoins);
