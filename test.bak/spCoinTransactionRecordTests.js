@@ -99,7 +99,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
     // expect(AccountListSize).to.equal(3);
     await logJSONTree();
 
-    // agentRateList = await getagentRateList(
+    // agentRateList = await getAgentRateList(
     //   RECIPIENT_ACCOUNT_KEYS[1],
     //   RECIPIENT_RATES[10],
     //   AGENT_ACCOUNT_KEYS[1]);

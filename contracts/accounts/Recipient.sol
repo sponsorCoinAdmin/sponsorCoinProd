@@ -78,15 +78,15 @@ contract Recipient is Sponsor {
 
     /// @notice retreives the recipient array records from a specific account address.
     /// @param _recipientKey recipient Key to retrieve the recipient list
-    function getRecipientRecordList(address _sponsorKey, address _recipientKey)
+    function getRecipientRateList(address _sponsorKey, address _recipientKey)
         public view  returns (uint[] memory) {
-        // console.log("Recipient.sol:getRecipientRecordList (", toString(_sponsorKey), ",", toString(_recipientKey));
+        // console.log("Recipient.sol:getRecipientRateList (", toString(_sponsorKey), ",", toString(_recipientKey));
         RecipientStruct storage recipientRecord = getRecipientRecordByKeys(_sponsorKey, _recipientKey);
         uint[] memory recipientRateList = recipientRecord.recipientRateList;
-        // console.log("Recipient.sol:getRecipientRecordList recipientRateList.length = ", recipientRateList.length);
+        // console.log("Recipient.sol:getRecipientRateList recipientRateList.length = ", recipientRateList.length);
         // console.log("AGENTS.SOL:addAgent: _sponsorKey, _recipientKey, _recipientRateKey, _recipientKey = " , _sponsorKey, _recipientKey, _recipientRateKey, _recipientKey);
         // console.log("AGENTS.SOL:addAgent:recipientRecord.recipientKey = " , recipientRecord.recipientKey);
-        // console.log("AGENTS.SOL:getagentRateList:recipientRateList.length = ",recipientRateList.length);
+        // console.log("AGENTS.SOL:getAgentRateList:recipientRateList.length = ",recipientRateList.length);
         return recipientRateList;
     }
 
