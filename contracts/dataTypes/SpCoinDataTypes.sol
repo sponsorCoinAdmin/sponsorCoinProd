@@ -84,7 +84,7 @@ contract SpCoinDataTypes {
         address recipientKey;
         uint256 insertionTime;
         uint256 stakedSPCoins; // Coins not owned but Recipiented
-        uint256[] recipientRateRecordList;
+        uint256[] recipientRateList;
         mapping(uint256 => RecipientRateStruct) recipientRateMap;
         bool inserted;
         bool verified;
@@ -108,7 +108,7 @@ contract SpCoinDataTypes {
         address agentKey;
         uint256 insertionTime;
         uint256 stakedSPCoins; // Coins not owned but Recipiented
-        uint256[] agentRateKeys;
+        uint256[] agentRateList;
         mapping(uint256 => AgentRateStruct) agentRateMap;
         bool inserted;
         bool verified;

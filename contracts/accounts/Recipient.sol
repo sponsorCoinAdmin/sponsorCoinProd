@@ -82,12 +82,12 @@ contract Recipient is Sponsor {
         public view  returns (uint[] memory) {
         // console.log("Recipient.sol:getRecipientRecordList (", toString(_sponsorKey), ",", toString(_recipientKey));
         RecipientStruct storage recipientRecord = getRecipientRecordByKeys(_sponsorKey, _recipientKey);
-        uint[] memory recipientRateRecordList = recipientRecord.recipientRateRecordList;
-        // console.log("Recipient.sol:getRecipientRecordList recipientRateRecordList.length = ", recipientRateRecordList.length);
+        uint[] memory recipientRateList = recipientRecord.recipientRateList;
+        // console.log("Recipient.sol:getRecipientRecordList recipientRateList.length = ", recipientRateList.length);
         // console.log("AGENTS.SOL:addAgent: _sponsorKey, _recipientKey, _recipientRateKey, _recipientKey = " , _sponsorKey, _recipientKey, _recipientRateKey, _recipientKey);
         // console.log("AGENTS.SOL:addAgent:recipientRecord.recipientKey = " , recipientRecord.recipientKey);
-        // console.log("AGENTS.SOL:getAgentRateKeys:recipientRateRecordList.length = ",recipientRateRecordList.length);
-        return recipientRateRecordList;
+        // console.log("AGENTS.SOL:getagentRateList:recipientRateList.length = ",recipientRateList.length);
+        return recipientRateList;
     }
 
     /*

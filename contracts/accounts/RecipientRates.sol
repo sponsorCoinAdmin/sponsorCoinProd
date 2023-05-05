@@ -21,7 +21,7 @@ contract RecipientRates is Recipient {
             recipientRateRecord.inserted = true;
             recipientRateRecord.insertionTime = recipientRateRecord.lastUpdateTime = block.timestamp;
             recipientRateRecord.stakedSPCoins = 0;
-            recipientRecord.recipientRateRecordList.push(_recipientRateKey);
+            recipientRecord.recipientRateList.push(_recipientRateKey);
         }
         return recipientRateRecord; 
     }

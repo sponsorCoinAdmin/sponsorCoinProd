@@ -127,12 +127,12 @@ describe("spCoinContract", function () {
   
     console.log("--- AFTER DELETE RECIPIENT -----------------------------------");
     await logJSONTree();
-    // agentRateKeys = await getAgentRateKeys(
+    // agentRateList = await getagentRateList(
     //   SPONSOR_ACCOUNT_SIGNERS[1],
     //   RECIPIENT_ACCOUNT_KEYS[1],
     // RECIPIENT_RATES[10],
     //   AGENT_ACCOUNT_KEYS[1]);
-    //   logJSON(agentRateKeys);
+    //   logJSON(agentRateList);
 
     // VALIDATE ACCOUNT CREATION
     // VALIDATE SPONSOR ACCOUNT
