@@ -82,10 +82,10 @@ getAccountRecipientKeys = async (_accountKey) => {
 
 /////////////////////// RECIPIENT RECORD FUNCTIONS ///////////////////////
 
-getAgentRecordKeys = async (_sponsorKey, _recipientKey, _recipientRateKey) => {
-  // console.log("==>13 getAgentRecordKeys = async(" + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ")" );
-  logFunctionHeader("getAgentRecordKeys = async(" + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ")" );
-  agentAccountList = await spCoinContractDeployed.connect(signer).getAgentRecordKeys(_sponsorKey, _recipientKey, _recipientRateKey);
+getAgentAccountList = async (_sponsorKey, _recipientKey, _recipientRateKey) => {
+  // console.log("==>13 getAgentAccountList = async(" + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ")" );
+  logFunctionHeader("getAgentAccountList = async(" + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ")" );
+  agentAccountList = await spCoinContractDeployed.connect(signer).getAgentAccountList(_sponsorKey, _recipientKey, _recipientRateKey);
   logExitFunction();
   return agentAccountList;
 };
@@ -176,9 +176,9 @@ getRecipientRateRecord = async(_sponsorKey, _recipientKey, _recipientRateKey) =>
   logFunctionHeader("getRecipientRateRecord = async("+_sponsorKey, + ", " + _recipientKey + ", " + _recipientRateKey + ")");
   let recipientRateRecord = new RecipientRateStruct();
   recipientRateRecord.recipientRate = _recipientRateKey;
-  let agentAccountList = await getAgentRecordKeys(_sponsorKey, _recipientKey, _recipientRateKey);
+  let agentAccountList = await getAgentAccountList(_sponsorKey, _recipientKey, _recipientRateKey);
   recipientRateRecord.agentAccountList = agentAccountList;
-  recipientRateRecord.agentRecordList = await getAgentRecordsByKeys(_sponsorKey, _recipientKey, _recipientRateKey, agentAccountList);
+  recipientRateRecord.agentRecordList = await getAgentRecordList(_sponsorKey, _recipientKey, _recipientRateKey, agentAccountList);
 
   logExitFunction();
   return recipientRateRecord;
@@ -186,9 +186,9 @@ getRecipientRateRecord = async(_sponsorKey, _recipientKey, _recipientRateKey) =>
 
 //////////////////// LOAD RECIPIENT TRANSACTION DATA //////////////////////
 
-getAgentRecordsByKeys = async(_sponsorKey, _recipientKey, _recipientRateKey, _agentAccountList) => {
-  // console.log("==>14 getAgentRecordsByKeys = async("+_sponsorKey, + ", " + _recipientKey + ", " + _recipientRateKey + ")");
-  logFunctionHeader("getAgentRecordsByKeys = async("+_sponsorKey, + ", " + _recipientKey + ", " + _recipientRateKey + ")");
+getAgentRecordList = async(_sponsorKey, _recipientKey, _recipientRateKey, _agentAccountList) => {
+  // console.log("==>14 getAgentRecordList = async("+_sponsorKey, + ", " + _recipientKey + ", " + _recipientRateKey + ")");
+  logFunctionHeader("getAgentRecordList = async("+_sponsorKey, + ", " + _recipientKey + ", " + _recipientRateKey + ")");
   let agentRecordList = [];
   for (let [idx, agentKey] of Object.entries(_agentAccountList)) {
     let agentRecord = await getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, agentKey);
@@ -337,9 +337,9 @@ module.exports = {
 
   getAgentRateList,
   getAgentRateRecordList,
-  getAgentRecordKeys,
+  getAgentAccountList,
   getAgentRecordByKeys,
-  getAgentRecordsByKeys,
+  getAgentRecordList,
 
   getRecipientKeySize,
   getRecipientRateList,
@@ -352,7 +352,6 @@ module.exports = {
   getSerializedAccountRecord,
   getSerializedAgentRateList,
   
-
   getSerializedRecipientRateList,
   getSerializedRecipientRecordList,
 

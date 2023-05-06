@@ -22,7 +22,7 @@ class RecipientStruct {
     this.stakedSPCoins;
     this.insertionTime;
     this.verified;
-    this.recipientRateList;
+    this.recipientRateRecordList;
   }
 }
 
