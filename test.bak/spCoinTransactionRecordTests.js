@@ -32,7 +32,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   // Test Successful Record Insertion of Sponsor and 
   // Recipient Account to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
-  await addAgentSponsorship (
+  await addSponsorship (
     SPONSOR_ACCOUNT_SIGNERS[0],
     RECIPIENT_ACCOUNT_KEYS[1],
     RECIPIENT_RATES[2],
@@ -41,7 +41,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
     TRANSACTION_QTY[3]
   );
 
-  // await addAgentSponsorship (
+  // await addSponsorship (
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[1],
@@ -50,7 +50,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   //   TRANSACTION_QTY[2]
   // );
   
-  // await addAgentSponsorship (
+  // await addSponsorship (
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[1],
@@ -59,7 +59,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   //   TRANSACTION_QTY[9]
   // );
   
-  // await addAgentSponsorship (
+  // await addSponsorship (
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[2],
@@ -68,7 +68,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   //   TRANSACTION_QTY[2]
   // );
 
-  // await addAgentSponsorship (
+  // await addSponsorship (
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[2],
@@ -77,7 +77,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   //   TRANSACTION_QTY[4]
   // );
 
-  // await addAgentSponsorship (
+  // await addSponsorship (
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[2],
@@ -86,7 +86,7 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
   //   TRANSACTION_QTY[2]
   // );
 
-  // await addAgentSponsorship (
+  // await addSponsorship (
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[2],

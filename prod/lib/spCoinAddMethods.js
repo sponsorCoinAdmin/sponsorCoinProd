@@ -109,7 +109,7 @@ addSponsorship = async (
   _agentRateKey,
   _transactionQty ) => {
     logFunctionHeader(
-      "addAgentSponsorship = async(" + 
+      "addSponsorship = async(" + 
       _sponsorSigner + ", " + 
       _recipientKey + ", " + 
       _recipientRateKey + ", " + 
@@ -145,7 +145,7 @@ addSponsorship = async (
       logExitFunction();
   };
 
-  addAgentSponsorship = async (
+  addSponsorship = async (
     _sponsorSigner,
     _recipientKey,
     _recipientRateKey,
@@ -153,7 +153,7 @@ addSponsorship = async (
     _agentRateKey,
     _transactionQty ) => {
       logFunctionHeader(
-        "addAgentSponsorship = async(" + 
+        "addSponsorship = async(" + 
         _sponsorSigner + ", " + 
         _recipientKey + ", " + 
         _recipientRateKey + ", " + 
@@ -177,7 +177,7 @@ addSponsorship = async (
       // console.log("fractionalPart    = " + fractionalPart);
       // console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
         
-      await spCoinContractDeployed.connect(signer).addAgentSponsorship(
+      await spCoinContractDeployed.connect(signer).addSponsorship(
         _recipientKey,
         _recipientRateKey,
         _accountAgentKey,
@@ -195,7 +195,7 @@ module.exports = {
     addAccountRecords,
     addRecipient,
     addRecipients,
-    addAgentSponsorship,
+    addSponsorship,
     addAgent,
     addAgents,
     addSponsorship,

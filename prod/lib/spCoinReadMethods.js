@@ -266,19 +266,15 @@ getSerializedAgentRateList = async(_sponsorKey, _recipientKey, _recipientRateKey
 }
 
 getRateTransactionRecords = (transactionStr) => {
-  let transactionRecs = [];
+logFunctionHeader("getRateTransactionRecords = async(" + transactionStr + ")");
+// log("getRateTransactionRecords = async(" + transactionStr + ")");
+let transactionRecs = [];
   if(transactionStr.length > 0) {
-    logFunctionHeader("getRateTransactionRecords = async(" + transactionStr + ")");
-    log("getRateTransactionRecords = async(" + transactionStr + ")");
     // console.log("==>19 getRateTransactionRecords = async(" + transactionStr + ")");
     let transactionRows = transactionStr.split("\n");
-    console.log("transactionStr.length = " + transactionStr.length);
-    console.log("transactionRows.length = " + transactionRows.length);
     for (let row in transactionRows) {
       let transactionFields = transactionRows[row].split(",");
       let transactionRec = new TransactionStruct();
-      console.log("AAAAAAAAAAAAAAA transactionFields[0]", transactionFields[0])
-      console.log("AAAAAAAAAAAAAAA transactionFields[1]", transactionFields[1])
       transactionRec.insertionTime = bigIntToDecString(transactionFields[0]);
       transactionRec.quantity = bigIntToDecString(transactionFields[1]);
       transactionRecs.push(transactionRec);
