@@ -118,7 +118,18 @@ contract Transactions is AgentRates {
         return sponsorRec;
     }
 
-    function getRateTransactionList(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
+    function getRecipientRateTransactionList(address _sponsorKey, address _recipientKey, uint _recipientRateKey) public view returns (string memory) {
+        RecipientStruct storage recipientRec = getRecipientRecordByKeys(_sponsorKey, _recipientKey);
+        string memory strTransactionList = "";
+        RecipientRateStruct storage recipientRateRecord = recipientRec.recipientRateMap[_recipientRateKey];
+        // console.log ("recipientRateRecord.transactionList[0].quantity = ", recipientRateRecord.transactionList[0].quantity);
+        TransactionStruct[] memory transactionList = recipientRateRecord.transactionList;
+        strTransactionList = concat(strTransactionList, getRateTransactionStr(transactionList)); 
+        // console.log("RRRR strTransactionList = ", strTransactionList); 
+        return strTransactionList;
+    }
+
+    function getAgentRateTransactionList(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
         string memory strTransactionList = "";
         AgentRateStruct storage agentRateRecord= agentRec.agentRateMap[_agentRateKey];
