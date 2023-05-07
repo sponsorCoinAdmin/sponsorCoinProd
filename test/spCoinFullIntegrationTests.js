@@ -59,10 +59,10 @@ describe("spCoinContract", function () {
     "123.000000000000000008"
   );
 
-  // await transfer(
-  //   RECIPIENT_ACCOUNT_KEYS[12],
-  //   "1000000000"
-  // ) 
+  await transfer(
+    RECIPIENT_ACCOUNT_KEYS[12],
+    "1000000000"
+  ) 
 
   // await addSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[0],

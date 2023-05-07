@@ -82,10 +82,11 @@ contract UnSubscribe is Transactions {
                 address agentKey = recipientRateRecord.agentAccountList[i];
                 AgentStruct storage agentRecord = recipientRateRecord.agentMap[agentKey];
                 deleteAgentRecord(agentRecord);
+                deleteTransactionRecords(recipientRateRecord.transactionList);
                 agentAccountList.pop();
                 if (i == 0)
                     break;
-                }
+            }
         }
     }
 
@@ -129,7 +130,7 @@ contract UnSubscribe is Transactions {
             // console.log("====deleteAgentRateRecord: Found agentRateList[", i, "] ", agentRateList[i]);
             uint256 agentRateKey = agentRateList[i];
             AgentRateStruct storage agentRateRecord = agentRecord.agentRateMap[agentRateKey];
-            deleteAgentTransactionRecords(agentRateRecord);
+            deleteTransactionRecords(agentRateRecord.transactionList);
             agentRateList.pop();
             if (i == 0)
               break;
@@ -137,11 +138,10 @@ contract UnSubscribe is Transactions {
         // delete the Agent Account Record if no References
     }
 
-    // Delete recipient rate list.
-    function deleteAgentTransactionRecords(AgentRateStruct storage agentRateRecord) internal {
-        TransactionStruct[] storage transactionList = agentRateRecord.transactionList;
+    // Delete ageny rate list.
+    function deleteTransactionRecords(TransactionStruct[] storage transactionList) internal {
         for (uint i= 0; i< transactionList.length; i++) { 
-            // console.log("====deleteAgentTransactionRecords: Deleting transactionList[", i, "].quantity ", transactionList[i].quantity);
+            // console.log("====deleteTransactionRecords: Deleting transactionList[", i, "].quantity ", transactionList[i].quantity);
             delete transactionList[i];
             transactionList.pop();
         }
