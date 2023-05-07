@@ -101,7 +101,7 @@ addAccountRecords = async (_accountListKeys) => {
 
 //////////////////// ADD TRANSACTIONS METHODS //////////////////////
 
-addAgentSponsorship = async (
+addSponsorship = async (
   _sponsorSigner,
   _recipientKey,
   _recipientRateKey,
@@ -109,7 +109,7 @@ addAgentSponsorship = async (
   _agentRateKey,
   _transactionQty ) => {
     logFunctionHeader(
-      "addAgentSponsorship = async(" + 
+      "addSponsorship = async(" + 
       _sponsorSigner + ", " + 
       _recipientKey + ", " + 
       _recipientRateKey + ", " + 
@@ -133,7 +133,7 @@ addAgentSponsorship = async (
     // console.log("fractionalPart    = " + fractionalPart);
     // console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
     
-    await spCoinContractDeployed.connect(signer).addAgentSponsorship(
+    await spCoinContractDeployed.connect(signer).addSponsorship(
       _recipientKey,
       _recipientRateKey,
       _accountAgentKey,
@@ -143,17 +143,61 @@ addAgentSponsorship = async (
       
       logDetail("JS => "+ "Added Agent Transaction " + _accountAgentKey + " _transactionQty = " + _transactionQty);
       logExitFunction();
-    };
+  };
 
-//////////////////// MODULE EXPORTS //////////////////////
+  addSponsorship = async (
+    _sponsorSigner,
+    _recipientKey,
+    _recipientRateKey,
+    _accountAgentKey,
+    _agentRateKey,
+    _transactionQty ) => {
+      logFunctionHeader(
+        "addSponsorship = async(" + 
+        _sponsorSigner + ", " + 
+        _recipientKey + ", " + 
+        _recipientRateKey + ", " + 
+        _accountAgentKey + ", " +
+        _agentRateKey + ", " +
+        _transactionQty + ")"
+      );
+    
+      // do decimal power operation for quantity
+      setSigner(_sponsorSigner);
+      // console.log("JS==> TransactionQty = " + BigInt(transactionQty ** offset));
+    
+      let components = _transactionQty.toString().split(".");
+      let wholePart = components[0].length > 0   ? components[0] : "0";
+      let fractionalPart = components.length > 1 ? components[1] : "0";
+    
+      // console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+      // console.log("_transactionQty   = " + _transactionQty);
+      // console.log("components.length = " + components.length);
+      // console.log("wholePart         = " + wholePart);
+      // console.log("fractionalPart    = " + fractionalPart);
+      // console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+        
+      await spCoinContractDeployed.connect(signer).addSponsorship(
+        _recipientKey,
+        _recipientRateKey,
+        _accountAgentKey,
+        _agentRateKey,
+        wholePart,
+        fractionalPart);
+          
+        logDetail("JS => "+ "Added Agent Transaction " + _accountAgentKey + " _transactionQty = " + _transactionQty);
+        logExitFunction();
+  };
+    //////////////////// MODULE EXPORTS //////////////////////
 
 module.exports = {
     addAccountRecord,
     addAccountRecords,
     addRecipient,
     addRecipients,
-    addAgentSponsorship,
+    addSponsorship,
     addAgent,
     addAgents,
+    addSponsorship,
     injectAddMethodsContract,
 }

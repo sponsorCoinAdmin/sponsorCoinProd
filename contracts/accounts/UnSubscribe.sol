@@ -55,15 +55,15 @@ contract UnSubscribe is Transactions {
     //    Remove Agent Account Reference from Rate Record
     function deleteRecipientRateRecords(RecipientStruct storage _recipientRecord) internal {
         // Delete Agent Rate Keys
-        uint256[] storage recipientRateRecordList = _recipientRecord.recipientRateRecordList;
-        uint i = recipientRateRecordList.length - 1;
+        uint256[] storage recipientRateList = _recipientRecord.recipientRateList;
+        uint i = recipientRateList.length - 1;
         // Traverse Recipient Rate Records for removal of Recipiant Rate Records
         for (i; i >= 0; i--) {
-            // console.log("====deleteRecipientRateRecords: recipientRateRecordList[", i, "] ", recipientRateRecordList[i]);
-            uint256 recipientRateKey = recipientRateRecordList[i];
+            // console.log("====deleteRecipientRateRecords: recipientRateList[", i, "] ", recipientRateList[i]);
+            uint256 recipientRateKey = recipientRateList[i];
             deleteRecipientRateRecord(_recipientRecord.recipientRateMap[recipientRateKey]);
-            delete recipientRateRecordList[i];
-            recipientRateRecordList.pop();
+            delete recipientRateList[i];
+            recipientRateList.pop();
             if (i == 0)
               break;
         }
@@ -72,15 +72,21 @@ contract UnSubscribe is Transactions {
     function deleteRecipientRateRecord(RecipientRateStruct storage recipientRateRecord)
     internal {
         address[] storage agentAccountList = recipientRateRecord.agentAccountList;
-        uint i = agentAccountList.length - 1;
-        // Traverse Recipient Rate Records for removal of Recipiant Rate Records
-        for (i; i >= 0; i--) {
-            address agentKey = recipientRateRecord.agentAccountList[i];
-            AgentStruct storage agentRecord = recipientRateRecord.agentMap[agentKey];
-            deleteAgentRecord(agentRecord);
-            agentAccountList.pop();
-            if (i == 0)
-              break;
+
+        // console.log(agentAccountList);
+
+        if ( agentAccountList.length > 0 ) {
+            uint i = agentAccountList.length - 1;
+            // Traverse Recipient Rate Records for removal of Recipiant Rate Records
+            for (i; i >= 0; i--) {
+                address agentKey = recipientRateRecord.agentAccountList[i];
+                AgentStruct storage agentRecord = recipientRateRecord.agentMap[agentKey];
+                deleteAgentRecord(agentRecord);
+                deleteTransactionRecords(recipientRateRecord.transactionList);
+                agentAccountList.pop();
+                if (i == 0)
+                    break;
+            }
         }
     }
 
@@ -116,27 +122,26 @@ contract UnSubscribe is Transactions {
     }
 
     function deleteAgentRateRecord (AgentStruct storage agentRecord) internal {
-        uint256[] storage agentRateKeys = agentRecord.agentRateKeys;
-        // console.log("### BEFORE Delete agentRecord.agentRateKeys.length = ", agentRecord.agentRateKeys.length);
-        uint i = agentRateKeys.length - 1;
+        uint256[] storage agentRateList = agentRecord.agentRateList;
+        // console.log("### BEFORE Delete agentRecord.agentRateList.length = ", agentRecord.agentRateList.length);
+        uint i = agentRateList.length - 1;
         // Delete the agent Rate Structures one by one until empty.
         for (i; i >= 0; i--) {
-            // console.log("====deleteAgentRateRecord: Found agentRateKeys[", i, "] ", agentRateKeys[i]);
-            uint256 agentRateKey = agentRateKeys[i];
+            // console.log("====deleteAgentRateRecord: Found agentRateList[", i, "] ", agentRateList[i]);
+            uint256 agentRateKey = agentRateList[i];
             AgentRateStruct storage agentRateRecord = agentRecord.agentRateMap[agentRateKey];
-            deleteAgentTransactionRecords(agentRateRecord);
-            agentRateKeys.pop();
+            deleteTransactionRecords(agentRateRecord.transactionList);
+            agentRateList.pop();
             if (i == 0)
               break;
         }
         // delete the Agent Account Record if no References
     }
 
-    // Delete recipient rate list.
-    function deleteAgentTransactionRecords(AgentRateStruct storage agentRateRecord) internal {
-        TransactionStruct[] storage transactionList = agentRateRecord.transactionList;
+    // Delete ageny rate list.
+    function deleteTransactionRecords(TransactionStruct[] storage transactionList) internal {
         for (uint i= 0; i< transactionList.length; i++) { 
-            // console.log("====deleteAgentTransactionRecords: Deleting transactionList[", i, "].quantity ", transactionList[i].quantity);
+            // console.log("====deleteTransactionRecords: Deleting transactionList[", i, "].quantity ", transactionList[i].quantity);
             delete transactionList[i];
             transactionList.pop();
         }

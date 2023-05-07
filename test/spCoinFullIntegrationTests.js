@@ -15,6 +15,7 @@ const { } = require("../prod/lib/spCoinReadMethods");
 const { } = require("../prod/lib/spCoinTransferMethods");
 const { unSponsorRecipient } = require("../prod/lib/spCoinDeleteMethods");
 const { } = require("../test/deployContract");
+let BURN_ACCOUNT;
 
 let spCoinContractDeployed;
 
@@ -32,20 +33,30 @@ describe("spCoinContract", function () {
     SPONSOR_ACCOUNT_SIGNERS = signers;
     RECIPIENT_ACCOUNT_KEYS = AGENT_ACCOUNT_KEYS = accounts;
     TRANSACTION_QTY = RECIPIENT_RATES = AGENT_RATES = hhTestElements.rates;
+    BURN_ACCOUNT = hhTestElements.burnAddress;
   });
 
  it("2. VALIDATE ADD TRANSACTION RATES", async function () {
   // Test Successful Record Insertion of Sponsor and 
   // Recipient Account to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
-  await addAgentSponsorship(
+
+  await addSponsorship(
+    SPONSOR_ACCOUNT_SIGNERS[0],
+    RECIPIENT_ACCOUNT_KEYS[1],
+    RECIPIENT_RATES[9],
+    BURN_ACCOUNT,
+    AGENT_RATES[1],
+    "1.000000000000000008"
+  );
+
+  await addSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[0],
     RECIPIENT_ACCOUNT_KEYS[1],
     RECIPIENT_RATES[9],
     AGENT_ACCOUNT_KEYS[2],
     AGENT_RATES[1],
-    // ".8"
-    "1.000000000000000008"
+    "123.000000000000000008"
   );
 
   await transfer(
@@ -53,16 +64,16 @@ describe("spCoinContract", function () {
     "1000000000"
   ) 
 
-  // await addAgentSponsorship(
+  // await addSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
-  //   RECIPIENT_RATES[4],
+  //   RECIPIENT_RATES[9],
   //   AGENT_ACCOUNT_KEYS[12],
   //   AGENT_RATES[2],
-  //   10
+  //   "9123.12985"
   // );
 
-  // await addAgentSponsorship(
+  // await addSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[2],
   //   RECIPIENT_RATES[8],
@@ -71,7 +82,7 @@ describe("spCoinContract", function () {
   //   29
   // );
 
-  // await addAgentSponsorship(
+  // await addSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[1],
   //   RECIPIENT_ACCOUNT_KEYS[2],
   //   RECIPIENT_RATES[3],
@@ -80,7 +91,7 @@ describe("spCoinContract", function () {
   //   .00003422
   // );
 
-  // await addAgentSponsorship(
+  // await addSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[1],
   //   RECIPIENT_ACCOUNT_KEYS[0],
   //   RECIPIENT_RATES[2],
@@ -89,7 +100,7 @@ describe("spCoinContract", function () {
   //   1
   // );
   
-  // await addAgentSponsorship(
+  // await addSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[2],
   //   RECIPIENT_ACCOUNT_KEYS[0],
   //   RECIPIENT_RATES[0],
@@ -98,7 +109,7 @@ describe("spCoinContract", function () {
   //   49
   // );
 
-  // await addAgentSponsorship(
+  // await addSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[2],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[2],
@@ -127,12 +138,12 @@ describe("spCoinContract", function () {
   
     console.log("--- AFTER DELETE RECIPIENT -----------------------------------");
     await logJSONTree();
-    // agentRateKeys = await getAgentRateKeys(
+    // agentRateList = await getAgentRateList(
     //   SPONSOR_ACCOUNT_SIGNERS[1],
     //   RECIPIENT_ACCOUNT_KEYS[1],
     // RECIPIENT_RATES[10],
     //   AGENT_ACCOUNT_KEYS[1]);
-    //   logJSON(agentRateKeys);
+    //   logJSON(agentRateList);
 
     // VALIDATE ACCOUNT CREATION
     // VALIDATE SPONSOR ACCOUNT
