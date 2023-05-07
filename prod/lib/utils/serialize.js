@@ -112,5 +112,5 @@ module.exports = {
   deSerializedAccountRec,
   bigIntToDecString,
   bigIntToHexString,
-  bigIntToString
+  bigIntToString,
 };
