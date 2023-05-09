@@ -238,7 +238,7 @@ contract UnSubscribe is Transactions {
     }
 
     modifier recipientDoesNotExist(address _sponsorKey) {
-        require (getRecipientKeys(_sponsorKey).length == 0, "Sponsor Account has a Recipient, (Sponsor must Un-recipient Recipiented Account)");
+        require (getAccountRecipientList(_sponsorKey).length == 0, "Sponsor Account has a Recipient, (Sponsor must Un-recipient Recipiented Account)");
         _;
     }
 /*   

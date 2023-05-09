@@ -51,10 +51,10 @@ contract Agent is RecipientRates {
 
     /// @notice retreives the recipient array records from a specific account address.
     /// @param _recipientKey recipient Key to retrieve the agent list
-    function getAgentAccountList(address _sponsorKey, address _recipientKey, uint256 _recipientRateKey) 
+    function getRecipientRateAgentList(address _sponsorKey, address _recipientKey, uint256 _recipientRateKey) 
     public view returns (address[] memory) {
         // console.log("============================================================================");
-        // console.log("getAgentAccountList(", _sponsorKey, ", ", _recipientKey);
+        // console.log("getRecipientRateAgentList(", _sponsorKey, ", ", _recipientKey);
         // console.log(", ", _recipientRateKey,")");
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys( _sponsorKey, _recipientKey,  _recipientRateKey);
         // console.log("recipientRateRecord.inserted = ", recipientRateRecord.inserted);

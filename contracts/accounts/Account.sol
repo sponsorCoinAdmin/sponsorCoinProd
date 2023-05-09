@@ -49,7 +49,7 @@ contract Account is StructSerialization {
  
     /// @notice retreives the recipients of a specific address.
     /// @param _sponsorKey public account key to set new balance
-    function getRecipientKeys(address _sponsorKey) 
+    function getAccountRecipientList(address _sponsorKey) 
     public view returns (address[] memory) {
         return accountMap[_sponsorKey].recipientAccountList;
     }

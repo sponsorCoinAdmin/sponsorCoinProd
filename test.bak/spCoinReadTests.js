@@ -206,16 +206,16 @@ describe("spCoinContract", function () {
     AccountListSize = (await getAccountListSize());
     expect(AccountListSize).to.equal(7);
 
-    let recipientSize = (await getRecipientKeySize(accountKey));
+    let recipientSize = (await getAccountRecipientListSize(accountKey));
     expect(recipientSize).to.equal(6);
 
-    let recipientRecordList = await getAccountRecipientKeys(accountKey);
+    let recipientRecordList = await getAccountRecipientList(accountKey);
 
     logJSON(recipientRecordList);
     let recipientRecordListLength = Object.keys(recipientRecordList).length;
     expect(recipientRecordListLength).to.equal(6);
 
-    getAccountRecipientKeys();
+    getAccountRecipientList();
   });
   /**/
 });

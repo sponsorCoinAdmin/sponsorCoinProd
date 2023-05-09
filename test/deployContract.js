@@ -2,6 +2,7 @@ const { } = require("../prod/lib/spCoinAddMethods");
 const { } = require("../prod/lib/spCoinDeleteMethods");
 const { } = require("../prod/lib/spCoinReadMethods");
 const { } = require("../prod/lib/spCoinTransferMethods");
+const { } = require("../prod/lib/contracts/spCoin");
 
 const {
     LOG_MODE,
@@ -19,11 +20,16 @@ const {
     return spCoinContractDeployed;
   }
 
-  injectContract = (spCoinContractDeployed) => {
+  injectContract = (spCoinContractDeployed, signer) => {
+    // console.log("SSSSSSSSSSSSSS injectContract(", spCoinContractDeployed, ")")
     injectReadMethodsContract(spCoinContractDeployed);
     injectDeleteMethodsContract(spCoinContractDeployed);
     injectAddMethodsContract(spCoinContractDeployed);
     injectTransferMethodsContract(spCoinContractDeployed);
+    injectTransferMethodsContract(spCoinContractDeployed);
+    // injectSpCoinContract(spCoinContractDeployed);
+    // REMOVE NEXT DEBUG LINE
+    // getSpCoinContract();
     return spCoinContractDeployed;
   }
 
@@ -41,6 +47,7 @@ const {
     injectDeleteMethodsSigner(_signer);
     injectAddMethodsSigner(_signer);
     injectTransferMethodsSigner(_signer);
+    // injectSpCoinSigner(_signer)
   }
 
   deployContract = async () => {

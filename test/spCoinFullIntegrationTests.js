@@ -15,12 +15,17 @@ const { } = require("../prod/lib/spCoinReadMethods");
 const { } = require("../prod/lib/spCoinTransferMethods");
 const { unSponsorRecipient } = require("../prod/lib/spCoinDeleteMethods");
 const { } = require("../test/deployContract");
-let BURN_ACCOUNT;
+const { spCoinContract } = require("../prod/lib/contracts/spCoin");
 
 let spCoinContractDeployed;
+let BURN_ACCOUNT;
+
+// let spCoinContractDeployed;
 
 logSetup("JS => Setup Test");
 setLogMode(LOG_MODE.LOG_FUNCTION_HEADER, false);
+
+console.log("spCoinContract = ", spCoinContract);
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
@@ -41,6 +46,15 @@ describe("spCoinContract", function () {
   // Recipient Account to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
 
+  // await addSponsorship(
+  //   SPONSOR_ACCOUNT_SIGNERS[0],
+  //   RECIPIENT_ACCOUNT_KEYS[1],
+  //   RECIPIENT_RATES[9],
+  //   BURN_ACCOUNT,
+  //   AGENT_RATES[1],
+  //   "1.000000000000000008"
+  // );
+
   await addSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[0],
     RECIPIENT_ACCOUNT_KEYS[1],
@@ -54,15 +68,74 @@ describe("spCoinContract", function () {
     SPONSOR_ACCOUNT_SIGNERS[0],
     RECIPIENT_ACCOUNT_KEYS[1],
     RECIPIENT_RATES[9],
+    BURN_ACCOUNT,
+    AGENT_RATES[1],
+    "3.000000000000000008"
+  );
+  
+  await addSponsorship(
+    SPONSOR_ACCOUNT_SIGNERS[0],
+    RECIPIENT_ACCOUNT_KEYS[1],
+    RECIPIENT_RATES[9],
+    BURN_ACCOUNT,
+    AGENT_RATES[1],
+    "9.000000000000000008"
+  );
+
+  await addSponsorship(
+    SPONSOR_ACCOUNT_SIGNERS[0],
+    RECIPIENT_ACCOUNT_KEYS[1],
+    RECIPIENT_RATES[9],
     AGENT_ACCOUNT_KEYS[2],
     AGENT_RATES[1],
     "123.000000000000000008"
   );
 
+  await addSponsorship(
+    SPONSOR_ACCOUNT_SIGNERS[0],
+    RECIPIENT_ACCOUNT_KEYS[1],
+    RECIPIENT_RATES[9],
+    AGENT_ACCOUNT_KEYS[2],
+    AGENT_RATES[1],
+    "456.000000000000000008"
+  );
+
+  await addSponsorship(
+    SPONSOR_ACCOUNT_SIGNERS[0],
+    RECIPIENT_ACCOUNT_KEYS[1],
+    RECIPIENT_RATES[9],
+    AGENT_ACCOUNT_KEYS[2],
+    AGENT_RATES[1],
+    "789.000000000000000008"
+  );
+
   await transfer(
     RECIPIENT_ACCOUNT_KEYS[12],
     "1000000000"
-  ) 
+  )
+
+  await addSponsorship(
+    SPONSOR_ACCOUNT_SIGNERS[0],
+    RECIPIENT_ACCOUNT_KEYS[1],
+    RECIPIENT_RATES[9],
+    AGENT_ACCOUNT_KEYS[12],
+    AGENT_RATES[2],
+    "9123.12985"
+  );
+
+  await addSponsorship(
+    SPONSOR_ACCOUNT_SIGNERS[0],
+    RECIPIENT_ACCOUNT_KEYS[2],
+    RECIPIENT_RATES[8],
+    AGENT_ACCOUNT_KEYS[1],
+    AGENT_RATES[3],
+    29
+  );
+
+  // await transfer(
+  //   RECIPIENT_ACCOUNT_KEYS[12],
+  //   "1000000000"
+  // )
 
   // await addSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[0],
