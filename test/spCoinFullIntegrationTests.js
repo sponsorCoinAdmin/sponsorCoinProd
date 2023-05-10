@@ -13,11 +13,13 @@ const { logSetup, setLogMode, logJSON,  LOG_MODE, LOG, LOG_DETAIL,
 const { } = require("../test/testMethods/scTestMethods");
 const { } = require("../prod/lib/spCoinTransferMethods");
 const { unSponsorRecipient } = require("../prod/lib/spCoinDeleteMethods");
+const { SpCoinAddMethods } = require("../prod/lib/spCoinAddMethods");
 const { } = require("../test/deployContract");
 const { spCoinContract } = require("../prod/lib/contracts/spCoin");
 
 let spCoinContractDeployed;
 let BURN_ACCOUNT;
+let spCoinAddMethods = new SpCoinAddMethods();
 
 // let spCoinContractDeployed;
 
@@ -40,7 +42,7 @@ describe("spCoinContract", function () {
   // Recipient Account to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
 
-  // await addSponsorship(
+  // await spCoinAddMethods.addSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[9],
@@ -49,7 +51,7 @@ describe("spCoinContract", function () {
   //   "1.000000000000000008"
   // );
 
-  await addSponsorship(
+  await spCoinAddMethods.addSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[0],
     RECIPIENT_ACCOUNT_KEYS[1],
     RECIPIENT_RATES[9],
@@ -58,7 +60,7 @@ describe("spCoinContract", function () {
     "1.000000000000000008"
   );
 
-  await addSponsorship(
+  await spCoinAddMethods.addSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[0],
     RECIPIENT_ACCOUNT_KEYS[1],
     RECIPIENT_RATES[9],
@@ -67,7 +69,7 @@ describe("spCoinContract", function () {
     "3.000000000000000008"
   );
   
-  await addSponsorship(
+  await spCoinAddMethods.addSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[0],
     RECIPIENT_ACCOUNT_KEYS[1],
     RECIPIENT_RATES[9],
@@ -76,7 +78,7 @@ describe("spCoinContract", function () {
     "9.000000000000000008"
   );
 
-  await addSponsorship(
+  await spCoinAddMethods.addSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[0],
     RECIPIENT_ACCOUNT_KEYS[1],
     RECIPIENT_RATES[9],
@@ -85,7 +87,7 @@ describe("spCoinContract", function () {
     "123.000000000000000008"
   );
 
-  await addSponsorship(
+  await spCoinAddMethods.addSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[0],
     RECIPIENT_ACCOUNT_KEYS[1],
     RECIPIENT_RATES[9],
@@ -94,7 +96,7 @@ describe("spCoinContract", function () {
     "456.000000000000000008"
   );
 
-  await addSponsorship(
+  await spCoinAddMethods.addSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[0],
     RECIPIENT_ACCOUNT_KEYS[1],
     RECIPIENT_RATES[9],
@@ -108,7 +110,7 @@ describe("spCoinContract", function () {
     "1000000000"
   )
 
-  await addSponsorship(
+  await spCoinAddMethods.addSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[0],
     RECIPIENT_ACCOUNT_KEYS[1],
     RECIPIENT_RATES[9],
@@ -117,7 +119,7 @@ describe("spCoinContract", function () {
     "9123.12985"
   );
 
-  await addSponsorship(
+  await spCoinAddMethods.addSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[0],
     RECIPIENT_ACCOUNT_KEYS[2],
     RECIPIENT_RATES[8],
@@ -131,7 +133,7 @@ describe("spCoinContract", function () {
   //   "1000000000"
   // )
 
-  // await addSponsorship(
+  // await spCoinAddMethods.addSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[9],
@@ -140,7 +142,7 @@ describe("spCoinContract", function () {
   //   "9123.12985"
   // );
 
-  // await addSponsorship(
+  // await spCoinAddMethods.addSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[2],
   //   RECIPIENT_RATES[8],
@@ -149,7 +151,7 @@ describe("spCoinContract", function () {
   //   29
   // );
 
-  // await addSponsorship(
+  // await spCoinAddMethods.addSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[1],
   //   RECIPIENT_ACCOUNT_KEYS[2],
   //   RECIPIENT_RATES[3],
@@ -158,7 +160,7 @@ describe("spCoinContract", function () {
   //   .00003422
   // );
 
-  // await addSponsorship(
+  // await spCoinAddMethods.addSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[1],
   //   RECIPIENT_ACCOUNT_KEYS[0],
   //   RECIPIENT_RATES[2],
@@ -167,7 +169,7 @@ describe("spCoinContract", function () {
   //   1
   // );
   
-  // await addSponsorship(
+  // await spCoinAddMethods.addSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[2],
   //   RECIPIENT_ACCOUNT_KEYS[0],
   //   RECIPIENT_RATES[0],
@@ -176,7 +178,7 @@ describe("spCoinContract", function () {
   //   49
   // );
 
-  // await addSponsorship(
+  // await spCoinAddMethods.addSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[2],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[2],

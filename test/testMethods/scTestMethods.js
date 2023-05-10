@@ -1,7 +1,8 @@
 const { TEST_HH_ACCOUNT_LIST } = require("./hhTestAccounts");
-const {} = require("../../prod//lib/spCoinAddMethods");
-const {} = require("../../prod//lib/utils/logging");
+const { SpCoinAddMethods } = require("../../prod/lib/spCoinAddMethods");
+const {} = require("../../prod/lib/utils/logging");
 let hhTestElements = undefined;
+let spCoinAddMethods = new SpCoinAddMethods();
 
 
 getTestHHAccountKey = async (idx) => {
@@ -20,7 +21,7 @@ addTestNetworkAccount = async (_accountIdx) => {
   logFunctionHeader("addTestNetworkAccount = async (" + _accountIdx + ")");
   let accountKey = await getTestHHAccountKey(_accountIdx);
   logDetail("JS => For Adding Account Record: " + accountKey );
-  await addAccountRecord(accountKey);
+  await spCoinAddMethods.AccountRecord(accountKey);
   logExitFunction();
 };
 
@@ -28,7 +29,7 @@ addTestNetworkAccounts = async (_AccountList) => {
   logFunctionHeader("addTestNetworkAccounts = async (" + _AccountList + ")");
   let testHHAccountList = await getTestHHAccountListKeys(_AccountList);
   logDetail("JS => For Adding Account Records: " + testHHAccountList );
-  await addAccountRecords(testHHAccountList);
+  await spCoinAddMethods.AccountRecords(testHHAccountList);
   logExitFunction();
 };
 
@@ -41,18 +42,18 @@ addTestNetworkRecipient = async (_accountIdx, _recipientIdx) => {
   let recipientKey = await getTestHHAccountKey(_recipientIdx);  
   logDetail("JS => For Account: " + accountKey + " Inserting Recipient Records");
   logDetail(recipientKey);
-  await addRecipient(recipientKey);
+  await spCoinAddMethods.Recipient(recipientKey);
   logExitFunction();
 };
 
 addTestNetworkRecipients = async (_accountIdx, _recipientAccountListIdx) => {
   logFunctionHeader("addTestNetworkRecipients = async (" + _accountIdx + ", " + _recipientAccountListIdx + ")");
 
-  let accountKey = await getTestHHAccountKey(_accountIdx);
+  let accountKey = await spCoinAddMethods.MethodsContract.getTestHHAccountKey(_accountIdx);
   let recipientAccountList = await getTestHHAccountListKeys(_recipientAccountListIdx);
   logDetail("JS => For Account: " + accountKey + " Inserting Recipient Records:");
   logDetail(recipientAccountList);
-  await addRecipients(accountKey, recipientAccountList);
+  await spCoinAddMethods.Recipients(accountKey, recipientAccountList);
   logExitFunction();
 };
 
@@ -62,7 +63,7 @@ addTestNetworkRecipientAgents = async (_recipientIdx, _recipientRateKey, _agentL
   logFunctionHeader("async (" + _recipientIdx + "," + _agentListIdx+ ")");
   let recipientKey = await getTestHHAccountKey(_recipientIdx);
   let agentAccountList = await getTestHHAccountListKeys(_agentListIdx);
-  await addAgents(recipientKey, _recipientRateKey, agentAccountList);
+  await spCoinAddMethods.Agents(recipientKey, _recipientRateKey, agentAccountList);
   return recipientKey;
   logExitFunction();
 };
@@ -70,7 +71,7 @@ addTestNetworkRecipientAgents = async (_recipientIdx, _recipientRateKey, _agentL
 addTestNetworkAccount = async (_testHHAccountIdx) => {
   logFunctionHeader("async (" + _testHHAccountIdx+ ")");
   let accountKey = await getTestHHAccountKey(_testHHAccountIdx);
-  await addAccountRecord(accountKey);
+  await spCoinAddMethods.AccountRecord(accountKey);
   return accountKey;
   logExitFunction();
 };

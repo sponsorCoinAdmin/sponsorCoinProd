@@ -29,7 +29,7 @@ const LOG_MODE = {
     LOG_TREE = false;
   }
 
-  spCoinReadMethods = new SpCoinReadMethods();
+  let spCoinReadMethods = new SpCoinReadMethods();
 
   setLogMode = (_log_mode, _state) => {
     console.log("EXECUTING setLogMode = (" + _log_mode + ", " + _state + ")");

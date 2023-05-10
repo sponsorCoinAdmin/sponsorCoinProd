@@ -20,15 +20,11 @@ const {
 
   injectContract = (spCoinContractDeployed) => {
     // console.log("SSSSSSSSSSSSSS injectContract(", spCoinContractDeployed, ")")
-    injectReadMethodsContract(spCoinContractDeployed);
-    injectDeleteMethodsContract(spCoinContractDeployed);
     injectAddMethodsContract(spCoinContractDeployed);
+    injectDeleteMethodsContract(spCoinContractDeployed);
+    injectReadMethodsContract(spCoinContractDeployed);
     injectTransferMethodsContract(spCoinContractDeployed);
-    injectTransferMethodsContract(spCoinContractDeployed);
-    // injectSpCoinContract(spCoinContractDeployed);
-    // REMOVE NEXT DEBUG LINE
-    // getSpCoinContract();
-    return spCoinContractDeployed;
+     return spCoinContractDeployed;
   }
 
   deployContract = async () => {

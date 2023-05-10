@@ -11,7 +11,6 @@ const { SpCoinSerialize, bigIntToDecString } = require("./utils/serialize");
 let spCoinContractDeployed;
 let signer;
 
-
 let spCoinSerialize = new SpCoinSerialize();
 
 //////////////////////////// ROOT LEVEL FUNCTIONS ////////////////////////////
@@ -28,9 +27,14 @@ setSigner2 = (_signer) => {
 };
 
   class SpCoinReadMethods {
-  constructor() {
-  }
-
+    constructor( _spCoinContractDeployed) {
+      if ( _spCoinContractDeployed != undefined) {
+        console.log("constructor called with " + _spCoinContractDeployed);
+        this.spCoinContractDeployed = _spCoinContractDeployed;
+        setSigner(_spCoinContractDeployed.signer);
+      }
+    }
+  
   getAccountList = async () => {
     logFunctionHeader("getAccountList = async()");
     let insertedAccountList = await spCoinContractDeployed.connect(signer).getAccountList();
