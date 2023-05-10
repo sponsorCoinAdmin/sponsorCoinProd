@@ -7,31 +7,34 @@ const {
   TransactionStruct,
 } = require("../prod/lib/spCoinDataTypes");
 const { initHHAccounts } = require("../test/testMethods/hhTestAccounts");
-const { logSetup, setLogMode, logJSON,  LOG_MODE, LOG, LOG_DETAIL, 
-        LOG_TEST_HEADER, LOG_FUNCTION_HEADER, LOG_SETUP,
-        LOG_TREE } = require("../prod/lib/utils/logging");
+const { SpCoinLoggingMethods, LOG_MODE } = require("../prod/lib/utils/logging");
 const { SpCoinERC20Methods } = require("../prod/lib/spCoinTransferMethods");
 const { unSponsorRecipient } = require("../prod/lib/spCoinDeleteMethods");
 const { SpCoinAddMethods } = require("../prod/lib/spCoinAddMethods");
+const { SpCoinReadMethods } = require("../prod/lib/SpCoinReadMethods");
 const { } = require("../test/deployContract");
 const { SpCoinContract } = require("../prod/lib/contracts/spCoin");
 
 let spCoinContractDeployed;
 let BURN_ACCOUNT;
 let spCoinAddMethods;
+let spCoinReadMethods;
 let spCoinERC20Methods;
+let spCoinLoggingMethods;
+let hhTestElements;
 
 // let spCoinContractDeployed;
 
-logSetup("JS => Setup Test");
-setLogMode(LOG_MODE.LOG_FUNCTION_HEADER, false);
-
 describe("spCoinContract", function () {
   beforeEach(async () => {
+    hhTestElements = await initHHAccounts();
     spCoinContractDeployed = await deploySpCoinContract();
     spCoinAddMethods = new SpCoinAddMethods(spCoinContractDeployed);
+    spCoinReadMethods = new SpCoinReadMethods(spCoinContractDeployed);
     spCoinERC20Methods = new SpCoinERC20Methods(spCoinContractDeployed);
-    const hhTestElements = await initHHAccounts();
+    spCoinLoggingMethods = new SpCoinLoggingMethods(spCoinContractDeployed);
+    spCoinLoggingMethods.logSetup("JS => Setup Test");
+    spCoinLoggingMethods.setLogMode(LOG_MODE.LOG_FUNCTION_HEADER, false);
     SPONSOR_ACCOUNT_SIGNERS = hhTestElements.signers;
     RECIPIENT_ACCOUNT_KEYS = AGENT_ACCOUNT_KEYS = hhTestElements.accounts;
     TRANSACTION_QTY = RECIPIENT_RATES = AGENT_RATES = hhTestElements.rates;
@@ -194,7 +197,9 @@ describe("spCoinContract", function () {
 
     // AccountListSize = (await getAccountListSize()).toNumber();
     // expect(AccountListSize).to.equal(3);
-    await logJSONTree();
+let spCoinStructure = await spCoinReadMethods.getAccountRecords();
+console.log("return JSON.stringify(spCoinStructure, null, 2)",JSON.stringify(spCoinStructure, null, 2))
+    spCoinLoggingMethods.logJSONTree(await spCoinReadMethods.getAccountRecords());
     await unSponsorRecipient(SPONSOR_ACCOUNT_SIGNERS[0], RECIPIENT_ACCOUNT_KEYS[1]);
     await spCoinContractDeployed.deleteAccountFromMaster(RECIPIENT_ACCOUNT_KEYS[1]);
     // await unSponsorRecipient(SPONSOR_ACCOUNT_SIGNERS[0], RECIPIENT_ACCOUNT_KEYS[2]);
@@ -206,19 +211,18 @@ describe("spCoinContract", function () {
     console.log("*** AFTER DELETE ***************************************************************");
     console.log("********************************************************************************");
   
-    console.log("--- AFTER DELETE RECIPIENT -----------------------------------");
-    await logJSONTree();
+    spCoinLoggingMethods.logJSONTree(await spCoinReadMethods.getAccountRecords());
     // agentRateList = await getAgentRateList(
     //   SPONSOR_ACCOUNT_SIGNERS[1],
     //   RECIPIENT_ACCOUNT_KEYS[1],
     // RECIPIENT_RATES[10],
     //   AGENT_ACCOUNT_KEYS[1]);
-    //   logJSON(agentRateList);
+    //   spCoinLoggingMethods.logJSON(agentRateList);
 
     // VALIDATE ACCOUNT CREATION
     // VALIDATE SPONSOR ACCOUNT
     // let sponsorAccount = await getAccountRecord(SPONSOR_ACCOUNT_SIGNERS[1]);
-    // logJSON(sponsorAccount);
+    // spCoinLoggingMethods.logJSON(sponsorAccount);
   });
 /**/
 });

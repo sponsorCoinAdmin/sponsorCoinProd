@@ -1,7 +1,11 @@
+const { SpCoinLoggingMethods } = require("./utils/logging");
+let spCoinLoggingMethods;
+
 class SpCoinERC20Methods {
 
   constructor(_spCoinContractDeployed) {
     this.spCoinContractDeployed = _spCoinContractDeployed;
+    spCoinLoggingMethods = new SpCoinLoggingMethods(_spCoinContractDeployed)
     this.setSigner(_spCoinContractDeployed.signer);
   }
 

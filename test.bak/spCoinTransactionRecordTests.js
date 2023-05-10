@@ -7,12 +7,12 @@ const {
   TransactionStruct,
 } = require("../prod/lib/spCoinDataTypes");
 const { initHHAccounts } = require("./testMethods/hhTestAccounts");
-const { LOG_MODE, LOG, setLogMode, log, logJSON } = require("../prod/lib/utils/logging");
+const { SpCoinLoggingMethods } = require("../prod/lib/utils/logging");
 const { } = require("./deployContract");
 
 let spCoinContractDeployed;
 
-logSetup("JS => Setup Test");
+spCoinLoggingMethods.logSetup("JS => Setup Test");
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
@@ -95,18 +95,18 @@ it("1 VALIDATE ADD TRANSACTION RATES", async function () {
 
     // AccountListSize = (await getAccountListSize()).toNumber();
     // expect(AccountListSize).to.equal(3);
-    await logJSONTree();
+    await spCoinLoggingMethods.logJSONTree();
 
     // agentRateList = await getAgentRateList(
     //   RECIPIENT_ACCOUNT_KEYS[1],
     //   RECIPIENT_RATES[10],
     //   AGENT_ACCOUNT_KEYS[1]);
-    //   logJSON(agentRateList);
+    //   spCoinLoggingMethods.logJSON(agentRateList);
 
     // VALIDATE ACCOUNT CREATION
     // VALIDATE SPONSOR ACCOUNT
     // let sponsorAccount = await getAccountRecord(SPONSOR_ACCOUNT_SIGNERS[0);
-    // logJSON(sponsorAccount);
+    // spCoinLoggingMethods.logJSON(sponsorAccount);
   });
 /**/
 });

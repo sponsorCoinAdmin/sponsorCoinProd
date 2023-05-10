@@ -7,125 +7,125 @@ printTestHHAccounts = () => {
 ///////////////////////////////// Structure Data //////////////////////////////
 
 printStructureTree = (_structure) => {
-    logFunctionHeader("printStructureTree (" + _structure + ")");
+    spCoinLoggingMethods.logFunctionHeader("printStructureTree (" + _structure + ")");
     let structure = getJSONStructureTree(_structure);
     console.log(structure);
-    logExitFunction();
+    spCoinLoggingMethods.logExitFunction();
 }
 
 printStructureRecipients = async(_accountStruct) => {
-    logFunctionHeader("printStructureRecipients (" + _accountStruct + ")");
+    spCoinLoggingMethods.logFunctionHeader("printStructureRecipients (" + _accountStruct + ")");
     let accountRecipients = getJSONStructureRecipients(_accountKey);
     console.log(accountRecipients);
-    logExitFunction();
+    spCoinLoggingMethods.logExitFunction();
 }
 
 printStructureAccountKYC = async(_accountStruct) => {
-    logFunctionHeader("printStructureAccountKYC (" + _accountStruct + ")");
+    spCoinLoggingMethods.logFunctionHeader("printStructureAccountKYC (" + _accountStruct + ")");
     let accountKYC = getJSONStructureAccountKYC(_accountKey);
     console.log(accountKYC);
-    logExitFunction();
+    spCoinLoggingMethods.logExitFunction();
 }
 
 printStructureRecipientAgents = async(_recipientStruct) => {
-    logFunctionHeader("printStructureRecipientAgents (" + _recipientStruct + ")");
+    spCoinLoggingMethods.logFunctionHeader("printStructureRecipientAgents (" + _recipientStruct + ")");
     let recipientAgents = getJSONStructureRecipientAgents(_accountKey, _recipientKey);
     console.log(recipientAgents);
-    logExitFunction();
+    spCoinLoggingMethods.logExitFunction();
 }
 
 ///////////////////////////////// Structure Data //////////////////////////////
 
 getJSONStructureTree = (_structure) => {
-    logFunctionHeader("getJSONStructureTree (" + _structure + ")");
-    logExitFunction();
+    spCoinLoggingMethods.logFunctionHeader("getJSONStructureTree (" + _structure + ")");
+    spCoinLoggingMethods.logExitFunction();
     return JSON.stringify(_structure, null, 2);
 }
 
 getJSONStructureRecipients = async(_accountStruct) => {
-    logFunctionHeader("getJSONStructureRecipients (" + _accountStruct + ")");
-    logExitFunction();
+    spCoinLoggingMethods.logFunctionHeader("getJSONStructureRecipients (" + _accountStruct + ")");
+    spCoinLoggingMethods.logExitFunction();
     return JSON.stringify(_accountRecipients, null, 2);
 }
 
 getJSONStructureAccountKYC = async(_accountStruct) => {
-    logFunctionHeader("getJSONStructureAccountKYC (" + _accountStruct + ")");
-    logExitFunction();
+    spCoinLoggingMethods.logFunctionHeader("getJSONStructureAccountKYC (" + _accountStruct + ")");
+    spCoinLoggingMethods.logExitFunction();
     return JSON.stringify(_accountStruct.KYC, null, 2);
 }
 
 getJSONStructureRecipientAgents = async(_recipientStruct) => {
-    logFunctionHeader("getJSONStructureRecipientAgents (" + _recipientStruct + ")");
-    logExitFunction();
+    spCoinLoggingMethods.logFunctionHeader("getJSONStructureRecipientAgents (" + _recipientStruct + ")");
+    spCoinLoggingMethods.logExitFunction();
     return JSON.stringify(_recipientStruct, null, 2);
 }
 
 ///////////////////////////////// NetWork Stuff //////////////////////////////
 
 printNetworkRecipients = async(_accountKey) => {
-    logFunctionHeader("printNetworkRecipients (" + _accountKey + ")");
+    spCoinLoggingMethods.logFunctionHeader("printNetworkRecipients (" + _accountKey + ")");
     let accountRecipients = getJSONNetworkRecipients(_accountKey);
     console.log(accountRecipients);
-    logExitFunction();
+    spCoinLoggingMethods.logExitFunction();
 }
 
 printNetworkAccountKYC = async(_accountKey) => {
-    logFunctionHeader("printNetworkAccountKYC (" + _accountKey + ")");
+    spCoinLoggingMethods.logFunctionHeader("printNetworkAccountKYC (" + _accountKey + ")");
     let accountKYC = getJSONNetworkAccountKYC(_accountKey);
     console.log(accountKYC);
-    logExitFunction();
+    spCoinLoggingMethods.logExitFunction();
 }
 
 printNetworkRecipientAgents = async(_accountKey, _recipientKey) => {
-    logFunctionHeader("printNetworkRecipientAgents (" + _accountKey + ", " + _recipientKey + ")");
+    spCoinLoggingMethods.logFunctionHeader("printNetworkRecipientAgents (" + _accountKey + ", " + _recipientKey + ")");
     let recipientAgents = getJSONNetworkRecipientAgents(_accountKey, _recipientKey);
     console.log(recipientAgents);
-    logExitFunction();
+    spCoinLoggingMethods.logExitFunction();
 }
 
 ///////////////////////////////// NetWork Stuff //////////////////////////////
 
 getJSONNetworkRecipients = async(_accountKey) => {
-    logFunctionHeader("getJSONNetworkRecipients (" + _accountKey + ")");
+    spCoinLoggingMethods.logFunctionHeader("getJSONNetworkRecipients (" + _accountKey + ")");
     let accountRecipients = getNetworkRecipients(_accountKey);
-    logExitFunction();
+    spCoinLoggingMethods.logExitFunction();
     return JSON.stringify(accountRecipients, null, 2);
 }
 
 getJSONNetworkAccountKYC = async(_accountKey) => {
-    logFunctionHeader("getJSONNetworkAccountKYC (" + _accountKey + ")");
+    spCoinLoggingMethods.logFunctionHeader("getJSONNetworkAccountKYC (" + _accountKey + ")");
     let accountKYC = getNetworkAccountKYC(_accountKey);
-    logExitFunction();
+    spCoinLoggingMethods.logExitFunction();
     return JSON.stringify(accountKYC, null, 2);
 }
 
 getJSONNetworkRecipientAgents = async(_accountKey, _recipientKey) => {
-    logFunctionHeader("getJSONNetworkRecipientAgents (" + _accountKey + ", " + _recipientKey + ")");
+    spCoinLoggingMethods.logFunctionHeader("getJSONNetworkRecipientAgents (" + _accountKey + ", " + _recipientKey + ")");
     let recipientAgents = getNetworkRecipientAgents(_accountKey, _recipientKey);
-    logExitFunction();
+    spCoinLoggingMethods.logExitFunction();
     return JSON.stringify(recipientAgents, null, 2);
 }
 
 ////////////////////////// To Do Get From Network ////////////////////////////
 
 getNetworkRecipients = async(_accountKey) => {
-    logFunctionHeader("getNetworkRecipients (" + _accountKey + ")");
+    spCoinLoggingMethods.logFunctionHeader("getNetworkRecipients (" + _accountKey + ")");
     let accountRecipients = await getNetworkRecipients(_accountKey);
-    logExitFunction();
+    spCoinLoggingMethods.logExitFunction();
     return JSON.stringify(accountRecipients, null, 2);
 }
 
 getNetworkAccountKYC = async(_accountKey) => {
-    logFunctionHeader("getNetworkAccountKYC (" + _accountKey + ")");
+    spCoinLoggingMethods.logFunctionHeader("getNetworkAccountKYC (" + _accountKey + ")");
     let accountKYC = await getNetworkAccountKYC(_accountKey);
-    logExitFunction();
+    spCoinLoggingMethods.logExitFunction();
     return JSON.stringify(accountKYC, null, 2);
 }
 
 getNetworkRecipientAgents = async(_accountKey, _recipientKey) => {
-    logFunctionHeader("getNetworkRecipientAgents (" + _accountKey + ", " + _recipientKey + ")");
+    spCoinLoggingMethods.logFunctionHeader("getNetworkRecipientAgents (" + _accountKey + ", " + _recipientKey + ")");
     let recipientAgents = await getNetworkRecipientAgents(_accountKey, _recipientKey);
-    logExitFunction();
+    spCoinLoggingMethods.logExitFunction();
     return JSON.stringify(recipientAgents, null, 2);
 }
 

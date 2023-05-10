@@ -1,7 +1,10 @@
+const { SpCoinLoggingMethods } = require("./utils/logging");
+let spCoinLoggingMethods;
 class SpCoinAddMethods {
 
   constructor(_spCoinContractDeployed) {
     this.spCoinContractDeployed = _spCoinContractDeployed;
+    spCoinLoggingMethods = new SpCoinLoggingMethods(_spCoinContractDeployed)
     this.setSigner(_spCoinContractDeployed.signer);
   }
 
@@ -10,25 +13,25 @@ class SpCoinAddMethods {
   }
 
   addRecipient = async (_recipientKey) => {
-      logFunctionHeader(
+      spCoinLoggingMethods.logFunctionHeader(
         "addRecipient = async(" + _recipientKey + ")"
       );
     
-      logDetail("JS => Inserting " + _recipientKey + " Recipient To Blockchain Network"
+      spCoinLoggingMethods.logDetail("JS => Inserting " + _recipientKey + " Recipient To Blockchain Network"
       );
     
-      logDetail("JS => Inserting Recipient " + _recipientKey );
+      spCoinLoggingMethods.logDetail("JS => Inserting Recipient " + _recipientKey );
       await this.spCoinContractDeployed.connect(this.signer).addRecipient(_recipientKey);
-      logExitFunction();
+      spCoinLoggingMethods.logExitFunction();
     };
     
     addRecipients = async (_accountKey, _recipientAccountList) => {
-      logFunctionHeader(
+      spCoinLoggingMethods.logFunctionHeader(
         "addRecipients = async(" + _accountKey + ", " + _recipientAccountList + ")"
       );
     
-      logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
-      logDetail("JS => Adding " + _recipientAccountList.length + " Recipient To Blockchain Network"
+      spCoinLoggingMethods.logDetail("JS => For Account[" + _accountKey + "]: " + _accountKey + ")");
+      spCoinLoggingMethods.logDetail("JS => Adding " + _recipientAccountList.length + " Recipient To Blockchain Network"
       );
     
       let recipientCount = 0;
@@ -36,65 +39,65 @@ class SpCoinAddMethods {
         let _recipientKey = _recipientAccountList[recipientCount];
         await addRecipient(_recipientKey);
       }
-      logDetail("JS => Inserted = " + recipientCount + " Recipient Records");
+      spCoinLoggingMethods.logDetail("JS => Inserted = " + recipientCount + " Recipient Records");
       return --recipientCount;
-      logExitFunction();
+      spCoinLoggingMethods.logExitFunction();
     };
 
     addAgent = async (_recipientKey, _recipientRateKey, _accountAgentKey) => {
-      logFunctionHeader(
+      spCoinLoggingMethods.logFunctionHeader(
         "addAgent = async(" + _recipientKey + ", " + _recipientRateKey + ", " + _accountAgentKey + ")"
       );
-      logDetail("JS => Adding Agent " + _accountAgentKey + " To Blockchain Network");
+      spCoinLoggingMethods.logDetail("JS => Adding Agent " + _accountAgentKey + " To Blockchain Network");
     
-      logDetail("JS =>  " + "Inserting Agent[" + _recipientKey + "]: " + _accountAgentKey );
+      spCoinLoggingMethods.logDetail("JS =>  " + "Inserting Agent[" + _recipientKey + "]: " + _accountAgentKey );
       await this.spCoinContractDeployed.connect(this.signer).addAgent(_recipientKey, _recipientRateKey, _accountAgentKey );
-      logDetail("JS => "+ "Added Agent " + _accountAgentKey + " Record to RecipientKey " + _recipientKey);
-      logExitFunction();
+      spCoinLoggingMethods.logDetail("JS => "+ "Added Agent " + _accountAgentKey + " Record to RecipientKey " + _recipientKey);
+      spCoinLoggingMethods.logExitFunction();
     };
     
     addAgents = async (_recipientKey, _recipientRateKey, _agentAccountList) => {
-      logFunctionHeader(
+      spCoinLoggingMethods.logFunctionHeader(
         "addAgents = async(" + _recipientKey + ", " + _recipientRateKey + ", " + _agentAccountList + ")"
       );
-      logDetail("JS => For Recipient[" + _recipientKey + "]: " + _recipientKey + ")");
-      logDetail("JS => Inserting " + _agentAccountList.length + " Agent To Blockchain Network"
+      spCoinLoggingMethods.logDetail("JS => For Recipient[" + _recipientKey + "]: " + _recipientKey + ")");
+      spCoinLoggingMethods.logDetail("JS => Inserting " + _agentAccountList.length + " Agent To Blockchain Network"
       );
-      logDetail("JS => _agentAccountList = " + _agentAccountList);
+      spCoinLoggingMethods.logDetail("JS => _agentAccountList = " + _agentAccountList);
     
       let agentSize = _agentAccountList.length;
-      logDetail("JS => agentSize.length = " + agentSize);
+      spCoinLoggingMethods.logDetail("JS => agentSize.length = " + agentSize);
       let agentCount = 0;
       for (let agentCount = 0; agentCount < agentSize; agentCount++) {
         let agentKey = _agentAccountList[agentCount];
-        logDetail("JS =>  " + agentCount + ". " + "Inserting Agent[" + agentCount + "]: " + agentKey );
+        spCoinLoggingMethods.logDetail("JS =>  " + agentCount + ". " + "Inserting Agent[" + agentCount + "]: " + agentKey );
         await addAgent(_recipientKey, _recipientRateKey, agentKey );
       }
-      logDetail("JS => "+ "Inserted = " + agentSize + " Agent Records");
+      spCoinLoggingMethods.logDetail("JS => "+ "Inserted = " + agentSize + " Agent Records");
       return agentCount;
-      logExitFunction();
+      spCoinLoggingMethods.logExitFunction();
     };
     
   addAccountRecord = async (_accountKey) => {
-      logFunctionHeader("addAccountRecord = async(" + _accountKey + ")");
-      logDetail("JS => Inserting Account " + _accountKey + " To Blockchain Network");
+      spCoinLoggingMethods.logFunctionHeader("addAccountRecord = async(" + _accountKey + ")");
+      spCoinLoggingMethods.logDetail("JS => Inserting Account " + _accountKey + " To Blockchain Network");
       await this.spCoinContractDeployed.connect(this.signer).addAccountRecord(_accountKey);
-      logExitFunction();
+      spCoinLoggingMethods.logExitFunction();
     };  
 
   addAccountRecords = async (_accountListKeys) => {
-      logFunctionHeader("addAccountRecord = async(arrayAccounts)");
+      spCoinLoggingMethods.logFunctionHeader("addAccountRecord = async(arrayAccounts)");
       let maxCount = _accountListKeys.length;
-      logDetail("JS => Inserting " + maxCount + " Records to Blockchain Network");
+      spCoinLoggingMethods.logDetail("JS => Inserting " + maxCount + " Records to Blockchain Network");
     
       for (idx = 0; idx < maxCount; idx++) {
         let account = _accountListKeys[idx];
-        logDetail("JS => Inserting " + idx + ", " + account);
+        spCoinLoggingMethods.logDetail("JS => Inserting " + idx + ", " + account);
         await this.spCoinContractDeployed.connect(this.signer).addAccountRecord(account);
       }
-      logDetail("JS => Inserted " + maxCount + " Account to Blockchain Network");
+      spCoinLoggingMethods.logDetail("JS => Inserted " + maxCount + " Account to Blockchain Network");
     
-      logExitFunction();
+      spCoinLoggingMethods.logExitFunction();
       return maxCount;
   };
 
@@ -107,7 +110,7 @@ class SpCoinAddMethods {
     _accountAgentKey,
     _agentRateKey,
     _transactionQty ) => {
-      logFunctionHeader(
+      spCoinLoggingMethods.logFunctionHeader(
         "addSponsorship = async(" + 
         _sponsorSigner + ", " + 
         _recipientKey + ", " + 
@@ -136,8 +139,8 @@ class SpCoinAddMethods {
         wholePart,
         fractionalPart);
         
-        logDetail("JS => "+ "Added Agent Transaction " + _accountAgentKey + " _transactionQty = " + _transactionQty);
-        logExitFunction();
+        spCoinLoggingMethods.logDetail("JS => "+ "Added Agent Transaction " + _accountAgentKey + " _transactionQty = " + _transactionQty);
+        spCoinLoggingMethods.logExitFunction();
     };
 
     addSponsorship = async (
@@ -147,7 +150,7 @@ class SpCoinAddMethods {
       _accountAgentKey,
       _agentRateKey,
       _transactionQty ) => {
-        logFunctionHeader(
+        spCoinLoggingMethods.logFunctionHeader(
           "addSponsorship = async(" + 
           _sponsorSigner + ", " + 
           _recipientKey + ", " + 
@@ -176,8 +179,8 @@ class SpCoinAddMethods {
           wholePart,
           fractionalPart);
             
-          logDetail("JS => "+ "Added Agent Transaction " + _accountAgentKey + " _transactionQty = " + _transactionQty);
-          logExitFunction();
+          spCoinLoggingMethods.logDetail("JS => "+ "Added Agent Transaction " + _accountAgentKey + " _transactionQty = " + _transactionQty);
+          spCoinLoggingMethods.logExitFunction();
     };
   }
     //////////////////// MODULE EXPORTS //////////////////////

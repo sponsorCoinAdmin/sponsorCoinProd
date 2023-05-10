@@ -1,4 +1,4 @@
-const { SpCoinReadMethods } = require("../spCoinReadMethods");
+// const { SpCoinReadMethods } = require("../spCoinReadMethods");
 const { } = require("../spCoinAddMethods");
 
 // ************************* LOG SECTION ******************************/
@@ -29,130 +29,122 @@ const LOG_MODE = {
     LOG_TREE = false;
   }
 
-  let spCoinReadMethods;
+//   let spCoinReadMethods;
 
-  injectLoggingMethodsContract = (_spCoinContractDeployed) => {
-    spCoinContractDeployed = _spCoinContractDeployed;
-    setSigner7(spCoinContractDeployed.signer);
-    spCoinReadMethods = new SpCoinReadMethods(spCoinContractDeployed);
-  };
-  
-  setSigner7 = (_signer) => {
-    signer = _signer;
-  };
+class SpCoinLoggingMethods {
+     constructor(_spCoinContractDeployed) {
+        // if (_spCoinContractDeployed !== undefined) {
+            this.spCoinContractDeployed = _spCoinContractDeployed;
+            // spCoinReadMethods = new SpCoinReadMethods(_spCoinContractDeployed);
+            this.setSigner(_spCoinContractDeployed.signer);
+        // }
+      }
+    
+      setSigner(_signer) {
+        this.signer = _signer;
+      }
+    
+    setLogMode = (_log_mode, _state) => {
+        console.log("EXECUTING setLogMode = (" + _log_mode + ", " + _state + ")");
 
-
-  setLogMode = (_log_mode, _state) => {
-    console.log("EXECUTING setLogMode = (" + _log_mode + ", " + _state + ")");
-
-    switch(_log_mode) {
-        case LOG_MODE.LOG:
-           console.log("Setting _log_mode LOG: " + _state)
-           LOG = _state;
-        break;
-        case LOG_MODE.LOG_DETAIL:
-            console.log("Setting _log_mode LOG_DETAIL: " + _state)
-            LOG_DETAIL = _state;
-         break;
-         case LOG_MODE.LOG_TEST_HEADER:
-            console.log("Setting _log_mode LOG_TEST_HEADER: " + _state)
-            LOG_TEST_HEADER = _state;
-         break;
-         case LOG_MODE.LOG_FUNCTION_HEADER:
-            console.log("Setting _log_mode LOG_FUNCTION_HEADER: " + _state)
-            LOG_FUNCTION_HEADER = _state;
-        break;
-        case LOG_MODE.LOG_SETUP:
-            console.log("Setting _log_mode LOG_SETUP: " + _state)
-            LOG_SETUP = _state;
-        case LOG_MODE.LOG_TREE:
-            console.log("Setting _log_mode LOG_SETUP: " + _state)
-            LOG_TREE = _state;
+        switch(_log_mode) {
+            case LOG_MODE.LOG:
+                console.log("Setting _log_mode LOG: " + _state)
+                LOG = _state;
             break;
-        default:
-        _text = "Unknown _log_mode " + _log_mode;
+            case LOG_MODE.LOG_DETAIL:
+                console.log("Setting _log_mode LOG_DETAIL: " + _state)
+                LOG_DETAIL = _state;
+            break;
+            case LOG_MODE.LOG_TEST_HEADER:
+                console.log("Setting _log_mode LOG_TEST_HEADER: " + _state)
+                LOG_TEST_HEADER = _state;
+            break;
+            case LOG_MODE.LOG_FUNCTION_HEADER:
+                console.log("Setting _log_mode LOG_FUNCTION_HEADER: " + _state)
+                LOG_FUNCTION_HEADER = _state;
+            break;
+            case LOG_MODE.LOG_SETUP:
+                console.log("Setting _log_mode LOG_SETUP: " + _state)
+                LOG_SETUP = _state;
+            case LOG_MODE.LOG_TREE:
+                console.log("Setting _log_mode LOG_SETUP: " + _state)
+                LOG_TREE = _state;
+                break;
+            default:
+            _text = "Unknown _log_mode " + _log_mode;
+        }
     }
-}
 
-logSetup = (_text) => {
-    if (LOG_SETUP) {
-        log(_text);
+    logSetup = (_text) => {
+        if (LOG_SETUP) {
+           log(_text);
+        }
     }
-}
 
-logTestHeader = (_testHeader) => {
-    if (LOG_TEST_HEADER) {
-        log(prefix + _testHeader);
+    logTestHeader = (_testHeader) => {
+        if (LOG_TEST_HEADER) {
+           log(prefix + _testHeader);
+        }
     }
-}
 
-logFunctionHeader = (_functionHeader) => {
-    if (LOG_FUNCTION_HEADER) {
-        log(prefix + _functionHeader);
+    logFunctionHeader = (_functionHeader) => {
+        if (LOG_FUNCTION_HEADER) {
+           log(prefix + _functionHeader);
+        }
+        prefix += indent;
     }
-    prefix += indent;
-}
 
-logExitFunction = () => {
-    if (LOG_FUNCTION_HEADER) {
-        prefix = prefix.slice(0, -indent)
-console.log("EXITING");
+    logExitFunction = () => {
+        if (LOG_FUNCTION_HEADER) {
+            prefix = prefix.slice(0, -indent)
+            console.log("EXITING");
+        }
     }
-}
 
-logDetail = (_details) => {
-    if (LOG_DETAIL) {
-        log(_details);
+    logDetail = (_details) => {
+        if (LOG_DETAIL) {
+           log(_details);
+        }
     }
-}
 
-log = (_text) => {
-    if (LOG) {
-        console.log(_text);
+    log = (_text) => {
+        if (LOG) {
+            console.log(_text);
+        }
     }
-}
 
-logPrefix = (_prefix, _text) => {
-    log(_prefix + _text);
-}
+    logPrefix = (_prefix, _text) => {
+       log(_prefix + _text);
+    }
 
-setIndentPrefixLevel = (_indentPrefix, _level) => {
-    let indent = "";
-    for (let i = 0; i < _level; i++)
-        indent += _indentPrefix;
-    return indent;
-}
+    setIndentPrefixLevel = (_indentPrefix, _level) => {
+        let indent = "";
+        for (let i = 0; i < _level; i++)
+            indent += _indentPrefix;
+        return indent;
+    }
 
-////////////////////// STRUCTURE PRINT FUNCTIONS //////////////////////
+    ////////////////////// STRUCTURE PRINT FUNCTIONS //////////////////////
 
-logJSONAccount = async(accountKey) => {
-    console.log("ACCOUNT RECORD DUMP");
-    accountRec = await getAccountRecord(accountKey);
-    logJSON(accountRec);
-    return accountRec;
-}
+    logJSONAccount = async(accountKey) => {
+        console.log("ACCOUNT RECORD DUMP");
+        accountRec = await getAccountRecord(accountKey);
+        this.logJSON(accountRec);
+        return accountRec;
+    }
 
-logJSONTree = async() => {
-    console.log("SPCOIN DUMP");
-    let spCoinStructure = await spCoinReadMethods.getAccountRecords();
-    logJSON(spCoinStructure);
-}
+    logJSONTree = async(_obj) => {
+        this.logJSON(_obj);
+    }
 
-logJSON = (_obj) => {
-    console.log("JSON TREE DUMP");
-    console.log(JSON.stringify(_obj, null, 2));
+    logJSON = (_obj) => {
+        console.log("DUMP JSON OBJECT");
+        console.log(JSON.stringify(_obj, null, 2));
+    }
 }
 
 module.exports = {
-    LOG_MODE,
-    logJSON,
-    logSetup,
-    logJSONTree,
-    setLogDefaults,
-    setIndentPrefixLevel,
-    setLogMode,
-    logTestHeader,
-    logFunctionHeader,
-    logDetail,
-    log
+    SpCoinLoggingMethods,
+    LOG_MODE
 }
