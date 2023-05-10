@@ -19,7 +19,7 @@ const { spCoinContract } = require("../prod/lib/contracts/spCoin");
 
 let spCoinContractDeployed;
 let BURN_ACCOUNT;
-let spCoinAddMethods = new SpCoinAddMethods();
+let spCoinAddMethods;
 
 // let spCoinContractDeployed;
 
@@ -29,10 +29,10 @@ setLogMode(LOG_MODE.LOG_FUNCTION_HEADER, false);
 describe("spCoinContract", function () {
   beforeEach(async () => {
     spCoinContractDeployed = await deploySpCoinContract();
+    spCoinAddMethods = new SpCoinAddMethods(spCoinContractDeployed);
     const hhTestElements = await initHHAccounts();
-    const accounts = hhTestElements.accounts;
     SPONSOR_ACCOUNT_SIGNERS = hhTestElements.signers;
-    RECIPIENT_ACCOUNT_KEYS = AGENT_ACCOUNT_KEYS = accounts;
+    RECIPIENT_ACCOUNT_KEYS = AGENT_ACCOUNT_KEYS = hhTestElements.accounts;
     TRANSACTION_QTY = RECIPIENT_RATES = AGENT_RATES = hhTestElements.rates;
     BURN_ACCOUNT = hhTestElements.burnAddress;
   });
