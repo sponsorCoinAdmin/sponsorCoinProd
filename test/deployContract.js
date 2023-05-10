@@ -42,8 +42,6 @@ const {
   }
   
   setSigner = (_signer) => {
-    injectAddMethodsSigner(_signer);
-    injectTransferMethodsSigner(_signer);
   }
 
   deployContract = async () => {

@@ -4,15 +4,16 @@ let signer;
 //////////////////////////// ROOT LEVEL FUNCTIONS ////////////////////////////
 injectTransferMethodsContract = (_spCoinContractDeployed) => {
     spCoinContractDeployed = _spCoinContractDeployed;
+    setSigner4(spCoinContractDeployed.signer);
 }
 
-injectTransferMethodsSigner = (_signer) => {
+setSigner4 = (_signer) => {
   signer = _signer;
 };
 
 
 transfer = async ( _to, _value) => {
-  await spCoinContractDeployed.transfer(_to, _value.toString());
+  await spCoinContractDeployed.connect(signer).transfer(_to, _value.toString());
 }
   
 //////////////////// MODULE EXPORTS //////////////////////

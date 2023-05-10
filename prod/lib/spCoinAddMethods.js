@@ -4,9 +4,10 @@ let signer;
 //////////////////////////// ROOT LEVEL FUNCTIONS ////////////////////////////
 injectAddMethodsContract = (_spCoinContractDeployed) => {
     spCoinContractDeployed = _spCoinContractDeployed;
+    setSigner5(spCoinContractDeployed.signer);
 }
 
-injectAddMethodsSigner = (_signer) => {
+setSigner5 = (_signer) => {
   signer = _signer;
 };
 

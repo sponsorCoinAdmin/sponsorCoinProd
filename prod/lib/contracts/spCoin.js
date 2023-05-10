@@ -9,21 +9,12 @@ class SpCoinContract {
     signers = _signers;
   }
 
-  setSignerByIndex = (_signerIxd) => {
-    setSigner(signers[_signerIxd]);
-  }
-  
-  setSigner = (_signer) => {
-    injectAddMethodsSigner(_signer);
-    injectTransferMethodsSigner(_signer);
-    injectSpCoinSigner(_signer)
-  }
-
   injectSpCoinContract = (_spCoinContractDeployed) => {
     this.spCoinContractDeployed = _spCoinContractDeployed;
+    setSigner6(this.spCoinContractDeployed.signer)
   };
 
-  injectSpCoinSigner = (_signer) => {
+  setSigner6 = (_signer) => {
     this.signer = _signer;
   };
 
@@ -31,14 +22,3 @@ class SpCoinContract {
     return spCoinContractDeployed;
   };
 }
-
-/*
-module.exports = {
-  getSpCoinContract,
-  spCoinContractDeployed,
-  signer,
-  injectSpCoinContract,
-  injectSpCoinSigner
-}
-*/
-
