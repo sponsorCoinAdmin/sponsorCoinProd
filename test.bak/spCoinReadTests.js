@@ -3,7 +3,6 @@ const { LOG_MODE } = require("../prod/lib/utils/logging");
 const { initHHAccounts } = require("../test/testMethods/hhTestAccounts");
 const { } = require("../prod/lib/spCoinAddMethods");
 const { } = require("../test/deployContract");
-const { SpCoinTestMethods } = require("../test/testMethods/scTestMethods");
 
 let spCoinContractDeployed;
 let accounts;

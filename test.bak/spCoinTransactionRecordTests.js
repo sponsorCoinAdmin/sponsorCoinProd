@@ -8,7 +8,6 @@ const {
 } = require("../prod/lib/spCoinDataTypes");
 const { initHHAccounts } = require("./testMethods/hhTestAccounts");
 const { LOG_MODE, LOG, setLogMode, log, logJSON } = require("../prod/lib/utils/logging");
-const { } = require("./testMethods/scTestMethods");
 const { } = require("./deployContract");
 
 let spCoinContractDeployed;
