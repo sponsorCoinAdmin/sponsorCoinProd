@@ -1,4 +1,4 @@
-const { } = require("../spCoinReadMethods");
+const { SpCoinReadMethods } = require("../spCoinReadMethods");
 const { } = require("../spCoinAddMethods");
 
 // ************************* LOG SECTION ******************************/
@@ -28,6 +28,8 @@ const LOG_MODE = {
     LOG_SETUP = false;
     LOG_TREE = false;
   }
+
+  spCoinReadMethods = new SpCoinReadMethods();
 
   setLogMode = (_log_mode, _state) => {
     console.log("EXECUTING setLogMode = (" + _log_mode + ", " + _state + ")");
@@ -121,7 +123,7 @@ logJSONAccount = async(accountKey) => {
 
 logJSONTree = async() => {
     console.log("SPCOIN DUMP");
-    let spCoinStructure = await getAccountRecords();
+    let spCoinStructure = await spCoinReadMethods.getAccountRecords();
     logJSON(spCoinStructure);
 }
 

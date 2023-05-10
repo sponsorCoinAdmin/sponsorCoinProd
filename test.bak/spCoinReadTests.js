@@ -2,7 +2,6 @@ const { expect } = require("chai");
 const { LOG_MODE } = require("../prod/lib/utils/logging");
 const { initHHAccounts } = require("../test/testMethods/hhTestAccounts");
 const { } = require("../prod/lib/spCoinAddMethods");
-const { } = require("../prod/lib/spCoinReadMethods");
 const { } = require("../prod/lib/spCoinAddMethods");
 const { } = require("../test/deployContract");
 const { } = require("../test/testMethods/scTestMethods");

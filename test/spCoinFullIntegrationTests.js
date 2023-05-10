@@ -11,7 +11,6 @@ const { logSetup, setLogMode, logJSON,  LOG_MODE, LOG, LOG_DETAIL,
         LOG_TEST_HEADER, LOG_FUNCTION_HEADER, LOG_SETUP,
         LOG_TREE } = require("../prod/lib/utils/logging");
 const { } = require("../test/testMethods/scTestMethods");
-const { } = require("../prod/lib/spCoinReadMethods");
 const { } = require("../prod/lib/spCoinTransferMethods");
 const { unSponsorRecipient } = require("../prod/lib/spCoinDeleteMethods");
 const { } = require("../test/deployContract");
@@ -24,8 +23,6 @@ let BURN_ACCOUNT;
 
 logSetup("JS => Setup Test");
 setLogMode(LOG_MODE.LOG_FUNCTION_HEADER, false);
-
-console.log("spCoinContract = ", spCoinContract);
 
 describe("spCoinContract", function () {
   beforeEach(async () => {

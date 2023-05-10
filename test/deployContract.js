@@ -1,6 +1,5 @@
 const { } = require("../prod/lib/spCoinAddMethods");
 const { } = require("../prod/lib/spCoinDeleteMethods");
-const { } = require("../prod/lib/spCoinReadMethods");
 const { } = require("../prod/lib/spCoinTransferMethods");
 const { } = require("../prod/lib/contracts/spCoin");
 
