@@ -1,23 +1,21 @@
-let spCoinContractDeployed;
-let signer;
+class SpCoinERC20Methods {
 
-//////////////////////////// ROOT LEVEL FUNCTIONS ////////////////////////////
-injectTransferMethodsContract = (_spCoinContractDeployed) => {
-    spCoinContractDeployed = _spCoinContractDeployed;
-    setSigner4(spCoinContractDeployed.signer);
-}
+  constructor(_spCoinContractDeployed) {
+    this.spCoinContractDeployed = _spCoinContractDeployed;
+    this.setSigner(_spCoinContractDeployed.signer);
+  }
 
-setSigner4 = (_signer) => {
-  signer = _signer;
-};
+  setSigner(_signer) {
+    this.signer = _signer;
+  }
 
-
-transfer = async ( _to, _value) => {
-  await spCoinContractDeployed.connect(signer).transfer(_to, _value.toString());
+  transfer = async ( _to, _value) => {
+    await this.spCoinContractDeployed.connect(this.signer).transfer(_to, _value.toString());
+  }
 }
   
 //////////////////// MODULE EXPORTS //////////////////////
 
 module.exports = {
-    transfer,
+  SpCoinERC20Methods
 }

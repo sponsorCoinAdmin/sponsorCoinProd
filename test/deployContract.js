@@ -2,6 +2,7 @@ const { } = require("../prod/lib/spCoinAddMethods");
 const { } = require("../prod/lib/spCoinDeleteMethods");
 const { } = require("../prod/lib/spCoinTransferMethods");
 const { } = require("../prod/lib/contracts/spCoin");
+const { } = require("../prod/lib/utils/logging");
 
 const {
     LOG_MODE,
@@ -19,11 +20,8 @@ const {
   }
 
   injectContract = (spCoinContractDeployed) => {
-    // console.log("SSSSSSSSSSSSSS injectContract(", spCoinContractDeployed, ")")
-    injectAddMethodsContract(spCoinContractDeployed);
     injectDeleteMethodsContract(spCoinContractDeployed);
-    injectReadMethodsContract(spCoinContractDeployed);
-    injectTransferMethodsContract(spCoinContractDeployed);
+    injectLoggingMethodsContract(spCoinContractDeployed);
      return spCoinContractDeployed;
   }
 

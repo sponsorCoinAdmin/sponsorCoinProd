@@ -29,7 +29,18 @@ const LOG_MODE = {
     LOG_TREE = false;
   }
 
-  let spCoinReadMethods = new SpCoinReadMethods();
+  let spCoinReadMethods;
+
+  injectLoggingMethodsContract = (_spCoinContractDeployed) => {
+    spCoinContractDeployed = _spCoinContractDeployed;
+    setSigner7(spCoinContractDeployed.signer);
+    spCoinReadMethods = new SpCoinReadMethods(spCoinContractDeployed);
+  };
+  
+  setSigner7 = (_signer) => {
+    signer = _signer;
+  };
+
 
   setLogMode = (_log_mode, _state) => {
     console.log("EXECUTING setLogMode = (" + _log_mode + ", " + _state + ")");

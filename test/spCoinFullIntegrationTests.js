@@ -10,15 +10,16 @@ const { initHHAccounts } = require("../test/testMethods/hhTestAccounts");
 const { logSetup, setLogMode, logJSON,  LOG_MODE, LOG, LOG_DETAIL, 
         LOG_TEST_HEADER, LOG_FUNCTION_HEADER, LOG_SETUP,
         LOG_TREE } = require("../prod/lib/utils/logging");
-const { } = require("../prod/lib/spCoinTransferMethods");
+const { SpCoinERC20Methods } = require("../prod/lib/spCoinTransferMethods");
 const { unSponsorRecipient } = require("../prod/lib/spCoinDeleteMethods");
 const { SpCoinAddMethods } = require("../prod/lib/spCoinAddMethods");
 const { } = require("../test/deployContract");
-const { spCoinContract } = require("../prod/lib/contracts/spCoin");
+const { SpCoinContract } = require("../prod/lib/contracts/spCoin");
 
 let spCoinContractDeployed;
 let BURN_ACCOUNT;
 let spCoinAddMethods;
+let spCoinERC20Methods;
 
 // let spCoinContractDeployed;
 
@@ -29,6 +30,7 @@ describe("spCoinContract", function () {
   beforeEach(async () => {
     spCoinContractDeployed = await deploySpCoinContract();
     spCoinAddMethods = new SpCoinAddMethods(spCoinContractDeployed);
+    spCoinERC20Methods = new SpCoinERC20Methods(spCoinContractDeployed);
     const hhTestElements = await initHHAccounts();
     SPONSOR_ACCOUNT_SIGNERS = hhTestElements.signers;
     RECIPIENT_ACCOUNT_KEYS = AGENT_ACCOUNT_KEYS = hhTestElements.accounts;
@@ -104,7 +106,7 @@ describe("spCoinContract", function () {
     "789.000000000000000008"
   );
 
-  await transfer(
+  await spCoinERC20Methods.transfer(
     RECIPIENT_ACCOUNT_KEYS[12],
     "1000000000"
   )

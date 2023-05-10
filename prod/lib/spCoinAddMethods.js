@@ -1,17 +1,14 @@
-let spCoinContractDeployed;
-let signer;
-
-//////////////////////////// ROOT LEVEL FUNCTIONS ////////////////////////////
-injectAddMethodsContract = (_spCoinContractDeployed) => {
-    spCoinContractDeployed = _spCoinContractDeployed;
-    setSigner5(spCoinContractDeployed.signer);
-}
-
-setSigner5 = (_signer) => {
-  signer = _signer;
-};
-
 class SpCoinAddMethods {
+
+  constructor(_spCoinContractDeployed) {
+    this.spCoinContractDeployed = _spCoinContractDeployed;
+    this.setSigner(_spCoinContractDeployed.signer);
+  }
+
+  setSigner(_signer) {
+    this.signer = _signer;
+  }
+
   addRecipient = async (_recipientKey) => {
       logFunctionHeader(
         "addRecipient = async(" + _recipientKey + ")"
@@ -21,7 +18,7 @@ class SpCoinAddMethods {
       );
     
       logDetail("JS => Inserting Recipient " + _recipientKey );
-      await spCoinContractDeployed.connect(signer).addRecipient(_recipientKey);
+      await this.spCoinContractDeployed.connect(this.signer).addRecipient(_recipientKey);
       logExitFunction();
     };
     
@@ -51,7 +48,7 @@ class SpCoinAddMethods {
       logDetail("JS => Adding Agent " + _accountAgentKey + " To Blockchain Network");
     
       logDetail("JS =>  " + "Inserting Agent[" + _recipientKey + "]: " + _accountAgentKey );
-      await spCoinContractDeployed.connect(signer).addAgent(_recipientKey, _recipientRateKey, _accountAgentKey );
+      await this.spCoinContractDeployed.connect(this.signer).addAgent(_recipientKey, _recipientRateKey, _accountAgentKey );
       logDetail("JS => "+ "Added Agent " + _accountAgentKey + " Record to RecipientKey " + _recipientKey);
       logExitFunction();
     };
@@ -81,7 +78,7 @@ class SpCoinAddMethods {
   addAccountRecord = async (_accountKey) => {
       logFunctionHeader("addAccountRecord = async(" + _accountKey + ")");
       logDetail("JS => Inserting Account " + _accountKey + " To Blockchain Network");
-      await spCoinContractDeployed.connect(signer).addAccountRecord(_accountKey);
+      await this.spCoinContractDeployed.connect(this.signer).addAccountRecord(_accountKey);
       logExitFunction();
     };  
 
@@ -93,7 +90,7 @@ class SpCoinAddMethods {
       for (idx = 0; idx < maxCount; idx++) {
         let account = _accountListKeys[idx];
         logDetail("JS => Inserting " + idx + ", " + account);
-        await spCoinContractDeployed.connect(signer).addAccountRecord(account);
+        await this.spCoinContractDeployed.connect(this.signer).addAccountRecord(account);
       }
       logDetail("JS => Inserted " + maxCount + " Account to Blockchain Network");
     
@@ -131,7 +128,7 @@ class SpCoinAddMethods {
       // console.log("fractionalPart    = " + fractionalPart);
       // console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
       
-      await spCoinContractDeployed.connect(signer).addSponsorship(
+      await this.spCoinContractDeployed.connect(this.signer).addSponsorship(
         _recipientKey,
         _recipientRateKey,
         _accountAgentKey,
@@ -171,7 +168,7 @@ class SpCoinAddMethods {
         // console.log("fractionalPart    = " + fractionalPart);
         // console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
           
-        await spCoinContractDeployed.connect(signer).addSponsorship(
+        await this.spCoinContractDeployed.connect(this.signer).addSponsorship(
           _recipientKey,
           _recipientRateKey,
           _accountAgentKey,
@@ -187,5 +184,4 @@ class SpCoinAddMethods {
 
 module.exports = {
   SpCoinAddMethods,
-  injectAddMethodsContract,
 }

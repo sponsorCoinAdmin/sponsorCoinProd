@@ -17,7 +17,7 @@ class SpCoinSerialize {
     if ( _spCoinContractDeployed != undefined) {
       console.log("constructor called with " + _spCoinContractDeployed);
       this.spCoinContractDeployed = _spCoinContractDeployed;
-      setSigner(_spCoinContractDeployed.signer);
+      this.setSigner(_spCoinContractDeployed.signer);
     }
   }
 
@@ -30,7 +30,6 @@ class SpCoinSerialize {
     this.signer = _spCoinContractDeployed.signer;
   };
 
-  
   deSerializedAccountRec = async ( _serializedAccountRec ) => {
     // LOG_DETAIL = true;
     logFunctionHeader(
