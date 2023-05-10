@@ -20,7 +20,7 @@ describe("spCoinContract", function () {
 /* */
 
     it("SUCCESSFUL EXECUTION: 'SUCCESSFULLY DELETED ACCOUNT'", async function () {
-      await addTestNetworkAccounts([0, 1, 2]);
+      await spCoinAddMethods.addTestNetworkAccounts([0, 1, 2]);
       let keys = await getAccountList();
       console.log("============================================================");
       console.log("*** DELETE SECOND ACCOUNT EXAMPLE ***");
@@ -31,7 +31,7 @@ describe("spCoinContract", function () {
   
       let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Sponsor Account has a Recipient, (Sponsor must Un-recipient Recipiented Account)'";
       try {
-        await deleteTestNetworkAccount(1);
+        await spCoinAddMethods.deleteTestNetworkAccount(1);
       }
       catch (err) {
         expect(err.message).to.equal(expectedErrMsg);
@@ -50,10 +50,10 @@ describe("spCoinContract", function () {
   /* */
 
   it("SUCCESSFUL ERROR MSG CAUGHT: 'ACCOUNT DOES NOT EXIST'", async function () {
-    await addTestNetworkRecipients(0, [1]);
+    await spCoinAddMethods.addTestNetworkRecipients(0, [1]);
     let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Account does not exists'";
     try {
-      await deleteTestNetworkAccount(2);
+      await spCoinAddMethods.deleteTestNetworkAccount(2);
       throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
     }
     catch (err) {
@@ -64,10 +64,10 @@ describe("spCoinContract", function () {
   /* */
 
   it("SUCCESSFUL ERROR MSG CAUGHT: 'SPONSOR ACCOUNT HAS RECIPIENT'", async function () {
-    await addTestNetworkRecipients(0, [1]);
+    await spCoinAddMethods.addTestNetworkRecipients(0, [1]);
     let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Sponsor Account has a Recipient, (Sponsor must Un-recipient Recipiented Account)'";
     try {
-      await deleteTestNetworkAccount(0);
+      await spCoinAddMethods.deleteTestNetworkAccount(0);
       throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
     }
     catch (err) {
@@ -78,10 +78,10 @@ describe("spCoinContract", function () {
 /* */
 
     it("SUCCESSFUL ERROR MSG CAUGHT: 'RECIPIENT ACCOUNT HAS SPONSOR'", async function () {
-      await addTestNetworkRecipients(0, [1]);
+      await spCoinAddMethods.addTestNetworkRecipients(0, [1]);
       let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Recipient Account has a Sponsor, (Sponsor must Un-recipient Recipiented Account)'";
       try {
-        await deleteTestNetworkAccount(1);
+        await spCoinAddMethods.deleteTestNetworkAccount(1);
         throw new Error("Trace point 0. Should have thrown expected error:\n" + expectedErrMsg);
       }
       catch (err) {
@@ -113,32 +113,32 @@ describe("spCoinContract", function () {
     expect(AccountListSize).to.equal(0);
 
     // Add 1 Record Validate Size is 1
-    await addTestNetworkAccount(0);
+    await spCoinAddMethods.spCoinAddMethods.addTestNetworkAccount(0);
     AccountListSize = (await getAccountListSize()).toNumber();
     expect(AccountListSize).to.equal(1);
 
     // Add duplicate Record Validate Size is still 1
-    await addTestNetworkAccount(0);
+    await spCoinAddMethods.spCoinAddMethods.addTestNetworkAccount(0);
     AccountListSize = (await getAccountListSize()).toNumber();
 
     // delete Record Validate Size should reduce to 1
-    await deleteTestNetworkAccount(0);
+    await spCoinAddMethods.deleteTestNetworkAccount(0);
     AccountListSize = (await getAccountListSize()).toNumber();
     expect(AccountListSize).to.equal(0);
 
     // Add additional Record Validate Size is 2
-    await addTestNetworkAccount(0);
-    await addTestNetworkAccount(1);
+    await spCoinAddMethods.spCoinAddMethods.addTestNetworkAccount(0);
+    await spCoinAddMethods.spCoinAddMethods.addTestNetworkAccount(1);
     AccountListSize = (await getAccountListSize()).toNumber();
     expect(AccountListSize).to.equal(2);
 
     // Add 5 additional Records Validate Size is now 7
-    await addTestNetworkAccounts([4,6,9,10,8]);
+    await spCoinAddMethods.addTestNetworkAccounts([4,6,9,10,8]);
     AccountListSize = (await getAccountListSize()).toNumber();
     expect(AccountListSize).to.equal(7);
 
     // Add 4 Records Validate Size is now 3
-    await deleteTestNetworkAccounts([10,8,4,0]);
+    await spCoinAddMethods.deleteTestNetworkAccounts([10,8,4,0]);
     AccountListSize = (await getAccountListSize()).toNumber();
     expect(AccountListSize).to.equal(3);
 

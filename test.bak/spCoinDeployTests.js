@@ -93,7 +93,7 @@ describe("spCoinContract", function() {
         logTestHeader("TEST MORE HARDHAT RECIPIENT RECORD INSERTIONS")
 
         logDetail("JS => *** Insert Recipient to AccountRecord[2] as AccountRecord[5] ***")
-        await addTestNetworkRecipientAgents(6, 10, [1, 2]);
+        await spCoinAddMethods.addTestNetworkRecipientAgents(6, 10, [1, 2]);
         let insertCount = (await getAccountListSize());
         expect(insertCount).to.equal(4);
     });

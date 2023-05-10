@@ -88,19 +88,6 @@ class SpCoinTestMethods {
     return AccountListKeys;
   };
 
-  getTestHHAccountRecord = async (testHHAccountIdx) => {
-    testHHAccountKey = await getTestHHAccountKey(testHHAccountIdx);
-    testHHAccountRecord = getAccountRecord(testHHAccountKey);
-    return testHHAccountRecord;
-  }
-
-  logTestHHAccountRecord = async (testHHAccountIdx) => {
-    testHHAccountKey = await getTestHHAccountKey(testHHAccountIdx);
-    testHHAccountRecord = logJSONAccount(testHHAccountKey);
-    logExitFunction();
-    return testHHAccountRecord;
-  }
-
   ///////////////////////////// DELETE METHODS ///////////////////////////////
 
   deleteTestNetworkAccount = async (_testHHAccountIdx) => {
@@ -117,27 +104,7 @@ class SpCoinTestMethods {
     await deleteAccountRecords(testHHAccountList);
     logExitFunction();
   };
-
-  /////////////////////////// TEST UN-RECIPIENT METHODS //////////////////////////
-
-
-  deleteTestNetworkRecipients = async (_testHHAccountIdx) => {
-    logFunctionHeader("async (" + _testHHAccountIdx+ ")");
-    let accountKey = await getTestHHAccountKey(_testHHAccountIdx);
-    await (accountKey);
-    logExitFunction();
-    return accountKey;
-};
 }
-/*
-deleteTestNetworkRecipientAgents = async (_testHHAccountIdx) => {
-  logFunctionHeader("async (" + _testHHAccountIdx+ ")");
-  let accountKey = await getTestHHAccountKey(_testHHAccountIdx);
-  await deleteAgentAccountReferences(accountKey);
-    logExitFunction();
-  return accountKey;
-};
-*/
 
 module.exports = {
   SpCoinTestMethods
