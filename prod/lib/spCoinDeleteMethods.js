@@ -42,7 +42,6 @@ deleteAccountRecords = async (_accountListKeys) => {
 /////////////////////// RECIPIENT RECORD FUNCTIONS ///////////////////////
 
 unSponsorRecipient = async (_sponsorKey, _recipientKey) => {
-  setSigner(_sponsorKey);
   logFunctionHeader("unSponsorRecipient(" + _sponsorKey.accountKey + ", " + _recipientKey + ")");
   await spCoinContractDeployed.connect(signer).unSponsorRecipient(_recipientKey);
   logExitFunction();

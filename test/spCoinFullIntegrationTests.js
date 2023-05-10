@@ -28,11 +28,8 @@ describe("spCoinContract", function () {
   beforeEach(async () => {
     spCoinContractDeployed = await deploySpCoinContract();
     const hhTestElements = await initHHAccounts();
-    const signers = hhTestElements.signers;
-    setSigners(signers);
     const accounts = hhTestElements.accounts;
-    const rates = hhTestElements.rates;
-    SPONSOR_ACCOUNT_SIGNERS = signers;
+    SPONSOR_ACCOUNT_SIGNERS = hhTestElements.signers;
     RECIPIENT_ACCOUNT_KEYS = AGENT_ACCOUNT_KEYS = accounts;
     TRANSACTION_QTY = RECIPIENT_RATES = AGENT_RATES = hhTestElements.rates;
     BURN_ACCOUNT = hhTestElements.burnAddress;

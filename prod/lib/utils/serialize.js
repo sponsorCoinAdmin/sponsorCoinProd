@@ -14,9 +14,11 @@ const bigIntToString = ( _value, _base ) => { let dec = BigInt(_value); return d
 
 class SpCoinSerialize {
   constructor( _spCoinContractDeployed) {
-    console.log("constructor called with " + _spCoinContractDeployed);
-    this.spCoinContractDeployed = _spCoinContractDeployed;
-    // this.signer = _spCoinContractDeployed.signer;
+    if ( _spCoinContractDeployed != undefined) {
+      console.log("constructor called with " + _spCoinContractDeployed);
+      this.spCoinContractDeployed = _spCoinContractDeployed;
+      setSigner(_spCoinContractDeployed.signer);
+    }
   }
 
   setSigner = (_signer) => {

@@ -119,10 +119,6 @@ addSponsorship = async (
       _transactionQty + ")"
     );
 
-    // do decimal power operation for quantity
-    setSigner(_sponsorSigner);
-    // console.log("JS==> TransactionQty = " + BigInt(transactionQty ** offset));
-
     let components = _transactionQty.toString().split(".");
     let wholePart = components[0].length > 0   ? components[0] : "0";
     let fractionalPart = components.length > 1 ? components[1] : "0";
@@ -162,10 +158,6 @@ addSponsorship = async (
         _agentRateKey + ", " +
         _transactionQty + ")"
       );
-    
-      // do decimal power operation for quantity
-      setSigner(_sponsorSigner);
-      // console.log("JS==> TransactionQty = " + BigInt(transactionQty ** offset));
     
       let components = _transactionQty.toString().split(".");
       let wholePart = components[0].length > 0   ? components[0] : "0";

@@ -11,7 +11,6 @@ const {
   } = require("../prod/lib/utils/logging");
 
   let spCoinContractDeployed;
-  let signers;
 
   deploySpCoinContract = async () => {
     spCoinContractDeployed = await deployContract();
@@ -30,18 +29,6 @@ const {
     // REMOVE NEXT DEBUG LINE
     // getSpCoinContract();
     return spCoinContractDeployed;
-  }
-
-  setSigners = (_signers) => {
-    signers = _signers;
-    setSignerByIndex(0);
-  }
-
-  setSignerByIndex = (_signerIxd) => {
-    setSigner(signers[_signerIxd]);
-  }
-  
-  setSigner = (_signer) => {
   }
 
   deployContract = async () => {
