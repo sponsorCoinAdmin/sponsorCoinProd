@@ -19,9 +19,10 @@ let spCoinSerialize = new SpCoinSerialize();
 injectReadMethodsContract = (_spCoinContractDeployed) => {
   spCoinSerialize.setContract(_spCoinContractDeployed);
   spCoinContractDeployed = spCoinSerialize.spCoinContractDeployed;
+  setSigner2(spCoinContractDeployed.signer);
 };
 
-injectReadMethodsSigner = (_signer) => {
+setSigner2 = (_signer) => {
   spCoinSerialize.setSigner(_signer);
   signer = spCoinSerialize.signer;
 };

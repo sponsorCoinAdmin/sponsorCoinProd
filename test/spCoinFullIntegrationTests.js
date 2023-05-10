@@ -27,10 +27,8 @@ setLogMode(LOG_MODE.LOG_FUNCTION_HEADER, false);
 describe("spCoinContract", function () {
   beforeEach(async () => {
     spCoinContractDeployed = await deploySpCoinContract();
-    console.log("QQQQQQ spCoinContractDeployed.signer:=", spCoinContractDeployed.signer);
     const hhTestElements = await initHHAccounts();
     const signers = hhTestElements.signers;
-    console.log("QQQQQQ2 signers[0] :=", signers[0]);
     setSigners(signers);
     const accounts = hhTestElements.accounts;
     const rates = hhTestElements.rates;

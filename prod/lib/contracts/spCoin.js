@@ -14,7 +14,6 @@ class SpCoinContract {
   }
   
   setSigner = (_signer) => {
-    injectReadMethodsSigner(_signer);
     injectDeleteMethodsSigner(_signer);
     injectAddMethodsSigner(_signer);
     injectTransferMethodsSigner(_signer);
