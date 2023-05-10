@@ -42,7 +42,6 @@ const {
   }
   
   setSigner = (_signer) => {
-    injectDeleteMethodsSigner(_signer);
     injectAddMethodsSigner(_signer);
     injectTransferMethodsSigner(_signer);
   }

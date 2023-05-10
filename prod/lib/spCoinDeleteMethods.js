@@ -8,9 +8,10 @@ let signer;
 
 injectDeleteMethodsContract = (_spCoinContractDeployed) => {
   spCoinContractDeployed = _spCoinContractDeployed;
+  setSigner3(spCoinContractDeployed.signer);
 };
 
-injectDeleteMethodsSigner = (_signer) => {
+setSigner3 = (_signer) => {
   signer = _signer;
 };
 
