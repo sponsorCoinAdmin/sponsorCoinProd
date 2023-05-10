@@ -1,5 +1,5 @@
 // const {  spCoinContractDeployed } = require("../contracts/spCoin");
-const { BigNumber, ethers, utils } = require("ethers");
+// const { BigNumber, ethers, utils } = require("ethers");
 const {
   AccountStruct,
   RecipientStruct,
@@ -13,10 +13,10 @@ const bigIntToHexString = ( _value ) => { return bigIntToString(_value, 16) };
 const bigIntToString = ( _value, _base ) => { let dec = BigInt(_value); return dec.toString(_base) };
 
 class SpCoinSerialize {
-  constructor( _spCoinContractDeployed, _signer ) {
+  constructor( _spCoinContractDeployed) {
     console.log("constructor called with " + _spCoinContractDeployed);
     this.spCoinContractDeployed = _spCoinContractDeployed;
-    this.signer = _signer;
+    // this.signer = _spCoinContractDeployed.signer;
   }
 
   setSigner = (_signer) => {
@@ -25,6 +25,7 @@ class SpCoinSerialize {
 
   setContract = ( _spCoinContractDeployed ) => {
     this.spCoinContractDeployed = _spCoinContractDeployed;
+    this.signer = _spCoinContractDeployed.signer;
   };
 
   

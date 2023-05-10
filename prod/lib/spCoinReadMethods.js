@@ -279,29 +279,6 @@ getRecipientRateAgentList = async (_sponsorKey, _recipientKey, _recipientRateKey
 /////////////////////// EXPORT MODULE FUNCTIONS ///////////////////////
 
 module.exports = {
-  // getAccountList,
-  // getAccountListSize,
-  // getAccountRecipientList,
-  // getAccountRecipientListSize,
-  // getAccountRecord,
-  // getAccountRecords,
-
-  // getAgentRateList,
-  // getAgentRateRecord,
-  // getAgentRateRecordList,
-  // getAgentRateTransactionList,
-  // getAgentRecord,
-  // getAgentRecordList,
-
-  // getRecipientRateAgentList,
-  // getRecipientRateList,
-  // getRecipientRateRecord,
-  // getRecipientRateRecordList,
-  // getRecipientRateTransactionList,
-  // getRecipientRecord,
-  // getRecipientRecordList,
-
   SpCoinReadMethods,
-
   injectReadMethodsContract,
 };

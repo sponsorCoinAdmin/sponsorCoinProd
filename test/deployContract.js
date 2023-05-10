@@ -19,7 +19,7 @@ const {
     return spCoinContractDeployed;
   }
 
-  injectContract = (spCoinContractDeployed, signer) => {
+  injectContract = (spCoinContractDeployed) => {
     // console.log("SSSSSSSSSSSSSS injectContract(", spCoinContractDeployed, ")")
     injectReadMethodsContract(spCoinContractDeployed);
     injectDeleteMethodsContract(spCoinContractDeployed);
