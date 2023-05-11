@@ -4,6 +4,7 @@ const { SpCoinDeleteMethods } = require("./spCoinDeleteMethods");
 const { SpCoinAddMethods } = require("./spCoinAddMethods");
 const { SpCoinReadMethods } = require("./SpCoinReadMethods");
 
+/*
 let spCoinContractDeployed;
 let BURN_ACCOUNT;
 let spCoinAddMethods;
@@ -12,6 +13,7 @@ let spCoinReadMethods;
 let spCoinERC20Methods;
 let spCoinLogger;
 let hhTestElements;
+*/
 
 initSPCoin = async () => {
   hhTestElements = await initHHAccounts();
@@ -30,13 +32,9 @@ initSPCoin = async () => {
 };
 
 module.exports = {
-  initSPCoin,
-  spCoinContractDeployed,
-  BURN_ACCOUNT,
-  spCoinAddMethods,
-  spCoinDeleteMethods,
-  spCoinReadMethods,
-  spCoinERC20Methods,
-  spCoinLogger,
-  hhTestElements
+  SpCoinLogger, LOG_MODE,
+  SpCoinERC20Methods,
+  SpCoinDeleteMethods,
+  SpCoinAddMethods,
+  SpCoinReadMethods
 };

@@ -1,13 +1,12 @@
 const { expect } = require("chai");
 const { initHHAccounts } = require("../test/testMethods/hhTestAccounts");
 const { } = require("../test/deployContract");
-const { } = require("../prod/lib/spCoinMethods");
-
-const { SpCoinLogger, LOG_MODE } = require("../prod/lib/utils/logging");
-const { SpCoinERC20Methods } = require("../prod/lib/spCoinTransferMethods");
-const { SpCoinDeleteMethods } = require("../prod/lib/spCoinDeleteMethods");
-const { SpCoinAddMethods } = require("../prod/lib/spCoinAddMethods");
-const { SpCoinReadMethods } = require("../prod/lib/SpCoinReadMethods");
+const { SpCoinLogger, LOG_MODE,
+  SpCoinERC20Methods,
+  SpCoinDeleteMethods,
+  SpCoinAddMethods,
+  SpCoinReadMethods
+} = require("../prod/lib/spCoinMethods");
 
 // let spCoinContractDeployed;
 // let BURN_ACCOUNT;
@@ -18,6 +17,7 @@ const { SpCoinReadMethods } = require("../prod/lib/SpCoinReadMethods");
 // let spCoinLogger;
 // let hhTestElements;
 
+/*
 initSPCoin = async () => {
   hhTestElements = await initHHAccounts();
   spCoinContractDeployed = await deploySpCoinContract();
@@ -33,7 +33,7 @@ initSPCoin = async () => {
   TRANSACTION_QTY = RECIPIENT_RATES = AGENT_RATES = hhTestElements.rates;
   BURN_ACCOUNT = hhTestElements.burnAddress;
 };
-
+*/
 // let spCoinContractDeployed;
 
 describe("spCoinContract", function () {
