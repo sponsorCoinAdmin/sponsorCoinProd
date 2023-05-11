@@ -1,46 +1,44 @@
 const { expect } = require("chai");
-const {
-  AccountStruct,
-  RecipientStruct,
-  AgentStruct,
-  AgentRateStruct,
-  TransactionStruct,
-} = require("../prod/lib/spCoinDataTypes");
 const { initHHAccounts } = require("../test/testMethods/hhTestAccounts");
+const { } = require("../test/deployContract");
+const { } = require("../prod/lib/spCoinMethods");
+
 const { SpCoinLogger, LOG_MODE } = require("../prod/lib/utils/logging");
 const { SpCoinERC20Methods } = require("../prod/lib/spCoinTransferMethods");
 const { SpCoinDeleteMethods } = require("../prod/lib/spCoinDeleteMethods");
 const { SpCoinAddMethods } = require("../prod/lib/spCoinAddMethods");
 const { SpCoinReadMethods } = require("../prod/lib/SpCoinReadMethods");
-const { } = require("../test/deployContract");
-const { SpCoinContract } = require("../prod/lib/contracts/spCoin");
 
-let spCoinContractDeployed;
-let BURN_ACCOUNT;
-let spCoinAddMethods;
-let spCoinDeleteMethods;
-let spCoinReadMethods;
-let spCoinERC20Methods;
-let spCoinLogger;
-let hhTestElements;
+// let spCoinContractDeployed;
+// let BURN_ACCOUNT;
+// let spCoinAddMethods;
+// let spCoinDeleteMethods;
+// let spCoinReadMethods;
+// let spCoinERC20Methods;
+// let spCoinLogger;
+// let hhTestElements;
+
+initSPCoin = async () => {
+  hhTestElements = await initHHAccounts();
+  spCoinContractDeployed = await deploySpCoinContract();
+  spCoinAddMethods = new SpCoinAddMethods(spCoinContractDeployed);
+  spCoinReadMethods = new SpCoinReadMethods(spCoinContractDeployed);
+  spCoinERC20Methods = new SpCoinERC20Methods(spCoinContractDeployed);
+  spCoinDeleteMethods = new SpCoinDeleteMethods(spCoinContractDeployed);
+  spCoinLogger = new SpCoinLogger(spCoinContractDeployed);
+  spCoinLogger.logSetup("JS => Setup Test");
+  spCoinLogger.setLogMode(LOG_MODE.LOG_FUNCTION_HEADER, false);
+  SPONSOR_ACCOUNT_SIGNERS = hhTestElements.signers;
+  RECIPIENT_ACCOUNT_KEYS = AGENT_ACCOUNT_KEYS = hhTestElements.accounts;
+  TRANSACTION_QTY = RECIPIENT_RATES = AGENT_RATES = hhTestElements.rates;
+  BURN_ACCOUNT = hhTestElements.burnAddress;
+};
 
 // let spCoinContractDeployed;
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
-    hhTestElements = await initHHAccounts();
-    spCoinContractDeployed = await deploySpCoinContract();
-    spCoinAddMethods = new SpCoinAddMethods(spCoinContractDeployed);
-    spCoinReadMethods = new SpCoinReadMethods(spCoinContractDeployed);
-    spCoinERC20Methods = new SpCoinERC20Methods(spCoinContractDeployed);
-    spCoinDeleteMethods = new SpCoinDeleteMethods(spCoinContractDeployed);
-    spCoinLogger = new SpCoinLogger(spCoinContractDeployed);
-    spCoinLogger.logSetup("JS => Setup Test");
-    spCoinLogger.setLogMode(LOG_MODE.LOG_FUNCTION_HEADER, false);
-    SPONSOR_ACCOUNT_SIGNERS = hhTestElements.signers;
-    RECIPIENT_ACCOUNT_KEYS = AGENT_ACCOUNT_KEYS = hhTestElements.accounts;
-    TRANSACTION_QTY = RECIPIENT_RATES = AGENT_RATES = hhTestElements.rates;
-    BURN_ACCOUNT = hhTestElements.burnAddress;
+    await initSPCoin();
   });
 
  it("2. VALIDATE ADD TRANSACTION RATES", async function () {
