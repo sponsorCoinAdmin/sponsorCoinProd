@@ -1,12 +1,12 @@
 const { expect } = require("chai");
 const { initHHAccounts } = require("../test/testMethods/hhTestAccounts");
-const { SpCoinLoggingMethods } = require("../prod/lib/utils/logging");
+const { SpCoinLogger } = require("../prod/lib/utils/logging");
 const { } = require("../prod/lib/spCoinDeleteMethods");
 const { } = require("../test/deployContract");
 
 let spCoinContractDeployed;
 
-spCoinLoggingMethods.logSetup("JS => Setup Test");
+spCoinLogger.logSetup("JS => Setup Test");
 
 /**/
 
@@ -25,7 +25,7 @@ describe("spCoinContract", function () {
       console.log("*** ACCOUNT KEYS BEFORE DELETE ***\n", keys);
       console.log("============================================================");
       console.log("*** ACCOUNT STRUCTURE BEFORE DELETE ***");
-      await spCoinLoggingMethods.logJSONTree();
+      await spCoinLogger.logJSONTree();
   
       let expectedErrMsg = "VM Exception while processing transaction: reverted with reason string 'Sponsor Account has a Recipient, (Sponsor must Un-recipient Recipiented Account)'";
       try {
@@ -40,7 +40,7 @@ describe("spCoinContract", function () {
       console.log("*** ACCOUNTS KEYS AFTER DELETE ***\n", keys);
       console.log("============================================================");
       console.log("*** ACCOUNT STRUCTURE AFTER DELETE ***");
-      await spCoinLoggingMethods.logJSONTree();
+      await spCoinLogger.logJSONTree();
 
       console.log("============================================================");
     });
@@ -141,7 +141,7 @@ describe("spCoinContract", function () {
     expect(AccountListSize).to.equal(3);
 
     accountArr = await getAccountRecords();
-    spCoinLoggingMethods.logJSON(accountArr);
+    spCoinLogger.logJSON(accountArr);
   });
   /**/
 });

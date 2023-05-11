@@ -1,6 +1,3 @@
-// const { SpCoinReadMethods } = require("../spCoinReadMethods");
-const { } = require("../spCoinAddMethods");
-
 // ************************* LOG SECTION ******************************/
 let LOG = true;
 let LOG_DETAIL = false;
@@ -31,7 +28,7 @@ const LOG_MODE = {
 
 //   let spCoinReadMethods;
 
-class SpCoinLoggingMethods {
+class SpCoinLogger {
      constructor(_spCoinContractDeployed) {
         // if (_spCoinContractDeployed !== undefined) {
             this.spCoinContractDeployed = _spCoinContractDeployed;
@@ -145,6 +142,6 @@ class SpCoinLoggingMethods {
 }
 
 module.exports = {
-    SpCoinLoggingMethods,
+    SpCoinLogger,
     LOG_MODE
 }

@@ -1,4 +1,4 @@
-const { SpCoinLoggingMethods } = require("./utils/logging");
+const { SpCoinLogger } = require("./utils/logging");
 const {
   AccountStruct,
   AgentRateStruct,
@@ -8,7 +8,7 @@ const {
   TransactionStruct } = require("./spCoinDataTypes");
 const { SpCoinSerialize, bigIntToDecString } = require("./utils/serialize");
 
-let spCoinLoggingMethods;
+let spCoinLogger;
 
 //////////////////////////// ROOT LEVEL FUNCTIONS ////////////////////////////
 
@@ -19,7 +19,7 @@ let spCoinLoggingMethods;
         this.spCoinContractDeployed = _spCoinContractDeployed;
         this.spCoinSerialize = new SpCoinSerialize(_spCoinContractDeployed);
         this.setSigner(_spCoinContractDeployed.signer);
-        spCoinLoggingMethods = new SpCoinLoggingMethods(_spCoinContractDeployed);
+        spCoinLogger = new SpCoinLogger(_spCoinContractDeployed);
       // }
     }
     
@@ -28,35 +28,35 @@ let spCoinLoggingMethods;
     }
     
     getAccountList = async () => {
-      spCoinLoggingMethods.logFunctionHeader("getAccountList = async()");
+      spCoinLogger.logFunctionHeader("getAccountList = async()");
       let insertedAccountList = await this.spCoinContractDeployed.connect(this.signer).getAccountList();
-      spCoinLoggingMethods.logExitFunction();
+      spCoinLogger.logExitFunction();
       return insertedAccountList;
     };
     
     getAccountListSize = async () => {
-      spCoinLoggingMethods.logFunctionHeader("getAccountListSize = async()");
+      spCoinLogger.logFunctionHeader("getAccountListSize = async()");
       let maxSize = (await this.getAccountList()).length;
-      spCoinLoggingMethods.logDetail("JS => Found " + maxSize + " Account Keys");
-      spCoinLoggingMethods.logExitFunction();
+      spCoinLogger.logDetail("JS => Found " + maxSize + " Account Keys");
+      spCoinLogger.logExitFunction();
       return maxSize;
     };
     
     getAccountRecipientList = async (_accountKey) => {
       // console.log("==>4 getAccountRecipientList = async(" + _accountKey + ")");
-      spCoinLoggingMethods.logFunctionHeader("getAccountRecipientList = async(" + _accountKey + ")");
+      spCoinLogger.logFunctionHeader("getAccountRecipientList = async(" + _accountKey + ")");
       let recipientAccountList = await this.spCoinContractDeployed.connect(this.signer).getAccountRecipientList(_accountKey);
-      spCoinLoggingMethods.logExitFunction();
+      spCoinLogger.logExitFunction();
       return recipientAccountList;
     };
     
     getAccountRecipientListSize = async (_accountKey) => {
       // console.log("==>20 getAccountRecipientListSize = async(" + _accountKey + ")");
-      spCoinLoggingMethods.logFunctionHeader("getAccountRecipientListSize = async(" + _accountKey + ")");
+      spCoinLogger.logFunctionHeader("getAccountRecipientListSize = async(" + _accountKey + ")");
     
       let maxSize = (await this.getAccountRecipientList(_accountKey)).length;
-      spCoinLoggingMethods.logDetail("JS => Found " + maxSize + " Account Recipient Keys");
-      spCoinLoggingMethods.logExitFunction();
+      spCoinLogger.logDetail("JS => Found " + maxSize + " Account Recipient Keys");
+      spCoinLogger.logExitFunction();
       return maxSize;
     };
 
@@ -66,13 +66,13 @@ let spCoinLoggingMethods;
       accountStruct.accountKey = _accountKey;
       let recipientAccountList = await this.getAccountRecipientList(_accountKey);
       accountStruct.recipientRecordList = await this.getRecipientRecordList(_accountKey, recipientAccountList);
-      spCoinLoggingMethods.logExitFunction();
+      spCoinLogger.logExitFunction();
       return accountStruct;
     }
 
     getAccountRecords = async() => {
       // console.log("==>1 getAccountRecords()");
-      spCoinLoggingMethods.logFunctionHeader("getAccountRecords()");
+      spCoinLogger.logFunctionHeader("getAccountRecords()");
       let accountArr = [];
       let accountList = await this.spCoinContractDeployed.connect(this.signer).getAccountList();
     
@@ -80,7 +80,7 @@ let spCoinLoggingMethods;
           let accountStruct = await this.getAccountRecord(accountList[i]);
           accountArr.push(accountStruct);
       }
-      spCoinLoggingMethods.logExitFunction();
+      spCoinLogger.logExitFunction();
       return accountArr;
     }
     
@@ -88,19 +88,19 @@ let spCoinLoggingMethods;
     
     getAgentRateList = async (_sponsorKey, _recipientKey, _recipientRateKey, _agentKey) => {
       // console.log("==>17 getAgentRateList = async(" + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ", " + _agentKey + ")" );
-      spCoinLoggingMethods.logFunctionHeader("getAgentRateList = async(" + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ", " + _agentKey + ")" );
+      spCoinLogger.logFunctionHeader("getAgentRateList = async(" + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ", " + _agentKey + ")" );
       let networkRateKeys = await this.spCoinContractDeployed.connect(this.signer).getAgentRateList(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
       let agentRateList = [];
       for (let [idx, netWorkRateKey] of Object.entries(networkRateKeys)) {
         agentRateList.push(netWorkRateKey.toNumber());
       }
-      spCoinLoggingMethods.logExitFunction();
+      spCoinLogger.logExitFunction();
       return agentRateList;
     };
 
     getAgentRateRecord = async(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey) => {
       // console.log("==>18 getAgentRateRecord(" + _sponsorKey   + _recipientKey + ", " + _agentKey+ ", " + _agentRateKey + ")");
-      spCoinLoggingMethods.logFunctionHeader("getAgentRateRecord(" + _sponsorKey   + _recipientKey + ", " + _agentKey+ ", " + _agentRateKey + ")");
+      spCoinLogger.logFunctionHeader("getAgentRateRecord(" + _sponsorKey   + _recipientKey + ", " + _agentKey+ ", " + _agentRateKey + ")");
       let agentRateRecord = new AgentRateStruct();
       let recordStr = await this.spCoinSerialize.getSerializedAgentRateList(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
       agentRateRecord.agentRate = _agentRateKey;
@@ -108,13 +108,13 @@ let spCoinLoggingMethods;
       agentRateRecord.lastUpdateTime = bigIntToDecString(recordStr[1]);
       agentRateRecord.stakedSPCoins = bigIntToDecString(recordStr[2]);
         agentRateRecord.transactions = await this.getAgentRateTransactionList(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
-      spCoinLoggingMethods.logExitFunction();
+      spCoinLogger.logExitFunction();
       return agentRateRecord;
     }
 
     getAgentRateRecordList = async(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey) => {
       // console.log("==>16 getAgentRateRecordList = async(" + _recipientKey+ ", " + _agentKey + ")");
-      spCoinLoggingMethods.logFunctionHeader("getAgentRateRecordList(" + ", " + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ", " + _agentKey + ")");
+      spCoinLogger.logFunctionHeader("getAgentRateRecordList(" + ", " + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ", " + _agentKey + ")");
       
       let agentRateList = await this.getAgentRateList(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
     
@@ -123,7 +123,7 @@ let spCoinLoggingMethods;
       let agentRateRecord = await this.getAgentRateRecord(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey, agentRateKey);
       agentRateRecordList.push(agentRateRecord);
       }
-      spCoinLoggingMethods.logExitFunction();
+      spCoinLogger.logExitFunction();
       return agentRateRecordList;
     }
     
@@ -131,32 +131,32 @@ let spCoinLoggingMethods;
 
     getAgentRecord = async(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey) => {
       // console.log("==>15 getAgentRecord = async(" + ", " + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ", " + _agentKey + ")");
-      spCoinLoggingMethods.logFunctionHeader("getAgentRecord = async(" + ", " + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ", " + _agentKey + ")");
+      spCoinLogger.logFunctionHeader("getAgentRecord = async(" + ", " + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ", " + _agentKey + ")");
       let agentRecord = new AgentStruct();
       agentRecord.agentKey = _agentKey;
       agentRecord.stakedSPCoins = bigIntToDecString(await this.spCoinContractDeployed.connect(this.signer).getAgentTotalRecipient(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey));
       agentRecord.agentRateList = await this.getAgentRateRecordList(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
-      spCoinLoggingMethods.logExitFunction();
+      spCoinLogger.logExitFunction();
       return agentRecord;
     }
     
     getAgentRecordList = async(_sponsorKey, _recipientKey, _recipientRateKey, _agentAccountList) => {
       // console.log("==>14 getAgentRecordList = async("+_sponsorKey, + ", " + _recipientKey + ", " + _recipientRateKey + ")");
-      spCoinLoggingMethods.logFunctionHeader("getAgentRecordList = async("+_sponsorKey, + ", " + _recipientKey + ", " + _recipientRateKey + ")");
+      spCoinLogger.logFunctionHeader("getAgentRecordList = async("+_sponsorKey, + ", " + _recipientKey + ", " + _recipientRateKey + ")");
       let agentRecordList = [];
       for (let [idx, agentKey] of Object.entries(_agentAccountList)) {
         let agentRecord = await this.getAgentRecord(_sponsorKey, _recipientKey, _recipientRateKey, agentKey);
           agentRecordList.push(agentRecord);
       }
-      spCoinLoggingMethods.logExitFunction();
+      spCoinLogger.logExitFunction();
       return agentRecordList;
     }
     
     getAgentRateTransactionList = async(_sponsorCoin, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey) => {
       // console.log("==>18 getAgentRateTransactionList = async(" + _recipientKey + ", " + _recipientRateKey + ", " + _agentKey + ", " + _agentRateKey + ")");
-      spCoinLoggingMethods.logFunctionHeader("getAgentRateTransactionList = async(" + _recipientKey + ", " + _recipientRateKey + ", " + _agentKey + ", " + _agentRateKey + ")");
+      spCoinLogger.logFunctionHeader("getAgentRateTransactionList = async(" + _recipientKey + ", " + _recipientRateKey + ", " + _agentKey + ", " + _agentRateKey + ")");
       let agentRateTransactionList = await this.spCoinContractDeployed.connect(this.signer).getAgentRateTransactionList(_sponsorCoin, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
-      spCoinLoggingMethods.logExitFunction();
+      spCoinLogger.logExitFunction();
       return this.getRateTransactionRecords(agentRateTransactionList);
     }  
 
@@ -164,15 +164,15 @@ let spCoinLoggingMethods;
 
     getRecipientRateAgentList = async (_sponsorKey, _recipientKey, _recipientRateKey) => {
       // console.log("==>13 getRecipientRateAgentList = async(" + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ")" );
-      spCoinLoggingMethods.logFunctionHeader("getRecipientRateAgentList = async(" + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ")" );
+      spCoinLogger.logFunctionHeader("getRecipientRateAgentList = async(" + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ")" );
       let agentAccountList = await this.spCoinContractDeployed.connect(this.signer).getRecipientRateAgentList(_sponsorKey, _recipientKey, _recipientRateKey);
-      spCoinLoggingMethods.logExitFunction();
+      spCoinLogger.logExitFunction();
       return agentAccountList;
     };
 
     getRecipientRateRecord = async(_sponsorKey, _recipientKey, _recipientRateKey) => {
     // console.log("==>10 getRecipientRateRecord(" + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ")");
-      spCoinLoggingMethods.logFunctionHeader("getRecipientRateRecord(" + _sponsorKey  + _recipientKey + ", " + _recipientRateKey + ")");
+      spCoinLogger.logFunctionHeader("getRecipientRateRecord(" + _sponsorKey  + _recipientKey + ", " + _recipientRateKey + ")");
       let recipientRateRecord = new RecipientRateStruct();
       let recordStr = await this.spCoinSerialize.getSerializedRecipientRateList(_sponsorKey, _recipientKey, _recipientRateKey);
       let agentAccountList = await this.getRecipientRateAgentList(_sponsorKey, _recipientKey, _recipientRateKey);
@@ -182,13 +182,13 @@ let spCoinLoggingMethods;
       recipientRateRecord.stakedSPCoins    = bigIntToDecString(recordStr[2]);
       recipientRateRecord.transactions     = await this.getRecipientRateTransactionList(_sponsorKey, _recipientKey, _recipientRateKey);
       recipientRateRecord.agentRecordList  = await this.getAgentRecordList(_sponsorKey, _recipientKey, _recipientRateKey, agentAccountList);
-      spCoinLoggingMethods.logExitFunction();
+      spCoinLogger.logExitFunction();
       return recipientRateRecord;
     }
 
     getRecipientRateRecordList = async(_sponsorKey, _recipientKey) => {
       // console.log("==>8 getRecipientRateRecordList = async(" + _sponsorKey +","  + _recipientKey + ")");
-      spCoinLoggingMethods.logFunctionHeader("getRecipientRateRecordList = async(" + _sponsorKey +","  + _recipientKey + ")");
+      spCoinLogger.logFunctionHeader("getRecipientRateRecordList = async(" + _sponsorKey +","  + _recipientKey + ")");
       let networkRateList = await this.getRecipientRateList(_sponsorKey, _recipientKey);
       let recipientRateRecordList = [];
       
@@ -197,13 +197,13 @@ let spCoinLoggingMethods;
         let recipientRateRecord = await this.getRecipientRateRecord(_sponsorKey, _recipientKey, recipientRateKey);
         recipientRateRecordList.push(recipientRateRecord);
       }
-      spCoinLoggingMethods.logExitFunction();
+      spCoinLogger.logExitFunction();
       return recipientRateRecordList;
     }
       
     getRecipientRecord = async(_sponsorKey, _recipientKey) => {
       // console.log("==>6 getRecipientRecord = async(" + _sponsorKey + ", ", + _recipientKey + ")");
-      spCoinLoggingMethods.logFunctionHeader("getRecipientRecord = async(" +_sponsorKey, + ",", + _recipientKey + ")");
+      spCoinLogger.logFunctionHeader("getRecipientRecord = async(" +_sponsorKey, + ",", + _recipientKey + ")");
       let recipientRecord = new RecipientStruct(_recipientKey);
       recipientRecord.recipientKey = _recipientKey;
       
@@ -213,25 +213,25 @@ let spCoinLoggingMethods;
       
       // ToDo New Robin
       recipientRecord.recipientRateList = await this.getRecipientRateRecordList(_sponsorKey, _recipientKey);
-      spCoinLoggingMethods.logExitFunction();
+      spCoinLogger.logExitFunction();
       return recipientRecord;
     }
 
     getRecipientRecordList = async(_sponsorKey, _recipientAccountList) => {
       // console.log("==>5 getRecipientRecordList = async(" +_sponsorKey + ","+ _recipientAccountList + ")");
-      spCoinLoggingMethods.logFunctionHeader("getRecipientRecordList = async(" +_sponsorKey + ","+ _recipientAccountList + ")");
+      spCoinLogger.logFunctionHeader("getRecipientRecordList = async(" +_sponsorKey + ","+ _recipientAccountList + ")");
       let recipientRecordList = [];
       for (let [idx, recipientKey] of Object.entries(_recipientAccountList)) {
-        spCoinLoggingMethods.logDetail("JS => Loading Recipient Record " + recipientKey, idx);
+        spCoinLogger.logDetail("JS => Loading Recipient Record " + recipientKey, idx);
         let recipientRecord = await this.getRecipientRecord(_sponsorKey, recipientKey);
         recipientRecordList.push(recipientRecord);
       }
-      spCoinLoggingMethods.logExitFunction();
+      spCoinLogger.logExitFunction();
       return recipientRecordList;
     }
     
     getRecipientRateList = async(_sponsorKey, _recipientKey) => {
-      spCoinLoggingMethods.logFunctionHeader("getRecipientRateList = async(" + _sponsorKey +","  + _recipientKey + ")");
+      spCoinLogger.logFunctionHeader("getRecipientRateList = async(" + _sponsorKey +","  + _recipientKey + ")");
       // console.log("==>9 getRecipientRateList = async(" + _sponsorKey +","  + _recipientKey + ")");
       
       let networkRateKeys = await this.spCoinContractDeployed.connect(this.signer).getRecipientRateList(_sponsorKey, _recipientKey);
@@ -239,21 +239,21 @@ let spCoinLoggingMethods;
       for (let [idx, netWorkRateKey] of Object.entries(networkRateKeys)) {
         recipientRateList.push(netWorkRateKey.toNumber());
       }
-      spCoinLoggingMethods.logExitFunction();
+      spCoinLogger.logExitFunction();
       return recipientRateList;
     }
       
     getRecipientRateTransactionList = async(_sponsorCoin, _recipientKey, _recipientRateKey) => {
       // console.log("==>18 getRecipientRateTransactionList = async(" + _recipientKey + ", " + _recipientRateKey + ")");
-      spCoinLoggingMethods.logFunctionHeader("getRecipientRateTransactionList = async(" + _recipientKey + ", " + _recipientRateKey + ")");
+      spCoinLogger.logFunctionHeader("getRecipientRateTransactionList = async(" + _recipientKey + ", " + _recipientRateKey + ")");
       let agentRateTransactionList = await this.spCoinContractDeployed.connect(this.signer).getRecipientRateTransactionList(_sponsorCoin, _recipientKey, _recipientRateKey);
-      spCoinLoggingMethods.logExitFunction();
+      spCoinLogger.logExitFunction();
       return this.getRateTransactionRecords(agentRateTransactionList);
     }
 
     getRateTransactionRecords = (transactionStr) => {
-      spCoinLoggingMethods.logFunctionHeader("getRateTransactionRecords = async(" + transactionStr + ")");
-      //spCoinLoggingMethods.log("getRateTransactionRecords = async(" + transactionStr + ")");
+      spCoinLogger.logFunctionHeader("getRateTransactionRecords = async(" + transactionStr + ")");
+      //spCoinLogger.log("getRateTransactionRecords = async(" + transactionStr + ")");
       let transactionRecs = [];
         if(transactionStr.length > 0) {
         // console.log("==>19 getRateTransactionRecords = async(" + transactionStr + ")");
@@ -264,9 +264,9 @@ let spCoinLoggingMethods;
           transactionRec.insertionTime = bigIntToDecString(transactionFields[0]);
           transactionRec.quantity = bigIntToDecString(transactionFields[1]);
           transactionRecs.push(transactionRec);
-          // spCoinLoggingMethods.logJSON(transactionRec);
+          // spCoinLogger.logJSON(transactionRec);
         }
-        spCoinLoggingMethods.logExitFunction();
+        spCoinLogger.logExitFunction();
       }
       return transactionRecs;
     }    

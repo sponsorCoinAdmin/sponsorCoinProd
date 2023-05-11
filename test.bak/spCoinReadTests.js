@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const { SpCoinLoggingMethods } = require("../prod/lib/utils/logging");
+const { SpCoinLogger } = require("../prod/lib/utils/logging");
 const { initHHAccounts } = require("../test/testMethods/hhTestAccounts");
 const { } = require("../prod/lib/spCoinAddMethods");
 const { } = require("../test/deployContract");
@@ -10,7 +10,7 @@ let RECIPIENT_ACCOUNT_KEYS;
 let spCoinTestMethods = new SpCoinTestMethods();
 let spCoinLogging;
 
-spCoinLoggingMethods.logSetup("JS => Setup Test");
+spCoinLogger.logSetup("JS => Setup Test");
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
@@ -46,7 +46,7 @@ describe("spCoinContract", function () {
     await spCoinAddMethods.addTestNetworkRecipientAgents(1, 10, [2,3,4]);
     await spCoinAddMethods.addTestNetworkRecipientAgents(2, 10, [4]);
 
-    await spCoinLoggingMethods.logJSONTree();
+    await spCoinLogger.logJSONTree();
 
   });
 
@@ -136,7 +136,7 @@ describe("spCoinContract", function () {
 
     // Test Record Structure Read from Blockchain Network
     let accountStruct = await getAccountRecord(accountKey);
-    spCoinLoggingMethods.logJSON(accountStruct);
+    spCoinLogger.logJSON(accountStruct);
     let networkAccountKey = accountStruct.accountKey;
     expect(networkAccountKey).to.equal(accountKey);
 
@@ -173,7 +173,7 @@ describe("spCoinContract", function () {
     expect(AccountListSize).to.equal(3);
 
     let accountArr = await getAccountRecords();
-    spCoinLoggingMethods.logJSON(accountArr);
+    spCoinLogger.logJSON(accountArr);
 
     // Test That Sponsor at Idx 3 has 2 Record Recipient in the blockchain and
     // Validate they are the correct ones in the Sponsor Structure
@@ -181,7 +181,7 @@ describe("spCoinContract", function () {
     let recipientKey = spCoinTestMethods.getTestHHAccountKey(3);
 
     let accountStruct = await getAccountRecord(recipientKey);
-    spCoinLoggingMethods.logJSON(accountStruct);
+    spCoinLogger.logJSON(accountStruct);
     // let networkAccountKey = accountStruct.accountKey;
     // expect(networkAccountKey).to.equal(arrayKey);
   });
@@ -200,8 +200,8 @@ describe("spCoinContract", function () {
   
     await addRecipients(accountKey, recipientListKeys);
 
-   spCoinLoggingMethods.log("Tree For Account Key: " + accountKey + " With Inserted Recipient:");
-    await spCoinLoggingMethods.logJSONTree();
+   spCoinLogger.log("Tree For Account Key: " + accountKey + " With Inserted Recipient:");
+    await spCoinLogger.logJSONTree();
 
     AccountListSize = (await getAccountListSize());
     expect(AccountListSize).to.equal(7);
@@ -211,7 +211,7 @@ describe("spCoinContract", function () {
 
     let recipientRecordList = await getAccountRecipientList(accountKey);
 
-    spCoinLoggingMethods.logJSON(recipientRecordList);
+    spCoinLogger.logJSON(recipientRecordList);
     let recipientRecordListLength = Object.keys(recipientRecordList).length;
     expect(recipientRecordListLength).to.equal(6);
 
