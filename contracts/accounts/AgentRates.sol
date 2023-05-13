@@ -20,7 +20,7 @@ contract AgentRates is Agent {
         if (!agentRateRecord.inserted) {
             agentRateRecord.agentRate = _agentRateKey;
             agentRateRecord.inserted = true;
-            agentRateRecord.insertionTime = agentRateRecord.lastUpdateTime = block.timestamp;
+            agentRateRecord.creationTime = agentRateRecord.lastUpdateTime = block.timestamp;
             agentRateRecord.stakedSPCoins = 0;
             agentRecord.agentRateList.push(_agentRateKey);
         }
@@ -35,10 +35,10 @@ contract AgentRates is Agent {
 
     function serializeAgentRateRecordStr(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
         AgentRateStruct storage agentRateRecord =  getAgentRateRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
-        string memory insertionTimeStr = toString(agentRateRecord.insertionTime);
+        string memory creationTimeStr = toString(agentRateRecord.creationTime);
         string memory lastUpdateTimeStr = toString(agentRateRecord.lastUpdateTime);
         string memory stakedSPCoinsStr = toString(agentRateRecord.stakedSPCoins);
-        string memory strRateHeaderStr = concat(insertionTimeStr, ",", lastUpdateTimeStr, ",", stakedSPCoinsStr);
+        string memory strRateHeaderStr = concat(creationTimeStr, ",", lastUpdateTimeStr, ",", stakedSPCoinsStr);
         return strRateHeaderStr;
     }
 

@@ -31,7 +31,7 @@ contract Recipient is Sponsor {
         RecipientStruct storage recipientRecord = accountMap[_sponsor].recipientMap[_recipientKey];
         if (!recipientRecord.inserted) {
             addAccountRecord("Recipient", _recipientKey);
-            recipientRecord.insertionTime = block.timestamp;
+            recipientRecord.creationTime = block.timestamp;
             recipientRecord.sponsorKey = _sponsor;
             recipientRecord.recipientKey = _recipientKey;
             recipientRecord.stakedSPCoins = 0; // Coins not owned but Recipiented
@@ -68,7 +68,7 @@ contract Recipient is Sponsor {
     function getSerializedRecipientRecordList(address _sponsorKey, address _recipientKey) public view returns (string memory) {
 // console.log("Recipient.sol:getSerializedRecipientRecordList(", _sponsorKey, ",", _recipientKey);
         RecipientStruct storage recipientRecord =  getRecipientRecordByKeys(_sponsorKey, _recipientKey);
-        string memory recipientRecordStr = toString(recipientRecord.insertionTime);
+        string memory recipientRecordStr = toString(recipientRecord.creationTime);
         string memory stakedSPCoinsStr = toString(recipientRecord.stakedSPCoins);
         recipientRecordStr = concat(recipientRecordStr, ",", stakedSPCoinsStr);
         return recipientRecordStr;

@@ -4,7 +4,7 @@ class AccountStruct {
     this.accountKey;
     this.balanceOf;
     this.stakedSPCoins;
-    this.insertionTime;
+    this.creationTime;
     this.verified;
     this.sponsorAccountList;
     this.recipientAccountList;
@@ -19,7 +19,7 @@ class RecipientStruct {
   constructor() {
     this.TYPE = "--RECIPIENT_RECORD--";
     this.recipientKey;
-    this.insertionTime;
+    this.creationTime;
     this.stakedSPCoins;
     this.verified;
     this.recipientRateRecordList;
@@ -30,7 +30,7 @@ class RecipientRateStruct {
   constructor() {
     this.TYPE = "--RECIPIENT_RATE--";
     this.recipientRate;
-    this.insertionTime;
+    this.creationTime;
     this.lastUpdateTime;
     this.stakedSPCoins;
     this.transactions;
@@ -44,7 +44,7 @@ class AgentStruct {
     this.TYPE = "--AGENT_RECORD--";
     this.agentKey;
     this.stakedSPCoins;
-    this.insertionTime;
+    this.creationTime;
     this.verified;
     this.agentRateList;
   }
@@ -55,7 +55,7 @@ class AgentRateStruct {
     this.TYPE = "--AGENT_RATE--";
     this.agentRate;
     this.stakedSPCoins;
-    this.insertionTime;
+    this.creationTime;
     this.lastUpdateTime;
     this.transactions;
   }

@@ -19,7 +19,7 @@ contract RecipientRates is Recipient {
             // console.log(JUNK_COUNTER,"Recipient.sol:recipientRateRecord.inserted = ", recipientRecord.inserted); 
             recipientRateRecord.recipientRate = _recipientRateKey;
             recipientRateRecord.inserted = true;
-            recipientRateRecord.insertionTime = recipientRateRecord.lastUpdateTime = block.timestamp;
+            recipientRateRecord.creationTime = recipientRateRecord.lastUpdateTime = block.timestamp;
             recipientRateRecord.stakedSPCoins = 0;
             recipientRecord.recipientRateList.push(_recipientRateKey);
         }
@@ -36,7 +36,7 @@ contract RecipientRates is Recipient {
         // console.log("ZZZZ RecipientRates.sol:getSerializedRecipientRateList ", ",", _sponsorKey,", "); 
         // console.log("ZZZZ", _recipientKey, ", ",  _recipientRateKey);
         RecipientRateStruct storage recipientRateRecord =  getRecipientRateRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey);
-        string memory recipientRateRecordStr = toString(recipientRateRecord.insertionTime);
+        string memory recipientRateRecordStr = toString(recipientRateRecord.creationTime);
         string memory lastUpdateTimeStr = toString(recipientRateRecord.lastUpdateTime);
         string memory stakedSPCoinsStr = toString(recipientRateRecord.stakedSPCoins);
         recipientRateRecordStr = concat(recipientRateRecordStr, ",", lastUpdateTimeStr, ",", stakedSPCoinsStr);

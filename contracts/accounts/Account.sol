@@ -15,7 +15,7 @@ contract Account is StructSerialization {
 // console.log(JUNK_COUNTER++, "addAccountRecord(", accountType, _accountKey, ")"); 
             AccountStruct storage accountRec = accountMap[_accountKey];
             accountRec.accountKey = _accountKey;
-            accountRec.insertionTime = block.timestamp;
+            accountRec.creationTime = block.timestamp;
             accountRec.decimals = decimals;
             accountRec.stakedSPCoins = 0;
             accountRec.inserted = true;

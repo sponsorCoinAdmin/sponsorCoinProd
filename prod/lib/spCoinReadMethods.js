@@ -103,7 +103,7 @@ let spCoinLogger;
       let agentRateRecord = new AgentRateStruct();
       let recordStr = await this.spCoinSerialize.getSerializedAgentRateList(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
       agentRateRecord.agentRate = _agentRateKey;
-      agentRateRecord.insertionTime = bigIntToDateTimeString(recordStr[0]);
+      agentRateRecord.creationTime = bigIntToDateTimeString(recordStr[0]);
       agentRateRecord.lastUpdateTime = bigIntToDateTimeString(recordStr[1]);
       agentRateRecord.stakedSPCoins = bigIntToDecString(recordStr[2]);
         agentRateRecord.transactions = await this.getAgentRateTransactionList(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
@@ -176,7 +176,7 @@ let spCoinLogger;
       let recordStr = await this.spCoinSerialize.getSerializedRecipientRateList(_sponsorKey, _recipientKey, _recipientRateKey);
       let agentAccountList = await this.getRecipientRateAgentList(_sponsorKey, _recipientKey, _recipientRateKey);
       recipientRateRecord.recipientRate    = _recipientRateKey;
-      recipientRateRecord.insertionTime    = bigIntToDateTimeString(recordStr[0]);
+      recipientRateRecord.creationTime    = bigIntToDateTimeString(recordStr[0]);
       recipientRateRecord.lastUpdateTime   = bigIntToDateTimeString(recordStr[1]);
       recipientRateRecord.stakedSPCoins    = bigIntToDecString(recordStr[2]);
       recipientRateRecord.transactions     = await this.getRecipientRateTransactionList(_sponsorKey, _recipientKey, _recipientRateKey);
@@ -207,7 +207,7 @@ let spCoinLogger;
       recipientRecord.recipientKey = _recipientKey;
       
       let recordStr = await this.spCoinSerialize.getSerializedRecipientRecordList(_sponsorKey, _recipientKey);
-      recipientRecord.insertionTime = bigIntToDateTimeString(recordStr[0]);
+      recipientRecord.creationTime = bigIntToDateTimeString(recordStr[0]);
       recipientRecord.stakedSPCoins = bigIntToDecString(recordStr[1]);
       
       // ToDo New Robin
@@ -262,7 +262,7 @@ let spCoinLogger;
           let transactionFields = transactionRows[row].split(",");
           let transactionRec = new TransactionStruct();
           transactionRec.location = getLocation();
-          transactionRec.insertionTime = bigIntToDateTimeString(transactionFields[0]);
+          transactionRec.creationTime = bigIntToDateTimeString(transactionFields[0]);
           transactionRec.quantity = bigIntToDecString(transactionFields[1]);
           transactionRecs.push(transactionRec);
           // spCoinLogger.logJSON(transactionRec);

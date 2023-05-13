@@ -66,7 +66,7 @@ contract SpCoinDataTypes {
         address accountKey;
         uint256 balanceOf;
         uint256 decimals;
-        uint256 insertionTime;
+        uint256 creationTime;
         uint256 stakedSPCoins; // Coins Owned but steaked to recipients
         bool inserted;
         bool verified;
@@ -82,7 +82,7 @@ contract SpCoinDataTypes {
     struct RecipientStruct {
         address sponsorKey;
         address recipientKey;
-        uint256 insertionTime;
+        uint256 creationTime;
         uint256 stakedSPCoins; // Coins not owned but Recipiented
         uint256[] recipientRateList;
         mapping(uint256 => RecipientRateStruct) recipientRateMap;
@@ -92,7 +92,7 @@ contract SpCoinDataTypes {
  
     struct RecipientRateStruct {
         uint256 recipientRate;
-        uint256 insertionTime;
+        uint256 creationTime;
         uint256 lastUpdateTime;
         uint256 stakedSPCoins; // Coins not owned
         address[] agentAccountList;
@@ -106,7 +106,7 @@ contract SpCoinDataTypes {
         address sponsorKey;
         address recipientKey;
         address agentKey;
-        uint256 insertionTime;
+        uint256 creationTime;
         uint256 stakedSPCoins; // Coins not owned but Recipiented
         uint256[] agentRateList;
         mapping(uint256 => AgentRateStruct) agentRateMap;
@@ -116,7 +116,7 @@ contract SpCoinDataTypes {
  
     struct AgentRateStruct {
         uint256 agentRate;
-        uint256 insertionTime;
+        uint256 creationTime;
         uint256 lastUpdateTime;
         uint256 stakedSPCoins; // Coins not owned but Recipiented
         TransactionStruct[] transactionList;

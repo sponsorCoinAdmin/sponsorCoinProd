@@ -15,9 +15,9 @@ contract StructSerialization is Utils {
             "accountKey: ",
             toString(_accountRec.accountKey)
         );
-        string memory insertionTime = concat(
-            "insertionTime: ",
-            toString(_accountRec.insertionTime)
+        string memory creationTime = concat(
+            "creationTime: ",
+            toString(_accountRec.creationTime)
         );
         string memory balanceOf = concat(
             "balanceOf: ",
@@ -41,7 +41,7 @@ contract StructSerialization is Utils {
             abi.encodePacked(
                 addr,
                 "\\,\n",
-                insertionTime,
+                creationTime,
                 "\\,\n",
                 verified
             )

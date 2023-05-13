@@ -79,8 +79,8 @@ class SpCoinSerialize {
       case "decimals":
         accountRecord.decimals = bigIntToDecString(_value);
       break;
-      case "insertionTime":
-        accountRecord.insertionTime = bigIntToDateTimeString(_value);
+      case "creationTime":
+        accountRecord.creationTime = bigIntToDateTimeString(_value);
       break;
       case "inserted":
         accountRecord.inserted = _value;
