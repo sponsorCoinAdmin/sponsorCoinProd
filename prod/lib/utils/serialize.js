@@ -1,7 +1,10 @@
 // const {  spCoinContractDeployed } = require("../contracts/spCoin");
 // const { BigNumber, ethers, utils } = require("ethers");
 const { SpCoinLogger } = require("./logging");
-
+const { bigIntToDateTimeString,
+        bigIntToDecString,
+        bigIntToHexString,
+        bigIntToString } = require("./dateTime");
 const {
   AccountStruct,
   RecipientStruct,
@@ -10,16 +13,36 @@ const {
   TransactionStruct,
 } = require("../spCoinDataTypes");
 
-const bigIntToDecString = ( _value ) => { return bigIntToString(_value, 10) };
-const bigIntToHexString = ( _value ) => { return bigIntToString(_value, 16) };
-const bigIntToString = ( _value, _base ) => { let dec = BigInt(_value); return dec.toString(_base) };
+/*
+const bigIntToDateTimeString = ( _value ) => { 
+  let milliSecs = bigIntToDecMilliSecs(_value);
+
+  const options = { month: "long", 
+  // era: 'long',
+  day: "numeric", 
+  year: "numeric",
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+  timeZoneName: 'short'};
+  const date = new Date(1683963292000);
+  const dateString = new Intl.DateTimeFormat("en-US", options).format(milliSecs);
+  let location = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  
+  return dateString + " " + location;
+};
+
+const bigIntToDecMilliSecs = ( _value ) => { return bigIntToDecString(_value) + "000"; };
+const bigIntToDecString = ( _value ) => { return bigIntToString(_value, 10); };
+const bigIntToHexString = ( _value ) => { return bigIntToString(_value, 16); };
+const bigIntToString = ( _value, _base ) => { return BigInt(_value).toString(_base); };
+*/
 
 let spCoinLogger;
 
 class SpCoinSerialize {
   constructor( _spCoinContractDeployed) {
     if ( _spCoinContractDeployed != undefined) {
-      console.log("constructor called with " + _spCoinContractDeployed);
       this.spCoinContractDeployed = _spCoinContractDeployed;
       spCoinLogger = new SpCoinLogger(_spCoinContractDeployed);
       this.setSigner(_spCoinContractDeployed.signer);
@@ -81,7 +104,7 @@ class SpCoinSerialize {
         accountStruct.decimals = bigIntToDecString(_value);
       break;
       case "insertionTime":
-        accountStruct.insertionTime = bigIntToDecString(_value);
+        accountStruct.insertionTime = bigIntToDateTimeString(_value);
         break;
       case "inserted":
         accountStruct.inserted = _value;
@@ -168,6 +191,7 @@ class SpCoinSerialize {
 
 module.exports = {
   SpCoinSerialize,
+  bigIntToDateTimeString,
   bigIntToDecString,
   bigIntToHexString,
   bigIntToString,

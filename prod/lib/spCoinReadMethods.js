@@ -6,7 +6,7 @@ const {
   RecipientStruct,
   RecipientRateStruct,
   TransactionStruct } = require("./spCoinDataTypes");
-const { SpCoinSerialize, bigIntToDecString } = require("./utils/serialize");
+const { SpCoinSerialize, bigIntToDecString, bigIntToDateTimeString } = require("./utils/serialize");
 
 let spCoinLogger;
 
@@ -15,7 +15,6 @@ let spCoinLogger;
   class SpCoinReadMethods {
     constructor( _spCoinContractDeployed) {
       // if ( _spCoinContractDeployed != undefined) {
-        console.log("constructor called with " + _spCoinContractDeployed);
         this.spCoinContractDeployed = _spCoinContractDeployed;
         this.spCoinSerialize = new SpCoinSerialize(_spCoinContractDeployed);
         this.setSigner(_spCoinContractDeployed.signer);
@@ -104,8 +103,8 @@ let spCoinLogger;
       let agentRateRecord = new AgentRateStruct();
       let recordStr = await this.spCoinSerialize.getSerializedAgentRateList(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
       agentRateRecord.agentRate = _agentRateKey;
-      agentRateRecord.insertionTime = bigIntToDecString(recordStr[0]);
-      agentRateRecord.lastUpdateTime = bigIntToDecString(recordStr[1]);
+      agentRateRecord.insertionTime = bigIntToDateTimeString(recordStr[0]);
+      agentRateRecord.lastUpdateTime = bigIntToDateTimeString(recordStr[1]);
       agentRateRecord.stakedSPCoins = bigIntToDecString(recordStr[2]);
         agentRateRecord.transactions = await this.getAgentRateTransactionList(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
       spCoinLogger.logExitFunction();
@@ -177,8 +176,8 @@ let spCoinLogger;
       let recordStr = await this.spCoinSerialize.getSerializedRecipientRateList(_sponsorKey, _recipientKey, _recipientRateKey);
       let agentAccountList = await this.getRecipientRateAgentList(_sponsorKey, _recipientKey, _recipientRateKey);
       recipientRateRecord.recipientRate    = _recipientRateKey;
-      recipientRateRecord.insertionTime    = bigIntToDecString(recordStr[0]);
-      recipientRateRecord.lastUpdateTime   = bigIntToDecString(recordStr[1]);
+      recipientRateRecord.insertionTime    = bigIntToDateTimeString(recordStr[0]);
+      recipientRateRecord.lastUpdateTime   = bigIntToDateTimeString(recordStr[1]);
       recipientRateRecord.stakedSPCoins    = bigIntToDecString(recordStr[2]);
       recipientRateRecord.transactions     = await this.getRecipientRateTransactionList(_sponsorKey, _recipientKey, _recipientRateKey);
       recipientRateRecord.agentRecordList  = await this.getAgentRecordList(_sponsorKey, _recipientKey, _recipientRateKey, agentAccountList);
@@ -208,7 +207,7 @@ let spCoinLogger;
       recipientRecord.recipientKey = _recipientKey;
       
       let recordStr = await this.spCoinSerialize.getSerializedRecipientRecordList(_sponsorKey, _recipientKey);
-      recipientRecord.insertionTime = bigIntToDecString(recordStr[0]);
+      recipientRecord.insertionTime = bigIntToDateTimeString(recordStr[0]);
       recipientRecord.stakedSPCoins = bigIntToDecString(recordStr[1]);
       
       // ToDo New Robin
@@ -261,7 +260,7 @@ let spCoinLogger;
         for (let row in transactionRows) {
           let transactionFields = transactionRows[row].split(",");
           let transactionRec = new TransactionStruct();
-          transactionRec.insertionTime = bigIntToDecString(transactionFields[0]);
+          transactionRec.insertionTime = bigIntToDateTimeString(transactionFields[0]);
           transactionRec.quantity = bigIntToDecString(transactionFields[1]);
           transactionRecs.push(transactionRec);
           // spCoinLogger.logJSON(transactionRec);
