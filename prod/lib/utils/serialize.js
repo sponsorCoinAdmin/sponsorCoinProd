@@ -56,57 +56,56 @@ class SpCoinSerialize {
     }
 
     spCoinLogger.logDetail("JS => scPrintStructureTest.js, accountStruct:");
-    spCoinLogger.logDetail("JS => accountStruct               = " + JSON.stringify(accountStruct, 0, 2)
-    );
-    spCoinLogger.logDetail("JS => ============================================================================"
-    );
+    spCoinLogger.logDetail("JS => accountStruct               = " + JSON.stringify(accountStruct, 0, 2));
+    spCoinLogger.logDetail("JS => ============================================================================");
     spCoinLogger.logExitFunction();
     return accountStruct;
   };
 
-  addAccountField = ( _key, _value, accountStruct ) => {
+  addAccountField = ( _key, _value, accountRecord ) => {
     spCoinLogger.logFunctionHeader("addAccountField = (" + _key + "," + _value + ")");
     //spCoinLogger.log("addAccountField = (" + _key + "," + _value + ")");
     switch (_key.trim()) {
       case "accountKey":
-        accountStruct.accountKey = _value;
+        accountRecord.accountKey = _value;
+        accountRecord.location = getLocation();
         break;
       case "balanceOf":
-        accountStruct.balanceOf = bigIntToDecString(_value);
+        accountRecord.balanceOf = bigIntToDecString(_value);
       break;
       case "stakedSPCoins":
-        accountStruct.stakedSPCoins = bigIntToDecString(_value);
+        accountRecord.stakedSPCoins = bigIntToDecString(_value);
       break;
       case "decimals":
-        accountStruct.decimals = bigIntToDecString(_value);
+        accountRecord.decimals = bigIntToDecString(_value);
       break;
       case "insertionTime":
-        accountStruct.insertionTime = bigIntToDateTimeString(_value);
-        break;
+        accountRecord.insertionTime = bigIntToDateTimeString(_value);
+      break;
       case "inserted":
-        accountStruct.inserted = _value;
-        break;
+        accountRecord.inserted = _value;
+      break;
       case "verified":
-        accountStruct.verified = _value;
-        break;
+        accountRecord.verified = _value;
+      break;
       case "KYC":
-        accountStruct.KYC = _value;
+        accountRecord.KYC = _value;
+      break;
+      case "sponsorAccountList":
+        accountRecord.sponsorAccountList = this.parseAddressStrRecord(_value);
+      break;
+      case "recipientAccountList":
+        accountRecord.recipientAccountList = this.parseAddressStrRecord(_value);
+      break;
+      case "agentAccountList":
+           accountRecord.agentAccountList = this.parseAddressStrRecord(_value);
         break;
-        case "sponsorAccountList":
-          accountStruct.sponsorAccountList = this.parseAddressStrRecord(_value);
-          break;
-        case "recipientAccountList":
-          accountStruct.recipientAccountList = this.parseAddressStrRecord(_value);
-        break;
-        case "agentAccountList":
-            accountStruct.agentAccountList = this.parseAddressStrRecord(_value);
-          break;
-        case "agentsParentRecipientAccountList":
-          accountStruct.agentsParentRecipientAccountList = this.parseAddressStrRecord(_value);
-        break;
-        case "recipientRecordList":
-          accountStruct.recipientRecordList = _value;
-        break;
+      case "agentsParentRecipientAccountList":
+        accountRecord.agentsParentRecipientAccountList = this.parseAddressStrRecord(_value);
+      break;
+      case "recipientRecordList":
+        accountRecord.recipientRecordList = _value;
+      break;
       default:
         break;
     }
@@ -163,7 +162,6 @@ class SpCoinSerialize {
       spCoinLogger.logExitFunction();
     return this.deSerializedAccountRec(serializedAccountRec);
   };
-
 }
 
 module.exports = {

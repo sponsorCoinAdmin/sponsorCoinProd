@@ -261,7 +261,7 @@ let spCoinLogger;
         for (var row = transactionRows.length - 1; row >= 0; row--) {
           let transactionFields = transactionRows[row].split(",");
           let transactionRec = new TransactionStruct();
-          transactionRec.getLocation = location();
+          transactionRec.location = getLocation();
           transactionRec.insertionTime = bigIntToDateTimeString(transactionFields[0]);
           transactionRec.quantity = bigIntToDecString(transactionFields[1]);
           transactionRecs.push(transactionRec);
