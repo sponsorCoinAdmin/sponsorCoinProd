@@ -68,7 +68,6 @@ class SpCoinSerialize {
     switch (_key.trim()) {
       case "accountKey":
         accountRecord.accountKey = _value;
-        accountRecord.location = getLocation();
         break;
       case "balanceOf":
         accountRecord.balanceOf = bigIntToDecString(_value);
@@ -81,6 +80,7 @@ class SpCoinSerialize {
       break;
       case "creationTime":
         accountRecord.creationTime = bigIntToDateTimeString(_value);
+        accountRecord.location = getLocation();
       break;
       case "inserted":
         accountRecord.inserted = _value;

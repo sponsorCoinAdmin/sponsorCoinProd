@@ -262,7 +262,7 @@ let spCoinLogger;
           let transactionFields = transactionRows[row].split(",");
           let transactionRec = new TransactionStruct();
           transactionRec.location = getLocation();
-          transactionRec.creationTime = bigIntToDateTimeString(transactionFields[0]);
+          transactionRec.insertionTime = bigIntToDateTimeString(transactionFields[0]);
           transactionRec.quantity = bigIntToDecString(transactionFields[1]);
           transactionRecs.push(transactionRec);
           // spCoinLogger.logJSON(transactionRec);
@@ -270,8 +270,7 @@ let spCoinLogger;
         spCoinLogger.logExitFunction();
       }
       return transactionRecs;
-    }    
-
+    }
 }
 
 /////////////////////// EXPORT MODULE FUNCTIONS ///////////////////////
