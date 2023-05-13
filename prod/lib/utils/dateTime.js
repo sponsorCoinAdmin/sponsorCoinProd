@@ -12,10 +12,14 @@ const bigIntToDateTimeString = ( _value ) => {
     timeZoneName: 'short'};
     const date = new Date(1683963292000);
     const dateString = new Intl.DateTimeFormat("en-US", options).format(milliSecs);
-    let location = Intl.DateTimeFormat().resolvedOptions().timeZone;
     
-    return dateString + " " + location;
+    return dateString;
   };
+
+  const getLocation = () => {
+    let location = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    return location;
+  }
   
   const bigIntToDecMilliSecs = ( _value ) => { return bigIntToDecString(_value) + "000"; };
   const bigIntToDecString = ( _value ) => { return bigIntToString(_value, 10); };
@@ -28,4 +32,5 @@ module.exports = {
     bigIntToDecString,
     bigIntToHexString,
     bigIntToString,
+    getLocation,
   };

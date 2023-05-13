@@ -26,7 +26,6 @@ class RecipientStruct {
   }
 }
 
-
 class RecipientRateStruct {
   constructor() {
     this.TYPE = "--RECIPIENT_RATE--";
@@ -65,6 +64,7 @@ class AgentRateStruct {
 class TransactionStruct {
   constructor() {
     this.insertionTime;
+    this.location;
     this.quantity;
   }
 }

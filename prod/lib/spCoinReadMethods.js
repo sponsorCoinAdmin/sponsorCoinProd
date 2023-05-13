@@ -5,8 +5,8 @@ const {
   AgentStruct,
   RecipientStruct,
   RecipientRateStruct,
-  TransactionStruct } = require("./spCoinDataTypes");
-const { SpCoinSerialize, bigIntToDecString, bigIntToDateTimeString } = require("./utils/serialize");
+  TransactionStruct } = require("./dataTypes/spCoinDataTypes");
+const { SpCoinSerialize, bigIntToDecString, bigIntToDateTimeString, getLocation } = require("./utils/serialize");
 
 let spCoinLogger;
 
@@ -257,9 +257,11 @@ let spCoinLogger;
         if(transactionStr.length > 0) {
         // console.log("==>19 getRateTransactionRecords = async(" + transactionStr + ")");
         let transactionRows = transactionStr.split("\n");
-        for (let row in transactionRows) {
+        // for (let row in transactionRows) {
+        for (var row = transactionRows.length - 1; row >= 0; row--) {
           let transactionFields = transactionRows[row].split(",");
           let transactionRec = new TransactionStruct();
+          transactionRec.getLocation = location();
           transactionRec.insertionTime = bigIntToDateTimeString(transactionFields[0]);
           transactionRec.quantity = bigIntToDecString(transactionFields[1]);
           transactionRecs.push(transactionRec);
