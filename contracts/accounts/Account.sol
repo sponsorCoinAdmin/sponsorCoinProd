@@ -29,11 +29,23 @@ contract Account is StructSerialization {
             return accountMap[account];
     }
 
-    function depositStakingAmount(address account, uint amount )
-        public returns (uint balance) {
+    function depositStakingReward(address account, address sourceAccount, string memory sourceType, uint amount )
+        public returns ( uint ) {
             balanceOf[account] += amount;
             totalSupply+= amount;
+            AccountStruct storage accountRecord = accountMap[account];
+            StakingRewardsStruct memory stakingRewardsRecord = addSourceTransactionRecord( sourceAccount, sourceType, amount );
+            accountRecord.stakingRewards.push(stakingRewardsRecord);
             return balanceOf[account];
+    }
+
+    function addSourceTransactionRecord(address sourceAccount, string memory sourceType, uint amount )
+        internal view returns (StakingRewardsStruct memory stakingRewardsRecord) {
+            stakingRewardsRecord.sourceAddress = sourceAccount;
+            stakingRewardsRecord.sourceType = sourceType;
+            stakingRewardsRecord.insertionTime = block.timestamp; 
+            stakingRewardsRecord.quantity = amount;
+            return stakingRewardsRecord;
     }
 
     /// @notice determines if address Record is inserted in accountKey array
