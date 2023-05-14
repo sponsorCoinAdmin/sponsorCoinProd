@@ -26,8 +26,14 @@ contract Account is StructSerialization {
     function getAccountRecord(string memory accountType, address account)
         internal returns (AccountStruct storage accountRecord) {
             addAccountRecord(accountType, account);
-            // console.log(JUNK_COUNTER++, "getAccountRecord", account);
             return accountMap[account];
+    }
+
+    function depositStakingAmount(address account, uint amount )
+        public returns (uint balance) {
+            balanceOf[account] += amount;
+            totalSupply+= amount;
+            return balanceOf[account];
     }
 
     /// @notice determines if address Record is inserted in accountKey array

@@ -74,7 +74,8 @@ contract SpCoinDataTypes {
         address[] sponsorAccountList;         // If Recipient? List of Sponsor Account
         address[] agentAccountList;           // If Recipient? List of Agent Account
         address[] agentsParentRecipientAccountList; // If Agent? List of Sponsor Recipient Account
-        mapping(address => RecipientStruct) recipientMap; 
+        mapping(address => RecipientStruct) recipientMap;
+        StakingRewardsStruct[] stakingTransactions;
 //        KYC kyc;
     }
 
@@ -124,6 +125,13 @@ contract SpCoinDataTypes {
     }
 
     struct TransactionStruct {
+        uint256 insertionTime;
+        uint256 quantity;
+    }
+
+    struct StakingRewardsStruct {
+        address sourceAddress;
+        string sourceType;
         uint256 insertionTime;
         uint256 quantity;
     }

@@ -13,7 +13,7 @@ let spCoinLogger;
 //////////////////////////// ROOT LEVEL FUNCTIONS ////////////////////////////
 
 class SpCoinReadMethods {
-  constructor( _spCoinContractDeployed) {
+  constructor( _spCoinContractDeployed ) {
     this.spCoinContractDeployed = _spCoinContractDeployed;
     this.spCoinSerialize = new SpCoinSerialize(_spCoinContractDeployed);
     this.setSigner(_spCoinContractDeployed.signer);
