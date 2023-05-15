@@ -15,13 +15,13 @@ contract Transactions is AgentRates {
     public onlyOwnerOrRootAdmin("addSponsorship", msg.sender)
     // validateSufficientAccountBalance(sponsorAmount)
     {
-        console.log("msg.sender     ", msg.sender);
-        console.log("addSponsorship(", _recipientKey, ",");
-        console.log("                ", _recipientRateKey, ",");
-        console.log("                ", _agentKey, ",");
-        console.log("                ", _agentRateKey, ",");
-        console.log("                ", _strWholeAmount, ",");
-        console.log("                ", _strDecimalAmount, ")");
+        // console.log("msg.sender     ", msg.sender);
+        // console.log("addSponsorship(", _recipientKey, ",");
+        // console.log("               ", _recipientRateKey, ",");
+        // console.log("               ", _agentKey, ",");
+        // console.log("               ", _agentRateKey, ",");
+        // console.log("               ", _strWholeAmount, ",");
+        // console.log("               ", _strDecimalAmount, ")");
         
         // console.log("balanceOf[", msg.sender, "] = ",balanceOf[msg.sender]);
         uint256 sponsorAmount;
@@ -111,7 +111,7 @@ contract Transactions is AgentRates {
         return strTransactionList;
     }
 
-    function getAgentRateTransactionList(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
+    function getSerializedRateTransactionList(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
         string memory strTransactionList = "";
         AgentRateStruct storage agentRateRecord= agentRec.agentRateMap[_agentRateKey];

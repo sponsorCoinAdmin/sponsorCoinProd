@@ -3,6 +3,20 @@ pragma solidity ^0.8.18;
 
 import "hardhat/console.sol";
 
+/*
+contract dynamicStringArray {
+   string [] private strings;
+ 
+   function addString (string memory str) public {
+     strings.push (str);
+   }
+ 
+   function getStrings () public view returns (string [] memory) {
+     return strings;
+   }
+ }
+*/
+
 contract StringUtils {
 // string public text;
 
@@ -83,7 +97,7 @@ contract StringUtils {
 
    ///////////////////////////////////////////////////////////////////////////////////////////////////
    function decimalStringToUint(string memory _strWholeAmount, string memory _strFloatAmount, uint256 decimals)
-      internal view returns(uint256 uint256Value, bool err) {
+      internal pure returns(uint256 uint256Value, bool err) {
          // console.log("_strWholeAmount", _strWholeAmount); 
          // console.log("_strFloatAmount", _strFloatAmount); 
          // console.log("decimalStringToUint(", _strWholeAmount, _strFloatAmount); 
@@ -104,7 +118,7 @@ contract StringUtils {
          return (uint256Value, true);
    }
 
-   function strToUint(string memory _strWholeAmount) public view returns(uint256 result, bool err) {
+   function strToUint(string memory _strWholeAmount) public pure returns(uint256 result, bool err) {
       for (uint256 i = 0; i < bytes(_strWholeAmount).length; i++) {
          uint8 asciiValue = uint8(bytes(_strWholeAmount)[i]);
          // console.log("asciiValue at ", i, " = ", asciiValue);

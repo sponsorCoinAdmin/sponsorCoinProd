@@ -150,9 +150,9 @@ class SpCoinReadMethods {
   getAgentRateTransactionList = async(_sponsorCoin, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey) => {
     // console.log("==>18 getAgentRateTransactionList = async(" + _recipientKey + ", " + _recipientRateKey + ", " + _agentKey + ", " + _agentRateKey + ")");
     spCoinLogger.logFunctionHeader("getAgentRateTransactionList = async(" + _recipientKey + ", " + _recipientRateKey + ", " + _agentKey + ", " + _agentRateKey + ")");
-    let agentRateTransactionList = await this.spCoinContractDeployed.connect(this.signer).getAgentRateTransactionList(_sponsorCoin, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
+    let agentRateTransactionList = await this.spCoinContractDeployed.connect(this.signer).getSerializedRateTransactionList(_sponsorCoin, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
     spCoinLogger.logExitFunction();
-    return this.getRateTransactionRecords(agentRateTransactionList);
+    return this.deserializeRateTransactionRecords(agentRateTransactionList);
   }  
 
   /////////////////////// RECIPIENT RECORD FUNCTIONS ///////////////////////
@@ -243,15 +243,15 @@ class SpCoinReadMethods {
     spCoinLogger.logFunctionHeader("getRecipientRateTransactionList = async(" + _recipientKey + ", " + _recipientRateKey + ")");
     let agentRateTransactionList = await this.spCoinContractDeployed.connect(this.signer).getRecipientRateTransactionList(_sponsorCoin, _recipientKey, _recipientRateKey);
     spCoinLogger.logExitFunction();
-    return this.getRateTransactionRecords(agentRateTransactionList);
+    return this.deserializeRateTransactionRecords(agentRateTransactionList);
   }
 
-  getRateTransactionRecords = (transactionStr) => {
-    spCoinLogger.logFunctionHeader("getRateTransactionRecords = async(" + transactionStr + ")");
-    //spCoinLogger.log("getRateTransactionRecords = async(" + transactionStr + ")");
+  deserializeRateTransactionRecords = (transactionStr) => {
+    spCoinLogger.logFunctionHeader("deserializeRateTransactionRecords = async(" + transactionStr + ")");
+    //spCoinLogger.log("deserializeRateTransactionRecords = async(" + transactionStr + ")");
     let transactionRecs = [];
     if(transactionStr.length > 0) {
-    // console.log("==>19 getRateTransactionRecords = async(" + transactionStr + ")");
+    // console.log("==>19 deserializeRateTransactionRecords = async(" + transactionStr + ")");
     let transactionRows = transactionStr.split("\n");
     // for (let row in transactionRows) {
     for (var row = transactionRows.length - 1; row >= 0; row--) {

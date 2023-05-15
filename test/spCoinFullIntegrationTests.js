@@ -10,13 +10,33 @@ describe("spCoinContract", function () {
   // Recipient Account to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
 
-  // await spCoinAddMethods.addSponsorship(
-  //   SPONSOR_ACCOUNT_SIGNERS[0],
-  //   RECIPIENT_ACCOUNT_KEYS[1],
-  //   RECIPIENT_RATES[9],
-  //   "1.000000000000000008"
-  // );
+  await spCoinAddMethods.addSponsorship(
+    SPONSOR_ACCOUNT_SIGNERS[0],
+    RECIPIENT_ACCOUNT_KEYS[1],
+    RECIPIENT_RATES[9],
+    "1.000000000000000008"
+  );
 
+  await spCoinAddMethods.depositAccountStakingRewards(
+    RECIPIENT_ACCOUNT_KEYS[1], 
+    SPONSOR_ACCOUNT_KEYS[0],
+    "SPONSOR",
+    123
+  );
+  
+  await spCoinAddMethods.depositAccountStakingRewards(
+    RECIPIENT_ACCOUNT_KEYS[1], 
+    SPONSOR_ACCOUNT_KEYS[0],
+    "AGENT",
+    456
+  );
+
+  await spCoinAddMethods.depositAccountStakingRewards(
+    RECIPIENT_ACCOUNT_KEYS[1], 
+    SPONSOR_ACCOUNT_KEYS[0],
+    "SPONSOR",
+    789
+  );
   // await spCoinAddMethods.addSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
@@ -33,16 +53,24 @@ describe("spCoinContract", function () {
 
   // console.log(SPONSOR_ACCOUNT_SIGNERS[6])
   
-  await spCoinERC20Methods.transfer(
-    RECIPIENT_ACCOUNT_KEYS[12],
-    "1000000000"
-  )
- await spCoinAddMethods.addSponsorship(
-    SPONSOR_ACCOUNT_SIGNERS[5],
-    RECIPIENT_ACCOUNT_KEYS[1],
-    RECIPIENT_RATES[9],
-    "9.000000000000000008"
-  );
+  // await spCoinERC20Methods.signerTransfer(
+  //   SPONSOR_ACCOUNT_SIGNERS[0],
+  //   RECIPIENT_ACCOUNT_KEYS[12],
+  //   "1000000000"
+  // );
+
+  // await spCoinERC20Methods.signerTransfer(
+  //   SPONSOR_ACCOUNT_SIGNERS[12],
+  //   RECIPIENT_ACCOUNT_KEYS[13],
+  //   "1000000000"
+  // );
+
+//  await spCoinAddMethods.addSponsorship(
+//     SPONSOR_ACCOUNT_SIGNERS[5],
+//     RECIPIENT_ACCOUNT_KEYS[1],
+//     RECIPIENT_RATES[9],
+//     "9.000000000000000008"
+//   );
 
   // await spCoinAddMethods.addSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[0],

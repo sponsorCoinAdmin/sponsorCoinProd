@@ -29,42 +29,67 @@ contract Account is StructSerialization {
             return accountMap[account];
     }
 
-    function depositAccountStakingReward(address account, address sourceAccount, string memory sourceType, uint amount )
+    function depositAccountStakingRewards(address _recipientAccount, address _sourceAccount, string memory _sourceType, uint _amount )
         public returns ( uint ) {
-            balanceOf[account] += amount;
-            totalSupply+= amount;
-            AccountStruct storage accountRecord = accountMap[account];
-            StakingRewardsStruct memory stakingRewardsRecord = addAccountStakingRecord( sourceAccount, sourceType, amount );
+            // console.log("depositAccountStakingRewards("); 
+            // console.log("              _recipientAccount = ", _recipientAccount);
+            // console.log("              _sourceAccount    = ", _sourceAccount);
+            // console.log("              _sourceType =       ", _sourceType);
+            // console.log("              _amount =           ", _amount, ")" );
+            totalSupply+= _amount;
+            AccountStruct storage accountRecord = accountMap[_recipientAccount];
+            StakingRewardsStruct memory stakingRewardsRecord = addAccountStakingRecord( _sourceAccount, _sourceType, _amount );
             accountRecord.stakingRewards.push(stakingRewardsRecord);
-            return balanceOf[account];
+            return balanceOf[_recipientAccount];
     }
 
-    function addAccountStakingRecord(address sourceAccount, string memory sourceType, uint amount )
+    function addAccountStakingRecord(address _sourceAccount, string memory _sourceType, uint _amount )
         internal view returns (StakingRewardsStruct memory stakingRewardsRecord) {
-            stakingRewardsRecord.sourceAddress = sourceAccount;
-            stakingRewardsRecord.sourceType = sourceType;
+            stakingRewardsRecord.sourceAddress = _sourceAccount;
+            stakingRewardsRecord.sourceType = _sourceType;
             stakingRewardsRecord.insertionTime = block.timestamp; 
-            stakingRewardsRecord.quantity = amount;
+            stakingRewardsRecord.quantity = _amount;
             return stakingRewardsRecord;
     }
     
-/*
-    function getSeralizedAccountStakingRecords(address _accountKey) public view returns (string[] memory rewardsRecordList) {
+    /*
+    function getSerializedStakingRewardRecords(address _accountKey) 
+    public  returns (string[] memory rewardsRecordList) {
         AccountStruct storage accountRecord = accountMap[_accountKey];
         StakingRewardsStruct[] storage stakingRewards = accountRecord.stakingRewards;
-        string[] memory rewardsRecordList;
-        
+        dynamicStringArray strArray = new dynamicStringArray();
+
+        string memory memoryRewards;
         for (uint idx = 0; idx < stakingRewards.length; idx++) {
             StakingRewardsStruct storage stakingRewardsRecord = stakingRewards[idx];
-            string memory memoryReward = concat(toString(stakingRewardsRecord.sourceAddress), ",", stakingRewardsRecord.sourceType, "," );
-            memoryReward = concat(memoryReward , toString(stakingRewardsRecord.insertionTime), ",", toString(stakingRewardsRecord.quantity) );
-            rewardsRecordList.push(memoryReward);
+            memoryRewards = concat(memoryRewards , toString(stakingRewardsRecord.sourceAddress), ",", stakingRewardsRecord.sourceType, "," );
+            memoryRewards = concat(memoryRewards , toString(stakingRewardsRecord.insertionTime), ",", toString(stakingRewardsRecord.quantity), "\n" );
+            strArray.addString(memoryRewards);
         }
-        
+        rewardsRecordList = strArray.getStrings();
+        delete strArray;
+        console.log("rewardsRecordList", rewardsRecordList[0]);
 
         return rewardsRecordList;
     }
 */
+
+/////////////////////////////////////////////////////////////////////////////////////
+    function getSerializedStakingRewardRecords(address _accountKey) 
+        public  view returns (string memory memoryRewards) {
+        AccountStruct storage accountRecord = accountMap[_accountKey];
+        StakingRewardsStruct[] storage stakingRewards = accountRecord.stakingRewards;
+
+        for (uint idx = 0; idx < stakingRewards.length; idx++) {
+            StakingRewardsStruct storage stakingRewardsRecord = stakingRewards[idx];
+            memoryRewards = concat(memoryRewards , toString(stakingRewardsRecord.sourceAddress), ",", stakingRewardsRecord.sourceType, "," );
+            memoryRewards = concat(memoryRewards , toString(stakingRewardsRecord.insertionTime), ",", toString(stakingRewardsRecord.quantity), "\n" );
+        }
+        // console.log("rewardsRecordList", memoryRewards);
+
+        return memoryRewards;
+    }
+/////////////////////////////////////////////////////////////////////////////////////
 
     /// @notice determines if address Record is inserted in accountKey array
     /// @param _accountKey public accountKey validate Insertion
@@ -91,7 +116,7 @@ contract Account is StructSerialization {
     }
 
     function getAccountListIndex (address _accountKey, 
-        address[] storage _accountKeyList) internal view
+        address[] storage _accountKeyList) internal 
         returns (uint) {
         uint i = 0;
         for (i; i < _accountKeyList.length; i++) {

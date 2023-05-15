@@ -18,9 +18,10 @@ contract Token is AccountStakingManager{
     /// @notice transfer amount of tokens to an address
     /// @param _to receiver of token
     /// @param _value amount value of token to send
-    /// @return success as true, for transfer 
+    /// @return success as true, for transfer
     function transfer(address _to, uint256 _value) public virtual returns (bool success) {
         // console.log("transfer:msg.sender =", msg.sender, "_value =", _value);
+        require(balanceOf[msg.sender] >= _value, concat("ACCOUNT ", toString(msg.sender), " *** INSUFFICIENT BALANCE ***"));
         addAccountRecord("Transfer", _to);
         balanceOf[msg.sender] = balanceOf[msg.sender] - (_value);
         balanceOf[_to] = balanceOf[_to] + (_value);
