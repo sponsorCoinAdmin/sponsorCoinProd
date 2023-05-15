@@ -14,8 +14,6 @@ describe("spCoinContract", function () {
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[9],
-  //   BURN_ACCOUNT,
-  //   AGENT_RATES[1],
   //   "1.000000000000000008"
   // );
 
@@ -23,8 +21,6 @@ describe("spCoinContract", function () {
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[9],
-  //   BURN_ACCOUNT,
-  //   AGENT_RATES[1],
   //   "1.000000000000000008"
   // );
 
@@ -32,8 +28,6 @@ describe("spCoinContract", function () {
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[9],
-  //   BURN_ACCOUNT,
-  //   AGENT_RATES[1],
   //   "3.000000000000000008"
   // );
 
@@ -43,12 +37,10 @@ describe("spCoinContract", function () {
     RECIPIENT_ACCOUNT_KEYS[12],
     "1000000000"
   )
- await spCoinAddMethods.addAgentSponsorship(
+ await spCoinAddMethods.addSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[5],
     RECIPIENT_ACCOUNT_KEYS[1],
     RECIPIENT_RATES[9],
-    BURN_ACCOUNT,
-    AGENT_RATES[1],
     "9.000000000000000008"
   );
 
@@ -56,8 +48,6 @@ describe("spCoinContract", function () {
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[9],
-  //   BURN_ACCOUNT,
-  //   AGENT_RATES[1],
   //   "0.1"
   // );
 
@@ -65,8 +55,6 @@ describe("spCoinContract", function () {
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[4],
-  //   BURN_ACCOUNT,
-  //   AGENT_RATES[1],
   //   "1"
   // );
 
@@ -94,7 +82,7 @@ describe("spCoinContract", function () {
   //   spCoinLogger.logJSONTree(await spCoinReadMethods.getAccountRecords());
 
 
-  // await spCoinAddMethods.addSponsorship(
+  // await spCoinAddMethods.addAgentSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[9],
@@ -109,7 +97,7 @@ describe("spCoinContract", function () {
   //   "Agent Reward",
   //   500);
 
-  // // await spCoinAddMethods.addSponsorship(
+  // // await spCoinAddMethods.addAgentSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[9],
@@ -118,7 +106,7 @@ describe("spCoinContract", function () {
   //   "456.000000000000000008"
   // );
 
-  // await spCoinAddMethods.addSponsorship(
+  // await spCoinAddMethods.addAgentSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[9],
@@ -132,7 +120,7 @@ describe("spCoinContract", function () {
   //   "1000000000"
   // )
 
-  // await spCoinAddMethods.addSponsorship(
+  // await spCoinAddMethods.addAgentSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[9],
@@ -141,7 +129,7 @@ describe("spCoinContract", function () {
   //   "9123.12985"
   // );
 
-  // await spCoinAddMethods.addSponsorship(
+  // await spCoinAddMethods.addAgentSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[2],
   //   RECIPIENT_RATES[8],
@@ -155,7 +143,7 @@ describe("spCoinContract", function () {
   //   "1000000000"
   // )
 
-  // await spCoinAddMethods.addSponsorship(
+  // await spCoinAddMethods.addAgentSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[9],
@@ -164,7 +152,7 @@ describe("spCoinContract", function () {
   //   "9123.12985"
   // );
 
-  // await spCoinAddMethods.addSponsorship(
+  // await spCoinAddMethods.addAgentSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[2],
   //   RECIPIENT_RATES[8],
@@ -173,7 +161,7 @@ describe("spCoinContract", function () {
   //   29
   // );
 
-  // await spCoinAddMethods.addSponsorship(
+  // await spCoinAddMethods.addAgentSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[1],
   //   RECIPIENT_ACCOUNT_KEYS[2],
   //   RECIPIENT_RATES[3],
@@ -182,7 +170,7 @@ describe("spCoinContract", function () {
   //   .00003422
   // );
 
-  // await spCoinAddMethods.addSponsorship(
+  // await spCoinAddMethods.addAgentSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[1],
   //   RECIPIENT_ACCOUNT_KEYS[0],
   //   RECIPIENT_RATES[2],
@@ -191,7 +179,7 @@ describe("spCoinContract", function () {
   //   1
   // );
   
-  // await spCoinAddMethods.addSponsorship(
+  // await spCoinAddMethods.addAgentSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[2],
   //   RECIPIENT_ACCOUNT_KEYS[0],
   //   RECIPIENT_RATES[0],
@@ -200,7 +188,7 @@ describe("spCoinContract", function () {
   //   49
   // );
 
-  // await spCoinAddMethods.addSponsorship(
+  // await spCoinAddMethods.addAgentSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[2],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[2],

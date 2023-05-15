@@ -107,39 +107,23 @@ class SpCoinAddMethods {
     _sponsorSigner,
     _recipientKey,
     _recipientRateKey,
-    _accountAgentKey,
-    _agentRateKey,
     _transactionQty) => {
     spCoinLogger.logFunctionHeader(
       "addSponsorship = async(" +
       _sponsorSigner + ", " +
       _recipientKey + ", " +
       _recipientRateKey + ", " +
-      _accountAgentKey + ", " +
-      _agentRateKey + ", " +
       _transactionQty + ")"
     );
 
-    let components = _transactionQty.toString().split(".");
-    let wholePart = components[0].length > 0 ? components[0] : "0";
-    let fractionalPart = components.length > 1 ? components[1] : "0";
-
-    // console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
-    // console.log("_transactionQty   = " + _transactionQty);
-    // console.log("components.length = " + components.length);
-    // console.log("wholePart         = " + wholePart);
-    // console.log("fractionalPart    = " + fractionalPart);
-    // console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
-
-    await this.spCoinContractDeployed.connect(this.signer).addSponsorship(
+    await this.addAgentSponsorship (
+      _sponsorSigner,
       _recipientKey,
       _recipientRateKey,
-      _accountAgentKey,
-      _agentRateKey,
-      wholePart,
-      fractionalPart);
+        BURN_ACCOUNT,
+        0,
+      _transactionQty);
 
-    spCoinLogger.logDetail("JS => " + "Added Agent Transaction " + _accountAgentKey + " _transactionQty = " + _transactionQty);
     spCoinLogger.logExitFunction();
   };
 
@@ -164,13 +148,6 @@ class SpCoinAddMethods {
     let wholePart = components[0].length > 0 ? components[0] : "0";
     let fractionalPart = components.length > 1 ? components[1] : "0";
 
-    // console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
-    // console.log("_transactionQty   = " + _transactionQty);
-    // console.log("components.length = " + components.length);
-    // console.log("wholePart         = " + wholePart);
-    // console.log("fractionalPart    = " + fractionalPart);
-    // console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
-
     await this.spCoinContractDeployed.connect(this.signer).addSponsorship(
       _recipientKey,
       _recipientRateKey,
@@ -179,7 +156,6 @@ class SpCoinAddMethods {
       wholePart,
       fractionalPart);
 
-    spCoinLogger.logDetail("JS => " + "Added Agent Transaction " + _accountAgentKey + " _transactionQty = " + _transactionQty);
     spCoinLogger.logExitFunction();
   };
 
