@@ -47,32 +47,10 @@ contract Account is StructSerialization {
         internal view returns (StakingRewardsStruct memory stakingRewardsRecord) {
             stakingRewardsRecord.sourceKey = _sourceAccount;
             stakingRewardsRecord.sourceType = _sourceType;
-            stakingRewardsRecord.insertionTime = block.timestamp; 
+            stakingRewardsRecord.updateTime = block.timestamp; 
             stakingRewardsRecord.quantity = _amount;
             return stakingRewardsRecord;
     }
-    
-    /*
-    function getSerializedStakingRewardRecords(address _accountKey) 
-    public  returns (string[] memory rewardsRecordList) {
-        AccountStruct storage accountRecord = accountMap[_accountKey];
-        StakingRewardsStruct[] storage stakingRewards = accountRecord.stakingRewards;
-        dynamicStringArray strArray = new dynamicStringArray();
-
-        string memory memoryRewards;
-        for (uint idx = 0; idx < stakingRewards.length; idx++) {
-            StakingRewardsStruct storage stakingRewardsRecord = stakingRewards[idx];
-            memoryRewards = concat(memoryRewards , toString(stakingRewardsRecord.sourceKey), ",", stakingRewardsRecord.sourceType, "," );
-            memoryRewards = concat(memoryRewards , toString(stakingRewardsRecord.insertionTime), ",", toString(stakingRewardsRecord.quantity), "\n" );
-            strArray.addString(memoryRewards);
-        }
-        rewardsRecordList = strArray.getStrings();
-        delete strArray;
-        console.log("rewardsRecordList", rewardsRecordList[0]);
-
-        return rewardsRecordList;
-    }
-*/
 
 /////////////////////////////////////////////////////////////////////////////////////
     function getSerializedStakingRewardRecords(address _accountKey) 
