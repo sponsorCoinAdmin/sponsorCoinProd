@@ -11,7 +11,7 @@ sPCoinTestConnect = async () => {
 initSPCoinHHTest = async () => {
   hhTestElements = await initHHAccounts();
   SPONSOR_ACCOUNT_SIGNERS = hhTestElements.signers;
-  RECIPIENT_ACCOUNT_KEYS = AGENT_ACCOUNT_KEYS = hhTestElements.accounts;
+  SPONSOR_ACCOUNT_KEYS = RECIPIENT_ACCOUNT_KEYS = AGENT_ACCOUNT_KEYS = hhTestElements.accounts;
   TRANSACTION_QTY = RECIPIENT_RATES = AGENT_RATES = hhTestElements.rates;
   BURN_ACCOUNT = hhTestElements.burnAddress;
 }

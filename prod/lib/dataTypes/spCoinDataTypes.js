@@ -11,6 +11,7 @@ class AccountStruct {
     this.agentAccountList;
     this.agentsParentRecipientAccountList;
     this.recipientRecordList;
+    this.stakingRewardsList;
 //    this.KYC;
   }
 }
@@ -69,11 +70,21 @@ class TransactionStruct {
   }
 }
 
+class StakingRewardStruct {
+  constructor() {
+    this.sourceKey;
+    this.sourceType;
+    this.updateTime;
+    this.quantity;
+  }
+}
+
 module.exports = {
   AccountStruct,
   AgentRateStruct,
   AgentStruct,
   RecipientStruct,
   RecipientRateStruct,
-  TransactionStruct
+  TransactionStruct,
+  StakingRewardStruct
 };
