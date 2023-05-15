@@ -29,17 +29,17 @@ contract Account is StructSerialization {
             return accountMap[account];
     }
 
-    function depositStakingReward(address account, address sourceAccount, string memory sourceType, uint amount )
+    function depositAccountStakingReward(address account, address sourceAccount, string memory sourceType, uint amount )
         public returns ( uint ) {
             balanceOf[account] += amount;
             totalSupply+= amount;
             AccountStruct storage accountRecord = accountMap[account];
-            StakingRewardsStruct memory stakingRewardsRecord = addSourceTransactionRecord( sourceAccount, sourceType, amount );
+            StakingRewardsStruct memory stakingRewardsRecord = addAccountStakingRecord( sourceAccount, sourceType, amount );
             accountRecord.stakingRewards.push(stakingRewardsRecord);
             return balanceOf[account];
     }
 
-    function addSourceTransactionRecord(address sourceAccount, string memory sourceType, uint amount )
+    function addAccountStakingRecord(address sourceAccount, string memory sourceType, uint amount )
         internal view returns (StakingRewardsStruct memory stakingRewardsRecord) {
             stakingRewardsRecord.sourceAddress = sourceAccount;
             stakingRewardsRecord.sourceType = sourceType;
@@ -47,6 +47,24 @@ contract Account is StructSerialization {
             stakingRewardsRecord.quantity = amount;
             return stakingRewardsRecord;
     }
+    
+/*
+    function getSeralizedAccountStakingRecords(address _accountKey) public view returns (string[] memory rewardsRecordList) {
+        AccountStruct storage accountRecord = accountMap[_accountKey];
+        StakingRewardsStruct[] storage stakingRewards = accountRecord.stakingRewards;
+        string[] memory rewardsRecordList;
+        
+        for (uint idx = 0; idx < stakingRewards.length; idx++) {
+            StakingRewardsStruct storage stakingRewardsRecord = stakingRewards[idx];
+            string memory memoryReward = concat(toString(stakingRewardsRecord.sourceAddress), ",", stakingRewardsRecord.sourceType, "," );
+            memoryReward = concat(memoryReward , toString(stakingRewardsRecord.insertionTime), ",", toString(stakingRewardsRecord.quantity) );
+            rewardsRecordList.push(memoryReward);
+        }
+        
+
+        return rewardsRecordList;
+    }
+*/
 
     /// @notice determines if address Record is inserted in accountKey array
     /// @param _accountKey public accountKey validate Insertion

@@ -160,31 +160,58 @@ class SpCoinAddMethods {
           _transactionQty + ")"
         );
       
-        let components = _transactionQty.toString().split(".");
-        let wholePart = components[0].length > 0   ? components[0] : "0";
-        let fractionalPart = components.length > 1 ? components[1] : "0";
+      let components = _transactionQty.toString().split(".");
+      let wholePart = components[0].length > 0   ? components[0] : "0";
+      let fractionalPart = components.length > 1 ? components[1] : "0";
       
-        // console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
-        // console.log("_transactionQty   = " + _transactionQty);
-        // console.log("components.length = " + components.length);
-        // console.log("wholePart         = " + wholePart);
-        // console.log("fractionalPart    = " + fractionalPart);
-        // console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+      // console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+      // console.log("_transactionQty   = " + _transactionQty);
+      // console.log("components.length = " + components.length);
+      // console.log("wholePart         = " + wholePart);
+      // console.log("fractionalPart    = " + fractionalPart);
+      // console.log("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
           
-        await this.spCoinContractDeployed.connect(this.signer).addSponsorship(
-          _recipientKey,
-          _recipientRateKey,
-          _accountAgentKey,
-          _agentRateKey,
-          wholePart,
-          fractionalPart);
+      await this.spCoinContractDeployed.connect(this.signer).addSponsorship(
+        _recipientKey,
+        _recipientRateKey,
+        _accountAgentKey,
+        _agentRateKey,
+        wholePart,
+        fractionalPart);
             
-          spCoinLogger.logDetail("JS => "+ "Added Agent Transaction " + _accountAgentKey + " _transactionQty = " + _transactionQty);
-          spCoinLogger.logExitFunction();
+        spCoinLogger.logDetail("JS => "+ "Added Agent Transaction " + _accountAgentKey + " _transactionQty = " + _transactionQty);
+        spCoinLogger.logExitFunction();
+    };
+    //////////////////// STAKING REWARDS //////////////////////
+
+    depositAccountStakingReward = async (
+      _recipientAccount,
+      _sourceAccount, 
+      _sourceType,
+      _amount ) => {
+        spCoinLogger.logFunctionHeader(
+          "depositAccountStakingReward = async(" + 
+          _sourceAccount + ", " + 
+          _recipientKey + ", " + 
+          _sourceType + ", " + 
+          _amount + ")"
+        );
+          
+      await this.spCoinContractDeployed.connect(this.signer).depositAccountStakingReward(
+        _recipientAccount,
+        _sourceAccount, 
+        _sourceType,
+        _amount );
+            
+      spCoinLogger.logDetail("JS => "+ "Deposited Staking Reward to Account " + _recipientAccount +
+      " from source account = " + _sourceAccount + " of Account Type = " + _sourceType + " for Amount = " + _amount);
+      spCoinLogger.logExitFunction();
     };
   }
+
     //////////////////// MODULE EXPORTS //////////////////////
 
 module.exports = {
   SpCoinAddMethods,
 }
+   
