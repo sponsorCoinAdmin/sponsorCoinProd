@@ -43,7 +43,7 @@ describe("spCoinContract", function () {
     RECIPIENT_ACCOUNT_KEYS[12],
     "1000000000"
   )
- await spCoinAddMethods.addSponsorship(
+ await spCoinAddMethods.addAgentSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[5],
     RECIPIENT_ACCOUNT_KEYS[1],
     RECIPIENT_RATES[9],
