@@ -45,7 +45,7 @@ contract Account is StructSerialization {
 
     function addAccountStakingRecord(address _sourceAccount, string memory _sourceType, uint _amount )
         internal view returns (StakingRewardsStruct memory stakingRewardsRecord) {
-            stakingRewardsRecord.sourceAddress = _sourceAccount;
+            stakingRewardsRecord.sourceKey = _sourceAccount;
             stakingRewardsRecord.sourceType = _sourceType;
             stakingRewardsRecord.insertionTime = block.timestamp; 
             stakingRewardsRecord.quantity = _amount;
@@ -62,7 +62,7 @@ contract Account is StructSerialization {
         string memory memoryRewards;
         for (uint idx = 0; idx < stakingRewards.length; idx++) {
             StakingRewardsStruct storage stakingRewardsRecord = stakingRewards[idx];
-            memoryRewards = concat(memoryRewards , toString(stakingRewardsRecord.sourceAddress), ",", stakingRewardsRecord.sourceType, "," );
+            memoryRewards = concat(memoryRewards , toString(stakingRewardsRecord.sourceKey), ",", stakingRewardsRecord.sourceType, "," );
             memoryRewards = concat(memoryRewards , toString(stakingRewardsRecord.insertionTime), ",", toString(stakingRewardsRecord.quantity), "\n" );
             strArray.addString(memoryRewards);
         }
@@ -79,11 +79,13 @@ contract Account is StructSerialization {
         public  view returns (string memory memoryRewards) {
         AccountStruct storage accountRecord = accountMap[_accountKey];
         StakingRewardsStruct[] storage stakingRewards = accountRecord.stakingRewards;
-
         for (uint idx = 0; idx < stakingRewards.length; idx++) {
             StakingRewardsStruct storage stakingRewardsRecord = stakingRewards[idx];
-            memoryRewards = concat(memoryRewards , toString(stakingRewardsRecord.sourceAddress), ",", stakingRewardsRecord.sourceType, "," );
-            memoryRewards = concat(memoryRewards , toString(stakingRewardsRecord.insertionTime), ",", toString(stakingRewardsRecord.quantity), "\n" );
+            memoryRewards = concat(memoryRewards , toString(stakingRewardsRecord.sourceKey), ",", stakingRewardsRecord.sourceType, "," );
+            memoryRewards = concat(memoryRewards , toString(stakingRewardsRecord.updateTime), ",", toString(stakingRewardsRecord.quantity));
+            if (idx < stakingRewards.length - 1) {
+                memoryRewards = concat(memoryRewards , "\n" );
+            }
         }
         // console.log("rewardsRecordList", memoryRewards);
 

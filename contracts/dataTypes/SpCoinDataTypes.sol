@@ -130,9 +130,9 @@ contract SpCoinDataTypes {
     }
 
     struct StakingRewardsStruct {
-        address sourceAddress;
+        address sourceKey;
         string sourceType;
-        uint256 insertionTime;
+        uint256 updateTime;
         uint256 quantity;
     }
 }

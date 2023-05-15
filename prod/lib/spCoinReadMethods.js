@@ -5,7 +5,9 @@ const {
   AgentStruct,
   RecipientStruct,
   RecipientRateStruct,
-  TransactionStruct } = require("./dataTypes/spCoinDataTypes");
+  StakingRewardStruct,
+  TransactionStruct,
+   } = require("./dataTypes/spCoinDataTypes");
 const { SpCoinSerialize, bigIntToDecString, bigIntToDateTimeString, getLocation } = require("./utils/serialize");
 
 let spCoinLogger;
@@ -63,9 +65,40 @@ class SpCoinReadMethods {
     accountStruct.accountKey = _accountKey;
     let recipientAccountList = await this.getAccountRecipientList(_accountKey);
     accountStruct.recipientRecordList = await this.getRecipientRecordList(_accountKey, recipientAccountList);
+
+    let stakingRewardsList = await this.spCoinContractDeployed.connect(this.signer).getSerializedStakingRewardRecords(_accountKey);
+    accountStruct.stakingRewardsList = this.deserializeStakingRewardRecords(stakingRewardsList);
     spCoinLogger.logExitFunction();
     return accountStruct;
   }
+
+ deserializeStakingRewardRecords = (stakingRewardsStr) => {
+  spCoinLogger.logFunctionHeader("deserializeStakingRewardRecords = (" + stakingRewardsStr + ")");
+  spCoinLogger.log("deserializeStakingRewardRecords = async(" + stakingRewardsStr + ")");
+
+  let stakingRewardRecords = [];
+  if(stakingRewardsStr.length > 0) {
+    // console.log("==>19 deserializeRateTransactionRecords = async(" + stakingRewardsStr + ")");
+    let stakingRewardsRows = stakingRewardsStr.split("\n");
+    // for (let row in stakingRewardsRows) {
+    console.log("AAAAAAAAAAA stakingRewardsRows.length = " + stakingRewardsRows.length);
+    for (var row = stakingRewardsRows.length - 1; row >= 0; row--) {
+      console.log("AAAAAAAAAAA stakingRewardsRows[",row,"] = " + stakingRewardsRows[row]);
+      let stakingRewardsFields = stakingRewardsRows[row].split(",");
+      let stakingRewardRecord = new StakingRewardStruct();
+      let count = 0;
+      stakingRewardRecord.sourceKey = stakingRewardsFields[count++];
+      stakingRewardRecord.sourceType = stakingRewardsFields[count++];
+      stakingRewardRecord.insertionTime = bigIntToDateTimeString(stakingRewardsFields[count++]);
+      stakingRewardRecord.quantity = bigIntToDecString(stakingRewardsFields[count++]);
+      stakingRewardRecords.push(stakingRewardRecord);
+      // spCoinLogger.logJSON(stakingRewardRecord);
+    }
+    spCoinLogger.logExitFunction();
+  }
+  // console.log(JSON.stringify(stakingRewardRecords, null, 2));
+  return  stakingRewardRecords;
+}
 
   getAccountRecords = async() => {
     // console.log("==>1 getAccountRecords()");
