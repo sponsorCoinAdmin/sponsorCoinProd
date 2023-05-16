@@ -1,21 +1,9 @@
-const { expect } = require("chai");
-const { initHHAccounts } = require("../test/testMethods/hhTestAccounts");
-const { SpCoinLogger } = require("../prod/lib/utils/logging");
-const { } = require("../prod/lib/spCoinDeleteMethods");
-const { } = require("../test/deployContract");
-
-let spCoinContractDeployed;
-
-spCoinLogger.logSetup("JS => Setup Test");
-
-/**/
+const { LOG_MODE } = require("../test/hardhatSetup/hhConnectSetup");
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
-    spCoinContractDeployed = await deploySpCoinContract();
+    await initSPCoinTestConnect();
   });
-
-/* */
 
     it("SUCCESSFUL EXECUTION: 'SUCCESSFULLY DELETED ACCOUNT'", async function () {
       await spCoinAddMethods.addTestNetworkAccounts([0, 1, 2]);

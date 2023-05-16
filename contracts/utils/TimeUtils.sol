@@ -3,13 +3,38 @@ pragma solidity ^0.8.18;
 
 import "hardhat/console.sol";
 
+
 contract TimeUtils {
     constructor() {
     }
 
-   function getAccountTimeInSecondeSinceUpdate(uint TokenLastUpdate) external view returns(uint) {
-        uint AccountTimeInSecondeSinceUpdate = block.timestamp -TokenLastUpdate;
-        return AccountTimeInSecondeSinceUpdate;
+    uint8 constant second = 1;
+    uint8 constant minute = second * 60;
+    uint8 constant hour = minute * 60;
+    uint8 constant day = hour * 24;
+    uint8 constant week = day * 7;
+    uint16 constant year = day * (365 + hour * 8);
+    uint16 constant month = year/12;
+
+    function getStakingRewards(uint lastUpdateTime, uint interestRate, uint quantity) public view returns(uint rewards) {
+        uint accountTimeInSecondeSinceUpdate = this.getTimeMultiplier(lastUpdateTime);
+        rewards = (quantity * accountTimeInSecondeSinceUpdate * interestRate) /100;
+        return rewards;
+    }
+
+    function getTimeMultiplier(uint lastUpdateTime) public view returns(uint timeMultiplier) {
+        uint accountTimeInSecondeSinceUpdate = this.getAccountTimeInSecondeSinceUpdate(lastUpdateTime);
+        timeMultiplier = this.getAnnualizedPercentageForGivenTimeInterval(accountTimeInSecondeSinceUpdate);
+        return timeMultiplier;
+    }
+
+   function getAccountTimeInSecondeSinceUpdate(uint TokenLastUpdate) public view returns(uint) {
+        uint accountTimeInSecondeSinceUpdate = block.timestamp - TokenLastUpdate;
+        return accountTimeInSecondeSinceUpdate;
+    }
+
+    function getAnnualizedPercentageForGivenTimeInterval(uint timeInSeconds) public pure returns(uint) {
+        return year/timeInSeconds;
     }
 }
 

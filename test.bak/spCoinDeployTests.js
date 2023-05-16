@@ -1,22 +1,9 @@
-const { expect } = require("chai");
-const { SpCoinLogger } = require("../prod/lib/utils/logging");
-const { initHHAccounts } = require("../test/testMethods/hhTestAccounts");
-const { } = require("../test/deployContract");
+const { LOG_MODE } = require("../test/hardhatSetup/hhConnectSetup");
 
-spCoinLogger.logSetup("JS => Setup Test");
-
-let spCoinContractDeployed;
-
-describe("spCoinContract", function() {
-    beforeEach(async() =>  {
-        spCoinContractDeployed = await deploySpCoinContract();
-        const hhTestElements = await initHHAccounts();
-        const signers = hhTestElements.signers;
-        const accounts = hhTestElements.accounts;
-        const rates = hhTestElements.rates;
-        TEST_HH_ACCOUNT_LIST = accounts;
-        TRANSACTION_QTY = RECIPIENT_RATES = AGENT_RATES = hhTestElements.rates;
-    });
+describe("spCoinContract", function () {
+  beforeEach(async () => {
+    await initSPCoinTestConnect();
+  });
 
 /**
     it("Deployment ~ Validating ERC20 standard parameter settings", async function () {

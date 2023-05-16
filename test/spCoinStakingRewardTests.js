@@ -5,7 +5,7 @@ describe("spCoinContract", function () {
     await initSPCoinTestConnect();
   });
 
- it("2. VALIDATE ADD TRANSACTION RATES", async function () {
+ it("2. VALIDATE STAKING REWARDS CALCULATIONS", async function () {
   // Test Successful Record Insertion of Sponsor and 
   // Recipient Account to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
@@ -49,28 +49,23 @@ describe("spCoinContract", function () {
 
   spCoinLogger.logJSONTree(await spCoinReadMethods.getAccountRecords());
 
-  // await spCoinDeleteMethods.unSponsorRecipient(SPONSOR_ACCOUNT_SIGNERS[0],
-  //   RECIPIENT_ACCOUNT_KEYS[1]);
 
-  // await spCoinDeleteMethods.unSponsorRecipient(SPONSOR_ACCOUNT_SIGNERS[0],
-  //   RECIPIENT_ACCOUNT_KEYS[2]);
- 
-  //   console.log("********************************************************************************");
-  //   console.log("*** AFTER DELETE ***************************************************************");
-  //   console.log("********************************************************************************");
- 
-  //   spCoinLogger.logJSONTree(await spCoinReadMethods.getAccountRecords());
+  // await spCoinERC20Methods.transfer(
+  //    RECIPIENT_ACCOUNT_KEYS[12],
+  //    "1000000000"
+  //  )
 
+  // console.log("********************************************************************************");
+  // console.log("*** AFTER CREATE ***************************************************************");
+  // console.log("********************************************************************************");
+
+  // spCoinLogger.logJSONTree(await spCoinReadMethods.getAccountRecords());
 
     // AccountListSize = (await getAccountListSize()).toNumber();
     // expect(AccountListSize).to.equal(3);
     // await spCoinDeleteMethods.unSponsorRecipient(SPONSOR_ACCOUNT_SIGNERS[0], RECIPIENT_ACCOUNT_KEYS[1]);
     // await spCoinContractDeployed.deleteAccountFromMaster(RECIPIENT_ACCOUNT_KEYS[1]);
     // await unSponsorRecipient(SPONSOR_ACCOUNT_SIGNERS[0], RECIPIENT_ACCOUNT_KEYS[2]);
-    // await unSponsorRecipient(SPONSOR_ACCOUNT_SIGNERS[1], RECIPIENT_ACCOUNT_KEYS[2]);
-    // await unSponsorRecipient(SPONSOR_ACCOUNT_SIGNERS[1], RECIPIENT_ACCOUNT_KEYS[0]);
-    // await unSponsorRecipient(SPONSOR_ACCOUNT_SIGNERS[2], RECIPIENT_ACCOUNT_KEYS[0]);
-    // await unSponsorRecipient(SPONSOR_ACCOUNT_SIGNERS[2], RECIPIENT_ACCOUNT_KEYS[1]);
    
     // spCoinLogger.logJSONTree(await spCoinReadMethods.getAccountRecords());
     // agentRateList = await getAgentRateList(
