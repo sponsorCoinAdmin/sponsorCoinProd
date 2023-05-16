@@ -16,25 +16,25 @@ contract TimeUtils {
     uint16 constant year = day * (365 + hour * 8);
     uint16 constant month = year/12;
 
-    function getStakingRewards(uint lastUpdateTime, uint interestRate, uint quantity) public view returns(uint rewards) {
-        uint accountTimeInSecondeSinceUpdate = this.getTimeMultiplier(lastUpdateTime);
-        rewards = (quantity * accountTimeInSecondeSinceUpdate * interestRate) /100;
+    function getStakingRewards(uint _tokenLastUpdate, uint _interestRate, uint _quantity) public view returns(uint rewards) {
+        uint accountTimeInSecondeSinceUpdate = getTimeMultiplier(_tokenLastUpdate);
+        rewards = (_quantity * accountTimeInSecondeSinceUpdate * _interestRate) /100;
         return rewards;
     }
 
-    function getTimeMultiplier(uint lastUpdateTime) public view returns(uint timeMultiplier) {
-        uint accountTimeInSecondeSinceUpdate = this.getAccountTimeInSecondeSinceUpdate(lastUpdateTime);
-        timeMultiplier = this.getAnnualizedPercentageForGivenTimeInterval(accountTimeInSecondeSinceUpdate);
-        return timeMultiplier;
+    function getTimeMultiplier(uint _tokenLastUpdate) public view returns(uint _timeMultiplier) {
+        uint accountTimeInSecondeSinceUpdate = this.getAccountTimeInSecondeSinceUpdate(_tokenLastUpdate);
+        _timeMultiplier = this.getAnnualizedPercentageForGivenTimeInterval(accountTimeInSecondeSinceUpdate);
+        return _timeMultiplier;
     }
 
-   function getAccountTimeInSecondeSinceUpdate(uint TokenLastUpdate) public view returns(uint) {
-        uint accountTimeInSecondeSinceUpdate = block.timestamp - TokenLastUpdate;
+   function getAccountTimeInSecondeSinceUpdate(uint _tokenLastUpdate) public view returns(uint) {
+        uint accountTimeInSecondeSinceUpdate = block.timestamp - _tokenLastUpdate;
         return accountTimeInSecondeSinceUpdate;
     }
 
-    function getAnnualizedPercentageForGivenTimeInterval(uint timeInSeconds) public pure returns(uint) {
-        return year/timeInSeconds;
+    function getAnnualizedPercentageForGivenTimeInterval(uint _timeInSeconds) public pure returns(uint) {
+        return year/_timeInSeconds;
     }
 }
 
