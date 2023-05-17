@@ -8,13 +8,15 @@ contract TimeUtils {
     constructor() {
     }
 
-    uint8 constant second = 1;
-    uint8 constant minute = second * 60;
-    uint8 constant hour = minute * 60;
-    uint8 constant day = hour * 24;
-    uint8 constant week = day * 7;
-    uint16 constant year = day * (365 + hour * 8);
-    uint16 constant month = year/12;
+    uint constant second = 1;
+    uint constant minute = second * 60;
+    uint constant hour = minute * 60;
+    uint constant day = hour * 24;
+    uint constant week = day * 7;
+    uint constant year = day * (365 + hour * 8);
+    uint constant month = year/12;
+    uint constant millennium = year * 1000;
+
 
     function getStakingRewards(uint _tokenLastUpdate, uint _interestRate, uint _quantity) public view returns(uint rewards) {
         uint accountTimeInSecondeSinceUpdate = getTimeMultiplier(_tokenLastUpdate);
@@ -23,18 +25,25 @@ contract TimeUtils {
     }
 
     function getTimeMultiplier(uint _tokenLastUpdate) public view returns(uint _timeMultiplier) {
-        uint accountTimeInSecondeSinceUpdate = this.getAccountTimeInSecondeSinceUpdate(_tokenLastUpdate);
-        _timeMultiplier = this.getAnnualizedPercentageForGivenTimeInterval(accountTimeInSecondeSinceUpdate);
+        uint accountTimeInSecondeSinceUpdate = getAccountTimeInSecondeSinceUpdate(_tokenLastUpdate);
+        _timeMultiplier = this.getMillenniumTimeIntervalDivisor(accountTimeInSecondeSinceUpdate);
         return _timeMultiplier;
     }
 
-   function getAccountTimeInSecondeSinceUpdate(uint _tokenLastUpdate) public view returns(uint) {
-        uint accountTimeInSecondeSinceUpdate = block.timestamp - _tokenLastUpdate;
+    function getAccountTimeInSecondeSinceUpdate(uint _tokenLastUpdate) public view returns(uint) {
+        uint accountTimeInSecondeSinceUpdate = getTimeDifference(block.timestamp, _tokenLastUpdate);
         return accountTimeInSecondeSinceUpdate;
     }
 
-    function getAnnualizedPercentageForGivenTimeInterval(uint _timeInSeconds) public pure returns(uint) {
-        return year/_timeInSeconds;
+   function getTimeDifference(uint _passedTime, uint _tokenLastUpdate ) public pure returns(uint) {
+        uint accountTimeInSecondeSinceUpdate = _passedTime - _tokenLastUpdate;
+        return accountTimeInSecondeSinceUpdate;
+    }
+
+    function getMillenniumTimeIntervalDivisor(uint _timeInSeconds) public view  returns(uint) {
+        console.log("SOL=> _timeInSeconds ", _timeInSeconds);  
+        uint millenniumDivisor = millennium/_timeInSeconds;
+        return millenniumDivisor;
     }
 }
 

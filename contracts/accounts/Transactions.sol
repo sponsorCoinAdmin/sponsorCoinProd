@@ -60,7 +60,7 @@ contract Transactions is AgentRates {
         // console.log("AFTER balanceOf     =", balanceOf[msg.sender]);
         // console.log("AFTER sponsorAmount ",sponsorAmount);
     }
-    
+
     function updateAgentRateSponsorship(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey, uint256 _transAmount)
        internal returns (AgentRateStruct storage) {
         AgentStruct storage agentRec = updateAgentSponsorship(_recipientKey, _recipientRateKey, _agentKey, _transAmount);

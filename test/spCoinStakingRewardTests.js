@@ -1,4 +1,33 @@
 const { LOG_MODE } = require("./hardhatSetup/hhConnectSetup");
+// const {
+//   spCoinConnectMethods,
+//   second,
+//   minute,
+//   hour,
+//   day,
+//   week,
+//   year,
+//   month ,
+//   millennium
+// } = require("../prod/spCoinMethods");
+
+const second = 1;
+const minute = second * 60;
+const hour = minute * 60;
+const day = hour * 24;
+const week = day * 7;
+const year = day * (365 + hour * 8);
+const month = year/12;
+const millennium = year * 1000;
+
+spCoinConnectMethods
+// let spCoinAddMethods;
+// let spCoinDeleteMethods;
+// let spCoinERC20Methods;
+// let spCoinReadMethods;
+// let spCoinStakingMethods;
+// let spCoinLogger;
+
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
@@ -10,44 +39,62 @@ describe("spCoinContract", function () {
   // Recipient Account to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
 
-  await spCoinAddMethods.addSponsorship(
-    SPONSOR_ACCOUNT_SIGNERS[0],
-    RECIPIENT_ACCOUNT_KEYS[1],
-    RECIPIENT_RATES[9],
-    "1.000000000000000008"
-  );
+  console.log("spCoinStakingRewardTests:second     = ", second);
+  console.log("spCoinStakingRewardTests:minute     = ", minute);
+  console.log("spCoinStakingRewardTests:hour       = ", hour);
+  console.log("spCoinStakingRewardTests:day        = ", day);
+  console.log("spCoinStakingRewardTests:week       = ", week);
+  console.log("spCoinStakingRewardTests:year       = ", year);
+  console.log("spCoinStakingRewardTests:month      = ", month);
+  console.log("spCoinStakingRewardTests:millennium = ", millennium);
+  millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( second );
+  console.log("millennial Portion", millenniumDivisor);
+  millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( minute );
+  console.log("millennial Portion", millenniumDivisor);
+  millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( hour );
+  console.log("millennial Portion", millenniumDivisor);
+  millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( day );
+  console.log("millennial Portion", millenniumDivisor);
+  millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( week );
+  console.log("millennial Portion", millenniumDivisor);
+  millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( month );
+  console.log("millennial Portion", millenniumDivisor);
+  millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( year);
+  console.log("millennial Portion", millenniumDivisor);
+  millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( millennium);
+  console.log("millennial Portion", millenniumDivisor);
 
-  await spCoinAddMethods.depositAccountStakingRewards(
-    RECIPIENT_ACCOUNT_KEYS[1], 
-    SPONSOR_ACCOUNT_KEYS[0],
-    "SPONSOR",
-    123
-  );
+  // await spCoinAddMethods.depositAccountStakingRewards(
+  //   RECIPIENT_ACCOUNT_KEYS[1], 
+  //   SPONSOR_ACCOUNT_KEYS[0],
+  //   "SPONSOR",
+  //   123
+  // );
   
-  await spCoinAddMethods.depositAccountStakingRewards(
-    RECIPIENT_ACCOUNT_KEYS[1], 
-    SPONSOR_ACCOUNT_KEYS[0],
-    "AGENT",
-    456
-  );
+  // await spCoinAddMethods.depositAccountStakingRewards(
+  //   RECIPIENT_ACCOUNT_KEYS[1], 
+  //   SPONSOR_ACCOUNT_KEYS[0],
+  //   "AGENT",
+  //   456
+  // );
 
-  await spCoinAddMethods.depositAccountStakingRewards(
-    RECIPIENT_ACCOUNT_KEYS[1], 
-    SPONSOR_ACCOUNT_KEYS[0],
-    "SPONSOR",
-    789
-  );
+  // await spCoinAddMethods.depositAccountStakingRewards(
+  //   RECIPIENT_ACCOUNT_KEYS[1], 
+  //   SPONSOR_ACCOUNT_KEYS[0],
+  //   "SPONSOR",
+  //   789
+  // );
 
-  await spCoinERC20Methods.transfer(
-     RECIPIENT_ACCOUNT_KEYS[12],
-     "1000000000"
-   )
+  // await spCoinERC20Methods.transfer(
+  //    RECIPIENT_ACCOUNT_KEYS[12],
+  //    "1000000000"
+  //  )
 
-  console.log("********************************************************************************");
-  console.log("*** AFTER CREATE ***************************************************************");
-  console.log("********************************************************************************");
+  // console.log("********************************************************************************");
+  // console.log("*** AFTER CREATE ***************************************************************");
+  // console.log("********************************************************************************");
 
-  spCoinLogger.logJSONTree(await spCoinReadMethods.getAccountRecords());
+  // spCoinLogger.logJSONTree(await spCoinReadMethods.getAccountRecords());
 
 
   // await spCoinERC20Methods.transfer(
