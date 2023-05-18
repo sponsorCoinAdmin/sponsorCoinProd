@@ -1,15 +1,4 @@
 const { LOG_MODE } = require("./hardhatSetup/hhConnectSetup");
-// const {
-//   spCoinConnectMethods,
-//   second,
-//   minute,
-//   hour,
-//   day,
-//   week,
-//   year,
-//   month ,
-//   millennium
-// } = require("../prod/spCoinMethods");
 
 const second = 1;
 const minute = second * 60;
@@ -48,21 +37,38 @@ describe("spCoinContract", function () {
   console.log("spCoinStakingRewardTests:month      = ", month);
   console.log("spCoinStakingRewardTests:millennium = ", millennium);
   millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( second );
-  console.log("millennial Portion", millenniumDivisor);
+  console.log("Second Portion", millenniumDivisor);
   millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( minute );
-  console.log("millennial Portion", millenniumDivisor);
+  console.log("Minute Portion", millenniumDivisor);
   millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( hour );
-  console.log("millennial Portion", millenniumDivisor);
+  console.log("Hour Portion", millenniumDivisor);
   millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( day );
-  console.log("millennial Portion", millenniumDivisor);
+  console.log("Millennial Portion", millenniumDivisor);
   millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( week );
-  console.log("millennial Portion", millenniumDivisor);
+  console.log("Week Portion", millenniumDivisor);
   millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( month );
-  console.log("millennial Portion", millenniumDivisor);
+  console.log("Month Portion", millenniumDivisor);
   millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( year);
-  console.log("millennial Portion", millenniumDivisor);
+  console.log("Year Portion", millenniumDivisor);
   millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( millennium);
-  console.log("millennial Portion", millenniumDivisor);
+  console.log("Millennial Portion", millenniumDivisor);
+
+  console.log("********************************************************************************");
+
+
+  let lastUpdateTime = millennium;
+  let testUpdateTime = millennium * 2;
+  let interestRate = 10;
+  let quantity = 100;
+
+  console.log("SOL=> spCoinStakingRewardTests:lastUpdateTime =", lastUpdateTime);
+  console.log("SOL=> spCoinStakingRewardTests:testUpdateTime =", testUpdateTime);
+  console.log("SOL=> spCoinStakingRewardTests:interestRate   =", interestRate);
+  console.log("SOL=> spCoinStakingRewardTests:quantity       =", quantity);
+
+  rewards = await spCoinStakingMethods.testStakingRewards( lastUpdateTime, testUpdateTime, interestRate, quantity );
+  console.log(" Token Rewards", rewards);
+
 
   // await spCoinAddMethods.depositAccountStakingRewards(
   //   RECIPIENT_ACCOUNT_KEYS[1], 

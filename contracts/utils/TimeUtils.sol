@@ -2,9 +2,10 @@
 pragma solidity ^0.8.18;
 
 import "hardhat/console.sol";
+import "./StringUtils.sol";
 
 
-contract TimeUtils {
+contract TimeUtils is StringUtils {
     constructor() {
     }
 
@@ -18,25 +19,36 @@ contract TimeUtils {
     uint constant millennium = year * 1000;
 
 
-    function getStakingRewards(uint _tokenLastUpdate, uint _interestRate, uint _quantity) public view returns(uint rewards) {
-        uint accountTimeInSecondeSinceUpdate = getTimeMultiplier(_tokenLastUpdate);
+    function testStakingRewards(uint _lastUpdateTime, uint _testUpdateTime, uint _interestRate, uint _quantity) public view returns(uint rewards) {
+        console.log("SOL=> testStakingRewards:_lastUpdateTime =", toString(_lastUpdateTime));
+        console.log("SOL=> testStakingRewards:_testUpdateTime =", toString(_testUpdateTime));
+        console.log("SOL=> testStakingRewards:_interestRate   =", toString(_interestRate));
+        console.log("SOL=> testStakingRewards:_quantity       =", toString(_quantity));
+        // uint accountTimeInSecondeSinceUpdate = getTimeMultiplier(_lastUpdateTime);
+        // rewards = (_quantity * accountTimeInSecondeSinceUpdate * _interestRate) /100;
+        rewards =99;
+        return rewards;
+    }
+
+   function getStakingRewards(uint _lastUpdateTime, uint _interestRate, uint _quantity) public view returns(uint rewards) {
+        uint accountTimeInSecondeSinceUpdate = getTimeMultiplier(_lastUpdateTime);
         rewards = (_quantity * accountTimeInSecondeSinceUpdate * _interestRate) /100;
         return rewards;
     }
 
-    function getTimeMultiplier(uint _tokenLastUpdate) public view returns(uint _timeMultiplier) {
-        uint accountTimeInSecondeSinceUpdate = getAccountTimeInSecondeSinceUpdate(_tokenLastUpdate);
+    function getTimeMultiplier(uint _lastUpdateTime) public view returns(uint _timeMultiplier) {
+        uint accountTimeInSecondeSinceUpdate = getAccountTimeInSecondeSinceUpdate(_lastUpdateTime);
         _timeMultiplier = this.getMillenniumTimeIntervalDivisor(accountTimeInSecondeSinceUpdate);
         return _timeMultiplier;
     }
 
-    function getAccountTimeInSecondeSinceUpdate(uint _tokenLastUpdate) public view returns(uint) {
-        uint accountTimeInSecondeSinceUpdate = getTimeDifference(block.timestamp, _tokenLastUpdate);
+    function getAccountTimeInSecondeSinceUpdate(uint _lastUpdateTime) public view returns(uint) {
+        uint accountTimeInSecondeSinceUpdate = getTimeDifference(block.timestamp, _lastUpdateTime);
         return accountTimeInSecondeSinceUpdate;
     }
 
-   function getTimeDifference(uint _passedTime, uint _tokenLastUpdate ) public pure returns(uint) {
-        uint accountTimeInSecondeSinceUpdate = _passedTime - _tokenLastUpdate;
+   function getTimeDifference(uint _passedTime, uint _lastUpdateTime ) public pure returns(uint) {
+        uint accountTimeInSecondeSinceUpdate = _passedTime - _lastUpdateTime;
         return accountTimeInSecondeSinceUpdate;
     }
 
