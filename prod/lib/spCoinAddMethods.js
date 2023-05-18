@@ -17,9 +17,7 @@ class SpCoinAddMethods {
       "addRecipient = async(" + _recipientKey + ")"
     );
 
-    spCoinLogger.logDetail("JS => Inserting " + _recipientKey + " Recipient To Blockchain Network"
-    );
-
+  spCoinLogger.logDetail("JS => Inserting " + _recipientKey + " Recipient To Blockchain Network");
     spCoinLogger.logDetail("JS => Inserting Recipient " + _recipientKey);
     await this.spCoinContractDeployed.connect(this.signer).addRecipient(_recipientKey);
     spCoinLogger.logExitFunction();
@@ -124,6 +122,7 @@ class SpCoinAddMethods {
 
     spCoinLogger.logExitFunction();
   };
+
 
   addAgentSponsorship = async (
     _sponsorSigner,

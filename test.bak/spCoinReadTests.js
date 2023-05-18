@@ -1,24 +1,8 @@
-const { expect } = require("chai");
-const { SpCoinLogger } = require("../prod/lib/utils/logging");
-const { initHHAccounts } = require("../test/testMethods/hhTestAccounts");
-const { } = require("../prod/lib/spCoinAddMethods");
-const { } = require("../test/deployContract");
-
-let spCoinContractDeployed;
-let accounts;
-let RECIPIENT_ACCOUNT_KEYS;
-let spCoinTestMethods = new SpCoinTestMethods();
-let spCoinLogging;
-
-spCoinLogger.logSetup("JS => Setup Test");
+const { LOG_MODE } = require("../test/hardhatSetup/hhConnectSetup");
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
-    spCoinContractDeployed = await deploySpCoinContract();
-    
-    const hhTestElements = await initHHAccounts();
-    accounts = hhTestElements.accounts;
-    RECIPIENT_ACCOUNT_KEYS = accounts;
+    await initSPCoinTestConnect();
   });
 
   /**/
@@ -178,7 +162,7 @@ describe("spCoinContract", function () {
     // Test That Sponsor at Idx 3 has 2 Record Recipient in the blockchain and
     // Validate they are the correct ones in the Sponsor Structure
     // Read from Blockchain Network
-    let recipientKey = spCoinTestMethods.getTestHHAccountKey(3);
+    let recipientKey = hardhatConnectionSetup.getTestHHAccountKey(3);
 
     let accountStruct = await getAccountRecord(recipientKey);
     spCoinLogger.logJSON(accountStruct);

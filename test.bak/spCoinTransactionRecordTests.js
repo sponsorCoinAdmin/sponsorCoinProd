@@ -1,27 +1,8 @@
-const { expect } = require("chai");
-const {
-  AccountStruct,
-  RecipientStruct,
-  AgentStruct,
-  AgentRateStruct,
-  TransactionStruct,
-} = require("../prod/lib/spCoinDataTypes");
-const { initHHAccounts } = require("./testMethods/hhTestAccounts");
-const { SpCoinLogger } = require("../prod/lib/utils/logging");
-const { } = require("./deployContract");
-
-let spCoinContractDeployed;
-
-spCoinLogger.logSetup("JS => Setup Test");
+const { LOG_MODE } = require("../test/hardhatSetup/hhConnectSetup");
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
-    spCoinContractDeployed = await deploySpCoinContract();
-    const hhTestElements = await initHHAccounts();
-    const accounts = hhTestElements.accounts;
-    SPONSOR_ACCOUNT_SIGNERS = accounts;
-    RECIPIENT_ACCOUNT_KEYS = AGENT_ACCOUNT_KEYS = accounts;
-    TRANSACTION_QTY = RECIPIENT_RATES = AGENT_RATES = hhTestElements.rates;
+    await initSPCoinTestConnect();
   });
 
 it("1 VALIDATE ADD TRANSACTION RATES", async function () {
