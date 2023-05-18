@@ -1,5 +1,3 @@
-// const {  spCoinContractDeployed } = require("../contracts/spCoin");
-// const { BigNumber, ethers, utils } = require("ethers");
 const { SpCoinLogger } = require("./logging");
 const { bigIntToDateTimeString,
         bigIntToDecString,
