@@ -19,7 +19,7 @@ contract TimeUtils is StringUtils {
     uint constant millennium = year * 1000;
 
 
-/*
+
     function testStakingRewards(uint _lastUpdateTime, uint _testUpdateTime, uint _interestRate, uint _quantity) public view returns(uint rewards) {
         console.log("SOL=> testStakingRewards:_lastUpdateTime =", toString(_lastUpdateTime));
         console.log("SOL=> testStakingRewards:_testUpdateTime =", toString(_testUpdateTime));
@@ -30,7 +30,7 @@ contract TimeUtils is StringUtils {
         rewards =99;
         return rewards;
     }
-*/
+
     // function getMillenniumTimeIntervalDivisor2(uint _timeInSeconds) public view  returns(uint) {
     //     console.log("SOL=> _timeInSeconds ", _timeInSeconds);  
     //     uint millenniumDivisor = millennium/_timeInSeconds;

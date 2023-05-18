@@ -61,20 +61,6 @@ contract Transactions is AgentRates {
         // console.log("AFTER sponsorAmount ",sponsorAmount);
     }
 
-    //START REMOVE
-
-        function testStakingRewards(uint _lastUpdateTime, uint _testUpdateTime, uint _interestRate, uint _quantity) public view returns(uint rewards) {
-        console.log("SOL=> testStakingRewards:_lastUpdateTime =", toString(_lastUpdateTime));
-        console.log("SOL=> testStakingRewards:_testUpdateTime =", toString(_testUpdateTime));
-        console.log("SOL=> testStakingRewards:_interestRate   =", toString(_interestRate));
-        console.log("SOL=> testStakingRewards:_quantity       =", toString(_quantity));
-        // uint accountTimeInSecondeSinceUpdate = getTimeMultiplier(_lastUpdateTime);
-        // rewards = (_quantity * accountTimeInSecondeSinceUpdate * _interestRate) /100;
-        rewards =99;
-        return rewards;
-    }
-    //END REMOVE
-
     function updateAgentRateSponsorship(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey, uint256 _transAmount)
        internal returns (AgentRateStruct storage) {
         AgentStruct storage agentRec = updateAgentSponsorship(_recipientKey, _recipientRateKey, _agentKey, _transAmount);
