@@ -33,6 +33,14 @@ class SpCoinStakingMethods {
   setSigner(_signer) {
     this.signer = _signer;
   }
+testStakingRewards
+  testStakingRewards = async(lastUpdateTime, testUpdateTime, interestRate, quantity) => {
+    // spCoinLogger.logFunctionHeader("getStakingRewards(lastUpdateTime,  interestRate,  quantity)");
+    let stakingRewards = await this.spCoinContractDeployed.connect(this.signer).testStakingRewards(lastUpdateTime, testUpdateTime, interestRate, quantity);
+    
+    spCoinLogger.logExitFunction();
+    return stakingRewards;
+  }
 
   getStakingRewards = async(lastUpdateTime,  interestRate,  quantity) => {
     // spCoinLogger.logFunctionHeader("getStakingRewards(lastUpdateTime,  interestRate,  quantity)");
@@ -65,6 +73,8 @@ class SpCoinStakingMethods {
     // return annualizedPercentage;
     return bigIntToDecString(annualizedPercentage);
   }
+
+
 };
 
 /////////////////////// EXPORT MODULE FUNCTIONS ///////////////////////
