@@ -30,29 +30,41 @@ contract TimeUtils is StringUtils {
         return rewards;
     }
 
-   function getStakingRewards(uint _lastUpdateTime, uint _interestRate, uint _quantity) public view returns(uint rewards) {
-        uint accountTimeInSecondeSinceUpdate = getTimeMultiplier(_lastUpdateTime);
-        rewards = (_quantity * accountTimeInSecondeSinceUpdate * _interestRate) /100;
-        return rewards;
-    }
+    // function getMillenniumTimeIntervalDivisor2(uint _timeInSeconds) public view  returns(uint) {
+    //     console.log("SOL=> _timeInSeconds ", _timeInSeconds);  
+    //     uint millenniumDivisor = millennium/_timeInSeconds;
+    //     return millenniumDivisor;
+    // }
 
-    function getTimeMultiplier(uint _lastUpdateTime) public view returns(uint _timeMultiplier) {
-        uint accountTimeInSecondeSinceUpdate = getAccountTimeInSecondeSinceUpdate(_lastUpdateTime);
-        _timeMultiplier = this.getMillenniumTimeIntervalDivisor(accountTimeInSecondeSinceUpdate);
-        return _timeMultiplier;
-    }
+//    function getStakingRewards(uint _lastUpdateTime, uint _interestRate, uint _quantity) public view returns(uint rewards) {
+//         uint accountTimeInSecondeSinceUpdate = getTimeMultiplier(_lastUpdateTime);
+//         rewards = (_quantity * accountTimeInSecondeSinceUpdate * _interestRate) /100;
+//         return rewards;
+//     }
 
-    function getAccountTimeInSecondeSinceUpdate(uint _lastUpdateTime) public view returns(uint) {
-        uint accountTimeInSecondeSinceUpdate = getTimeDifference(block.timestamp, _lastUpdateTime);
-        return accountTimeInSecondeSinceUpdate;
-    }
+//     function getTimeMultiplier(uint _lastUpdateTime) public view returns(uint _timeMultiplier) {
+//         uint accountTimeInSecondeSinceUpdate = getAccountTimeInSecondeSinceUpdate(_lastUpdateTime);
+//         _timeMultiplier = this.getMillenniumTimeIntervalDivisor(accountTimeInSecondeSinceUpdate);
+//         return _timeMultiplier;
+//     }
 
-   function getTimeDifference(uint _passedTime, uint _lastUpdateTime ) public pure returns(uint) {
-        uint accountTimeInSecondeSinceUpdate = _passedTime - _lastUpdateTime;
-        return accountTimeInSecondeSinceUpdate;
-    }
+//     function getAccountTimeInSecondeSinceUpdate(uint _lastUpdateTime) public view returns(uint) {
+//         uint accountTimeInSecondeSinceUpdate = getTimeDifference(block.timestamp, _lastUpdateTime);
+//         return accountTimeInSecondeSinceUpdate;
+//     }
+
+//    function getTimeDifference(uint _passedTime, uint _lastUpdateTime ) public pure returns(uint) {
+//         uint accountTimeInSecondeSinceUpdate = _passedTime - _lastUpdateTime;
+//         return accountTimeInSecondeSinceUpdate;
+//     }
 
     function getMillenniumTimeIntervalDivisor(uint _timeInSeconds) public view  returns(uint) {
+        console.log("SOL=> _timeInSeconds ", _timeInSeconds);  
+        uint millenniumDivisor = millennium/_timeInSeconds;
+        return millenniumDivisor;
+    }
+
+    function getMillenniumTimeIntervalDivisor2(uint _timeInSeconds) public view  returns(uint) {
         console.log("SOL=> _timeInSeconds ", _timeInSeconds);  
         uint millenniumDivisor = millennium/_timeInSeconds;
         return millenniumDivisor;

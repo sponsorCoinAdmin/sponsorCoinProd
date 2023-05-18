@@ -55,7 +55,6 @@ describe("spCoinContract", function () {
 
   console.log("********************************************************************************");
 
-
   let lastUpdateTime = millennium;
   let testUpdateTime = millennium * 2;
   let interestRate = 10;
