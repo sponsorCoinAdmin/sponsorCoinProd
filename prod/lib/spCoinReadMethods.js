@@ -66,7 +66,8 @@ class SpCoinReadMethods {
     let recipientAccountList = await this.getAccountRecipientList(_accountKey);
     accountStruct.recipientRecordList = await this.getRecipientRecordList(_accountKey, recipientAccountList);
 
-    let stakingRewardsList = await this.spCoinContractDeployed.connect(this.signer).getSerializedStakingRewardRecords(_accountKey);
+    // let stakingRewardsList = await this.spCoinContractDeployed.connect(this.signer).getSerializedStakingRewardRecords(_accountKey);
+    let stakingRewardsList = await this.spCoinContractDeployed.connect(this.signer).getRecipientStakingRewardRecords(_accountKey);
     accountStruct.stakingRewardsList = this.deserializeStakingRewardRecords(stakingRewardsList);
     spCoinLogger.logExitFunction();
     return accountStruct;
