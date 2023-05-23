@@ -34,11 +34,11 @@ contract Transactions is AgentRates {
         getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
 
         uint256 transactionTimeStamp = block.timestamp;
-        // TransactionStruct memory transRec = TransactionStruct(
+        // StakingTransactionStruct memory transRec = StakingTransactionStruct(
         //     {insertionTime: transactionTimeStamp, quantity: sponsorAmount}
         // );
 
-        TransactionStruct memory transRec;
+        StakingTransactionStruct memory transRec;
         transRec.insertionTime = transactionTimeStamp;
         transRec.stakingRewards = sponsorAmount; 
 
@@ -110,7 +110,7 @@ contract Transactions is AgentRates {
         string memory strTransactionList = "";
         RecipientRateStruct storage recipientRateRecord = recipientRec.recipientRateMap[_recipientRateKey];
         // console.log ("recipientRateRecord.transactionList[0].quantity = ", recipientRateRecord.transactionList[0].quantity);
-        TransactionStruct[] memory transactionList = recipientRateRecord.transactionList;
+        StakingTransactionStruct[] memory transactionList = recipientRateRecord.transactionList;
         strTransactionList = concat(strTransactionList, getRateTransactionStr(transactionList)); 
         // console.log("RRRR strTransactionList = ", strTransactionList); 
         return strTransactionList;
@@ -121,13 +121,13 @@ contract Transactions is AgentRates {
         string memory strTransactionList = "";
         AgentRateStruct storage agentRateRecord= agentRec.agentRateMap[_agentRateKey];
         // console.log ("agentRateRecord.transactionList[0].quantity = ", agentRateRecord.transactionList[0].quantity);
-        TransactionStruct[] memory transactionList = agentRateRecord.transactionList;
+        StakingTransactionStruct[] memory transactionList = agentRateRecord.transactionList;
         strTransactionList = concat(strTransactionList, getRateTransactionStr(transactionList)); 
         // console.log("RRRR strTransactionList = ", strTransactionList); 
         return strTransactionList;
     }
 
-    function getRateTransactionStr(TransactionStruct[] memory transactionList) public pure returns (string memory) {
+    function getRateTransactionStr(StakingTransactionStruct[] memory transactionList) public pure returns (string memory) {
         string memory strTransactionList = "";
         for (uint idx; idx < transactionList.length; idx++) {
 

@@ -6,7 +6,7 @@ const {
   RecipientStruct,
   RecipientRateStruct,
   StakingRewardStruct,
-  TransactionStruct,
+  StakingTransactionStruct,
    } = require("./dataTypes/spCoinDataTypes");
 const { SpCoinSerialize, bigIntToDecString, bigIntToDateTimeString, getLocation } = require("./utils/serialize");
 
@@ -287,7 +287,7 @@ class SpCoinReadMethods {
     // for (let row in transactionRows) {
     for (var row = transactionRows.length - 1; row >= 0; row--) {
       let transactionFields = transactionRows[row].split(",");
-      let transactionRec = new TransactionStruct();
+      let transactionRec = new StakingTransactionStruct();
       transactionRec.location = getLocation();
       transactionRec.insertionTime = bigIntToDateTimeString(transactionFields[0]);
       transactionRec.quantity = bigIntToDecString(transactionFields[1]);

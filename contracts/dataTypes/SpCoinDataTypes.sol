@@ -103,7 +103,7 @@ contract SpCoinDataTypes {
         uint256 stakedSPCoins; // Coins not owned
         address[] agentAccountList;
         mapping(address => AgentStruct) agentMap;
-        TransactionStruct[] transactionList;
+        StakingTransactionStruct[] transactionList;
         bool inserted;
     }
 
@@ -125,12 +125,12 @@ contract SpCoinDataTypes {
         uint256 creationTime;
         uint256 lastUpdateTime;
         uint256 stakedSPCoins; // Coins not owned but Recipiented
-        TransactionStruct[] transactionList;
+        StakingTransactionStruct[] transactionList;
         bool inserted;
     }
 
 /////////////// START TWO PREVIOUSLY DELETED RECORDS
-    // struct TransactionStruct {
+    // struct StakingTransactionStruct {
     //     uint256 insertionTime;
     //     uint256 stakingRewards;
     //     address[] sourceList;

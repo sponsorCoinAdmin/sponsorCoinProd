@@ -139,7 +139,7 @@ contract UnSubscribe is Transactions {
     }
 
     // Delete ageny rate list.
-    function deleteTransactionRecords(TransactionStruct[] storage transactionList) internal {
+    function deleteTransactionRecords(StakingTransactionStruct[] storage transactionList) internal {
         for (uint i= 0; i< transactionList.length; i++) { 
             // console.log("====deleteTransactionRecords: Deleting transactionList[", i, "].quantity ", transactionList[i].quantity);
             delete transactionList[i];
