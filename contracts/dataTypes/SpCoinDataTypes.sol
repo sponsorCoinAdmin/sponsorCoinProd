@@ -130,11 +130,6 @@ contract SpCoinDataTypes {
     }
 
 /////////////// START TWO PREVIOUSLY DELETED RECORDS
-    // struct StakingTransactionStruct {
-    //     uint256 insertionTime;
-    //     uint256 stakingRewards;
-    //     address[] sourceList;
-    // }
 
     struct StakingRewardsStruct {
         address sourceKey;
