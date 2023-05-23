@@ -29,19 +29,132 @@ contract Account is StructSerialization {
             return accountMap[account];
     }
 
-    function depositAccountStakingRewards(address _recipientAccount, address _sourceAccount, string memory _sourceType, uint _amount )
+    function recipientHasSponsor(address _sponsorAccount, address _recipientAccount )
+        internal view returns ( bool ) {
+            bool sponsorFound = false;
+            AccountStruct storage recipientAccount = accountMap[_recipientAccount];
+
+            address[] storage sponsorAccountList = recipientAccount.sponsorAccountList;
+
+            for (uint idx = 0; idx < sponsorAccountList.length; idx++) {
+            if ( _sponsorAccount == sponsorAccountList[idx] )
+                sponsorFound = true;
+            }
+            return sponsorFound;
+        }
+
+
+    function depositRecipientStakingRewards(address _sponsorAccount, address _recipientAccount, uint _rate, uint _amount )
         public returns ( uint ) {
-            // console.log("depositAccountStakingRewards("); 
-            // console.log("              _recipientAccount = ", _recipientAccount);
-            // console.log("              _sourceAccount    = ", _sourceAccount);
-            // console.log("              _sourceType =       ", _sourceType);
-            // console.log("              _amount =           ", _amount, ")" );
-            totalSupply+= _amount;
-            AccountStruct storage accountRecord = accountMap[_recipientAccount];
-            StakingRewardsStruct memory stakingRewardsRecord = addAccountStakingRecord( _sourceAccount, _sourceType, _amount );
-            accountRecord.stakingRewards.push(stakingRewardsRecord);
-            return balanceOf[_recipientAccount];
+        require (_amount > 0, "AMOUNT BALANCE MUST BE LARGER THAN 0");
+        require (recipientHasSponsor( _sponsorAccount, _recipientAccount ), "RECIPIENT ACCOUNT SPONSOR DOES NOT EXIST");
+        // console.log("SOL=>1 depositRecipientStakingRewards("); 
+        // console.log("SOL=>2 _sponsorAccount    = ", _sponsorAccount);
+        // console.log("SOL=>3 _recipientAccount = ", _recipientAccount);
+        // console.log("SOL=> _rate             = ", _rate);
+        // console.log("SOL=> _amount           = ", _amount, ")" );
+        totalSupply += _amount;
+
+        console.log("SOL=>4 FETCHING recipientAccount = accountMap[", _recipientAccount, "]");
+        AccountStruct storage recipientAccount = accountMap[_recipientAccount];
+        console.log("recipientAccount.sponsorAccountList.length =", recipientAccount.sponsorAccountList.length);
+        // console.log("recipientAccount.sponsorAccountList[0] =", recipientAccount.sponsorAccountList[0]);
+
+
+        recipientAccount.totalStakingRewards += _amount;
+        mapping(address => StakingAccountStruct) storage recipienRewardstMap = recipientAccount.recipienRewardstMap;
+        StakingAccountStruct storage recipientAccountRecord = recipienRewardstMap[_sponsorAccount];
+
+        depositStakingRewards( recipientAccountRecord, _rate, _amount );
+
+        // getRecipientStakingRewardRecords(_sponsorAccount);
+
+        return recipientAccountRecord.stakingRewards;
     }
+
+///------------------------------------------------------------------------------------------------------------
+    function getRecipientStakingRewardRecords(address _sponsorAccount) 
+        public  view returns (string memory memoryRewards) {
+        console.log("*** START SOL ******************************************************************************");
+        console.log("SOL=>15 getRecipientStakingRewardRecords(", _sponsorAccount, ")");
+        
+        AccountStruct storage sponsorRecord = accountMap[_sponsorAccount];
+        address[] storage recipientAccountList = sponsorRecord.recipientAccountList;
+
+        console.log("SOL=>16 recipientAccountList.length = ", recipientAccountList.length);
+        for (uint recipientIdx = 0; recipientIdx < recipientAccountList.length; recipientIdx++) {
+            address recipientKey = recipientAccountList[recipientIdx];
+            AccountStruct storage recipientAccount = accountMap[recipientKey];
+
+///////////////////////////////////////////////////////////
+        mapping(address => StakingAccountStruct) storage recipienRewardstMap = recipientAccount.recipienRewardstMap;
+        StakingAccountStruct storage recipientAccountRecord = recipienRewardstMap[_sponsorAccount];
+        console.log("SOL=> recipientAccountRecord.rewardTransactionList.length = ", recipientAccountRecord.rewardTransactionList.length);
+        console.log("SOL=> recipientAccountRecord.rewardTransactionList.length = ", recipientAccountRecord.stakingRewards);
+        RewardsTransactionStruct[] storage rewardTransactionList = recipientAccountRecord.rewardTransactionList;
+        for (uint idx = 0; idx < rewardTransactionList.length; idx++) {
+            RewardsTransactionStruct storage rewardTransaction = rewardTransactionList[idx];
+            console.log("SOL5=> rewardTransaction.rate           = ", rewardTransaction.rate);
+            console.log("SOL6=> rewardTransaction.updateTime     = ", rewardTransaction.updateTime);
+            console.log("SOL7=> rewardTransaction.stakingRewards = ", rewardTransaction.stakingRewards);
+
+            memoryRewards = concat(memoryRewards , toString(_sponsorAccount), ",", toString(rewardTransaction.rate), "," );
+            memoryRewards = concat(memoryRewards , toString(rewardTransaction.updateTime), ",", toString(rewardTransaction.stakingRewards));
+            if (idx < rewardTransactionList.length - 1) {
+                memoryRewards = concat(memoryRewards , "\n" );
+            }
+            // console.log("SOL=>21 getRecipientStakingRewardRecords:Transaction =", memoryRewards);
+
+        }
+//////////////////////////////////////////////////////////////////////////
+/*
+            mapping(address => StakingAccountStruct) storage recipienRewardstMap = recipientAccount.recipienRewardstMap;
+// START ISSUE IS HERE
+            
+            console.log("SOL=>17 sponsorAccountList[", recipientIdx, "] = ", recipientKey);
+            StakingAccountStruct storage recipientAccountRecord = recipienRewardstMap[_sponsorAccount];
+
+            console.log("SOL=>18 recipientAccountRecord.stakingRewards = ", recipientAccountRecord.stakingRewards);
+
+            RewardsTransactionStruct[] storage rewardTransactionList = recipientAccountRecord.rewardTransactionList;
+            console.log("SOL=>19 rewardTransactionList[", _sponsorAccount, "].length = ", rewardTransactionList.length);
+// START ISSUE IS HERE
+            for (uint idx = 0; idx < rewardTransactionList.length; idx++) {
+                RewardsTransactionStruct storage rewardTransaction = rewardTransactionList[idx];
+            // console.log("SOL=>20 rewardTransaction.stakingRewards =", rewardTransaction.stakingRewards);
+                memoryRewards = concat(memoryRewards , toString(_sponsorAccount), ",", toString(rewardTransaction.rate), "," );
+                memoryRewards = concat(memoryRewards , toString(rewardTransaction.updateTime), ",", toString(rewardTransaction.stakingRewards));
+                if (idx < rewardTransactionList.length - 1) {
+                    memoryRewards = concat(memoryRewards , "\n" );
+                }
+            // console.log("SOL=>21 getRecipientStakingRewardRecords:Transaction =", memoryRewards);
+            }
+        */
+        }
+        // console.log("rewardsRecordList", memoryRewards);
+        // console.log("*** END SOL ******************************************************************************");
+        return memoryRewards;
+    }
+/////////////////////////////////////////////////////////////////////////////////////
+    function depositStakingRewards( StakingAccountStruct storage stakingAccountRecord, 
+                                        uint _rate, uint _amount )  internal {
+        // console.log("SOL=>9 depositStakingRewards("); 
+        // console.log("SOL=>10 stakingAccountRecord.stakingRewards = ", stakingAccountRecord.stakingRewards);
+        // console.log("SOL=>11               _rate                 = ", _rate);
+        // console.log("SOL=>12               _amount               = ", _amount, ")" );
+        stakingAccountRecord.stakingRewards += _amount; 
+        RewardsTransactionStruct[] storage rewardTransactionList = stakingAccountRecord.rewardTransactionList;
+        // console.log("SOL=>13 BEFORE rewardTransactionList.length = ", rewardTransactionList.length);
+
+        RewardsTransactionStruct memory  rewardsTransactionRecord;
+        rewardsTransactionRecord.rate = _rate;
+        rewardsTransactionRecord.stakingRewards = _amount;
+        rewardsTransactionRecord.updateTime = block.timestamp;
+        rewardTransactionList.push(rewardsTransactionRecord);
+        // console.log("SOL=>14 AFTER rewardTransactionList.length = ", rewardTransactionList.length);
+    }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     function addAccountStakingRecord(address _sourceAccount, string memory _sourceType, uint _amount )
         internal view returns (StakingRewardsStruct memory stakingRewardsRecord) {

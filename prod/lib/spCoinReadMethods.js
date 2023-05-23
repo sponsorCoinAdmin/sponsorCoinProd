@@ -293,7 +293,7 @@ class SpCoinReadMethods {
       transactionRec.quantity = bigIntToDecString(transactionFields[1]);
       transactionRecs.push(transactionRec);
       // spCoinLogger.logJSON(transactionRec);
-    }
+    } 
     spCoinLogger.logExitFunction();
     }
     return transactionRecs;
