@@ -75,7 +75,12 @@ contract SpCoinDataTypes {
         address[] agentAccountList;           // If Recipient? List of Agent Account
         address[] agentsParentRecipientAccountList; // If Agent? List of Sponsor Recipient Account
         mapping(address => RecipientStruct) recipientMap;
+        // STAKING REWARDS MAPPINGS
         StakingRewardsStruct[] stakingRewards;
+        uint256 totalStakingRewards; // Coins not owned but Recipiented
+        mapping(address => StakingAccountStruct) sponsorRewardsMap;
+        mapping(address => StakingAccountStruct) recipienRewardstMap;
+        mapping(address => StakingAccountStruct) agentRewardsMap;
 //        KYC kyc;
     }
 
@@ -134,5 +139,25 @@ contract SpCoinDataTypes {
         string sourceType;
         uint256 updateTime;
         uint256 quantity;
+    }
+
+//////////////////////////////////////////////////////
+    struct StakingTransactionStruct {
+        uint256 insertionTime;
+        uint256 stakingRewards;
+        // mapping(address => StakingAccountStruct) sourceMap;
+        address[] sourceList;
+
+    }
+
+    struct StakingAccountStruct {
+        uint256 stakingRewards;
+        RewardsTransactionStruct[] rewardTransactionList;
+    }
+
+    struct RewardsTransactionStruct {
+        uint256 rate;
+        uint256 updateTime;
+        uint256 stakingRewards;
     }
 }
