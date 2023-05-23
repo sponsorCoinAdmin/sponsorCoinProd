@@ -129,6 +129,7 @@ contract SpCoinDataTypes {
         bool inserted;
     }
 
+/////////////// START TWO PREVIOUSLY DELETED RECORDS
     struct TransactionStruct {
         uint256 insertionTime;
         uint256 quantity;
@@ -141,7 +142,8 @@ contract SpCoinDataTypes {
         uint256 quantity;
     }
 
-//////////////////////////////////////////////////////
+/////////////// END TWO PREVIOUSLY DELETED RECORDS
+/////////////// PREVIOUS RECORDS
     struct StakingTransactionStruct {
         uint256 insertionTime;
         uint256 stakingRewards;
