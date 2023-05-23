@@ -62,7 +62,7 @@ class AgentRateStruct {
   }
 }
 
-class TransactionStruct {
+class StakingTransactionStruct {
   constructor() {
     this.insertionTime;
     this.location;
@@ -85,6 +85,6 @@ module.exports = {
   AgentStruct,
   RecipientStruct,
   RecipientRateStruct,
-  TransactionStruct,
+  StakingTransactionStruct,
   StakingRewardStruct
 };

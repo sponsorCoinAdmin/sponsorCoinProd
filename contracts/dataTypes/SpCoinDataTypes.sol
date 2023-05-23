@@ -75,7 +75,12 @@ contract SpCoinDataTypes {
         address[] agentAccountList;           // If Recipient? List of Agent Account
         address[] agentsParentRecipientAccountList; // If Agent? List of Sponsor Recipient Account
         mapping(address => RecipientStruct) recipientMap;
+        // STAKING REWARDS MAPPINGS
         StakingRewardsStruct[] stakingRewards;
+        uint256 totalStakingRewards; // Coins not owned but Recipiented
+        mapping(address => StakingAccountStruct) sponsorRewardsMap;
+        mapping(address => StakingAccountStruct) recipienRewardstMap;
+        mapping(address => StakingAccountStruct) agentRewardsMap;
 //        KYC kyc;
     }
 
@@ -98,7 +103,7 @@ contract SpCoinDataTypes {
         uint256 stakedSPCoins; // Coins not owned
         address[] agentAccountList;
         mapping(address => AgentStruct) agentMap;
-        TransactionStruct[] transactionList;
+        StakingTransactionStruct[] transactionList;
         bool inserted;
     }
 
@@ -120,19 +125,37 @@ contract SpCoinDataTypes {
         uint256 creationTime;
         uint256 lastUpdateTime;
         uint256 stakedSPCoins; // Coins not owned but Recipiented
-        TransactionStruct[] transactionList;
+        StakingTransactionStruct[] transactionList;
         bool inserted;
     }
 
-    struct TransactionStruct {
-        uint256 insertionTime;
-        uint256 quantity;
-    }
+/////////////// START TWO PREVIOUSLY DELETED RECORDS
 
     struct StakingRewardsStruct {
         address sourceKey;
         string sourceType;
         uint256 updateTime;
         uint256 quantity;
+    }
+
+/////////////// END TWO PREVIOUSLY DELETED RECORDS
+/////////////// PREVIOUS RECORDS
+
+    struct StakingTransactionStruct {
+        uint256 insertionTime;
+        uint256 stakingRewards;
+        // mapping(address => StakingAccountStruct) sourceMap;
+        address[] sourceList;
+    }
+
+    struct StakingAccountStruct {
+        uint256 stakingRewards;
+        RewardsTransactionStruct[] rewardTransactionList;
+    }
+
+    struct RewardsTransactionStruct {
+        uint256 rate;
+        uint256 updateTime;
+        uint256 stakingRewards;
     }
 }

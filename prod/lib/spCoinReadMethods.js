@@ -6,7 +6,7 @@ const {
   RecipientStruct,
   RecipientRateStruct,
   StakingRewardStruct,
-  TransactionStruct,
+  StakingTransactionStruct,
    } = require("./dataTypes/spCoinDataTypes");
 const { SpCoinSerialize, bigIntToDecString, bigIntToDateTimeString, getLocation } = require("./utils/serialize");
 
@@ -66,7 +66,7 @@ class SpCoinReadMethods {
     let recipientAccountList = await this.getAccountRecipientList(_accountKey);
     accountStruct.recipientRecordList = await this.getRecipientRecordList(_accountKey, recipientAccountList);
 
-    let stakingRewardsList = await this.spCoinContractDeployed.connect(this.signer).getSerializedStakingRewardRecords(_accountKey);
+    let stakingRewardsList = await this.spCoinContractDeployed.connect(this.signer).getRecipientStakingRewardRecords(_accountKey);
     accountStruct.stakingRewardsList = this.deserializeStakingRewardRecords(stakingRewardsList);
     spCoinLogger.logExitFunction();
     return accountStruct;
@@ -287,13 +287,13 @@ class SpCoinReadMethods {
     // for (let row in transactionRows) {
     for (var row = transactionRows.length - 1; row >= 0; row--) {
       let transactionFields = transactionRows[row].split(",");
-      let transactionRec = new TransactionStruct();
+      let transactionRec = new StakingTransactionStruct();
       transactionRec.location = getLocation();
       transactionRec.insertionTime = bigIntToDateTimeString(transactionFields[0]);
       transactionRec.quantity = bigIntToDecString(transactionFields[1]);
       transactionRecs.push(transactionRec);
       // spCoinLogger.logJSON(transactionRec);
-    }
+    } 
     spCoinLogger.logExitFunction();
     }
     return transactionRecs;

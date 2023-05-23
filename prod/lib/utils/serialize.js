@@ -10,7 +10,7 @@ const {
   RecipientStruct,
   AgentStruct,
   AgentRateStruct,
-  TransactionStruct,
+  StakingTransactionStruct,
 } = require("../dataTypes/spCoinDataTypes");
 
 let spCoinLogger;
