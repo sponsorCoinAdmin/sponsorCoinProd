@@ -69,23 +69,23 @@ describe("spCoinContract", function () {
     123
   );
   
-  // await spCoinAddMethods.depositRecipientStakingRewards(
-  //   SPONSOR_ACCOUNT_KEYS[0],
-  //   RECIPIENT_ACCOUNT_KEYS[1], 
-  //   RECIPIENT_RATES[5],
-  //   456
-  // );
+  await spCoinAddMethods.depositRecipientStakingRewards(
+    SPONSOR_ACCOUNT_KEYS[0],
+    RECIPIENT_ACCOUNT_KEYS[1], 
+    RECIPIENT_RATES[5],
+    456
+  );
 
-  // await spCoinAddMethods.depositRecipientStakingRewards(
-  //   SPONSOR_ACCOUNT_KEYS[0],
-  //   RECIPIENT_ACCOUNT_KEYS[1], 
-  //   RECIPIENT_RATES[5],
-  //   789
-  // );
+  await spCoinAddMethods.depositRecipientStakingRewards(
+    SPONSOR_ACCOUNT_KEYS[0],
+    RECIPIENT_ACCOUNT_KEYS[1], 
+    RECIPIENT_RATES[5],
+    789
+  );
 
-  console.log("********************************************************************************");
-  console.log("*** AFTER CREATE ***************************************************************");
-  console.log("********************************************************************************");
+  // console.log("********************************************************************************");
+  // console.log("*** AFTER CREATE ***************************************************************");
+  // console.log("********************************************************************************");
 
   let accountRecords = await spCoinReadMethods.getAccountRecords()
   spCoinLogger.logJSONTree(accountRecords);

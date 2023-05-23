@@ -73,23 +73,23 @@ contract Account is StructSerialization {
     }
 
 ///------------------------------------------------------------------------------------------------------------
-    function getRecipientStakingRewardRecords(address _sponsorAccount) 
+    function getRecipientStakingRewardRecords(address accountKey) 
         public  view returns (string memory memoryRewards) {
         console.log("*** START SOL ******************************************************************************");
-        console.log("SOL=>15 getRecipientStakingRewardRecords(", _sponsorAccount, ")");
+        console.log("SOL=>15 getRecipientStakingRewardRecords(", accountKey, ")");
         
-        AccountStruct storage sponsorRecord = accountMap[_sponsorAccount];
-        address[] storage recipientAccountList = sponsorRecord.recipientAccountList;
+        AccountStruct storage sponsorAccount = accountMap[accountKey];
+        address[] storage sponsorAccountList = sponsorAccount.sponsorAccountList;
 
-        console.log("SOL=>16 recipientAccountList.length = ", recipientAccountList.length);
-        for (uint recipientIdx = 0; recipientIdx < recipientAccountList.length; recipientIdx++) {
-            address recipientKey = recipientAccountList[recipientIdx];
-            AccountStruct storage recipientAccount = accountMap[recipientKey];
-
-            mapping(address => StakingAccountStruct) storage recipienRewardstMap = recipientAccount.recipienRewardstMap;
-            StakingAccountStruct storage recipientAccountRecord = recipienRewardstMap[_sponsorAccount];
+        console.log("SOL=>16 sponsorAccountList.length = ", sponsorAccountList.length);
+        for (uint sponsorIdx = 0; sponsorIdx < sponsorAccountList.length; sponsorIdx++) {
+            address sponsorKey = sponsorAccountList[sponsorIdx];
+            console.log("sponsorKey[", sponsorIdx,"] = ", sponsorAccountList[0]);
+            mapping(address => StakingAccountStruct) storage recipienRewardstMap = sponsorAccount.recipienRewardstMap;
+            StakingAccountStruct storage recipientAccountRecord = recipienRewardstMap[sponsorKey];
             console.log("SOL=> recipientAccountRecord.rewardTransactionList.length = ", recipientAccountRecord.rewardTransactionList.length);
             console.log("SOL=> recipientAccountRecord.rewardTransactionList.length = ", recipientAccountRecord.stakingRewards);
+
             RewardsTransactionStruct[] storage rewardTransactionList = recipientAccountRecord.rewardTransactionList;
             for (uint idx = 0; idx < rewardTransactionList.length; idx++) {
                 RewardsTransactionStruct storage rewardTransaction = rewardTransactionList[idx];
@@ -97,13 +97,12 @@ contract Account is StructSerialization {
                 console.log("SOL6=> rewardTransaction.updateTime     = ", rewardTransaction.updateTime);
                 console.log("SOL7=> rewardTransaction.stakingRewards = ", rewardTransaction.stakingRewards);
 
-                memoryRewards = concat(memoryRewards , toString(_sponsorAccount), ",", toString(rewardTransaction.rate), "," );
+                memoryRewards = concat(memoryRewards , toString(accountKey), ",", toString(rewardTransaction.rate), "," );
                 memoryRewards = concat(memoryRewards , toString(rewardTransaction.updateTime), ",", toString(rewardTransaction.stakingRewards));
                 if (idx < rewardTransactionList.length - 1) {
                     memoryRewards = concat(memoryRewards , "\n" );
                 }
                 // console.log("SOL=>21 getRecipientStakingRewardRecords:Transaction =", memoryRewards);
-
             }
         }
         // console.log("rewardsRecordList", memoryRewards);
