@@ -130,10 +130,11 @@ contract SpCoinDataTypes {
     }
 
 /////////////// START TWO PREVIOUSLY DELETED RECORDS
-    struct TransactionStruct {
-        uint256 insertionTime;
-        uint256 quantity;
-    }
+    // struct TransactionStruct {
+    //     uint256 insertionTime;
+    //     uint256 stakingRewards;
+    //     address[] sourceList;
+    // }
 
     struct StakingRewardsStruct {
         address sourceKey;
@@ -144,12 +145,12 @@ contract SpCoinDataTypes {
 
 /////////////// END TWO PREVIOUSLY DELETED RECORDS
 /////////////// PREVIOUS RECORDS
+
     struct StakingTransactionStruct {
         uint256 insertionTime;
         uint256 stakingRewards;
         // mapping(address => StakingAccountStruct) sourceMap;
         address[] sourceList;
-
     }
 
     struct StakingAccountStruct {

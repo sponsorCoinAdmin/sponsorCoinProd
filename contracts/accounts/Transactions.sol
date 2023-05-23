@@ -34,9 +34,14 @@ contract Transactions is AgentRates {
         getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
 
         uint256 transactionTimeStamp = block.timestamp;
-        TransactionStruct memory transRec = TransactionStruct(
-            {insertionTime: transactionTimeStamp, quantity: sponsorAmount}
-        );
+        // TransactionStruct memory transRec = TransactionStruct(
+        //     {insertionTime: transactionTimeStamp, quantity: sponsorAmount}
+        // );
+
+        TransactionStruct memory transRec;
+        transRec.insertionTime = transactionTimeStamp;
+        transRec.stakingRewards = sponsorAmount; 
+
 
         //////////////////////////////////////
 
@@ -47,7 +52,7 @@ contract Transactions is AgentRates {
             recipientRateRecord.lastUpdateTime = transactionTimeStamp;
             recipientRateRecord.transactionList.push(transRec);    
         }
-        else {
+        else { 
             AgentRateStruct storage agentRateRecord = getAgentRateRecord(msg.sender, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
             updateAgentRateSponsorship(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey, sponsorAmount);
             agentRateRecord.lastUpdateTime = transactionTimeStamp;
@@ -128,7 +133,7 @@ contract Transactions is AgentRates {
 
             strTransactionList = concat(strTransactionList,
             toString(transactionList[idx].insertionTime), ",",
-            toString(transactionList[idx].quantity));
+            toString(transactionList[idx].stakingRewards));
             if (idx < transactionList.length - 1) {
                 strTransactionList = concat(strTransactionList, "\n");
             }
