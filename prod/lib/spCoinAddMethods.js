@@ -17,9 +17,7 @@ class SpCoinAddMethods {
       "addRecipient = async(" + _recipientKey + ")"
     );
 
-    spCoinLogger.logDetail("JS => Inserting " + _recipientKey + " Recipient To Blockchain Network"
-    );
-
+  spCoinLogger.logDetail("JS => Inserting " + _recipientKey + " Recipient To Blockchain Network");
     spCoinLogger.logDetail("JS => Inserting Recipient " + _recipientKey);
     await this.spCoinContractDeployed.connect(this.signer).addRecipient(_recipientKey);
     spCoinLogger.logExitFunction();
@@ -125,6 +123,7 @@ class SpCoinAddMethods {
     spCoinLogger.logExitFunction();
   };
 
+
   addAgentSponsorship = async (
     _sponsorSigner,
     _recipientKey,
@@ -157,27 +156,26 @@ class SpCoinAddMethods {
     spCoinLogger.logExitFunction();
   };
 
-  depositAccountStakingRewards = async (
-    _recipientAccount,
+  depositRecipientStakingRewards = async (
     _sourceAccount, 
-    _sourceType,
+    _recipientAccount,
+    _rate,
     _amount) => {
     spCoinLogger.logFunctionHeader(
-      "depositAccountStakingRewards = async(" +
-      _recipientAccount + ", " +
+      "depositRecipientStakingRewards = async(" +
       _sourceAccount + ", " +
-      _sourceType + ", " +
+      _recipientAccount + ", " +
+      _rate + ", " +
       _amount + ")"
     );
 
-    await this.spCoinContractDeployed.connect(this.signer).depositAccountStakingRewards (
-      _recipientAccount,
+    await this.spCoinContractDeployed.connect(this.signer).depositRecipientStakingRewards (
       _sourceAccount,
-      _sourceType,
+      _recipientAccount,
+      _rate,
       _amount);
 
-
-    // let rewards = await this.spCoinContractDeployed.connect(this.signer).getSerializedStakingRewardRecords(_recipientAccount);
+    // let rewards = await this.spCoinContractDeployed.connect(this.signer).getRecipientStakingRewardRecords(_sourceAccount);
     // console.log ("*** Rewards = \n" + JSON.stringify(rewards, null, 2));
 
     spCoinLogger.logExitFunction();
