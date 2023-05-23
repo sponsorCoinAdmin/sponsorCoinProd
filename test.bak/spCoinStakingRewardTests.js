@@ -28,32 +28,32 @@ describe("spCoinContract", function () {
   // Recipient Account to the Blockchain Network.
   // Account, Recipient and/or Agent are Successfully mutually exclusive.
 
-  // console.log("spCoinStakingRewardTests:second     = ", second);
-  // console.log("spCoinStakingRewardTests:minute     = ", minute);
-  // console.log("spCoinStakingRewardTests:hour       = ", hour);
-  // console.log("spCoinStakingRewardTests:day        = ", day);
-  // console.log("spCoinStakingRewardTests:week       = ", week);
-  // console.log("spCoinStakingRewardTests:year       = ", year);
-  // console.log("spCoinStakingRewardTests:month      = ", month);
-  // console.log("spCoinStakingRewardTests:millennium = ", millennium);
-  // millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( second );
-  // console.log("Second Portion", millenniumDivisor);
-  // millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( minute );
-  // console.log("Minute Portion", millenniumDivisor);
-  // millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( hour );
-  // console.log("Hour Portion", millenniumDivisor);
-  // millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( day );
-  // console.log("Millennial Portion", millenniumDivisor);
-  // millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( week );
-  // console.log("Week Portion", millenniumDivisor);
-  // millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( month );
-  // console.log("Month Portion", millenniumDivisor);
-  // millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( year);
-  // console.log("Year Portion", millenniumDivisor);
-  // millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( millennium);
-  // console.log("Millennial Portion", millenniumDivisor);
+  console.log("spCoinStakingRewardTests:second     = ", second);
+  console.log("spCoinStakingRewardTests:minute     = ", minute);
+  console.log("spCoinStakingRewardTests:hour       = ", hour);
+  console.log("spCoinStakingRewardTests:day        = ", day);
+  console.log("spCoinStakingRewardTests:week       = ", week);
+  console.log("spCoinStakingRewardTests:year       = ", year);
+  console.log("spCoinStakingRewardTests:month      = ", month);
+  console.log("spCoinStakingRewardTests:millennium = ", millennium);
+  millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( second );
+  console.log("Second Portion", millenniumDivisor);
+  millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( minute );
+  console.log("Minute Portion", millenniumDivisor);
+  millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( hour );
+  console.log("Hour Portion", millenniumDivisor);
+  millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( day );
+  console.log("Millennial Portion", millenniumDivisor);
+  millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( week );
+  console.log("Week Portion", millenniumDivisor);
+  millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( month );
+  console.log("Month Portion", millenniumDivisor);
+  millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( year);
+  console.log("Year Portion", millenniumDivisor);
+  millenniumDivisor = await spCoinStakingMethods.getMillenniumTimeIntervalDivisor( millennium);
+  console.log("Millennial Portion", millenniumDivisor);
 
-  // console.log("********************************************************************************");
+  console.log("********************************************************************************");
 
   let lastUpdateTime = millennium;
   let testUpdateTime = millennium * 2;
@@ -66,27 +66,27 @@ describe("spCoinContract", function () {
   console.log("SOL=> spCoinStakingRewardTests:quantity       =", quantity);
 
   rewards = await spCoinStakingMethods.testStakingRewards( lastUpdateTime, testUpdateTime, interestRate, quantity );
-  console.log("JS=> Token Rewards  =", rewards);
+  console.log(" Token Rewards", rewards);
 
 
-  // await spCoinAddMethods.depositRecipientStakingRewards(
-  //   SPONSOR_ACCOUNT_KEYS[0],
+  // await spCoinAddMethods.depositAccountStakingRewards(
   //   RECIPIENT_ACCOUNT_KEYS[1], 
-  //   RECIPIENT_RATES[5],
+  //   SPONSOR_ACCOUNT_KEYS[0],
+  //   "SPONSOR",
   //   123
   // );
   
-  // await spCoinAddMethods.depositRecipientStakingRewards(
-  //   SPONSOR_ACCOUNT_KEYS[0],
+  // await spCoinAddMethods.depositAccountStakingRewards(
   //   RECIPIENT_ACCOUNT_KEYS[1], 
-  //   RECIPIENT_RATES[5],
+  //   SPONSOR_ACCOUNT_KEYS[0],
+  //   "AGENT",
   //   456
   // );
 
-  // await spCoinAddMethods.depositRecipientStakingRewards(
-  //   SPONSOR_ACCOUNT_KEYS[0],
+  // await spCoinAddMethods.depositAccountStakingRewards(
   //   RECIPIENT_ACCOUNT_KEYS[1], 
-  //   RECIPIENT_RATES[5],
+  //   SPONSOR_ACCOUNT_KEYS[0],
+  //   "SPONSOR",
   //   789
   // );
 
