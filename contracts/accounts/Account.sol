@@ -97,7 +97,7 @@ contract Account is StructSerialization {
                 console.log("SOL6=> rewardTransaction.updateTime     = ", rewardTransaction.updateTime);
                 console.log("SOL7=> rewardTransaction.stakingRewards = ", rewardTransaction.stakingRewards);
 
-                memoryRewards = concat(memoryRewards , toString(accountKey), ",", toString(rewardTransaction.rate), "," );
+                memoryRewards = concat(memoryRewards , toString(sponsorKey), ",", toString(rewardTransaction.rate), "," );
                 memoryRewards = concat(memoryRewards , toString(rewardTransaction.updateTime), ",", toString(rewardTransaction.stakingRewards));
                 if (idx < rewardTransactionList.length - 1) {
                     memoryRewards = concat(memoryRewards , "\n" );

@@ -73,7 +73,7 @@ class StakingTransactionStruct {
 class StakingRewardStruct {
   constructor() {
     this.sourceKey;
-    this.sourceType;
+    this.rate;
     this.updateTime;
     this.quantity;
   }

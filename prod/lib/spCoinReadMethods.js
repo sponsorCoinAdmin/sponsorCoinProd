@@ -86,7 +86,7 @@ class SpCoinReadMethods {
       let stakingRewardRecord = new StakingRewardStruct();
       let count = 0;
       stakingRewardRecord.sourceKey = stakingRewardsFields[count++];
-      stakingRewardRecord.sourceType = stakingRewardsFields[count++];
+      stakingRewardRecord.rate = bigIntToDecString(stakingRewardsFields[count++]);
       stakingRewardRecord.updateTime = bigIntToDateTimeString(stakingRewardsFields[count++]);
       stakingRewardRecord.quantity = bigIntToDecString(stakingRewardsFields[count++]);
       stakingRewardRecords.push(stakingRewardRecord);
