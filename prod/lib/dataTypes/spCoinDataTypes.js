@@ -64,20 +64,53 @@ class AgentRateStruct {
 
 class StakingTransactionStruct {
   constructor() {
+    this.TYPE = "--STAKING TRANSACTION RECORD--";
     this.insertionTime;
     this.location;
     this.quantity;
   }
 }
 
-class StakingRewardStruct {
+/// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
+
+class StakingRewardsStruct {
   constructor() {
+    this.TYPE = "--STAKING REWARD RECORDS--";
+    this.stakingRewards;
+    this.agentRewardsList;
+    this.recipientRewardsList;
+    this.sponsorRewardsList;
+  }
+}
+
+class RewardTypeStruct {
+  constructor() {
+    this.TYPE = "--STAKING TYPE RECORD--";
     this.sourceKey;
     this.rate;
     this.updateTime;
-    this.quantity;
+    this.stakingRewards;
   }
 }
+
+/*
+struct StakingTransactionStruct {
+  uint256 insertionTime;
+  uint256 stakingRewards;
+  address[] sourceList;
+}
+
+struct StakingAccountStruct {
+  uint256 stakingRewards;
+  RewardsTransactionStruct[] rewardTransactionList;
+}
+
+struct RewardsTransactionStruct {
+  uint256 rate;
+  uint256 updateTime;
+  uint256 stakingRewards;
+}
+*/
 
 module.exports = {
   AccountStruct,
@@ -86,5 +119,5 @@ module.exports = {
   RecipientStruct,
   RecipientRateStruct,
   StakingTransactionStruct,
-  StakingRewardStruct
+  RewardTypeStruct
 };

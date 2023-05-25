@@ -76,7 +76,6 @@ contract SpCoinDataTypes {
         address[] agentsParentRecipientAccountList; // If Agent? List of Sponsor Recipient Account
         mapping(address => RecipientStruct) recipientMap;
         // STAKING REWARDS MAPPINGS
-        StakingRewardsStruct[] stakingRewards;
         uint256 totalStakingRewards; // Coins not owned but Recipiented
         mapping(address => StakingAccountStruct) sponsorRewardsMap;
         mapping(address => StakingAccountStruct) recipienRewardstMap;
@@ -129,24 +128,16 @@ contract SpCoinDataTypes {
         bool inserted;
     }
 
-/////////////// START TWO PREVIOUSLY DELETED RECORDS
-
-    struct StakingRewardsStruct {
-        address sourceKey;
-        string sourceType;
-        uint256 updateTime;
-        uint256 quantity;
-    }
-
 /////////////// END TWO PREVIOUSLY DELETED RECORDS
 /////////////// PREVIOUS RECORDS
 
     struct StakingTransactionStruct {
         uint256 insertionTime;
         uint256 stakingRewards;
-        // mapping(address => StakingAccountStruct) sourceMap;
         address[] sourceList;
     }
+
+    /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
 
     struct StakingAccountStruct {
         uint256 stakingRewards;
