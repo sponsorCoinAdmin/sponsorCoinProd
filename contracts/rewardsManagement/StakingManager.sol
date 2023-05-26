@@ -60,22 +60,26 @@ contract StakingManager is UnSubscribe{
         // console.log("*** START SOL ******************************************************************************");
         // console.log("SOL=>15 getRecipientStakingRewardRecords(", accountKey, ")");
         
+        memoryRewards = concat("sourceKey:", toString(accountKey));
         AccountStruct storage sponsorAccount = accountMap[accountKey];
         address[] storage sponsorAccountList = sponsorAccount.sponsorAccountList;
 
         // console.log("SOL=>16 sponsorAccountList.length = ", sponsorAccountList.length);
         for (uint sponsorIdx = 0; sponsorIdx < sponsorAccountList.length; sponsorIdx++) {
             address sponsorKey = sponsorAccountList[sponsorIdx];
-            // console.log("sponsorKey[", sponsorIdx,"] = ", sponsorAccountList[0]);
+            // console.log("SOL=>17 sponsorKey[", sponsorIdx,"] = ", sponsorAccountList[0]);
             mapping(address => StakingAccountStruct) storage recipienRewardstMap = sponsorAccount.recipienRewardstMap;
             StakingAccountStruct storage recipientAccountRecord = recipienRewardstMap[sponsorKey];
             // console.log("SOL=> recipientAccountRecord.rewardTransactionList.length = ", recipientAccountRecord.rewardTransactionList.length);
             // console.log("SOL=> recipientAccountRecord.rewardTransactionList.length = ", recipientAccountRecord.stakingRewards);
 
             RewardsTransactionStruct[] storage rewardTransactionList = recipientAccountRecord.rewardTransactionList;
-            memoryRewards = serializeRewardsTransactionList(sponsorKey,  rewardTransactionList);
+            if (rewardTransactionList.length != 0) {
+                string memory stringRewards = serializeRewardsTransactionList(sponsorKey,  rewardTransactionList);
+                memoryRewards = concat(memoryRewards, "\n" , stringRewards);
+            }
         }
-        // console.log("rewardsRecordList", memoryRewards);
+        // console.log("SOL=>18 memoryRewards", memoryRewards);
         // console.log("*** END SOL ******************************************************************************");
         return memoryRewards;
     }
@@ -99,5 +103,4 @@ contract StakingManager is UnSubscribe{
         }
         return memoryRewards;
     }
-
 }

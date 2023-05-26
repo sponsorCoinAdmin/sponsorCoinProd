@@ -46,22 +46,29 @@ describe("spCoinContract", function () {
   //   "1.000000000000000008"
   // );
   
-  await spCoinAddMethods.addAgentSponsorship(
-    SPONSOR_ACCOUNT_SIGNERS[0],
-    RECIPIENT_ACCOUNT_KEYS[1],
-    RECIPIENT_RATES[5],
-    AGENT_ACCOUNT_KEYS[1],
-    AGENT_RATES[9],
-    "1.000000000000000008"
-  );
-
-  // await spCoinAddMethods.addSponsorship(
+  // await spCoinAddMethods.addAgentSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[5],
+  //   AGENT_ACCOUNT_KEYS[1],
+  //   AGENT_RATES[9],
   //   "1.000000000000000008"
   // );
+
+  await spCoinAddMethods.addSponsorship(
+    SPONSOR_ACCOUNT_SIGNERS[0],
+    RECIPIENT_ACCOUNT_KEYS[1],
+    RECIPIENT_RATES[5],
+    "1.000000000000000008"
+  );
  
+  await spCoinAddMethods.addSponsorship(
+    SPONSOR_ACCOUNT_SIGNERS[0],
+    RECIPIENT_ACCOUNT_KEYS[2],
+    RECIPIENT_RATES[5],
+    "99.9"
+  );
+
   await spCoinERC20Methods.transfer(
      RECIPIENT_ACCOUNT_KEYS[1],
      "90000000000000000000000"
@@ -71,16 +78,8 @@ describe("spCoinContract", function () {
     SPONSOR_ACCOUNT_SIGNERS[1],
     RECIPIENT_ACCOUNT_KEYS[2],
     RECIPIENT_RATES[5],
-    "99.9"
+    "111"
   );
-
-
-  // await spCoinAddMethods.addSponsorship(
-  //   SPONSOR_ACCOUNT_SIGNERS[1],
-  //   RECIPIENT_ACCOUNT_KEYS[2],
-  //   RECIPIENT_RATES[5],
-  //   "111"
-  // );
  
   await spCoinAddMethods.depositRecipientStakingRewards(
     SPONSOR_ACCOUNT_KEYS[0],
@@ -96,12 +95,12 @@ describe("spCoinContract", function () {
     456
   );
 
-  // await spCoinAddMethods.depositRecipientStakingRewards(
-  //   SPONSOR_ACCOUNT_KEYS[1],
-  //   RECIPIENT_ACCOUNT_KEYS[2], 
-  //   RECIPIENT_RATES[5],
-  //   789
-  // );
+  await spCoinAddMethods.depositRecipientStakingRewards(
+    SPONSOR_ACCOUNT_KEYS[1],
+    RECIPIENT_ACCOUNT_KEYS[2], 
+    RECIPIENT_RATES[5],
+    789
+  );
 
   // console.log("********************************************************************************");
   // console.log("*** AFTER CREATE ***************************************************************");
