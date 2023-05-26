@@ -87,11 +87,18 @@ class AccountRewardsStruct {
     this.TYPE = "--ACCOUNT REWARDS--";
     this.sourceKey;
     this.rate;
-    this.updateTime;
     this.stakingRewards;
   }
 }
 
+class RewardTransactionStruct {
+  constructor() {
+    this.TYPE = "--REWARD TRANSACTION--";
+    this.rate;
+    this.updateTime;
+    this.stakingRewards;
+  }
+}
 /*
 struct StakingTransactionStruct {
   uint256 insertionTime;
@@ -112,12 +119,13 @@ struct RewardsTransactionStruct {
 */
 
 module.exports = {
+  AccountRewardsStruct,
   AccountStruct,
   AgentRateStruct,
   AgentStruct,
   RecipientStruct,
   RecipientRateStruct,
-  AccountRewardsStruct,
+  RewardTransactionStruct,
   StakingRewardsStruct,
   StakingTransactionStruct,
 };

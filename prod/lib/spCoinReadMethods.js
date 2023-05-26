@@ -1,11 +1,12 @@
 const { SpCoinLogger } = require("./utils/logging");
 const {
+  AccountRewardsStruct,
   AccountStruct,
   AgentRateStruct,
   AgentStruct,
   RecipientStruct,
   RecipientRateStruct,
-  AccountRewardsStruct,
+  RewardTransactionStruct,
   StakingTransactionStruct,
   StakingRewardsStruct
    } = require("./dataTypes/spCoinDataTypes");
@@ -120,7 +121,7 @@ class SpCoinReadMethods {
     for (var row = stakingRewardsList.length - 1; row >= 0; row--) {
       // console.log("stakingRewardsList[" + row + "]", stakingRewardsList[row]);
       let accountRewardsFields = stakingRewardsList[row].split(",");
-      let accountRewardsRecord = new AccountRewardsStruct();
+      let accountRewardsRecord = new RewardTransactionStruct();
       let count = 0;
       // accountRewardsRecord.sourceKey = accountRewardsFields[count++];
       accountRewardsRecord.rate = bigIntToDecString(accountRewardsFields[count++]);
