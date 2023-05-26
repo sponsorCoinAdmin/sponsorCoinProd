@@ -1,6 +1,6 @@
 const { SpCoinLogger } = require("./utils/logging");
 const {
-  AccountRewardsStruct,
+  RewardAccountStruct,
   AccountStruct,
   AgentRateStruct,
   AgentStruct,
@@ -8,7 +8,7 @@ const {
   RecipientRateStruct,
   RewardTransactionStruct,
   StakingTransactionStruct,
-  StakingRewardsStruct
+  RewardsStruct
    } = require("./dataTypes/spCoinDataTypes");
 const { SpCoinSerialize, bigIntToDecString, bigIntToDateTimeString, getLocation } = require("./utils/serialize");
 
@@ -74,12 +74,12 @@ class SpCoinReadMethods {
 
   getStakingRecords = async (_accountKey) => {
     // console.log("==>2 getStakingRecords = async(", _accountKey,")");
-    let stakingRewards = new StakingRewardsStruct();
+    let stakingRewards = new RewardsStruct();
 
     stakingRewards.recipientRewardsList = await this.getRecipientRewardRecords(_accountKey);
     // spCoinLogger.logJSON(stakingRewards);
-    spCoinLogger.logJSON(stakingRewards);
-    console.log("======================================================================================================");
+    // spCoinLogger.logJSON(stakingRewards);
+    // console.log("======================================================================================================");
 
     spCoinLogger.logExitFunction();
     return stakingRewards;
@@ -95,7 +95,7 @@ class SpCoinReadMethods {
     let recipientStakingRewardsList = recipientStakingRewardsStr.split("\n");
     if(recipientStakingRewardsStr.length > 0) {
 // ToDo ROBIN WORKING Headers, DO LOOP for MULTIPLE RecipientStruct, ALSO IN SOL
-      let accountRewardsRecord = new AccountRewardsStruct();
+      let accountRewardsRecord = new RewardAccountStruct();
       let recipientStakingRewardsList = recipientStakingRewardsStr.split("\n");
       // console.log("JS=>1 recipientStakingRewardsList =<<<" + recipientStakingRewardsList + ">>>");
       // console.log("JS=>1 BEFORE recipientStakingRewardsList.length =",recipientStakingRewardsList.length);
