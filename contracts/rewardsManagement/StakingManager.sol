@@ -31,8 +31,6 @@ contract StakingManager is UnSubscribe{
 
         depositStakingRewards( recipientAccountRecord, _rate, _amount );
 
-        // getRecipientStakingRewardRecords(_sponsorAccount);
-
         return recipientAccountRecord.stakingRewards;
     }
 
@@ -59,8 +57,6 @@ contract StakingManager is UnSubscribe{
 
         depositStakingRewards( recipientAccountRecord, _rate, _amount );
 
-        // getRecipientStakingRewardRecords(_sponsorAccount);
-
         return recipientAccountRecord.stakingRewards;
     }
 
@@ -83,10 +79,10 @@ contract StakingManager is UnSubscribe{
     }
 
 /////////////////////////////////////////////////////////////////////////////////////
-    function getRecipientStakingRewardRecords(address accountKey) 
+    function getRecipientRewardAccounts(address accountKey) 
         public  view returns (string memory memoryRewards) {
         // console.log("*** START SOL ******************************************************************************");
-        // console.log("SOL=>15 getRecipientStakingRewardRecords(", accountKey, ")");
+        // console.log("SOL=>15 getRecipientRewardAccounts(", accountKey, ")");
         
         AccountStruct storage sponsorAccount = accountMap[accountKey];
         address[] storage sponsorAccountList = sponsorAccount.sponsorAccountList;
@@ -125,7 +121,7 @@ contract StakingManager is UnSubscribe{
             if (idx < rewardTransactionList.length - 1) {
                 memoryRewards = concat(memoryRewards , "\n" );
             }
-           // console.log("SOL=>21 getRecipientStakingRewardRecords:Transaction =", memoryRewards);
+           // console.log("SOL=>21 getRecipientRewardAccounts:Transaction =", memoryRewards);
            // console.log("rewardsRecordList", memoryRewards);
            // console.log("*** END SOL ******************************************************************************");
         }

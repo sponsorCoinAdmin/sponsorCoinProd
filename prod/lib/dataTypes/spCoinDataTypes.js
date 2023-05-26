@@ -74,8 +74,7 @@ class StakingTransactionStruct {
 
 class StakingRewardsStruct {
   constructor() {
-    this.TYPE = "--STAKING REWARD RECORDS--";
-    this.sourceKey;
+    this.TYPE = "--STAKING REWARDS--";
     this.stakingRewards;
     this.agentRewardsList;
     this.recipientRewardsList;
@@ -83,9 +82,9 @@ class StakingRewardsStruct {
   }
 }
 
-class RewardTypeStruct {
+class AccountRewardsStruct {
   constructor() {
-    this.TYPE = "--STAKING TYPE RECORD--";
+    this.TYPE = "--ACCOUNT REWARDS--";
     this.sourceKey;
     this.rate;
     this.updateTime;
@@ -118,7 +117,7 @@ module.exports = {
   AgentStruct,
   RecipientStruct,
   RecipientRateStruct,
-  RewardTypeStruct,
+  AccountRewardsStruct,
   StakingRewardsStruct,
   StakingTransactionStruct,
 };

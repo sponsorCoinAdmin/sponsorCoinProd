@@ -175,7 +175,7 @@ class SpCoinAddMethods {
       _rate,
       _amount);
 
-    // let rewards = await this.spCoinContractDeployed.connect(this.signer).getRecipientStakingRewardRecords(_sourceAccount);
+    // let rewards = await this.spCoinContractDeployed.connect(this.signer).getRecipientRewardAccounts(_sourceAccount);
     // console.log ("*** Rewards = \n" + JSON.stringify(rewards, null, 2));
 
     spCoinLogger.logExitFunction();
