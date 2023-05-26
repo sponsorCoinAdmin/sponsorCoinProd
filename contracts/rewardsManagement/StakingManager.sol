@@ -8,6 +8,34 @@ contract StakingManager is UnSubscribe{
     constructor(){
     }
 
+    function depositAgentStakingRewards(address _sponsorAccount, address _recipientAccount, uint _rate, uint _amount )
+        public returns ( uint ) {
+        require (_amount > 0, "AMOUNT BALANCE MUST BE LARGER THAN 0");
+        require (recipientHasSponsor( _sponsorAccount, _recipientAccount ), "RECIPIENT ACCOUNT SPONSOR DOES NOT EXIST");
+        // console.log("SOL=>1 depositRecipientStakingRewards("); 
+        // console.log("SOL=>2 _sponsorAccount    = ", _sponsorAccount);
+        // console.log("SOL=>3 _recipientAccount = ", _recipientAccount);
+        // console.log("SOL=> _rate             = ", _rate);
+        // console.log("SOL=> _amount           = ", _amount, ")" );
+        totalSupply += _amount;
+
+        // console.log("SOL=>4 FETCHING recipientAccount = accountMap[", _recipientAccount, "]");
+        AccountStruct storage recipientAccount = accountMap[_recipientAccount];
+        // console.log("recipientAccount.sponsorAccountList.length =", recipientAccount.sponsorAccountList.length);
+        // console.log("recipientAccount.sponsorAccountList[0] =", recipientAccount.sponsorAccountList[0]);
+
+
+        recipientAccount.totalStakingRewards += _amount;
+        mapping(address => StakingAccountStruct) storage recipienRewardstMap = recipientAccount.recipienRewardstMap;
+        StakingAccountStruct storage recipientAccountRecord = recipienRewardstMap[_sponsorAccount];
+
+        depositStakingRewards( recipientAccountRecord, _rate, _amount );
+
+        // getRecipientStakingRewardRecords(_sponsorAccount);
+
+        return recipientAccountRecord.stakingRewards;
+    }
+
     function depositRecipientStakingRewards(address _sponsorAccount, address _recipientAccount, uint _rate, uint _amount )
         public returns ( uint ) {
         require (_amount > 0, "AMOUNT BALANCE MUST BE LARGER THAN 0");

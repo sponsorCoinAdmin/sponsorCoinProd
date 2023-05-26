@@ -75,22 +75,45 @@ class SpCoinReadMethods {
     // console.log("==>2 getStakingRecords = async(", _accountKey,")");
     let stakingRewards = new StakingRewardsStruct();
 
-    let stakingRewardsStr = await this.spCoinContractDeployed.connect(this.signer).getRecipientStakingRewardRecords(_accountKey);
-    // console.log("JS=>1 stakingRewardsStr =<<<" + stakingRewardsStr + ">>>");
-    let stakingRewardsList = stakingRewardsStr.split("\n");
-    if(stakingRewardsStr.length > 0) {
-      let stakingRewardsList = stakingRewardsStr.split("\n");
-      // console.log("JS=>1 stakingRewardsList =<<<" + stakingRewardsList + ">>>");
-      // console.log("JS=>1 BEFORE stakingRewardsList.length =",stakingRewardsList.length);
-      stakingRewards.sourceKey = stakingRewardsList.shift();
-      // console.log("JS=>1 AFTER stakingRewardsList.length =",stakingRewardsList.length);
-      // console.log("JS=>1 stakingRewardsList =",stakingRewardsList);
-      // console.log("JS=>1 stakingRewardsList[0] =",stakingRewardsList[0]);
-      stakingRewards.recipientRewardsList = this.deserializeStakingRewardRecords(stakingRewardsList);
+    let recipientStakingRewardsStr = await this.spCoinContractDeployed.connect(this.signer).getRecipientStakingRewardRecords(_accountKey);
+    // console.log("JS=>1 recipientStakingRewardsStr =<<<" + recipientStakingRewardsStr + ">>>");
+    let recipientStakingRewardsList = recipientStakingRewardsStr.split("\n");
+    if(recipientStakingRewardsStr.length > 0) {
+      let recipientStakingRewardsList = recipientStakingRewardsStr.split("\n");
+      // console.log("JS=>1 recipientStakingRewardsList =<<<" + recipientStakingRewardsList + ">>>");
+      // console.log("JS=>1 BEFORE recipientStakingRewardsList.length =",recipientStakingRewardsList.length);
+      stakingRewards.sourceKey = recipientStakingRewardsList.shift();
+      // console.log("JS=>1 AFTER recipientStakingRewardsList.length =",recipientStakingRewardsList.length);
+      // console.log("JS=>1 recipientStakingRewardsList =",recipientStakingRewardsList);
+      // console.log("JS=>1 recipientStakingRewardsList[0] =",recipientStakingRewardsList[0]);
+      stakingRewards.recipientRewardsList = this.deserializeStakingRewardRecords(recipientStakingRewardsList);
     }
     spCoinLogger.logExitFunction();
     return stakingRewards;
   }
+
+  /* WORKING HERE *
+  getRecipientStakingRecords = async (_accountKey) => {
+    // console.log("==>2 getStakingRecords = async(", _accountKey,")");
+    let recipientRewardsList = []
+
+    let recipientStakingRewardsStr = await this.spCoinContractDeployed.connect(this.signer).getRecipientStakingRewardRecords(_accountKey);
+    // console.log("JS=>1 recipientStakingRewardsStr =<<<" + recipientStakingRewardsStr + ">>>");
+    let recipientStakingRewardsList = recipientStakingRewardsStr.split("\n");
+    if(recipientStakingRewardsStr.length > 0) {
+      let recipientStakingRewardsList = recipientStakingRewardsStr.split("\n");
+      // console.log("JS=>1 recipientStakingRewardsList =<<<" + recipientStakingRewardsList + ">>>");
+      // console.log("JS=>1 BEFORE recipientStakingRewardsList.length =",recipientStakingRewardsList.length);
+      stakingRewards.sourceKey = recipientStakingRewardsList.shift();
+      // console.log("JS=>1 AFTER recipientStakingRewardsList.length =",recipientStakingRewardsList.length);
+      // console.log("JS=>1 recipientStakingRewardsList =",recipientStakingRewardsList);
+      // console.log("JS=>1 recipientStakingRewardsList[0] =",recipientStakingRewardsList[0]);
+      stakingRewards.recipientRewardsList = this.deserializeStakingRewardRecords(recipientStakingRewardsList);
+    }
+    spCoinLogger.logExitFunction();
+    return stakingRewards;
+  }
+*/
 
   deserializeStakingRewardRecords = (stakingRewardsList) => {
     spCoinLogger.logFunctionHeader("deserializeStakingRewardRecords = (" + stakingRewardsList + ")");
@@ -100,7 +123,7 @@ class SpCoinReadMethods {
       // console.log("==>19 deserializeRateTransactionRecords = async(" + stakingRewardsStr + ")");
       // for (let row in stakingRewardsList) {
     for (var row = stakingRewardsList.length - 1; row >= 0; row--) {
-      console.log("stakingRewardsList[" + row + "]", stakingRewardsList[row]);
+      // console.log("stakingRewardsList[" + row + "]", stakingRewardsList[row]);
       let stakingRewardsFields = stakingRewardsList[row].split(",");
       let stakingRewardRecord = new RewardTypeStruct();
       let count = 0;
