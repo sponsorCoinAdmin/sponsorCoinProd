@@ -104,7 +104,7 @@ class SpCoinReadMethods {
       let stakingRewardsFields = stakingRewardsList[row].split(",");
       let stakingRewardRecord = new RewardTypeStruct();
       let count = 0;
-      stakingRewardRecord.sourceKey = stakingRewardsFields[count++];
+      // stakingRewardRecord.sourceKey = stakingRewardsFields[count++];
       stakingRewardRecord.rate = bigIntToDecString(stakingRewardsFields[count++]);
       stakingRewardRecord.updateTime = bigIntToDateTimeString(stakingRewardsFields[count++]);
       stakingRewardRecord.stakingRewards = bigIntToDecString(stakingRewardsFields[count++]);

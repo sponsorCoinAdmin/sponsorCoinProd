@@ -60,13 +60,13 @@ contract StakingManager is UnSubscribe{
         // console.log("*** START SOL ******************************************************************************");
         // console.log("SOL=>15 getRecipientStakingRewardRecords(", accountKey, ")");
         
-        memoryRewards = concat("sourceKey:", toString(accountKey));
         AccountStruct storage sponsorAccount = accountMap[accountKey];
         address[] storage sponsorAccountList = sponsorAccount.sponsorAccountList;
 
         // console.log("SOL=>16 sponsorAccountList.length = ", sponsorAccountList.length);
         for (uint sponsorIdx = 0; sponsorIdx < sponsorAccountList.length; sponsorIdx++) {
             address sponsorKey = sponsorAccountList[sponsorIdx];
+            memoryRewards = toString(sponsorKey);
             // console.log("SOL=>17 sponsorKey[", sponsorIdx,"] = ", sponsorAccountList[0]);
             mapping(address => StakingAccountStruct) storage recipienRewardstMap = sponsorAccount.recipienRewardstMap;
             StakingAccountStruct storage recipientAccountRecord = recipienRewardstMap[sponsorKey];
@@ -75,7 +75,7 @@ contract StakingManager is UnSubscribe{
 
             RewardsTransactionStruct[] storage rewardTransactionList = recipientAccountRecord.rewardTransactionList;
             if (rewardTransactionList.length != 0) {
-                string memory stringRewards = serializeRewardsTransactionList(sponsorKey,  rewardTransactionList);
+                string memory stringRewards = serializeRewardsTransactionList(rewardTransactionList);
                 memoryRewards = concat(memoryRewards, "\n" , stringRewards);
             }
         }
@@ -84,7 +84,7 @@ contract StakingManager is UnSubscribe{
         return memoryRewards;
     }
 
-   function serializeRewardsTransactionList(address sponsorKey, RewardsTransactionStruct[] storage rewardTransactionList)
+   function serializeRewardsTransactionList(RewardsTransactionStruct[] storage rewardTransactionList)
         internal  view returns (string memory memoryRewards) {
         for (uint idx = 0; idx < rewardTransactionList.length; idx++) {
             RewardsTransactionStruct storage rewardTransaction = rewardTransactionList[idx];
@@ -92,8 +92,8 @@ contract StakingManager is UnSubscribe{
             // console.log("SOL6=> rewardTransaction.updateTime     = ", rewardTransaction.updateTime);
             // console.log("SOL7=> rewardTransaction.stakingRewards = ", rewardTransaction.stakingRewards);
 
-            memoryRewards = concat(memoryRewards , toString(sponsorKey), ",", toString(rewardTransaction.rate), "," );
-            memoryRewards = concat(memoryRewards , toString(rewardTransaction.updateTime), ",", toString(rewardTransaction.stakingRewards));
+            memoryRewards = concat(memoryRewards , toString(rewardTransaction.rate), "," , toString(rewardTransaction.updateTime));
+            memoryRewards = concat(memoryRewards , ",", toString(rewardTransaction.stakingRewards));
             if (idx < rewardTransactionList.length - 1) {
                 memoryRewards = concat(memoryRewards , "\n" );
             }
