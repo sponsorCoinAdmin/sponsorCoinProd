@@ -54,18 +54,19 @@ contract StakingManager is UnSubscribe{
     }
 
 /////////////////////////////////////////////////////////////////////////////////////
-    function getRecipientRewardAccounts(address accountKey) 
+    function getRecipientRewardAccounts(address accountKey)
         public  view returns (string memory memoryRewards) {
         console.log("*** START SOL ******************************************************************************");
         console.log("SOL=>15 getRecipientRewardAccounts(", accountKey, ")");
         
         AccountStruct storage sponsorAccount = accountMap[accountKey];
         address[] storage sponsorAccountList = sponsorAccount.sponsorAccountList;
+        memoryRewards = "";
 
         // console.log("SOL=>16 sponsorAccountList.length = ", sponsorAccountList.length);
         for (uint sponsorIdx = 0; sponsorIdx < sponsorAccountList.length; sponsorIdx++) {
             address sponsorKey = sponsorAccountList[sponsorIdx];
-            memoryRewards = concat(memoryRewards, toString(sponsorKey));
+            memoryRewards = concat(memoryRewards, "SPONSOR_ACCOUNT:", toString(sponsorKey));
             console.log("SOL=>17 sponsorKey[", sponsorIdx,"] = ", sponsorAccountList[sponsorIdx]);
             mapping(address => StakingAccountStruct) storage recipienRewardstMap = sponsorAccount.recipienRewardstMap;
             StakingAccountStruct storage recipientAccountRecord = recipienRewardstMap[sponsorKey];

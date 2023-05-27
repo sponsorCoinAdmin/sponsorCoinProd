@@ -99,6 +99,7 @@ class RewardTransactionStruct {
     this.stakingRewards;
   }
 }
+
 /*
 struct StakingTransactionStruct {
   uint256 insertionTime;
