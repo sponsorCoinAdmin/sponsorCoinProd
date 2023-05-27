@@ -8,36 +8,11 @@ contract StakingManager is UnSubscribe{
     constructor(){
     }
 
-    function depositAgentStakingRewards(address _sponsorAccount, address _recipientAccount, uint _rate, uint _amount )
-        public returns ( uint ) {
-        require (_amount > 0, "AMOUNT BALANCE MUST BE LARGER THAN 0");
-        require (recipientHasSponsor( _sponsorAccount, _recipientAccount ), "RECIPIENT ACCOUNT SPONSOR DOES NOT EXIST");
-        // console.log("SOL=>1 depositRecipientStakingRewards("); 
-        // console.log("SOL=>2 _sponsorAccount    = ", _sponsorAccount);
-        // console.log("SOL=>3 _recipientAccount = ", _recipientAccount);
-        // console.log("SOL=> _rate             = ", _rate);
-        // console.log("SOL=> _amount           = ", _amount, ")" );
-        totalSupply += _amount;
-
-        // console.log("SOL=>4 FETCHING recipientAccount = accountMap[", _recipientAccount, "]");
-        AccountStruct storage recipientAccount = accountMap[_recipientAccount];
-        // console.log("recipientAccount.sponsorAccountList.length =", recipientAccount.sponsorAccountList.length);
-        // console.log("recipientAccount.sponsorAccountList[0] =", recipientAccount.sponsorAccountList[0]);
-
-
-        recipientAccount.totalStakingRewards += _amount;
-        mapping(address => StakingAccountStruct) storage recipienRewardstMap = recipientAccount.recipienRewardstMap;
-        StakingAccountStruct storage recipientAccountRecord = recipienRewardstMap[_sponsorAccount];
-
-        depositStakingRewards( recipientAccountRecord, _rate, _amount );
-
-        return recipientAccountRecord.stakingRewards;
-    }
-
     function depositRecipientStakingRewards(address _sponsorAccount, address _recipientAccount, uint _rate, uint _amount )
         public returns ( uint ) {
         require (_amount > 0, "AMOUNT BALANCE MUST BE LARGER THAN 0");
-        require (recipientHasSponsor( _sponsorAccount, _recipientAccount ), "RECIPIENT ACCOUNT SPONSOR DOES NOT EXIST");
+        string memory errMsg = concat("SPONSOR ACCOUNT ",  toString(_sponsorAccount), " NOT FOUND FOR RECIPIENT ACCOUNT ",  toString(_recipientAccount));
+        require (recipientHasSponsor( _sponsorAccount, _recipientAccount ), errMsg);
         // console.log("SOL=>1 depositRecipientStakingRewards("); 
         // console.log("SOL=>2 _sponsorAccount    = ", _sponsorAccount);
         // console.log("SOL=>3 _recipientAccount = ", _recipientAccount);
@@ -81,8 +56,8 @@ contract StakingManager is UnSubscribe{
 /////////////////////////////////////////////////////////////////////////////////////
     function getRecipientRewardAccounts(address accountKey) 
         public  view returns (string memory memoryRewards) {
-        // console.log("*** START SOL ******************************************************************************");
-        // console.log("SOL=>15 getRecipientRewardAccounts(", accountKey, ")");
+        console.log("*** START SOL ******************************************************************************");
+        console.log("SOL=>15 getRecipientRewardAccounts(", accountKey, ")");
         
         AccountStruct storage sponsorAccount = accountMap[accountKey];
         address[] storage sponsorAccountList = sponsorAccount.sponsorAccountList;
@@ -90,12 +65,12 @@ contract StakingManager is UnSubscribe{
         // console.log("SOL=>16 sponsorAccountList.length = ", sponsorAccountList.length);
         for (uint sponsorIdx = 0; sponsorIdx < sponsorAccountList.length; sponsorIdx++) {
             address sponsorKey = sponsorAccountList[sponsorIdx];
-            memoryRewards = toString(sponsorKey);
-            // console.log("SOL=>17 sponsorKey[", sponsorIdx,"] = ", sponsorAccountList[0]);
+            memoryRewards = concat(memoryRewards, toString(sponsorKey));
+            console.log("SOL=>17 sponsorKey[", sponsorIdx,"] = ", sponsorAccountList[sponsorIdx]);
             mapping(address => StakingAccountStruct) storage recipienRewardstMap = sponsorAccount.recipienRewardstMap;
             StakingAccountStruct storage recipientAccountRecord = recipienRewardstMap[sponsorKey];
-            // console.log("SOL=> recipientAccountRecord.rewardTransactionList.length = ", recipientAccountRecord.rewardTransactionList.length);
-            // console.log("SOL=> recipientAccountRecord.rewardTransactionList.length = ", recipientAccountRecord.stakingRewards);
+            console.log("SOL=> recipientAccountRecord.rewardTransactionList.length         = ", recipientAccountRecord.rewardTransactionList.length);
+            console.log("SOL=> recipientAccountRecord.rewardTransactionList.stakingRewards = ", recipientAccountRecord.stakingRewards);
 
             RewardsTransactionStruct[] storage rewardTransactionList = recipientAccountRecord.rewardTransactionList;
             if (rewardTransactionList.length != 0) {
@@ -103,8 +78,8 @@ contract StakingManager is UnSubscribe{
                 memoryRewards = concat(memoryRewards, "\n" , stringRewards);
             }
         }
-        // console.log("SOL=>18 memoryRewards", memoryRewards);
-        // console.log("*** END SOL ******************************************************************************");
+        console.log("SOL=>18 memoryRewards", memoryRewards);
+        console.log("*** END SOL ******************************************************************************");
         return memoryRewards;
     }
 

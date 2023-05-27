@@ -88,10 +88,8 @@ class SpCoinReadMethods {
   getRecipientRewardRecords = async (_accountKey) => {
     // console.log("==>2 getRecipientRewardRecords = async(", _accountKey,")");
     let recipientRewardsList = [];
-
-
     let recipientStakingRewardsStr = await this.spCoinContractDeployed.connect(this.signer).getRecipientRewardAccounts(_accountKey);
-    // console.log("JS=>1 recipientStakingRewardsStr =<<<" + recipientStakingRewardsStr + ">>>");
+    console.log("JS=>1 recipientStakingRewardsStr =<<<" + recipientStakingRewardsStr + ">>>");
     let recipientStakingRewardsList = recipientStakingRewardsStr.split("\n");
     if(recipientStakingRewardsStr.length > 0) {
 // ToDo ROBIN WORKING Headers, DO LOOP for MULTIPLE RecipientStruct, ALSO IN SOL
