@@ -19,6 +19,10 @@ contract StructSerialization is Utils {
             "creationTime: ",
             toString(_accountRec.creationTime)
         );
+        string memory totalStakingRewards = concat(
+            "totalStakingRewards: ",
+            toString(_accountRec.totalStakingRewards)
+        );
         string memory balanceOf = concat(
             "balanceOf: ",
             toString(balanceOf[_accountRec.accountKey])
@@ -47,7 +51,8 @@ contract StructSerialization is Utils {
             )
         );
         seralized = concat(seralized, delimiter, balanceOf);
-        seralized = concat(seralized, delimiter, decimals);
+        seralized = concat(seralized, delimiter, decimals); 
+        seralized = concat(seralized, delimiter, totalStakingRewards); 
 
         seralized = concat(seralized, delimiter, stakedSPCoins);
 

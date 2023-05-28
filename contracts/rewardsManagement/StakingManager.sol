@@ -26,9 +26,24 @@ contract StakingManager is UnSubscribe{
         // console.log("recipientAccount.sponsorAccountList[0] =", recipientAccount.sponsorAccountList[0]);
 
 
+        ///////////////// **** START REPLACE LATER **** ///////////////////////////
+
+        RewardsStruct storage rewards = recipientAccount.rewardsMap["RECIPIENT"];
+        rewards.totalStakingRewards += _amount;
+        rewards.totalRecipientRewards += _amount;
+        mapping(address => RewardAccountStruct) storage recipienRewardstMap = rewards.recipienRewardstMap;
+        
+        ///////////////// **** END REPLACE LATER **** ///////////////////////////
+
+        RewardAccountStruct storage recipientAccountRecord = recipienRewardstMap[_sponsorAccount]; 
+        depositRewardTransaction( recipientAccountRecord, _rate, _amount );
+
+        ///////////////// **** START REMOVE LATER **** ///////////////////////////
+
         recipientAccount.totalStakingRewards += _amount;
-        mapping(address => RewardAccountStruct) storage recipienRewardstMap = recipientAccount.recipienRewardstMap;
-        RewardAccountStruct storage recipientAccountRecord = recipienRewardstMap[_sponsorAccount];
+        recipienRewardstMap = recipientAccount.recipienRewardstMap;
+        recipientAccountRecord = recipienRewardstMap[_sponsorAccount];
+        ///////////////// **** END REMOVE LATER **** ///////////////////////////
 
         depositRewardTransaction( recipientAccountRecord, _rate, _amount );
 
@@ -59,16 +74,24 @@ contract StakingManager is UnSubscribe{
         // console.log("*** START SOL ******************************************************************************");
         // console.log("SOL=>15 getRecipientRewardAccounts(", accountKey, ")");
         
-        AccountStruct storage sponsorAccount = accountMap[accountKey];
-        address[] storage sponsorAccountList = sponsorAccount.sponsorAccountList;
-        memoryRewards = "";
+            AccountStruct storage sponsorAccount = accountMap[accountKey];
+            address[] storage sponsorAccountList = sponsorAccount.sponsorAccountList;
+            memoryRewards = "";
 
-        // console.log("SOL=>16 sponsorAccountList.length = ", sponsorAccountList.length);
-        for (uint sponsorIdx = 0; sponsorIdx < sponsorAccountList.length; sponsorIdx++) {
-            address sponsorKey = sponsorAccountList[sponsorIdx];
-            memoryRewards = concat(memoryRewards, "SPONSOR_ACCOUNT:", toString(sponsorKey));
+            // console.log("SOL=>16 sponsorAccountList.length = ", sponsorAccountList.length);
+            for (uint sponsorIdx = 0; sponsorIdx < sponsorAccountList.length; sponsorIdx++) {
+                address sponsorKey = sponsorAccountList[sponsorIdx];
+                memoryRewards = concat(memoryRewards, "SPONSOR_ACCOUNT:", toString(sponsorKey));
+
+            ///////////////// **** START REPLACE LATER **** ///////////////////////////
+
+            RewardsStruct storage rewards = sponsorAccount.rewardsMap["RECIPIENT"];
+            mapping(address => RewardAccountStruct) storage recipienRewardstMap = rewards.recipienRewardstMap;
+            
+            ///////////////// **** END REPLACE LATER **** ///////////////////////////
+
             // console.log("SOL=>17 sponsorKey[", sponsorIdx,"] = ", sponsorAccountList[sponsorIdx]);
-            mapping(address => RewardAccountStruct) storage recipienRewardstMap = sponsorAccount.recipienRewardstMap;
+            // recipienRewardstMap = sponsorAccount.recipienRewardstMap;
             RewardAccountStruct storage recipientAccountRecord = recipienRewardstMap[sponsorKey];
             memoryRewards = concat(memoryRewards, toString(sponsorKey), ",", toString(recipientAccountRecord.stakingRewards));
             // console.log("SOL=> recipientAccountRecord.rewardTransactionList.length         = ", recipientAccountRecord.rewardTransactionList.length);

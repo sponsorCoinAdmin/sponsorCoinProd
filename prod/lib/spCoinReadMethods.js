@@ -67,14 +67,15 @@ class SpCoinReadMethods {
     accountStruct.accountKey = _accountKey;
     let recipientAccountList = await this.getAccountRecipientList(_accountKey);
     accountStruct.recipientRecordList = await this.getRecipientRecordList(_accountKey, recipientAccountList);
-    accountStruct.stakingRewardList = await this.getStakingRecords(_accountKey);
+    accountStruct.stakingRewardList = await this.getStakingRecords(_accountKey, accountStruct.totalStakingRewards);
     spCoinLogger.logExitFunction();
     return accountStruct;
   }
 
-  getStakingRecords = async (_accountKey) => {
+  getStakingRecords = async (_accountKey, totalStakingRewards) => {
     // console.log("==>2 getStakingRecords = async(", _accountKey,")");
     let stakingRewards = new RewardsStruct();
+    stakingRewards.totalStakingRewards = totalStakingRewards;
 
     stakingRewards.recipientRewardList = await this.getRecipientRewardRecordList(_accountKey);
     // spCoinLogger.logJSON(stakingRewards);

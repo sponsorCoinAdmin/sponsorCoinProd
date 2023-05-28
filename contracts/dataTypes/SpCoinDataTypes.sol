@@ -56,12 +56,12 @@ contract SpCoinDataTypes {
     mapping(address => AccountStruct) accountMap;
 
     uint JUNK_COUNTER = 0;
-
+ 
     struct arrayMappedData {
         address[] masterAccountList;
         mapping(address => AccountStruct) accountMap;
     }
- 
+
     struct AccountStruct {
         address accountKey;
         uint256 balanceOf;
@@ -75,8 +75,10 @@ contract SpCoinDataTypes {
         address[] agentAccountList;           // If Recipient? List of Agent Account
         address[] agentsParentRecipientAccountList; // If Agent? List of Sponsor Recipient Account
         mapping(address => RecipientStruct) recipientMap;
+
         // STAKING REWARDS MAPPINGS
         uint256 totalStakingRewards; // Coins not owned but Recipiented
+        mapping(string  => RewardsStruct) rewardsMap;
         mapping(address => RewardAccountStruct) sponsorRewardsMap;
         mapping(address => RewardAccountStruct) recipienRewardstMap;
         mapping(address => RewardAccountStruct) agentRewardsMap;
@@ -138,6 +140,16 @@ contract SpCoinDataTypes {
     }
 
     /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
+
+    struct RewardsStruct {
+        uint256 totalStakingRewards; // Coins not owned but Recipiented
+        uint256 totalSponsorRewards; // Coins not owned but Recipiented
+        uint256 totalRecipientRewards; // Coins not owned but Recipiented
+        uint256 totalAgentRewards; // Coins not owned but Recipiented
+        mapping(address => RewardAccountStruct) sponsorRewardsMap;
+        mapping(address => RewardAccountStruct) recipienRewardstMap;
+        mapping(address => RewardAccountStruct) agentRewardsMap;
+    }
 
     struct RewardAccountStruct {
         uint256 stakingRewards;
