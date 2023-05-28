@@ -101,9 +101,9 @@ describe("spCoinContract", function () {
   // await spCoinDeleteMethods.unSponsorRecipient(SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[2]);
  
-  //   console.log("********************************************************************************");
-  //   console.log("*** AFTER DELETE ***************************************************************");
-  //   console.log("********************************************************************************");
+  // console.log("********************************************************************************");
+  // console.log("*** AFTER DELETE ***************************************************************");
+  // console.log("********************************************************************************");
  
     //  spCoinLogger.logJSONTree(await spCoinReadMethods.getAccountRecords());
 

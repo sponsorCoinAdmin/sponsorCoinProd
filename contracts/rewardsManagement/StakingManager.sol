@@ -25,26 +25,12 @@ contract StakingManager is UnSubscribe{
         // console.log("recipientAccount.sponsorAccountList.length =", recipientAccount.sponsorAccountList.length);
         // console.log("recipientAccount.sponsorAccountList[0] =", recipientAccount.sponsorAccountList[0]);
 
-
-        ///////////////// **** START REPLACE LATER **** ///////////////////////////
-
         RewardsStruct storage rewards = recipientAccount.rewardsMap["RECIPIENT"];
         rewards.totalStakingRewards += _amount;
         rewards.totalRecipientRewards += _amount;
         mapping(address => RewardAccountStruct) storage recipienRewardstMap = rewards.recipienRewardstMap;
-        
-        ///////////////// **** END REPLACE LATER **** ///////////////////////////
 
         RewardAccountStruct storage recipientAccountRecord = recipienRewardstMap[_sponsorAccount]; 
-        depositRewardTransaction( recipientAccountRecord, _rate, _amount );
-
-        ///////////////// **** START REMOVE LATER **** ///////////////////////////
-
-        recipientAccount.totalStakingRewards += _amount;
-        recipienRewardstMap = recipientAccount.recipienRewardstMap;
-        recipientAccountRecord = recipienRewardstMap[_sponsorAccount];
-        ///////////////// **** END REMOVE LATER **** ///////////////////////////
-
         depositRewardTransaction( recipientAccountRecord, _rate, _amount );
 
         return recipientAccountRecord.stakingRewards;
@@ -91,7 +77,6 @@ contract StakingManager is UnSubscribe{
             ///////////////// **** END REPLACE LATER **** ///////////////////////////
 
             // console.log("SOL=>17 sponsorKey[", sponsorIdx,"] = ", sponsorAccountList[sponsorIdx]);
-            // recipienRewardstMap = sponsorAccount.recipienRewardstMap;
             RewardAccountStruct storage recipientAccountRecord = recipienRewardstMap[sponsorKey];
             memoryRewards = concat(memoryRewards, toString(sponsorKey), ",", toString(recipientAccountRecord.stakingRewards));
             // console.log("SOL=> recipientAccountRecord.rewardTransactionList.length         = ", recipientAccountRecord.rewardTransactionList.length);

@@ -7,10 +7,12 @@ contract StructSerialization is Utils {
 
     constructor() {}
 
+    string constant delimiter = "\\,";
+
+
     function serializeAccount(AccountStruct storage _accountRec)
         internal view returns (string memory)
     {
-        // ToDo Remove Next Line and Serialize the AccountRec
         string memory addr = concat(
             "accountKey: ",
             toString(_accountRec.accountKey)
@@ -39,7 +41,6 @@ contract StructSerialization is Utils {
             "verified: ",
             toString(_accountRec.verified)
         );
-        string memory delimiter = "\\,";
 
         string memory seralized = string(
             abi.encodePacked(
@@ -66,10 +67,34 @@ contract StructSerialization is Utils {
         seralized = concat(seralized, delimiter, "agentAccountList:", agentAccountList);
         seralized = concat(seralized, delimiter, "agentsParentRecipientAccountList:", agentsParentRecipientAccountList);
 
-        // console.log("_accountRec.accountKey:", _accountRec.accountKey);
-        // console.log( "toString(_accountRec.accountKey)", toString(_accountRec.accountKey));
-        // console.log("balanceOf[_accountRec.accountKey]", balanceOf);
+        return seralized;
+    }
+
+    function serializeRewards(AccountStruct storage _accountRec)
+        internal view returns (string memory)
+    {
+        string memory totalStakingRewards = concat(
+            "totalStakingRewards: ",
+            toString(_accountRec.totalStakingRewards)
+        );
+
+    //    ToDo Restore this later
+    //    string memory totalSponsorRewards = concat(
+    //         "totalSponsorRewards: ",
+    //         toString(_accountRec.totalSponsorRewards)
+    //     );
+    //    string memory totalRecipientRewards = concat(
+    //         "totalRecipientRewards: ",
+    //         toString(_accountRec.totalRecipientRewards)
+    //     );
+    //    string memory totalAgentRewards = concat(
+    //         "totalAgentRewards: ",
+    //         toString(_accountRec.totalAgentRewards)
+    //     );
+
+        string memory seralized = totalStakingRewards; 
 
         return seralized;
     }
+
 }

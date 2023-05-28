@@ -75,13 +75,9 @@ contract SpCoinDataTypes {
         address[] agentAccountList;           // If Recipient? List of Agent Account
         address[] agentsParentRecipientAccountList; // If Agent? List of Sponsor Recipient Account
         mapping(address => RecipientStruct) recipientMap;
-
         // STAKING REWARDS MAPPINGS
         uint256 totalStakingRewards; // Coins not owned but Recipiented
         mapping(string  => RewardsStruct) rewardsMap;
-        mapping(address => RewardAccountStruct) sponsorRewardsMap;
-        mapping(address => RewardAccountStruct) recipienRewardstMap;
-        mapping(address => RewardAccountStruct) agentRewardsMap;
 //        KYC kyc;
     }
 
