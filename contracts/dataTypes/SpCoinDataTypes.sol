@@ -77,9 +77,9 @@ contract SpCoinDataTypes {
         mapping(address => RecipientStruct) recipientMap;
         // STAKING REWARDS MAPPINGS
         uint256 totalStakingRewards; // Coins not owned but Recipiented
-        mapping(address => StakingAccountStruct) sponsorRewardsMap;
-        mapping(address => StakingAccountStruct) recipienRewardstMap;
-        mapping(address => StakingAccountStruct) agentRewardsMap;
+        mapping(address => RewardAccountStruct) sponsorRewardsMap;
+        mapping(address => RewardAccountStruct) recipienRewardstMap;
+        mapping(address => RewardAccountStruct) agentRewardsMap;
 //        KYC kyc;
     }
 
@@ -139,7 +139,7 @@ contract SpCoinDataTypes {
 
     /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
 
-    struct StakingAccountStruct {
+    struct RewardAccountStruct {
         uint256 stakingRewards;
         RewardsTransactionStruct[] rewardTransactionList;
     }

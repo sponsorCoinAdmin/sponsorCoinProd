@@ -91,8 +91,9 @@ class SpCoinReadMethods {
     let recipientRewardsStr = await this.spCoinContractDeployed.connect(this.signer).getRecipientRewardAccounts(_accountKey);
 
     let sponsorRewardRecords = recipientRewardsStr.split("SPONSOR_ACCOUNT:");
+    // console.log ("sponsorRewardRecords = ",sponsorRewardRecords)
 
-    for (var idx = sponsorRewardRecords.length - 1; idx >= 0; idx--) {
+    for (var idx = sponsorRewardRecords.length - 1; idx >= 1; idx--) {
       let sponsorRewardsRecord = await this.getRewardRecord(sponsorRewardRecords[idx]);
       recipientRewardList.push(sponsorRewardsRecord);
     }
@@ -104,19 +105,22 @@ class SpCoinReadMethods {
     let accountRewardsRecord;
     if(rewardTransactionList.length > 0) {
       accountRewardsRecord = new RewardAccountStruct();
-      accountRewardsRecord.sourceKey = rewardTransactionList.shift();
+      let rewardRecordFields = rewardTransactionList.shift().split(",");
+      accountRewardsRecord.sourceKey = rewardRecordFields[0];
+      accountRewardsRecord.stakingRewards = bigIntToDecString(rewardRecordFields[1]);
+
       accountRewardsRecord.recipientRewardList = this.deserializeRecipientRewardAccounts(rewardTransactionList);
     }
     spCoinLogger.logExitFunction();
     return accountRewardsRecord;
   }
 
-  deserializeRecipientRewardAccounts = (stakingRewardsList) => {
-    spCoinLogger.logFunctionHeader("deserializeRecipientRewardAccounts = (" + stakingRewardsList + ")");
+  deserializeRecipientRewardAccounts = (stakingRewardFieldList) => {
+    spCoinLogger.logFunctionHeader("deserializeRecipientRewardAccounts = (" + stakingRewardFieldList + ")");
 
     let rewardTypeRecords = [];
-    for (var row = stakingRewardsList.length - 1; row >= 0; row--) {
-      let accountRewardsFields = stakingRewardsList[row].split(",");
+    for (var row = stakingRewardFieldList.length - 1; row >= 0; row--) {
+      let accountRewardsFields = stakingRewardFieldList[row].split(",");
       let accountRewardsRecord = new RewardTransactionStruct();
       let count = 0;
       // accountRewardsRecord.sourceKey = accountRewardsFields[count++];

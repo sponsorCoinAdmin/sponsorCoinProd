@@ -27,17 +27,17 @@ contract StakingManager is UnSubscribe{
 
 
         recipientAccount.totalStakingRewards += _amount;
-        mapping(address => StakingAccountStruct) storage recipienRewardstMap = recipientAccount.recipienRewardstMap;
-        StakingAccountStruct storage recipientAccountRecord = recipienRewardstMap[_sponsorAccount];
+        mapping(address => RewardAccountStruct) storage recipienRewardstMap = recipientAccount.recipienRewardstMap;
+        RewardAccountStruct storage recipientAccountRecord = recipienRewardstMap[_sponsorAccount];
 
-        depositStakingRewards( recipientAccountRecord, _rate, _amount );
+        depositRewardTransaction( recipientAccountRecord, _rate, _amount );
 
         return recipientAccountRecord.stakingRewards;
     }
 
-    function depositStakingRewards( StakingAccountStruct storage stakingAccountRecord, 
+    function depositRewardTransaction( RewardAccountStruct storage stakingAccountRecord, 
                                         uint _rate, uint _amount )  internal {
-        // console.log("SOL=>9 depositStakingRewards("); 
+        // console.log("SOL=>9 depositRewardTransaction("); 
         // console.log("SOL=>10 stakingAccountRecord.stakingRewards = ", stakingAccountRecord.stakingRewards);
         // console.log("SOL=>11               _rate                 = ", _rate);
         // console.log("SOL=>12               _amount               = ", _amount, ")" );
@@ -68,8 +68,9 @@ contract StakingManager is UnSubscribe{
             address sponsorKey = sponsorAccountList[sponsorIdx];
             memoryRewards = concat(memoryRewards, "SPONSOR_ACCOUNT:", toString(sponsorKey));
             // console.log("SOL=>17 sponsorKey[", sponsorIdx,"] = ", sponsorAccountList[sponsorIdx]);
-            mapping(address => StakingAccountStruct) storage recipienRewardstMap = sponsorAccount.recipienRewardstMap;
-            StakingAccountStruct storage recipientAccountRecord = recipienRewardstMap[sponsorKey];
+            mapping(address => RewardAccountStruct) storage recipienRewardstMap = sponsorAccount.recipienRewardstMap;
+            RewardAccountStruct storage recipientAccountRecord = recipienRewardstMap[sponsorKey];
+            memoryRewards = concat(memoryRewards, toString(sponsorKey), ",", toString(recipientAccountRecord.stakingRewards));
             // console.log("SOL=> recipientAccountRecord.rewardTransactionList.length         = ", recipientAccountRecord.rewardTransactionList.length);
             // console.log("SOL=> recipientAccountRecord.rewardTransactionList.stakingRewards = ", recipientAccountRecord.stakingRewards);
 

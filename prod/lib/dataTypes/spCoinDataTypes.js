@@ -107,7 +107,7 @@ struct StakingTransactionStruct {
   address[] sourceList;
 }
 
-struct StakingAccountStruct {
+struct RewardAccountStruct {
   uint256 stakingRewards;
   RewardsTransactionStruct[] rewardTransactionList;
 }
