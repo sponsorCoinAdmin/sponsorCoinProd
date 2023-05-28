@@ -56,8 +56,8 @@ contract StakingManager is UnSubscribe{
 /////////////////////////////////////////////////////////////////////////////////////
     function getRecipientRewardAccounts(address accountKey)
         public  view returns (string memory memoryRewards) {
-        console.log("*** START SOL ******************************************************************************");
-        console.log("SOL=>15 getRecipientRewardAccounts(", accountKey, ")");
+        // console.log("*** START SOL ******************************************************************************");
+        // console.log("SOL=>15 getRecipientRewardAccounts(", accountKey, ")");
         
         AccountStruct storage sponsorAccount = accountMap[accountKey];
         address[] storage sponsorAccountList = sponsorAccount.sponsorAccountList;
@@ -67,11 +67,11 @@ contract StakingManager is UnSubscribe{
         for (uint sponsorIdx = 0; sponsorIdx < sponsorAccountList.length; sponsorIdx++) {
             address sponsorKey = sponsorAccountList[sponsorIdx];
             memoryRewards = concat(memoryRewards, "SPONSOR_ACCOUNT:", toString(sponsorKey));
-            console.log("SOL=>17 sponsorKey[", sponsorIdx,"] = ", sponsorAccountList[sponsorIdx]);
+            // console.log("SOL=>17 sponsorKey[", sponsorIdx,"] = ", sponsorAccountList[sponsorIdx]);
             mapping(address => StakingAccountStruct) storage recipienRewardstMap = sponsorAccount.recipienRewardstMap;
             StakingAccountStruct storage recipientAccountRecord = recipienRewardstMap[sponsorKey];
-            console.log("SOL=> recipientAccountRecord.rewardTransactionList.length         = ", recipientAccountRecord.rewardTransactionList.length);
-            console.log("SOL=> recipientAccountRecord.rewardTransactionList.stakingRewards = ", recipientAccountRecord.stakingRewards);
+            // console.log("SOL=> recipientAccountRecord.rewardTransactionList.length         = ", recipientAccountRecord.rewardTransactionList.length);
+            // console.log("SOL=> recipientAccountRecord.rewardTransactionList.stakingRewards = ", recipientAccountRecord.stakingRewards);
 
             RewardsTransactionStruct[] storage rewardTransactionList = recipientAccountRecord.rewardTransactionList;
             if (rewardTransactionList.length != 0) {
@@ -79,8 +79,8 @@ contract StakingManager is UnSubscribe{
                 memoryRewards = concat(memoryRewards, "\n" , stringRewards);
             }
         }
-        console.log("SOL=>18 memoryRewards", memoryRewards);
-        console.log("*** END SOL ******************************************************************************");
+        // console.log("SOL=>18 memoryRewards", memoryRewards);
+        // console.log("*** END SOL ******************************************************************************");
         return memoryRewards;
     }
 

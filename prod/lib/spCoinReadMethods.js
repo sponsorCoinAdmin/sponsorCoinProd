@@ -92,7 +92,6 @@ class SpCoinReadMethods {
 
     let sponsorRewardRecords = recipientRewardsStr.split("SPONSOR_ACCOUNT:");
 
-    console.log("sponsorRewardRecords.length = ", sponsorRewardRecords.length);
     for (var idx = sponsorRewardRecords.length - 1; idx >= 0; idx--) {
       let sponsorRewardsRecord = await this.getRewardRecord(sponsorRewardRecords[idx]);
       recipientRewardList.push(sponsorRewardsRecord);
@@ -104,31 +103,19 @@ class SpCoinReadMethods {
     let rewardTransactionList = _rewardRecordStr.split("\n");
     let accountRewardsRecord;
     if(rewardTransactionList.length > 0) {
-// ToDo ROBIN WORKING Headers, DO LOOP for MULTIPLE RecipientStruct, ALSO IN SOL
-      let accountRewardsRecord = new RewardAccountStruct();
-      let rewardTransactionList = _rewardRecordStr.split("\n");
-      // console.log("JS=>1 rewardTransactionList =<<<" + rewardTransactionList + ">>>");
-      // console.log("JS=>1 BEFORE rewardTransactionList.length =",rewardTransactionList.length);
+      accountRewardsRecord = new RewardAccountStruct();
       accountRewardsRecord.sourceKey = rewardTransactionList.shift();
-      // console.log("JS=>1 AFTER rewardTransactionList.length =",rewardTransactionList.length);
-      // console.log("JS=>1 rewardTransactionList =",rewardTransactionList);
-      // console.log("JS=>1 rewardTransactionList[0] =",rewardTransactionList[0]);
       accountRewardsRecord.recipientRewardList = this.deserializeRecipientRewardAccounts(rewardTransactionList);
     }
-
     spCoinLogger.logExitFunction();
     return accountRewardsRecord;
   }
 
-
   deserializeRecipientRewardAccounts = (stakingRewardsList) => {
     spCoinLogger.logFunctionHeader("deserializeRecipientRewardAccounts = (" + stakingRewardsList + ")");
-    spCoinLogger.log("deserializeRecipientRewardAccounts = async(" + stakingRewardsList + ")");
 
     let rewardTypeRecords = [];
-      console.log("==>19 deserializeRateTransactionRecords = async(" + stakingRewardsList + ")");
     for (var row = stakingRewardsList.length - 1; row >= 0; row--) {
-      console.log("stakingRewardsList[" + row + "]", stakingRewardsList[row]);
       let accountRewardsFields = stakingRewardsList[row].split(",");
       let accountRewardsRecord = new RewardTransactionStruct();
       let count = 0;
@@ -167,7 +154,7 @@ class SpCoinReadMethods {
     let networkRateKeys = await this.spCoinContractDeployed.connect(this.signer).getAgentRateList(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
     let agentRateList = [];
     for (let [idx, netWorkRateKey] of Object.entries(networkRateKeys)) {
-    agentRateList.push(netWorkRateKey.toNumber());
+      agentRateList.push(netWorkRateKey.toNumber());
     }
     spCoinLogger.logExitFunction();
     return agentRateList;
