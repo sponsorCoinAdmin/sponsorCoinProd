@@ -46,28 +46,29 @@ describe("spCoinContract", function () {
   //   "1.000000000000000008"
   // );
   
-  await spCoinAddMethods.addAgentSponsorship(
-    SPONSOR_ACCOUNT_SIGNERS[0],
-    RECIPIENT_ACCOUNT_KEYS[1],
-    RECIPIENT_RATES[5],
-    AGENT_ACCOUNT_KEYS[1],
-    AGENT_RATES[9],
-    "1.000000000000000008"
-  );
+  // await spCoinAddMethods.addAgentSponsorship(
+  //   SPONSOR_ACCOUNT_SIGNERS[0],
+  //   RECIPIENT_ACCOUNT_KEYS[1],
+  //   RECIPIENT_RATES[5],
+  //   AGENT_ACCOUNT_KEYS[1],
+  //   AGENT_RATES[9],
+  //   "1.000000000000000008"
+  // );
+
 
   // await spCoinAddMethods.addSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[5],
-  //   "1.000000000000000008"
+  //   "111"
   // );
-  
-  await spCoinAddMethods.depositRecipientStakingRewards(
-    SPONSOR_ACCOUNT_KEYS[0],
-    RECIPIENT_ACCOUNT_KEYS[1], 
-    RECIPIENT_RATES[5],
-    123
-  );
+ 
+  // await spCoinAddMethods.depositRecipientStakingRewards(
+  //   SPONSOR_ACCOUNT_KEYS[0],
+  //   RECIPIENT_ACCOUNT_KEYS[1], 
+  //   RECIPIENT_RATES[5],
+  //   123
+  // );
   
   // await spCoinAddMethods.depositRecipientStakingRewards(
   //   SPONSOR_ACCOUNT_KEYS[0],
@@ -77,15 +78,83 @@ describe("spCoinContract", function () {
   // );
 
   // await spCoinAddMethods.depositRecipientStakingRewards(
-  //   SPONSOR_ACCOUNT_KEYS[0],
-  //   RECIPIENT_ACCOUNT_KEYS[1], 
+  //   SPONSOR_ACCOUNT_KEYS[1],
+  //   RECIPIENT_ACCOUNT_KEYS[2], 
   //   RECIPIENT_RATES[5],
   //   789
   // );
 
-  console.log("********************************************************************************");
-  console.log("*** AFTER CREATE ***************************************************************");
-  console.log("********************************************************************************");
+  // await spCoinAddMethods.addSponsorship(
+  //   SPONSOR_ACCOUNT_SIGNERS[0],
+  //   RECIPIENT_ACCOUNT_KEYS[2],
+  //   RECIPIENT_RATES[5],
+  //   "99.9"
+  // );
+
+  
+  // await spCoinERC20Methods.transfer(
+  //   RECIPIENT_ACCOUNT_KEYS[2],
+  //   "90000000000000000000000"
+  // )
+
+  // await spCoinAddMethods.addSponsorship(
+  //   SPONSOR_ACCOUNT_SIGNERS[0],
+  //   RECIPIENT_ACCOUNT_KEYS[1],
+  //   RECIPIENT_RATES[5],
+  //   "1.000000000000000008"
+  // );
+
+  await spCoinERC20Methods.transfer(
+    RECIPIENT_ACCOUNT_KEYS[1],
+    "90000000000000000000000"
+  )  
+  
+
+  await spCoinAddMethods.addSponsorship(
+    SPONSOR_ACCOUNT_SIGNERS[0],
+    RECIPIENT_ACCOUNT_KEYS[2],
+    RECIPIENT_RATES[5],
+    "1.000000000000000008"
+  );
+
+  await spCoinAddMethods.addSponsorship(
+    SPONSOR_ACCOUNT_SIGNERS[1],
+    RECIPIENT_ACCOUNT_KEYS[2],
+    RECIPIENT_RATES[5],
+    "2.000000000000000008"
+  );
+ 
+  await spCoinAddMethods.depositRecipientStakingRewards(
+    SPONSOR_ACCOUNT_KEYS[0],
+    RECIPIENT_ACCOUNT_KEYS[2], 
+    RECIPIENT_RATES[3],
+    333
+  );
+
+  await spCoinAddMethods.depositRecipientStakingRewards(
+    SPONSOR_ACCOUNT_KEYS[0],
+    RECIPIENT_ACCOUNT_KEYS[2], 
+    RECIPIENT_RATES[4],
+    444
+  );
+
+  await spCoinAddMethods.depositRecipientStakingRewards(
+    SPONSOR_ACCOUNT_KEYS[1],
+    RECIPIENT_ACCOUNT_KEYS[2], 
+    RECIPIENT_RATES[5],
+    555
+  );
+
+  // await spCoinAddMethods.depositRecipientStakingRewards(
+  //   SPONSOR_ACCOUNT_KEYS[0],
+  //   RECIPIENT_ACCOUNT_KEYS[1], 
+  //   RECIPIENT_RATES[4],
+  //   444
+  // );
+  
+  // console.log("********************************************************************************");
+  // console.log("*** AFTER CREATE ***************************************************************");
+  // console.log("********************************************************************************");
 
   let accountRecords = await spCoinReadMethods.getAccountRecords()
   spCoinLogger.logJSONTree(accountRecords);
@@ -101,9 +170,9 @@ describe("spCoinContract", function () {
   // await spCoinDeleteMethods.unSponsorRecipient(SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[2]);
  
-  //   console.log("********************************************************************************");
-  //   console.log("*** AFTER DELETE ***************************************************************");
-  //   console.log("********************************************************************************");
+  // console.log("********************************************************************************");
+  // console.log("*** AFTER DELETE ***************************************************************");
+  // console.log("********************************************************************************");
  
     //  spCoinLogger.logJSONTree(await spCoinReadMethods.getAccountRecords());
 

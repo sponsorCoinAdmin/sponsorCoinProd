@@ -77,7 +77,7 @@ contract StringUtils {
           else {
               strArrValue = concat(strArrValue, ",", toString(arrValues[i]));
           }
-         //  console.log(arrValues[i]);
+         // console.log(arrValues[i]);
       }
       return strArrValue;
   }
@@ -127,7 +127,7 @@ contract StringUtils {
               return (0, false);
           }
           result += (uint8(bytes(_strWholeAmount)[i]) - 48) * 10**(bytes(_strWholeAmount).length - i - 1);
-         //  console.log("decimalStringToUint uint256Value = ", result);
+         // console.log("decimalStringToUint uint256Value = ", result);
          }   
       return (result, true);
    }

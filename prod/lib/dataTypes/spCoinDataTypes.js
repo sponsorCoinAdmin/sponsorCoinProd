@@ -11,8 +11,7 @@ class AccountStruct {
     this.agentAccountList;
     this.agentsParentRecipientAccountList;
     this.recipientRecordList;
-    this.stakingRewardsList;
-//    this.KYC;
+    this.stakingRewardList;
   }
 }
 
@@ -64,27 +63,70 @@ class AgentRateStruct {
 
 class StakingTransactionStruct {
   constructor() {
+    this.TYPE = "--STAKING TRANSACTION RECORD--";
     this.insertionTime;
     this.location;
     this.quantity;
   }
 }
 
-class StakingRewardStruct {
+/// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
+
+class RewardsStruct {
   constructor() {
-    this.sourceKey;
-    this.sourceType;
-    this.updateTime;
-    this.quantity;
+    this.TYPE = "--REWARDS STRUCTURE--";
+    this.totalStakingRewards;
+    this.agentRewardsList;
+    this.recipientRewardsList;
+    this.sponsorRewardsList;
   }
 }
 
+class RewardAccountStruct {
+  constructor() {
+    this.TYPE = "--REWARD ACCOUNT--";
+    this.sourceKey;
+    this.rate;
+    this.stakingRewards;
+  }
+}
+
+class RewardTransactionStruct {
+  constructor() {
+    this.TYPE = "--REWARD TRANSACTION--";
+    this.rate;
+    this.updateTime;
+    this.stakingRewards;
+  }
+}
+
+/*
+struct StakingTransactionStruct {
+  uint256 insertionTime;
+  uint256 stakingRewards;
+  address[] sourceList;
+}
+
+struct RewardAccountStruct {
+  uint256 stakingRewards;
+  RewardsTransactionStruct[] rewardTransactionList;
+}
+
+struct RewardsTransactionStruct {
+  uint256 rate;
+  uint256 updateTime;
+  uint256 stakingRewards;
+}
+*/
+
 module.exports = {
+  RewardAccountStruct,
   AccountStruct,
   AgentRateStruct,
   AgentStruct,
   RecipientStruct,
   RecipientRateStruct,
+  RewardTransactionStruct,
+  RewardsStruct,
   StakingTransactionStruct,
-  StakingRewardStruct
 };

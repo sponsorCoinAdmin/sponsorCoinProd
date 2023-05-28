@@ -145,7 +145,7 @@ class SpCoinAddMethods {
     let wholePart = components[0].length > 0 ? components[0] : "0";
     let fractionalPart = components.length > 1 ? components[1] : "0";
 
-    await this.spCoinContractDeployed.connect(this.signer).addSponsorship(
+    await this.spCoinContractDeployed.connect(_sponsorSigner).addSponsorship(
       _recipientKey,
       _recipientRateKey,
       _accountAgentKey,
@@ -175,7 +175,7 @@ class SpCoinAddMethods {
       _rate,
       _amount);
 
-    // let rewards = await this.spCoinContractDeployed.connect(this.signer).getRecipientStakingRewardRecords(_sourceAccount);
+    // let rewards = await this.spCoinContractDeployed.connect(this.signer).getRecipientRewardAccounts(_sourceAccount);
     // console.log ("*** Rewards = \n" + JSON.stringify(rewards, null, 2));
 
     spCoinLogger.logExitFunction();
