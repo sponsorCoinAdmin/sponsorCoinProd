@@ -96,16 +96,16 @@ class SpCoinReadMethods {
     rewardTypeRecord.stakingRewards = bigIntToDecString(_reward);
     switch(_type) {
       case "SPONSOR":
-           rewardTypeRecord.rewardAccount = [];
+           rewardTypeRecord.rewardAccountList = [];
       break;
       case "RECIPIENT":
-        rewardTypeRecord.rewardAccount = await this.getRecipientRewardRecordList(_accountKey);
+        rewardTypeRecord.rewardAccountList = await this.getRecipientRewardRecordList(_accountKey);
       break;
       case "AGENT":
-        rewardTypeRecord.rewardAccount = [];
+        rewardTypeRecord.rewardAccountList = [];
       break;
       default:
-        rewardTypeRecord.rewardAccount = [];
+        rewardTypeRecord.rewardAccountList = [];
       break;
     } 
     

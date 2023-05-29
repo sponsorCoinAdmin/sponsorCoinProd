@@ -87,7 +87,7 @@ class RewardTypeStruct {
     this.TYPE = "--REWARD TYPE STRUCTURE--";
     this.rewardType;
     this.stakingRewards;
-    this.rewardAccount;
+    this.rewardAccountList;
   }
 }
 
