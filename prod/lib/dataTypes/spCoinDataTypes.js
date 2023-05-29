@@ -76,9 +76,18 @@ class RewardsStruct {
   constructor() {
     this.TYPE = "--REWARDS STRUCTURE--";
     this.totalStakingRewards;
-    this.agentRewardsList;
-    this.recipientRewardsList;
     this.sponsorRewardsList;
+    this.recipientRewardsList;
+    this.agentRewardsList;
+  }
+}
+
+class RewardTypeStruct {
+  constructor() {
+    this.TYPE = "--REWARD TYPE STRUCTURE--";
+    this.rewardType;
+    this.stakingRewards;
+    this.rewardAccount;
   }
 }
 
@@ -100,25 +109,6 @@ class RewardTransactionStruct {
   }
 }
 
-/*
-struct StakingTransactionStruct {
-  uint256 insertionTime;
-  uint256 stakingRewards;
-  address[] sourceList;
-}
-
-struct RewardAccountStruct {
-  uint256 stakingRewards;
-  RewardsTransactionStruct[] rewardTransactionList;
-}
-
-struct RewardsTransactionStruct {
-  uint256 rate;
-  uint256 updateTime;
-  uint256 stakingRewards;
-}
-*/
-
 module.exports = {
   RewardAccountStruct,
   AccountStruct,
@@ -127,6 +117,7 @@ module.exports = {
   RecipientStruct,
   RecipientRateStruct,
   RewardTransactionStruct,
+  RewardTypeStruct,
   RewardsStruct,
   StakingTransactionStruct,
 };

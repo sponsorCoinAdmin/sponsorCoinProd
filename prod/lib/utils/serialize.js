@@ -167,6 +167,16 @@ class SpCoinSerialize {
       spCoinLogger.logExitFunction();
     return this.deSerializedAccountRec(serializedAccountRec);
   };
+
+  getSerializedAccountRewards = async (_accountKey) => {
+    // console.log("==>3 getSerializedAccountRewards = async(" + _accountKey + ")");
+    spCoinLogger.logFunctionHeader("getSerializedAccountRewards = async(" + _accountKey + ")");
+    let serializedAccountRec =
+      await this.spCoinContractDeployed.connect(this.signer).getSerializedAccountRewards(_accountKey);
+      spCoinLogger.logExitFunction();
+    return this.deSerializedAccountRec(serializedAccountRec);
+  };
+
 }
 
 module.exports = {

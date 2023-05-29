@@ -76,7 +76,7 @@ contract SpCoinDataTypes {
         address[] agentsParentRecipientAccountList; // If Agent? List of Sponsor Recipient Account
         mapping(address => RecipientStruct) recipientMap;
         // STAKING REWARDS MAPPINGS
-        uint256 totalStakingRewards; // Coins not owned but Recipiented
+        // uint256 totalStakingRewards; // Coins not owned but Recipiented
         mapping(string  => RewardsStruct) rewardsMap;
 //        KYC kyc;
     }
@@ -138,10 +138,10 @@ contract SpCoinDataTypes {
     /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
 
     struct RewardsStruct {
-        uint256 totalStakingRewards; // Coins not owned but Recipiented
-        uint256 totalSponsorRewards; // Coins not owned but Recipiented
-        uint256 totalRecipientRewards; // Coins not owned but Recipiented
-        uint256 totalAgentRewards; // Coins not owned but Recipiented
+        uint256 totalSponsorRewards;
+        uint256 totalRecipientRewards;
+        uint256 totalAgentRewards;
+        uint256 totalStakingRewards; 
         mapping(address => RewardAccountStruct) sponsorRewardsMap;
         mapping(address => RewardAccountStruct) recipienRewardstMap;
         mapping(address => RewardAccountStruct) agentRewardsMap;

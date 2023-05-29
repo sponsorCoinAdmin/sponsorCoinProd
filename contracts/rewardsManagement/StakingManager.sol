@@ -93,7 +93,7 @@ contract StakingManager is UnSubscribe{
         return memoryRewards;
     }
 
-   function serializeRewardsTransactionList(RewardsTransactionStruct[] storage rewardTransactionList)
+    function serializeRewardsTransactionList(RewardsTransactionStruct[] storage rewardTransactionList)
         internal  view returns (string memory memoryRewards) {
         for (uint idx = 0; idx < rewardTransactionList.length; idx++) {
             RewardsTransactionStruct storage rewardTransaction = rewardTransactionList[idx];
@@ -111,5 +111,11 @@ contract StakingManager is UnSubscribe{
            // console.log("*** END SOL ******************************************************************************");
         }
         return memoryRewards;
+    }
+
+    function getSerializedAccountRewards(address _accountKey)
+        public view returns (string memory) {
+        require(isAccountInserted(_accountKey));
+        return serializeRewards(accountMap[_accountKey]);
     }
 }

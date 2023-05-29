@@ -93,4 +93,5 @@ contract Account is StructSerialization {
         require(isAccountInserted(_accountKey));
         return serializeAccount(accountMap[_accountKey]);
     }
+
 }
