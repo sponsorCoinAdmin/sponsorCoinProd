@@ -30,20 +30,30 @@ contract StakingManager is UnSubscribe{
         rewards.totalRecipientRewards += _amount;
         mapping(address => RewardAccountStruct) storage recipienRewardstMap = rewards.recipienRewardstMap;
 
-        RewardAccountStruct storage recipientAccountRecord = recipienRewardstMap[_sponsorAccount]; 
-        depositRewardTransaction( recipientAccountRecord, _rate, _amount );
+
+        RewardAccountStruct storage recipientAccountRecord = recipienRewardstMap[_sponsorAccount];
+        recipientAccountRecord.stakingRewards += _amount;
+
+        uint256[] storage rewardRateList = recipientAccountRecord.rewardRateList;
+        RewardRateStruct storage rewardRateMap = recipientAccountRecord.rewardRateMap[_rate];
+        if (rewardRateMap.rate != _rate) {
+            rewardRateList.push(_rate);
+            rewardRateMap.rate = _rate;
+        }
+        
+         RewardsTransactionStruct[] storage rewardTransactionList = rewardRateMap.rewardTransactionList;
+
+        depositRewardTransaction( rewardTransactionList, _rate, _amount );
 
         return recipientAccountRecord.stakingRewards;
     }
 
-    function depositRewardTransaction( RewardAccountStruct storage stakingAccountRecord, 
+    function depositRewardTransaction(  RewardsTransactionStruct[] storage rewardTransactionList, 
                                         uint _rate, uint _amount )  internal {
         // console.log("SOL=>9 depositRewardTransaction("); 
         // console.log("SOL=>10 stakingAccountRecord.stakingRewards = ", stakingAccountRecord.stakingRewards);
         // console.log("SOL=>11               _rate                 = ", _rate);
         // console.log("SOL=>12               _amount               = ", _amount, ")" );
-        stakingAccountRecord.stakingRewards += _amount; 
-        RewardsTransactionStruct[] storage rewardTransactionList = stakingAccountRecord.rewardTransactionList;
         // console.log("SOL=>13 BEFORE rewardTransactionList.length = ", rewardTransactionList.length);
 
         RewardsTransactionStruct memory  rewardsTransactionRecord;
@@ -78,11 +88,18 @@ contract StakingManager is UnSubscribe{
 
             // console.log("SOL=>17 sponsorKey[", sponsorIdx,"] = ", sponsorAccountList[sponsorIdx]);
             RewardAccountStruct storage recipientAccountRecord = recipienRewardstMap[sponsorKey];
+
+
+            uint256[] storage rewardRateList = recipientAccountRecord.rewardRateList;
+            uint rate = rewardRateList[0];
+            RewardRateStruct storage rewardRateMap = recipientAccountRecord.rewardRateMap[rate];
+            RewardsTransactionStruct[] storage rewardTransactionList = rewardRateMap.rewardTransactionList; 
+
             memoryRewards = concat(memoryRewards, toString(sponsorKey), ",", toString(recipientAccountRecord.stakingRewards));
             // console.log("SOL=> recipientAccountRecord.rewardTransactionList.length         = ", recipientAccountRecord.rewardTransactionList.length);
             // console.log("SOL=> recipientAccountRecord.rewardTransactionList.stakingRewards = ", recipientAccountRecord.stakingRewards);
 
-            RewardsTransactionStruct[] storage rewardTransactionList = recipientAccountRecord.rewardTransactionList;
+            // rewardTransactionList = recipientAccountRecord.rewardTransactionList;
             if (rewardTransactionList.length != 0) {
                 string memory stringRewards = serializeRewardsTransactionList(rewardTransactionList);
                 memoryRewards = concat(memoryRewards, "\n" , stringRewards);

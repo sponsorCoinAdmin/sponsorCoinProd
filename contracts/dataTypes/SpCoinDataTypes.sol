@@ -149,6 +149,14 @@ contract SpCoinDataTypes {
 
     struct RewardAccountStruct {
         uint256 stakingRewards;
+
+        uint256[] rewardRateList;
+        mapping(uint256 => RewardRateStruct) rewardRateMap;
+    }
+
+    struct RewardRateStruct {
+        uint256 rate;
+        uint256 stakingRewards;
         RewardsTransactionStruct[] rewardTransactionList;
     }
 
@@ -157,4 +165,5 @@ contract SpCoinDataTypes {
         uint256 updateTime;
         uint256 stakingRewards;
     }
+
 }
