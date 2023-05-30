@@ -119,7 +119,7 @@ class SpCoinReadMethods {
     let recipientRewardsStr = await this.spCoinContractDeployed.connect(this.signer).getRecipientRewardAccounts(_accountKey);
 
     let sponsorRewardRecords = recipientRewardsStr.split("SPONSOR_ACCOUNT:");
-    // console.log ("sponsorRewardRecords = ",sponsorRewardRecords)
+    // console.log ("JS=>1 sponsorRewardRecords = ",sponsorRewardRecords)
 
     for (var idx = sponsorRewardRecords.length - 1; idx >= 1; idx--) {
       let sponsorRewardsRecord = await this.getRewardRecord(sponsorRewardRecords[idx]);
@@ -130,13 +130,19 @@ class SpCoinReadMethods {
 
   getRewardRecord = async (_rewardRecordStr) => {
     let rewardTransactionList = _rewardRecordStr.split("\n");
+
+
+
+    console.log ("JS=>1 rewardTransactionList = ",rewardTransactionList);
+
+
+
     let rewardTransactionRecord;
     if(rewardTransactionList.length > 0) {
       rewardTransactionRecord = new RewardAccountStruct();
       let rewardRecordFields = rewardTransactionList.shift().split(",");
       rewardTransactionRecord.sourceKey = rewardRecordFields[0];
       rewardTransactionRecord.stakingRewards = bigIntToDecString(rewardRecordFields[1]);
-
       rewardTransactionRecord.recipientRewardTransactionList = this.deserializeRecipientRewardAccounts(rewardTransactionList);
     }
     spCoinLogger.logExitFunction();
@@ -145,6 +151,7 @@ class SpCoinReadMethods {
 
   deserializeRecipientRewardAccounts = (stakingRewardFieldList) => {
     spCoinLogger.logFunctionHeader("deserializeRecipientRewardAccounts = (" + stakingRewardFieldList + ")");
+    // console.log ("JS=>2 stakingRewardFieldList = ",stakingRewardFieldList);
 
     let rewardTypeRecords = [];
     for (var row = stakingRewardFieldList.length - 1; row >= 0; row--) {
@@ -155,6 +162,8 @@ class SpCoinReadMethods {
       rewardTransactionRecord.rate = bigIntToDecString(accountRewardsFields[count++]);
       rewardTransactionRecord.updateTime = bigIntToDateTimeString(accountRewardsFields[count++]);
       rewardTransactionRecord.stakingRewards = bigIntToDecString(accountRewardsFields[count++]);
+      // console.log ("JS=>3 rewardTransactionRecord = ",rewardTransactionRecord);
+
       rewardTypeRecords.push(rewardTransactionRecord);
       
     }
