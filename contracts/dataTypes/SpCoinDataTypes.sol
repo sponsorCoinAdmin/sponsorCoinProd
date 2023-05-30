@@ -149,7 +149,6 @@ contract SpCoinDataTypes {
 
     struct RewardAccountStruct {
         uint256 stakingRewards;
-
         uint256[] rewardRateList;
         mapping(uint256 => RewardRateStruct) rewardRateMap;
     }

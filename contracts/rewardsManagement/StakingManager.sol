@@ -8,6 +8,8 @@ contract StakingManager is UnSubscribe{
     constructor(){
     }
 
+//////////////// INSERT STAKING REWARDA/////////////////////////////////////////////////////////////////////
+
     function depositRecipientStakingRewards(address _sponsorAccount, address _recipientAccount, uint _rate, uint _amount )
         public returns ( uint ) {
         require (_amount > 0, "AMOUNT BALANCE MUST BE LARGER THAN 0");
@@ -64,7 +66,7 @@ contract StakingManager is UnSubscribe{
         // console.log("SOL=>14 AFTER rewardTransactionList.length = ", rewardTransactionList.length);
     }
 
-/////////////////////////////////////////////////////////////////////////////////////
+//////////////// RETREIVE STAKING REWARDA/////////////////////////////////////////////////////////////////////
     function getRecipientRewardAccounts(address accountKey)
         public  view returns (string memory memoryRewards) {
         // console.log("*** START SOL ******************************************************************************");
@@ -91,6 +93,10 @@ contract StakingManager is UnSubscribe{
 
 
             uint256[] storage rewardRateList = recipientAccountRecord.rewardRateList;
+
+
+
+            /////////////////////////////////////////
             uint rate = rewardRateList[0];
             RewardRateStruct storage rewardRateMap = recipientAccountRecord.rewardRateMap[rate];
             RewardsTransactionStruct[] storage rewardTransactionList = rewardRateMap.rewardTransactionList; 
@@ -99,7 +105,6 @@ contract StakingManager is UnSubscribe{
             // console.log("SOL=> recipientAccountRecord.rewardTransactionList.length         = ", recipientAccountRecord.rewardTransactionList.length);
             // console.log("SOL=> recipientAccountRecord.rewardTransactionList.stakingRewards = ", recipientAccountRecord.stakingRewards);
 
-            // rewardTransactionList = recipientAccountRecord.rewardTransactionList;
             if (rewardTransactionList.length != 0) {
                 string memory stringRewards = serializeRewardsTransactionList(rewardTransactionList);
                 memoryRewards = concat(memoryRewards, "\n" , stringRewards);
@@ -109,6 +114,29 @@ contract StakingManager is UnSubscribe{
         // console.log("*** END SOL ******************************************************************************");
         return memoryRewards;
     }
+/*
+    function getRateTransactionList(RewardAccountStruct storage recipientAccountRecord, RewardsTransactionStruct[] storage rewardTransactionList)
+        internal  view returns (string memory memoryRewards) {
+            uint256[] storage rewardRateList = recipientAccountRecord.rewardRateList;
+        for (uint idx = 0; idx < rewardTransactionList.length; idx++) {
+            uint rate = rewardRateList[idx];
+            RewardRateStruct storage rewardRateMap = recipientAccountRecord.rewardRateMap[rate];
+            RewardsTransactionStruct[] storage rewardTransactionList = rewardRateMap.rewardTransactionList; 
+
+            memoryRewards = concat(memoryRewards, toString(sponsorKey), ",", toString(recipientAccountRecord.stakingRewards));
+            // console.log("SOL=> recipientAccountRecord.rewardTransactionList.length         = ", recipientAccountRecord.rewardTransactionList.length);
+            // console.log("SOL=> recipientAccountRecord.rewardTransactionList.stakingRewards = ", recipientAccountRecord.stakingRewards);
+
+            if (rewardTransactionList.length != 0) {
+                string memory stringRewards = serializeRewardsTransactionList(rewardTransactionList);
+                memoryRewards = concat(memoryRewards, "\n" , stringRewards);
+            }
+            }
+        // console.log("SOL=>18 memoryRewards", memoryRewards);
+        // console.log("*** END SOL ******************************************************************************");
+        return memoryRewards;
+    }
+*/
 
     function serializeRewardsTransactionList(RewardsTransactionStruct[] storage rewardTransactionList)
         internal  view returns (string memory memoryRewards) {
