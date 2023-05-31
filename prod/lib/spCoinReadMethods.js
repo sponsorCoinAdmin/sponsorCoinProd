@@ -100,7 +100,7 @@ class SpCoinReadMethods {
            rewardTypeRecord.rewardAccountList = [];
       break;
       case "RECIPIENT":
-        rewardTypeRecord.rewardAccountList = await this.getRecipientRewardRecordList(_accountKey);
+        rewardTypeRecord.rewardAccountList = await this.getRecipientRewardAccountList(_accountKey);
       break;
       case "AGENT":
         rewardTypeRecord.rewardAccountList = [];
@@ -114,8 +114,8 @@ class SpCoinReadMethods {
     return rewardTypeRecord;
   }
 
-  getRecipientRewardRecordList = async (_accountKey) => {
-    // console.log("==>2 getRecipientRewardRecordList = async(", _accountKey,")");
+  getRecipientRewardAccountList = async (_accountKey) => {
+    // console.log("==>2 getRecipientRewardAccountList = async(", _accountKey,")");
     let recipientRewardTransactionList = [];
     let recipientRewardsStr = await this.spCoinContractDeployed.connect(this.signer).getRecipientRewardAccounts(_accountKey);
 
@@ -123,31 +123,31 @@ class SpCoinReadMethods {
     console.log ("JS=>1 sponsorRewardRecords = ",sponsorRewardRecords)
 
     for (var idx = sponsorRewardRecords.length - 1; idx >= 1; idx--) {
-      let sponsorRewardsRecord = await this.getRewardRecord(sponsorRewardRecords[idx]);
+      let sponsorRewardsRecord = await this.getRewardAccountRecord(sponsorRewardRecords[idx]);
       recipientRewardTransactionList.push(sponsorRewardsRecord);
     }
     return recipientRewardTransactionList;
   }
 
-  getRewardRecord = async (_rewardRecordStr) => {
-    let rewardTransactionList = _rewardRecordStr.split("\n");
+  getRewardAccountRecord = async (_rewardRecordStr) => {
+    let rewardAccountRows = _rewardRecordStr.split("\n");
 
 
 
-    console.log ("JS=>1 rewardTransactionList = ",rewardTransactionList);
+    console.log ("JS=>1 rewardAccountRows = ",rewardAccountRows);
 
 
 
-    let rewardTransactionRecord = new RewardTransactionStruct();
-    if(rewardTransactionList.length > 0) {
-      rewardTransactionRecord = new RewardAccountStruct();
-      let rewardRecordFields = rewardTransactionList.shift().split(",");
-      rewardTransactionRecord.sourceKey = rewardRecordFields[0];
-      rewardTransactionRecord.stakingRewards = bigIntToDecString(rewardRecordFields[1]);
-      rewardTransactionRecord.recipientRewardTransactionList = this.deserializeRecipientRewardAccounts(rewardTransactionList);
+    let rewardAccountRecord;
+    if(rewardAccountRows.length > 0) {
+      rewardAccountRecord = new RewardAccountStruct();
+      let rewardRecordFields = rewardAccountRows.shift().split(",");
+      rewardAccountRecord.sourceKey = rewardRecordFields[0];
+      rewardAccountRecord.stakingRewards = bigIntToDecString(rewardRecordFields[1]);
+      rewardAccountRecord.recipientRewardTransactionList = this.deserializeRecipientRewardAccounts(rewardAccountRows);
     }
     spCoinLogger.logExitFunction();
-    return rewardTransactionRecord;
+    return rewardAccountRecord;
   }
 
   deserializeRecipientRewardAccounts = (stakingRewardFieldList) => {
@@ -168,7 +168,7 @@ class SpCoinReadMethods {
       rewardTypeRecords.push(rewardTransactionRecord);
       
     }
-    ToDo: call getRewardAccountRateList BELOW
+    // ToDo: call getRewardAccountRateList BELOW
     // console.log(JSON.stringify(rewardTypeRecords, null, 2));
     // spCoinLogger.logJSON(rewardTypeRecords);
     spCoinLogger.logExitFunction();
