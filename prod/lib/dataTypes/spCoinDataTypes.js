@@ -103,6 +103,7 @@ class RewardAccountStruct {
 
 class RewardRateStruct {
   constructor() {
+    this.TYPE = "--REWARD RATE--";
     this.rate;
     this.stakingRewards;
     this.rewardTransactionList;
