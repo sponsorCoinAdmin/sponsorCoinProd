@@ -97,6 +97,15 @@ class RewardAccountStruct {
     this.sourceKey;
     this.rate;
     this.stakingRewards;
+    this.rateList;
+  }
+}
+
+class RewardRateStruct {
+  constructor() {
+    this.rate;
+    this.stakingRewards;
+    this.rewardTransactionList;
   }
 }
 
@@ -115,10 +124,11 @@ module.exports = {
   AccountStruct,
   AgentRateStruct,
   AgentStruct,
+  RewardRateStruct,
   RecipientStruct,
   RecipientRateStruct,
+  RewardsStruct,
   RewardTransactionStruct,
   RewardTypeStruct,
-  RewardsStruct,
   StakingTransactionStruct,
 };

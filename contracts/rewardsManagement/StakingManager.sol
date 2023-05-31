@@ -96,15 +96,17 @@ contract StakingManager is UnSubscribe{
         return memoryRewards;
     }
 
-    function getRewardRateRecords(RewardAccountStruct storage _recipientAccountRecord)
+    // NEW STUFF
+        function getRewardRateRecords(RewardAccountStruct storage _recipientAccountRecord)
         internal  view returns (string memory memoryRewards) {
         
         uint256[] storage rewardRateList = _recipientAccountRecord.rewardRateList;
+        console.log("SOL=>17 BEFORE memoryRewards", memoryRewards);
 
         for (uint rateIdx = 0; rateIdx < rewardRateList.length; rateIdx++) {
             uint rate = rewardRateList[rateIdx];
 
-            // memoryRewards = concat(memoryRewards, "RATE:", toString(rate));
+        console.log("SOL=>18 rate", rate);
 
             RewardRateStruct storage rewardRateRecord = _recipientAccountRecord.rewardRateMap[rate];
             RewardsTransactionStruct[] storage rewardTransactionList = rewardRateRecord.rewardTransactionList;
@@ -112,13 +114,14 @@ contract StakingManager is UnSubscribe{
             memoryRewards = concat(memoryRewards, ",", toString(_recipientAccountRecord.stakingRewards));
                 // console.log("SOL=> _recipientAccountRecord.rewardTransactionList.length         = ", _recipientAccountRecord.rewardTransactionList.length);
                 // console.log("SOL=> _recipientAccountRecord.rewardTransactionList.stakingRewards = ", _recipientAccountRecord.stakingRewards);
+            // memoryRewards = concat(memoryRewards, "\n", "RATE:", toString(rate));
 
             if (rewardTransactionList.length != 0) {
                 string memory stringRewards = serializeRewardsTransactionList(rewardTransactionList);
                 memoryRewards = concat(memoryRewards, "\n" , stringRewards);
             }
         }
-        // console.log("SOL=>18 memoryRewards", memoryRewards);
+        console.log("SOL=>19 AFTER memoryRewards", memoryRewards);
         // console.log("*** END SOL ******************************************************************************");
         return memoryRewards;
     }
