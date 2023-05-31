@@ -106,6 +106,7 @@ class RewardTransactionStruct {
     this.rate;
     this.updateTime;
     this.stakingRewards;
+    this.recipientRewardTransactionList;
   }
 }
 
