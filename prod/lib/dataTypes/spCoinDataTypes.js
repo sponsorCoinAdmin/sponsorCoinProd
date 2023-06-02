@@ -84,8 +84,7 @@ class RewardsStruct {
 
 class RewardTypeStruct {
   constructor() {
-    this.TYPE = "--REWARD TYPE STRUCTURE--";
-    this.rewardType;
+    this.TYPE;
     this.stakingRewards;
     this.rewardAccountList;
   }
