@@ -113,10 +113,8 @@ class RewardRateStruct {
 class RewardTransactionStruct {
   constructor() {
     this.TYPE = "--REWARD TRANSACTION--";
-    this.rate;
     this.updateTime;
     this.stakingRewards;
-    this.recipientRewardTransactionList;
   }
 }
 
