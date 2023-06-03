@@ -127,7 +127,7 @@ describe("spCoinContract", function () {
   await spCoinAddMethods.depositRecipientStakingRewards(
     SPONSOR_ACCOUNT_KEYS[0],
     RECIPIENT_ACCOUNT_KEYS[2], 
-    RECIPIENT_RATES[3],
+    RECIPIENT_RATES[4],
     333
   );
 

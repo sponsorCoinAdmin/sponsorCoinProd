@@ -122,15 +122,16 @@ class SpCoinReadMethods {
     console.log ("JS=>1 sponsorRewardRecords = ",sponsorRewardRecords)
 
     for (var idx = sponsorRewardRecords.length - 1; idx >= 1; idx--) {
-      let sponsorRewardsRecord = await this.getRewardAccountRecord(sponsorRewardRecords[idx]);
+      let sponsorRewardsRecord = this.getRewardAccountRecord(sponsorRewardRecords[idx]);
       recipientRewardTransactionList.push(sponsorRewardsRecord);
     }
     return recipientRewardTransactionList;
   }
 
-  getRewardAccountRecord = async (_rewardRecordStr) => {
+  getRewardAccountRecord = (_rewardRecordStr) => {
     let rateRewardList = _rewardRecordStr.split("RATE:");
 
+    console.log ("rateRewardList.length = ",rateRewardList.length);
     console.log ("JS=>2.0 BEFORE rateRewardList = ",rateRewardList);
 
     let rewardAccountRecord;
@@ -138,9 +139,11 @@ class SpCoinReadMethods {
       rewardAccountRecord = new RewardAccountStruct();
       let rewardRecordFields = rateRewardList.shift().split(",");
       console.log ("JS=>2.1 AFTER rateRewardList = ",rateRewardList);
-      rewardAccountRecord.sourceKey = rewardRecordFields[0];
-      rewardAccountRecord.stakingRewards = bigIntToDecString(rewardRecordFields[1]);
-      rewardAccountRecord.rateList = this.getAccountRateRecordList(rateRewardList);
+      if(rateRewardList.length > 0) {
+        rewardAccountRecord.sourceKey = rewardRecordFields[0];
+        rewardAccountRecord.stakingRewards = bigIntToDecString(rewardRecordFields[1]);
+        rewardAccountRecord.rateList = this.getAccountRateRecordList(rateRewardList);
+      }
     }
     spCoinLogger.logExitFunction();
     return rewardAccountRecord;
@@ -151,16 +154,19 @@ class SpCoinReadMethods {
 getAccountRateRecordList = ( rateRewardList ) => {
   spCoinLogger.logFunctionHeader("getAccountRateRecordList = (" + rateRewardList + ")");
   console.log ("\n\n\n*********************** getRateRecord = (rateRecordRows) **************************");
-  console.log ("JS=>3.0 rateRewardList.length = ",rateRewardList.length);
+  console.log ("JS=>3.0 rateRewardList.length = ", rateRewardList.length);
+  console.log ("JS=>3.1 rateRewardList        = ", rateRewardList);
+  
   let rateList = [];
-  for (var idx = rateRewardList.length - 1; idx >= 1; idx--) {
+  for (var idx = rateRewardList.length - 1; idx >= 0; idx--) {
     let rateReward = rateRewardList[idx];
     let rewardRateRecord = new RewardRateStruct();
-    console.log ("JS=>3.1 BEFORE rateReward = ",rateReward);
+    console.log ("JS=>3.2 BEFORE rateReward = ",rateReward);
     let rateRewardFields = rateReward.split("\n");
-    console.log ("JS=>3.2 AFTER rateReward = ",rateReward);
-    console.log ("JS=>3.3 BEFORE rateRewardFields.length = ",rateRewardFields.length);
-    let rate = bigIntToDecString(rateRewardFields.shift());
+    console.log ("JS=>3.3 AFTER rateReward = ",rateReward);
+    console.log ("JS=>3.4 BEFORE rateRewardFields.length = ", rateRewardFields.length);
+    let rate = bigIntToDecString( rateRewardFields.shift() );
+    console.log ("JS=>3.5 AFTER rateRewardFields.length = ", rateRewardFields.length);
     rewardRateRecord.rate = rate;
     rewardRateRecord.stakingRewards = "ToDo";
     rewardRateRecord.rewardTransactionList = this.getRateTransactionList(rateRewardFields);
