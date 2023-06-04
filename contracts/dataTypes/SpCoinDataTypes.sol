@@ -160,9 +160,7 @@ contract SpCoinDataTypes {
     }
 
     struct RewardsTransactionStruct {
-        uint256 rate;
         uint256 updateTime;
         uint256 stakingRewards;
     }
-
 }

@@ -118,8 +118,9 @@ class SpCoinReadMethods {
     let recipientRewardTransactionList = [];
     let recipientRewardsStr = await this.spCoinContractDeployed.connect(this.signer).getRecipientRewardAccounts(_accountKey);
 
+    console.log ("JS=>1 BEFORE recipientRewardsStr = ",recipientRewardsStr)
     let sponsorRewardRecords = recipientRewardsStr.split("SPONSOR_ACCOUNT:");
-    console.log ("JS=>1 sponsorRewardRecords = ",sponsorRewardRecords)
+    console.log ("JS=>1 AFTER sponsorRewardRecords = ",sponsorRewardRecords)
 
     for (var idx = sponsorRewardRecords.length - 1; idx >= 1; idx--) {
       let sponsorRewardsRecord = this.getRewardAccountRecord(sponsorRewardRecords[idx]);
@@ -129,7 +130,7 @@ class SpCoinReadMethods {
   }
 
   getRewardAccountRecord = (_rewardRecordStr) => {
-    let rateRewardList = _rewardRecordStr.split("RATE:");
+    let rateRewardList = _rewardRecordStr.split("\nRATE:");
 
     console.log ("rateRewardList.length = ",rateRewardList.length);
     console.log ("JS=>2.0 BEFORE rateRewardList = ",rateRewardList);
@@ -162,28 +163,15 @@ getAccountRateRecordList = ( rateRewardList ) => {
     let rateReward = rateRewardList[idx];
     let rewardRateRecord = new RewardRateStruct();
     console.log ("JS=>3.2 BEFORE rateReward = ",rateReward);
-    let rateRewardFields = rateReward.split("\n");
+    let rateRewardTransactions = rateReward.split("\n");
     console.log ("JS=>3.3 AFTER rateReward = ",rateReward);
-    console.log ("JS=>3.4 BEFORE rateRewardFields.length = ", rateRewardFields.length);
-    let rate = bigIntToDecString( rateRewardFields.shift() );
-    console.log ("JS=>3.5 AFTER rateRewardFields.length = ", rateRewardFields.length);
-    rewardRateRecord.rate = rate;
-    rewardRateRecord.stakingRewards = "ToDo";
-    rewardRateRecord.rewardTransactionList = this.getRateTransactionList(rateRewardFields);
-/*
-    console.log ("JS=>3.4 BEFORE rateRewardFields.length = ",rateRewardFields.length);
-
-    rateRewardFields = rateRewardFields[0].split(",");
-    console.log ("JS=>3.5 rateRewardFields        = ",rateRewardFields);
-    console.log ("JS=>3.5 rateRewardFields.length = ",rateRewardFields.length);
-    for (var idx = rateRewardFields.length - 1; idx >= 1; idx--) {
-      rewardRateRecord.rate = rate;
-    }
-
-    console.log ("JS=>3.5 rate              = ", rate)
-    console.log ("JS=>3.6 rateRewardFields  = ", rateRewardFields)
-    console.log ("JS=>4 rateRewardFields[0] = ", rateRewardFields[0])
-*/
+    console.log ("JS=>3.4 BEFORE rateRewardTransactions.length = ", rateRewardTransactions.length);
+    let rateRewardHeaderFields = rateRewardTransactions.shift().split(",");
+    rewardRateRecord.rate = bigIntToDecString( rateRewardHeaderFields[0] );
+    rewardRateRecord.stakingRewards = bigIntToDecString( rateRewardHeaderFields[1] );
+    console.log ("JS=>3.5 AFTER rateRewardTransactions.length = ", rateRewardTransactions.length);
+    console.log ("JS=>3.6 AFTER rateRewardTransactions = ", rateRewardTransactions);
+    rewardRateRecord.rewardTransactionList = this.getRateTransactionList(rateRewardTransactions);
     rateList.push(rewardRateRecord);
   }
   spCoinLogger.logExitFunction();
@@ -204,8 +192,6 @@ getAccountRateRecordList = ( rateRewardList ) => {
       let count = 0;
       // rewardTransactionRecord.sourceKey = accountRewardsFields[count++];
       console.log ("JS=>9 accountRewardsFields[count] = ", accountRewardsFields[count]);
-      rewardTransactionRecord.rate = bigIntToDecString(accountRewardsFields[count++]);
-      console.log ("JS=>10 rewardTransactionRecord.rate = ", rewardTransactionRecord.rate);
       rewardTransactionRecord.updateTime = bigIntToDateTimeString(accountRewardsFields[count++]);
       console.log ("JS=>11 rewardTransactionRecord.updateTime = ", rewardTransactionRecord.updateTime);
       rewardTransactionRecord.stakingRewards = bigIntToDecString(accountRewardsFields[count++]);
@@ -223,7 +209,7 @@ getAccountRateRecordList = ( rateRewardList ) => {
     /*
     let rewardRateRecordList = [];
 console.log("JS=>6 BEFORE rewardAccountFieldList =", rewardAccountFieldList);
-    let rewardRateRowList = rewardAccountFieldList.split("RATE:");
+    let rewardRateRowList = rewardAccountFieldList.split("\nRATE:");
 console.log("JS=>7 BEFORE rewardRateRowList =", rewardRateRowList);
     for (rateIdx = 0; rateIdx < rewardRateRowList; rateIdx++) {
       let rewardRateRecord = new RewardRateStruct();

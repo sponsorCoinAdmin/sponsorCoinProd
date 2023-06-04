@@ -94,7 +94,6 @@ class RewardAccountStruct {
   constructor() {
     this.TYPE = "--REWARD ACCOUNT--";
     this.sourceKey;
-    this.rate;
     this.stakingRewards;
     this.rateList;
   }

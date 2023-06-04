@@ -37,29 +37,28 @@ contract StakingManager is UnSubscribe{
         recipientAccountRecord.stakingRewards += _amount;
 
         uint256[] storage rewardRateList = recipientAccountRecord.rewardRateList;
-        RewardRateStruct storage rewardRateMap = recipientAccountRecord.rewardRateMap[_rate];
-        if (rewardRateMap.rate != _rate) {
+        RewardRateStruct storage rewardRateRecord = recipientAccountRecord.rewardRateMap[_rate];
+        if (rewardRateRecord.rate != _rate) {
             rewardRateList.push(_rate);
-            rewardRateMap.rate = _rate;
+            rewardRateRecord.rate = _rate;
         }
+        rewardRateRecord.stakingRewards += _amount;
         
-        RewardsTransactionStruct[] storage rewardTransactionList = rewardRateMap.rewardTransactionList;
+        RewardsTransactionStruct[] storage rewardTransactionList = rewardRateRecord.rewardTransactionList;
 
-        depositRewardTransaction( rewardTransactionList, _rate, _amount );
+        depositRewardTransaction( rewardTransactionList, _amount );
 
         return recipientAccountRecord.stakingRewards;
     }
 
-    function depositRewardTransaction(  RewardsTransactionStruct[] storage rewardTransactionList, 
-                                        uint _rate, uint _amount )  internal {
+    function depositRewardTransaction(  RewardsTransactionStruct[] storage rewardTransactionList,
+                                        uint _amount )  internal {
         // console.log("SOL=>9 depositRewardTransaction("); 
         // console.log("SOL=>10 stakingAccountRecord.stakingRewards = ", stakingAccountRecord.stakingRewards);
-        // console.log("SOL=>11               _rate                 = ", _rate);
         // console.log("SOL=>12               _amount               = ", _amount, ")" );
         // console.log("SOL=>13 BEFORE rewardTransactionList.length = ", rewardTransactionList.length);
 
         RewardsTransactionStruct memory  rewardsTransactionRecord;
-        rewardsTransactionRecord.rate = _rate;
         rewardsTransactionRecord.stakingRewards = _amount;
         rewardsTransactionRecord.updateTime = block.timestamp;
         rewardTransactionList.push(rewardsTransactionRecord);
@@ -113,14 +112,17 @@ contract StakingManager is UnSubscribe{
             memoryRewards = concat(memoryRewards, ",", toString(_recipientAccountRecord.stakingRewards));
                 // console.log("SOL=> _recipientAccountRecord.rewardTransactionList.length         = ", _recipientAccountRecord.rewardTransactionList.length);
                 // console.log("SOL=> _recipientAccountRecord.rewardTransactionList.stakingRewards = ", _recipientAccountRecord.stakingRewards);
-            memoryRewards = concat(memoryRewards, "\n", "RATE:", toString(rate));
+            memoryRewards = concat(memoryRewards, "\nRATE:", toString(rate));
+            memoryRewards = concat(memoryRewards, ",", toString(rewardRateRecord.stakingRewards));
 
+        // console.log("SOL=>19 rewardTransactionList.length", rewardTransactionList.length);
             if (rewardTransactionList.length != 0) {
                 string memory stringRewards = serializeRewardsTransactionList(rewardTransactionList);
+        // console.log("SOL=>20 stringRewards", stringRewards);
                 memoryRewards = concat(memoryRewards, "\n" , stringRewards);
             }
         }
-        console.log("SOL=>19 AFTER memoryRewards", memoryRewards);
+        // console.log("SOL=>21 AFTER memoryRewards", memoryRewards);
         // console.log("*** END SOL ******************************************************************************");
         return memoryRewards;
     }
@@ -129,12 +131,11 @@ contract StakingManager is UnSubscribe{
         internal  view returns (string memory memoryRewards) {
         for (uint idx = 0; idx < _rewardTransactionList.length; idx++) {
             RewardsTransactionStruct storage rewardTransaction = _rewardTransactionList[idx];
-            // console.log("SOL5=> rewardTransaction.rate           = ", rewardTransaction.rate);
             // console.log("SOL6=> rewardTransaction.updateTime     = ", rewardTransaction.updateTime);
             // console.log("SOL7=> rewardTransaction.stakingRewards = ", rewardTransaction.stakingRewards);
 
-            memoryRewards = concat(memoryRewards , toString(rewardTransaction.rate), "," , toString(rewardTransaction.updateTime));
-            memoryRewards = concat(memoryRewards , ",", toString(rewardTransaction.stakingRewards));
+            memoryRewards = concat(memoryRewards, toString(rewardTransaction.updateTime));
+            memoryRewards = concat(memoryRewards, ",", toString(rewardTransaction.stakingRewards));
             if (idx < _rewardTransactionList.length - 1) {
                 memoryRewards = concat(memoryRewards , "\n" );
             }

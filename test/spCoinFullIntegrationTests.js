@@ -124,26 +124,26 @@ describe("spCoinContract", function () {
     "2.000000000000000008"
   );
  
-  await spCoinAddMethods.depositRecipientStakingRewards(
-    SPONSOR_ACCOUNT_KEYS[0],
-    RECIPIENT_ACCOUNT_KEYS[2], 
-    RECIPIENT_RATES[4],
-    333
-  );
+  // await spCoinAddMethods.depositRecipientStakingRewards(
+  //   SPONSOR_ACCOUNT_KEYS[0],
+  //   RECIPIENT_ACCOUNT_KEYS[2], 
+  //   RECIPIENT_RATES[4],
+  //   333
+  // );
 
-  await spCoinAddMethods.depositRecipientStakingRewards(
-    SPONSOR_ACCOUNT_KEYS[0],
-    RECIPIENT_ACCOUNT_KEYS[2], 
-    RECIPIENT_RATES[4],
-    444
-  );
+  // await spCoinAddMethods.depositRecipientStakingRewards(
+  //   SPONSOR_ACCOUNT_KEYS[0],
+  //   RECIPIENT_ACCOUNT_KEYS[2], 
+  //   RECIPIENT_RATES[4],
+  //   444
+  // );
 
-  await spCoinAddMethods.depositRecipientStakingRewards(
-    SPONSOR_ACCOUNT_KEYS[0],
-    RECIPIENT_ACCOUNT_KEYS[2], 
-    RECIPIENT_RATES[4],
-    123
-  );
+  // await spCoinAddMethods.depositRecipientStakingRewards(
+  //   SPONSOR_ACCOUNT_KEYS[0],
+  //   RECIPIENT_ACCOUNT_KEYS[2], 
+  //   RECIPIENT_RATES[4],
+  //   123
+  // );
 
   await spCoinAddMethods.depositRecipientStakingRewards(
     SPONSOR_ACCOUNT_KEYS[1],
@@ -157,6 +157,13 @@ describe("spCoinContract", function () {
     RECIPIENT_ACCOUNT_KEYS[2], 
     RECIPIENT_RATES[5],
     666
+  );
+
+  await spCoinAddMethods.depositRecipientStakingRewards(
+    SPONSOR_ACCOUNT_KEYS[1],
+    RECIPIENT_ACCOUNT_KEYS[2], 
+    RECIPIENT_RATES[7],
+    777
   );
 
   // await spCoinAddMethods.depositRecipientStakingRewards(
