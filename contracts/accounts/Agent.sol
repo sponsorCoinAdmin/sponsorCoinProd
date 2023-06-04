@@ -2,7 +2,6 @@
 pragma solidity ^0.8.18;
 /// @title ERC20 Contract
 import "./RecipientRates.sol";
-import "../utils/StructSerialization.sol";
 
 contract Agent is RecipientRates {
         constructor(){  }
