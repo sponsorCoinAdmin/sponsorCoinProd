@@ -103,7 +103,7 @@ class SpCoinReadMethods {
         rewardTypeRecord.rewardAccountList = await this.getRecipientRewardAccountList(_accountKey);
       break;
       case "AGENT REWARDS":
-        rewardTypeRecord.rewardAccountList = [];
+        rewardTypeRecord.rewardAccountList = await this.getAgentRewardAccountList(_accountKey);
       break;
       default:
         rewardTypeRecord.rewardAccountList = [];

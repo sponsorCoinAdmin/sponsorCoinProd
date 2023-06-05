@@ -30,10 +30,10 @@ contract StakingManager is UnSubscribe{
         RewardsStruct storage rewards = agentAccount.rewardsMap["RECIPIENT"];
         rewards.totalStakingRewards += _amount;
         rewards.totalRecipientRewards += _amount;
-        mapping(address => RewardAccountStruct) storage recipientRewardstMap = rewards.recipientRewardstMap;
+        mapping(address => RewardAccountStruct) storage agentRewardsMap = rewards.agentRewardsMap;
 
 
-        RewardAccountStruct storage agentAccountRecord = recipientRewardstMap[_bennificaryAccount];
+        RewardAccountStruct storage agentAccountRecord = agentRewardsMap[_bennificaryAccount];
         agentAccountRecord.stakingRewards += _amount;
 
         uint256[] storage rewardRateList = agentAccountRecord.rewardRateList;
@@ -104,15 +104,43 @@ contract StakingManager is UnSubscribe{
     }
 
 //////////////// RETREIVE STAKING REWARDS /////////////////////////////////////////////////////////////////////
-    function getRecipientRewardAccounts(address accountKey)
+    function getAgentRewardAccounts(address _accountKey)
         public view returns (string memory memoryRewards) {
-        // console.log("SOL=>15 getRecipientRewardAccounts(", accountKey, ")");
+        // console.log("SOL=>15 getRecipientRewardAccounts(", _accountKey, ")");
         
-            AccountStruct storage sponsorAccount = accountMap[accountKey];
+            AccountStruct storage sponsorAccount = accountMap[_accountKey];
             address[] storage sponsorAccountList = sponsorAccount.sponsorAccountList;
             memoryRewards = "";
 
             // console.log("SOL=>16 sponsorAccountList.length = ", sponsorAccountList.length);
+            // Check the Agents's Benificary List
+            for (uint sponsorIdx = 0; sponsorIdx < sponsorAccountList.length; sponsorIdx++) {
+                address sponsorKey = sponsorAccountList[sponsorIdx];
+                memoryRewards = concat(memoryRewards, "SPONSOR_ACCOUNT:", toString(sponsorKey));
+
+            ///////////////// **** START REPLACE LATER **** ///////////////////////////
+
+            RewardsStruct storage rewards = sponsorAccount.rewardsMap["RECIPIENT"];
+            mapping(address => RewardAccountStruct) storage recipientRewardstMap = rewards.recipientRewardstMap;
+            
+            ///////////////// **** END REPLACE LATER **** ///////////////////////////
+
+            // console.log("SOL=>17 sponsorKey[", sponsorIdx,"] = ", sponsorAccountList[sponsorIdx]);
+            RewardAccountStruct storage recipientAccountRecord = recipientRewardstMap[sponsorKey];
+            memoryRewards = concat(memoryRewards, getRewardRateRecords(recipientAccountRecord));
+        }
+    }
+        
+    function getRecipientRewardAccounts(address _sponsorKey)
+        public view returns (string memory memoryRewards) {
+        // console.log("SOL=>15 getRecipientRewardAccounts(", _sponsorKey, ")");
+        
+            AccountStruct storage sponsorAccount = accountMap[_sponsorKey];
+            address[] storage sponsorAccountList = sponsorAccount.sponsorAccountList;
+            memoryRewards = "";
+
+            // console.log("SOL=>16 sponsorAccountList.length = ", sponsorAccountList.length);
+            // Check the Recipient's Sponsor List
             for (uint sponsorIdx = 0; sponsorIdx < sponsorAccountList.length; sponsorIdx++) {
                 address sponsorKey = sponsorAccountList[sponsorIdx];
                 memoryRewards = concat(memoryRewards, "SPONSOR_ACCOUNT:", toString(sponsorKey));
