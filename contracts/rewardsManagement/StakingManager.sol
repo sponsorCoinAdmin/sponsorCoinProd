@@ -8,7 +8,45 @@ contract StakingManager is UnSubscribe{
     constructor(){
     }
 
-//////////////// INSERT STAKING REWARDA/////////////////////////////////////////////////////////////////////
+//////////////// INSERT STAKING REWARDS /////////////////////////////////////////////////////////////////////
+
+    function depositAgentStakingRewards(address _bennificaryAccount, address _agentAccount, uint _rate, uint _amount )
+        public returns ( uint ) {
+        require (_amount > 0, "AMOUNT BALANCE MUST BE LARGER THAN 0");
+        // string memory errMsg = concat("BENNIFICARY ACCOUNT ",  toString(_bennificaryAccount), " NOT FOUND FOR AGENT ACCOUNT ",  toString(_agentAccount));
+        // require (agentHasBennificary( _bennificaryAccount, _agentAccount ), errMsg);
+        // console.log("SOL=>1 depositRecipientStakingRewards("); 
+        // console.log("SOL=>2 _bennificaryAccount    = ", _bennificaryAccount);
+        // console.log("SOL=>3 _agentAccount = ", _agentAccount);
+        // console.log("SOL=> _rate             = ", _rate);
+        // console.log("SOL=> _amount           = ", _amount, ")" );
+        totalSupply += _amount;
+
+        // console.log("SOL=>4 FETCHING agentAccount = accountMap[", _agentAccount, "]");
+        AccountStruct storage agentAccount = accountMap[_agentAccount];
+        // console.log("agentAccount.bennificaryAccountList.length =", agentAccount.bennificaryAccountList.length);
+        // console.log("agentAccount.bennificaryAccountList[0] =", agentAccount.bennificaryAccountList[0]);
+
+        RewardsStruct storage rewards = agentAccount.rewardsMap["RECIPIENT"];
+        rewards.totalStakingRewards += _amount;
+        rewards.totalRecipientRewards += _amount;
+        mapping(address => RewardAccountStruct) storage recipienRewardstMap = rewards.recipienRewardstMap;
+
+
+        RewardAccountStruct storage agentAccountRecord = recipienRewardstMap[_bennificaryAccount];
+        agentAccountRecord.stakingRewards += _amount;
+
+        uint256[] storage rewardRateList = agentAccountRecord.rewardRateList;
+        RewardRateStruct storage rewardRateRecord = agentAccountRecord.rewardRateMap[_rate];
+        if (rewardRateRecord.rate != _rate) {
+            rewardRateList.push(_rate);
+            rewardRateRecord.rate = _rate;
+        }
+        rewardRateRecord.stakingRewards += _amount;
+        RewardsTransactionStruct[] storage rewardTransactionList = rewardRateRecord.rewardTransactionList;
+        depositRewardTransaction( rewardTransactionList, _amount );
+        return agentAccountRecord.stakingRewards;
+    }
 
     function depositRecipientStakingRewards(address _sponsorAccount, address _recipientAccount, uint _rate, uint _amount )
         public returns ( uint ) {
@@ -65,7 +103,7 @@ contract StakingManager is UnSubscribe{
         // console.log("SOL=>14 AFTER rewardTransactionList.length = ", rewardTransactionList.length);
     }
 
-//////////////// RETREIVE STAKING REWARDA/////////////////////////////////////////////////////////////////////
+//////////////// RETREIVE STAKING REWARDS /////////////////////////////////////////////////////////////////////
     function getRecipientRewardAccounts(address accountKey)
         public view returns (string memory memoryRewards) {
         // console.log("SOL=>15 getRecipientRewardAccounts(", accountKey, ")");

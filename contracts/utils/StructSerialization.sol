@@ -74,7 +74,7 @@ contract StructSerialization is Utils {
         internal view returns (string memory)
     {
         mapping(string  => RewardsStruct) storage rewardsMap = _accountRec.rewardsMap;
-        RewardsStruct storage rewards = rewardsMap["RECIPIENT"];
+        RewardsStruct storage rewards = rewardsMap["AGENT"];
 
 // console.log("==============================================================================================");
 // console.log("SOL=>0 toString(rewards.totalSponsorRewards)", toString(rewards.totalSponsorRewards)); 

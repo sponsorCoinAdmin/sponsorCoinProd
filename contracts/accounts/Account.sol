@@ -29,6 +29,20 @@ contract Account is StructSerialization {
             return accountMap[account];
     }
 
+    function agentHasBennificary(address _agentAccount, address _bennificaryAccount )
+        internal view returns ( bool ) {
+            bool agentFound = false;
+            AccountStruct storage bennificaryAccount = accountMap[_bennificaryAccount];
+
+            address[] storage agentAccountList = bennificaryAccount.agentAccountList;
+
+            for (uint idx = 0; idx < agentAccountList.length; idx++) {
+            if ( _agentAccount == agentAccountList[idx] )
+                agentFound = true;
+            }
+            return agentFound;
+        }
+
     function recipientHasSponsor(address _sponsorAccount, address _recipientAccount )
         internal view returns ( bool ) {
             bool sponsorFound = false;
