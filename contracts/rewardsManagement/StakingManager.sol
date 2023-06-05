@@ -30,10 +30,10 @@ contract StakingManager is UnSubscribe{
         RewardsStruct storage rewards = agentAccount.rewardsMap["RECIPIENT"];
         rewards.totalStakingRewards += _amount;
         rewards.totalRecipientRewards += _amount;
-        mapping(address => RewardAccountStruct) storage recipienRewardstMap = rewards.recipienRewardstMap;
+        mapping(address => RewardAccountStruct) storage recipientRewardstMap = rewards.recipientRewardstMap;
 
 
-        RewardAccountStruct storage agentAccountRecord = recipienRewardstMap[_bennificaryAccount];
+        RewardAccountStruct storage agentAccountRecord = recipientRewardstMap[_bennificaryAccount];
         agentAccountRecord.stakingRewards += _amount;
 
         uint256[] storage rewardRateList = agentAccountRecord.rewardRateList;
@@ -68,10 +68,10 @@ contract StakingManager is UnSubscribe{
         RewardsStruct storage rewards = recipientAccount.rewardsMap["RECIPIENT"];
         rewards.totalStakingRewards += _amount;
         rewards.totalRecipientRewards += _amount;
-        mapping(address => RewardAccountStruct) storage recipienRewardstMap = rewards.recipienRewardstMap;
+        mapping(address => RewardAccountStruct) storage recipientRewardstMap = rewards.recipientRewardstMap;
 
 
-        RewardAccountStruct storage recipientAccountRecord = recipienRewardstMap[_sponsorAccount];
+        RewardAccountStruct storage recipientAccountRecord = recipientRewardstMap[_sponsorAccount];
         recipientAccountRecord.stakingRewards += _amount;
 
         uint256[] storage rewardRateList = recipientAccountRecord.rewardRateList;
@@ -120,12 +120,12 @@ contract StakingManager is UnSubscribe{
             ///////////////// **** START REPLACE LATER **** ///////////////////////////
 
             RewardsStruct storage rewards = sponsorAccount.rewardsMap["RECIPIENT"];
-            mapping(address => RewardAccountStruct) storage recipienRewardstMap = rewards.recipienRewardstMap;
+            mapping(address => RewardAccountStruct) storage recipientRewardstMap = rewards.recipientRewardstMap;
             
             ///////////////// **** END REPLACE LATER **** ///////////////////////////
 
             // console.log("SOL=>17 sponsorKey[", sponsorIdx,"] = ", sponsorAccountList[sponsorIdx]);
-            RewardAccountStruct storage recipientAccountRecord = recipienRewardstMap[sponsorKey];
+            RewardAccountStruct storage recipientAccountRecord = recipientRewardstMap[sponsorKey];
             memoryRewards = concat(memoryRewards, getRewardRateRecords(recipientAccountRecord));
         }
         
