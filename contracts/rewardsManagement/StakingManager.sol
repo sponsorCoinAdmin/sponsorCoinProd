@@ -116,7 +116,7 @@ contract StakingManager is UnSubscribe{
             // Check the Agents's Benificary List
             for (uint recipientIdx = 0; recipientIdx < recipientAccountList.length; recipientIdx++) {
                 address sponsorKey = recipientAccountList[recipientIdx];
-                memoryRewards = concat(memoryRewards, "SPONSOR_ACCOUNT:", toString(sponsorKey));
+                memoryRewards = concat(memoryRewards, "RECIPIENT_ACCOUNT:", toString(sponsorKey));
 
             ///////////////// **** START REPLACE LATER **** ///////////////////////////
 

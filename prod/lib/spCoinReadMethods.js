@@ -18,8 +18,8 @@ const SPONSOR_REWARDS = "SPONSOR_REWARDS";
 const RECIPIENT_REWARDS = "RECIPIENT_REWARDS";
 const AGENT_REWARDS = "AGENT_REWARDS";
 const SPONSOR_ACCOUNT_DELIMITER = "SPONSOR_ACCOUNT:";
-const RECIPIENT_ACCOUNTS = "RECIPIENT_ACCOUNT:";
-const AGENT_ACCOUNTS = "AGENT_ACCOUNT:";
+const RECIPIENT_ACCOUNT_DELIMITER = "RECIPIENT_ACCOUNT:";
+const AGENT_ACCOUNT_DELIMITER = "AGENT_ACCOUNT:";
 
 let spCoinLogger;
 
@@ -135,7 +135,7 @@ class SpCoinReadMethods {
         break;
       case AGENT_REWARDS:
         rewardsStr = await this.spCoinContractDeployed.connect(this.signer).getAgentRewardAccounts(_accountKey);
-        rewardAccountList = rewardsStr.split(SPONSOR_ACCOUNT_DELIMITER);
+        rewardAccountList = rewardsStr.split(RECIPIENT_ACCOUNT_DELIMITER);
         break;
       default:
       break;
