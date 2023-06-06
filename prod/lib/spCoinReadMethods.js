@@ -17,6 +17,9 @@ const { SpCoinSerialize, bigIntToDecString, bigIntToDateTimeString, getLocation 
 const SPONSOR_REWARDS = "SPONSOR_REWARDS";
 const RECIPIENT_REWARDS = "RECIPIENT_REWARDS";
 const AGENT_REWARDS = "AGENT_REWARDS";
+const SPONSOR_ACCOUNT_DELIMITER = "SPONSOR_ACCOUNT:";
+const RECIPIENT_ACCOUNTS = "RECIPIENT_ACCOUNT:";
+const AGENT_ACCOUNTS = "AGENT_ACCOUNT:";
 
 let spCoinLogger;
 
@@ -104,10 +107,10 @@ class SpCoinReadMethods {
            rewardTypeRecord.rewardAccountList = [];
       break;
       case RECIPIENT_REWARDS:
-        rewardTypeRecord.rewardAccountList = await this.getRewardAccountList(_accountKey, _type);
+        rewardTypeRecord.rewardAccountList = await this.getRewardTransactionsByAccountList(_accountKey, _type);
       break;
       case AGENT_REWARDS:
-        rewardTypeRecord.rewardAccountList = await this.getRewardAccountList(_accountKey, _type);
+        rewardTypeRecord.rewardAccountList = await this.getRewardTransactionsByAccountList(_accountKey, _type);
       break;
       default:
         rewardTypeRecord.rewardAccountList = [];
@@ -117,35 +120,41 @@ class SpCoinReadMethods {
     return rewardTypeRecord;
   }
 
-  getRewardAccountList = async (_accountKey, _type) => {
-    console.log("==>JS3 getRewardAccountList = async(", _accountKey,", ", _type,")");
-    let rewardTransactionList = [];
+  getRewardTransactionsByAccountList = async (_accountKey, _type) => {
+    console.log("==>JS3 getRewardTransactionsByAccountList = async(", _accountKey, ", ", _type,")");
+    let rewardAccountList;
     let rewardsStr = "";
     switch(_type) {
       case SPONSOR_REWARDS:
         rewardsStr = "";
+        rewardAccountList = rewardsStr.split(SPONSOR_ACCOUNT_DELIMITER);
       break;
       case RECIPIENT_REWARDS:
         rewardsStr = await this.spCoinContractDeployed.connect(this.signer).getRecipientRewardAccounts(_accountKey);
-      break;
+        rewardAccountList = rewardsStr.split(SPONSOR_ACCOUNT_DELIMITER);
+        break;
       case AGENT_REWARDS:
         rewardsStr = await this.spCoinContractDeployed.connect(this.signer).getAgentRewardAccounts(_accountKey);
-      break;
+        rewardAccountList = rewardsStr.split(SPONSOR_ACCOUNT_DELIMITER);
+        break;
       default:
       break;
     } 
     // console.log ("JS=>1 BEFORE rewardsStr = ",rewardsStr)
-    let sponsorRewardRecords = rewardsStr.split("SPONSOR_ACCOUNT:");
-    console.log ("JS=>1 AFTER sponsorRewardRecords = ",sponsorRewardRecords)
-
-    for (var idx = sponsorRewardRecords.length - 1; idx >= 1; idx--) {
-      let sponsorRewardsRecord = this.getRewardAccountRecord(sponsorRewardRecords[idx]);
-      rewardTransactionList.push(sponsorRewardsRecord);
-    }
-    return rewardTransactionList;
+    console.log ("JS=>1 AFTER rewardAccountList = ",rewardAccountList)
+    return this.getAccountRewardTransactionList(rewardAccountList);
   }
 
-  getRewardAccountRecord = (_rewardRecordStr) => {
+  getAccountRewardTransactionList = (_rewardAccountList) => {
+    let rewardTransactionsByAccountList = [];
+    for (var idx = _rewardAccountList.length - 1; idx >= 1; idx--) {
+      let rewardAccountRecord = this.getAccountRewardTransactionRecord(_rewardAccountList[idx]);
+      rewardTransactionsByAccountList.push(rewardAccountRecord);
+    }
+    return rewardTransactionsByAccountList;
+  }
+
+  getAccountRewardTransactionRecord = (_rewardRecordStr) => {
     let rateRewardList = _rewardRecordStr.split("\nRATE:");
 
     // console.log ("rateRewardList.length = ",rateRewardList.length);
