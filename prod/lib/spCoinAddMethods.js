@@ -175,9 +175,6 @@ class SpCoinAddMethods {
       _rate,
       _amount);
 
-    // let rewards = await this.spCoinContractDeployed.connect(this.signer).getRecipientRewardAccounts(_sponsorAccount);
-    // console.log ("*** Rewards = \n" + JSON.stringify(rewards, null, 2));
-
     spCoinLogger.logExitFunction();
   };
   
@@ -199,9 +196,6 @@ class SpCoinAddMethods {
       _agentAccount,
       _rate,
       _amount);
-
-    // let rewards = await this.spCoinContractDeployed.connect(this.signer).getRecipientRewardAccounts(_sourceAccount);
-    // console.log ("*** Rewards = \n" + JSON.stringify(rewards, null, 2));
 
     spCoinLogger.logExitFunction();
   };

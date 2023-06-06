@@ -82,15 +82,16 @@ class SpCoinReadMethods {
   }
 
   getAccountStakingRewards = async (_accountKey) => {
-    console.log("==>JS1 getAccountStakingRewards = async(", _accountKey,")");
+    // console.log("JS==>1 getAccountStakingRewards = async(", _accountKey,")");
     let rewardsRecord = new RewardsStruct();
 
     let accountRewardsStr = await this.spCoinContractDeployed.connect(this.signer).getSerializedAccountRewards(_accountKey);
     let accountRewardList = accountRewardsStr.split(",");
     rewardsRecord.totalStakingRewards  = bigIntToDecString(accountRewardList[3]);
-    rewardsRecord.sponsorRewardsList   = await this.getRewardTypeRecord(_accountKey, SPONSOR_REWARDS , accountRewardList[0]);
+    /* REPLACE LATER */
+    // rewardsRecord.sponsorRewardsList   = await this.getRewardTypeRecord(_accountKey, SPONSOR_REWARDS , accountRewardList[0]);
     rewardsRecord.recipientRewardsList = await this.getRewardTypeRecord(_accountKey, RECIPIENT_REWARDS, accountRewardList[1]);
-    rewardsRecord.agentRewardsList     = await this.getRewardTypeRecord(_accountKey, AGENT_REWARDS, accountRewardList[2]);
+    // rewardsRecord.agentRewardsList     = await this.getRewardTypeRecord(_accountKey, AGENT_REWARDS, accountRewardList[2]);
 
     spCoinLogger.logExitFunction();
 
@@ -98,7 +99,7 @@ class SpCoinReadMethods {
   }
 
   getRewardTypeRecord = async ( _accountKey, _type, _reward) => {
-    console.log("==>JS2 getRewardTypeRecord = async(", _accountKey, ",", _type, ",", bigIntToDecString(_reward),")");
+    // console.log("JS==>2 getRewardTypeRecord = async(", _accountKey, ",", _type, ",", bigIntToDecString(_reward),")");
     let rewardTypeRecord = new RewardTypeStruct();
     rewardTypeRecord.TYPE = _type;
     rewardTypeRecord.stakingRewards = bigIntToDecString(_reward);
@@ -121,7 +122,7 @@ class SpCoinReadMethods {
   }
 
   getRewardTransactionsByAccountList = async (_accountKey, _type) => {
-    console.log("==>JS3 getRewardTransactionsByAccountList = async(", _accountKey, ", ", _type,")");
+    console.log("JS==>6 getRewardTransactionsByAccountList = async(", _accountKey, ", ", _type,")");
     let rewardAccountList;
     let rewardsStr = "";
     switch(_type) {
@@ -141,11 +142,13 @@ class SpCoinReadMethods {
       break;
     } 
     // console.log ("JS=>1 BEFORE rewardsStr = ",rewardsStr)
-    console.log ("JS=>1 AFTER rewardAccountList = ",rewardAccountList)
+    console.log ("JS==>6.1 AFTER rewardAccountList = ",rewardAccountList)
     return this.getAccountRewardTransactionList(rewardAccountList);
   }
 
   getAccountRewardTransactionList = (_rewardAccountList) => {
+    console.log("JS==>5 getAccountRewardTransactionList = (_rewardAccountList = ", _rewardAccountList,")");
+
     let rewardTransactionsByAccountList = [];
     for (var idx = _rewardAccountList.length - 1; idx >= 1; idx--) {
       let rewardAccountRecord = this.getAccountRewardTransactionRecord(_rewardAccountList[idx]);
