@@ -104,12 +104,18 @@ describe("spCoinContract", function () {
   //   "1.000000000000000008"
   // );
 
-  await spCoinERC20Methods.transfer(
-    RECIPIENT_ACCOUNT_KEYS[1],
-    "90000000000000000000000"
-  )  
+  // await spCoinERC20Methods.transfer(
+  //   RECIPIENT_ACCOUNT_KEYS[1],
+  //   "90000000000000000000000"
+  // )  
   
-
+ // await spCoinAddMethods.addSponsorship(
+  //   SPONSOR_ACCOUNT_SIGNERS[1],
+  //   RECIPIENT_ACCOUNT_KEYS[2],
+  //   RECIPIENT_RATES[5],
+  //   "2.000000000000000008"
+  // );
+ 
   await spCoinAddMethods.addSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[0],
     RECIPIENT_ACCOUNT_KEYS[2],
@@ -117,14 +123,16 @@ describe("spCoinContract", function () {
     "1.000000000000000008"
   );
 
-  await spCoinAddMethods.addSponsorship(
-    SPONSOR_ACCOUNT_SIGNERS[1],
-    RECIPIENT_ACCOUNT_KEYS[2],
+   await spCoinAddMethods.addAgentSponsorship(
+    SPONSOR_ACCOUNT_SIGNERS[0],
+    RECIPIENT_ACCOUNT_KEYS[1],
     RECIPIENT_RATES[5],
-    "2.000000000000000008"
+    AGENT_ACCOUNT_KEYS[1],
+    AGENT_RATES[9],
+    "1.000000000000000008"
   );
- 
-  await spCoinAddMethods.depositRecipientStakingRewards(
+
+   await spCoinAddMethods.depositRecipientStakingRewards(
     SPONSOR_ACCOUNT_KEYS[0],
     RECIPIENT_ACCOUNT_KEYS[2], 
     RECIPIENT_RATES[4],

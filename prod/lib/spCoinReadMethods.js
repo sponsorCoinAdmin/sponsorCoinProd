@@ -258,7 +258,7 @@ console.log("JS=>10 rewardRateRecord.rate      =", rewardRateRecord.rate);
   
   //////////////////// LOAD AGENT _rewardTransactionList DATA //////////////////////
   
-  getAgent_rewardTransactionListList = async (_sponsorKey, _recipientKey, _recipientRateKey, _agentKey) => {
+  getAgentRateList = async (_sponsorKey, _recipientKey, _recipientRateKey, _agentKey) => {
     // console.log("==>17 getAgentRateList = async(" + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ", " + _agentKey + ")" );
     spCoinLogger.logFunctionHeader("getAgentRateList = async(" + _sponsorKey + ", " + _recipientKey + ", " + _recipientRateKey + ", " + _agentKey + ")" );
     let networkRateKeys = await this.spCoinContractDeployed.connect(this.signer).getAgentRateList(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
