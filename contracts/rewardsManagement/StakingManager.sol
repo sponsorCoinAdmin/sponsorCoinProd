@@ -13,8 +13,8 @@ contract StakingManager is UnSubscribe{
     function depositAgentStakingRewards(address _recipientAccount, address _agentAccount, uint _rate, uint _amount )
         public returns ( uint ) {
         require (_amount > 0, "AMOUNT BALANCE MUST BE LARGER THAN 0");
-        string memory errMsg = concat("BENNIFICARY ACCOUNT ",  toString(_recipientAccount), " NOT FOUND FOR AGENT ACCOUNT ",  toString(_agentAccount));
-        require (agentHasBennificary( _recipientAccount, _agentAccount ), errMsg);
+        string memory errMsg = concat("RECIPIENT ACCOUNT ",  toString(_recipientAccount), " NOT FOUND FOR AGENT ACCOUNT ",  toString(_agentAccount));
+        require (agentHasRecipient( _recipientAccount, _agentAccount ), errMsg);
         // console.log("SOL=>1 depositRecipientStakingRewards("); 
         // console.log("SOL=>2 _recipientAccount    = ", _recipientAccount);
         // console.log("SOL=>3 _agentAccount = ", _agentAccount);
@@ -104,11 +104,11 @@ contract StakingManager is UnSubscribe{
     }
 
 //////////////// RETREIVE STAKING REWARDS /////////////////////////////////////////////////////////////////////
-    function getAgentRewardAccounts(address _bennificaryKey)
+    function getAgentRewardAccounts(address _recipientKey)
         public view returns (string memory memoryRewards) {
-        console.log("SOL=>15 getAgentRewardAccounts(", _bennificaryKey, ")");
+        console.log("SOL=>15 getAgentRewardAccounts(", _recipientKey, ")");
         
-            AccountStruct storage recipientAccount = accountMap[_bennificaryKey];
+            AccountStruct storage recipientAccount = accountMap[_recipientKey];
             address[] storage recipientAccountList = recipientAccount.recipientAccountList;
             memoryRewards = "";
 

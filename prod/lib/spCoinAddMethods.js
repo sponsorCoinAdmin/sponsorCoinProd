@@ -183,21 +183,21 @@ class SpCoinAddMethods {
 
   
   depositAgentStakingRewards = async (
-    _sourceAccount, 
     _recipientAccount,
+    _agentAccount, 
     _rate,
     _amount) => {
     spCoinLogger.logFunctionHeader(
       "depositAgentStakingRewards = async(" +
-      _sourceAccount + ", " +
-      _recipientAccount + ", " +
+      _recipientAccount,
+      _agentAccount + ", " +
       _rate + ", " +
       _amount + ")"
     );
 
     await this.spCoinContractDeployed.connect(this.signer).depositAgentStakingRewards (
-      _sourceAccount,
       _recipientAccount,
+      _agentAccount,
       _rate,
       _amount);
 
