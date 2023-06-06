@@ -14,9 +14,9 @@ const {
    } = require("./dataTypes/spCoinDataTypes");
 const { SpCoinSerialize, bigIntToDecString, bigIntToDateTimeString, getLocation } = require("./utils/serialize");
 
-const SPONSOR_REWARDS = "1";
-const RECIPIENT_REWARDS = "2";
-const AGENT_REWARDS = "3";
+const SPONSOR_REWARDS = "SPONSOR_REWARDS";
+const RECIPIENT_REWARDS = "RECIPIENT_REWARDS";
+const AGENT_REWARDS = "AGENT_REWARDS";
 
 let spCoinLogger;
 
@@ -79,7 +79,7 @@ class SpCoinReadMethods {
   }
 
   getAccountStakingRewards = async (_accountKey) => {
-    // console.log("==>2 getAccountStakingRewards = async(", _accountKey,")");
+    console.log("==>JS1 getAccountStakingRewards = async(", _accountKey,")");
     let rewardsRecord = new RewardsStruct();
 
     let accountRewardsStr = await this.spCoinContractDeployed.connect(this.signer).getSerializedAccountRewards(_accountKey);
@@ -95,7 +95,7 @@ class SpCoinReadMethods {
   }
 
   getRewardTypeRecord = async ( _accountKey, _type, _reward) => {
-    // console.log("==>2 getRewardTypeRecord = async(", _accountKey, ",", _type, ",", bigIntToDecString(_reward),")");
+    console.log("==>JS2 getRewardTypeRecord = async(", _accountKey, ",", _type, ",", bigIntToDecString(_reward),")");
     let rewardTypeRecord = new RewardTypeStruct();
     rewardTypeRecord.TYPE = _type;
     rewardTypeRecord.stakingRewards = bigIntToDecString(_reward);
@@ -118,7 +118,7 @@ class SpCoinReadMethods {
   }
 
   getRewardAccountList = async (_accountKey, _type) => {
-    // console.log("==>2 getRewardAccountList = async(", _accountKey,")");
+    console.log("==>JS3 getRewardAccountList = async(", _accountKey,", ", _type,")");
     let rewardTransactionList = [];
     let rewardsStr = "";
     switch(_type) {
@@ -134,7 +134,7 @@ class SpCoinReadMethods {
       default:
       break;
     } 
-    console.log ("JS=>1 BEFORE rewardsStr = ",rewardsStr)
+    // console.log ("JS=>1 BEFORE rewardsStr = ",rewardsStr)
     let sponsorRewardRecords = rewardsStr.split("SPONSOR_ACCOUNT:");
     console.log ("JS=>1 AFTER sponsorRewardRecords = ",sponsorRewardRecords)
 
@@ -148,14 +148,14 @@ class SpCoinReadMethods {
   getRewardAccountRecord = (_rewardRecordStr) => {
     let rateRewardList = _rewardRecordStr.split("\nRATE:");
 
-    console.log ("rateRewardList.length = ",rateRewardList.length);
-    console.log ("JS=>2.0 BEFORE rateRewardList = ",rateRewardList);
+    // console.log ("rateRewardList.length = ",rateRewardList.length);
+    // console.log ("JS=>2.0 BEFORE rateRewardList = ",rateRewardList);
 
     let rewardAccountRecord;
     if(rateRewardList.length > 0) {
       rewardAccountRecord = new RewardAccountStruct();
       let rewardRecordFields = rateRewardList.shift().split(",");
-      console.log ("JS=>2.1 AFTER rateRewardList = ",rateRewardList);
+      // console.log ("JS=>2.1 AFTER rateRewardList = ",rateRewardList);
       if(rateRewardList.length > 0) {
         rewardAccountRecord.sourceKey = rewardRecordFields[0];
         rewardAccountRecord.stakingRewards = bigIntToDecString(rewardRecordFields[1]);
@@ -170,23 +170,23 @@ class SpCoinReadMethods {
 
 getAccountRateRecordList = ( rateRewardList ) => {
   spCoinLogger.logFunctionHeader("getAccountRateRecordList = (" + rateRewardList + ")");
-  console.log ("\n\n\n*********************** getRateRecord = (rateRecordRows) **************************");
-  console.log ("JS=>3.0 rateRewardList.length = ", rateRewardList.length);
-  console.log ("JS=>3.1 rateRewardList        = ", rateRewardList);
+  // console.log ("\n\n\n*********************** getRateRecord = (rateRecordRows) **************************");
+  // console.log ("JS=>3.0 rateRewardList.length = ", rateRewardList.length);
+  // console.log ("JS=>3.1 rateRewardList        = ", rateRewardList);
   
   let rateList = [];
   for (var idx = rateRewardList.length - 1; idx >= 0; idx--) {
     let rateReward = rateRewardList[idx];
     let rewardRateRecord = new RewardRateStruct();
-    console.log ("JS=>3.2 BEFORE rateReward = ",rateReward);
+    // console.log ("JS=>3.2 BEFORE rateReward = ",rateReward);
     let rateRewardTransactions = rateReward.split("\n");
-    console.log ("JS=>3.3 AFTER rateReward = ",rateReward);
-    console.log ("JS=>3.4 BEFORE rateRewardTransactions.length = ", rateRewardTransactions.length);
+    // console.log ("JS=>3.3 AFTER rateReward = ",rateReward);
+    // console.log ("JS=>3.4 BEFORE rateRewardTransactions.length = ", rateRewardTransactions.length);
     let rateRewardHeaderFields = rateRewardTransactions.shift().split(",");
     rewardRateRecord.rate = bigIntToDecString( rateRewardHeaderFields[0] );
     rewardRateRecord.stakingRewards = bigIntToDecString( rateRewardHeaderFields[1] );
-    console.log ("JS=>3.5 AFTER rateRewardTransactions.length = ", rateRewardTransactions.length);
-    console.log ("JS=>3.6 AFTER rateRewardTransactions = ", rateRewardTransactions);
+    // console.log ("JS=>3.5 AFTER rateRewardTransactions.length = ", rateRewardTransactions.length);
+    // console.log ("JS=>3.6 AFTER rateRewardTransactions = ", rateRewardTransactions);
     rewardRateRecord.rewardTransactionList = this.getRateTransactionList(rateRewardTransactions);
     rateList.push(rewardRateRecord);
   }
@@ -195,23 +195,23 @@ getAccountRateRecordList = ( rateRewardList ) => {
 }
 
   getRateTransactionList = (rewardRateRowList) => {
-    console.log ("\n\n\n*********************** getRateTransactionList = (rewardRateRowList) **************************");
-    console.log ("JS=>6 rewardRateRowList.length = ", rewardRateRowList.length);
-    console.log ("JS=>7 rewardRateRowList        = ", rewardRateRowList);
+    // console.log ("\n\n\n*********************** getRateTransactionList = (rewardRateRowList) **************************");
+    // console.log ("JS=>6 rewardRateRowList.length = ", rewardRateRowList.length);
+    // console.log ("JS=>7 rewardRateRowList        = ", rewardRateRowList);
 
     let rateTransactionList = [];
     for (var row = rewardRateRowList.length - 1; row >= 0; row--) {
-      console.log ("JS=>8 rewardRateRowList["+row+"] = ", rewardRateRowList[row]);
+      // console.log ("JS=>8 rewardRateRowList["+row+"] = ", rewardRateRowList[row]);
 
       let accountRewardsFields = rewardRateRowList[row].split(",");
       let rewardTransactionRecord = new RewardTransactionStruct();
       let count = 0;
       // rewardTransactionRecord.sourceKey = accountRewardsFields[count++];
-      console.log ("JS=>9 accountRewardsFields[count] = ", accountRewardsFields[count]);
+      // console.log ("JS=>9 accountRewardsFields[count] = ", accountRewardsFields[count]);
       rewardTransactionRecord.updateTime = bigIntToDateTimeString(accountRewardsFields[count++]);
-      console.log ("JS=>11 rewardTransactionRecord.updateTime = ", rewardTransactionRecord.updateTime);
+      // console.log ("JS=>11 rewardTransactionRecord.updateTime = ", rewardTransactionRecord.updateTime);
       rewardTransactionRecord.stakingRewards = bigIntToDecString(accountRewardsFields[count++]);
-      console.log ("JS=>12 rewardTransactionRecord.stakingRewards = ", rewardTransactionRecord.stakingRewards);
+      // console.log ("JS=>12 rewardTransactionRecord.stakingRewards = ", rewardTransactionRecord.stakingRewards);
       // console.log ("JS=>3 rewardTransactionRecord = ",rewardTransactionRecord);
 
       rateTransactionList.push(rewardTransactionRecord);
@@ -271,7 +271,7 @@ console.log("JS=>10 rewardRateRecord.rate      =", rewardRateRecord.rate);
   };
 
   getAgentRateRecord = async(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey) => {
-    console.log("==>18 getAgentRateRecord(" + _sponsorKey   + _recipientKey + ", " + _agentKey+ ", " + _agentRateKey + ")");
+    // console.log("==>18 getAgentRateRecord(" + _sponsorKey   + _recipientKey + ", " + _agentKey+ ", " + _agentRateKey + ")");
     spCoinLogger.logFunctionHeader("getAgentRateRecord(" + _sponsorKey   + _recipientKey + ", " + _agentKey+ ", " + _agentRateKey + ")");
     let agentRateRecord = new AgentRateStruct();
     let recordStr = await this.spCoinSerialize.getSerializedAgentRateList(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
