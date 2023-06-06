@@ -22,7 +22,6 @@ initHHAccounts = async ( ) => {
      return hhTestAccountElements;
  };
 
-
 module.exports = {
      initHHAccounts,
 }

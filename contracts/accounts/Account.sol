@@ -29,12 +29,15 @@ contract Account is StructSerialization {
             return accountMap[account];
     }
 
-    function agentHasRecipient(address _agentAccount, address _recipientAccount )
+    function agentHasRecipient(address _recipientAccount, address _agentAccount )
         internal view returns ( bool ) {
             bool agentFound = false;
             AccountStruct storage recipientAccount = accountMap[_recipientAccount];
 
             address[] storage agentAccountList = recipientAccount.agentAccountList;
+
+            console.log("recipientAccount.accountKey =", recipientAccount.accountKey); 
+            console.log("agentAccountList.length     =", agentAccountList.length); 
 
             for (uint idx = 0; idx < agentAccountList.length; idx++) {
             if ( _agentAccount == agentAccountList[idx] )

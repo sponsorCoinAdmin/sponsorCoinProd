@@ -13,8 +13,8 @@ contract StakingManager is UnSubscribe{
     function depositAgentStakingRewards(address _recipientAccount, address _agentAccount, uint _rate, uint _amount )
         public returns ( uint ) {
         require (_amount > 0, "AMOUNT BALANCE MUST BE LARGER THAN 0");
-        string memory errMsg = concat("RECIPIENT ACCOUNT ",  toString(_recipientAccount), " NOT FOUND FOR AGENT ACCOUNT ",  toString(_agentAccount));
-        require (agentHasRecipient( _recipientAccount, _agentAccount ), errMsg);
+        // string memory errMsg = concat("RECIPIENT ACCOUNT ",  toString(_recipientAccount), " NOT FOUND FOR AGENT ACCOUNT ",  toString(_agentAccount));
+        // require (agentHasRecipient( _recipientAccount, _agentAccount ), errMsg);
         // console.log("SOL=>1 depositRecipientStakingRewards("); 
         // console.log("SOL=>2 _recipientAccount    = ", _recipientAccount);
         // console.log("SOL=>3 _agentAccount = ", _agentAccount);
