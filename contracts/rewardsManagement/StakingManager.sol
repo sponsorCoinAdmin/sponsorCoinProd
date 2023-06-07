@@ -15,11 +15,11 @@ contract StakingManager is UnSubscribe{
         require (_amount > 0, "AMOUNT BALANCE MUST BE LARGER THAN 0");
         string memory errMsg = concat("RECIPIENT ACCOUNT ",  toString(_recipientAccount), " NOT FOUND FOR AGENT ACCOUNT ",  toString(_agentAccount));
         require (agentHasRecipient( _recipientAccount, _agentAccount ), errMsg);
-        console.log("SOL=>1 depositAgentStakingRewards("); 
-        console.log("SOL=>2 _recipientAccount    = ", _recipientAccount);
-        console.log("SOL=>3 _agentAccount = ", _agentAccount);
-        console.log("SOL=> _rate             = ", _rate);
-        console.log("SOL=> _amount           = ", _amount, ")" );
+        console.log("SOL=>1.0 depositAgentStakingRewards("); 
+        console.log("SOL=>1.1 _recipientAccount = ", _recipientAccount);
+        console.log("SOL=>1.2 _agentAccount     = ", _agentAccount);
+        console.log("SOL=>1.3 _rate             = ", _rate);
+        console.log("SOL=>1.4 _amount           = ", _amount, ")" );
         totalSupply += _amount;
 
         // console.log("SOL=>4 FETCHING agentAccount = accountMap[", _agentAccount, "]");
@@ -42,9 +42,12 @@ contract StakingManager is UnSubscribe{
             rewardRateList.push(_rate);
             rewardRateRecord.rate = _rate;
         }
+        console.log("SOL=>1.5 rewardRateList.length = ",rewardRateList.length);
+        console.log("SOL=>1.6 rewardRateRecord.rate = ",rewardRateRecord.rate);
         rewardRateRecord.stakingRewards += _amount;
         RewardsTransactionStruct[] storage rewardTransactionList = rewardRateRecord.rewardTransactionList;
         depositRewardTransaction( rewardTransactionList, _amount );
+        console.log("SOL=>1.7 rewardTransactionList[0].stakingRewards = ", rewardTransactionList[0].stakingRewards);
 
 
         // TESTING REMOVE LATER
