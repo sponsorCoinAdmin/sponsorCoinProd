@@ -90,8 +90,8 @@ class SpCoinReadMethods {
     rewardsRecord.totalStakingRewards  = bigIntToDecString(accountRewardList[3]);
     /* REPLACE LATER */
     // rewardsRecord.sponsorRewardsList   = await this.getRewardTypeRecord(_accountKey, SPONSOR_REWARDS , accountRewardList[0]);
-    rewardsRecord.recipientRewardsList = await this.getRewardTypeRecord(_accountKey, RECIPIENT_REWARDS, accountRewardList[1]);
-    // rewardsRecord.agentRewardsList     = await this.getRewardTypeRecord(_accountKey, AGENT_REWARDS, accountRewardList[2]);
+    // rewardsRecord.recipientRewardsList = await this.getRewardTypeRecord(_accountKey, RECIPIENT_REWARDS, accountRewardList[1]);
+    rewardsRecord.agentRewardsList     = await this.getRewardTypeRecord(_accountKey, AGENT_REWARDS, accountRewardList[2]);
 
     spCoinLogger.logExitFunction();
 
@@ -99,6 +99,7 @@ class SpCoinReadMethods {
   }
 
   getRewardTypeRecord = async ( _accountKey, _type, _reward) => {
+    
     // console.log("JS==>2 getRewardTypeRecord = async(", _accountKey, ",", _type, ",", bigIntToDecString(_reward),")");
     let rewardTypeRecord = new RewardTypeStruct();
     rewardTypeRecord.TYPE = _type;

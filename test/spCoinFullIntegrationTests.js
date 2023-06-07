@@ -187,21 +187,21 @@ describe("spCoinContract", function () {
     AGENT_RATES[9],
     "1.000000000000000008"
   );
-
-   await spCoinAddMethods.depositRecipientStakingRewards(
-    SPONSOR_ACCOUNT_KEYS[0],
-    RECIPIENT_ACCOUNT_KEYS[1], 
-    RECIPIENT_RATES[4],
-    333
-  );
-
-
-  // await spCoinAddMethods.depositAgentStakingRewards(
-  //   RECIPIENT_ACCOUNT_KEYS[1],
-  //   AGENT_ACCOUNT_KEYS[2],
+  
+  //  await spCoinAddMethods.depositRecipientStakingRewards(
+  //   SPONSOR_ACCOUNT_KEYS[0],
+  //   RECIPIENT_ACCOUNT_KEYS[1], 
   //   RECIPIENT_RATES[4],
-  //   444
+  //   333
   // );
+
+
+  await spCoinAddMethods.depositAgentStakingRewards(
+    RECIPIENT_ACCOUNT_KEYS[1],
+    AGENT_ACCOUNT_KEYS[2],
+    RECIPIENT_RATES[4],
+    444
+  );
 
   // console.log("********************************************************************************");
   console.log("\n\n*** AFTER CREATE ******************************************************************************************************\n\n");

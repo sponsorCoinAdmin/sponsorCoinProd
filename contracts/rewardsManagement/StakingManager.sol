@@ -90,6 +90,41 @@ contract StakingManager is UnSubscribe{
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    function getRecipientRewardAccounts(address _sponsorKey)
+        public view returns (string memory memoryRewards) {
+        console.log("--------------------------------------------------------------------------------------------------------------------------");
+        console.log("SOL=>17 getRecipientRewardAccounts(", _sponsorKey, ")");
+        
+        AccountStruct storage sponsorAccount = accountMap[_sponsorKey];
+        address[] storage sponsorAccountList = sponsorAccount.sponsorAccountList;
+        memoryRewards = "";
+
+            // console.log("SOL=>16 sponsorAccountList.length = ", sponsorAccountList.length);
+            // Check the Recipient's Sponsor List
+        console.log("SOL=>17.1 sponsorAccountList.length = ", sponsorAccountList.length);
+        for (uint sponsorIdx = 0; sponsorIdx < sponsorAccountList.length; sponsorIdx++) {
+            address sponsorKey = sponsorAccountList[sponsorIdx];
+        console.log("SOL=>17.2 sponsorIdx =", sponsorKey);
+            memoryRewards = concat(memoryRewards, "SPONSOR_ACCOUNT:", toString(sponsorKey));
+        console.log("SOL=>17.3 memoryRewards =", sponsorKey);
+
+            ///////////////// **** START REPLACE LATER **** ///////////////////////////
+
+            RewardsStruct storage rewards = sponsorAccount.rewardsMap["ALL_REWARDS"];
+            mapping(address => RewardAccountStruct) storage recipientRewardsMap = rewards.recipientRewardsMap;
+            
+            ///////////////// **** END REPLACE LATER **** ///////////////////////////
+
+            // console.log("SOL=>17 sponsorKey[", sponsorIdx,"] = ", sponsorAccountList[sponsorIdx]);
+            RewardAccountStruct storage recipientAccountRecord = recipientRewardsMap[sponsorKey];
+            memoryRewards = concat(memoryRewards, getRewardRateRecords(recipientAccountRecord));
+            console.log("SOL=>17.4 memoryRewards =", sponsorKey);
+        }
+        // console.log("SOL=>3 RETURNING MEMORY REWARDS =", memoryRewards);
+        console.log("SOL=>17.5 RETURNING MEMORY REWARDS =", memoryRewards);
+        console.log("--------------------------------------------------------------------------------------------------------------------------");
+        return memoryRewards;
+    }
 
 
 
@@ -165,64 +200,39 @@ contract StakingManager is UnSubscribe{
 //////////////// RETREIVE STAKING REWARDS /////////////////////////////////////////////////////////////////////
 
         
-    function getRecipientRewardAccounts(address _sponsorKey)
-        public view returns (string memory memoryRewards) {
-        console.log("SOL=>17 getRecipientRewardAccounts(", _sponsorKey, ")");
-        
-        AccountStruct storage sponsorAccount = accountMap[_sponsorKey];
-        address[] storage sponsorAccountList = sponsorAccount.sponsorAccountList;
-        memoryRewards = "";
-
-            // console.log("SOL=>16 sponsorAccountList.length = ", sponsorAccountList.length);
-            // Check the Recipient's Sponsor List
-        for (uint sponsorIdx = 0; sponsorIdx < sponsorAccountList.length; sponsorIdx++) {
-            address sponsorKey = sponsorAccountList[sponsorIdx];
-            memoryRewards = concat(memoryRewards, "SPONSOR_ACCOUNT:", toString(sponsorKey));
-
-            ///////////////// **** START REPLACE LATER **** ///////////////////////////
-
-            RewardsStruct storage rewards = sponsorAccount.rewardsMap["ALL_REWARDS"];
-            mapping(address => RewardAccountStruct) storage recipientRewardsMap = rewards.recipientRewardsMap;
-            
-            ///////////////// **** END REPLACE LATER **** ///////////////////////////
-
-            // console.log("SOL=>17 sponsorKey[", sponsorIdx,"] = ", sponsorAccountList[sponsorIdx]);
-            RewardAccountStruct storage recipientAccountRecord = recipientRewardsMap[sponsorKey];
-            memoryRewards = concat(memoryRewards, getRewardRateRecords(recipientAccountRecord));
-        }
-        // console.log("SOL=>3 RETURNING MEMORY REWARDS =", memoryRewards);
-        return memoryRewards;
-    }
 
     // NEW STUFF
-        function getRewardRateRecords(RewardAccountStruct storage _recipientAccountRecord)
+        function getRewardRateRecords(RewardAccountStruct storage _rewardAccountRecord)
         internal  view returns (string memory memoryRewards) {
+ console.log("SOL=>18 getRewardRateRecords(RewardAccountStruct storage _rewardAccountRecord)");
         
-        uint256[] storage rewardRateList = _recipientAccountRecord.rewardRateList;
-// console.log("SOL=>17 BEFORE memoryRewards", memoryRewards);
+        uint256[] storage rewardRateList = _rewardAccountRecord.rewardRateList;
+ console.log("SOL=>18.1 BEFORE memoryRewards", memoryRewards);
+ console.log("SOL=>18.2 rewardRateList.length", rewardRateList.length);
 
         for (uint rateIdx = 0; rateIdx < rewardRateList.length; rateIdx++) {
             uint rate = rewardRateList[rateIdx];
-// console.log("SOL=>18 rate", rate);
+console.log("SOL=>18.3 rate", rate);
 
-            RewardRateStruct storage rewardRateRecord = _recipientAccountRecord.rewardRateMap[rate];
+            RewardRateStruct storage rewardRateRecord = _rewardAccountRecord.rewardRateMap[rate];
             RewardsTransactionStruct[] storage rewardTransactionList = rewardRateRecord.rewardTransactionList;
 
-            memoryRewards = concat(memoryRewards, ",", toString(_recipientAccountRecord.stakingRewards));
-                // console.log("SOL=> _recipientAccountRecord.rewardTransactionList.length         = ", _recipientAccountRecord.rewardTransactionList.length);
-                // console.log("SOL=> _recipientAccountRecord.rewardTransactionList.stakingRewards = ", _recipientAccountRecord.stakingRewards);
+            memoryRewards = concat(memoryRewards, ",", toString(_rewardAccountRecord.stakingRewards));
+                // console.log("SOL=> _rewardAccountRecord.rewardTransactionList.length         = ", _rewardAccountRecord.rewardTransactionList.length);
+                // console.log("SOL=> _rewardAccountRecord.rewardTransactionList.stakingRewards = ", _rewardAccountRecord.stakingRewards);
             memoryRewards = concat(memoryRewards, "\nRATE:", toString(rate));
             memoryRewards = concat(memoryRewards, ",", toString(rewardRateRecord.stakingRewards));
 
-        // console.log("SOL=>19 rewardTransactionList.length", rewardTransactionList.length);
+console.log("SOL=>18.4 rewardTransactionList.length", rewardTransactionList.length);
             if (rewardTransactionList.length != 0) {
                 string memory stringRewards = serializeRewardsTransactionList(rewardTransactionList);
-        // console.log("SOL=>20 stringRewards", stringRewards);
+console.log("SOL=>18.5 stringRewards", stringRewards);
                 memoryRewards = concat(memoryRewards, "\n" , stringRewards);
             }
         }
         // console.log("SOL=>21 AFTER memoryRewards", memoryRewards);
         // console.log("*** END SOL ******************************************************************************");
+console.log("SOL=>18.6 stringRewards", memoryRewards);
         return memoryRewards;
     }
 
