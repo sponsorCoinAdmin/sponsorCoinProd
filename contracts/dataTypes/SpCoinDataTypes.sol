@@ -71,9 +71,7 @@ contract SpCoinDataTypes {
         else
         if (_accountType == AGENT)
             return "AGENT";
-
         return strAccountType; 
-
     }
  
     struct arrayMappedData {
