@@ -56,6 +56,25 @@ contract SpCoinDataTypes {
     mapping(address => AccountStruct) accountMap;
 
     uint JUNK_COUNTER = 0;
+    uint SPONSOR = 0;
+    uint RECIPIENT = 1;
+    uint AGENT = 2;
+
+    function getAccountType(uint _accountType) internal view returns (string memory strAccountType) {
+        strAccountType = "";
+
+        if (_accountType == SPONSOR)
+            return "SPONSOR";
+        else
+        if (_accountType == RECIPIENT)
+            return "RECIPIENT";
+        else
+        if (_accountType == AGENT)
+            return "AGENT";
+
+        return strAccountType; 
+
+    }
  
     struct arrayMappedData {
         address[] masterAccountList;

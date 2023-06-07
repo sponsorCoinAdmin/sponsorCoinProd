@@ -14,6 +14,9 @@ const {
    } = require("./dataTypes/spCoinDataTypes");
 const { SpCoinSerialize, bigIntToDecString, bigIntToDateTimeString, getLocation } = require("./utils/serialize");
 
+const SPONSOR_REWARDS = "SPONSOR_REWARDS";
+const RECIPIENT_REWARDS = "RECIPIENT_REWARDS";
+const AGENT_REWARDS = "AGENT_REWARDS";
 const SPONSOR_ACCOUNT_DELIMITER = "SPONSOR_ACCOUNT:";
 const RECIPIENT_ACCOUNT_DELIMITER = "RECIPIENT_ACCOUNT:";
 const AGENT_ACCOUNT_DELIMITER = "AGENT_ACCOUNT:";
@@ -89,30 +92,30 @@ class SpCoinReadMethods {
     let accountRewardList = accountRewardsStr.split(",");
     rewardsRecord.totalStakingRewards  = bigIntToDecString(accountRewardList[3]);
     /* REPLACE LATER */
-    // rewardsRecord.sponsorRewardsList   = await this.getRewardTypeRecord(_accountKey, SPONSOR , accountRewardList[0]);
-     rewardsRecord.recipientRewardsList = await this.getRewardTypeRecord(_accountKey, RECIPIENT, accountRewardList[1]);
-    // rewardsRecord.agentRewardsList     = await this.getRewardTypeRecord(_accountKey, AGENT, accountRewardList[2]);
+    // rewardsRecord.sponsorRewardsList   = await this.getRewardTypeRecord(_accountKey, SPONSOR_REWARDS , accountRewardList[0]);
+     rewardsRecord.recipientRewardsList = await this.getRewardTypeRecord(_accountKey, RECIPIENT_REWARDS, accountRewardList[1]);
+    // rewardsRecord.agentRewardsList     = await this.getRewardTypeRecord(_accountKey, AGENT_REWARDS, accountRewardList[2]);
 
     spCoinLogger.logExitFunction();
 
     return rewardsRecord;
   }
 
-  getRewardTypeRecord = async ( _accountKey, _rewardType, _reward) => {
+  getRewardTypeRecord = async ( _accountKey, accountKey, _reward) => {
 
     // console.log("JS==>2 getRewardTypeRecord = async(", _accountKey, ",", accountKey, ",", bigIntToDecString(_reward),")");
     let rewardTypeRecord = new RewardTypeStruct();
-    rewardTypeRecord.TYPE = _rewardType;
+    rewardTypeRecord.TYPE = accountKey;
     rewardTypeRecord.stakingRewards = bigIntToDecString(_reward);
-    switch(_rewardType) {
-      case SPONSOR:
+    switch(accountKey) {
+      case SPONSOR_REWARDS:
            rewardTypeRecord.rewardAccountList = [];
       break;
-      case RECIPIENT:
-        rewardTypeRecord.rewardAccountList = await this.getRewardTransactionsByAccountList(_accountKey, _rewardType);
+      case RECIPIENT_REWARDS:
+        rewardTypeRecord.rewardAccountList = await this.getRewardTransactionsByAccountList(_accountKey, accountKey);
       break;
-      case AGENT:
-        rewardTypeRecord.rewardAccountList = await this.getRewardTransactionsByAccountList(_accountKey, _rewardType);
+      case AGENT_REWARDS:
+        rewardTypeRecord.rewardAccountList = await this.getRewardTransactionsByAccountList(_accountKey, accountKey);
       break;
       default:
         rewardTypeRecord.rewardAccountList = [];
@@ -127,16 +130,16 @@ class SpCoinReadMethods {
     let rewardAccountList;
     let rewardsStr = "";
     switch(_rewardType) {
-      case SPONSOR:
+      case SPONSOR_REWARDS:
         rewardsStr = "";
         rewardAccountList = rewardsStr.split(SPONSOR_ACCOUNT_DELIMITER);
       break;
-      case RECIPIENT:
+      case RECIPIENT_REWARDS:
         rewardsStr = await this.spCoinContractDeployed.connect(this.signer).getRewardAccounts(_accountKey, RECIPIENT);
         rewardAccountList = rewardsStr.split(SPONSOR_ACCOUNT_DELIMITER);
         break;
-      case AGENT:
-        rewardsStr = await this.spCoinContractDeployed.connect(this.signer).getRewardAccounts(_accountKey, AGENT);
+      case AGENT_REWARDS:
+        rewardsStr = await this.spCoinContractDeployed.connect(this.signer).getAgentRewardAccounts(_accountKey);
         rewardAccountList = rewardsStr.split(RECIPIENT_ACCOUNT_DELIMITER);
         break;
       default:
