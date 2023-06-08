@@ -157,26 +157,45 @@ class SpCoinAddMethods {
   };
 
   depositRecipientStakingRewards = async (
-    _sourceAccount, 
+    _sponsorAccount, 
     _recipientAccount,
     _rate,
     _amount) => {
     spCoinLogger.logFunctionHeader(
       "depositRecipientStakingRewards = async(" +
-      _sourceAccount + ", " +
+      _sponsorAccount + ", " +
       _recipientAccount + ", " +
       _rate + ", " +
       _amount + ")"
     );
 
     await this.spCoinContractDeployed.connect(this.signer).depositRecipientStakingRewards (
-      _sourceAccount,
+      _sponsorAccount,
       _recipientAccount,
       _rate,
       _amount);
 
-    // let rewards = await this.spCoinContractDeployed.connect(this.signer).getRecipientRewardAccounts(_sourceAccount);
-    // console.log ("*** Rewards = \n" + JSON.stringify(rewards, null, 2));
+    spCoinLogger.logExitFunction();
+  };
+  
+  depositAgentStakingRewards = async (
+    _recipientAccount,
+    _agentAccount, 
+    _rate,
+    _amount) => {
+    spCoinLogger.logFunctionHeader(
+      "depositAgentStakingRewards = async(" +
+      _recipientAccount,
+      _agentAccount + ", " +
+      _rate + ", " +
+      _amount + ")"
+    );
+
+    await this.spCoinContractDeployed.connect(this.signer).depositAgentStakingRewards (
+      _recipientAccount,
+      _agentAccount,
+      _rate,
+      _amount);
 
     spCoinLogger.logExitFunction();
   };

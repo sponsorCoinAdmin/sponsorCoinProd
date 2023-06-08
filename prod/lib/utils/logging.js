@@ -136,7 +136,7 @@ class SpCoinLogger {
     }
 
     logJSON = (_obj) => {
-        console.log("DUMP JSON OBJECT");
+        console.log("\n\nDUMP JSON OBJECT");
         console.log(JSON.stringify(_obj, null, 2));
     }
 }

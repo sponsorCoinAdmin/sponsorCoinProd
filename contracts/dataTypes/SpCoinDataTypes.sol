@@ -22,33 +22,7 @@ contract SpCoinDataTypes {
     // Recipiented Coins
     uint256 stakedSPCoins;
 
-    // Keep track of account insertions
-    // Record relationship rules as Follows:
-    // 1. Every Account is the root of a mapping tree in the diagram below:
-    // 2. Every Account can be a Sponsor, And/or Recipient, and/or Agent
-    //    - A Sponsor is the, primary steak Holder of the "Recipient Coin" token.
-    //        The primary purpose of holding "Recipient Coins" is to share "Proof of Stake"
-    //        percentage earnings with the selected sopnsor(s).
-    //    - A Recipient is considered to be a child of one or more Sponsors with the purposes
-    //      of sharing "Proof of Stake" Sponsor rewards.
-    //    - An Agent finds Sponsor(s) for any specific recipient and receives a share of the 
-    //      "Proof of Stake" reward allocation for this effort. 
-    // 3. Every Account can be a Patrion, Recipient and/or agent to one or more mutually 
-    //    exclusive account(s).
-    // 4. Every Recipient can have a number of Sponsor(s), Recipient(s) and/or Agent(s)
-    // 5. Every Recipient has an array of recipientRate structures
-    // 6. Every Agent has an array of agentRate structures
-    // 7. Every Rate Structure has an array of Transactions
-    // 8. Each Sponsor/Recipient/Agent "MUST BE" mutually exclusive
-    //    - This implies no two accounts can be the same for each account structure
-    //
-    //  The following is a brief diagram of the contractural structure.
-    //
-    //              |                          |-/Agent(s)/Rate(s)/Transaction(s)
-    // Account(s) =>| Sponsor(s)/Recipient(s)/ =>|
-    //              |                          |-/Rate(s)/Transaction(s)
 
-    // **Additional Recipient Coin Variables
 
     address burnAddress = 0x0000000000000000000000000000000000000000;
     address[] public masterAccountList;
@@ -56,7 +30,10 @@ contract SpCoinDataTypes {
     mapping(address => AccountStruct) accountMap;
 
     uint JUNK_COUNTER = 0;
- 
+    uint SPONSOR = 0;
+    uint RECIPIENT = 1;
+    uint AGENT = 2;
+
     struct arrayMappedData {
         address[] masterAccountList;
         mapping(address => AccountStruct) accountMap;
@@ -70,17 +47,46 @@ contract SpCoinDataTypes {
         uint256 stakedSPCoins; // Coins Owned but steaked to recipients
         bool inserted;
         bool verified;
-        address[] recipientAccountList;       // If Sponsor List of Recipiented Account
-        address[] sponsorAccountList;         // If Recipient? List of Sponsor Account
-        address[] agentAccountList;           // If Recipient? List of Agent Account
-        address[] agentsParentRecipientAccountList; // If Agent? List of Sponsor Recipient Account
+        address[] recipientAccountList;             // If Sponsor List of Recipient Accounts
+        address[] sponsorAccountList;               // If Recipient ? List of Sponsor Accounts
+        address[] agentAccountList;                 // If Recipient? List of Agent Accounts
+        address[] agentsParentRecipientAccountList; // If Agent? List of Agents Recipient Account
         mapping(address => RecipientStruct) recipientMap;
         // STAKING REWARDS MAPPINGS
         // uint256 totalStakingRewards; // Coins not owned but Recipiented
         mapping(string  => RewardsStruct) rewardsMap;
-//        KYC kyc;
     }
 
+        /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
+
+    struct RewardsStruct {
+        uint256 totalSponsorRewards;
+        uint256 totalRecipientRewards;
+        uint256 totalAgentRewards;
+        uint256 totalStakingRewards; 
+        mapping(address => RewardAccountStruct) sponsorRewardsMap;   // contains Recipient Keys
+        mapping(address => RewardAccountStruct) recipientRewardsMap; // contains Sponsor Keys
+        mapping(address => RewardAccountStruct) agentRewardsMap;     // contains Recipient Keys
+    }
+
+    struct RewardAccountStruct {
+        uint256 stakingRewards;
+        uint256[] rewardRateList;
+        mapping(uint256 => RewardRateStruct) rewardRateMap;
+    }
+
+    struct RewardRateStruct {
+        uint256 rate;
+        uint256 stakingRewards;
+        RewardsTransactionStruct[] rewardTransactionList;
+    }
+
+    struct RewardsTransactionStruct {
+        uint256 updateTime;
+        uint256 stakingRewards;
+    }
+
+    /// STRUCTURE DESIGN SECTION SECTION ////////////////////////////////////////////////////////////////////
     // Each Account has a map of Recipient and an array of recipientRate structures
     struct RecipientStruct {
         address sponsorKey;
@@ -135,32 +141,49 @@ contract SpCoinDataTypes {
         address[] sourceList;
     }
 
-    /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
+   /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
 
-    struct RewardsStruct {
-        uint256 totalSponsorRewards;
-        uint256 totalRecipientRewards;
-        uint256 totalAgentRewards;
-        uint256 totalStakingRewards; 
-        mapping(address => RewardAccountStruct) sponsorRewardsMap;
-        mapping(address => RewardAccountStruct) recipienRewardstMap;
-        mapping(address => RewardAccountStruct) agentRewardsMap;
-    }
+    function getAccountType(uint _accountType) internal view returns (string memory strAccountType) {
+        strAccountType = "";
 
-    struct RewardAccountStruct {
-        uint256 stakingRewards;
-        uint256[] rewardRateList;
-        mapping(uint256 => RewardRateStruct) rewardRateMap;
+        if (_accountType == SPONSOR)
+            return "SPONSOR";
+        else
+        if (_accountType == RECIPIENT)
+            return "RECIPIENT";
+        else
+        if (_accountType == AGENT)
+            return "AGENT";
+        return strAccountType; 
     }
-
-    struct RewardRateStruct {
-        uint256 rate;
-        uint256 stakingRewards;
-        RewardsTransactionStruct[] rewardTransactionList;
-    }
-
-    struct RewardsTransactionStruct {
-        uint256 updateTime;
-        uint256 stakingRewards;
-    }
+ 
 }
+
+
+    // Keep track of account insertions
+    // Record relationship rules as Follows:
+    // 1. Every Account is the root of a mapping tree in the diagram below:
+    // 2. Every Account can be a Sponsor, And/or Recipient, and/or Agent
+    //    - A Sponsor is the, primary steak Holder of the "Recipient Coin" token.
+    //        The primary purpose of holding "Recipient Coins" is to share "Proof of Stake"
+    //        percentage earnings with the selected sopnsor(s).
+    //    - A Recipient is considered to be a child of one or more Sponsors with the purposes
+    //      of sharing "Proof of Stake" Sponsor rewards.
+    //    - An Agent finds Sponsor(s) for any specific recipient and receives a share of the 
+    //      "Proof of Stake" reward allocation for this effort. 
+    // 3. Every Account can be a Patrion, Recipient and/or agent to one or more mutually 
+    //    exclusive account(s).
+    // 4. Every Recipient can have a number of Sponsor(s), Recipient(s) and/or Agent(s)
+    // 5. Every Recipient has an array of recipientRate structures
+    // 6. Every Agent has an array of agentRate structures
+    // 7. Every Rate Structure has an array of Transactions
+    // 8. Each Sponsor/Recipient/Agent "MUST BE" mutually exclusive
+    //    - This implies no two accounts can be the same for each account structure
+    //
+    //  The following is a brief diagram of the contractural structure.
+    //
+    //              |                          |-/Agent(s)/Rate(s)/Transaction(s)
+    // Account(s) =>| Sponsor(s)/Recipient(s)/ =>|
+    //              |                          |-/Rate(s)/Transaction(s)
+
+    // **Additional Recipient Coin Variables
