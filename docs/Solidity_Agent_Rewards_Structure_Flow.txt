@@ -1,0 +1,50 @@
+**** SAMPLE JAVASCRIPT CODE AND STRUCTURE BUILT ****
+
+await spCoinAddMethods.depositAgentStakingRewards(
+    RECIPIENT_ACCOUNT_KEYS[1],
+    AGENT_ACCOUNT_KEYS[2],
+    AGENT_RATES[4],
+    444
+  );
+
+**** AS BUILT IN SOLIDITY ****
+SOL=>2.1 _sponsorKey   =  0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+SOL=>2.1 _recipientKey =  0x70997970c51812dc3a010c7d01b50e0d17dc79c8
+SOL=>2.2 _agentKey     =  0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc
+SOL=>2.3 _rate         =  4
+SOL=>2.4 _amount       =  444
+SOL=>2.5 rewardRateList.length =  1
+SOL=>2.6 rewardRateRecord.rate =  4
+SOL=>2.7 rewardTransactionList[0].stakingRewards =  444
+
+**** RESULTING SOLIDITY STRUCTURE WHEN ACCOUNT IS AGENT ****
+   struct AccountStruct {
+        address accountKey = 0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc
+        address[] recipientAccountList;               // If Sponsor List of Recipiented Account
+        address[] sponsorAccountList;                 // If Recipient? List of Sponsor Account
+        address[] agentAccountList;                   // If Recipient? List of Agent Account
+        address[] agentsParentRecipientAccountList = [0x70997970c51812dc3a010c7d01b50e0d17dc79c8]
+        // uint256 totalStakingRewards; // Coins not owned but Recipiented
+        mapping(string  => RewardsStruct) rewardsMap;
+    }
+
+// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
+
+    struct RewardsStruct {
+        // contains Recipient Keys
+        mapping(address => RewardAccountStruct) agentRewardsMap = {0x70997970c51812dc3a010c7d01b50e0d17dc79c8};
+    }
+
+    struct RewardAccountStruct {
+        uint256[] rewardRateList = 4;
+        mapping(uint256 => RewardRateStruct) rewardRateMap;
+    }
+
+    struct RewardRateStruct {
+        uint256 rate;
+        RewardsTransactionStruct[] rewardTransactionList;
+    }
+
+    struct RewardsTransactionStruct {
+        uint256 stakingRewards;
+    }

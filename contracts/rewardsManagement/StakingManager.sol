@@ -79,11 +79,11 @@ contract StakingManager is UnSubscribe{
         rewardsRecord.totalAgentRewards += _amount;
         mapping(address => RewardAccountStruct) storage agentRewardsMap = rewardsRecord.agentRewardsMap;
 
-        RewardAccountStruct storage agentAccountRecord = agentRewardsMap[_agentKey];
-        agentAccountRecord.stakingRewards += _amount;
+        RewardAccountStruct storage rewardAccountRecord = agentRewardsMap[_sourceKey];
+        rewardAccountRecord.stakingRewards += _amount;
 
-        uint256[] storage rewardRateList = agentAccountRecord.rewardRateList;
-        RewardRateStruct storage rewardRateRecord = agentAccountRecord.rewardRateMap[_rate];
+        uint256[] storage rewardRateList = rewardAccountRecord.rewardRateList;
+        RewardRateStruct storage rewardRateRecord = rewardAccountRecord.rewardRateMap[_rate];
         if (rewardRateRecord.rate != _rate) {
             rewardRateList.push(_rate);
             rewardRateRecord.rate = _rate;
@@ -101,53 +101,55 @@ contract StakingManager is UnSubscribe{
         console.log("=========================================================================================================================");
         //END TESTION
 
-        return agentAccountRecord.stakingRewards;
+        return rewardAccountRecord.stakingRewards;
     }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    function getRewardAccounts(address _accountKey, uint _rewardType)
+    function getRewardAccounts(address _agentKey, uint _rewardType)
         public view returns (string memory memoryRewards) {
         console.log("--------------------------------------------------------------------------------------------------------------------------");
-        console.log("SOL=>17 getRewardAccounts(", _accountKey, ", ", getAccountType(_rewardType));
+        console.log("SOL=>17 getRewardAccounts(", _agentKey, ", ", getAccountType(_rewardType));
         
         memoryRewards = "";
-        AccountStruct storage account = accountMap[_accountKey];
+        AccountStruct storage agentAccount = accountMap[_agentKey];
         address[] storage accountSearchList;
         if ( _rewardType == RECIPIENT )
-           accountSearchList = account.sponsorAccountList;
+           accountSearchList = agentAccount.sponsorAccountList;
         else if ( _rewardType == AGENT )
-                 accountSearchList = account.agentsParentRecipientAccountList;
+                 accountSearchList = agentAccount.agentsParentRecipientAccountList;
              else return memoryRewards;
 
             // console.log("SOL=>16 accountSearchList.length = ", accountSearchList.length);
             // Check the Recipient's Sponsor List
         console.log("SOL=>17.1 accountSearchList.length = ", accountSearchList.length);
         for (uint idx = 0; idx < accountSearchList.length; idx++) {
-            address accountKey = accountSearchList[idx];
-        console.log("SOL=>17.2 idx =", accountKey);
-            memoryRewards = concat(memoryRewards, "SPONSOR_ACCOUNT:", toString(accountKey));
-        console.log("SOL=>17.3 memoryRewards =", accountKey);
+            address recipientKey = accountSearchList[idx];
+        console.log("SOL=>17.2 recipientKey =", recipientKey);
+         if ( _rewardType == RECIPIENT )
+           memoryRewards = concat(memoryRewards, "SPONSOR_ACCOUNT:", toString(recipientKey));
+        else if ( _rewardType == AGENT )
+           memoryRewards = concat(memoryRewards, "RECIPIENT_ACCOUNT:", toString(recipientKey));
+        console.log("SOL=>17.3 memoryRewards =", recipientKey);
 
             ///////////////// **** START REPLACE LATER **** ///////////////////////////
 
-            RewardsStruct storage rewardsRecord = account.rewardsMap["ALL_REWARDS"];
+            RewardsStruct storage rewardsRecord = agentAccount.rewardsMap["ALL_REWARDS"];
             RewardAccountStruct storage recipientAccountRecord;
             if ( _rewardType == RECIPIENT ) {
                 mapping(address => RewardAccountStruct) storage recipientRewardsMap = rewardsRecord.recipientRewardsMap;
-                recipientAccountRecord = recipientRewardsMap[accountKey];
+                recipientAccountRecord = recipientRewardsMap[recipientKey];
                 memoryRewards = concat(memoryRewards, getRewardRateRecords(recipientAccountRecord));
             }
             else if ( _rewardType == AGENT ) {
                 mapping(address => RewardAccountStruct) storage recipientRewardsMap = rewardsRecord.agentRewardsMap;
-                recipientAccountRecord = recipientRewardsMap[accountKey];
+                recipientAccountRecord = recipientRewardsMap[recipientKey];
                 memoryRewards = concat(memoryRewards, getRewardRateRecords(recipientAccountRecord));
             }
 
-            // console.log("SOL=>17 accountKey[", idx,"] = ", accountSearchList[idx]);
-            console.log("SOL=>17.4 memoryRewards =", accountKey);
+            // console.log("SOL=>17 recipientKey[", idx,"] = ", accountSearchList[idx]);
+            console.log("SOL=>17.4 memoryRewards =", recipientKey);
         }
-        // console.log("SOL=>3 RETURNING MEMORY REWARDS =", memoryRewards);
         console.log("SOL=>17.5 RETURNING MEMORY REWARDS =", memoryRewards);
         console.log("--------------------------------------------------------------------------------------------------------------------------");
         return memoryRewards;
@@ -159,7 +161,7 @@ contract StakingManager is UnSubscribe{
         
         uint256[] storage rewardRateList = _rewardAccountRecord.rewardRateList;
  console.log("SOL=>18.1 BEFORE memoryRewards", memoryRewards);
- console.log("SOL=>18.2 rewardRateList.length", rewardRateList.length);
+ console.log("*** ISSUE HERE SOL=>18.2 rewardRateList.length", rewardRateList.length);
 
         for (uint rateIdx = 0; rateIdx < rewardRateList.length; rateIdx++) {
             uint rate = rewardRateList[rateIdx];

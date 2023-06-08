@@ -47,15 +47,14 @@ contract SpCoinDataTypes {
         uint256 stakedSPCoins; // Coins Owned but steaked to recipients
         bool inserted;
         bool verified;
-        address[] recipientAccountList;             // If Sponsor List of Recipiented Account
-        address[] sponsorAccountList;               // If Recipient? List of Sponsor Account
-        address[] agentAccountList;                 // If Recipient? List of Agent Account
-        address[] agentsParentRecipientAccountList; // If Agent? List of Sponsor Recipient Account
+        address[] recipientAccountList;             // If Sponsor List of Recipient Accounts
+        address[] sponsorAccountList;               // If Recipient ? List of Sponsor Accounts
+        address[] agentAccountList;                 // If Recipient? List of Agent Accounts
+        address[] agentsParentRecipientAccountList; // If Agent? List of Agents Recipient Account
         mapping(address => RecipientStruct) recipientMap;
         // STAKING REWARDS MAPPINGS
         // uint256 totalStakingRewards; // Coins not owned but Recipiented
         mapping(string  => RewardsStruct) rewardsMap;
-//        KYC kyc;
     }
 
         /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
@@ -65,9 +64,9 @@ contract SpCoinDataTypes {
         uint256 totalRecipientRewards;
         uint256 totalAgentRewards;
         uint256 totalStakingRewards; 
-        mapping(address => RewardAccountStruct) sponsorRewardsMap;
-        mapping(address => RewardAccountStruct) recipientRewardsMap;
-        mapping(address => RewardAccountStruct) agentRewardsMap;
+        mapping(address => RewardAccountStruct) sponsorRewardsMap;   // contains Recipient Keys
+        mapping(address => RewardAccountStruct) recipientRewardsMap; // contains Sponsor Keys
+        mapping(address => RewardAccountStruct) agentRewardsMap;     // contains Recipient Keys
     }
 
     struct RewardAccountStruct {
