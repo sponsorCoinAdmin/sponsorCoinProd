@@ -8,13 +8,92 @@ contract StakingManager is UnSubscribe{
     constructor(){
     }
 
+
+        function depositStakingRewards( uint _accountType, address _sourceKey, address _accountKey, uint _rate, uint _amount)
+        public returns ( uint ) {
+        if (_accountType == SPONSOR) { 
+            // _sourceKey = SPONSOR
+            _rate = annualInflation;
+            string memory errMsg = concat("RECIPIENT ACCOUNT ",  toString(_sourceKey), " NOT FOUND FOR SPONSOR ACCOUNT ",  toString(_accountKey));
+            require (recipientHasSponsor( _sourceKey, _accountKey ), errMsg);
+        }
+        if (_accountType == RECIPIENT) { 
+            // _sourceKey = SPONSOR
+            string memory errMsg = concat("SPONSOR ACCOUNT ",  toString(_sourceKey), " NOT FOUND FOR RECIPIENT ACCOUNT ",  toString(_accountKey));
+            require (recipientHasSponsor( _sourceKey, _accountKey ), errMsg);
+        }
+        else if (_accountType == AGENT) {
+            // _sourceKey = AGENT
+            string memory errMsg = concat("RECIPIENT ACCOUNT ",  toString(_sourceKey), " NOT FOUND FOR AGENT ACCOUNT ",  toString(_accountKey));
+            require (agentHasRecipient( _sourceKey, _accountKey ), errMsg);
+        }       
+        return depositAccountStakingRewards( _sourceKey, _accountKey, _rate, _amount, _accountType );
+    }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+   function depositAccountStakingRewards(address _sourceKey, address _accountKey, uint _rate, uint _amount, uint _accountType)
+        internal returns ( uint ) {
+        require (_amount > 0, "AMOUNT BALANCE MUST BE LARGER THAN 0");
+        // console.log("SOL=>2.0 depositAgentStakingRewards("); 
+        // console.log("SOL=>2.1 _sourceKey = ", _sourceKey);
+        // console.log("SOL=>2.2 _accountKey  = ", _accountKey);
+        // console.log("SOL=>2.3 _rate      = ", _rate);
+        // console.log("SOL=>2.4 _amount    = ", _amount);
+        totalSupply += _amount;
+
+        // console.log("SOL=>4 FETCHING account = accountMap[", _accountKey, "]");
+        AccountStruct storage account = accountMap[_accountKey];
+        // console.log("account.recipientAccountList.length =", account.recipientAccountList.length);
+        // console.log("account.recipientAccountList[0] =", account.recipientAccountList[0]);
+
+        RewardsStruct storage rewardsRecord = account.rewardsMap["ALL_REWARDS"];
+        rewardsRecord.totalStakingRewards += _amount;
+        rewardsRecord.totalAgentRewards += _amount;
+        // mapping(address => RewardAccountStruct) storage agentRewardsMap = rewardsRecord.agentRewardsMap;
+
+        RewardAccountStruct storage rewardAccountRecord;
+
+        if (_accountType == SPONSOR) {
+            rewardAccountRecord = rewardsRecord.sponsorRewardsMap[_sourceKey];
+        } else if (_accountType == RECIPIENT) {
+            rewardAccountRecord = rewardsRecord.recipientRewardsMap[_sourceKey];
+        } else { // ACCOUNT_TYPE is AGENT
+            rewardAccountRecord = rewardsRecord.agentRewardsMap[_sourceKey];
+        }
+
+        rewardAccountRecord.stakingRewards += _amount;
+
+        uint256[] storage rewardRateList = rewardAccountRecord.rewardRateList;
+        RewardRateStruct storage rewardRateRecord = rewardAccountRecord.rewardRateMap[_rate];
+        if (rewardRateRecord.rate != _rate) {
+            rewardRateList.push(_rate);
+            rewardRateRecord.rate = _rate;
+        }
+        // console.log("SOL=>2.5 rewardRateList.length = ",rewardRateList.length);
+        // console.log("SOL=>2.6 rewardRateRecord.rate = ",rewardRateRecord.rate);
+        rewardRateRecord.stakingRewards += _amount;
+        console.log("rewardRateRecord.stakingRewards = ", rewardRateRecord.stakingRewards);
+        RewardsTransactionStruct[] storage rewardTransactionList = rewardRateRecord.rewardTransactionList;
+        depositRewardTransaction( rewardTransactionList, _amount );
+        // console.log("SOL=>2.7 rewardTransactionList[0].stakingRewards = ", rewardTransactionList[0].stakingRewards);
+
+        // TESTING REMOVE LATER
+        // console.log("=========================================================================================================================");
+        // getRewardAccounts(_accountKey, AGENT);
+        // console.log("=========================================================================================================================");
+        //END TESTION
+
+        return rewardAccountRecord.stakingRewards;
+    }
+
 //////////////// INSERT STAKING REWARDS /////////////////////////////////////////////////////////////////////
 
     function depositRecipientStakingRewards(address _sourceKey, address _accountKey, uint _rate, uint _amount )
         public returns ( uint ) {
         string memory errMsg = concat("SPONSOR ACCOUNT ",  toString(_sourceKey), " NOT FOUND FOR RECIPIENT ACCOUNT ",  toString(_accountKey));
         require (recipientHasSponsor( _sourceKey, _accountKey ), errMsg);
-       return depositAccountStakingRewards( _sourceKey, _accountKey, _rate, _amount, RECIPIENT );
+       return depositAccountStakingRewardsOLD( _sourceKey, _accountKey, _rate, _amount, RECIPIENT );
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -23,10 +102,10 @@ contract StakingManager is UnSubscribe{
         public returns ( uint ) {
         string memory errMsg = concat("RECIPIENT ACCOUNT ",  toString(_sourceKey), " NOT FOUND FOR AGENT ACCOUNT ",  toString(_accountKey));
         require (agentHasRecipient( _sourceKey, _accountKey ), errMsg);
-        return depositAccountStakingRewards( _sourceKey, _accountKey, _rate, _amount, AGENT );
+        return depositAccountStakingRewardsOLD( _sourceKey, _accountKey, _rate, _amount, AGENT );
     }
 
-   function depositAccountStakingRewards(address _sourceKey, address _accountKey, uint _rate, uint _amount, uint _accountType)
+   function depositAccountStakingRewardsOLD(address _sourceKey, address _accountKey, uint _rate, uint _amount, uint _accountType)
         internal returns ( uint ) {
         require (_amount > 0, "AMOUNT BALANCE MUST BE LARGER THAN 0");
         // console.log("SOL=>2.0 depositAgentStakingRewards("); 
