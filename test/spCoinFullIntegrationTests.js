@@ -116,13 +116,6 @@ describe("spCoinContract", function () {
   //   "2.000000000000000008"
   // );
  
-  // await spCoinAddMethods.addSponsorship(
-  //   SPONSOR_ACCOUNT_SIGNERS[0],
-  //   RECIPIENT_ACCOUNT_KEYS[2],
-  //   RECIPIENT_RATES[5],
-  //   "1.000000000000000008"
-  // );
-
   // await spCoinAddMethods.depositRecipientStakingRewards(
   //   SPONSOR_ACCOUNT_KEYS[0],
   //   RECIPIENT_ACCOUNT_KEYS[1], 
@@ -178,7 +171,8 @@ describe("spCoinContract", function () {
   //   RECIPIENT_RATES[4],
   //   444
   // );
-  
+
+    /* START THIS WORKS
   await spCoinAddMethods.addAgentSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[0],
     RECIPIENT_ACCOUNT_KEYS[1],
@@ -200,6 +194,23 @@ describe("spCoinContract", function () {
     AGENT_ACCOUNT_KEYS[2],
     RECIPIENT_RATES[4],
     444
+  );
+  END THIS WORKS */
+  
+  // await spCoinAddMethods.addAgentSponsorship(
+  //   SPONSOR_ACCOUNT_SIGNERS[0],
+  //   RECIPIENT_ACCOUNT_KEYS[1],
+  //   RECIPIENT_RATES[5],
+  //   AGENT_ACCOUNT_KEYS[2],
+  //   AGENT_RATES[9],
+  //   "1.000000000000000008"
+  // );
+  
+  await spCoinAddMethods.addSponsorship(
+    SPONSOR_ACCOUNT_SIGNERS[0],
+    RECIPIENT_ACCOUNT_KEYS[1],
+    RECIPIENT_RATES[4],
+    "1.000000000000000008"
   );
 
   await spCoinAddMethods.depositSponsorStakingRewards(
@@ -209,31 +220,19 @@ describe("spCoinContract", function () {
     999
   );
 
-  /* START THIS WORKS
-  await spCoinAddMethods.addAgentSponsorship(
-    SPONSOR_ACCOUNT_SIGNERS[0],
-    RECIPIENT_ACCOUNT_KEYS[1],
-    RECIPIENT_RATES[5],
-    AGENT_ACCOUNT_KEYS[2],
-    AGENT_RATES[9],
-    "1.000000000000000008"
-  );
-  
-   await spCoinAddMethods.depositRecipientStakingRewards(
+  await spCoinAddMethods.depositRecipientStakingRewards(
     SPONSOR_ACCOUNT_KEYS[0],
     RECIPIENT_ACCOUNT_KEYS[1], 
     RECIPIENT_RATES[4],
     333
   );
 
-  await spCoinAddMethods.depositAgentStakingRewards(
-    RECIPIENT_ACCOUNT_KEYS[1],
-    AGENT_ACCOUNT_KEYS[2],
-    RECIPIENT_RATES[4],
-    444
-  );
-
-   END THIS WORKS */
+  // await spCoinAddMethods.depositAgentStakingRewards(
+  //   RECIPIENT_ACCOUNT_KEYS[1],
+  //   AGENT_ACCOUNT_KEYS[2],
+  //   RECIPIENT_RATES[4],
+  //   444
+  // );
 
   // console.log("********************************************************************************");
   console.log("\n\n*** AFTER CREATE ******************************************************************************************************\n\n");
