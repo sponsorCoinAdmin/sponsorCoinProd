@@ -135,10 +135,19 @@ class SpCoinLogger {
         this.logJSON(_obj);
     }
 
+    logJSONStr = (str, _obj) => {
+        console.log(str, this.getJSON(_obj));
+    }
+
     logJSON = (_obj) => {
-        console.log("\n\nDUMP JSON OBJECT");
+        console.log("\nDUMP JSON OBJECT");
         console.log(JSON.stringify(_obj, null, 2));
     }
+    
+    getJSON = (_obj) => {
+        return JSON.stringify(_obj, null, 2);
+    }
+    
 }
 
 module.exports = {

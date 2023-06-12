@@ -6,10 +6,11 @@ pragma solidity ^0.8.18;
 contract SpCoinDataTypes {
 
     // **Standard ERC20 contract Variables
-    string public name;
-    string public symbol;
+    string  public name;
+    string  public symbol;
     uint256 public decimals;
     uint256 public totalSupply;
+    uint    public annualInflation = 10;
 
     // Keep track balances and allowances approved
     mapping(address => uint256) public balanceOf;
@@ -21,8 +22,6 @@ contract SpCoinDataTypes {
 
     // Recipiented Coins
     uint256 stakedSPCoins;
-
-
 
     address burnAddress = 0x0000000000000000000000000000000000000000;
     address[] public masterAccountList;
@@ -57,36 +56,7 @@ contract SpCoinDataTypes {
         mapping(string  => RewardsStruct) rewardsMap;
     }
 
-        /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
-
-    struct RewardsStruct {
-        uint256 totalSponsorRewards;
-        uint256 totalRecipientRewards;
-        uint256 totalAgentRewards;
-        uint256 totalStakingRewards; 
-        mapping(address => RewardAccountStruct) sponsorRewardsMap;   // contains Recipient Keys
-        mapping(address => RewardAccountStruct) recipientRewardsMap; // contains Sponsor Keys
-        mapping(address => RewardAccountStruct) agentRewardsMap;     // contains Recipient Keys
-    }
-
-    struct RewardAccountStruct {
-        uint256 stakingRewards;
-        uint256[] rewardRateList;
-        mapping(uint256 => RewardRateStruct) rewardRateMap;
-    }
-
-    struct RewardRateStruct {
-        uint256 rate;
-        uint256 stakingRewards;
-        RewardsTransactionStruct[] rewardTransactionList;
-    }
-
-    struct RewardsTransactionStruct {
-        uint256 updateTime;
-        uint256 stakingRewards;
-    }
-
-    /// STRUCTURE DESIGN SECTION SECTION ////////////////////////////////////////////////////////////////////
+     /// STRUCTURE DESIGN SECTION SECTION ////////////////////////////////////////////////////////////////////
     // Each Account has a map of Recipient and an array of recipientRate structures
     struct RecipientStruct {
         address sponsorKey;
@@ -145,7 +115,6 @@ contract SpCoinDataTypes {
 
     function getAccountType(uint _accountType) internal view returns (string memory strAccountType) {
         strAccountType = "";
-
         if (_accountType == SPONSOR)
             return "SPONSOR";
         else
@@ -156,7 +125,36 @@ contract SpCoinDataTypes {
             return "AGENT";
         return strAccountType; 
     }
- 
+
+           /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
+
+    struct RewardsStruct {
+        uint256 totalSponsorRewards;
+        uint256 totalRecipientRewards;
+        uint256 totalAgentRewards;
+        uint256 totalStakingRewards; 
+        mapping(address => RewardAccountStruct) sponsorRewardsMap;   // contains Recipient Keys
+        mapping(address => RewardAccountStruct) recipientRewardsMap; // contains Sponsor Keys
+        mapping(address => RewardAccountStruct) agentRewardsMap;     // contains Recipient Keys
+    }
+
+    struct RewardAccountStruct {
+        uint256 stakingRewards;
+        uint256[] rewardRateList;
+        mapping(uint256 => RewardRateStruct) rewardRateMap;
+    }
+
+    struct RewardRateStruct {
+        uint256 rate;
+        uint256 effectiveRate;
+        uint256 stakingRewards;
+        RewardsTransactionStruct[] rewardTransactionList;
+    }
+
+    struct RewardsTransactionStruct {
+        uint256 updateTime;
+        uint256 stakingRewards;
+    }
 }
 
 
