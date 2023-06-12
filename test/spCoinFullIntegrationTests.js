@@ -238,8 +238,8 @@ describe("spCoinContract", function () {
   console.log("\n\n*** AFTER CREATE ******************************************************************************************************\n\n");
   // console.log("********************************************************************************");
 
-  // let accountRecords = await spCoinReadMethods.getAccountRecords()
-  // spCoinLogger.logJSONTree(accountRecords);
+  let accountRecords = await spCoinReadMethods.getAccountRecords()
+  spCoinLogger.logJSONTree(accountRecords);
 
   // await spCoinERC20Methods.transfer(
   //    RECIPIENT_ACCOUNT_KEYS[12],
