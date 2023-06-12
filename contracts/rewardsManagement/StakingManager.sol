@@ -8,8 +8,7 @@ contract StakingManager is UnSubscribe{
     constructor(){
     }
 
-
-        function depositStakingRewards( uint _accountType, address _sourceKey, address _accountKey, uint _rate, uint _amount)
+    function depositStakingRewards( uint _accountType, address _sourceKey, address _accountKey, uint _rate, uint _amount)
         public returns ( uint ) {
         if (_accountType == SPONSOR) { 
             // _sourceKey = SPONSOR
@@ -35,11 +34,11 @@ contract StakingManager is UnSubscribe{
    function depositAccountStakingRewards(address _sourceKey, address _accountKey, uint _rate, uint _amount, uint _accountType)
         internal returns ( uint ) {
         require (_amount > 0, "AMOUNT BALANCE MUST BE LARGER THAN 0");
-        // console.log("SOL=>2.0 depositAgentStakingRewards("); 
-        // console.log("SOL=>2.1 _sourceKey = ", _sourceKey);
-        // console.log("SOL=>2.2 _accountKey  = ", _accountKey);
-        // console.log("SOL=>2.3 _rate      = ", _rate);
-        // console.log("SOL=>2.4 _amount    = ", _amount);
+        console.log("SOL=>2.0 depositAgentStakingRewards("); 
+        console.log("SOL=>2.1 _sourceKey = ", _sourceKey);
+        console.log("SOL=>2.2 _accountKey  = ", _accountKey);
+        console.log("SOL=>2.3 _rate      = ", _rate);
+        console.log("SOL=>2.4 _amount    = ", _amount);
         totalSupply += _amount;
 
         // console.log("SOL=>4 FETCHING account = accountMap[", _accountKey, "]");
@@ -79,9 +78,9 @@ contract StakingManager is UnSubscribe{
         // console.log("SOL=>2.7 rewardTransactionList[0].stakingRewards = ", rewardTransactionList[0].stakingRewards);
 
         // TESTING REMOVE LATER
-        // console.log("=========================================================================================================================");
-        // getRewardAccounts(_accountKey, AGENT);
-        // console.log("=========================================================================================================================");
+        console.log("=========================================================================================================================");
+        getRewardAccounts(_accountKey, AGENT);
+        console.log("=========================================================================================================================");
         //END TESTION
 
         return rewardAccountRecord.stakingRewards;

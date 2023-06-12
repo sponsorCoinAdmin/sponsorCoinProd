@@ -213,12 +213,12 @@ describe("spCoinContract", function () {
     "1.000000000000000008"
   );
 
-  await spCoinAddMethods.depositSponsorStakingRewards(
-    SPONSOR_ACCOUNT_KEYS[0],
-    RECIPIENT_ACCOUNT_KEYS[1], 
-    RECIPIENT_RATES[4],
-    999
-  );
+  // await spCoinAddMethods.depositSponsorStakingRewards(
+  //   SPONSOR_ACCOUNT_KEYS[0],
+  //   RECIPIENT_ACCOUNT_KEYS[1], 
+  //   RECIPIENT_RATES[4],
+  //   999
+  // );
 
   await spCoinAddMethods.depositRecipientStakingRewards(
     SPONSOR_ACCOUNT_KEYS[0],
@@ -238,8 +238,8 @@ describe("spCoinContract", function () {
   console.log("\n\n*** AFTER CREATE ******************************************************************************************************\n\n");
   // console.log("********************************************************************************");
 
-  let accountRecords = await spCoinReadMethods.getAccountRecords()
-  spCoinLogger.logJSONTree(accountRecords);
+  // let accountRecords = await spCoinReadMethods.getAccountRecords()
+  // spCoinLogger.logJSONTree(accountRecords);
 
   // await spCoinERC20Methods.transfer(
   //    RECIPIENT_ACCOUNT_KEYS[12],
