@@ -1,8 +1,11 @@
 const { SpCoinLogger } = require("./utils/logging");
 let spCoinLogger;
+const SPONSOR = 0;
+const RECIPIENT = 1;
+const AGENT = 2;
 class SpCoinAddMethods {
 
-  constructor(_spCoinContractDeployed) {
+constructor(_spCoinContractDeployed) {
     this.spCoinContractDeployed = _spCoinContractDeployed;
     spCoinLogger = new SpCoinLogger(_spCoinContractDeployed)
     this.setSigner(_spCoinContractDeployed.signer);
@@ -123,7 +126,6 @@ class SpCoinAddMethods {
     spCoinLogger.logExitFunction();
   };
 
-
   addAgentSponsorship = async (
     _sponsorSigner,
     _recipientKey,
@@ -169,15 +171,40 @@ class SpCoinAddMethods {
       _amount + ")"
     );
 
-    await this.spCoinContractDeployed.connect(this.signer).depositRecipientStakingRewards (
+    await this.spCoinContractDeployed.connect(this.signer).depositStakingRewards (
+      RECIPIENT,
       _sponsorAccount,
       _recipientAccount,
       _rate,
-      _amount);
+      _amount
+      );
 
     spCoinLogger.logExitFunction();
   };
-  
+    
+  depositSponsorStakingRewards = async (
+    _sponsorAccount, 
+    _recipientAccount,
+    _rate,
+    _amount) => {
+    spCoinLogger.logFunctionHeader(
+      "depositSponsorStakingRewards = async(" +
+      _sponsorAccount + ", " +
+      _recipientAccount + ", " +
+      _rate + ", " +
+      _amount + ")"
+    );
+
+    await this.spCoinContractDeployed.connect(this.signer).depositStakingRewards (
+      SPONSOR,
+      _sponsorAccount,
+      _recipientAccount,
+      _rate,
+      _amount
+      );
+    spCoinLogger.logExitFunction();
+  };
+    
   depositAgentStakingRewards = async (
     _recipientAccount,
     _agentAccount, 
@@ -191,11 +218,13 @@ class SpCoinAddMethods {
       _amount + ")"
     );
 
-    await this.spCoinContractDeployed.connect(this.signer).depositAgentStakingRewards (
+    await this.spCoinContractDeployed.connect(this.signer).depositStakingRewards (
+      AGENT,
       _recipientAccount,
       _agentAccount,
       _rate,
-      _amount);
+      _amount
+      );
 
     spCoinLogger.logExitFunction();
   };
