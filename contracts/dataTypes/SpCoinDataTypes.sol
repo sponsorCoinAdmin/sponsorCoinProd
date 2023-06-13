@@ -112,6 +112,20 @@ contract SpCoinDataTypes {
     }
 
    /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
+
+    function getAccountType(uint _accountType) internal view returns (string memory strAccountType) {
+        strAccountType = "";
+        if (_accountType == SPONSOR)
+            return "SPONSOR";
+        else
+        if (_accountType == RECIPIENT)
+            return "RECIPIENT";
+        else
+        if (_accountType == AGENT)
+            return "AGENT";
+        return strAccountType; 
+    }
+
            /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
 
     struct RewardsStruct {
@@ -141,33 +155,8 @@ contract SpCoinDataTypes {
         uint256 updateTime;
         uint256 stakingRewards;
     }
-
-    function getAccountTypeString(uint _accountType) internal view returns (string memory strAccountType) {
-        if (_accountType == SPONSOR)
-            return "SPONSOR";
-        else if (_accountType == RECIPIENT)
-            return "RECIPIENT";
-        else if (_accountType == AGENT)
-            return "AGENT";
-        return "UNKNOWN ACCOUNT TYPE"; 
-    }
-
-    function getRewardSourceType(uint _accountType) internal view returns (uint rewardSourceType) {
-        if (_accountType == SPONSOR)
-            return RECIPIENT;
-        else
-        if (_accountType == RECIPIENT)
-            return SPONSOR;
-        else
-        if (_accountType == AGENT)
-            return RECIPIENT;
-        return 99; 
-    }
-
-    // function getRewardSourceTypeString(uint _accountType) internal view returns (string memory rewardSourceTypeString) {
-    //     return getAccountTypeString(getRewardSourceType(_accountType)); 
-    // }
 }
+
 
     // Keep track of account insertions
     // Record relationship rules as Follows:

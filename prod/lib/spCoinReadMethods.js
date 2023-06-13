@@ -418,11 +418,11 @@ getAccountRateRecordList = ( rateRewardList ) => {
 
 getRewardType = (_accountType) => {
 
-  return getAccountTypeString(_accountType) + " REWARDS"; 
+  return getAccountType(_accountType) + " REWARDS"; 
 }
 
 
-getAccountTypeString = (_accountType) => {
+getAccountType = (_accountType) => {
   let strAccountType = "";
   if (_accountType == SPONSOR)
       return "SPONSOR";
