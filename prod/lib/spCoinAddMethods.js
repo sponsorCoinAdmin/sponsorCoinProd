@@ -154,10 +154,31 @@ constructor(_spCoinContractDeployed) {
       _agentRateKey,
       wholePart,
       fractionalPart);
-
     spCoinLogger.logExitFunction();
   };
 
+  depositSponsorStakingRewards = async (
+    _recipientAccount,
+    _sponsorAccount, 
+    _rate,
+    _amount) => {
+    console.log(
+      "depositSponsorStakingRewards = async(" +
+      _recipientAccount + ", " +
+      _sponsorAccount + ", " +
+      _rate + ", " +
+      _amount + ")"
+    );
+    await this.spCoinContractDeployed.connect(this.signer).depositStakingRewards (
+      SPONSOR,
+      _recipientAccount,
+      _sponsorAccount,
+      _rate,
+      _amount
+      );
+    spCoinLogger.logExitFunction();
+  };
+    
   depositRecipientStakingRewards = async (
     _sponsorAccount, 
     _recipientAccount,
@@ -170,33 +191,8 @@ constructor(_spCoinContractDeployed) {
       _rate + ", " +
       _amount + ")"
     );
-
     await this.spCoinContractDeployed.connect(this.signer).depositStakingRewards (
       RECIPIENT,
-      _sponsorAccount,
-      _recipientAccount,
-      _rate,
-      _amount
-      );
-
-    spCoinLogger.logExitFunction();
-  };
-    
-  depositSponsorStakingRewards = async (
-    _sponsorAccount, 
-    _recipientAccount,
-    _rate,
-    _amount) => {
-    spCoinLogger.logFunctionHeader(
-      "depositSponsorStakingRewards = async(" +
-      _sponsorAccount + ", " +
-      _recipientAccount + ", " +
-      _rate + ", " +
-      _amount + ")"
-    );
-
-    await this.spCoinContractDeployed.connect(this.signer).depositStakingRewards (
-      SPONSOR,
       _sponsorAccount,
       _recipientAccount,
       _rate,
@@ -217,7 +213,6 @@ constructor(_spCoinContractDeployed) {
       _rate + ", " +
       _amount + ")"
     );
-
     await this.spCoinContractDeployed.connect(this.signer).depositStakingRewards (
       AGENT,
       _recipientAccount,
