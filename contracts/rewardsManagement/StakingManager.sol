@@ -26,14 +26,12 @@ contract StakingManager is UnSubscribe{
             // _sourceKey = SPONSOR
             _rate = annualInflation;
             string memory errMsg = concat("RECIPIENT ACCOUNT ",  toString(_sourceKey), " NOT FOUND FOR SPONSOR ACCOUNT ",  toString(_depositKey));
-            require (recipientHasSponsor( _sourceKey, _depositKey ), errMsg);
-        }
-        if (_accountType == RECIPIENT) { 
+            require (sponsorHasRecipient( _sourceKey, _depositKey ), errMsg);
+        } else if (_accountType == RECIPIENT) { 
             // _sourceKey = SPONSOR
             string memory errMsg = concat("SPONSOR ACCOUNT ",  toString(_sourceKey), " NOT FOUND FOR RECIPIENT ACCOUNT ",  toString(_depositKey));
             require (recipientHasSponsor( _sourceKey, _depositKey ), errMsg);
-        }
-        else if (_accountType == AGENT) {
+        } else if (_accountType == AGENT) {
             // _sourceKey = AGENT
             string memory errMsg = concat("RECIPIENT ACCOUNT ",  toString(_sourceKey), " NOT FOUND FOR AGENT ACCOUNT ",  toString(_depositKey));
             require (agentHasRecipient( _sourceKey, _depositKey ), errMsg);
