@@ -8,45 +8,57 @@ contract StakingManager is UnSubscribe{
     constructor(){
     }
 
-    function depositStakingRewards( uint _accountType, address _sourceKey, address _accountKey, uint _rate, uint _amount)
+    // SPONSOR   ~ Deposit Sponsor Rewards means as a SPONSOR deposit rewards baser on my source(Recipient)
+    //             ~ _sourceKey  = RECIPIENT ADDRESS
+    //             ~ _depositKey = SPONSOR ADDRESS
+    // RECIPIENT ~ Deposit 
+    //             ~ _sourceKey  = SPONSOR ADDRESS
+    //             ~ _depositKey = RECIPIENT ADDRESS
+    // AGENT     ~ Deposit 
+    //             ~ _sourceKey  = RECIPIENT ADDRESS
+    //             ~ _depositKey = AGENT ADDRESS
+
+    function depositStakingRewards( uint _accountType, address _sourceKey, address _depositKey, uint _rate, uint _amount)
         public returns ( uint ) {
+                    console.log("SOL=>2.0 getAccountTypeString(_accountType)", getAccountTypeString(_accountType));
+
         if (_accountType == SPONSOR) { 
             // _sourceKey = SPONSOR
             _rate = annualInflation;
-            string memory errMsg = concat("RECIPIENT ACCOUNT ",  toString(_sourceKey), " NOT FOUND FOR SPONSOR ACCOUNT ",  toString(_accountKey));
-            require (recipientHasSponsor( _sourceKey, _accountKey ), errMsg);
+            string memory errMsg = concat("RECIPIENT ACCOUNT ",  toString(_sourceKey), " NOT FOUND FOR SPONSOR ACCOUNT ",  toString(_depositKey));
+            require (recipientHasSponsor( _sourceKey, _depositKey ), errMsg);
         }
         if (_accountType == RECIPIENT) { 
             // _sourceKey = SPONSOR
-            string memory errMsg = concat("SPONSOR ACCOUNT ",  toString(_sourceKey), " NOT FOUND FOR RECIPIENT ACCOUNT ",  toString(_accountKey));
-            require (recipientHasSponsor( _sourceKey, _accountKey ), errMsg);
+            string memory errMsg = concat("SPONSOR ACCOUNT ",  toString(_sourceKey), " NOT FOUND FOR RECIPIENT ACCOUNT ",  toString(_depositKey));
+            require (recipientHasSponsor( _sourceKey, _depositKey ), errMsg);
         }
         else if (_accountType == AGENT) {
             // _sourceKey = AGENT
-            string memory errMsg = concat("RECIPIENT ACCOUNT ",  toString(_sourceKey), " NOT FOUND FOR AGENT ACCOUNT ",  toString(_accountKey));
-            require (agentHasRecipient( _sourceKey, _accountKey ), errMsg);
+            string memory errMsg = concat("RECIPIENT ACCOUNT ",  toString(_sourceKey), " NOT FOUND FOR AGENT ACCOUNT ",  toString(_depositKey));
+            require (agentHasRecipient( _sourceKey, _depositKey ), errMsg);
         }       
-        return depositAccountStakingRewards( _sourceKey, _accountKey, _rate, _amount, _accountType );
+        return depositAccountStakingRewards( _accountType, _sourceKey, _depositKey, _rate, _amount );
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-   function depositAccountStakingRewards(address _sourceKey, address _accountKey, uint _rate, uint _amount, uint _accountType)
+    function depositAccountStakingRewards( uint _accountType, address _sourceKey, address _depositKey, uint _rate, uint _amount )
         internal returns ( uint ) {
         require (_amount > 0, "AMOUNT BALANCE MUST BE LARGER THAN 0");
         console.log("SOL=>2.0 getAccountTypeString(_accountType)", getAccountTypeString(_accountType));
         console.log("SOL=>2.1 depositAgentStakingRewards(");
         console.log("SOL=>2.2 _sourceKey  = ", _sourceKey);
-        console.log("SOL=>2.3 _accountKey = ", _accountKey);
+        console.log("SOL=>2.3 _depositKey = ", _depositKey);
         console.log("SOL=>2.4 _rate       = ", _rate);
         console.log("SOL=>2.5 _amount     = ", _amount);
         totalSupply += _amount;
 
-        console.log("SOL=>4 FETCHING account = accountMap[", _accountKey, "]");
-        AccountStruct storage account = accountMap[_accountKey];
-        console.log("account.recipientAccountList.length =", account.recipientAccountList.length);
+        console.log("SOL=>4 FETCHING depositAccount = accountMap[", _depositKey, "]");
+        AccountStruct storage depositAccount = accountMap[_depositKey];
+        console.log("depositAccount.recipientAccountList.length =", depositAccount.recipientAccountList.length);
 
-        RewardsStruct storage rewardsRecord = account.rewardsMap["ALL_REWARDS"];
+        RewardsStruct storage rewardsRecord = depositAccount.rewardsMap["ALL_REWARDS"];
         rewardsRecord.totalStakingRewards += _amount;
         rewardsRecord.totalAgentRewards += _amount;
         // mapping(address => RewardAccountStruct) storage agentRewardsMap = rewardsRecord.agentRewardsMap;
@@ -75,13 +87,13 @@ contract StakingManager is UnSubscribe{
         console.log("rewardRateRecord.stakingRewards = ", rewardRateRecord.stakingRewards);
         RewardsTransactionStruct[] storage rewardTransactionList = rewardRateRecord.rewardTransactionList;
         depositRewardTransaction( rewardTransactionList, _amount );
-        console.log("SOL=>2.7 rewardTransactionList[0].stakingRewards = ", rewardTransactionList[0].stakingRewards);
+        // console.log("SOL=>2.7 rewardTransactionList[0].stakingRewards = ", rewardTransactionList[0].stakingRewards);
 
         // TESTING REMOVE LATER
         console.log("===================================================================================================================");
         uint rewardSourceType = getRewardSourceType(_accountType);
         console.log("SOL=>2.8 rewardSourceType = ", getAccountTypeString(rewardSourceType));
-        getRewardAccounts(_accountKey, _accountType);
+        getRewardAccounts(_depositKey, _accountType);
         console.log("===================================================================================================================");
         //END TESTION
 
@@ -95,15 +107,19 @@ contract StakingManager is UnSubscribe{
         console.log("SOL=>17 getRewardAccounts(", _accountKey, ", ", getAccountTypeString(_rewardType));
         
         memoryRewards = "";
-        AccountStruct storage account = accountMap[_accountKey];
+        AccountStruct storage depositAccount = accountMap[_accountKey];
         address[] storage accountSearchList;
         string memory ACCOUNT_TYPE_DELIMITER = "";
-        if ( _rewardType == RECIPIENT ) {
-           accountSearchList = account.sponsorAccountList;
+        if ( _rewardType == SPONSOR ) {
+           accountSearchList = depositAccount.sponsorAccountList;
+           ACCOUNT_TYPE_DELIMITER = "RECIPIENT_ACCOUNT:";
+        }
+        else if ( _rewardType == RECIPIENT ) {
+           accountSearchList = depositAccount.sponsorAccountList;
            ACCOUNT_TYPE_DELIMITER = "SPONSOR_ACCOUNT:";
         }
         else if ( _rewardType == AGENT ) {
-            accountSearchList = account.agentsParentRecipientAccountList;
+            accountSearchList = depositAccount.agentsParentRecipientAccountList;
             ACCOUNT_TYPE_DELIMITER = "RECIPIENT_ACCOUNT:";
         }
         else return memoryRewards;
@@ -118,7 +134,7 @@ contract StakingManager is UnSubscribe{
 
             ///////////////// **** START REPLACE LATER **** ///////////////////////////
 
-            RewardsStruct storage rewardsRecord = account.rewardsMap["ALL_REWARDS"];
+            RewardsStruct storage rewardsRecord = depositAccount.rewardsMap["ALL_REWARDS"];
             RewardAccountStruct storage accountReward;
             if ( _rewardType == SPONSOR ) {
                 accountReward = rewardsRecord.sponsorRewardsMap[accountKey];
