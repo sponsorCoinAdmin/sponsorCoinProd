@@ -208,8 +208,8 @@ describe("spCoinContract", function () {
   
   
   await spCoinAddMethods.addSponsorship(
-    RECIPIENT_ACCOUNT_KEYS[1],  // SOURCE ACCOUNT
-    SPONSOR_ACCOUNT_SIGNERS[0], // DEPOSIT ACCOUNT
+    SPONSOR_ACCOUNT_SIGNERS[0],
+    RECIPIENT_ACCOUNT_KEYS[1],
     RECIPIENT_RATES[4],
     "1.000000000000000008"
   );
@@ -221,12 +221,12 @@ describe("spCoinContract", function () {
   //   999
   // );
 
-  // await spCoinAddMethods.depositRecipientStakingRewards(
-  //   SPONSOR_ACCOUNT_KEYS[0],    // SOURCE ACCOUNT
-  //   RECIPIENT_ACCOUNT_KEYS[1],  // DEPOSIT ACCOUNT
-  //   RECIPIENT_RATES[4],
-  //   333
-  // );
+  await spCoinAddMethods.depositRecipientStakingRewards(
+    SPONSOR_ACCOUNT_KEYS[0],    // SOURCE ACCOUNT
+    RECIPIENT_ACCOUNT_KEYS[1],  // DEPOSIT ACCOUNT
+    RECIPIENT_RATES[4],
+    333
+  );
 
   // await spCoinAddMethods.depositAgentStakingRewards(
   //   RECIPIENT_ACCOUNT_KEYS[1],
