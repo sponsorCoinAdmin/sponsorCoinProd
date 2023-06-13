@@ -8,7 +8,7 @@ contract RewardsManager is StakingManager{
     }
 
     function updateRewards( address _sourceKey , uint _accountType )
-        public returns (uint) {
+        public view {
         AccountStruct storage account = accountMap[_sourceKey];
         RewardsStruct storage rewardsRecord = account.rewardsMap["ALL_REWARDS"];
         RewardAccountStruct storage rewardAccountRecord;
@@ -48,7 +48,7 @@ contract RewardsManager is StakingManager{
     function updateRewardRecords( RewardAccountStruct storage rewardAccountRecord )
         internal view returns (uint  rewards) {
 
-        uint256 stakingRewards = rewardAccountRecord.stakingRewards;
+        // uint256 stakingRewards = rewardAccountRecord.stakingRewards;
         uint256[] storage rewardRateList  = rewardAccountRecord.rewardRateList;
         // mapping(uint256 => RewardRateStruct) storagerewardRateMap;
 
