@@ -29,37 +29,50 @@ contract Account is StructSerialization {
             return accountMap[account];
     }
 
-    function agentHasRecipient(address _recipientAccount, address _agentAccount )
+    function sponsorHasRecipient(address _recipientAccount, address _sponsorAccount )
         internal view returns ( bool ) {
-            bool agentFound = false;
-            AccountStruct storage recipientAccount = accountMap[_recipientAccount];
+        AccountStruct storage recipientAccount = accountMap[_recipientAccount];
+        address[] storage sponsorAccountList = recipientAccount.sponsorAccountList;
 
-            address[] storage agentAccountList = recipientAccount.agentAccountList;
-
-            // console.log("recipientAccount.accountKey =", recipientAccount.accountKey); 
-            // console.log("agentAccountList.length     =", agentAccountList.length); 
-
-            for (uint idx = 0; idx < agentAccountList.length; idx++) {
-            if ( _agentAccount == agentAccountList[idx] )
-                agentFound = true;
-            }
-            return agentFound;
-        }
+        // for (uint idx = 0; idx < sponsorAccountList.length; idx++) {
+        //     if ( _sponsorAccount == sponsorAccountList[idx] )
+        //         sponsorFound = true;
+        //     }
+        return accountInList( _sponsorAccount, sponsorAccountList );
+    }
 
     function recipientHasSponsor(address _sponsorAccount, address _recipientAccount )
         internal view returns ( bool ) {
-            bool sponsorFound = false;
-            AccountStruct storage recipientAccount = accountMap[_recipientAccount];
+        AccountStruct storage recipientAccount = accountMap[_recipientAccount];
+        address[] storage sponsorAccountList = recipientAccount.sponsorAccountList;
+        // for (uint idx = 0; idx < sponsorAccountList.length; idx++) {
+        // if ( _sponsorAccount == sponsorAccountList[idx] )
+        //     sponsorFound = true;
+        // }
+        return accountInList( _sponsorAccount, sponsorAccountList );
+    }
 
-            address[] storage sponsorAccountList = recipientAccount.sponsorAccountList;
-
-            for (uint idx = 0; idx < sponsorAccountList.length; idx++) {
-            if ( _sponsorAccount == sponsorAccountList[idx] )
-                sponsorFound = true;
-            }
-            return sponsorFound;
+    function agentHasRecipient(address _recipientAccount, address _agentAccount )
+        internal view returns ( bool ) {
+        AccountStruct storage recipientAccount = accountMap[_recipientAccount];
+        address[] storage agentAccountList = recipientAccount.agentAccountList;
+        // for (uint idx = 0; idx < agentAccountList.length; idx++) {
+        // if ( _agentAccount == agentAccountList[idx] )
+        //     agentFound = true;
+        // }
+        return accountInList( _agentAccount, agentAccountList );
         }
 
+    function accountInList(address _sourceAccount, address[] storage searchList )
+        internal view returns ( bool ) {
+        bool sponsorFound = false;
+
+        for (uint idx = 0; idx < searchList.length; idx++) {
+        if ( _sourceAccount == searchList[idx] )
+            sponsorFound = true;
+        }
+        return sponsorFound;
+    }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     /// @notice determines if address Record is inserted in accountKey array
