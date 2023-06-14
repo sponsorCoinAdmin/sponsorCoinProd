@@ -221,12 +221,12 @@ describe("spCoinContract", function () {
   //   999
   // );
 
-  // await spCoinAddMethods.depositRecipientStakingRewards(
-  //   SPONSOR_ACCOUNT_KEYS[0],    // SOURCE ACCOUNT
-  //   RECIPIENT_ACCOUNT_KEYS[1],  // DEPOSIT ACCOUNT
-  //   RECIPIENT_RATES[4],
-  //   333
-  // );
+  await spCoinAddMethods.depositRecipientStakingRewards(
+    SPONSOR_ACCOUNT_KEYS[0],    // SOURCE ACCOUNT
+    RECIPIENT_ACCOUNT_KEYS[1],  // DEPOSIT ACCOUNT
+    RECIPIENT_RATES[4],
+    333
+  );
 
   await spCoinAddMethods.depositAgentStakingRewards(
     RECIPIENT_ACCOUNT_KEYS[1],
