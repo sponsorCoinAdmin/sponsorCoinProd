@@ -162,7 +162,7 @@ constructor(_spCoinContractDeployed) {
     _sponsorAccount, 
     _rate,
     _amount) => {
-    console.log(
+      spCoinLogger.logFunctionHeader(
       "depositSponsorStakingRewards = async(" +
       _recipientAccount + ", " +
       _sponsorAccount + ", " +

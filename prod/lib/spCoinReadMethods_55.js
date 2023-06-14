@@ -96,8 +96,8 @@ class SpCoinReadMethods {
   }
 
   getRewardTypeRecord = async (_accountKey, _rewardType, _reward) => {
-    console.log ("===================================================================================================");
-    console.log("JS==>6 getRewardTransactionsByAccountList = async(", _accountKey, ", ", getRewardType(_rewardType),")");
+    // console.log ("===================================================================================================");
+    // console.log("JS==>6 getRewardTransactionsByAccountList = async(", _accountKey, ", ", getRewardType(_rewardType),")");
     let rewardTypeRecord = new RewardTypeStruct();
     rewardTypeRecord.TYPE = getRewardType(_rewardType);
     rewardTypeRecord.stakingRewards = bigIntToDecString(_reward);
@@ -114,16 +114,16 @@ class SpCoinReadMethods {
     else
       rewardAccountList = [];
 
-    console.log ("JS==>6.1 rewardsStr = ", spCoinLogger.getJSON(rewardsStr));
-    console.log ("JS==>6.2 rewardAccountList(" + getRewardType(_rewardType) + ").length = ", rewardAccountList.length);
-    console.log ("JS==>6.3 rewardAccountList(" + getRewardType(_rewardType) + ") = ", rewardAccountList);
+    // console.log ("JS==>6.1 rewardsStr = ", spCoinLogger.getJSON(rewardsStr));
+    // console.log ("JS==>6.2 rewardAccountList(" + getRewardType(_rewardType) + ").length = ", rewardAccountList.length);
+    // console.log ("JS==>6.3 rewardAccountList(" + getRewardType(_rewardType) + ") = ", rewardAccountList);
     spCoinLogger.logExitFunction();
-    console.log ("===================================================================================================");
+    // console.log ("===================================================================================================");
     return rewardTypeRecord;
   }
 
   getAccountRewardTransactionList = (_rewardAccountList) => {
-    console.log("JS==>5 getAccountRewardTransactionList = (_rewardAccountList = ", _rewardAccountList,")");
+    // console.log("JS==>5 getAccountRewardTransactionList = (_rewardAccountList = ", _rewardAccountList,")");
 
     let rewardTransactionsByAccountList = [];
     for (var idx = _rewardAccountList.length - 1; idx >= 1; idx--) {

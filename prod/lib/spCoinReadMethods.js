@@ -79,8 +79,8 @@ class SpCoinReadMethods {
   }
 
   getAccountStakingRewards = async (_accountKey) => {
-    console.log ("JS==>1 ===================================================================================================");
-    console.log("JS==>1.1 getAccountStakingRewards = async(", spCoinLogger.getJSON(_accountKey),")");
+    // console.log ("JS==>1 ===================================================================================================");
+    // console.log("JS==>1.1 getAccountStakingRewards = async(", spCoinLogger.getJSON(_accountKey),")");
     let rewardsRecord = new RewardsStruct();
 
     let accountRewardsStr = await this.spCoinContractDeployed.connect(this.signer).getSerializedAccountRewards(_accountKey);
@@ -91,15 +91,15 @@ class SpCoinReadMethods {
     rewardsRecord.recipientRewardsList = await this.getRewardTypeRecord(_accountKey, RECIPIENT, accountRewardList[1]);
     rewardsRecord.agentRewardsList     = await this.getRewardTypeRecord(_accountKey, AGENT, accountRewardList[2]);
 
-    console.log("JS==>1.2 rewardsRecord.agentRewardsList(", _accountKey, ", SPONSOR) =", spCoinLogger.getJSON(rewardsRecord));
+    // console.log("JS==>1.2 rewardsRecord.agentRewardsList(", _accountKey, ", SPONSOR) =", spCoinLogger.getJSON(rewardsRecord));
     spCoinLogger.logExitFunction();
-    console.log ("===================================================================================================\n\n");
+    // console.log ("===================================================================================================\n\n");
 
     return rewardsRecord;
   }
 
   getRewardTypeRecord = async (_accountKey, _rewardType, _reward) => {
-    console.log("JS==>6 getRewardTransactionsByAccountList = async(", _accountKey, ", ", getRewardType(_rewardType),")");
+    // console.log("JS==>6 getRewardTransactionsByAccountList = async(", _accountKey, ", ", getRewardType(_rewardType),")");
     let rewardTypeRecord = new RewardTypeStruct();
     rewardTypeRecord.TYPE = getRewardType(_rewardType);
     rewardTypeRecord.stakingRewards = bigIntToDecString(_reward);
@@ -108,26 +108,26 @@ class SpCoinReadMethods {
     let rewardsStr = "";
 
     rewardsStr = await this.spCoinContractDeployed.connect(this.signer).getRewardAccounts(_accountKey, _rewardType);
-    console.log ("JS==>6.1 rewardsStr.length = ", rewardsStr.length);
+    // console.log ("JS==>6.1 rewardsStr.length = ", rewardsStr.length);
 
-    console.log ("JS==>6.2 rewardsStr = ", rewardsStr);
+    // console.log ("JS==>6.2 rewardsStr = ", rewardsStr);
     if (rewardsStr.length > 0) {
-      console.log ("JS==>6.3 getSourceTypeDelimiter(_rewardType) = ", getSourceTypeDelimiter(_rewardType));
+      // console.log ("JS==>6.3 getSourceTypeDelimiter(_rewardType) = ", getSourceTypeDelimiter(_rewardType));
       rewardAccountList = rewardsStr.split(getSourceTypeDelimiter(_rewardType));
       rewardTypeRecord.rewardAccountList =  this.getAccountRewardTransactionList(rewardAccountList);
     }
     else
       rewardAccountList = [];
 
-    console.log ("JS==>6.4 rewardsStr = ", spCoinLogger.getJSON(rewardsStr));
-    console.log ("JS==>6.5 rewardAccountList(" + getRewardType(_rewardType) + ").length = ", rewardAccountList.length);
-    console.log ("JS==>6.6 rewardAccountList(" + getRewardType(_rewardType) + ") = ", rewardAccountList);
+    // console.log ("JS==>6.4 rewardsStr = ", spCoinLogger.getJSON(rewardsStr));
+    // console.log ("JS==>6.5 rewardAccountList(" + getRewardType(_rewardType) + ").length = ", rewardAccountList.length);
+    // console.log ("JS==>6.6 rewardAccountList(" + getRewardType(_rewardType) + ") = ", rewardAccountList);
     spCoinLogger.logExitFunction();
     return rewardTypeRecord;
   }
 
   getAccountRewardTransactionList = (_rewardAccountList) => {
-    console.log("JS==>5 getAccountRewardTransactionList = (_rewardAccountList = ", _rewardAccountList,")");
+    // console.log("JS==>5 getAccountRewardTransactionList = (_rewardAccountList = ", _rewardAccountList,")");
 
     let rewardTransactionsByAccountList = [];
     for (var idx = _rewardAccountList.length - 1; idx >= 1; idx--) {

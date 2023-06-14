@@ -67,7 +67,7 @@ testStakingRewards
   }
 
   getMillenniumTimeIntervalDivisor = async(_timeInSeconds) => {
-      console.log("QQQQ getMillenniumTimeIntervalDivisor("+ _timeInSeconds + ")"); 
+      // console.log("getMillenniumTimeIntervalDivisor("+ _timeInSeconds + ")"); 
       let annualizedPercentage = await spCoinContractDeployed.connect(this.signer).getMillenniumTimeIntervalDivisor(_timeInSeconds);
 
     // return annualizedPercentage;
