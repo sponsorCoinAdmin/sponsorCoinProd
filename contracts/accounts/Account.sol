@@ -41,17 +41,6 @@ contract Account is StructSerialization {
         return accountInList( _sponsorAccount, sponsorAccountList );
     }
 
-    function agentHasRecipient(address _recipientAccount, address _agentAccount )
-        internal view returns ( bool ) {
-        AccountStruct storage recipientAccount = accountMap[_recipientAccount];
-        address[] storage agentAccountList = recipientAccount.agentAccountList;
-        // for (uint idx = 0; idx < agentAccountList.length; idx++) {
-        // if ( _agentAccount == agentAccountList[idx] )
-        //     agentFound = true;
-        // }
-        return accountInList( _agentAccount, agentAccountList );
-        }
-
     function recipientHasSponsor(address _sponsorAccount, address _recipientAccount )
         internal view returns ( bool ) {
         AccountStruct storage recipientAccount = accountMap[_recipientAccount];
@@ -62,6 +51,17 @@ contract Account is StructSerialization {
         // }
         return accountInList( _sponsorAccount, sponsorAccountList );
     }
+
+    function agentHasRecipient(address _recipientAccount, address _agentAccount )
+        internal view returns ( bool ) {
+        AccountStruct storage recipientAccount = accountMap[_recipientAccount];
+        address[] storage agentAccountList = recipientAccount.agentAccountList;
+        // for (uint idx = 0; idx < agentAccountList.length; idx++) {
+        // if ( _agentAccount == agentAccountList[idx] )
+        //     agentFound = true;
+        // }
+        return accountInList( _agentAccount, agentAccountList );
+        }
 
     function accountInList(address _sourceAccount, address[] storage searchList )
         internal view returns ( bool ) {
