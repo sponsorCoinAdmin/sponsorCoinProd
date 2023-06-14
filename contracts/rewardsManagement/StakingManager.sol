@@ -20,7 +20,7 @@ contract StakingManager is UnSubscribe{
 
     function depositStakingRewards( uint _accountType, address _sourceKey, address _depositKey, uint _rate, uint _amount)
         public returns ( uint ) {
-                    console.log("SOL=>2.0 getAccountTypeString(_accountType)", getAccountTypeString(_accountType));
+                    console.log("SOL=>1.0 getAccountTypeString(_accountType)", getAccountTypeString(_accountType));
 
         if (_accountType == SPONSOR) { 
             // _sourceKey = SPONSOR
@@ -44,7 +44,7 @@ contract StakingManager is UnSubscribe{
     function depositAccountStakingRewards( uint _accountType, address _sourceKey, address _depositKey, uint _rate, uint _amount )
         internal returns ( uint ) {
         require (_amount > 0, "AMOUNT BALANCE MUST BE LARGER THAN 0");
-        console.log("SOL=>2.0 getAccountTypeString(_accountType)", getAccountTypeString(_accountType));
+        console.log("SOL=>2.0 depositAccountStakingRewards(_accountType)", getAccountTypeString(_accountType));
         console.log("SOL=>2.1 depositAgentStakingRewards(");
         console.log("SOL=>2.2 _sourceKey  = ", _sourceKey);
         console.log("SOL=>2.3 _depositKey = ", _depositKey);
@@ -109,7 +109,7 @@ contract StakingManager is UnSubscribe{
         address[] storage accountSearchList;
         string memory ACCOUNT_TYPE_DELIMITER = "";
         if ( _rewardType == SPONSOR ) {
-           accountSearchList = depositAccount.sponsorAccountList;
+           accountSearchList = depositAccount.recipientAccountList;
            ACCOUNT_TYPE_DELIMITER = "RECIPIENT_ACCOUNT:";
         }
         else if ( _rewardType == RECIPIENT ) {
