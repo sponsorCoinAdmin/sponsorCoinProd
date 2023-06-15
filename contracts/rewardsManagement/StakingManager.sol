@@ -57,7 +57,8 @@ contract StakingManager is UnSubscribe{
         console.log("depositAccount.recipientAccountList.length =", depositAccount.recipientAccountList.length);
 
         RewardsStruct storage rewardsRecord = depositAccount.rewardsMap["ALL_REWARDS"];
-        rewardsRecord.totalStakingRewards += _amount;
+        depositAccount.totalStakingRewards += _amount;
+        // rewardsRecord.totalStakingRewards += _amount;
         // mapping(address => RewardAccountStruct) storage agentRewardsMap = rewardsRecord.agentRewardsMap;
 
         RewardAccountStruct storage rewardAccountRecord;
@@ -72,10 +73,9 @@ contract StakingManager is UnSubscribe{
         rewardsRecord.totalAgentRewards += _amount;
             rewardAccountRecord = rewardsRecord.agentRewardsMap[_sourceKey];
         }
-        console.log("SOL=>2.6 rewardsRecord.totalStakingRewards   = ", rewardsRecord.totalStakingRewards);
-        console.log("SOL=>2.7 rewardsRecord.totalSponsorRewards   = ", rewardsRecord.totalSponsorRewards);
-        console.log("SOL=>2.8 rewardsRecord.totalRecipientRewards = ", rewardsRecord.totalRecipientRewards);
-        console.log("SOL=>2.9 rewardsRecord.totalAgentRewards     = ", rewardsRecord.totalAgentRewards);
+        console.log("SOL=>2.6 rewardsRecord.totalSponsorRewards   = ", rewardsRecord.totalSponsorRewards);
+        console.log("SOL=>2.7 rewardsRecord.totalRecipientRewards = ", rewardsRecord.totalRecipientRewards);
+        console.log("SOL=>2.8 rewardsRecord.totalAgentRewards     = ", rewardsRecord.totalAgentRewards);
 
         rewardAccountRecord.stakingRewards += _amount;
 
@@ -85,10 +85,10 @@ contract StakingManager is UnSubscribe{
             rewardRateList.push(_rate);
             rewardRateRecord.rate = _rate;
         }
-        // console.log("SOL=>2.10 rewardRateList.length = ",rewardRateList.length);
-        // console.log("SOL=>2.11 rewardRateRecord.rate = ",rewardRateRecord.rate);
+        // console.log("SOL=>2.9 rewardRateList.length = ",rewardRateList.length);
+        // console.log("SOL=>2.10 rewardRateRecord.rate = ",rewardRateRecord.rate);
         rewardRateRecord.stakingRewards += _amount;
-        console.log("rewardRateRecord.stakingRewards = ", rewardRateRecord.stakingRewards);
+        console.log("SOL=>2.11 rewardRateRecord.stakingRewards = ", rewardRateRecord.stakingRewards);
         RewardsTransactionStruct[] storage rewardTransactionList = rewardRateRecord.rewardTransactionList;
         depositRewardTransaction( rewardTransactionList, _amount );
         // console.log("SOL=>2.12 rewardTransactionList[0].stakingRewards = ", rewardTransactionList[0].stakingRewards);

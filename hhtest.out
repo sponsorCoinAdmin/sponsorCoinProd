@@ -1,0 +1,349 @@
+Compiled 13 Solidity files successfully
+ ·------------------------|---------------------------|----------------·
+ |  Solc version: 0.8.18  ·  Optimizer enabled: true  ·  Runs: 2000    │
+ ·························|···························|·················
+ |  Contract Name         ·  Size (KiB)               ·  Change (KiB)  │
+ ·························|···························|·················
+ |  SPCoin                ·                   22.479  ·         0.000  │
+ ·------------------------|---------------------------|----------------·
+
+
+  spCoinContract
+SOL=>2.0 depositAccountStakingRewards(_accountType) SPONSOR
+SOL=>2.1 depositAgentStakingRewards(
+SOL=>2.2 _sourceKey  =  0x70997970c51812dc3a010c7d01b50e0d17dc79c8
+SOL=>2.3 _depositKey =  0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+SOL=>2.4 _rate       =  10
+SOL=>2.5 _amount     =  999
+SOL=>4 FETCHING depositAccount = accountMap[ 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266 ]
+depositAccount.recipientAccountList.length = 1
+SOL=>2.6 rewardsRecord.totalSponsorRewards   =  999
+SOL=>2.7 rewardsRecord.totalRecipientRewards =  0
+SOL=>2.8 rewardsRecord.totalAgentRewards     =  0
+SOL=>2.11 rewardRateRecord.stakingRewards =  999
+SOL=>2.0 depositAccountStakingRewards(_accountType) SPONSOR
+SOL=>2.1 depositAgentStakingRewards(
+SOL=>2.2 _sourceKey  =  0x70997970c51812dc3a010c7d01b50e0d17dc79c8
+SOL=>2.3 _depositKey =  0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+SOL=>2.4 _rate       =  10
+SOL=>2.5 _amount     =  777
+SOL=>4 FETCHING depositAccount = accountMap[ 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266 ]
+depositAccount.recipientAccountList.length = 1
+SOL=>2.6 rewardsRecord.totalSponsorRewards   =  1776
+SOL=>2.7 rewardsRecord.totalRecipientRewards =  0
+SOL=>2.8 rewardsRecord.totalAgentRewards     =  0
+SOL=>2.11 rewardRateRecord.stakingRewards =  1776
+SOL=>2.0 depositAccountStakingRewards(_accountType) SPONSOR
+SOL=>2.1 depositAgentStakingRewards(
+SOL=>2.2 _sourceKey  =  0x70997970c51812dc3a010c7d01b50e0d17dc79c8
+SOL=>2.3 _depositKey =  0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+SOL=>2.4 _rate       =  10
+SOL=>2.5 _amount     =  999
+SOL=>4 FETCHING depositAccount = accountMap[ 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266 ]
+depositAccount.recipientAccountList.length = 1
+SOL=>2.6 rewardsRecord.totalSponsorRewards   =  2775
+SOL=>2.7 rewardsRecord.totalRecipientRewards =  0
+SOL=>2.8 rewardsRecord.totalAgentRewards     =  0
+SOL=>2.11 rewardRateRecord.stakingRewards =  2775
+SOL=>2.0 depositAccountStakingRewards(_accountType) RECIPIENT
+SOL=>2.1 depositAgentStakingRewards(
+SOL=>2.2 _sourceKey  =  0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+SOL=>2.3 _depositKey =  0x70997970c51812dc3a010c7d01b50e0d17dc79c8
+SOL=>2.4 _rate       =  4
+SOL=>2.5 _amount     =  333
+SOL=>4 FETCHING depositAccount = accountMap[ 0x70997970c51812dc3a010c7d01b50e0d17dc79c8 ]
+depositAccount.recipientAccountList.length = 0
+SOL=>2.6 rewardsRecord.totalSponsorRewards   =  0
+SOL=>2.7 rewardsRecord.totalRecipientRewards =  333
+SOL=>2.8 rewardsRecord.totalAgentRewards     =  0
+SOL=>2.11 rewardRateRecord.stakingRewards =  333
+SOL=>2.0 depositAccountStakingRewards(_accountType) AGENT
+SOL=>2.1 depositAgentStakingRewards(
+SOL=>2.2 _sourceKey  =  0x70997970c51812dc3a010c7d01b50e0d17dc79c8
+SOL=>2.3 _depositKey =  0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc
+SOL=>2.4 _rate       =  4
+SOL=>2.5 _amount     =  444
+SOL=>4 FETCHING depositAccount = accountMap[ 0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc ]
+depositAccount.recipientAccountList.length = 0
+SOL=>2.6 rewardsRecord.totalSponsorRewards   =  0
+SOL=>2.7 rewardsRecord.totalRecipientRewards =  0
+SOL=>2.8 rewardsRecord.totalAgentRewards     =  444
+SOL=>2.11 rewardRateRecord.stakingRewards =  444
+
+
+*** AFTER CREATE ******************************************************************************************************
+
+
+addAccountField = (accountKey,0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266)
+addAccountField = (creationTime,0x00000000000000000000000000000000000000000000000000000000648b926a)
+addAccountField = (verified,false)
+addAccountField = (balanceOf,0x0000000000000000000000000000000000000000033b2e3c91efc989409bfff8)
+addAccountField = (decimals,0x0000000000000000000000000000000000000000000000000000000000000012)
+addAccountField = (stakedSPCoins,0x0000000000000000000000000000000000000000000000000de0b6b3a7640008)
+addAccountField = (sponsorAccountList,)
+addAccountField = (recipientAccountList,0x70997970c51812dc3a010c7d01b50e0d17dc79c8)
+addAccountField = (agentAccountList,)
+addAccountField = (agentsParentRecipientAccountList,)
+addAccountField = (totalStakingRewards,0x0000000000000000000000000000000000000000000000000000000000000ad7)
+==============================================================================================
+SOL=>0 serializeAccount( 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266 )
+SOL=>0 toString(rewards.totalSponsorRewards) 0x0000000000000000000000000000000000000000000000000000000000000ad7
+SOL=>1 toString(rewards.totalRecipientRewards) 0x0000000000000000000000000000000000000000000000000000000000000000
+SOL=>2 toString(rewards.totalAgentRewards) 0x0000000000000000000000000000000000000000000000000000000000000000
+JS==>1.2 accountRewardList( 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 ) = [
+  "0x0000000000000000000000000000000000000000000000000000000000000ad7",
+  "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "0x0000000000000000000000000000000000000000000000000000000000000000"
+]
+JS==>1.3 rewardsRecord.agentRewardsList( 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 , SPONSOR) = {
+  "TYPE": "--REWARDS STRUCTURE--",
+  "sponsorRewardsList": {
+    "TYPE": "SPONSOR REWARDS",
+    "stakingRewards": "2775",
+    "rewardAccountList": [
+      {
+        "TYPE": "--REWARD ACCOUNT--",
+        "sourceKey": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+        "stakingRewards": "2775",
+        "rateList": [
+          {
+            "TYPE": "--REWARD RATE--",
+            "rate": "10",
+            "stakingRewards": "2775",
+            "rewardTransactionList": [
+              {
+                "TYPE": "--REWARD TRANSACTION--",
+                "updateTime": "June 15, 2023 at 06:36:30 PM EDT",
+                "stakingRewards": "999"
+              },
+              {
+                "TYPE": "--REWARD TRANSACTION--",
+                "updateTime": "June 15, 2023 at 06:36:28 PM EDT",
+                "stakingRewards": "777"
+              },
+              {
+                "TYPE": "--REWARD TRANSACTION--",
+                "updateTime": "June 15, 2023 at 06:36:27 PM EDT",
+                "stakingRewards": "999"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
+addAccountField = (accountKey,0x70997970c51812dc3a010c7d01b50e0d17dc79c8)
+addAccountField = (creationTime,0x00000000000000000000000000000000000000000000000000000000648b926a)
+addAccountField = (verified,false)
+addAccountField = (balanceOf,0x0000000000000000000000000000000000000000000000000000000000000000)
+addAccountField = (decimals,0x0000000000000000000000000000000000000000000000000000000000000012)
+addAccountField = (stakedSPCoins,0x0000000000000000000000000000000000000000000000000000000000000000)
+addAccountField = (sponsorAccountList,0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266)
+addAccountField = (recipientAccountList,)
+addAccountField = (agentAccountList,0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc)
+addAccountField = (agentsParentRecipientAccountList,)
+addAccountField = (totalStakingRewards,0x000000000000000000000000000000000000000000000000000000000000014d)
+==============================================================================================
+SOL=>0 serializeAccount( 0x70997970c51812dc3a010c7d01b50e0d17dc79c8 )
+SOL=>0 toString(rewards.totalSponsorRewards) 0x0000000000000000000000000000000000000000000000000000000000000000
+SOL=>1 toString(rewards.totalRecipientRewards) 0x000000000000000000000000000000000000000000000000000000000000014d
+SOL=>2 toString(rewards.totalAgentRewards) 0x0000000000000000000000000000000000000000000000000000000000000000
+JS==>1.2 accountRewardList( 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 ) = [
+  "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "0x000000000000000000000000000000000000000000000000000000000000014d",
+  "0x0000000000000000000000000000000000000000000000000000000000000000"
+]
+JS==>1.3 rewardsRecord.agentRewardsList( 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 , SPONSOR) = {
+  "TYPE": "--REWARDS STRUCTURE--",
+  "sponsorRewardsList": {
+    "TYPE": "SPONSOR REWARDS",
+    "stakingRewards": "0"
+  }
+}
+addAccountField = (accountKey,0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc)
+addAccountField = (creationTime,0x00000000000000000000000000000000000000000000000000000000648b926a)
+addAccountField = (verified,false)
+addAccountField = (balanceOf,0x0000000000000000000000000000000000000000000000000000000000000000)
+addAccountField = (decimals,0x0000000000000000000000000000000000000000000000000000000000000012)
+addAccountField = (stakedSPCoins,0x0000000000000000000000000000000000000000000000000000000000000000)
+addAccountField = (sponsorAccountList,)
+addAccountField = (recipientAccountList,)
+addAccountField = (agentAccountList,)
+addAccountField = (agentsParentRecipientAccountList,0x70997970c51812dc3a010c7d01b50e0d17dc79c8)
+addAccountField = (totalStakingRewards,0x00000000000000000000000000000000000000000000000000000000000001bc)
+==============================================================================================
+SOL=>0 serializeAccount( 0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc )
+SOL=>0 toString(rewards.totalSponsorRewards) 0x0000000000000000000000000000000000000000000000000000000000000000
+SOL=>1 toString(rewards.totalRecipientRewards) 0x0000000000000000000000000000000000000000000000000000000000000000
+SOL=>2 toString(rewards.totalAgentRewards) 0x00000000000000000000000000000000000000000000000000000000000001bc
+JS==>1.2 accountRewardList( 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC ) = [
+  "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "0x00000000000000000000000000000000000000000000000000000000000001bc"
+]
+JS==>1.3 rewardsRecord.agentRewardsList( 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC , SPONSOR) = {
+  "TYPE": "--REWARDS STRUCTURE--",
+  "sponsorRewardsList": {
+    "TYPE": "SPONSOR REWARDS",
+    "stakingRewards": "0"
+  }
+}
+
+DUMP JSON OBJECT
+[
+  {
+    "TYPE": "--ACCOUNT--",
+    "accountKey": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "creationTime": "June 15, 2023 at 06:36:26 PM EDT",
+    "location": "America/Toronto",
+    "verified": "false",
+    "balanceOf": "999999998999999999999999992",
+    "decimals": "18",
+    "stakedSPCoins": "1000000000000000008",
+    "sponsorAccountList": [],
+    "recipientAccountList": [
+      "0x70997970c51812dc3a010c7d01b50e0d17dc79c8"
+    ],
+    "agentAccountList": [],
+    "agentsParentRecipientAccountList": [],
+    "totalStakingRewards": "2775",
+    "recipientRecordList": [
+      {
+        "TYPE": "--RECIPIENT_RECORD--",
+        "recipientKey": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+        "creationTime": "June 15, 2023 at 06:36:26 PM EDT",
+        "stakedSPCoins": "1000000000000000008",
+        "recipientRateList": [
+          {
+            "TYPE": "--RECIPIENT_RATE--",
+            "recipientRate": 5,
+            "creationTime": "June 15, 2023 at 06:36:26 PM EDT",
+            "lastUpdateTime": "June 15, 2023 at 06:36:26 PM EDT",
+            "stakedSPCoins": "1000000000000000008",
+            "transactions": [],
+            "agentRecordList": [
+              {
+                "TYPE": "--AGENT_RECORD--",
+                "agentKey": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+                "stakedSPCoins": "1000000000000000008",
+                "agentRateList": [
+                  {
+                    "TYPE": "--AGENT_RATE--",
+                    "agentRate": 9,
+                    "creationTime": "June 15, 2023 at 06:36:26 PM EDT",
+                    "lastUpdateTime": "June 15, 2023 at 06:36:26 PM EDT",
+                    "stakedSPCoins": "1000000000000000008",
+                    "transactions": [
+                      {
+                        "TYPE": "--STAKING TRANSACTION RECORD--",
+                        "location": "America/Toronto",
+                        "insertionTime": "June 15, 2023 at 06:36:26 PM EDT",
+                        "quantity": "1000000000000000008"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "stakingRewardList": {
+      "TYPE": "--REWARDS STRUCTURE--",
+      "sponsorRewardsList": {
+        "TYPE": "SPONSOR REWARDS",
+        "stakingRewards": "2775",
+        "rewardAccountList": [
+          {
+            "TYPE": "--REWARD ACCOUNT--",
+            "sourceKey": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+            "stakingRewards": "2775",
+            "rateList": [
+              {
+                "TYPE": "--REWARD RATE--",
+                "rate": "10",
+                "stakingRewards": "2775",
+                "rewardTransactionList": [
+                  {
+                    "TYPE": "--REWARD TRANSACTION--",
+                    "updateTime": "June 15, 2023 at 06:36:30 PM EDT",
+                    "stakingRewards": "999"
+                  },
+                  {
+                    "TYPE": "--REWARD TRANSACTION--",
+                    "updateTime": "June 15, 2023 at 06:36:28 PM EDT",
+                    "stakingRewards": "777"
+                  },
+                  {
+                    "TYPE": "--REWARD TRANSACTION--",
+                    "updateTime": "June 15, 2023 at 06:36:27 PM EDT",
+                    "stakingRewards": "999"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "TYPE": "--ACCOUNT--",
+    "accountKey": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
+    "creationTime": "June 15, 2023 at 06:36:26 PM EDT",
+    "location": "America/Toronto",
+    "verified": "false",
+    "balanceOf": "0",
+    "decimals": "18",
+    "stakedSPCoins": "0",
+    "sponsorAccountList": [
+      "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+    ],
+    "recipientAccountList": [],
+    "agentAccountList": [
+      "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc"
+    ],
+    "agentsParentRecipientAccountList": [],
+    "totalStakingRewards": "333",
+    "recipientRecordList": [],
+    "stakingRewardList": {
+      "TYPE": "--REWARDS STRUCTURE--",
+      "sponsorRewardsList": {
+        "TYPE": "SPONSOR REWARDS",
+        "stakingRewards": "0"
+      }
+    }
+  },
+  {
+    "TYPE": "--ACCOUNT--",
+    "accountKey": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
+    "creationTime": "June 15, 2023 at 06:36:26 PM EDT",
+    "location": "America/Toronto",
+    "verified": "false",
+    "balanceOf": "0",
+    "decimals": "18",
+    "stakedSPCoins": "0",
+    "sponsorAccountList": [],
+    "recipientAccountList": [],
+    "agentAccountList": [],
+    "agentsParentRecipientAccountList": [
+      "0x70997970c51812dc3a010c7d01b50e0d17dc79c8"
+    ],
+    "totalStakingRewards": "444",
+    "recipientRecordList": [],
+    "stakingRewardList": {
+      "TYPE": "--REWARDS STRUCTURE--",
+      "sponsorRewardsList": {
+        "TYPE": "SPONSOR REWARDS",
+        "stakingRewards": "0"
+      }
+    }
+  }
+]
+    √ 2. VALIDATE ADD TRANSACTION RATES (11477ms)
+
+
+  1 passing (25s)
+

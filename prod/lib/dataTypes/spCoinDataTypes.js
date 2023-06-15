@@ -11,6 +11,7 @@ class AccountStruct {
     this.agentAccountList;
     this.agentsParentRecipientAccountList;
     this.recipientRecordList;
+    this.totalStakingRewards;
     this.stakingRewardList;
   }
 }
@@ -75,7 +76,6 @@ class StakingTransactionStruct {
 class RewardsStruct {
   constructor() {
     this.TYPE = "--REWARDS STRUCTURE--";
-    this.totalStakingRewards;
     this.sponsorRewardsList;
     this.recipientRewardsList;
     this.agentRewardsList;

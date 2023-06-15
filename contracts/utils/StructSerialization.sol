@@ -21,10 +21,10 @@ contract StructSerialization is Utils {
             "creationTime: ",
             toString(_accountRec.creationTime)
         );
-        // string memory totalStakingRewards = concat(
-        //     "totalStakingRewards: ",
-        //     toString(_accountRec.totalStakingRewards)
-        // );
+        string memory totalStakingRewards = concat(
+            "totalStakingRewards: ",
+            toString(_accountRec.totalStakingRewards)
+        );
         string memory balanceOf = concat(
             "balanceOf: ",
             toString(balanceOf[_accountRec.accountKey])
@@ -53,7 +53,6 @@ contract StructSerialization is Utils {
         );
         seralized = concat(seralized, delimiter, balanceOf);
         seralized = concat(seralized, delimiter, decimals); 
-        // seralized = concat(seralized, delimiter, totalStakingRewards); 
 
         seralized = concat(seralized, delimiter, stakedSPCoins);
 
@@ -66,6 +65,7 @@ contract StructSerialization is Utils {
         seralized = concat(seralized, delimiter, "recipientAccountList:",recipientAccountList);
         seralized = concat(seralized, delimiter, "agentAccountList:", agentAccountList);
         seralized = concat(seralized, delimiter, "agentsParentRecipientAccountList:", agentsParentRecipientAccountList);
+        seralized = concat(seralized, delimiter, totalStakingRewards);
 
         return seralized;
     }
@@ -81,11 +81,9 @@ console.log("SOL=>0 serializeAccount(", toString(_accountRec.accountKey),")");
 console.log("SOL=>0 toString(rewards.totalSponsorRewards)", toString(rewards.totalSponsorRewards)); 
 console.log("SOL=>1 toString(rewards.totalRecipientRewards)", toString(rewards.totalRecipientRewards)); 
 console.log("SOL=>2 toString(rewards.totalAgentRewards)", toString(rewards.totalAgentRewards)); 
-console.log("SOL=>3 toString(rewards.totalStakingRewards)", toString(rewards.totalStakingRewards)); 
         string memory seralized = toString(rewards.totalSponsorRewards);
         seralized = concat(seralized, ",", toString(rewards.totalRecipientRewards));
         seralized = concat(seralized, ",", toString(rewards.totalAgentRewards));
-        seralized = concat(seralized, ",", toString(rewards.totalStakingRewards));
 
         return seralized;
     }

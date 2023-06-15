@@ -52,7 +52,7 @@ contract SpCoinDataTypes {
         address[] agentsParentRecipientAccountList; // If Agent? List of Agents Recipient Account
         mapping(address => RecipientStruct) recipientMap;
         // STAKING REWARDS MAPPINGS
-        // uint256 totalStakingRewards; // Coins not owned but Recipiented
+        uint256 totalStakingRewards; // Coins not owned but Recipiented
         mapping(string  => RewardsStruct) rewardsMap;
     }
 
@@ -62,7 +62,6 @@ contract SpCoinDataTypes {
         uint256 totalSponsorRewards;
         uint256 totalRecipientRewards;
         uint256 totalAgentRewards;
-        uint256 totalStakingRewards; 
         mapping(address => RewardAccountStruct) sponsorRewardsMap;   // contains Recipient Keys
         mapping(address => RewardAccountStruct) recipientRewardsMap; // contains Sponsor Keys
         mapping(address => RewardAccountStruct) agentRewardsMap;     // contains Recipient Keys

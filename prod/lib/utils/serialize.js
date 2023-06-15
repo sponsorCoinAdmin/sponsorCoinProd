@@ -64,7 +64,7 @@ class SpCoinSerialize {
 
   addAccountField = ( _key, _value, accountRecord ) => {
     spCoinLogger.logFunctionHeader("addAccountField = (" + _key + "," + _value + ")");
-    //spCoinLogger.log("addAccountField = (" + _key + "," + _value + ")");
+    spCoinLogger.log("addAccountField = (" + _key + "," + _value + ")");
     switch (_key.trim()) {
       case "accountKey":
         accountRecord.accountKey = _value;
@@ -80,8 +80,8 @@ class SpCoinSerialize {
         accountRecord.decimals = bigIntToDecString(_value);
       break;
       
-      case "decimals":
-        accountRecord.decimals = bigIntToDecString(_value);
+      case "stakedSPCoins":
+        accountRecord.stakedSPCoins = bigIntToDecString(_value);
       break;
       case "creationTime":
         accountRecord.creationTime = bigIntToDateTimeString(_value);
