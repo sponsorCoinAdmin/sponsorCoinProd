@@ -56,7 +56,38 @@ contract SpCoinDataTypes {
         mapping(string  => RewardsStruct) rewardsMap;
     }
 
-     /// STRUCTURE DESIGN SECTION SECTION ////////////////////////////////////////////////////////////////////
+    /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
+
+    struct RewardsStruct {
+        uint256 totalSponsorRewards;
+        uint256 totalRecipientRewards;
+        uint256 totalAgentRewards;
+        uint256 totalStakingRewards; 
+        mapping(address => RewardAccountStruct) sponsorRewardsMap;   // contains Recipient Keys
+        mapping(address => RewardAccountStruct) recipientRewardsMap; // contains Sponsor Keys
+        mapping(address => RewardAccountStruct) agentRewardsMap;     // contains Recipient Keys
+    }
+
+    struct RewardAccountStruct {
+        uint256 stakingRewards;
+        uint256[] rewardRateList;
+        mapping(uint256 => RewardRateStruct) rewardRateMap;
+    }
+
+    struct RewardRateStruct {
+        uint256 rate;
+        uint256 effectiveRate;
+        uint256 stakingRewards;
+        RewardsTransactionStruct[] rewardTransactionList;
+    }
+
+    struct RewardsTransactionStruct {
+        uint256 updateTime;
+        uint256 stakingRewards;
+    }
+
+
+    /// STRUCTURE DESIGN SECTION SECTION ////////////////////////////////////////////////////////////////////
     // Each Account has a map of Recipient and an array of recipientRate structures
     struct RecipientStruct {
         address sponsorKey;
@@ -112,36 +143,7 @@ contract SpCoinDataTypes {
     }
 
    /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
-           /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
-
-    struct RewardsStruct {
-        uint256 totalSponsorRewards;
-        uint256 totalRecipientRewards;
-        uint256 totalAgentRewards;
-        uint256 totalStakingRewards; 
-        mapping(address => RewardAccountStruct) sponsorRewardsMap;   // contains Recipient Keys
-        mapping(address => RewardAccountStruct) recipientRewardsMap; // contains Sponsor Keys
-        mapping(address => RewardAccountStruct) agentRewardsMap;     // contains Recipient Keys
-    }
-
-    struct RewardAccountStruct {
-        uint256 stakingRewards;
-        uint256[] rewardRateList;
-        mapping(uint256 => RewardRateStruct) rewardRateMap;
-    }
-
-    struct RewardRateStruct {
-        uint256 rate;
-        uint256 effectiveRate;
-        uint256 stakingRewards;
-        RewardsTransactionStruct[] rewardTransactionList;
-    }
-
-    struct RewardsTransactionStruct {
-        uint256 updateTime;
-        uint256 stakingRewards;
-    }
-
+        
     function getAccountTypeString(uint _accountType) internal view returns (string memory strAccountType) {
         if (_accountType == SPONSOR)
             return "SPONSOR";

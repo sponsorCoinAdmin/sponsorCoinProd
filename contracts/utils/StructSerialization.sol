@@ -74,13 +74,14 @@ contract StructSerialization is Utils {
         internal view returns (string memory)
     {
         mapping(string  => RewardsStruct) storage rewardsMap = _accountRec.rewardsMap;
-        RewardsStruct storage rewards = rewardsMap["AGENT"];
+        RewardsStruct storage rewards = rewardsMap["ALL_REWARDS"];
 
-// console.log("==============================================================================================");
-// console.log("SOL=>0 toString(rewards.totalSponsorRewards)", toString(rewards.totalSponsorRewards)); 
-// console.log("SOL=>1 toString(rewards.totalRecipientRewards)", toString(rewards.totalRecipientRewards)); 
-// console.log("SOL=>2 toString(rewards.totalAgentRewards)", toString(rewards.totalAgentRewards)); 
-// console.log("SOL=>3 toString(rewards.totalStakingRewards)", toString(rewards.totalStakingRewards)); 
+console.log("==============================================================================================");
+console.log("SOL=>0 serializeAccount(", toString(_accountRec.accountKey),")"); 
+console.log("SOL=>0 toString(rewards.totalSponsorRewards)", toString(rewards.totalSponsorRewards)); 
+console.log("SOL=>1 toString(rewards.totalRecipientRewards)", toString(rewards.totalRecipientRewards)); 
+console.log("SOL=>2 toString(rewards.totalAgentRewards)", toString(rewards.totalAgentRewards)); 
+console.log("SOL=>3 toString(rewards.totalStakingRewards)", toString(rewards.totalStakingRewards)); 
         string memory seralized = toString(rewards.totalSponsorRewards);
         seralized = concat(seralized, ",", toString(rewards.totalRecipientRewards));
         seralized = concat(seralized, ",", toString(rewards.totalAgentRewards));
@@ -88,7 +89,6 @@ contract StructSerialization is Utils {
 
         return seralized;
     }
-
 
     // function serializeRewards(AccountStruct storage _accountRec)
     //     internal view returns (string memory)

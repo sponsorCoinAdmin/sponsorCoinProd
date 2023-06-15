@@ -44,32 +44,38 @@ contract StakingManager is UnSubscribe{
     function depositAccountStakingRewards( uint _accountType, address _sourceKey, address _depositKey, uint _rate, uint _amount )
         internal returns ( uint ) {
         require (_amount > 0, "AMOUNT BALANCE MUST BE LARGER THAN 0");
-        // console.log("SOL=>2.0 depositAccountStakingRewards(_accountType)", getAccountTypeString(_accountType));
-        // console.log("SOL=>2.1 depositAgentStakingRewards(");
-        // console.log("SOL=>2.2 _sourceKey  = ", _sourceKey);
-        // console.log("SOL=>2.3 _depositKey = ", _depositKey);
-        // console.log("SOL=>2.4 _rate       = ", _rate);
-        // console.log("SOL=>2.5 _amount     = ", _amount);
+        console.log("SOL=>2.0 depositAccountStakingRewards(_accountType)", getAccountTypeString(_accountType));
+        console.log("SOL=>2.1 depositAgentStakingRewards(");
+        console.log("SOL=>2.2 _sourceKey  = ", _sourceKey);
+        console.log("SOL=>2.3 _depositKey = ", _depositKey);
+        console.log("SOL=>2.4 _rate       = ", _rate);
+        console.log("SOL=>2.5 _amount     = ", _amount);
         totalSupply += _amount;
 
-        // console.log("SOL=>4 FETCHING depositAccount = accountMap[", _depositKey, "]");
+        console.log("SOL=>4 FETCHING depositAccount = accountMap[", _depositKey, "]");
         AccountStruct storage depositAccount = accountMap[_depositKey];
-        // console.log("depositAccount.recipientAccountList.length =", depositAccount.recipientAccountList.length);
+        console.log("depositAccount.recipientAccountList.length =", depositAccount.recipientAccountList.length);
 
         RewardsStruct storage rewardsRecord = depositAccount.rewardsMap["ALL_REWARDS"];
         rewardsRecord.totalStakingRewards += _amount;
-        rewardsRecord.totalAgentRewards += _amount;
         // mapping(address => RewardAccountStruct) storage agentRewardsMap = rewardsRecord.agentRewardsMap;
 
         RewardAccountStruct storage rewardAccountRecord;
 
         if (_accountType == SPONSOR) {
+        rewardsRecord.totalSponsorRewards += _amount;
             rewardAccountRecord = rewardsRecord.sponsorRewardsMap[_sourceKey];
         } else if (_accountType == RECIPIENT) {
+        rewardsRecord.totalRecipientRewards += _amount;
             rewardAccountRecord = rewardsRecord.recipientRewardsMap[_sourceKey];
         } else { // ACCOUNT_TYPE is AGENT
+        rewardsRecord.totalAgentRewards += _amount;
             rewardAccountRecord = rewardsRecord.agentRewardsMap[_sourceKey];
         }
+        console.log("SOL=>2.6 rewardsRecord.totalStakingRewards   = ", rewardsRecord.totalStakingRewards);
+        console.log("SOL=>2.7 rewardsRecord.totalSponsorRewards   = ", rewardsRecord.totalSponsorRewards);
+        console.log("SOL=>2.8 rewardsRecord.totalRecipientRewards = ", rewardsRecord.totalRecipientRewards);
+        console.log("SOL=>2.9 rewardsRecord.totalAgentRewards     = ", rewardsRecord.totalAgentRewards);
 
         rewardAccountRecord.stakingRewards += _amount;
 
@@ -79,18 +85,18 @@ contract StakingManager is UnSubscribe{
             rewardRateList.push(_rate);
             rewardRateRecord.rate = _rate;
         }
-        // console.log("SOL=>2.5 rewardRateList.length = ",rewardRateList.length);
-        // console.log("SOL=>2.6 rewardRateRecord.rate = ",rewardRateRecord.rate);
+        // console.log("SOL=>2.10 rewardRateList.length = ",rewardRateList.length);
+        // console.log("SOL=>2.11 rewardRateRecord.rate = ",rewardRateRecord.rate);
         rewardRateRecord.stakingRewards += _amount;
-        // console.log("rewardRateRecord.stakingRewards = ", rewardRateRecord.stakingRewards);
+        console.log("rewardRateRecord.stakingRewards = ", rewardRateRecord.stakingRewards);
         RewardsTransactionStruct[] storage rewardTransactionList = rewardRateRecord.rewardTransactionList;
         depositRewardTransaction( rewardTransactionList, _amount );
-        // console.log("SOL=>2.7 rewardTransactionList[0].stakingRewards = ", rewardTransactionList[0].stakingRewards);
+        // console.log("SOL=>2.12 rewardTransactionList[0].stakingRewards = ", rewardTransactionList[0].stakingRewards);
 
         // TESTING REMOVE LATER
         // console.log("===================================================================================================================");
         // uint rewardSourceType = getRewardSourceType(_accountType);
-        // console.log("SOL=>2.8 rewardSourceType = ", getAccountTypeString(rewardSourceType));
+        // console.log("SOL=>2.13 rewardSourceType = ", getAccountTypeString(rewardSourceType));
         getRewardAccounts(_depositKey, _accountType);
         // console.log("===================================================================================================================");
         //END TESTION

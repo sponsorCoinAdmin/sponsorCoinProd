@@ -88,10 +88,11 @@ class SpCoinReadMethods {
     rewardsRecord.totalStakingRewards  = bigIntToDecString(accountRewardList[3]);
     /* REPLACE LATER */
     rewardsRecord.sponsorRewardsList   = await this.getRewardTypeRecord(_accountKey, SPONSOR , accountRewardList[0]);
-    rewardsRecord.recipientRewardsList = await this.getRewardTypeRecord(_accountKey, RECIPIENT, accountRewardList[1]);
-    rewardsRecord.agentRewardsList     = await this.getRewardTypeRecord(_accountKey, AGENT, accountRewardList[2]);
+    // rewardsRecord.recipientRewardsList = await this.getRewardTypeRecord(_accountKey, RECIPIENT, accountRewardList[1]);
+    // rewardsRecord.agentRewardsList     = await this.getRewardTypeRecord(_accountKey, AGENT, accountRewardList[2]);
 
-    // console.log("JS==>1.2 rewardsRecord.agentRewardsList(", _accountKey, ", SPONSOR) =", spCoinLogger.getJSON(rewardsRecord));
+    console.log("JS==>1.2 accountRewardList(", _accountKey, ") =", spCoinLogger.getJSON(accountRewardList));
+    console.log("JS==>1.3 rewardsRecord.agentRewardsList(", _accountKey, ", SPONSOR) =", spCoinLogger.getJSON(rewardsRecord));
     spCoinLogger.logExitFunction();
     // console.log ("===================================================================================================\n\n");
 
@@ -99,7 +100,7 @@ class SpCoinReadMethods {
   }
 
   getRewardTypeRecord = async (_accountKey, _rewardType, _reward) => {
-    // console.log("JS==>6 getRewardTransactionsByAccountList = async(", _accountKey, ", ", getRewardType(_rewardType),")");
+    // console.log("JS==>6 getRewardTransactionsByAccountList = async(", _accountKey, ", ", getRewardType(_rewardType), ", ", _reward,")");
     let rewardTypeRecord = new RewardTypeStruct();
     rewardTypeRecord.TYPE = getRewardType(_rewardType);
     rewardTypeRecord.stakingRewards = bigIntToDecString(_reward);
@@ -122,6 +123,7 @@ class SpCoinReadMethods {
     // console.log ("JS==>6.4 rewardsStr = ", spCoinLogger.getJSON(rewardsStr));
     // console.log ("JS==>6.5 rewardAccountList(" + getRewardType(_rewardType) + ").length = ", rewardAccountList.length);
     // console.log ("JS==>6.6 rewardAccountList(" + getRewardType(_rewardType) + ") = ", rewardAccountList);
+    // spCoinLogger.logJSON(rewardTypeRecord);
     spCoinLogger.logExitFunction();
     return rewardTypeRecord;
   }
@@ -421,7 +423,6 @@ class SpCoinReadMethods {
 }
 
 getRewardType = (_accountType) => {
-
   return getAccountTypeString(_accountType) + " REWARDS"; 
 }
 
