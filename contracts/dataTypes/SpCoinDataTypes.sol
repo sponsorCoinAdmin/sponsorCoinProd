@@ -62,7 +62,7 @@ contract SpCoinDataTypes {
         uint256 totalSponsorRewards;
         uint256 totalRecipientRewards;
         uint256 totalAgentRewards;
-        mapping(address => RewardAccountStruct) sponsorRewardsMap;   // contains Recipient Keys
+        mapping(address => RewardAccountStruct) rewardsMap;   // contains Recipient Keys
         mapping(address => RewardAccountStruct) recipientRewardsMap; // contains Sponsor Keys
         mapping(address => RewardAccountStruct) agentRewardsMap;     // contains Recipient Keys
     }

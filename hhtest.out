@@ -1,10 +1,10 @@
-Compiled 13 Solidity files successfully
+Compiled 16 Solidity files successfully
  ·------------------------|---------------------------|----------------·
  |  Solc version: 0.8.18  ·  Optimizer enabled: true  ·  Runs: 2000    │
  ·························|···························|·················
  |  Contract Name         ·  Size (KiB)               ·  Change (KiB)  │
  ·························|···························|·················
- |  SPCoin                ·                   22.548  ·        +0.068  │
+ |  SPCoin                ·                   22.376  ·         0.000  │
  ·------------------------|---------------------------|----------------·
 
 
@@ -65,7 +65,7 @@ SOL=>2.11 rewardRateRecord.stakingRewards =  444
 
 
 addAccountField = (accountKey,0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266)
-addAccountField = (creationTime,0x00000000000000000000000000000000000000000000000000000000648bbb6b)
+addAccountField = (creationTime,0x00000000000000000000000000000000000000000000000000000000648bc0e6)
 addAccountField = (verified,false)
 addAccountField = (balanceOf,0x0000000000000000000000000000000000000000033b2e3c91efc989409bfff8)
 addAccountField = (decimals,0x0000000000000000000000000000000000000000000000000000000000000012)
@@ -77,7 +77,7 @@ addAccountField = (agentsParentRecipientAccountList,)
 addAccountField = (totalStakingRewards,0x0000000000000000000000000000000000000000000000000000000000000ad7)
 ==============================================================================================
 SOL=>0 serializeAccount( 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266 )
-SOL=>0 toString(rewards.totalSponsorRewards) 0x0000000000000000000000000000000000000000000000000000000000000000
+SOL=>0 toString(rewards.totalSponsorRewards) 0x0000000000000000000000000000000000000000000000000000000000000ad7
 SOL=>1 toString(rewards.totalRecipientRewards) 0x0000000000000000000000000000000000000000000000000000000000000000
 SOL=>2 toString(rewards.totalAgentRewards) 0x0000000000000000000000000000000000000000000000000000000000000000
 JS==>1.2 accountRewardList( 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266 ) = [
@@ -103,17 +103,17 @@ JS==>1.3 rewardsRecord.agentRewardsList( 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92
             "rewardTransactionList": [
               {
                 "TYPE": "--REWARD TRANSACTION--",
-                "updateTime": "June 15, 2023 at 09:31:26 PM EDT",
+                "updateTime": "June 15, 2023 at 09:54:49 PM EDT",
                 "stakingRewards": "999"
               },
               {
                 "TYPE": "--REWARD TRANSACTION--",
-                "updateTime": "June 15, 2023 at 09:31:25 PM EDT",
+                "updateTime": "June 15, 2023 at 09:54:48 PM EDT",
                 "stakingRewards": "777"
               },
               {
                 "TYPE": "--REWARD TRANSACTION--",
-                "updateTime": "June 15, 2023 at 09:31:24 PM EDT",
+                "updateTime": "June 15, 2023 at 09:54:47 PM EDT",
                 "stakingRewards": "999"
               }
             ]
@@ -124,7 +124,7 @@ JS==>1.3 rewardsRecord.agentRewardsList( 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92
   }
 }
 addAccountField = (accountKey,0x70997970c51812dc3a010c7d01b50e0d17dc79c8)
-addAccountField = (creationTime,0x00000000000000000000000000000000000000000000000000000000648bbb6b)
+addAccountField = (creationTime,0x00000000000000000000000000000000000000000000000000000000648bc0e6)
 addAccountField = (verified,false)
 addAccountField = (balanceOf,0x0000000000000000000000000000000000000000000000000000000000000000)
 addAccountField = (decimals,0x0000000000000000000000000000000000000000000000000000000000000012)
@@ -137,7 +137,7 @@ addAccountField = (totalStakingRewards,0x000000000000000000000000000000000000000
 ==============================================================================================
 SOL=>0 serializeAccount( 0x70997970c51812dc3a010c7d01b50e0d17dc79c8 )
 SOL=>0 toString(rewards.totalSponsorRewards) 0x0000000000000000000000000000000000000000000000000000000000000000
-SOL=>1 toString(rewards.totalRecipientRewards) 0x0000000000000000000000000000000000000000000000000000000000000000
+SOL=>1 toString(rewards.totalRecipientRewards) 0x000000000000000000000000000000000000000000000000000000000000014d
 SOL=>2 toString(rewards.totalAgentRewards) 0x0000000000000000000000000000000000000000000000000000000000000000
 JS==>1.2 accountRewardList( 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 ) = [
   "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -152,7 +152,7 @@ JS==>1.3 rewardsRecord.agentRewardsList( 0x70997970C51812dc3A010C7d01b50e0d17dc7
   }
 }
 addAccountField = (accountKey,0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc)
-addAccountField = (creationTime,0x00000000000000000000000000000000000000000000000000000000648bbb6b)
+addAccountField = (creationTime,0x00000000000000000000000000000000000000000000000000000000648bc0e6)
 addAccountField = (verified,false)
 addAccountField = (balanceOf,0x0000000000000000000000000000000000000000000000000000000000000000)
 addAccountField = (decimals,0x0000000000000000000000000000000000000000000000000000000000000012)
@@ -166,7 +166,7 @@ addAccountField = (totalStakingRewards,0x000000000000000000000000000000000000000
 SOL=>0 serializeAccount( 0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc )
 SOL=>0 toString(rewards.totalSponsorRewards) 0x0000000000000000000000000000000000000000000000000000000000000000
 SOL=>1 toString(rewards.totalRecipientRewards) 0x0000000000000000000000000000000000000000000000000000000000000000
-SOL=>2 toString(rewards.totalAgentRewards) 0x0000000000000000000000000000000000000000000000000000000000000000
+SOL=>2 toString(rewards.totalAgentRewards) 0x00000000000000000000000000000000000000000000000000000000000001bc
 JS==>1.2 accountRewardList( 0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC ) = [
   "0x0000000000000000000000000000000000000000000000000000000000000000",
   "0x0000000000000000000000000000000000000000000000000000000000000000",
@@ -185,7 +185,7 @@ DUMP JSON OBJECT
   {
     "TYPE": "--ACCOUNT--",
     "accountKey": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-    "creationTime": "June 15, 2023 at 09:31:23 PM EDT",
+    "creationTime": "June 15, 2023 at 09:54:46 PM EDT",
     "location": "America/Toronto",
     "verified": "false",
     "balanceOf": "999999998999999999999999992",
@@ -202,14 +202,14 @@ DUMP JSON OBJECT
       {
         "TYPE": "--RECIPIENT_RECORD--",
         "recipientKey": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
-        "creationTime": "June 15, 2023 at 09:31:23 PM EDT",
+        "creationTime": "June 15, 2023 at 09:54:46 PM EDT",
         "stakedSPCoins": "1000000000000000008",
         "recipientRateList": [
           {
             "TYPE": "--RECIPIENT_RATE--",
             "recipientRate": 5,
-            "creationTime": "June 15, 2023 at 09:31:23 PM EDT",
-            "lastUpdateTime": "June 15, 2023 at 09:31:23 PM EDT",
+            "creationTime": "June 15, 2023 at 09:54:46 PM EDT",
+            "lastUpdateTime": "June 15, 2023 at 09:54:46 PM EDT",
             "stakedSPCoins": "1000000000000000008",
             "transactions": [],
             "agentRecordList": [
@@ -221,14 +221,14 @@ DUMP JSON OBJECT
                   {
                     "TYPE": "--AGENT_RATE--",
                     "agentRate": 9,
-                    "creationTime": "June 15, 2023 at 09:31:23 PM EDT",
-                    "lastUpdateTime": "June 15, 2023 at 09:31:23 PM EDT",
+                    "creationTime": "June 15, 2023 at 09:54:46 PM EDT",
+                    "lastUpdateTime": "June 15, 2023 at 09:54:46 PM EDT",
                     "stakedSPCoins": "1000000000000000008",
                     "transactions": [
                       {
                         "TYPE": "--STAKING TRANSACTION RECORD--",
                         "location": "America/Toronto",
-                        "insertionTime": "June 15, 2023 at 09:31:23 PM EDT",
+                        "insertionTime": "June 15, 2023 at 09:54:46 PM EDT",
                         "quantity": "1000000000000000008"
                       }
                     ]
@@ -258,17 +258,17 @@ DUMP JSON OBJECT
                 "rewardTransactionList": [
                   {
                     "TYPE": "--REWARD TRANSACTION--",
-                    "updateTime": "June 15, 2023 at 09:31:26 PM EDT",
+                    "updateTime": "June 15, 2023 at 09:54:49 PM EDT",
                     "stakingRewards": "999"
                   },
                   {
                     "TYPE": "--REWARD TRANSACTION--",
-                    "updateTime": "June 15, 2023 at 09:31:25 PM EDT",
+                    "updateTime": "June 15, 2023 at 09:54:48 PM EDT",
                     "stakingRewards": "777"
                   },
                   {
                     "TYPE": "--REWARD TRANSACTION--",
-                    "updateTime": "June 15, 2023 at 09:31:24 PM EDT",
+                    "updateTime": "June 15, 2023 at 09:54:47 PM EDT",
                     "stakingRewards": "999"
                   }
                 ]
@@ -282,7 +282,7 @@ DUMP JSON OBJECT
   {
     "TYPE": "--ACCOUNT--",
     "accountKey": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
-    "creationTime": "June 15, 2023 at 09:31:23 PM EDT",
+    "creationTime": "June 15, 2023 at 09:54:46 PM EDT",
     "location": "America/Toronto",
     "verified": "false",
     "balanceOf": "0",
@@ -309,7 +309,7 @@ DUMP JSON OBJECT
   {
     "TYPE": "--ACCOUNT--",
     "accountKey": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
-    "creationTime": "June 15, 2023 at 09:31:23 PM EDT",
+    "creationTime": "June 15, 2023 at 09:54:46 PM EDT",
     "location": "America/Toronto",
     "verified": "false",
     "balanceOf": "0",
@@ -332,7 +332,7 @@ DUMP JSON OBJECT
     }
   }
 ]
-    √ 2. VALIDATE ADD TRANSACTION RATES (4670ms)
+    √ 2. VALIDATE ADD TRANSACTION RATES (5348ms)
 
 
   1 passing (11s)

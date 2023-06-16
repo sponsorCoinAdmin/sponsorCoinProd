@@ -10,12 +10,11 @@ contract RewardsManager is StakingManager{
     function updateRewards( address _sourceKey , uint _accountType )
         public view {
         AccountStruct storage account = accountMap[_sourceKey];
-        RewardsStruct storage rewardsRecord = account.rewardsMap["ALL_REWARDS"];
-        rewardsRecord = account.rewardsMap[getAccountTypeString(_accountType)];
+        RewardsStruct storage rewardsRecord = account.rewardsMap[getAccountTypeString(_accountType)];
         RewardAccountStruct storage rewardAccountRecord;
 
         if (_accountType == SPONSOR) {
-            rewardAccountRecord = rewardsRecord.sponsorRewardsMap[_sourceKey];
+            rewardAccountRecord = rewardsRecord.rewardsMap[_sourceKey];
             updateSponsorRewardRecords(rewardAccountRecord);
         } else if (_accountType == RECIPIENT) {
             rewardAccountRecord = rewardsRecord.recipientRewardsMap[_sourceKey];

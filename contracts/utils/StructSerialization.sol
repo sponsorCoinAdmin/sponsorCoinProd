@@ -74,7 +74,6 @@ contract StructSerialization is Utils {
         internal view returns (string memory)
     {
         mapping(string  => RewardsStruct) storage rewardsMap = _accountRec.rewardsMap;
-        RewardsStruct storage rewards = rewardsMap["ALL_REWARDS"];
         RewardsStruct storage sponsorRewards = rewardsMap[getAccountTypeString(SPONSOR)];
         RewardsStruct storage recipientRewards = rewardsMap[getAccountTypeString(RECIPIENT)];
         RewardsStruct storage agentRewards = rewardsMap[getAccountTypeString(AGENT)];
@@ -82,9 +81,9 @@ contract StructSerialization is Utils {
 
 console.log("==============================================================================================");
 console.log("SOL=>0 serializeAccount(", toString(_accountRec.accountKey),")"); 
-console.log("SOL=>0 toString(rewards.totalSponsorRewards)", toString(rewards.totalSponsorRewards)); 
-console.log("SOL=>1 toString(rewards.totalRecipientRewards)", toString(rewards.totalRecipientRewards)); 
-console.log("SOL=>2 toString(rewards.totalAgentRewards)", toString(rewards.totalAgentRewards)); 
+console.log("SOL=>0 toString(rewards.totalSponsorRewards)", toString(sponsorRewards.totalSponsorRewards)); 
+console.log("SOL=>1 toString(rewards.totalRecipientRewards)", toString(recipientRewards.totalRecipientRewards)); 
+console.log("SOL=>2 toString(rewards.totalAgentRewards)", toString(agentRewards.totalAgentRewards)); 
         string memory seralized = toString(sponsorRewards.totalSponsorRewards);
         seralized = concat(seralized, ",", toString(recipientRewards.totalRecipientRewards));
         seralized = concat(seralized, ",", toString(agentRewards.totalAgentRewards));

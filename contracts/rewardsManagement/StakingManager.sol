@@ -54,8 +54,7 @@ contract StakingManager is UnSubscribe{
         console.log("SOL=>4 FETCHING depositAccount = accountMap[", _depositKey, "]");
         AccountStruct storage depositAccount = accountMap[_depositKey];
 
-        RewardsStruct storage rewardsRecord = depositAccount.rewardsMap["ALL_REWARDS"];
-        rewardsRecord = depositAccount.rewardsMap[getAccountTypeString(_accountType)];
+        RewardsStruct storage rewardsRecord = depositAccount.rewardsMap[getAccountTypeString(_accountType)];
 
         depositAccount.totalStakingRewards += _amount;
         // rewardsRecord.totalStakingRewards += _amount;
@@ -65,7 +64,7 @@ contract StakingManager is UnSubscribe{
 
         if (_accountType == SPONSOR) {
         rewardsRecord.totalSponsorRewards += _amount;
-            rewardAccountRecord = rewardsRecord.sponsorRewardsMap[_sourceKey];
+            rewardAccountRecord = rewardsRecord.rewardsMap[_sourceKey];
         } else if (_accountType == RECIPIENT) {
         rewardsRecord.totalRecipientRewards += _amount;
             rewardAccountRecord = rewardsRecord.recipientRewardsMap[_sourceKey];
@@ -138,11 +137,10 @@ contract StakingManager is UnSubscribe{
 
             ///////////////// **** START REPLACE LATER **** ///////////////////////////
 
-            RewardsStruct storage rewardsRecord = depositAccount.rewardsMap["ALL_REWARDS"];
-            rewardsRecord = depositAccount.rewardsMap[getAccountTypeString(_rewardType)];
+            RewardsStruct storage rewardsRecord = depositAccount.rewardsMap[getAccountTypeString(_rewardType)];
             RewardAccountStruct storage accountReward;
             if ( _rewardType == SPONSOR ) {
-                accountReward = rewardsRecord.sponsorRewardsMap[accountKey];
+                accountReward = rewardsRecord.rewardsMap[accountKey];
             }
             else 
             if ( _rewardType == RECIPIENT ) {
