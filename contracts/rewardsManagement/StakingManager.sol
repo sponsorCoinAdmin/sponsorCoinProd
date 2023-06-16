@@ -63,9 +63,9 @@ contract StakingManager is UnSubscribe{
         RewardAccountStruct storage rewardAccountRecord;
 
         rewardAccountRecord = rewardsRecord.rewardsMap[_sourceKey];
-        console.log("SOL=>2.6 rewardsRecord.stakingRewards   = ", rewardsRecord.stakingRewards);
-        console.log("SOL=>2.7 rewardsRecord.stakingRewards = ", rewardsRecord.stakingRewards);
-        console.log("SOL=>2.8 rewardsRecord.stakingRewards     = ", rewardsRecord.stakingRewards);
+        // console.log("SOL=>2.6 rewardsRecord.stakingRewards   = ", rewardsRecord.stakingRewards);
+        // console.log("SOL=>2.7 rewardsRecord.stakingRewards = ", rewardsRecord.stakingRewards);
+        // console.log("SOL=>2.8 rewardsRecord.stakingRewards     = ", rewardsRecord.stakingRewards);
 
         rewardAccountRecord.stakingRewards += _amount;
 
