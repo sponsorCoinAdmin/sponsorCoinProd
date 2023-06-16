@@ -45,18 +45,18 @@ contract StakingManager is UnSubscribe{
         internal returns ( uint ) {
         require (_amount > 0, "AMOUNT BALANCE MUST BE LARGER THAN 0");
         console.log("SOL=>2.0 depositAccountStakingRewards(_accountType)", getAccountTypeString(_accountType));
-        console.log("SOL=>2.1 depositAgentStakingRewards(");
-        console.log("SOL=>2.2 _sourceKey  = ", _sourceKey);
-        console.log("SOL=>2.3 _depositKey = ", _depositKey);
-        console.log("SOL=>2.4 _rate       = ", _rate);
-        console.log("SOL=>2.5 _amount     = ", _amount);
+        console.log("SOL=>2.1 _sourceKey  = ", _sourceKey);
+        console.log("SOL=>2.2 _depositKey = ", _depositKey);
+        console.log("SOL=>2.3 _rate       = ", _rate);
+        console.log("SOL=>2.4 _amount     = ", _amount);
         totalSupply += _amount;
 
         console.log("SOL=>4 FETCHING depositAccount = accountMap[", _depositKey, "]");
         AccountStruct storage depositAccount = accountMap[_depositKey];
-        console.log("depositAccount.recipientAccountList.length =", depositAccount.recipientAccountList.length);
 
         RewardsStruct storage rewardsRecord = depositAccount.rewardsMap["ALL_REWARDS"];
+        rewardsRecord = depositAccount.rewardsMap[getAccountTypeString(_accountType)];
+
         depositAccount.totalStakingRewards += _amount;
         // rewardsRecord.totalStakingRewards += _amount;
         // mapping(address => RewardAccountStruct) storage agentRewardsMap = rewardsRecord.agentRewardsMap;
@@ -139,6 +139,7 @@ contract StakingManager is UnSubscribe{
             ///////////////// **** START REPLACE LATER **** ///////////////////////////
 
             RewardsStruct storage rewardsRecord = depositAccount.rewardsMap["ALL_REWARDS"];
+            rewardsRecord = depositAccount.rewardsMap[getAccountTypeString(_rewardType)];
             RewardAccountStruct storage accountReward;
             if ( _rewardType == SPONSOR ) {
                 accountReward = rewardsRecord.sponsorRewardsMap[accountKey];
