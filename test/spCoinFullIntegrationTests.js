@@ -247,12 +247,12 @@ describe("spCoinContract", function () {
     333
   );
 
-  // await spCoinAddMethods.depositAgentStakingRewards(
-  //   RECIPIENT_ACCOUNT_KEYS[1],
-  //   AGENT_ACCOUNT_KEYS[2],
-  //   RECIPIENT_RATES[4],
-  //   444
-  // );
+  await spCoinAddMethods.depositAgentStakingRewards(
+    RECIPIENT_ACCOUNT_KEYS[1],
+    AGENT_ACCOUNT_KEYS[2],
+    RECIPIENT_RATES[4],
+    444
+  );
 
   // console.log("********************************************************************************");
   console.log("\n\n*** AFTER CREATE ******************************************************************************************************\n\n");

@@ -1,7 +1,7 @@
 */artifacts/
 /.contracts.OLD
 /.deps
-/~*
+hhtest.out
 node_modules
 
 # Hardhat files
@@ -11,3 +11,4 @@ artifacts
 
 */test.out/
 /hhtest.out
+/~*
