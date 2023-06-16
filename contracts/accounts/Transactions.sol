@@ -29,7 +29,10 @@ contract Transactions is AgentRates {
         (sponsorAmount, result) = decimalStringToUint(_strWholeAmount, _strDecimalAmount, decimals);
 
         require(result,concat("Unparsable Sponsor Amount ", _strWholeAmount));
-        require(balanceOf[msg.sender] >= sponsorAmount, "Insufficient Balance");
+        // string memory errString =
+        require(balanceOf[msg.sender] >= sponsorAmount, 
+            concat("Insufficient Balance balanceOf[",toString(msg.sender),"] >= ", 
+            toString(sponsorAmount)));
 
         getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
 

@@ -5,7 +5,7 @@ import "../accounts/UnSubscribe.sol";
 import "../accounts/Transactions.sol";
 
 contract StakingManager is UnSubscribe{
-    constructor(){
+    constructor() {
     }
 
     // SPONSOR   ~ Deposit Sponsor Rewards means as a SPONSOR deposit rewards baser on my source(Recipient)
@@ -28,7 +28,7 @@ contract StakingManager is UnSubscribe{
             string memory errMsg = concat("RECIPIENT ACCOUNT ",  toString(_sourceKey), " NOT FOUND FOR SPONSOR ACCOUNT ",  toString(_depositKey));
             require (sponsorHasRecipient( _sourceKey, _depositKey ), errMsg);
         } else if (_accountType == RECIPIENT) { 
-            // _sourceKey = SPONSOR
+            // _sourceKey = RECIPIENT
             string memory errMsg = concat("SPONSOR ACCOUNT ",  toString(_sourceKey), " NOT FOUND FOR RECIPIENT ACCOUNT ",  toString(_depositKey));
             require (recipientHasSponsor( _sourceKey, _depositKey ), errMsg);
         } else if (_accountType == AGENT) {
@@ -54,18 +54,18 @@ contract StakingManager is UnSubscribe{
         // console.log("SOL=>4 FETCHING depositAccount = accountMap[", _depositKey, "]");
         AccountStruct storage depositAccount = accountMap[_depositKey];
 
-        RewardsStruct storage rewardsRecord = depositAccount.rewardsMap[getAccountTypeString(_accountType)];
+        RewardTypeStruct storage rewardsRecord = depositAccount.rewardsMap[getAccountTypeString(_accountType)];
 
         depositAccount.totalStakingRewards += _amount;
-        // rewardsRecord.totalStakingRewards += _amount;
+        rewardsRecord.stakingRewards += _amount;
         // mapping(address => RewardAccountStruct) storage rewardsMap = rewardsRecord.rewardsMap;
 
         RewardAccountStruct storage rewardAccountRecord;
 
         rewardAccountRecord = rewardsRecord.rewardsMap[_sourceKey];
-        // console.log("SOL=>2.6 rewardsRecord.stakingRewards   = ", rewardsRecord.stakingRewards);
-        // console.log("SOL=>2.7 rewardsRecord.stakingRewards = ", rewardsRecord.stakingRewards);
-        // console.log("SOL=>2.8 rewardsRecord.stakingRewards     = ", rewardsRecord.stakingRewards);
+        console.log("SOL=>2.6 rewardsRecord.stakingRewards   = ", rewardsRecord.stakingRewards);
+        console.log("SOL=>2.7 rewardsRecord.stakingRewards = ", rewardsRecord.stakingRewards);
+        console.log("SOL=>2.8 rewardsRecord.stakingRewards     = ", rewardsRecord.stakingRewards);
 
         rewardAccountRecord.stakingRewards += _amount;
 
@@ -128,7 +128,7 @@ contract StakingManager is UnSubscribe{
 
             ///////////////// **** START REPLACE LATER **** ///////////////////////////
 
-            RewardsStruct storage rewardsRecord = depositAccount.rewardsMap[getAccountTypeString(_rewardType)];
+            RewardTypeStruct storage rewardsRecord = depositAccount.rewardsMap[getAccountTypeString(_rewardType)];
             RewardAccountStruct storage accountReward;
             accountReward = rewardsRecord.rewardsMap[accountKey];
             memoryRewards = concat(memoryRewards, getRewardRateRecords(accountReward));

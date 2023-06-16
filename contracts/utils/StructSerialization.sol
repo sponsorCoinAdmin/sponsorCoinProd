@@ -73,10 +73,10 @@ contract StructSerialization is Utils {
     function serializeRewards(AccountStruct storage _accountRec)
         internal view returns (string memory)
     {
-        mapping(string  => RewardsStruct) storage rewardsMap = _accountRec.rewardsMap;
-        RewardsStruct storage sponsorRewards = rewardsMap[getAccountTypeString(SPONSOR)];
-        RewardsStruct storage recipientRewards = rewardsMap[getAccountTypeString(RECIPIENT)];
-        RewardsStruct storage agentRewards = rewardsMap[getAccountTypeString(AGENT)];
+        mapping(string  => RewardTypeStruct) storage rewardsMap = _accountRec.rewardsMap;
+        RewardTypeStruct storage sponsorRewards = rewardsMap[getAccountTypeString(SPONSOR)];
+        RewardTypeStruct storage recipientRewards = rewardsMap[getAccountTypeString(RECIPIENT)];
+        RewardTypeStruct storage agentRewards = rewardsMap[getAccountTypeString(AGENT)];
 
 
 // console.log("==============================================================================================");
@@ -94,8 +94,8 @@ contract StructSerialization is Utils {
     // function serializeRewards(AccountStruct storage _accountRec)
     //     internal view returns (string memory)
     // {
-    //     mapping(string  => RewardsStruct) storage rewardsMap = _accountRec.rewardsMap;
-    //     RewardsStruct storage rewards = rewardsMap["RECIPIENT"];
+    //     mapping(string  => RewardTypeStruct) storage rewardsMap = _accountRec.rewardsMap;
+    //     RewardTypeStruct storage rewards = rewardsMap["RECIPIENT"];
 
     //     string memory totalStakingRewards = concat(
     //         "totalStakingRewards: ",

@@ -20,11 +20,10 @@ SOL=>2.7 rewardTransactionList[0].stakingRewards =  444
 **** RESULTING SOLIDITY STRUCTURE WHEN ACCOUNT IS AGENT ****
    struct AccountStruct {
         address accountKey = 0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc
-        address[] recipientAccountList;               // If Sponsor List of Recipiented Account
-        address[] sponsorAccountList;                 // If Recipient? List of Sponsor Account
-        address[] agentAccountList;                   // If Recipient? List of Agent Account
+        address[] recipientAccountList;               // If Sponsor List of recipient Accounts
+        address[] sponsorAccountList;                 // If Recipient? List of sponsor Accounts
+        address[] agentAccountList;                   // If Recipient? List of agent Accounts
         address[] agentsParentRecipientAccountList = [0x70997970c51812dc3a010c7d01b50e0d17dc79c8]
-        // uint256 totalStakingRewards; // Coins not owned but Recipiented
         mapping(string  => RewardsStruct) rewardsMap;
     }
 

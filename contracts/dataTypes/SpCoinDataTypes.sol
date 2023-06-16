@@ -53,32 +53,7 @@ contract SpCoinDataTypes {
         mapping(address => RecipientStruct) recipientMap;
         // STAKING REWARDS MAPPINGS
         uint256 totalStakingRewards; // Coins not owned but Recipiented
-        mapping(string  => RewardsStruct) rewardsMap;
-    }
-
-    /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
-
-    struct RewardsStruct {
-        uint256 stakingRewards;
-        mapping(address => RewardAccountStruct) rewardsMap;   // contains Sponsrr, Recipient Keys
-    }
-
-    struct RewardAccountStruct {
-        uint256 stakingRewards;
-        uint256[] rewardRateList;
-        mapping(uint256 => RewardRateStruct) rewardRateMap;
-    }
-
-    struct RewardRateStruct {
-        uint256 rate;
-        uint256 effectiveRate;
-        uint256 stakingRewards;
-        RewardsTransactionStruct[] rewardTransactionList;
-    }
-
-    struct RewardsTransactionStruct {
-        uint256 updateTime;
-        uint256 stakingRewards;
+        mapping(string  => RewardTypeStruct) rewardsMap;
     }
 
 
@@ -135,6 +110,31 @@ contract SpCoinDataTypes {
         uint256 insertionTime;
         uint256 stakingRewards;
         address[] sourceList;
+    }
+
+    /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
+
+    struct RewardTypeStruct {
+        uint256 stakingRewards;
+        mapping(address => RewardAccountStruct) rewardsMap;   // contains Sponsrr, Recipient Keys
+    }
+
+    struct RewardAccountStruct {
+        uint256 stakingRewards;
+        uint256[] rewardRateList;
+        mapping(uint256 => RewardRateStruct) rewardRateMap;
+    }
+
+    struct RewardRateStruct {
+        uint256 rate;
+        uint256 effectiveRate;
+        uint256 stakingRewards;
+        RewardsTransactionStruct[] rewardTransactionList;
+    }
+
+    struct RewardsTransactionStruct {
+        uint256 updateTime;
+        uint256 stakingRewards;
     }
 
    /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
