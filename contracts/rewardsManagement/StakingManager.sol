@@ -44,37 +44,28 @@ contract StakingManager is UnSubscribe{
     function depositAccountStakingRewards( uint _accountType, address _sourceKey, address _depositKey, uint _rate, uint _amount )
         internal returns ( uint ) {
         require (_amount > 0, "AMOUNT BALANCE MUST BE LARGER THAN 0");
-        console.log("SOL=>2.0 depositAccountStakingRewards(_accountType)", getAccountTypeString(_accountType));
-        console.log("SOL=>2.1 _sourceKey  = ", _sourceKey);
-        console.log("SOL=>2.2 _depositKey = ", _depositKey);
-        console.log("SOL=>2.3 _rate       = ", _rate);
-        console.log("SOL=>2.4 _amount     = ", _amount);
+        // console.log("SOL=>2.0 depositAccountStakingRewards(_accountType)", getAccountTypeString(_accountType));
+        // console.log("SOL=>2.1 _sourceKey  = ", _sourceKey);
+        // console.log("SOL=>2.2 _depositKey = ", _depositKey);
+        // console.log("SOL=>2.3 _rate       = ", _rate);
+        // console.log("SOL=>2.4 _amount     = ", _amount);
         totalSupply += _amount;
 
-        console.log("SOL=>4 FETCHING depositAccount = accountMap[", _depositKey, "]");
+        // console.log("SOL=>4 FETCHING depositAccount = accountMap[", _depositKey, "]");
         AccountStruct storage depositAccount = accountMap[_depositKey];
 
         RewardsStruct storage rewardsRecord = depositAccount.rewardsMap[getAccountTypeString(_accountType)];
 
         depositAccount.totalStakingRewards += _amount;
         // rewardsRecord.totalStakingRewards += _amount;
-        // mapping(address => RewardAccountStruct) storage agentRewardsMap = rewardsRecord.agentRewardsMap;
+        // mapping(address => RewardAccountStruct) storage rewardsMap = rewardsRecord.rewardsMap;
 
         RewardAccountStruct storage rewardAccountRecord;
 
-        if (_accountType == SPONSOR) {
-        rewardsRecord.totalSponsorRewards += _amount;
-            rewardAccountRecord = rewardsRecord.rewardsMap[_sourceKey];
-        } else if (_accountType == RECIPIENT) {
-        rewardsRecord.totalRecipientRewards += _amount;
-            rewardAccountRecord = rewardsRecord.recipientRewardsMap[_sourceKey];
-        } else { // ACCOUNT_TYPE is AGENT
-        rewardsRecord.totalAgentRewards += _amount;
-            rewardAccountRecord = rewardsRecord.agentRewardsMap[_sourceKey];
-        }
-        console.log("SOL=>2.6 rewardsRecord.totalSponsorRewards   = ", rewardsRecord.totalSponsorRewards);
-        console.log("SOL=>2.7 rewardsRecord.totalRecipientRewards = ", rewardsRecord.totalRecipientRewards);
-        console.log("SOL=>2.8 rewardsRecord.totalAgentRewards     = ", rewardsRecord.totalAgentRewards);
+        rewardAccountRecord = rewardsRecord.rewardsMap[_sourceKey];
+        // console.log("SOL=>2.6 rewardsRecord.stakingRewards   = ", rewardsRecord.stakingRewards);
+        // console.log("SOL=>2.7 rewardsRecord.stakingRewards = ", rewardsRecord.stakingRewards);
+        // console.log("SOL=>2.8 rewardsRecord.stakingRewards     = ", rewardsRecord.stakingRewards);
 
         rewardAccountRecord.stakingRewards += _amount;
 
@@ -87,7 +78,7 @@ contract StakingManager is UnSubscribe{
         // console.log("SOL=>2.9 rewardRateList.length = ",rewardRateList.length);
         // console.log("SOL=>2.10 rewardRateRecord.rate = ",rewardRateRecord.rate);
         rewardRateRecord.stakingRewards += _amount;
-        console.log("SOL=>2.11 rewardRateRecord.stakingRewards = ", rewardRateRecord.stakingRewards);
+        // console.log("SOL=>2.11 rewardRateRecord.stakingRewards = ", rewardRateRecord.stakingRewards);
         RewardsTransactionStruct[] storage rewardTransactionList = rewardRateRecord.rewardTransactionList;
         depositRewardTransaction( rewardTransactionList, _amount );
         // console.log("SOL=>2.12 rewardTransactionList[0].stakingRewards = ", rewardTransactionList[0].stakingRewards);
@@ -139,16 +130,7 @@ contract StakingManager is UnSubscribe{
 
             RewardsStruct storage rewardsRecord = depositAccount.rewardsMap[getAccountTypeString(_rewardType)];
             RewardAccountStruct storage accountReward;
-            if ( _rewardType == SPONSOR ) {
-                accountReward = rewardsRecord.rewardsMap[accountKey];
-            }
-            else 
-            if ( _rewardType == RECIPIENT ) {
-                accountReward = rewardsRecord.recipientRewardsMap[accountKey];
-            }
-            else {  //ACCOUNT is AGENT
-                accountReward = rewardsRecord.agentRewardsMap[accountKey];
-            }
+            accountReward = rewardsRecord.rewardsMap[accountKey];
             memoryRewards = concat(memoryRewards, getRewardRateRecords(accountReward));
 
             // console.log("SOL=>17 accountKey[", idx,"] = ", accountSearchList[idx]);

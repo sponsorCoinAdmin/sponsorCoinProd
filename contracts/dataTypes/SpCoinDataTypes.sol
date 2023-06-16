@@ -59,12 +59,8 @@ contract SpCoinDataTypes {
     /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
 
     struct RewardsStruct {
-        uint256 totalSponsorRewards;
-        uint256 totalRecipientRewards;
-        uint256 totalAgentRewards;
-        mapping(address => RewardAccountStruct) rewardsMap;   // contains Recipient Keys
-        mapping(address => RewardAccountStruct) recipientRewardsMap; // contains Sponsor Keys
-        mapping(address => RewardAccountStruct) agentRewardsMap;     // contains Recipient Keys
+        uint256 stakingRewards;
+        mapping(address => RewardAccountStruct) rewardsMap;   // contains Sponsrr, Recipient Keys
     }
 
     struct RewardAccountStruct {

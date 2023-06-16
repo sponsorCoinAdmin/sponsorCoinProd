@@ -32,7 +32,7 @@ SOL=>2.7 rewardTransactionList[0].stakingRewards =  444
 
     struct RewardsStruct {
         // contains Recipient Keys
-        mapping(address => RewardAccountStruct) agentRewardsMap = {0x70997970c51812dc3a010c7d01b50e0d17dc79c8};
+        mapping(address => RewardAccountStruct) rewardsMap = {0x70997970c51812dc3a010c7d01b50e0d17dc79c8};
     }
 
     struct RewardAccountStruct {

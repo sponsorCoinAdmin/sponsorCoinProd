@@ -13,16 +13,8 @@ contract RewardsManager is StakingManager{
         RewardsStruct storage rewardsRecord = account.rewardsMap[getAccountTypeString(_accountType)];
         RewardAccountStruct storage rewardAccountRecord;
 
-        if (_accountType == SPONSOR) {
             rewardAccountRecord = rewardsRecord.rewardsMap[_sourceKey];
             updateSponsorRewardRecords(rewardAccountRecord);
-        } else if (_accountType == RECIPIENT) {
-            rewardAccountRecord = rewardsRecord.recipientRewardsMap[_sourceKey];
-            updateRecipientRewardRecords(rewardAccountRecord);
-        } else { // ACCOUNT_TYPE is AGENT
-            rewardAccountRecord = rewardsRecord.agentRewardsMap[_sourceKey];
-            updateAgentRewardRecords(rewardAccountRecord);
-        }
     }
 
     function updateSponsorRewardRecords( RewardAccountStruct storage rewardAccountRecord )
