@@ -9,4 +9,4 @@ cache
 artifacts
 .env
 
-hhtest.out
+/hhtest.out
