@@ -3,6 +3,8 @@ let spCoinLogger;
 const SPONSOR = 0;
 const RECIPIENT = 1;
 const AGENT = 2;
+const burnAddress = "0x0000000000000000000000000000000000000000";
+
 class SpCoinAddMethods {
 
 constructor(_spCoinContractDeployed) {
@@ -215,10 +217,9 @@ constructor(_spCoinContractDeployed) {
       _rate + ", " +
       _amount + ")"
     );
-    // let sponsorAccount = burnAddress;
     await this.spCoinContractDeployed.connect(this.signer).depositStakingRewards (
       AGENT,
-      _recipientAccount,
+      burnAddress,
       _recipientAccount,
       _agentAccount,
       _rate,

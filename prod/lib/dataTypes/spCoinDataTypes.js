@@ -1,5 +1,3 @@
-let burnAddress = "0x0000000000000000000000000000000000000000";
-
 class AccountStruct {
   // Initialize values to maintain output display order
 

@@ -22,21 +22,29 @@ contract StakingManager is UnSubscribe{
         public returns ( uint ) {
                     // console.log("SOL=>1.0 getAccountTypeString(_accountType)", getAccountTypeString(_accountType));
 
+        address sourceKey = _sourceKey;
+        address depositKey = _depositKey;   
         if (_accountType == SPONSOR) { 
             // _sourceKey = SPONSOR
             _rate = annualInflation;
-            string memory errMsg = concat("RECIPIENT ACCOUNT ",  toString(_sourceKey), " NOT FOUND FOR SPONSOR ACCOUNT ",  toString(_depositKey));
+            string memory errMsg = concat("RECIPIENT ACCOUNT ",  toString(_sourceKey), " NOT FOUND FOR SPONSOR ACCOUNT ",  toString(_sponsorKey));
             require (sponsorHasRecipient( _sourceKey, _depositKey ), errMsg);
+            sourceKey = _sourceKey;
+            depositKey = _sponsorKey;   
         } else if (_accountType == RECIPIENT) { 
             // _sourceKey = RECIPIENT
-            string memory errMsg = concat("SPONSOR ACCOUNT ",  toString(_sourceKey), " NOT FOUND FOR RECIPIENT ACCOUNT ",  toString(_depositKey));
+            string memory errMsg = concat("SPONSOR ACCOUNT ",  toString(_sponsorKey), " NOT FOUND FOR RECIPIENT ACCOUNT ",  toString(_depositKey));
             require (recipientHasSponsor( _sourceKey, _depositKey ), errMsg);
+            sourceKey = _sponsorKey;
+            depositKey = _depositKey;   
         } else if (_accountType == AGENT) {
             // _sourceKey = AGENT
             string memory errMsg = concat("RECIPIENT ACCOUNT ",  toString(_sourceKey), " NOT FOUND FOR AGENT ACCOUNT ",  toString(_depositKey));
             require (agentHasRecipient( _sourceKey, _depositKey ), errMsg);
+            sourceKey = _sourceKey;
+            depositKey = _depositKey;   
         }       
-        return depositAccountStakingRewards( _accountType, _sourceKey, _depositKey, _rate, _amount );
+        return depositAccountStakingRewards( _accountType, sourceKey, depositKey, _rate, _amount );
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
