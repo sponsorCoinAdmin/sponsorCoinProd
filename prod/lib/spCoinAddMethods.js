@@ -197,8 +197,8 @@ constructor(_spCoinContractDeployed) {
     await this.spCoinContractDeployed.connect(this.signer).depositStakingRewards (
       RECIPIENT,
       _sponsorAccount,
-      _sponsorAccount,
       _recipientAccount,
+      burnAddress,
       _rate,
       _amount
       );
