@@ -18,31 +18,31 @@ contract StakingManager is UnSubscribe{
     //             ~ _sourceKey  = RECIPIENT ADDRESS
     //             ~ _depositKey = AGENT ADDRESS
 
-    function depositStakingRewards( uint _accountType, address _sponsorKey, address _sourceKey, address _depositKey, uint _rate, uint _amount)
+    function depositStakingRewards( uint _accountType, address _sponsorKey, address _recipientKey, address _agentKey, uint _rate, uint _amount)
         public returns ( uint ) {
                     // console.log("SOL=>1.0 getAccountTypeString(_accountType)", getAccountTypeString(_accountType));
 
-        address sourceKey = _sourceKey;
-        address depositKey = _depositKey;   
+        address sourceKey = _recipientKey;
+        address depositKey = _agentKey;   
         if (_accountType == SPONSOR) { 
             // _sourceKey = SPONSOR
             _rate = annualInflation;
-            string memory errMsg = concat("RECIPIENT ACCOUNT ",  toString(_sourceKey), " NOT FOUND FOR SPONSOR ACCOUNT ",  toString(_sponsorKey));
-            require (sponsorHasRecipient( _sourceKey, _depositKey ), errMsg);
-            sourceKey = _sourceKey;
+            string memory errMsg = concat("RECIPIENT ACCOUNT ",  toString(_recipientKey), " NOT FOUND FOR SPONSOR ACCOUNT ",  toString(_sponsorKey));
+            require (sponsorHasRecipient( _recipientKey, _agentKey ), errMsg);
+            sourceKey = _recipientKey;
             depositKey = _sponsorKey;   
         } else if (_accountType == RECIPIENT) { 
             // _sourceKey = RECIPIENT
-            string memory errMsg = concat("SPONSOR ACCOUNT ",  toString(_sponsorKey), " NOT FOUND FOR RECIPIENT ACCOUNT ",  toString(_depositKey));
-            require (recipientHasSponsor( _sourceKey, _depositKey ), errMsg);
+            string memory errMsg = concat("SPONSOR ACCOUNT ",  toString(_sponsorKey), " NOT FOUND FOR RECIPIENT ACCOUNT ",  toString(_agentKey));
+            require (recipientHasSponsor( _recipientKey, _agentKey ), errMsg);
             sourceKey = _sponsorKey;
-            depositKey = _depositKey;   
+            depositKey = _agentKey;   
         } else if (_accountType == AGENT) {
             // _sourceKey = AGENT
-            string memory errMsg = concat("RECIPIENT ACCOUNT ",  toString(_sourceKey), " NOT FOUND FOR AGENT ACCOUNT ",  toString(_depositKey));
-            require (agentHasRecipient( _sourceKey, _depositKey ), errMsg);
-            sourceKey = _sourceKey;
-            depositKey = _depositKey;   
+            string memory errMsg = concat("RECIPIENT ACCOUNT ",  toString(_recipientKey), " NOT FOUND FOR AGENT ACCOUNT ",  toString(_agentKey));
+            require (agentHasRecipient( _recipientKey, _agentKey ), errMsg);
+            sourceKey = _recipientKey;
+            depositKey = _agentKey;
         }       
         return depositAccountStakingRewards( _accountType, sourceKey, depositKey, _rate, _amount );
     }
