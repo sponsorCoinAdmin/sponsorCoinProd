@@ -171,6 +171,7 @@ constructor(_spCoinContractDeployed) {
     );
     await this.spCoinContractDeployed.connect(this.signer).depositStakingRewards (
       SPONSOR,
+      _sponsorAccount,
       _recipientAccount,
       _sponsorAccount,
       _rate,
@@ -194,6 +195,7 @@ constructor(_spCoinContractDeployed) {
     await this.spCoinContractDeployed.connect(this.signer).depositStakingRewards (
       RECIPIENT,
       _sponsorAccount,
+      _sponsorAccount,
       _recipientAccount,
       _rate,
       _amount
@@ -213,8 +215,10 @@ constructor(_spCoinContractDeployed) {
       _rate + ", " +
       _amount + ")"
     );
+    // let sponsorAccount = burnAddress;
     await this.spCoinContractDeployed.connect(this.signer).depositStakingRewards (
       AGENT,
+      _recipientAccount,
       _recipientAccount,
       _agentAccount,
       _rate,
