@@ -160,14 +160,14 @@ constructor(_spCoinContractDeployed) {
   };
 
   depositSponsorStakingRewards = async (
-    _recipientAccount,
     _sponsorAccount, 
+    _recipientAccount,
     _rate,
     _amount) => {
       spCoinLogger.logFunctionHeader(
       "depositSponsorStakingRewards = async(" +
-      _recipientAccount + ", " +
       _sponsorAccount + ", " +
+      _recipientAccount + ", " +
       _rate + ", " +
       _amount + ")"
     );
