@@ -1,10 +1,16 @@
 */artifacts/
 /.contracts.OLD
 /.deps
-/~*
+hhtest.out
+hhtest\.out
 node_modules
 
 # Hardhat files
 cache
 artifacts
 .env
+
+*/test\.out/
+*/test.out/
+/hhtest.out
+/~*

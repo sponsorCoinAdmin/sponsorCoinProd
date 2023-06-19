@@ -1,17 +1,20 @@
 class AccountStruct {
+  // Initialize values to maintain output display order
+
   constructor() {
     this.TYPE = "--ACCOUNT--";
-    this.accountKey;
-    this.balanceOf;
-    this.stakedSPCoins;
-    this.creationTime;
-    this.verified;
-    this.sponsorAccountList;
-    this.recipientAccountList;
-    this.agentAccountList;
-    this.agentsParentRecipientAccountList;
-    this.recipientRecordList;
-    this.stakingRewardList;
+    this.accountKey = 0;
+    this.balanceOf = 0;
+    this.stakedSPCoins = 0;
+    this.creationTime = 0;
+    this.verified = false;
+    this.sponsorAccountList = 0;
+    this.recipientAccountList = 0;
+    this.agentAccountList = 0;
+    this.agentsParentRecipientAccountList = 0;
+    this.recipientRecordList = 0;
+    this.totalStakingRewards = 0;
+    this.stakingRewardList = 0;
   }
 }
 
@@ -75,7 +78,6 @@ class StakingTransactionStruct {
 class RewardsStruct {
   constructor() {
     this.TYPE = "--REWARDS STRUCTURE--";
-    this.totalStakingRewards;
     this.sponsorRewardsList;
     this.recipientRewardsList;
     this.agentRewardsList;

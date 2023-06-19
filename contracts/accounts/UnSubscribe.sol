@@ -51,8 +51,8 @@ contract UnSubscribe is Transactions {
 
      }
 
-    //  For each Recipient Rate Record,
-    //    Remove Agent Account Reference from Rate Record
+    // For each Recipient Rate Record,
+    //   Remove Agent Account Reference from Rate Record
     function deleteRecipientRateRecords(RecipientStruct storage _recipientRecord) internal {
         // Delete Agent Rate Keys
         uint256[] storage recipientRateList = _recipientRecord.recipientRateList;
@@ -116,7 +116,7 @@ contract UnSubscribe is Transactions {
 
         // console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
 
-        //  for (uint j = 0; j < agentAccount.agentsParentRecipientAccountList.length ; j++)
+        // for (uint j = 0; j < agentAccount.agentsParentRecipientAccountList.length ; j++)
         // console.log("*** AFTER DELETE agentAccount.agentsParentRecipientAccountList[", j, "] = ",agentAccount.agentsParentRecipientAccountList[j]);
          deleteAccountFromMaster(agentKey);
     }

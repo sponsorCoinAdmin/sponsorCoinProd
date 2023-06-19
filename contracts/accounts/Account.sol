@@ -35,9 +35,9 @@ contract Account is StructSerialization {
         address[] storage sponsorAccountList = recipientAccount.sponsorAccountList;
 
         // for (uint idx = 0; idx < sponsorAccountList.length; idx++) {
-        //     if ( _sponsorAccount == sponsorAccountList[idx] )
-        //         sponsorFound = true;
-        //     }
+        //    if ( _sponsorAccount == sponsorAccountList[idx] )
+        //        sponsorFound = true;
+        //    }
         return accountInList( _sponsorAccount, sponsorAccountList );
     }
 
@@ -47,7 +47,7 @@ contract Account is StructSerialization {
         address[] storage sponsorAccountList = recipientAccount.sponsorAccountList;
         // for (uint idx = 0; idx < sponsorAccountList.length; idx++) {
         // if ( _sponsorAccount == sponsorAccountList[idx] )
-        //     sponsorFound = true;
+        //    sponsorFound = true;
         // }
         return accountInList( _sponsorAccount, sponsorAccountList );
     }
@@ -58,7 +58,7 @@ contract Account is StructSerialization {
         address[] storage agentAccountList = recipientAccount.agentAccountList;
         // for (uint idx = 0; idx < agentAccountList.length; idx++) {
         // if ( _agentAccount == agentAccountList[idx] )
-        //     agentFound = true;
+        //    agentFound = true;
         // }
         return accountInList( _agentAccount, agentAccountList );
         }

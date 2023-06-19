@@ -3,6 +3,8 @@ let spCoinLogger;
 const SPONSOR = 0;
 const RECIPIENT = 1;
 const AGENT = 2;
+const burnAddress = "0x0000000000000000000000000000000000000000";
+
 class SpCoinAddMethods {
 
 constructor(_spCoinContractDeployed) {
@@ -158,22 +160,24 @@ constructor(_spCoinContractDeployed) {
   };
 
   depositSponsorStakingRewards = async (
-    _recipientAccount,
     _sponsorAccount, 
-    _rate,
+    _recipientAccount,
+    _recipientRate ,
     _amount) => {
-    console.log(
+      spCoinLogger.logFunctionHeader(
       "depositSponsorStakingRewards = async(" +
-      _recipientAccount + ", " +
       _sponsorAccount + ", " +
-      _rate + ", " +
+      _recipientAccount + ", " +
+      _recipientRate  + ", " +
       _amount + ")"
     );
     await this.spCoinContractDeployed.connect(this.signer).depositStakingRewards (
       SPONSOR,
-      _recipientAccount,
       _sponsorAccount,
-      _rate,
+      _recipientAccount,
+      _recipientRate ,
+      _sponsorAccount,
+      0,
       _amount
       );
     spCoinLogger.logExitFunction();
@@ -182,45 +186,50 @@ constructor(_spCoinContractDeployed) {
   depositRecipientStakingRewards = async (
     _sponsorAccount, 
     _recipientAccount,
-    _rate,
+    _recipientRate,
     _amount) => {
     spCoinLogger.logFunctionHeader(
       "depositRecipientStakingRewards = async(" +
       _sponsorAccount + ", " +
       _recipientAccount + ", " +
-      _rate + ", " +
+      _recipientRate + ", " +
       _amount + ")"
     );
     await this.spCoinContractDeployed.connect(this.signer).depositStakingRewards (
       RECIPIENT,
       _sponsorAccount,
       _recipientAccount,
-      _rate,
+      _recipientRate,
+      burnAddress,
+      0,
       _amount
-      );
+    );
     spCoinLogger.logExitFunction();
   };
     
   depositAgentStakingRewards = async (
+    _sponsorAccount,
     _recipientAccount,
+    _recipientRate,
     _agentAccount, 
-    _rate,
+    _agentRate,
     _amount) => {
     spCoinLogger.logFunctionHeader(
       "depositAgentStakingRewards = async(" +
       _recipientAccount,
       _agentAccount + ", " +
-      _rate + ", " +
+      _agentRate + ", " +
       _amount + ")"
     );
     await this.spCoinContractDeployed.connect(this.signer).depositStakingRewards (
       AGENT,
+      _sponsorAccount,
       _recipientAccount,
+      _recipientRate,
       _agentAccount,
-      _rate,
+      _agentRate,
       _amount
-      );
-
+    );
     spCoinLogger.logExitFunction();
   };
 }

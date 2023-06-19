@@ -11,7 +11,7 @@ contract Transactions is AgentRates {
                                  uint _agentRateKey,
                                  string memory _strWholeAmount,
                                  string memory _strDecimalAmount)
-                                //  uint256 _sponsorAmount)
+                                // uint256 _sponsorAmount)
     public onlyOwnerOrRootAdmin("addSponsorship", msg.sender)
     // validateSufficientAccountBalance(sponsorAmount)
     {
@@ -29,13 +29,16 @@ contract Transactions is AgentRates {
         (sponsorAmount, result) = decimalStringToUint(_strWholeAmount, _strDecimalAmount, decimals);
 
         require(result,concat("Unparsable Sponsor Amount ", _strWholeAmount));
-        require(balanceOf[msg.sender] >= sponsorAmount, "Insufficient Balance");
+        // string memory errString =
+        require(balanceOf[msg.sender] >= sponsorAmount, 
+            concat("Insufficient Balance balanceOf[",toString(msg.sender),"] >= ", 
+            toString(sponsorAmount)));
 
         getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
 
         uint256 transactionTimeStamp = block.timestamp;
         // StakingTransactionStruct memory transRec = StakingTransactionStruct(
-        //     {insertionTime: transactionTimeStamp, quantity: sponsorAmount}
+        //    {insertionTime: transactionTimeStamp, quantity: sponsorAmount}
         // );
 
         StakingTransactionStruct memory transRec;

@@ -26,7 +26,7 @@ const LOG_MODE = {
     LOG_TREE = false;
   }
 
-//   let spCoinReadMethods;
+// let spCoinReadMethods;
 
 class SpCoinLogger {
      constructor(_spCoinContractDeployed) {

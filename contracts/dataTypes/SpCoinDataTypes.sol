@@ -52,11 +52,12 @@ contract SpCoinDataTypes {
         address[] agentsParentRecipientAccountList; // If Agent? List of Agents Recipient Account
         mapping(address => RecipientStruct) recipientMap;
         // STAKING REWARDS MAPPINGS
-        // uint256 totalStakingRewards; // Coins not owned but Recipiented
-        mapping(string  => RewardsStruct) rewardsMap;
+        uint256 totalStakingRewards; // Coins not owned but Recipiented
+        mapping(string  => RewardTypeStruct) rewardsMap;
     }
 
-     /// STRUCTURE DESIGN SECTION SECTION ////////////////////////////////////////////////////////////////////
+
+    /// STRUCTURE DESIGN SECTION SECTION ////////////////////////////////////////////////////////////////////
     // Each Account has a map of Recipient and an array of recipientRate structures
     struct RecipientStruct {
         address sponsorKey;
@@ -111,17 +112,11 @@ contract SpCoinDataTypes {
         address[] sourceList;
     }
 
-   /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
-           /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
+    /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
 
-    struct RewardsStruct {
-        uint256 totalSponsorRewards;
-        uint256 totalRecipientRewards;
-        uint256 totalAgentRewards;
-        uint256 totalStakingRewards; 
-        mapping(address => RewardAccountStruct) sponsorRewardsMap;   // contains Recipient Keys
-        mapping(address => RewardAccountStruct) recipientRewardsMap; // contains Sponsor Keys
-        mapping(address => RewardAccountStruct) agentRewardsMap;     // contains Recipient Keys
+    struct RewardTypeStruct {
+        uint256 stakingRewards;
+        mapping(address => RewardAccountStruct) rewardsMap;   // contains Sponsrr, Recipient Keys
     }
 
     struct RewardAccountStruct {
@@ -142,6 +137,8 @@ contract SpCoinDataTypes {
         uint256 stakingRewards;
     }
 
+   /// STAKING REWARDS SECTION ////////////////////////////////////////////////////////////////////
+        
     function getAccountTypeString(uint _accountType) internal view returns (string memory strAccountType) {
         if (_accountType == SPONSOR)
             return "SPONSOR";

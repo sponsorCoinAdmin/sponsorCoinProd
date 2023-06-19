@@ -11,8 +11,8 @@ contract SPCoin is Token{
     uint256 private defaultTotalSupply = defaultTSPCoinSupply * (10**defaultDecimals);
 
     constructor()  {
-//        logDetail("JS => MESSAGE.SENDER: ", msg.sender);
-//        logDetail("JS => MESSAGE.SENDER: ", msg.sender);
+//       logDetail("JS => MESSAGE.SENDER: ", msg.sender);
+//       logDetail("JS => MESSAGE.SENDER: ", msg.sender);
 // initToken(defaultName,  defaultSymbol, defaultDecimals, defaultTotalSupply);
 
         name = defaultName;
