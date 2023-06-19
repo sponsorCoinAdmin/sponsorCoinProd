@@ -134,10 +134,12 @@ contract StringUtils {
 
    function strCompare(string memory a, string memory b) internal pure returns (bool stringsAreEqual) {
       stringsAreEqual = keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b)));
-      // if (stringsAreEqual)
-      //     console.log("STRINGS ARE EQUAL(",  a, b, ")");
-      // else
-      //     console.log("** ERROR: *** STRINGS ARE NOT EQUAL(",  a, b, ")");
+/*
+      if (stringsAreEqual)
+          console.log("STRINGS ARE EQUAL(",  a, b, ")");
+      else
+          console.log("** ERROR: *** STRINGS ARE NOT EQUAL(",  a, b, ")");
+*/
       return (stringsAreEqual);
    }
 }

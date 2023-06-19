@@ -219,41 +219,41 @@ describe("spCoinContract", function () {
     "1.000000000000000008"
   );
 
-  await spCoinAddMethods.depositSponsorStakingRewards(
-    SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
-    RECIPIENT_ACCOUNT_KEYS[1], // SOURCE ACCOUNT
-    RECIPIENT_RATES[4],
-    999
-  );
+  // await spCoinAddMethods.depositSponsorStakingRewards(
+  //   SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[1], // SOURCE ACCOUNT
+  //   RECIPIENT_RATES[4],
+  //   999
+  // );
 
-  await spCoinAddMethods.depositSponsorStakingRewards(
-    SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
-    RECIPIENT_ACCOUNT_KEYS[1], // SOURCE ACCOUNT
-    RECIPIENT_RATES[4],
-    777
-  );
+  // await spCoinAddMethods.depositSponsorStakingRewards(
+  //   SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[1], // SOURCE ACCOUNT
+  //   RECIPIENT_RATES[4],
+  //   777
+  // );
 
-  await spCoinAddMethods.depositSponsorStakingRewards(
-    SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
-    RECIPIENT_ACCOUNT_KEYS[1], // SOURCE ACCOUNT
-    RECIPIENT_RATES[3],
-    999
-  );
+  // await spCoinAddMethods.depositSponsorStakingRewards(
+  //   SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[1], // SOURCE ACCOUNT
+  //   RECIPIENT_RATES[3],
+  //   999
+  // );
 
-  await spCoinAddMethods.depositRecipientStakingRewards(
-    SPONSOR_ACCOUNT_KEYS[1],    // SOURCE ACCOUNT
-    RECIPIENT_ACCOUNT_KEYS[0],  // DEPOSIT ACCOUNT
-    RECIPIENT_RATES[4],
-    333
-  );
+  // await spCoinAddMethods.depositRecipientStakingRewards(
+  //   SPONSOR_ACCOUNT_KEYS[1],    // SOURCE ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[0],  // DEPOSIT ACCOUNT
+  //   RECIPIENT_RATES[4],
+  //   333
+  // );
 
   await spCoinAddMethods.depositAgentStakingRewards(
     SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
     RECIPIENT_ACCOUNT_KEYS[1],
-    RECIPIENT_RATES[4],
+    RECIPIENT_RATES[10],
     AGENT_ACCOUNT_KEYS[2],
-    AGENT_RATES[4],
-    444
+    AGENT_RATES[10],
+    100
   );
 
   // console.log("********************************************************************************");

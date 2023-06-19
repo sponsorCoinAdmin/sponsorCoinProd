@@ -22,7 +22,7 @@ contract StakingManager is UnSubscribe{
                                     address _recipientKey, uint _recipientRate,
                                     address _agentKey, uint _agentRate, uint _amount)
         public returns ( uint ) {
-                    // console.log("SOL=>1.0 getAccountTypeString(_accountType)", getAccountTypeString(_accountType));
+        // console.log("SOL=>1.0 getAccountTypeString(_accountType)", getAccountTypeString(_accountType));
 
         address sourceKey = _recipientKey;
         address depositKey = _agentKey;
@@ -32,18 +32,33 @@ contract StakingManager is UnSubscribe{
             _recipientRate  = annualInflation;
             errMsg = concat("RECIPIENT ACCOUNT ",  toString(_recipientKey), " NOT FOUND FOR SPONSOR ACCOUNT ",  toString(_sponsorKey));
             require (sponsorHasRecipient( _recipientKey, _sponsorKey ), errMsg);
+console.log("SPONSOR BEFORE _amount",toString(_amount));
+            _amount -= (_amount * annualInflation) / 100;
+console.log("SPONSOR AFTER _amount",toString(_amount));
             sourceKey = _recipientKey;
             depositKey = _sponsorKey;
             rate = _recipientRate;
         } else if (_accountType == RECIPIENT) { 
             errMsg = concat("SPONSOR ACCOUNT ",  toString(_sponsorKey), " NOT FOUND FOR RECIPIENT ACCOUNT ",  toString(_recipientKey));
             require (recipientHasSponsor( _sponsorKey, _recipientKey ), errMsg);
+            uint sponsorAmount = (_amount/_recipientRate) * 100;
+console.log("RECIPIENT BEFORE _amount",toString(_amount));
+            _amount -= (_amount * _recipientRate) / 100;
+console.log("RECIPIENT AFTER _amount",toString(_amount));
+            depositStakingRewards(SPONSOR, _sponsorKey,
+                                _recipientKey, _recipientRate,
+                                _agentKey, _agentRate, sponsorAmount);
             sourceKey = _sponsorKey;
             depositKey = _recipientKey;   
             rate = _recipientRate;
         } else if (_accountType == AGENT) {
             errMsg = concat("RECIPIENT ACCOUNT ",  toString(_recipientKey), " NOT FOUND FOR AGENT ACCOUNT ",  toString(_agentKey));
             require (agentHasRecipient( _recipientKey, _agentKey ), errMsg);
+            uint recipientAmount = (_amount/_agentRate) * 100;
+console.log("AGENT _amount",toString(_amount));
+            depositStakingRewards(RECIPIENT, _sponsorKey,
+                                _recipientKey, _recipientRate,
+                                _agentKey, _agentRate, recipientAmount);
             sourceKey = _recipientKey;
             depositKey = _agentKey;
             rate = _agentRate;
@@ -154,15 +169,15 @@ contract StakingManager is UnSubscribe{
 
     function getRewardRateRecords(RewardAccountStruct storage _rewardAccountRecord)
         internal  view returns (string memory memoryRewards) {
-//   console.log("SOL=>18 getRewardRateRecords(RewardAccountStruct storage _rewardAccountRecord)");
+// console.log("SOL=>18 getRewardRateRecords(RewardAccountStruct storage _rewardAccountRecord)");
         
         uint256[] storage rewardRateList = _rewardAccountRecord.rewardRateList;
-//   console.log("SOL=>18.1 BEFORE memoryRewards", memoryRewards);
-//   console.log("*** ISSUE HERE SOL=>18.2 rewardRateList.length", rewardRateList.length);
+// console.log("SOL=>18.1 BEFORE memoryRewards", memoryRewards);
+// console.log("*** ISSUE HERE SOL=>18.2 rewardRateList.length", rewardRateList.length);
 
         for (uint rateIdx = 0; rateIdx < rewardRateList.length; rateIdx++) {
             uint rate = rewardRateList[rateIdx];
-//   console.log("SOL=>18.3 rate", rate);
+// console.log("SOL=>18.3 rate", rate);
 
             RewardRateStruct storage rewardRateRecord = _rewardAccountRecord.rewardRateMap[rate];
             RewardsTransactionStruct[] storage rewardTransactionList = rewardRateRecord.rewardTransactionList;

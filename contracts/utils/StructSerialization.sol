@@ -91,36 +91,37 @@ contract StructSerialization is Utils {
         return seralized;
     }
 
-    // function serializeRewards(AccountStruct storage _accountRec)
-    //     internal view returns (string memory)
-    // {
-    //     mapping(string  => RewardTypeStruct) storage rewardsMap = _accountRec.rewardsMap;
-    //     RewardTypeStruct storage rewards = rewardsMap["RECIPIENT"];
+/*
+    function serializeRewards(AccountStruct storage _accountRec)
+        internal view returns (string memory)
+    {
+        mapping(string  => RewardTypeStruct) storage rewardsMap = _accountRec.rewardsMap;
+        RewardTypeStruct storage rewards = rewardsMap["RECIPIENT"];
 
-    //     string memory totalStakingRewards = concat(
-    //         "totalStakingRewards: ",
-    //         toString(rewards.totalStakingRewards)
-    //     );
+        string memory totalStakingRewards = concat(
+            "totalStakingRewards: ",
+            toString(rewards.totalStakingRewards)
+        );
 
-    //    string memory stakingRewards = concat(
-    //         "stakingRewards: ",
-    //         toString(rewards.stakingRewards)
-    //     );
-    //    string memory stakingRewards = concat(
-    //         "stakingRewards: ",
-    //         toString(rewards.stakingRewards)
-    //     );
-    //    string memory stakingRewards = concat(
-    //         "stakingRewards: ",
-    //         toString(rewards.stakingRewards)
-    //     );
+       string memory stakingRewards = concat(
+            "stakingRewards: ",
+            toString(rewards.stakingRewards)
+        );
+       string memory stakingRewards = concat(
+            "stakingRewards: ",
+            toString(rewards.stakingRewards)
+        );
+       string memory stakingRewards = concat(
+            "stakingRewards: ",
+            toString(rewards.stakingRewards)
+        );
 
-    //     string memory seralized = concat("totalStakingRewards:",totalStakingRewards); 
-    //     seralized = concat(seralized, delimiter, "stakingRewards:",stakingRewards);
-    //     seralized = concat(seralized, delimiter, "stakingRewards:", stakingRewards);
-    //     seralized = concat(seralized, delimiter, "stakingRewards:", stakingRewards);
+        string memory seralized = concat("totalStakingRewards:",totalStakingRewards); 
+        seralized = concat(seralized, delimiter, "stakingRewards:",stakingRewards);
+        seralized = concat(seralized, delimiter, "stakingRewards:", stakingRewards);
+        seralized = concat(seralized, delimiter, "stakingRewards:", stakingRewards);
 
-    //     return seralized;
-    // }
-
+        return seralized;
+    }
+*/
 }

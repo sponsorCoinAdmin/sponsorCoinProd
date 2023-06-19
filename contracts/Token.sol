@@ -34,7 +34,7 @@ contract Token is StakingManager{
     /// @param _to receiver of token
     /// @param _value amount value of token to send
     // Internal function transfer can only be called by this contract
-    //  Emit Transfer Event event 
+    // Emit Transfer Event event 
     function _transfer(address _from, address _to, uint256 _value) internal {
         // Ensure sending is to valid address! 0x0 address cane be used to burn() 
         require(_to != address(0));
@@ -48,7 +48,7 @@ contract Token is StakingManager{
     /// @param _spender allowed to spend and a max amount allowed to spend
     /// @param _value amount value of token to send
     /// @return true, success once address approved
-    //  Emit the Approval event  
+    // Emit the Approval event  
     // Allow _spender to spend up to _value on your behalf
     function approve(address _spender, uint256 _value) external returns (bool) {
         require(_spender != address(0));

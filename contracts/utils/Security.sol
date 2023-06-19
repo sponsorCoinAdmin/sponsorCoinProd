@@ -39,8 +39,10 @@ contract Security is SpCoinDataTypes {
         _;
     }
 
-    // modifier validateSufficientAccountBalance (uint256 _amount) {
-    //     require(balanceOf[msg.sender] >= _amount, "Insufficient Balance");
-    //     _;
-    // }
+/*
+    modifier validateSufficientAccountBalance (uint256 _amount) {
+       require(balanceOf[msg.sender] >= _amount, "Insufficient Balance");
+        _;
+    }
+*/
 }
