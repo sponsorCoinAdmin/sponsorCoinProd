@@ -18,31 +18,35 @@ contract StakingManager is UnSubscribe{
     //             ~ _sourceKey  = RECIPIENT ADDRESS
     //             ~ _depositKey = AGENT ADDRESS
 
-    function depositStakingRewards( uint _accountType, address _sponsorKey, address _recipientKey, uint _rate, address _agentKey, uint _amount)
+    function depositStakingRewards( uint _accountType, address _sponsorKey, address _recipientKey, uint _recipientRate , address _agentKey, uint _amount)
         public returns ( uint ) {
                     // console.log("SOL=>1.0 getAccountTypeString(_accountType)", getAccountTypeString(_accountType));
 
         address sourceKey = _recipientKey;
-        address depositKey = _agentKey;   
+        address depositKey = _agentKey;
+        uint rate = 0;
         string memory errMsg = "";
         if (_accountType == SPONSOR) { 
-            _rate = annualInflation;
+            _recipientRate  = annualInflation;
             errMsg = concat("RECIPIENT ACCOUNT ",  toString(_recipientKey), " NOT FOUND FOR SPONSOR ACCOUNT ",  toString(_sponsorKey));
             require (sponsorHasRecipient( _recipientKey, _sponsorKey ), errMsg);
             sourceKey = _recipientKey;
-            depositKey = _sponsorKey;   
+            depositKey = _sponsorKey;
+            rate = _recipientRate ;
         } else if (_accountType == RECIPIENT) { 
             errMsg = concat("SPONSOR ACCOUNT ",  toString(_sponsorKey), " NOT FOUND FOR RECIPIENT ACCOUNT ",  toString(_recipientKey));
             require (recipientHasSponsor( _sponsorKey, _recipientKey ), errMsg);
             sourceKey = _sponsorKey;
             depositKey = _recipientKey;   
+            rate = _recipientRate ;
         } else if (_accountType == AGENT) {
             errMsg = concat("RECIPIENT ACCOUNT ",  toString(_recipientKey), " NOT FOUND FOR AGENT ACCOUNT ",  toString(_agentKey));
             require (agentHasRecipient( _recipientKey, _agentKey ), errMsg);
             sourceKey = _recipientKey;
             depositKey = _agentKey;
+            rate = _recipientRate ; 
         }
-        return depositAccountStakingRewards( _accountType, sourceKey, depositKey, _rate, _amount );
+        return depositAccountStakingRewards( _accountType, sourceKey, depositKey, rate, _amount );
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
