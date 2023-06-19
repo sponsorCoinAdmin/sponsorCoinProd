@@ -18,7 +18,9 @@ contract StakingManager is UnSubscribe{
     //             ~ _sourceKey  = RECIPIENT ADDRESS
     //             ~ _depositKey = AGENT ADDRESS
 
-    function depositStakingRewards( uint _accountType, address _sponsorKey, address _recipientKey, uint _recipientRate , address _agentKey, uint _amount)
+    function depositStakingRewards( uint _accountType, address _sponsorKey,
+                                    address _recipientKey, uint _recipientRate,
+                                    address _agentKey, uint _agentRate, uint _amount)
         public returns ( uint ) {
                     // console.log("SOL=>1.0 getAccountTypeString(_accountType)", getAccountTypeString(_accountType));
 
@@ -32,19 +34,19 @@ contract StakingManager is UnSubscribe{
             require (sponsorHasRecipient( _recipientKey, _sponsorKey ), errMsg);
             sourceKey = _recipientKey;
             depositKey = _sponsorKey;
-            rate = _recipientRate ;
+            rate = _recipientRate;
         } else if (_accountType == RECIPIENT) { 
             errMsg = concat("SPONSOR ACCOUNT ",  toString(_sponsorKey), " NOT FOUND FOR RECIPIENT ACCOUNT ",  toString(_recipientKey));
             require (recipientHasSponsor( _sponsorKey, _recipientKey ), errMsg);
             sourceKey = _sponsorKey;
             depositKey = _recipientKey;   
-            rate = _recipientRate ;
+            rate = _recipientRate;
         } else if (_accountType == AGENT) {
             errMsg = concat("RECIPIENT ACCOUNT ",  toString(_recipientKey), " NOT FOUND FOR AGENT ACCOUNT ",  toString(_agentKey));
             require (agentHasRecipient( _recipientKey, _agentKey ), errMsg);
             sourceKey = _recipientKey;
             depositKey = _agentKey;
-            rate = _recipientRate ; 
+            rate = _agentRate;
         }
         return depositAccountStakingRewards( _accountType, sourceKey, depositKey, rate, _amount );
     }
