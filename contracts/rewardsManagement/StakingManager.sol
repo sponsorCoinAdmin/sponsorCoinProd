@@ -18,7 +18,7 @@ contract StakingManager is UnSubscribe{
     //             ~ _sourceKey  = RECIPIENT ADDRESS
     //             ~ _depositKey = AGENT ADDRESS
 
-    function depositStakingRewards( uint _accountType, address _sponsorKey, address _recipientKey, address _agentKey, uint _rate, uint _amount)
+    function depositStakingRewards( uint _accountType, address _sponsorKey, address _recipientKey, uint _rate, address _agentKey, uint _amount)
         public returns ( uint ) {
                     // console.log("SOL=>1.0 getAccountTypeString(_accountType)", getAccountTypeString(_accountType));
 

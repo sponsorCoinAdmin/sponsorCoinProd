@@ -175,8 +175,8 @@ constructor(_spCoinContractDeployed) {
       SPONSOR,
       _sponsorAccount,
       _recipientAccount,
-      _sponsorAccount,
       _rate,
+      _sponsorAccount,
       _amount
       );
     spCoinLogger.logExitFunction();
@@ -198,10 +198,10 @@ constructor(_spCoinContractDeployed) {
       RECIPIENT,
       _sponsorAccount,
       _recipientAccount,
-      burnAddress,
       _rate,
+      burnAddress,
       _amount
-      );
+    );
     spCoinLogger.logExitFunction();
   };
     
@@ -221,8 +221,8 @@ constructor(_spCoinContractDeployed) {
       AGENT,
       burnAddress,
       _recipientAccount,
-      _agentAccount,
       _rate,
+      _agentAccount,
       _amount
       );
 
