@@ -253,7 +253,7 @@ describe("spCoinContract", function () {
     RECIPIENT_RATES[10],
     AGENT_ACCOUNT_KEYS[2],
     AGENT_RATES[10],
-    100
+    1
   );
 
   // console.log("********************************************************************************");

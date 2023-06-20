@@ -4,15 +4,10 @@ pragma solidity ^0.8.18;
 import "./Token.sol";
 
 contract SPCoin is Token{
-    uint256 defaultTSPCoinSupply       = 1000000000;
-    string private defaultName         = "sponsorCoin002";
-    string private defaultSymbol       = "SPCT002";
-    uint256 private defaultDecimals    = 18;
-    uint256 private defaultTotalSupply = defaultTSPCoinSupply * (10**defaultDecimals);
 
     constructor()  {
-//       logDetail("JS => MESSAGE.SENDER: ", msg.sender);
-//       logDetail("JS => MESSAGE.SENDER: ", msg.sender);
+//        logDetail("JS => MESSAGE.SENDER: ", msg.sender);
+//        logDetail("JS => MESSAGE.SENDER: ", msg.sender);
 // initToken(defaultName,  defaultSymbol, defaultDecimals, defaultTotalSupply);
 
         name = defaultName;
