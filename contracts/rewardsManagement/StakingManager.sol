@@ -22,28 +22,38 @@ contract StakingManager is UnSubscribe{
                                     address _recipientKey, uint _recipientRate,
                                     address _agentKey, uint _agentRate, uint _amount)
         public returns ( uint ) {
-        // console.log("SOL=>1.0 getAccountTypeString(_accountType)", getAccountTypeString(_accountType));
+        console.log(" _accountType, address _sponsorKey, _recipientKey, _recipientRate, _agentKey, _agentRate, _amount");
+        console.log("SOL=>2.1 _accountType   = ", getAccountTypeString(_accountType));
+        console.log("SOL=>2.1 _sponsorKey    = ", _sponsorKey);
+        console.log("SOL=>2.2 _recipientKey  = ", _recipientKey);
+        console.log("SOL=>2.3 _recipientRate = ", _recipientRate);
+        console.log("SOL=>2.4 _agentKey      = ", _agentKey);
+        console.log("SOL=>2.4 _agentRate     = ", _agentRate);
+        console.log("SOL=>2.4 _amount        = ", _amount);
 
         address sourceKey = _recipientKey;
         address depositKey = _agentKey;
         uint rate = 0;
+        uint percentDiviser = decimalMultiplier/100;
+        console.log("decimalMultiplier",toString(decimalMultiplier));
         string memory errMsg = "";
+
         if (_accountType == SPONSOR) { 
             _recipientRate  = annualInflation;
-            errMsg = concat("RECIPIENT ACCOUNT ",  toString(_recipientKey), " NOT FOUND FOR SPONSOR ACCOUNT ",  toString(_sponsorKey));
+            errMsg = buildErrString(_accountType, _recipientKey, " NOT FOUND FOR SPONSOR ACCOUNT ",  _sponsorKey);
             require (sponsorHasRecipient( _recipientKey, _sponsorKey ), errMsg);
-console.log("SPONSOR BEFORE _amount",toString(_amount));
+// console.log("SPONSOR BEFORE _amount",toString( _amount ));
             _amount -= (_amount * annualInflation) / 100;
-console.log("SPONSOR AFTER _amount",toString(_amount));
+// console.log("SPONSOR AFTER _amount",toString( _amount ));
             sourceKey = _recipientKey;
             depositKey = _sponsorKey;
             rate = _recipientRate;
-        } else if (_accountType == RECIPIENT) { 
-            errMsg = concat("SPONSOR ACCOUNT ",  toString(_sponsorKey), " NOT FOUND FOR RECIPIENT ACCOUNT ",  toString(_recipientKey));
-            require (recipientHasSponsor( _sponsorKey, _recipientKey ), errMsg);
+         } else if (_accountType == RECIPIENT) { 
+             errMsg = buildErrString(_accountType,  _sponsorKey, " NOT FOUND FOR RECIPIENT ACCOUNT ",  _recipientKey);
+             require (recipientHasSponsor( _sponsorKey, _recipientKey ), errMsg);
             uint sponsorAmount = (_amount/_recipientRate) * 100;
-console.log("RECIPIENT BEFORE _amount",toString(_amount));
-            _amount -= (_amount * _recipientRate) / 100;
+console.log("RECIPIENT BEFORE _amount",toString( _amount ));
+            _amount -= ((_amount * decimalMultiplier) * _recipientRate) / percentDiviser;
 console.log("RECIPIENT AFTER _amount",toString(_amount));
             depositStakingRewards(SPONSOR, _sponsorKey,
                                 _recipientKey, _recipientRate,
@@ -51,19 +61,25 @@ console.log("RECIPIENT AFTER _amount",toString(_amount));
             sourceKey = _sponsorKey;
             depositKey = _recipientKey;   
             rate = _recipientRate;
-        } else if (_accountType == AGENT) {
-            errMsg = concat("RECIPIENT ACCOUNT ",  toString(_recipientKey), " NOT FOUND FOR AGENT ACCOUNT ",  toString(_agentKey));
-            require (agentHasRecipient( _recipientKey, _agentKey ), errMsg);
-            uint recipientAmount = (_amount/_agentRate) * 100;
-console.log("AGENT _amount",toString(_amount));
+         } else if (_accountType == AGENT) {
+             errMsg = buildErrString(_accountType,  _recipientKey, " NOT FOUND FOR AGENT ACCOUNT ",  _agentKey);
+             require (agentHasRecipient( _recipientKey, _agentKey ), errMsg);
+            uint recipientAmount = ((_amount * decimalMultiplier)/_agentRate) / percentDiviser;
+// console.log("AGENT _amount",toString(_amount));
             depositStakingRewards(RECIPIENT, _sponsorKey,
                                 _recipientKey, _recipientRate,
                                 _agentKey, _agentRate, recipientAmount);
             sourceKey = _recipientKey;
             depositKey = _agentKey;
             rate = _agentRate;
-        }
+         }
         return depositAccountStakingRewards( _accountType, sourceKey, depositKey, rate, _amount );
+    }
+
+    function buildErrString( uint _accountType, address _key1, string memory str1, address _key2)
+    internal view returns(string memory errMsg) {
+        errMsg = concat(getAccountTypeString(_accountType), " ACCOUNT", toString(_key1), str1,  toString(_key2));
+        return errMsg;
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

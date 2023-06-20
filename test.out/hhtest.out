@@ -1,274 +1,59 @@
+Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> contracts/accounts/Account.sol:11:31:
+   |
+11 |     function addAccountRecord(string memory accountType, address _accountKey)
+   |                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
 Compiled 4 Solidity files successfully
  ·------------------------|---------------------------|----------------·
  |  Solc version: 0.8.18  ·  Optimizer enabled: true  ·  Runs: 2000    │
  ·························|···························|·················
  |  Contract Name         ·  Size (KiB)               ·  Change (KiB)  │
  ·························|···························|·················
- |  SPCoin                ·                   20.949  ·         0.000  │
+ |  SPCoin                ·                   20.853  ·        +0.015  │
  ·------------------------|---------------------------|----------------·
 
 
   spCoinContract
-AGENT _amount 0x0000000000000000000000000000000000000000000000000000000000000064
-RECIPIENT BEFORE _amount 0x00000000000000000000000000000000000000000000000000000000000003e8
-RECIPIENT AFTER _amount 0x0000000000000000000000000000000000000000000000000000000000000384
-SPONSOR BEFORE _amount 0x0000000000000000000000000000000000000000000000000000000000002710
-SPONSOR AFTER _amount 0x0000000000000000000000000000000000000000000000000000000000002328
+ _accountType, address _sponsorKey, _recipientKey, _recipientRate, _agentKey, _agentRate, _amount
+SOL=>2.1 _accountType   =  AGENT
+SOL=>2.1 _sponsorKey    =  0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+SOL=>2.2 _recipientKey  =  0x70997970c51812dc3a010c7d01b50e0d17dc79c8
+SOL=>2.3 _recipientRate =  10
+SOL=>2.4 _agentKey      =  0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc
+SOL=>2.4 _agentRate     =  10
+SOL=>2.4 _amount        =  1
+decimalMultiplier 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+ _accountType, address _sponsorKey, _recipientKey, _recipientRate, _agentKey, _agentRate, _amount
+SOL=>2.1 _accountType   =  RECIPIENT
+SOL=>2.1 _sponsorKey    =  0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+SOL=>2.2 _recipientKey  =  0x70997970c51812dc3a010c7d01b50e0d17dc79c8
+SOL=>2.3 _recipientRate =  10
+SOL=>2.4 _agentKey      =  0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc
+SOL=>2.4 _agentRate     =  10
+SOL=>2.4 _amount        =  10
+decimalMultiplier 0x0000000000000000000000000000000000000000000000000de0b6b3a7640000
+RECIPIENT BEFORE _amount 0x000000000000000000000000000000000000000000000000000000000000000a
+    1) 2. VALIDATE ADD TRANSACTION RATES
 
 
-*** AFTER CREATE ******************************************************************************************************
+  0 passing (5s)
+  1 failing
+
+  1) spCoinContract
+       2. VALIDATE ADD TRANSACTION RATES:
+     Error: VM Exception while processing transaction: reverted with panic code 0x11 (Arithmetic operation underflowed or overflowed outside of an unchecked block)
+    at SPCoin.depositStakingRewards (contracts/rewardsManagement/StakingManager.sol:56)
+    at SPCoin.depositStakingRewards (contracts/rewardsManagement/StakingManager.sol:69)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runNextTicks (node:internal/process/task_queues:64:3)
+    at listOnTimeout (node:internal/timers:538:9)
+    at processTimers (node:internal/timers:512:7)
+    at HardhatNode._mineBlockWithPendingTxs (node_modules\hardhat\src\internal\hardhat-network\provider\node.ts:1819:23)
+    at HardhatNode.mineBlock (node_modules\hardhat\src\internal\hardhat-network\provider\node.ts:508:16)
+    at EthModule._sendTransactionAndReturnHash (node_modules\hardhat\src\internal\hardhat-network\provider\modules\eth.ts:1522:18)
+  
 
 
-
-DUMP JSON OBJECT
-[
-  {
-    "TYPE": "--ACCOUNT--",
-    "accountKey": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-    "balanceOf": "999999898999999999999999992",
-    "stakedSPCoins": "1000000000000000008",
-    "creationTime": "June 19, 2023 at 04:01:11 PM EDT",
-    "verified": "false",
-    "sponsorAccountList": [
-      "0x70997970c51812dc3a010c7d01b50e0d17dc79c8"
-    ],
-    "recipientAccountList": [
-      "0x70997970c51812dc3a010c7d01b50e0d17dc79c8"
-    ],
-    "agentAccountList": [],
-    "agentsParentRecipientAccountList": [],
-    "recipientRecordList": [
-      {
-        "TYPE": "--RECIPIENT_RECORD--",
-        "recipientKey": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
-        "creationTime": "June 19, 2023 at 04:01:11 PM EDT",
-        "stakedSPCoins": "1000000000000000008",
-        "recipientRateList": [
-          {
-            "TYPE": "--RECIPIENT_RATE--",
-            "recipientRate": 5,
-            "creationTime": "June 19, 2023 at 04:01:11 PM EDT",
-            "lastUpdateTime": "June 19, 2023 at 04:01:11 PM EDT",
-            "stakedSPCoins": "1000000000000000008",
-            "transactions": [],
-            "agentRecordList": [
-              {
-                "TYPE": "--AGENT_RECORD--",
-                "agentKey": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
-                "stakedSPCoins": "1000000000000000008",
-                "agentRateList": [
-                  {
-                    "TYPE": "--AGENT_RATE--",
-                    "agentRate": 9,
-                    "creationTime": "June 19, 2023 at 04:01:11 PM EDT",
-                    "lastUpdateTime": "June 19, 2023 at 04:01:11 PM EDT",
-                    "stakedSPCoins": "1000000000000000008",
-                    "transactions": [
-                      {
-                        "TYPE": "--STAKING TRANSACTION RECORD--",
-                        "location": "America/Toronto",
-                        "insertionTime": "June 19, 2023 at 04:01:11 PM EDT",
-                        "quantity": "1000000000000000008"
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "totalStakingRewards": "9000",
-    "stakingRewardList": {
-      "TYPE": "--REWARDS STRUCTURE--",
-      "sponsorRewardsList": {
-        "TYPE": "SPONSOR REWARDS",
-        "stakingRewards": "9000",
-        "rewardAccountList": [
-          {
-            "TYPE": "--REWARD ACCOUNT--",
-            "sourceKey": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
-            "stakingRewards": "9000",
-            "rateList": [
-              {
-                "TYPE": "--REWARD RATE--",
-                "rate": "10",
-                "stakingRewards": "9000",
-                "rewardTransactionList": [
-                  {
-                    "TYPE": "--REWARD TRANSACTION--",
-                    "updateTime": "June 19, 2023 at 04:01:14 PM EDT",
-                    "stakingRewards": "9000"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "recipientRewardsList": {
-        "TYPE": "RECIPIENT REWARDS",
-        "stakingRewards": "0",
-        "rewardAccountList": [
-          {
-            "TYPE": "--REWARD ACCOUNT--"
-          }
-        ]
-      },
-      "agentRewardsList": {
-        "TYPE": "AGENT REWARDS",
-        "stakingRewards": "0"
-      }
-    },
-    "location": "America/Toronto",
-    "decimals": "18"
-  },
-  {
-    "TYPE": "--ACCOUNT--",
-    "accountKey": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
-    "balanceOf": "98999999999999999992",
-    "stakedSPCoins": "1000000000000000008",
-    "creationTime": "June 19, 2023 at 04:01:11 PM EDT",
-    "verified": "false",
-    "sponsorAccountList": [
-      "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
-    ],
-    "recipientAccountList": [
-      "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
-    ],
-    "agentAccountList": [
-      "0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc"
-    ],
-    "agentsParentRecipientAccountList": [],
-    "recipientRecordList": [
-      {
-        "TYPE": "--RECIPIENT_RECORD--",
-        "recipientKey": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-        "creationTime": "June 19, 2023 at 04:01:13 PM EDT",
-        "stakedSPCoins": "1000000000000000008",
-        "recipientRateList": [
-          {
-            "TYPE": "--RECIPIENT_RATE--",
-            "recipientRate": 4,
-            "creationTime": "June 19, 2023 at 04:01:13 PM EDT",
-            "lastUpdateTime": "June 19, 2023 at 04:01:13 PM EDT",
-            "stakedSPCoins": "1000000000000000008",
-            "transactions": [
-              {
-                "TYPE": "--STAKING TRANSACTION RECORD--",
-                "location": "America/Toronto",
-                "insertionTime": "June 19, 2023 at 04:01:13 PM EDT",
-                "quantity": "1000000000000000008"
-              }
-            ],
-            "agentRecordList": []
-          }
-        ]
-      }
-    ],
-    "totalStakingRewards": "900",
-    "stakingRewardList": {
-      "TYPE": "--REWARDS STRUCTURE--",
-      "sponsorRewardsList": {
-        "TYPE": "SPONSOR REWARDS",
-        "stakingRewards": "0",
-        "rewardAccountList": [
-          {
-            "TYPE": "--REWARD ACCOUNT--"
-          }
-        ]
-      },
-      "recipientRewardsList": {
-        "TYPE": "RECIPIENT REWARDS",
-        "stakingRewards": "900",
-        "rewardAccountList": [
-          {
-            "TYPE": "--REWARD ACCOUNT--",
-            "sourceKey": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
-            "stakingRewards": "900",
-            "rateList": [
-              {
-                "TYPE": "--REWARD RATE--",
-                "rate": "10",
-                "stakingRewards": "900",
-                "rewardTransactionList": [
-                  {
-                    "TYPE": "--REWARD TRANSACTION--",
-                    "updateTime": "June 19, 2023 at 04:01:14 PM EDT",
-                    "stakingRewards": "900"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      "agentRewardsList": {
-        "TYPE": "AGENT REWARDS",
-        "stakingRewards": "0"
-      }
-    },
-    "location": "America/Toronto",
-    "decimals": "18"
-  },
-  {
-    "TYPE": "--ACCOUNT--",
-    "accountKey": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
-    "balanceOf": "0",
-    "stakedSPCoins": "0",
-    "creationTime": "June 19, 2023 at 04:01:11 PM EDT",
-    "verified": "false",
-    "sponsorAccountList": [],
-    "recipientAccountList": [],
-    "agentAccountList": [],
-    "agentsParentRecipientAccountList": [
-      "0x70997970c51812dc3a010c7d01b50e0d17dc79c8"
-    ],
-    "recipientRecordList": [],
-    "totalStakingRewards": "100",
-    "stakingRewardList": {
-      "TYPE": "--REWARDS STRUCTURE--",
-      "sponsorRewardsList": {
-        "TYPE": "SPONSOR REWARDS",
-        "stakingRewards": "0"
-      },
-      "recipientRewardsList": {
-        "TYPE": "RECIPIENT REWARDS",
-        "stakingRewards": "0"
-      },
-      "agentRewardsList": {
-        "TYPE": "AGENT REWARDS",
-        "stakingRewards": "100",
-        "rewardAccountList": [
-          {
-            "TYPE": "--REWARD ACCOUNT--",
-            "sourceKey": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
-            "stakingRewards": "100",
-            "rateList": [
-              {
-                "TYPE": "--REWARD RATE--",
-                "rate": "10",
-                "stakingRewards": "100",
-                "rewardTransactionList": [
-                  {
-                    "TYPE": "--REWARD TRANSACTION--",
-                    "updateTime": "June 19, 2023 at 04:01:14 PM EDT",
-                    "stakingRewards": "100"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    },
-    "location": "America/Toronto",
-    "decimals": "18"
-  }
-]
-    √ 2. VALIDATE ADD TRANSACTION RATES (3251ms)
-
-
-  1 passing (7s)
 
