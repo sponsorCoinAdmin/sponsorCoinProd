@@ -206,11 +206,11 @@ describe("spCoinContract", function () {
     "1.000000000000000008"
   );
 
-// FIX TRANSFER so UNITS are in SPCOIN, not WEI
-  await spCoinERC20Methods.transfer(
-     RECIPIENT_ACCOUNT_KEYS[1],
-     100000000000000000000
-   )
+// // FIX TRANSFER so UNITS are in SPCOIN, not WEI
+//   await spCoinERC20Methods.transfer(
+//      RECIPIENT_ACCOUNT_KEYS[1],
+//      100000000000000000000
+//    )
     
   await spCoinAddMethods.addSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[1],
@@ -219,33 +219,33 @@ describe("spCoinContract", function () {
     "1.000000000000000008"
   );
 
-  await spCoinAddMethods.depositSponsorStakingRewards(
-    SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
-    RECIPIENT_ACCOUNT_KEYS[1], // SOURCE ACCOUNT
-    RECIPIENT_RATES[4],
-    999
-  );
-
-  await spCoinAddMethods.depositSponsorStakingRewards(
-    SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
-    RECIPIENT_ACCOUNT_KEYS[1], // SOURCE ACCOUNT
-    RECIPIENT_RATES[4],
-    777
-  );
-
-  await spCoinAddMethods.depositSponsorStakingRewards(
-    SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
-    RECIPIENT_ACCOUNT_KEYS[1], // SOURCE ACCOUNT
-    RECIPIENT_RATES[3],
-    999
-  );
-
-  // await spCoinAddMethods.depositRecipientStakingRewards(
-  //   SPONSOR_ACCOUNT_KEYS[1],    // SOURCE ACCOUNT
-  //   RECIPIENT_ACCOUNT_KEYS[0],  // DEPOSIT ACCOUNT
+  // await spCoinAddMethods.depositSponsorStakingRewards(
+  //   SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[1], // SOURCE ACCOUNT
   //   RECIPIENT_RATES[4],
-  //   333
+  //   999
   // );
+
+  // await spCoinAddMethods.depositSponsorStakingRewards(
+  //   SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[1], // SOURCE ACCOUNT
+  //   RECIPIENT_RATES[4],
+  //   777
+  // );
+
+  // await spCoinAddMethods.depositSponsorStakingRewards(
+  //   SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[1], // SOURCE ACCOUNT
+  //   RECIPIENT_RATES[3],
+  //   999
+  // );
+
+  // // await spCoinAddMethods.depositRecipientStakingRewards(
+  // //   SPONSOR_ACCOUNT_KEYS[1],    // SOURCE ACCOUNT
+  // //   RECIPIENT_ACCOUNT_KEYS[0],  // DEPOSIT ACCOUNT
+  // //   RECIPIENT_RATES[4],
+  // //   333
+  // // );
 
   await spCoinAddMethods.depositAgentStakingRewards(
     SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
@@ -256,14 +256,14 @@ describe("spCoinContract", function () {
     1
   );
 
-  await spCoinAddMethods.depositAgentStakingRewards(
-    SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
-    RECIPIENT_ACCOUNT_KEYS[1],
-    RECIPIENT_RATES[10],
-    AGENT_ACCOUNT_KEYS[2],
-    AGENT_RATES[10],
-    100
-  );
+  // await spCoinAddMethods.depositAgentStakingRewards(
+  //   SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[1],
+  //   RECIPIENT_RATES[10],
+  //   AGENT_ACCOUNT_KEYS[2],
+  //   AGENT_RATES[10],
+  //   100
+  // );
 
   // console.log("********************************************************************************");
   console.log("\n\n*** AFTER CREATE ******************************************************************************************************\n\n");
