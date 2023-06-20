@@ -53,7 +53,7 @@ contract StakingManager is UnSubscribe{
              require (recipientHasSponsor( _sponsorKey, _recipientKey ), errMsg);
             uint sponsorAmount = (_amount/_recipientRate) * 100;
 console.log("RECIPIENT BEFORE _amount",toString( _amount ));
-            _amount -= ((_amount * decimalMultiplier) * _recipientRate) / percentDiviser;
+            _amount -= (_amount / _recipientRate );
 console.log("RECIPIENT AFTER _amount",toString(_amount));
             depositStakingRewards(SPONSOR, _sponsorKey,
                                 _recipientKey, _recipientRate,
