@@ -51,9 +51,9 @@ contract StakingManager is UnSubscribe{
          } else if (_accountType == RECIPIENT) { 
              errMsg = buildErrString(_accountType,  _sponsorKey, " NOT FOUND FOR RECIPIENT ACCOUNT ",  _recipientKey);
              require (recipientHasSponsor( _sponsorKey, _recipientKey ), errMsg);
-            uint sponsorAmount = (_amount/_recipientRate) * 100;
+            uint sponsorAmount = ((_amount * decimalMultiplier)/_recipientRate) / percentDiviser;
 console.log("RECIPIENT BEFORE _amount",toString( _amount ));
-            _amount -= (_amount / _recipientRate );
+            _amount -= (_amount * decimalMultiplier) / ( _recipientRate * decimalMultiplier );
 console.log("RECIPIENT AFTER _amount",toString(_amount));
             depositStakingRewards(SPONSOR, _sponsorKey,
                                 _recipientKey, _recipientRate,

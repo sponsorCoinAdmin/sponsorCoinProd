@@ -11,7 +11,7 @@ Compiled 4 Solidity files successfully
  ·························|···························|·················
  |  Contract Name         ·  Size (KiB)               ·  Change (KiB)  │
  ·························|···························|·················
- |  SPCoin                ·                   20.827  ·        -0.016  │
+ |  SPCoin                ·                   20.867  ·        +0.025  │
  ·------------------------|---------------------------|----------------·
 
 
@@ -58,7 +58,7 @@ DUMP JSON OBJECT
     "accountKey": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
     "balanceOf": "999999898999999999999999992",
     "stakedSPCoins": "1000000000000000008",
-    "creationTime": "June 19, 2023 at 10:30:28 PM EDT",
+    "creationTime": "June 19, 2023 at 10:53:20 PM EDT",
     "verified": "false",
     "sponsorAccountList": [
       "0x70997970c51812dc3a010c7d01b50e0d17dc79c8"
@@ -72,14 +72,14 @@ DUMP JSON OBJECT
       {
         "TYPE": "--RECIPIENT_RECORD--",
         "recipientKey": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
-        "creationTime": "June 19, 2023 at 10:30:28 PM EDT",
+        "creationTime": "June 19, 2023 at 10:53:20 PM EDT",
         "stakedSPCoins": "1000000000000000008",
         "recipientRateList": [
           {
             "TYPE": "--RECIPIENT_RATE--",
             "recipientRate": 5,
-            "creationTime": "June 19, 2023 at 10:30:28 PM EDT",
-            "lastUpdateTime": "June 19, 2023 at 10:30:28 PM EDT",
+            "creationTime": "June 19, 2023 at 10:53:20 PM EDT",
+            "lastUpdateTime": "June 19, 2023 at 10:53:20 PM EDT",
             "stakedSPCoins": "1000000000000000008",
             "transactions": [],
             "agentRecordList": [
@@ -91,14 +91,14 @@ DUMP JSON OBJECT
                   {
                     "TYPE": "--AGENT_RATE--",
                     "agentRate": 9,
-                    "creationTime": "June 19, 2023 at 10:30:28 PM EDT",
-                    "lastUpdateTime": "June 19, 2023 at 10:30:28 PM EDT",
+                    "creationTime": "June 19, 2023 at 10:53:20 PM EDT",
+                    "lastUpdateTime": "June 19, 2023 at 10:53:20 PM EDT",
                     "stakedSPCoins": "1000000000000000008",
                     "transactions": [
                       {
                         "TYPE": "--STAKING TRANSACTION RECORD--",
                         "location": "America/Toronto",
-                        "insertionTime": "June 19, 2023 at 10:30:28 PM EDT",
+                        "insertionTime": "June 19, 2023 at 10:53:20 PM EDT",
                         "quantity": "1000000000000000008"
                       }
                     ]
@@ -129,7 +129,7 @@ DUMP JSON OBJECT
                 "rewardTransactionList": [
                   {
                     "TYPE": "--REWARD TRANSACTION--",
-                    "updateTime": "June 19, 2023 at 10:30:31 PM EDT",
+                    "updateTime": "June 19, 2023 at 10:53:23 PM EDT",
                     "stakingRewards": "90"
                   }
                 ]
@@ -160,7 +160,7 @@ DUMP JSON OBJECT
     "accountKey": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
     "balanceOf": "98999999999999999992",
     "stakedSPCoins": "1000000000000000008",
-    "creationTime": "June 19, 2023 at 10:30:28 PM EDT",
+    "creationTime": "June 19, 2023 at 10:53:20 PM EDT",
     "verified": "false",
     "sponsorAccountList": [
       "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
@@ -176,20 +176,20 @@ DUMP JSON OBJECT
       {
         "TYPE": "--RECIPIENT_RECORD--",
         "recipientKey": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-        "creationTime": "June 19, 2023 at 10:30:30 PM EDT",
+        "creationTime": "June 19, 2023 at 10:53:22 PM EDT",
         "stakedSPCoins": "1000000000000000008",
         "recipientRateList": [
           {
             "TYPE": "--RECIPIENT_RATE--",
             "recipientRate": 4,
-            "creationTime": "June 19, 2023 at 10:30:30 PM EDT",
-            "lastUpdateTime": "June 19, 2023 at 10:30:30 PM EDT",
+            "creationTime": "June 19, 2023 at 10:53:22 PM EDT",
+            "lastUpdateTime": "June 19, 2023 at 10:53:22 PM EDT",
             "stakedSPCoins": "1000000000000000008",
             "transactions": [
               {
                 "TYPE": "--STAKING TRANSACTION RECORD--",
                 "location": "America/Toronto",
-                "insertionTime": "June 19, 2023 at 10:30:30 PM EDT",
+                "insertionTime": "June 19, 2023 at 10:53:22 PM EDT",
                 "quantity": "1000000000000000008"
               }
             ],
@@ -226,7 +226,7 @@ DUMP JSON OBJECT
                 "rewardTransactionList": [
                   {
                     "TYPE": "--REWARD TRANSACTION--",
-                    "updateTime": "June 19, 2023 at 10:30:31 PM EDT",
+                    "updateTime": "June 19, 2023 at 10:53:23 PM EDT",
                     "stakingRewards": "9"
                   }
                 ]
@@ -248,7 +248,7 @@ DUMP JSON OBJECT
     "accountKey": "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC",
     "balanceOf": "0",
     "stakedSPCoins": "0",
-    "creationTime": "June 19, 2023 at 10:30:28 PM EDT",
+    "creationTime": "June 19, 2023 at 10:53:20 PM EDT",
     "verified": "false",
     "sponsorAccountList": [],
     "recipientAccountList": [],
@@ -284,7 +284,7 @@ DUMP JSON OBJECT
                 "rewardTransactionList": [
                   {
                     "TYPE": "--REWARD TRANSACTION--",
-                    "updateTime": "June 19, 2023 at 10:30:31 PM EDT",
+                    "updateTime": "June 19, 2023 at 10:53:23 PM EDT",
                     "stakingRewards": "1"
                   }
                 ]
@@ -298,8 +298,8 @@ DUMP JSON OBJECT
     "decimals": "18"
   }
 ]
-    √ 2. VALIDATE ADD TRANSACTION RATES (5300ms)
+    √ 2. VALIDATE ADD TRANSACTION RATES (6036ms)
 
 
-  1 passing (11s)
+  1 passing (13s)
 
