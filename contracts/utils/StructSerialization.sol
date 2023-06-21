@@ -78,7 +78,6 @@ contract StructSerialization is Utils {
         RewardTypeStruct storage recipientRewards = rewardsMap[getAccountTypeString(RECIPIENT)];
         RewardTypeStruct storage agentRewards = rewardsMap[getAccountTypeString(AGENT)];
 
-
 // console.log("==============================================================================================");
 // console.log("SOL=>0 serializeAccount(", toString(_accountRec.accountKey),")"); 
 // console.log("SOL=>0 toString(sponsorRewards.stakingRewards)", toString(sponsorRewards.stakingRewards)); 

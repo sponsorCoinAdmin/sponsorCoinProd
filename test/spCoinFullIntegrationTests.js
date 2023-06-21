@@ -206,11 +206,11 @@ describe("spCoinContract", function () {
     "1.000000000000000008"
   );
 
-// // FIX TRANSFER so UNITS are in SPCOIN, not WEI
-//   await spCoinERC20Methods.transfer(
-//      RECIPIENT_ACCOUNT_KEYS[1],
-//      100000000000000000000
-//    )
+// FIX TRANSFER so UNITS are in SPCOIN, not WEI
+  await spCoinERC20Methods.transfer(
+     RECIPIENT_ACCOUNT_KEYS[1],
+     100000000000000000000
+   )
     
   await spCoinAddMethods.addSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[1],
