@@ -1,4 +1,22 @@
 const { LOG_MODE } = require("./hardhatSetup/hhConnectSetup");
+// const {
+//   second, 
+//   minute, 
+//   hour, 
+//   day , 
+//   week, 
+//   year, 
+//   month, 
+//   millennium } = require("../../prod/lib/spCoinStakingMethods");
+
+const second = 1;
+const minute = second * 60;
+const hour = minute * 60;
+const day = hour * 24;
+const week = day * 7;
+const year = day * (365 + hour * 8);
+const month = year/12;
+const millennium = year * 1000;
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
@@ -247,13 +265,24 @@ describe("spCoinContract", function () {
   // //   333
   // // );
 
-  await spCoinAddMethods.depositAgentStakingRewards(
+  await spCoinAddMethods.depositAgentStakingRewards (
     SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
     RECIPIENT_ACCOUNT_KEYS[1],
     RECIPIENT_RATES[10],
     AGENT_ACCOUNT_KEYS[2],
     AGENT_RATES[10],
-    1
+    10
+  );
+
+  console.log("year = ", year);
+
+  await spCoinAddMethods.backDateAgentRateRecord (
+    SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
+    RECIPIENT_ACCOUNT_KEYS[1],
+    RECIPIENT_RATES[10],
+    AGENT_ACCOUNT_KEYS[2],
+    AGENT_RATES[10],
+    year
   );
 
   // await spCoinAddMethods.depositAgentStakingRewards(
