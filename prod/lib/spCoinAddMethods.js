@@ -232,25 +232,26 @@ constructor(_spCoinContractDeployed) {
     );
     spCoinLogger.logExitFunction();
   };
-}
 
-backDateAgentRateRecord = async (
-  _sponsorAccount,
-  _recipientAccount,
-  _recipientRate,
-  _agentAccount, 
-  _agentRate,
-  _backdate
-) => {
-  await this.spCoinContractDeployed.connect(this.signer).backDateAgentRateRecord (
+  backDateAgentRateRecord = async (
     _sponsorAccount,
     _recipientAccount,
     _recipientRate,
-    _agentAccount,
+    _agentAccount, 
     _agentRate,
     _backdate
-  );
+  ) => {
+    await this.spCoinContractDeployed.connect(this.signer).backDateAgentRateRecord (
+      _sponsorAccount,
+      _recipientAccount,
+      _recipientRate,
+      _agentAccount,
+      _agentRate,
+      _backdate
+    );
+  }
 }
+
 //////////////////// MODULE EXPORTS //////////////////////
 
 module.exports = {

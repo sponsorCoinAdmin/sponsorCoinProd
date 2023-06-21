@@ -1,28 +1,47 @@
+Warning: Unused function parameter. Remove or comment out the variable name to silence this warning.
+  --> contracts/accounts/Account.sol:11:31:
+   |
+11 |     function addAccountRecord(string memory accountType, address _accountKey)
+   |                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+Compiled 6 Solidity files successfully
  ·------------------------|---------------------------|----------------·
  |  Solc version: 0.8.18  ·  Optimizer enabled: true  ·  Runs: 2000    │
  ·························|···························|·················
  |  Contract Name         ·  Size (KiB)               ·  Change (KiB)  │
  ·························|···························|·················
- |  SPCoin                ·                   20.167  ·         0.000  │
+ |  SPCoin                ·                   21.368  ·        +1.201  │
  ·------------------------|---------------------------|----------------·
 
 
   spCoinContract
 year =  2519856000
+msg.sender      0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+addSponsorship( 0x70997970c51812dc3a010c7d01b50e0d17dc79c8 ,
+                10 ,
+                0x3c44cdddb6a900fa2b585dd299e03d12fa4293bc ,
+                10 ,
+                2519856000
+agentRateRecord.lastUpdateTime 1687377338
     1) 2. VALIDATE ADD TRANSACTION RATES
 
 
-  0 passing (9s)
+  0 passing (12s)
   1 failing
 
   1) spCoinContract
        2. VALIDATE ADD TRANSACTION RATES:
-     TypeError: spCoinAddMethods.backDateAgentRateRecord is not a function
-      at Context.<anonymous> (test\spCoinFullIntegrationTests.js:279:26)
-      at processTicksAndRejections (node:internal/process/task_queues:95:5)
-      at runNextTicks (node:internal/process/task_queues:64:3)
-      at listOnTimeout (node:internal/timers:538:9)
-      at processTimers (node:internal/timers:512:7)
+     Error: VM Exception while processing transaction: reverted with panic code 0x11 (Arithmetic operation underflowed or overflowed outside of an unchecked block)
+    at SPCoin.backDateAgentRateRecord (contracts/accounts/JUNK_BackDateRateTest.sol:45)
+    at processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at runNextTicks (node:internal/process/task_queues:64:3)
+    at listOnTimeout (node:internal/timers:538:9)
+    at processTimers (node:internal/timers:512:7)
+    at HardhatNode._mineBlockWithPendingTxs (node_modules\hardhat\src\internal\hardhat-network\provider\node.ts:1819:23)
+    at HardhatNode.mineBlock (node_modules\hardhat\src\internal\hardhat-network\provider\node.ts:508:16)
+    at EthModule._sendTransactionAndReturnHash (node_modules\hardhat\src\internal\hardhat-network\provider\modules\eth.ts:1522:18)
+  
 
 
 

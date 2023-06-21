@@ -29,18 +29,19 @@ contract JUNK_BackDateRateTest is Transactions {
                                  uint _agentRateKey,
                                  uint _backDate)
     public onlyOwnerOrRootAdmin("addSponsorship", msg.sender) {
-        // console.log("msg.sender     ", msg.sender);
-        // console.log("addSponsorship(", _recipientKey, ",");
-        // console.log("               ", _recipientRateKey, ",");
-        // console.log("               ", _agentKey, ",");
-        // console.log("               ", _agentRateKey, ",");        
-        // console.log("               ", _backDate);
+        console.log("msg.sender     ", msg.sender);
+        console.log("addSponsorship(", _recipientKey, ",");
+        console.log("               ", _recipientRateKey, ",");
+        console.log("               ", _agentKey, ",");
+        console.log("               ", _agentRateKey, ",");        
+        console.log("               ", _backDate);
 
         AgentRateStruct storage agentRateRecord = getAgentRateRecord(_sponsorKey, 
                                                                      _recipientKey, 
                                                                      _recipientRateKey, 
                                                                      _agentKey, 
                                                                      _agentRateKey);
+        console.log("agentRateRecord.lastUpdateTime", agentRateRecord.lastUpdateTime);
         agentRateRecord.lastUpdateTime -= _backDate;
     }
 }
