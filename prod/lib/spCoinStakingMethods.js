@@ -3,12 +3,16 @@ const { SpCoinLogger } = require("./utils/logging");
 
 let spCoinLogger;
 
+const SPONSOR = 0;
+const RECIPIENT = 1;
+const AGENT = 2;
+
 const second = 1;
 const minute = second * 60;
 const hour = minute * 60;
 const day = hour * 24;
 const week = day * 7;
-const year = day * (365 + hour * 8);
+const year = day * 365.25;
 const month = year/12;
 const millennium = year * 1000;
 
@@ -74,6 +78,111 @@ testStakingRewards
     return bigIntToDecString(annualizedPercentage);
   }
 
+  depositSponsorStakingRewards = async (
+    _sponsorAccount, 
+    _recipientAccount,
+    _recipientRate ,
+    _amount) => {
+      spCoinLogger.logFunctionHeader(
+      "depositSponsorStakingRewards = async(" +
+      _sponsorAccount + ", " +
+      _recipientAccount + ", " +
+      _recipientRate  + ", " +
+      _amount + ")"
+    );
+    await this.spCoinContractDeployed.connect(this.signer).depositStakingRewards (
+      SPONSOR,
+      _sponsorAccount,
+      _recipientAccount,
+      _recipientRate ,
+      _sponsorAccount,
+      0,
+      _amount
+      );
+    spCoinLogger.logExitFunction();
+  };
+    
+  depositRecipientStakingRewards = async (
+    _sponsorAccount, 
+    _recipientAccount,
+    _recipientRate,
+    _amount) => {
+    spCoinLogger.logFunctionHeader(
+      "depositRecipientStakingRewards = async(" +
+      _sponsorAccount + ", " +
+      _recipientAccount + ", " +
+      _recipientRate + ", " +
+      _amount + ")"
+    );
+    await this.spCoinContractDeployed.connect(this.signer).depositStakingRewards (
+      RECIPIENT,
+      _sponsorAccount,
+      _recipientAccount,
+      _recipientRate,
+      burnAddress,
+      0,
+      _amount
+    );
+    spCoinLogger.logExitFunction();
+  };
+    
+  depositAgentStakingRewards = async (
+    _sponsorAccount,
+    _recipientAccount,
+    _recipientRate,
+    _agentAccount, 
+    _agentRate,
+    _amount) => {
+    spCoinLogger.logFunctionHeader(
+      "depositAgentStakingRewards = async(" +
+      _recipientAccount,
+      _agentAccount + ", " +
+      _agentRate + ", " +
+      _amount + ")"
+    );
+    await this.spCoinContractDeployed.connect(this.signer).depositStakingRewards (
+      AGENT,
+      _sponsorAccount,
+      _recipientAccount,
+      _recipientRate,
+      _agentAccount,
+      _agentRate,
+      _amount
+    );
+    spCoinLogger.logExitFunction();
+  };
+
+  backDateAgentRateRecord = async (
+    _sponsorAccount,
+    _recipientAccount,
+    _recipientRate,
+    _agentAccount, 
+    _agentRate,
+    _backDateInSecs
+  ) => {
+    await this.spCoinContractDeployed.connect(this.signer).backDateAgentRateRecord (
+      _sponsorAccount,
+      _recipientAccount,
+      _recipientRate,
+      _agentAccount,
+      _agentRate,
+      _backDateInSecs
+    );
+  }
+
+  backDateRecipientRateRecord = async (
+    _sponsorAccount,
+    _recipientAccount,
+    _recipientRate,
+    _backDateInSecs
+  ) => {
+    await this.spCoinContractDeployed.connect(this.signer).backDateRecipientRateRecord (
+      _sponsorAccount,
+      _recipientAccount,
+      _recipientRate,
+      _backDateInSecs
+    );
+  }
 
 };
 
