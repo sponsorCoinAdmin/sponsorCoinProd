@@ -25,6 +25,20 @@ const bigIntToDateTimeString = ( _value ) => {
   const bigIntToDecString = ( _value ) => { return bigIntToString(_value, 10); };
   const bigIntToHexString = ( _value ) => { return bigIntToString(_value, 16); };
   const bigIntToString = ( _value, _base ) => { return BigInt(_value).toString(_base); };
+
+const parseTimeSeconds = (timeInSeconds) => {
+  let timeInSeconds = 340047;
+  let seconds = timeInSeconds;
+  const days = Math.floor(timeInSeconds / 86400);
+  seconds -= days * 86400 ;
+  const hours = Math.floor(seconds / 3600);
+  seconds -= hours * 3600;
+  const minutes = Math.floor(seconds/60);
+  seconds -= minutes * 60;
+
+  remaining = timeInSeconds - (days*24*60*60 + hours*60*60);
+  console.log('Days:', days, 'Hours:', hours, 'Minutes:', minutes, 'Seconds:', seconds)
+}
   
 module.exports = {
     bigIntToDateTimeString ,

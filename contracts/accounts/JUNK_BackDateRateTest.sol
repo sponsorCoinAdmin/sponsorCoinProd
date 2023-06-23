@@ -4,7 +4,6 @@ pragma solidity ^0.8.18;
 import "./Transactions.sol";
 
 contract JUNK_BackDateRateTest is Transactions {
-    
     constructor() { }
 
     function backDateRecipientRateRecord(address _sponsorKey,
