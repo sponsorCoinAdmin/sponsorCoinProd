@@ -245,7 +245,7 @@ class SpCoinSerialize {
         spCoinHeaderRecord.annualInflation = bigIntToDecString(_value);
       break;
       case "CREATION_TIME":
-        spCoinHeaderRecord.creationTime = bigIntToDecString(_value);
+        spCoinHeaderRecord.creationTime = bigIntToDateTimeString(_value);
       break;
       case "TOTAL_STAKED_SP_COINS":
         spCoinHeaderRecord.totalStakedSPCoins = bigIntToDecString(_value);
