@@ -6,8 +6,8 @@ pragma solidity ^0.8.18;
 contract SpCoinDataTypes {
 
     uint256 internal defaultTSPCoinSupply = 1000000000;
-    string internal defaultName           = "sponsorCoin002";
-    string internal defaultSymbol         = "SPCT002";
+    string  internal defaultName           = "sponsorCoin002";
+    string  internal defaultSymbol         = "SPCT002";
     uint256 internal defaultDecimals      = 18;
     uint256 internal decimalMultiplier    = 10**defaultDecimals;
     uint256 internal defaultTotalSupply   = defaultTSPCoinSupply * decimalMultiplier;
@@ -40,10 +40,23 @@ contract SpCoinDataTypes {
     uint RECIPIENT = 1;
     uint AGENT = 2;
 
-    struct arrayMappedData {
+    struct SponsorCoinHeader {
+        string  name;
+        string  symbol;
+        uint256 decimals;
+        uint256 totalSupply;
+        uint256 totalBalanceOf;
+        uint256 totalStakedSPCoins; // Coins Owned but steaked to recipients
+        uint    annualInflation;
+        uint256 totalStakingRewards; // Coins not owned but Recipiented
+
         address[] masterAccountList;
-        mapping(address => AccountStruct) accountMap;
-    }
+        // mapping(address => AccountStruct) accountMap;
+    } 
+
+    SponsorCoinHeader internal sponsorCoinHeader;
+
+    
 
     struct AccountStruct {
         address accountKey;
@@ -62,7 +75,6 @@ contract SpCoinDataTypes {
         uint256 totalStakingRewards; // Coins not owned but Recipiented
         mapping(string  => RewardTypeStruct) rewardsMap;
     }
-
 
     /// STRUCTURE DESIGN SECTION SECTION ////////////////////////////////////////////////////////////////////
     // Each Account has a map of Recipient and an array of recipientRate structures

@@ -241,12 +241,12 @@ describe("spCoinContract", function () {
   //   999
   // );
 
-  // // await spCoinStakingMethods.depositRecipientStakingRewards(
-  // //   SPONSOR_ACCOUNT_KEYS[1],    // SOURCE ACCOUNT
-  // //   RECIPIENT_ACCOUNT_KEYS[0],  // DEPOSIT ACCOUNT
-  // //   RECIPIENT_RATES[4],
-  // //   333
-  // // );
+  // await spCoinStakingMethods.depositRecipientStakingRewards(
+  //   SPONSOR_ACCOUNT_KEYS[1],    // SOURCE ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[0],  // DEPOSIT ACCOUNT
+  //   RECIPIENT_RATES[4],
+  //   333
+  // );
 
   await spCoinStakingMethods.depositAgentStakingRewards (
     SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT

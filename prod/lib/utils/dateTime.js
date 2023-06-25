@@ -27,7 +27,7 @@ const bigIntToDateTimeString = ( _value ) => {
   const bigIntToString = ( _value, _base ) => { return BigInt(_value).toString(_base); };
 
 const parseTimeSeconds = (timeInSeconds) => {
-  let timeInSeconds = 340047;
+  // let timeInSeconds = 340047;
   let seconds = timeInSeconds;
   const days = Math.floor(timeInSeconds / 86400);
   seconds -= days * 86400 ;

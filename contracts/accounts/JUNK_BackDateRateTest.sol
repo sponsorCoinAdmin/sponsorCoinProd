@@ -11,11 +11,11 @@ contract JUNK_BackDateRateTest is Transactions {
                                          uint    _recipientRateKey,
                                          uint    _backDate)
     public onlyOwnerOrRootAdmin("addSponsorship", msg.sender) {
-        console.log("backDateRecipientRateRecord(");
-        console.log("_sponsorKey       ", _sponsorKey);
-        console.log("_recipientKey     ", _recipientKey, ",");
-        console.log("_recipientRateKey ", _recipientRateKey, ",");
-        console.log("_backDate         ", _backDate, ")");
+        // console.log("SOL==>backDateRecipientRateRecord(");
+        // console.log("SOL==>_sponsorKey       ", _sponsorKey);
+        // console.log("SOL==>_recipientKey     ", _recipientKey, ",");
+        // console.log("SOL==>_recipientRateKey ", _recipientRateKey, ",");
+        // console.log("SOL==>_backDate         ", _backDate, ")");
 
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecord(_sponsorKey, _recipientKey, _recipientRateKey);
         recipientRateRecord.lastUpdateTime -= _backDate;
@@ -28,22 +28,22 @@ contract JUNK_BackDateRateTest is Transactions {
                                      uint    _agentRateKey,
                                      uint    _backDate)
     public onlyOwnerOrRootAdmin("addSponsorship", _sponsorKey) {
-        console.log("backDateAgentRateRecord(");
-        console.log("msg.sender        ", _sponsorKey);
-        console.log("_recipientKey     ", _recipientKey, ",");
-        console.log("_recipientRateKey ", _recipientRateKey, ",");
-        console.log("_agentKey         ", _agentKey, ",");
-        console.log("_agentRateKey     ", _agentRateKey, ",");        
-        console.log("_backDate         ", _backDate, ")");
+        // console.log("SOL==>backDateAgentRateRecord(");
+        // console.log("SOL==>msg.sender        ", _sponsorKey);
+        // console.log("SOL==>_recipientKey     ", _recipientKey, ",");
+        // console.log("SOL==>_recipientRateKey ", _recipientRateKey, ",");
+        // console.log("SOL==>_agentKey         ", _agentKey, ",");
+        // console.log("SOL==>_agentRateKey     ", _agentRateKey, ",");        
+        // console.log("SOL==>_backDate         ", _backDate, ")");
 
         AgentRateStruct storage agentRateRecord = getAgentRateRecord(_sponsorKey, 
                                                                      _recipientKey, 
                                                                      _recipientRateKey, 
                                                                      _agentKey, 
                                                                      _agentRateKey);
-        console.log("block.timestamp", block.timestamp);
-        console.log("BEFORE agentRateRecord.lastUpdateTime", agentRateRecord.lastUpdateTime);
+        // console.log("SOL==>block.timestamp", block.timestamp);
+        // console.log("SOL==>BEFORE agentRateRecord.lastUpdateTime", agentRateRecord.lastUpdateTime);
         agentRateRecord.lastUpdateTime -= _backDate;
-        console.log("AFTER agentRateRecord.lastUpdateTime", agentRateRecord.lastUpdateTime);
+        // console.log("SOL==>AFTER agentRateRecord.lastUpdateTime", agentRateRecord.lastUpdateTime);
     }
 }

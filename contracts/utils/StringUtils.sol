@@ -98,9 +98,9 @@ contract StringUtils {
    ///////////////////////////////////////////////////////////////////////////////////////////////////
    function decimalStringToUint(string memory _strWholeAmount, string memory _strFloatAmount, uint256 decimals)
       internal pure returns(uint256 uint256Value, bool err) {
-         // console.log("_strWholeAmount", _strWholeAmount); 
-         // console.log("_strFloatAmount", _strFloatAmount); 
-         // console.log("decimalStringToUint(", _strWholeAmount, _strFloatAmount); 
+         // console.log("SOL==>_strWholeAmount", _strWholeAmount); 
+         // console.log("SOL==>_strFloatAmount", _strFloatAmount); 
+         // console.log("SOL==>decimalStringToUint(", _strWholeAmount, _strFloatAmount); 
    
          bool success;
          uint256 wholeAmount;
@@ -111,9 +111,9 @@ contract StringUtils {
          floatAmount *= 10**(decimals - bytes(_strFloatAmount).length);
          uint256Value =  wholeAmount + floatAmount;
 
-         // console.log("strToUint(_strWholeAmount)", wholeAmount); 
-         // console.log("strToUint(_strFloatAmount)", floatAmount); 
-         // console.log("decimalStringToUint(", wholeAmount, floatAmount);
+         // console.log("SOL==>strToUint(_strWholeAmount)", wholeAmount); 
+         // console.log("SOL==>strToUint(_strFloatAmount)", floatAmount); 
+         // console.log("SOL==>decimalStringToUint(", wholeAmount, floatAmount);
    
          return (uint256Value, true);
    }
@@ -121,13 +121,13 @@ contract StringUtils {
    function strToUint(string memory _strWholeAmount) public pure returns(uint256 result, bool err) {
       for (uint256 i = 0; i < bytes(_strWholeAmount).length; i++) {
          uint8 asciiValue = uint8(bytes(_strWholeAmount)[i]);
-         // console.log("asciiValue at ", i, " = ", asciiValue);
+         // console.log("SOL==>asciiValue at ", i, " = ", asciiValue);
 
           if ((asciiValue < 48)  || (asciiValue > 57)) {
               return (0, false);
           }
           result += (uint8(bytes(_strWholeAmount)[i]) - 48) * 10**(bytes(_strWholeAmount).length - i - 1);
-         // console.log("decimalStringToUint uint256Value = ", result);
+         // console.log("SOL==>decimalStringToUint uint256Value = ", result);
          }   
       return (result, true);
    }
@@ -136,9 +136,9 @@ contract StringUtils {
       stringsAreEqual = keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b)));
 /*
       if (stringsAreEqual)
-          console.log("STRINGS ARE EQUAL(",  a, b, ")");
+          // console.log("SOL==>STRINGS ARE EQUAL(",  a, b, ")");
       else
-          console.log("** ERROR: *** STRINGS ARE NOT EQUAL(",  a, b, ")");
+          // console.log("SOL==>** ERROR: *** STRINGS ARE NOT EQUAL(",  a, b, ")");
 */
       return (stringsAreEqual);
    }
