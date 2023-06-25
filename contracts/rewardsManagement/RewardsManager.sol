@@ -5,7 +5,6 @@ import "./StakingManager.sol";
 
 contract RewardsManager is StakingManager{
 
-
     constructor() {
     }
 

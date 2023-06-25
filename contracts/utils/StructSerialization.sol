@@ -29,10 +29,10 @@ contract StructSerialization is Utils {
             "balanceOf: ",
             toString(balanceOf[_accountRec.accountKey])
         );
-        string memory decimals = concat(
-            "decimals: ",
-            toString(_accountRec.decimals)
-        );
+        // string memory decimals = concat(
+        //     "decimals: ",
+        //     toString(_accountRec.decimals)
+        // );
         string memory stakedSPCoins = concat(
             "stakedSPCoins: ",
             toString(_accountRec.stakedSPCoins)
@@ -52,7 +52,7 @@ contract StructSerialization is Utils {
             )
         );
         seralized = concat(seralized, delimiter, balanceOf);
-        seralized = concat(seralized, delimiter, decimals); 
+        // seralized = concat(seralized, delimiter, decimals); 
 
         seralized = concat(seralized, delimiter, stakedSPCoins);
 

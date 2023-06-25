@@ -56,12 +56,10 @@ contract SpCoinDataTypes {
 
     SponsorCoinHeader internal sponsorCoinHeader;
 
-
-
     struct AccountStruct {
         address accountKey;
         uint256 balanceOf;
-        uint256 decimals;
+        // uint256 decimals;
         uint256 creationTime;
         uint256 stakedSPCoins; // Coins Owned but steaked to recipients
         bool inserted;
