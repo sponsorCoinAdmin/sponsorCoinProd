@@ -99,7 +99,7 @@ contract StakingManager is UnSubscribe{
 
         RewardTypeStruct storage rewardsRecord = depositAccount.rewardsMap[getAccountTypeString(_accountType)];
 
-        depositAccount.totalStakingRewards += _amount;
+        depositAccount.stakingRewards += _amount;
         rewardsRecord.stakingRewards += _amount;
         // mapping(address => RewardAccountStruct) storage rewardsMap = rewardsRecord.rewardsMap;
 

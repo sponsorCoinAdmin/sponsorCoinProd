@@ -13,7 +13,7 @@ class AccountStruct {
     this.agentAccountList = 0;
     this.agentsParentRecipientAccountList = 0;
     this.recipientRecordList = 0;
-    this.totalStakingRewards = 0;
+    this.stakingRewards = 0;
     this.stakingRewardList = 0;
   }
 }

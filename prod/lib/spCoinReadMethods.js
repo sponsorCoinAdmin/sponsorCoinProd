@@ -85,7 +85,7 @@ class SpCoinReadMethods {
 
     let accountRewardsStr = await this.spCoinContractDeployed.connect(this.signer).getSerializedAccountRewards(_accountKey);
     let accountRewardList = accountRewardsStr.split(",");
-    // rewardsRecord.totalStakingRewards  = bigIntToDecString(accountRewardList[3]);
+    // rewardsRecord.stakingRewards  = bigIntToDecString(accountRewardList[3]);
     /* REPLACE LATER */
     rewardsRecord.sponsorRewardsList   = await this.getRewardTypeRecord(_accountKey, SPONSOR , accountRewardList[0]);
     rewardsRecord.recipientRewardsList = await this.getRewardTypeRecord(_accountKey, RECIPIENT, accountRewardList[1]);

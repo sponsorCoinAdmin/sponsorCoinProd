@@ -44,10 +44,10 @@ contract SpCoinDataTypes {
         string  name;
         string  symbol;
         uint256 decimals;
+        uint    annualInflation;
         uint256 totalSupply;
         uint256 totalBalanceOf;
         uint256 totalStakedSPCoins; // Coins Owned but steaked to recipients
-        uint    annualInflation;
         uint256 totalStakingRewards; // Coins not owned but Recipiented
 
         address[] masterAccountList;
@@ -56,7 +56,7 @@ contract SpCoinDataTypes {
 
     SponsorCoinHeader internal sponsorCoinHeader;
 
-    
+
 
     struct AccountStruct {
         address accountKey;
@@ -72,7 +72,7 @@ contract SpCoinDataTypes {
         address[] agentsParentRecipientAccountList; // If Agent? List of Agents Recipient Account
         mapping(address => RecipientStruct) recipientMap;
         // STAKING REWARDS MAPPINGS
-        uint256 totalStakingRewards; // Coins not owned but Recipiented
+        uint256 stakingRewards; // Coins not owned but Recipiented
         mapping(string  => RewardTypeStruct) rewardsMap;
     }
 

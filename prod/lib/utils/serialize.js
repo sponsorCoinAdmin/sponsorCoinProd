@@ -72,8 +72,8 @@ class SpCoinSerialize {
       case "balanceOf":
         accountRecord.balanceOf = bigIntToDecString(_value);
       break;
-      case "totalStakingRewards":
-        accountRecord.totalStakingRewards = bigIntToDecString(_value);
+      case "stakingRewards":
+        accountRecord.stakingRewards = bigIntToDecString(_value);
       break;
 
       case "decimals":

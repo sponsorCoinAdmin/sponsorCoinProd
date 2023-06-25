@@ -21,9 +21,9 @@ contract StructSerialization is Utils {
             "creationTime: ",
             toString(_accountRec.creationTime)
         );
-        string memory totalStakingRewards = concat(
-            "totalStakingRewards: ",
-            toString(_accountRec.totalStakingRewards)
+        string memory stakingRewards = concat(
+            "stakingRewards: ",
+            toString(_accountRec.stakingRewards)
         );
         string memory balanceOf = concat(
             "balanceOf: ",
@@ -65,7 +65,7 @@ contract StructSerialization is Utils {
         seralized = concat(seralized, delimiter, "recipientAccountList:",recipientAccountList);
         seralized = concat(seralized, delimiter, "agentAccountList:", agentAccountList);
         seralized = concat(seralized, delimiter, "agentsParentRecipientAccountList:", agentsParentRecipientAccountList);
-        seralized = concat(seralized, delimiter, totalStakingRewards);
+        seralized = concat(seralized, delimiter, stakingRewards);
 
         return seralized;
     }
@@ -97,25 +97,25 @@ contract StructSerialization is Utils {
         mapping(string  => RewardTypeStruct) storage rewardsMap = _accountRec.rewardsMap;
         RewardTypeStruct storage rewards = rewardsMap["RECIPIENT"];
 
-        string memory totalStakingRewards = concat(
-            "totalStakingRewards: ",
-            toString(rewards.totalStakingRewards)
-        );
-
-       string memory stakingRewards = concat(
-            "stakingRewards: ",
-            toString(rewards.stakingRewards)
-        );
-       string memory stakingRewards = concat(
-            "stakingRewards: ",
-            toString(rewards.stakingRewards)
-        );
-       string memory stakingRewards = concat(
+        string memory stakingRewards = concat(
             "stakingRewards: ",
             toString(rewards.stakingRewards)
         );
 
-        string memory seralized = concat("totalStakingRewards:",totalStakingRewards); 
+       string memory stakingRewards = concat(
+            "stakingRewards: ",
+            toString(rewards.stakingRewards)
+        );
+       string memory stakingRewards = concat(
+            "stakingRewards: ",
+            toString(rewards.stakingRewards)
+        );
+       string memory stakingRewards = concat(
+            "stakingRewards: ",
+            toString(rewards.stakingRewards)
+        );
+
+        string memory seralized = concat("stakingRewards:",stakingRewards); 
         seralized = concat(seralized, delimiter, "stakingRewards:",stakingRewards);
         seralized = concat(seralized, delimiter, "stakingRewards:", stakingRewards);
         seralized = concat(seralized, delimiter, "stakingRewards:", stakingRewards);
