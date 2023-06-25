@@ -5,19 +5,27 @@ pragma solidity ^0.8.18;
 
 contract SpCoinDataTypes {
 
-    uint256 internal defaultTSPCoinSupply       = 1000000000;
-    string internal defaultName         = "sponsorCoin002";
-    string internal defaultSymbol       = "SPCT002";
-    uint256 internal defaultDecimals    = 18;
-    uint256 internal decimalMultiplier = 10**defaultDecimals;
-    uint256 internal defaultTotalSupply = defaultTSPCoinSupply * decimalMultiplier;
+    uint256 internal defaultTSPCoinSupply = 1000000000;
+    string  internal defaultName           = "sponsorCoin002";
+    string  internal defaultSymbol         = "SPCT002";
+    uint256 internal defaultDecimals      = 18;
+    uint256 internal decimalMultiplier    = 10**defaultDecimals;
+    uint256 internal defaultTotalSupply   = defaultTSPCoinSupply * decimalMultiplier;
 
     // **Standard ERC20 contract Variables
     string  public name;
     string  public symbol;
+    string  public version = "002";
     uint256 public decimals;
     uint256 public totalSupply;
     uint    public annualInflation = 10;
+    uint    public creationTime = block.timestamp;
+
+    uint256 public totalBalanceOf = 111;
+    uint256 public totalStakedSPCoins = 222; // Coins Owned but steaked to recipients
+    uint256 public totalStakingRewards = 333; // Coins not owned but Recipiented
+    
+
 
     // Keep track balances and allowances approved
     mapping(address => uint256) public balanceOf;
@@ -40,15 +48,26 @@ contract SpCoinDataTypes {
     uint RECIPIENT = 1;
     uint AGENT = 2;
 
-    struct arrayMappedData {
+    struct SponsorCoinHeader {
+        string  name;
+        string  symbol;
+        uint256 decimals;
+        uint    annualInflation;
+        uint256 totalSupply;
+        uint256 totalBalanceOf;
+        uint256 totalStakedSPCoins; // Coins Owned but steaked to recipients
+        uint256 totalStakingRewards; // Coins not owned but Recipiented
+
         address[] masterAccountList;
-        mapping(address => AccountStruct) accountMap;
-    }
+        // mapping(address => AccountStruct) accountMap;
+    } 
+
+    SponsorCoinHeader internal sponsorCoinHeader;
 
     struct AccountStruct {
         address accountKey;
         uint256 balanceOf;
-        uint256 decimals;
+        // uint256 decimals;
         uint256 creationTime;
         uint256 stakedSPCoins; // Coins Owned but steaked to recipients
         bool inserted;
@@ -59,10 +78,9 @@ contract SpCoinDataTypes {
         address[] agentsParentRecipientAccountList; // If Agent? List of Agents Recipient Account
         mapping(address => RecipientStruct) recipientMap;
         // STAKING REWARDS MAPPINGS
-        uint256 totalStakingRewards; // Coins not owned but Recipiented
+        uint256 stakingRewards; // Coins not owned but Recipiented
         mapping(string  => RewardTypeStruct) rewardsMap;
     }
-
 
     /// STRUCTURE DESIGN SECTION SECTION ////////////////////////////////////////////////////////////////////
     // Each Account has a map of Recipient and an array of recipientRate structures

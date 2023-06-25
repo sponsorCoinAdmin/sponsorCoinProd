@@ -33,7 +33,8 @@ contract AgentRates is Agent {
         return agentRec.agentRateMap[_agentRateKey];
     }
 
-    function serializeAgentRateRecordStr(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
+    function serializeAgentRateRecordStr(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _agentRateKey) 
+    public view returns (string memory) {
         AgentRateStruct storage agentRateRecord =  getAgentRateRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
         string memory creationTimeStr = toString(agentRateRecord.creationTime);
         string memory lastUpdateTimeStr = toString(agentRateRecord.lastUpdateTime);

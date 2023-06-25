@@ -12,11 +12,11 @@ contract Account is StructSerialization {
         internal {
         if (!isAccountInserted(_accountKey)) {
             // console.log("addAccountRecord(", accountType, _accountKey, ")");
-// console.log(JUNK_COUNTER++, "addAccountRecord(", accountType, _accountKey, ")"); 
+            // console.log(JUNK_COUNTER++, "addAccountRecord(", accountType, _accountKey, ")"); 
             AccountStruct storage accountRec = accountMap[_accountKey];
             accountRec.accountKey = _accountKey;
             accountRec.creationTime = block.timestamp;
-            accountRec.decimals = decimals;
+            // accountRec.decimals = decimals;
             accountRec.stakedSPCoins = 0;
             accountRec.inserted = true;
             masterAccountList.push(_accountKey);
@@ -33,11 +33,6 @@ contract Account is StructSerialization {
         internal view returns ( bool ) {
         AccountStruct storage recipientAccount = accountMap[_recipientAccount];
         address[] storage sponsorAccountList = recipientAccount.sponsorAccountList;
-
-        // for (uint idx = 0; idx < sponsorAccountList.length; idx++) {
-        //    if ( _sponsorAccount == sponsorAccountList[idx] )
-        //        sponsorFound = true;
-        //    }
         return accountInList( _sponsorAccount, sponsorAccountList );
     }
 
@@ -45,10 +40,6 @@ contract Account is StructSerialization {
         internal view returns ( bool ) {
         AccountStruct storage recipientAccount = accountMap[_recipientAccount];
         address[] storage sponsorAccountList = recipientAccount.sponsorAccountList;
-        // for (uint idx = 0; idx < sponsorAccountList.length; idx++) {
-        // if ( _sponsorAccount == sponsorAccountList[idx] )
-        //    sponsorFound = true;
-        // }
         return accountInList( _sponsorAccount, sponsorAccountList );
     }
 
@@ -56,12 +47,8 @@ contract Account is StructSerialization {
         internal view returns ( bool ) {
         AccountStruct storage recipientAccount = accountMap[_recipientAccount];
         address[] storage agentAccountList = recipientAccount.agentAccountList;
-        // for (uint idx = 0; idx < agentAccountList.length; idx++) {
-        // if ( _agentAccount == agentAccountList[idx] )
-        //    agentFound = true;
-        // }
         return accountInList( _agentAccount, agentAccountList );
-        }
+    }
 
     function accountInList(address _sourceAccount, address[] storage searchList )
         internal view returns ( bool ) {
@@ -123,5 +110,4 @@ contract Account is StructSerialization {
         require(isAccountInserted(_accountKey));
         return serializeAccount(accountMap[_accountKey]);
     }
-
 }

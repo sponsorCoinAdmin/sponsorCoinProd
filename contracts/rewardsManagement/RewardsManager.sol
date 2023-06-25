@@ -4,6 +4,7 @@ pragma solidity ^0.8.18;
 import "./StakingManager.sol";
 
 contract RewardsManager is StakingManager{
+
     constructor() {
     }
 
@@ -45,15 +46,14 @@ contract RewardsManager is StakingManager{
         for (uint idx = 0; idx < rewardRateList.length; idx++) {
             uint rateIdx = rewardRateList[idx];
             RewardRateStruct memory rewardRateRecord = rewardAccountRecord.rewardRateMap[rateIdx];
-            rewards += getCalculateRewards(year, rewardRateRecord.rate, rewardRateRecord.stakingRewards);
+            rewards += getCalculatedRewards(year, rewardRateRecord.rate, rewardRateRecord.stakingRewards);
         }
         return rewards;
    }
 
-    function getCalculateRewards(uint lastUpdateTime, uint interestRate, uint quantity) public view returns(uint rewards) {
+    function getCalculatedRewards(uint lastUpdateTime, uint interestRate, uint quantity) public view returns(uint rewards) {
         uint accountTimeInSecondeSinceUpdate = getTimeMultiplier(lastUpdateTime);
         rewards = (quantity * accountTimeInSecondeSinceUpdate * interestRate) / 100;
         return rewards;
     }
-
 }

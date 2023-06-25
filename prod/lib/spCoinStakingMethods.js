@@ -3,23 +3,27 @@ const { SpCoinLogger } = require("./utils/logging");
 
 let spCoinLogger;
 
+const SPONSOR = 0;
+const RECIPIENT = 1;
+const AGENT = 2;
+
 const second = 1;
 const minute = second * 60;
 const hour = minute * 60;
 const day = hour * 24;
 const week = day * 7;
-const year = day * (365 + hour * 8);
+const year = day * 365.25;
 const month = year/12;
 const millennium = year * 1000;
 
-console.log("SpCoinStakingMethods:second     = ", second);
-console.log("SpCoinStakingMethods:minute     = ", minute);
-console.log("SpCoinStakingMethods:hour       = ", hour);
-console.log("SpCoinStakingMethods:day        = ", day);
-console.log("SpCoinStakingMethods:week       = ", week);
-console.log("SpCoinStakingMethods:year       = ", year);
-console.log("SpCoinStakingMethods:month      = ", month);
-console.log("SpCoinStakingMethods:millennium = ", millennium);
+// console.log("JS=> SpCoinStakingMethods:second     = ", second);
+// console.log("JS=> SpCoinStakingMethods:minute     = ", minute);
+// console.log("JS=> SpCoinStakingMethods:hour       = ", hour);
+// console.log("JS=> SpCoinStakingMethods:day        = ", day);
+// console.log("JS=> SpCoinStakingMethods:week       = ", week);
+// console.log("JS=> SpCoinStakingMethods:year       = ", year);
+// console.log("JS=> SpCoinStakingMethods:month      = ", month);
+// console.log("JS=> SpCoinStakingMethods:millennium = ", millennium);
 
 class SpCoinStakingMethods {
 
@@ -59,7 +63,6 @@ testStakingRewards
   }
 
   getAccountTimeInSecondeSinceUpdate = async(_tokenLastUpdate) => {
-    // spCoinLogger.getAccountTimeInSecondeSinceUpdate("getAccountRecords(_tokenLastUpdate)");
     let timeInSecondeSinceUpdate = await this.spCoinContractDeployed.connect(this.signer).getAccountTimeInSecondeSinceUpdate(_tokenLastUpdate);
     
     spCoinLogger.logExitFunction();
@@ -74,6 +77,111 @@ testStakingRewards
     return bigIntToDecString(annualizedPercentage);
   }
 
+  depositSponsorStakingRewards = async (
+    _sponsorAccount, 
+    _recipientAccount,
+    _recipientRate ,
+    _amount) => {
+      spCoinLogger.logFunctionHeader(
+      "depositSponsorStakingRewards = async(" +
+      _sponsorAccount + ", " +
+      _recipientAccount + ", " +
+      _recipientRate  + ", " +
+      _amount + ")"
+    );
+    await this.spCoinContractDeployed.connect(this.signer).depositStakingRewards (
+      SPONSOR,
+      _sponsorAccount,
+      _recipientAccount,
+      _recipientRate ,
+      _sponsorAccount,
+      0,
+      _amount
+      );
+    spCoinLogger.logExitFunction();
+  };
+    
+  depositRecipientStakingRewards = async (
+    _sponsorAccount, 
+    _recipientAccount,
+    _recipientRate,
+    _amount) => {
+    spCoinLogger.logFunctionHeader(
+      "depositRecipientStakingRewards = async(" +
+      _sponsorAccount + ", " +
+      _recipientAccount + ", " +
+      _recipientRate + ", " +
+      _amount + ")"
+    );
+    await this.spCoinContractDeployed.connect(this.signer).depositStakingRewards (
+      RECIPIENT,
+      _sponsorAccount,
+      _recipientAccount,
+      _recipientRate,
+      burnAddress,
+      0,
+      _amount
+    );
+    spCoinLogger.logExitFunction();
+  };
+    
+  depositAgentStakingRewards = async (
+    _sponsorAccount,
+    _recipientAccount,
+    _recipientRate,
+    _agentAccount, 
+    _agentRate,
+    _amount) => {
+    spCoinLogger.logFunctionHeader(
+      "depositAgentStakingRewards = async(" +
+      _recipientAccount,
+      _agentAccount + ", " +
+      _agentRate + ", " +
+      _amount + ")"
+    );
+    await this.spCoinContractDeployed.connect(this.signer).depositStakingRewards (
+      AGENT,
+      _sponsorAccount,
+      _recipientAccount,
+      _recipientRate,
+      _agentAccount,
+      _agentRate,
+      _amount
+    );
+    spCoinLogger.logExitFunction();
+  };
+
+  backDateAgentRateRecord = async (
+    _sponsorAccount,
+    _recipientAccount,
+    _recipientRate,
+    _agentAccount, 
+    _agentRate,
+    _backDateInSecs
+  ) => {
+    await this.spCoinContractDeployed.connect(this.signer).backDateAgentRateRecord (
+      _sponsorAccount,
+      _recipientAccount,
+      _recipientRate,
+      _agentAccount,
+      _agentRate,
+      _backDateInSecs
+    );
+  }
+
+  backDateRecipientRateRecord = async (
+    _sponsorAccount,
+    _recipientAccount,
+    _recipientRate,
+    _backDateInSecs
+  ) => {
+    await this.spCoinContractDeployed.connect(this.signer).backDateRecipientRateRecord (
+      _sponsorAccount,
+      _recipientAccount,
+      _recipientRate,
+      _backDateInSecs
+    );
+  }
 
 };
 

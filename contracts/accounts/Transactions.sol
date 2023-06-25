@@ -5,6 +5,7 @@ import "./AgentRates.sol";
 
 contract Transactions is AgentRates {
     constructor() { }
+
     function addSponsorship(address _recipientKey, 
                                  uint _recipientRateKey,
                                  address _agentKey,
@@ -71,8 +72,8 @@ contract Transactions is AgentRates {
     
     function updateAgentRateSponsorship(address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey, uint256 _transAmount)
        internal returns (AgentRateStruct storage) {
-        AgentStruct storage agentRec = updateAgentSponsorship(_recipientKey, _recipientRateKey, _agentKey, _transAmount);
-        AgentRateStruct storage agentRateRecord= agentRec.agentRateMap[_agentRateKey];
+        AgentStruct storage agentRecord = updateAgentSponsorship(_recipientKey, _recipientRateKey, _agentKey, _transAmount);
+        AgentRateStruct storage agentRateRecord= agentRecord.agentRateMap[_agentRateKey];
         agentRateRecord.stakedSPCoins += _transAmount;
         return agentRateRecord;
     }

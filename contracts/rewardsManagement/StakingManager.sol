@@ -22,20 +22,20 @@ contract StakingManager is UnSubscribe{
                                     address _recipientKey, uint _recipientRate,
                                     address _agentKey, uint _agentRate, uint _amount)
         public returns ( uint ) {
-        console.log(" _accountType, address _sponsorKey, _recipientKey, _recipientRate, _agentKey, _agentRate, _amount");
-        console.log("SOL=>2.1 _accountType   = ", getAccountTypeString(_accountType));
-        console.log("SOL=>2.1 _sponsorKey    = ", _sponsorKey);
-        console.log("SOL=>2.2 _recipientKey  = ", _recipientKey);
-        console.log("SOL=>2.3 _recipientRate = ", _recipientRate);
-        console.log("SOL=>2.4 _agentKey      = ", _agentKey);
-        console.log("SOL=>2.4 _agentRate     = ", _agentRate);
-        console.log("SOL=>2.4 _amount        = ", _amount);
+        // console.log(" _accountType, address _sponsorKey, _recipientKey, _recipientRate, _agentKey, _agentRate, _amount");
+        // console.log("SOL=>2.1 _accountType   = ", getAccountTypeString(_accountType));
+        // console.log("SOL=>2.1 _sponsorKey    = ", _sponsorKey);
+        // console.log("SOL=>2.2 _recipientKey  = ", _recipientKey);
+        // console.log("SOL=>2.3 _recipientRate = ", _recipientRate);
+        // console.log("SOL=>2.4 _agentKey      = ", _agentKey);
+        // console.log("SOL=>2.4 _agentRate     = ", _agentRate);
+        // console.log("SOL=>2.4 _amount        = ", _amount);
 
         address sourceKey = _recipientKey;
         address depositKey = _agentKey;
         uint rate = 0;
         uint percentDiviser = decimalMultiplier/100;
-        console.log("decimalMultiplier",toString(decimalMultiplier));
+        // console.log("decimalMultiplier",toString(decimalMultiplier));
         string memory errMsg = "";
 
         if (_accountType == SPONSOR) { 
@@ -51,10 +51,10 @@ contract StakingManager is UnSubscribe{
          } else if (_accountType == RECIPIENT) { 
              errMsg = buildErrString(_accountType,  _sponsorKey, " NOT FOUND FOR RECIPIENT ACCOUNT ",  _recipientKey);
              require (recipientHasSponsor( _sponsorKey, _recipientKey ), errMsg);
-            uint sponsorAmount = (_amount/_recipientRate) * 100;
-console.log("RECIPIENT BEFORE _amount",toString( _amount ));
-            _amount -= (_amount / _recipientRate );
-console.log("RECIPIENT AFTER _amount",toString(_amount));
+            uint sponsorAmount = ((_amount * decimalMultiplier)/_recipientRate) / percentDiviser;
+// console.log("RECIPIENT BEFORE _amount",toString( _amount ));
+            _amount -= (_amount * decimalMultiplier) / ( _recipientRate * decimalMultiplier );
+// console.log("RECIPIENT AFTER _amount",toString(_amount));
             depositStakingRewards(SPONSOR, _sponsorKey,
                                 _recipientKey, _recipientRate,
                                 _agentKey, _agentRate, sponsorAmount);
@@ -99,7 +99,7 @@ console.log("RECIPIENT AFTER _amount",toString(_amount));
 
         RewardTypeStruct storage rewardsRecord = depositAccount.rewardsMap[getAccountTypeString(_accountType)];
 
-        depositAccount.totalStakingRewards += _amount;
+        depositAccount.stakingRewards += _amount;
         rewardsRecord.stakingRewards += _amount;
         // mapping(address => RewardAccountStruct) storage rewardsMap = rewardsRecord.rewardsMap;
 

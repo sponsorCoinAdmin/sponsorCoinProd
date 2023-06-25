@@ -68,7 +68,6 @@ describe("spCoinContract", function () {
   rewards = await spCoinStakingMethods.testStakingRewards( lastUpdateTime, testUpdateTime, interestRate, quantity );
   console.log(" Token Rewards", rewards);
 
-
   // await spCoinAddMethods.depositAccountStakingRewards(
   //   RECIPIENT_ACCOUNT_KEYS[1], 
   //   SPONSOR_ACCOUNT_KEYS[0],
