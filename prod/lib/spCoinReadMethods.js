@@ -224,10 +224,10 @@ class SpCoinReadMethods {
   getSPCoinHeaderRecord = async(getBody) => {
     // console.log("JS==>1 getAccountRecords()");
     spCoinLogger.logFunctionHeader("getAccountRecords()");
-    let headerData = await spCoinSerialize.getSerializedSPCoinHeader();
+    let sponsorCoinHeader = await spCoinSerialize.deserializedSPCoinHeader();
     if (getBody)
-      console.log("ToDo Get Body Data");
-    return headerData;
+      sponsorCoinHeader.accountRecords = await spCoinReadMethods.getAccountRecords()
+    return sponsorCoinHeader;
   }
 
   getAccountRecords = async() => {

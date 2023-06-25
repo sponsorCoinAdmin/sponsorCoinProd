@@ -200,18 +200,18 @@ class SpCoinSerialize {
     return transactionRecs;
   }
 
-  getSerializedSPCoinHeader = async() => {
-    // console.log("JS==>1 getSerializedSPCoinHeader()");
+  deserializedSPCoinHeader = async() => {
+    // console.log("JS==>1 deserializedSPCoinHeader()");
     spCoinLogger.logFunctionHeader("getAccountRecords()");
     let sponsorCoinHeader = new SponsorCoinHeader();
     let headerData = await this.spCoinContractDeployed.connect(this.signer).getSerializedSPCoinHeader();
     let elements = headerData.split(",");
-    console.log("elements.length", elements.length);
+    // console.log("elements.length", elements.length);
     for (let i = 0; i < elements.length; i++) {
       let element = elements[i].trim();
       let keyValue = element.split(":");
       spCoinLogger.logDetail("JS => keyValue = " + keyValue);
-      console.log("JS => keyValue = " + keyValue);
+      // console.log("JS => keyValue = " + keyValue);
 
       let key = keyValue[0].trim();
       let value = keyValue[1].trim();

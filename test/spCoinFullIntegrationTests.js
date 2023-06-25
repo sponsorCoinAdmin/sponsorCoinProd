@@ -257,7 +257,7 @@ describe("spCoinContract", function () {
     10
   );
 
-  console.log("year = ", year);
+  // console.log("year = ", year);
 
   await spCoinStakingMethods.backDateAgentRateRecord (
     SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
@@ -289,13 +289,13 @@ describe("spCoinContract", function () {
   console.log("\n\n*** AFTER CREATE ******************************************************************************************************\n\n");
   // console.log("********************************************************************************");
 
-  let getBody = false;
-  let spCoinHeader = await spCoinReadMethods.getSPCoinHeaderRecord(getBody);
-  
-  console.log("spCoinHeader =", spCoinHeader);
+  let getBody = true;
+  let spCoinRecords = await spCoinReadMethods.getSPCoinHeaderRecord(getBody);
 
-  let accountRecords = await spCoinReadMethods.getAccountRecords()
-  spCoinLogger.logJSONTree(accountRecords);
+  spCoinLogger.logJSONTree(spCoinRecords);
+
+  // let accountRecords = await spCoinReadMethods.getAccountRecords()
+  // spCoinLogger.logJSONTree(accountRecords);
 
   // await spCoinERC20Methods.transfer(
   //    RECIPIENT_ACCOUNT_KEYS[12],
