@@ -71,7 +71,7 @@ contract StructSerialization is Utils {
     }
 
     function serializeRewards(AccountStruct storage _accountRec)
-        internal view returns (string memory)
+        internal view returns (string memory seralized)
     {
         mapping(string  => RewardTypeStruct) storage rewardsMap = _accountRec.rewardsMap;
         RewardTypeStruct storage sponsorRewards = rewardsMap[getAccountTypeString(SPONSOR)];
@@ -83,12 +83,37 @@ contract StructSerialization is Utils {
 // console.log("SOL=>0 toString(sponsorRewards.stakingRewards)", toString(sponsorRewards.stakingRewards)); 
 // console.log("SOL=>1 toString(recipientRewards.stakingRewards)", toString(recipientRewards.stakingRewards)); 
 // console.log("SOL=>2 toString(agentRewards.stakingRewards)", toString(agentRewards.stakingRewards)); 
-        string memory seralized = toString(sponsorRewards.stakingRewards);
+        seralized = toString(sponsorRewards.stakingRewards);
         seralized = concat(seralized, ",", toString(recipientRewards.stakingRewards));
         seralized = concat(seralized, ",", toString(agentRewards.stakingRewards));
 
         return seralized;
     }
+
+    function getSerializedSPCoinHeader()
+        public view returns (string memory seralized) {
+        /*
+        string  name;
+        string  symbol;
+        uint256 decimals;
+        uint256 totalSupply;
+        uint256 totalBalanceOf;
+        uint    annualInflation;
+        uint256 totalStakedSPCoins; // Coins Owned but steaked to recipients
+        uint256 totalStakingRewards; // Coins not owned but Recipiented
+        */
+
+        seralized = concat(seralized, "NAME:", name);
+        seralized = concat(seralized, ",SYMBOL:", symbol);
+        seralized = concat(seralized, ",DECIMALS:", toString(decimals));
+        seralized = concat(seralized, ",TOTAL_SUPPLY:", toString(totalSupply));
+        seralized = concat(seralized, ",TOTAL_BALANCE_OF", toString(totalBalanceOf));
+        seralized = concat(seralized, ",TOTAL_STAKED_SP_COINS", toString(totalStakedSPCoins));
+        seralized = concat(seralized, ",TOTAL_STAKED_REWARDS", toString(totalStakingRewards));
+
+        return seralized;
+    }
+
 
 /*
     function serializeRewards(AccountStruct storage _accountRec)

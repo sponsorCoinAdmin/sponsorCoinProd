@@ -275,6 +275,7 @@ describe("spCoinContract", function () {
     year*5
   );
 
+
   // await spCoinStakingMethods.depositAgentStakingRewards(
   //   SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
   //   RECIPIENT_ACCOUNT_KEYS[1],
@@ -287,6 +288,11 @@ describe("spCoinContract", function () {
   // console.log("********************************************************************************");
   console.log("\n\n*** AFTER CREATE ******************************************************************************************************\n\n");
   // console.log("********************************************************************************");
+
+  let getBody = false;
+  let spCoinHeader = await spCoinReadMethods.getSPCoinHeaderRecord(getBody);
+  
+  console.log("spCoinHeader = ", spCoinHeader);
 
   let accountRecords = await spCoinReadMethods.getAccountRecords()
   spCoinLogger.logJSONTree(accountRecords);

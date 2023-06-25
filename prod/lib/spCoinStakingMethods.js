@@ -63,7 +63,6 @@ testStakingRewards
   }
 
   getAccountTimeInSecondeSinceUpdate = async(_tokenLastUpdate) => {
-    // spCoinLogger.getAccountTimeInSecondeSinceUpdate("getAccountRecords(_tokenLastUpdate)");
     let timeInSecondeSinceUpdate = await this.spCoinContractDeployed.connect(this.signer).getAccountTimeInSecondeSinceUpdate(_tokenLastUpdate);
     
     spCoinLogger.logExitFunction();

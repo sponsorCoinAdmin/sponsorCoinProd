@@ -1,6 +1,39 @@
+/*
+struct SponsorCoinHeader {
+  string  name;
+  string  symbol;
+  uint256 decimals;
+  uint    annualInflation;
+  uint256 totalSupply;
+  uint256 totalBalanceOf;
+  uint256 totalStakedSPCoins; // Coins Owned but steaked to recipients
+  uint256 totalStakingRewards; // Coins not owned but Recipiented
+
+  address[] masterAccountList;
+  // mapping(address => AccountStruct) accountMap;
+}
+*/ 
+
+class SponsorCoinHeader {
+  // Initialize values to maintain output display order
+  constructor() {
+    this.TYPE = "--SPONSOR COIN HEADER--";
+    this.name = "ToDo";
+    this.symbol = "ToDo";
+    this.decimals = "ToDo";
+    this.creationTime = "ToDo";
+    this.annualInflation = "ToDo";
+    this.totalSupply = "ToDo";
+    this.totalBalanceOf = "ToDo";
+    this.totalStakedSPCoins = "ToDo";
+    this.totalStakingRewards = "ToDo";
+    this.recipientRecordList = "ToDo";
+    this.masterAccountList = "ToDo";
+  }
+}
+
 class AccountStruct {
   // Initialize values to maintain output display order
-
   constructor() {
     this.TYPE = "--ACCOUNT--";
     this.accountKey = 0;
@@ -119,15 +152,16 @@ class RewardTransactionStruct {
 }
 
 module.exports = {
-  RewardAccountStruct,
   AccountStruct,
   AgentRateStruct,
   AgentStruct,
   RewardRateStruct,
   RecipientStruct,
   RecipientRateStruct,
+  RewardAccountStruct,
   RewardsStruct,
   RewardTransactionStruct,
   RewardTypeStruct,
+  SponsorCoinHeader,
   StakingTransactionStruct,
 };

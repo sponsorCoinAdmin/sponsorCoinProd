@@ -19,6 +19,11 @@ contract SpCoinDataTypes {
     uint256 public totalSupply;
     uint    public annualInflation = 10;
 
+    uint256 public totalBalanceOf = 111;
+    uint256 public totalStakedSPCoins = 222; // Coins Owned but steaked to recipients
+    uint256 public totalStakingRewards = 333; // Coins not owned but Recipiented
+
+
     // Keep track balances and allowances approved
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;

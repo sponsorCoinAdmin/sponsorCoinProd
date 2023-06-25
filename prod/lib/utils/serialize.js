@@ -8,6 +8,7 @@ const { bigIntToDateTimeString,
         getLocation
        } = require("./dateTime");
 const {
+  SponsorCoinHeader,
   AccountStruct,
   RecipientStruct,
   AgentStruct,
@@ -41,7 +42,7 @@ class SpCoinSerialize {
       "deSerializedAccountRec = async(" + _serializedAccountRec + ")"
     );
     spCoinLogger.logDetail("JS => _serializedAccountRec:\n" + _serializedAccountRec);
-    let accountStruct = new AccountStruct();
+    let accountRecord = new AccountStruct();
     let elements = _serializedAccountRec.split("\\,");
     for (let i = 0; i < elements.length; i++) {
       let element = elements[i].trim();
@@ -52,14 +53,14 @@ class SpCoinSerialize {
       let value = keyValue[1].trim();
       // spCoinLogger.logDetail("JS => key     = " + key);
       // spCoinLogger.logDetail("JS => value   = " + value);
-      this.addAccountField(key, value, accountStruct);
+      this.addAccountField(key, value, accountRecord);
     }
 
-    spCoinLogger.logDetail("JS => scPrintStructureTest.js, accountStruct:");
-    spCoinLogger.logDetail("JS => accountStruct               = " + JSON.stringify(accountStruct, 0, 2));
+    spCoinLogger.logDetail("JS => scPrintStructureTest.js, accountRecord:");
+    spCoinLogger.logDetail("JS => accountRecord               = " + JSON.stringify(accountRecord, 0, 2));
     spCoinLogger.logDetail("JS => ============================================================================");
     spCoinLogger.logExitFunction();
-    return accountStruct;
+    return accountRecord;
   };
 
   addAccountField = ( _key, _value, accountRecord ) => {
@@ -177,6 +178,78 @@ class SpCoinSerialize {
     return this.deSerializedAccountRec(serializedAccountRec);
   };
 
+  deserializeRateTransactionRecords = (transactionStr) => {
+    spCoinLogger.logFunctionHeader("deserializeRateTransactionRecords = async(" + transactionStr + ")");
+    //spCoinLogger.log("deserializeRateTransactionRecords = async(" + transactionStr + ")");
+    let transactionRecs = [];
+    if(transactionStr.length > 0) {
+      // console.log("JS==>19 deserializeRateTransactionRecords = async(" + transactionStr + ")");
+      let transactionRows = transactionStr.split("\n");
+      // for (let row in transactionRows) {
+      for (var row = transactionRows.length - 1; row >= 0; row--) {
+        let transactionFields = transactionRows[row].split(",");
+        let transactionRec = new StakingTransactionStruct();
+        transactionRec.location = getLocation();
+        transactionRec.insertionTime = bigIntToDateTimeString(transactionFields[0]);
+        transactionRec.quantity = bigIntToDecString(transactionFields[1]);
+        transactionRecs.push(transactionRec);
+        // spCoinLogger.logJSON(transactionRec);
+      } 
+      spCoinLogger.logExitFunction();
+    }
+    return transactionRecs;
+  }
+
+  getSerializedSPCoinHeader = async() => {
+    // console.log("JS==>1 getSerializedSPCoinHeader()");
+    spCoinLogger.logFunctionHeader("getAccountRecords()");
+    let sponsorCoinHeader = new SponsorCoinHeader();
+    let headerData = await this.spCoinContractDeployed.connect(this.signer).getSerializedSPCoinHeader();
+    let elements = headerData.split("\\,");
+    for (let i = 0; i < elements.length; i++) {
+      let element = elements[i].trim();
+      let keyValue = element.split(":");
+      spCoinLogger.logDetail("JS => keyValue = " + keyValue);
+      console.log("JS => keyValue = " + keyValue);
+
+      let key = keyValue[0].trim();
+      let value = keyValue[1].trim();
+      // spCoinLogger.logDetail("JS => key     = " + key);
+      // spCoinLogger.logDetail("JS => value   = " + value);
+      this.addSPCoinHeaderField(key, value, sponsorCoinHeader);
+    }
+    return headerData;
+  }
+
+  addSPCoinHeaderField = ( _key, _value, spCoinHeaderRecord ) => {
+    switch (_key.trim()) {
+      case "NAME":
+        spCoinHeaderRecord.name = _value;
+        break;
+      case "SYMBOL":
+        spCoinHeaderRecord.symbol = _value;
+        break;
+      case "DECIMALS":
+        spCoinHeaderRecord.decimals = bigIntToDecString(_value);
+      break;
+      case "TOTAL_SUPPLY":
+        spCoinHeaderRecord.totalSupply = bigIntToDecString(_value);
+      break;
+
+      case "TOTAL_BALANCE_OF":
+        spCoinHeaderRecord.totalBalanceOf = bigIntToDecString(_value);
+      break;
+      
+      case "TOTAL_STAKED_SP_COINS":
+        spCoinHeaderRecord.totalStakedSPCoins = bigIntToDecString(_value);
+      break;
+      case "TOTAL_STAKED_REWARDS":
+        spCoinHeaderRecord.totalStakingRewards = bigIntToDateTimeString(_value);
+      break;
+      default:
+      break;
+    }
+  }
 }
 
 module.exports = {
