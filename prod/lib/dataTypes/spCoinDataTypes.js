@@ -20,15 +20,15 @@ class SponsorCoinHeader {
     this.TYPE = "--SPONSOR COIN HEADER--";
     this.name = "ToDo";
     this.symbol = "ToDo";
-    this.decimals = "ToDo";
+    this.version = "ToDo";
     this.creationTime = "ToDo";
-    this.annualInflation = "ToDo";
     this.totalSupply = "ToDo";
+    this.decimals = "ToDo";
+    this.annualInflation = "ToDo";
     this.totalBalanceOf = "ToDo";
     this.totalStakedSPCoins = "ToDo";
     this.totalStakingRewards = "ToDo";
-    this.recipientRecordList = "ToDo";
-    this.masterAccountList = "ToDo";
+    this.accountRecords = "ToDo";
   }
 }
 

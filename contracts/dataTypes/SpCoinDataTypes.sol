@@ -15,13 +15,16 @@ contract SpCoinDataTypes {
     // **Standard ERC20 contract Variables
     string  public name;
     string  public symbol;
+    string  public version = "002";
     uint256 public decimals;
     uint256 public totalSupply;
     uint    public annualInflation = 10;
+    uint    public creationTime = block.timestamp;
 
     uint256 public totalBalanceOf = 111;
     uint256 public totalStakedSPCoins = 222; // Coins Owned but steaked to recipients
     uint256 public totalStakingRewards = 333; // Coins not owned but Recipiented
+    
 
 
     // Keep track balances and allowances approved

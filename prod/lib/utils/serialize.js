@@ -205,7 +205,8 @@ class SpCoinSerialize {
     spCoinLogger.logFunctionHeader("getAccountRecords()");
     let sponsorCoinHeader = new SponsorCoinHeader();
     let headerData = await this.spCoinContractDeployed.connect(this.signer).getSerializedSPCoinHeader();
-    let elements = headerData.split("\\,");
+    let elements = headerData.split(",");
+    console.log("elements.length", elements.length);
     for (let i = 0; i < elements.length; i++) {
       let element = elements[i].trim();
       let keyValue = element.split(":");
@@ -214,14 +215,16 @@ class SpCoinSerialize {
 
       let key = keyValue[0].trim();
       let value = keyValue[1].trim();
-      // spCoinLogger.logDetail("JS => key     = " + key);
-      // spCoinLogger.logDetail("JS => value   = " + value);
+      spCoinLogger.logDetail("JS => key     = " + key);
+      spCoinLogger.logDetail("JS => value   = " + value);
       this.addSPCoinHeaderField(key, value, sponsorCoinHeader);
     }
-    return headerData;
+    return sponsorCoinHeader;
   }
 
   addSPCoinHeaderField = ( _key, _value, spCoinHeaderRecord ) => {
+    // console.log("JS => _key   = " + _key);
+    // console.log("JS => _value = " + _value);
     switch (_key.trim()) {
       case "NAME":
         spCoinHeaderRecord.name = _value;
@@ -235,16 +238,23 @@ class SpCoinSerialize {
       case "TOTAL_SUPPLY":
         spCoinHeaderRecord.totalSupply = bigIntToDecString(_value);
       break;
-
       case "TOTAL_BALANCE_OF":
         spCoinHeaderRecord.totalBalanceOf = bigIntToDecString(_value);
       break;
-      
+      case "ANNUAL_INFLATION":
+        spCoinHeaderRecord.annualInflation = bigIntToDecString(_value);
+      break;
+      case "CREATION_TIME":
+        spCoinHeaderRecord.creationTime = bigIntToDecString(_value);
+      break;
       case "TOTAL_STAKED_SP_COINS":
         spCoinHeaderRecord.totalStakedSPCoins = bigIntToDecString(_value);
       break;
       case "TOTAL_STAKED_REWARDS":
-        spCoinHeaderRecord.totalStakingRewards = bigIntToDateTimeString(_value);
+        spCoinHeaderRecord.totalStakingRewards = bigIntToDecString(_value);
+      break;
+      case "VERSION":
+        spCoinHeaderRecord.version = _value;
       break;
       default:
       break;

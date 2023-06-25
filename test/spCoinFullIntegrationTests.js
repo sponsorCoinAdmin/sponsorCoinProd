@@ -292,7 +292,7 @@ describe("spCoinContract", function () {
   let getBody = false;
   let spCoinHeader = await spCoinReadMethods.getSPCoinHeaderRecord(getBody);
   
-  console.log("spCoinHeader = ", spCoinHeader);
+  console.log("spCoinHeader =", spCoinHeader);
 
   let accountRecords = await spCoinReadMethods.getAccountRecords()
   spCoinLogger.logJSONTree(accountRecords);

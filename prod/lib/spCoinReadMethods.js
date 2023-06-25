@@ -207,7 +207,7 @@ class SpCoinReadMethods {
       // rewardTransactionRecord.sourceKey = accountRewardsFields[count++];
       // console.log ("JS=>9 accountRewardsFields[count] = ", accountRewardsFields[count]);
       rewardTransactionRecord.updateTime = bigIntToDateTimeString(accountRewardsFields[count++]);
-      console.log ("JS=>11 rewardTransactionRecord.updateTime = ", rewardTransactionRecord.updateTime);
+      // console.log ("JS=>11 rewardTransactionRecord.updateTime = ", rewardTransactionRecord.updateTime);
       rewardTransactionRecord.stakingRewards = bigIntToDecString(accountRewardsFields[count++]);
       // console.log ("JS=>12 rewardTransactionRecord.stakingRewards = ", rewardTransactionRecord.stakingRewards);
       // console.log ("JS=>3 rewardTransactionRecord = ",rewardTransactionRecord);
@@ -260,19 +260,19 @@ class SpCoinReadMethods {
   };
 
   getAgentRateRecord = async(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey) => {
-    console.log("JS==>18.0 getAgentRateRecord(\n   _sponsorKey = " + _sponsorKey + ",\n   _recipientKey = " + _recipientKey + ",\n   _agentKey = " + _agentKey+ ",\n   _agentRateKey = " + _agentRateKey + ")");
+    // console.log("JS==>18.0 getAgentRateRecord(\n   _sponsorKey = " + _sponsorKey + ",\n   _recipientKey = " + _recipientKey + ",\n   _agentKey = " + _agentKey+ ",\n   _agentRateKey = " + _agentRateKey + ")");
     spCoinLogger.logFunctionHeader("getAgentRateRecord(" + _sponsorKey + ", " + _recipientKey + ", " + _agentKey+ ", " + _agentRateKey + ")");
     let agentRateRecord = new AgentRateStruct();
     let recordStr = await spCoinSerialize.getSerializedAgentRateList(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
     agentRateRecord.agentRate = _agentRateKey;
-    console.log("JS==>18.1 agentRateRecord.agentRate = ", agentRateRecord.agentRate);
+    // console.log("JS==>18.1 agentRateRecord.agentRate = ", agentRateRecord.agentRate);
     agentRateRecord.creationTime = bigIntToDateTimeString(recordStr[0]);
     agentRateRecord.lastUpdateTime = bigIntToDateTimeString(recordStr[1]);
-    console.log("JS==>18.2 agentRateRecord.lastUpdateTime = ", bigIntToDecString(recordStr[1]));
-    console.log("JS==>18.3 agentRateRecord.lastUpdateTime = ", agentRateRecord.lastUpdateTime);
-    console.log()
+    // console.log("JS==>18.2 agentRateRecord.lastUpdateTime = ", bigIntToDecString(recordStr[1]));
+    // console.log("JS==>18.3 agentRateRecord.lastUpdateTime = ", agentRateRecord.lastUpdateTime);
+    // console.log()
     agentRateRecord.stakedSPCoins = bigIntToDecString(recordStr[2]);
-    console.log("JS==>18.4 agentRateRecord.stakedSPCoins = ", agentRateRecord.stakedSPCoins);
+    // console.log("JS==>18.4 agentRateRecord.stakedSPCoins = ", agentRateRecord.stakedSPCoins);
     agentRateRecord.transactions = await this.getAgentRateTransactionList(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
     spCoinLogger.logExitFunction();
     return agentRateRecord;

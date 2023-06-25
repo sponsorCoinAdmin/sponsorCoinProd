@@ -104,13 +104,15 @@ contract StructSerialization is Utils {
         */
 
         seralized = concat(seralized, "NAME:", name);
-        seralized = concat(seralized, ",SYMBOL:", symbol);
+        seralized = concat(seralized, ",CREATION_TIME:", toString(creationTime));
         seralized = concat(seralized, ",DECIMALS:", toString(decimals));
         seralized = concat(seralized, ",TOTAL_SUPPLY:", toString(totalSupply));
-        seralized = concat(seralized, ",TOTAL_BALANCE_OF", toString(totalBalanceOf));
-        seralized = concat(seralized, ",TOTAL_STAKED_SP_COINS", toString(totalStakedSPCoins));
-        seralized = concat(seralized, ",TOTAL_STAKED_REWARDS", toString(totalStakingRewards));
-
+        seralized = concat(seralized, ",ANNUAL_INFLATION:", toString(annualInflation));
+        seralized = concat(seralized, ",TOTAL_BALANCE_OF:", toString(totalBalanceOf));
+        seralized = concat(seralized, ",TOTAL_STAKED_REWARDS:", toString(totalStakingRewards));
+        seralized = concat(seralized, ",TOTAL_STAKED_SP_COINS:", toString(totalStakedSPCoins));
+        seralized = concat(seralized, ",SYMBOL:", symbol);
+        seralized = concat(seralized, ",VERSION:", version);
         return seralized;
     }
 
