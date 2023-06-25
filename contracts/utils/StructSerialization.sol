@@ -107,6 +107,7 @@ contract StructSerialization is Utils {
         seralized = concat(seralized, ",CREATION_TIME:", toString(creationTime));
         seralized = concat(seralized, ",DECIMALS:", toString(decimals));
         seralized = concat(seralized, ",TOTAL_SUPPLY:", toString(totalSupply));
+        seralized = concat(seralized, ",INITIAL_TOTAL_SUPPLY:", toString(initialTotalSupply));
         seralized = concat(seralized, ",ANNUAL_INFLATION:", toString(annualInflation));
         seralized = concat(seralized, ",TOTAL_BALANCE_OF:", toString(totalBalanceOf));
         seralized = concat(seralized, ",TOTAL_STAKED_REWARDS:", toString(totalStakingRewards));

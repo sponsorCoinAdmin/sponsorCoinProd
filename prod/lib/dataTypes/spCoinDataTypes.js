@@ -22,6 +22,8 @@ class SponsorCoinHeader {
     this.symbol = "ToDo";
     this.version = "ToDo";
     this.creationTime = "ToDo";
+    this.location = "ToDo";
+    this.initialTotalSupply = "ToDo";
     this.totalSupply = "ToDo";
     this.decimals = "ToDo";
     this.annualInflation = "ToDo";
