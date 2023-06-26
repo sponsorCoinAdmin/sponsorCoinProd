@@ -8,7 +8,7 @@ contract RewardsManager is StakingManager{
     constructor() {
     }
 
-    function updateRewards( address _sourceKey , uint _accountType )
+    function updateAccountRewards( address _sourceKey , uint _accountType )
         public view {
         AccountStruct storage account = accountMap[_sourceKey];
         RewardTypeStruct storage rewardsRecord = account.rewardsMap[getAccountTypeString(_accountType)];
@@ -51,7 +51,8 @@ contract RewardsManager is StakingManager{
         return rewards;
    }
 
-    function getCalculatedRewards(uint lastUpdateTime, uint interestRate, uint quantity) public view returns(uint rewards) {
+    function getCalculatedRewards(uint lastUpdateTime, uint interestRate, uint quantity)
+     internal view returns(uint rewards) {
         uint accountTimeInSecondeSinceUpdate = getTimeMultiplier(lastUpdateTime);
         rewards = (quantity * accountTimeInSecondeSinceUpdate * interestRate) / 100;
         return rewards;

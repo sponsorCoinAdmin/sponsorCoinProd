@@ -22,11 +22,9 @@ contract SpCoinDataTypes {
     uint    public annualInflation = 10;
     uint    public creationTime = block.timestamp;
 
-    uint256 public totalBalanceOf = 111;
-    uint256 public totalStakedSPCoins = 222; // Coins Owned but steaked to recipients
-    uint256 public totalStakingRewards = 333; // Coins not owned but Recipiented
-    
-
+    // uint256 public totalBalanceOf = 0;
+    uint256 public totalStakedSPCoins = 0; // Coins Owned but steaked to recipients
+    uint256 public totalStakingRewards = 0; // Coins not owned but Recipiented
 
     // Keep track balances and allowances approved
     mapping(address => uint256) public balanceOf;
@@ -48,7 +46,7 @@ contract SpCoinDataTypes {
     uint SPONSOR = 0;
     uint RECIPIENT = 1;
     uint AGENT = 2;
-
+/*
     struct SponsorCoinHeader {
         string  name;
         string  symbol;
@@ -62,8 +60,8 @@ contract SpCoinDataTypes {
         address[] masterAccountList;
         // mapping(address => AccountStruct) accountMap;
     } 
-
     SponsorCoinHeader internal sponsorCoinHeader;
+*/
 
     struct AccountStruct {
         address accountKey;

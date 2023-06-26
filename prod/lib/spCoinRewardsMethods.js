@@ -3,20 +3,7 @@ const { SpCoinLogger } = require("./utils/logging");
 
 let spCoinLogger;
 
-const SPONSOR = 0;
-const RECIPIENT = 1;
-const AGENT = 2;
-
-const second = 1;
-const minute = second * 60;
-const hour = minute * 60;
-const day = hour * 24;
-const week = day * 7;
-const year = day * 365.25;
-const month = year/12;
-const millennium = year * 1000;
-
-class SpCoinStakingMethods {
+class SpCoinRewardsMethods {
 
   constructor(_spCoinContractDeployed) {
     this.spCoinContractDeployed = _spCoinContractDeployed;
@@ -28,6 +15,8 @@ class SpCoinStakingMethods {
     this.signer = _signer;
   }
 
+  /*  REMOVE LATER
+testStakingRewards
   testStakingRewards = async(lastUpdateTime, testUpdateTime, interestRate, quantity) => {
     // spCoinLogger.logFunctionHeader("getStakingRewards(lastUpdateTime,  interestRate,  quantity)");
     let stakingRewards = await this.spCoinContractDeployed.connect(this.signer).testStakingRewards(lastUpdateTime, testUpdateTime, interestRate, quantity);
@@ -172,18 +161,11 @@ class SpCoinStakingMethods {
       _backDateInSecs
     );
   }
-
+*/
 };
 
 /////////////////////// EXPORT MODULE FUNCTIONS ///////////////////////
 
 module.exports = {
-  SpCoinStakingMethods,
-  second,
-  hour,
-  minute,
-  week,
-  year,
-  month ,
-  millennium
+  SpCoinRewardsMethods
 };

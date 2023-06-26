@@ -17,4 +17,3 @@ contract Sponsor is Account {
         return getAccountRecord("Sponsor", sponsor);
     }
 }
-

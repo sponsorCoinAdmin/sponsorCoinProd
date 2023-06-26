@@ -1,5 +1,6 @@
 const { LOG_MODE } = require("./hardhatSetup/hhConnectSetup");
 const { second, minute, hour, day, week, year, month , millennium } = require("../prod/lib/spCoinStakingMethods"); 
+const { SpCoinRewardsMethods } = require("../prod/lib/spCoinRewardsMethods"); 
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
@@ -217,7 +218,7 @@ describe("spCoinContract", function () {
     SPONSOR_ACCOUNT_SIGNERS[1],
     RECIPIENT_ACCOUNT_KEYS[0],
     RECIPIENT_RATES[4],
-    "1.000000000000000008"
+    "3.000000000000000008"
   );
 
   // await spCoinStakingMethods.depositSponsorStakingRewards(

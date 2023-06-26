@@ -12,7 +12,6 @@ contract Transactions is AgentRates {
                                  uint _agentRateKey,
                                  string memory _strWholeAmount,
                                  string memory _strDecimalAmount)
-                                // uint256 _sponsorAmount)
     public onlyOwnerOrRootAdmin("addSponsorship", msg.sender)
     // validateSufficientAccountBalance(sponsorAmount)
     {
@@ -44,8 +43,8 @@ contract Transactions is AgentRates {
 
         StakingTransactionStruct memory transRec;
         transRec.insertionTime = transactionTimeStamp;
-        transRec.stakingRewards = sponsorAmount; 
-
+        transRec.stakingRewards = sponsorAmount;
+        totalStakedSPCoins += sponsorAmount;
 
         //////////////////////////////////////
 

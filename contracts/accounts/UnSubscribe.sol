@@ -27,6 +27,7 @@ contract UnSubscribe is JUNK_BackDateRateTest {
             uint256 totalSponsored = recipientRecord.stakedSPCoins;
             // console.log("UnSubscribe:BEFORE balanceOf() msg.sender = ", balanceOf[msg.sender]);
             // console.log("UnSubscribe:BEFORE totalSponsored         = ", totalSponsored);
+            totalStakedSPCoins -= totalSponsored;
             balanceOf[sponsorAccount.accountKey] += totalSponsored;
             sponsorAccount.stakedSPCoins -= totalSponsored;
             // ToDo: Robin Here
