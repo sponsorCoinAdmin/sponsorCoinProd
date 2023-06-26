@@ -1,19 +1,3 @@
-/*
-struct SponsorCoinHeader {
-  string  name;
-  string  symbol;
-  uint256 decimals;
-  uint    annualInflation;
-  uint256 totalSupply;
-  uint256 totalBalanceOf;
-  uint256 totalStakedSPCoins; // Coins Owned but steaked to recipients
-  uint256 totalStakingRewards; // Coins not owned but Recipiented
-
-  address[] masterAccountList;
-  // mapping(address => AccountStruct) accountMap;
-}
-*/ 
-
 class SponsorCoinHeader {
   // Initialize values to maintain output display order
   constructor() {
