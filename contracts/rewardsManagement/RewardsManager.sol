@@ -15,10 +15,10 @@ contract RewardsManager is StakingManager{
         address[] storage recipientKeys = account.recipientAccountList;             // If Sponsor List of Recipient Accounts
         mapping(address => RecipientStruct) storage recipientMap = account.recipientMap;
         // console.log("recipientKeys.length = ",recipientKeys.length);
-        rewardsString = concat("recipientKeys.length = ", toString(recipientKeys.length));
+        rewardsString = concat("RECIPIENT_KEYS_LENGTH:", toString(recipientKeys.length));
         for (uint idx = 0; idx < recipientKeys.length; idx++) {
-            rewardsString = concat(rewardsString, "\nrecipientKeys[", toString(idx), "] = ");
-            rewardsString = concat(rewardsString, toString(recipientKeys[idx]));
+            rewardsString = concat(rewardsString, "\nRECIPIENT_IDX:", toString(idx));
+            rewardsString = concat(rewardsString, "\nRECIPIENT_KEY:", toString(recipientKeys[idx]));
             address recipientKey = recipientKeys[idx];
             string memory tmpRewards;
             uint256 rewards;
@@ -33,9 +33,9 @@ contract RewardsManager is StakingManager{
         // console.log("updateRecipientRateListRewards(recipientRecord)");
         uint256[] storage recipientRateList = recipientRecord.recipientRateList;
         mapping(uint256 => RecipientRateStruct) storage recipientRateMap = recipientRecord.recipientRateMap;
-        rewardsString = concat("recipientRateList.length = ", toString(recipientRateList.length));
+        rewardsString = concat("RECIPIENT_RATE_LIST_LENGTH:", toString(recipientRateList.length));
         for (uint idx = 0; idx < recipientRateList.length; idx++) {
-            rewardsString = concat(rewardsString, "\nrecipientRateList[", toString(idx), "] = ");
+            rewardsString = concat(rewardsString, "\nRECIPIENT_RATE:", toString(idx));
             uint256 recipientMapIdx = recipientRateList[idx];
             string memory tmpRewards;
             (rewards, tmpRewards) =  updateRecipientRateRewards(recipientRateMap[recipientMapIdx]);
@@ -55,7 +55,7 @@ contract RewardsManager is StakingManager{
     }
 
     function calculateStakingRewards( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 currentTimeStamp)
-    public view returns (uint rewards, string memory rewardsString) {
+    public pure returns (uint rewards, string memory rewardsString) {
         // console.log("updateRecipientRateListRewards(_stakedSPCoins, lastUpdate, currentTimeStamp)");
         uint256 timeDiff = currentTimeStamp - _lastUpdateTime;
         uint256 timeMultiplier = timeDiff * _stakedSPCoins;
@@ -63,7 +63,21 @@ contract RewardsManager is StakingManager{
 
         // uint timeMultiplier = getAnnualTimeMultiplier(currentTimeStamp*decimals, lastUpdate);
 
-        rewardsString;
+        rewardsString = concat(rewardsString, "CURRENT_TIME_STAMP:", toString(currentTimeStamp));
+        rewardsString = concat(rewardsString, "\nLAST_UPDATE_TIME:", toString(_lastUpdateTime));
+        rewardsString = concat(rewardsString, "\nTIME_DIFFERENCE:", toString(timeDiff));
+        rewardsString = concat(rewardsString, "\nSTAKED_SPONSOR_COINS:", toString(_stakedSPCoins));
+        rewardsString = concat(rewardsString, "\nTIME_MULTIPLIER:", toString(timeMultiplier));
+        rewardsString = concat(rewardsString, "\nYEAR_IN_SECONDS:", toString(year));
+        rewardsString = concat(rewardsString, "\nCALCULATED_STAKING_REWARDS:", toString(rewards));
+        // console.log(rewardsString);
+        return (rewards, rewardsString) ;
+    }
+
+
+
+/*
+
         rewardsString = concat(rewardsString, "\ncurrentTimeStamp                     = ", toString(currentTimeStamp));
         rewardsString = concat(rewardsString, "\nSOL==>1.1 _lastUpdateTime            = ", toString(_lastUpdateTime));
         rewardsString = concat(rewardsString, "\nSOL==>1.2 timeDiff                   = ", toString(timeDiff));
@@ -71,11 +85,7 @@ contract RewardsManager is StakingManager{
         rewardsString = concat(rewardsString, "\nSOL==>1.3 timeMultiplier             = ", toString(timeMultiplier));
         rewardsString = concat(rewardsString, "\nSOL==>1.4 year                       = ", toString(year));
         rewardsString = concat(rewardsString, "\nSOL==>1.5 Calculated Staking Rewards = ", toString(rewards));
-        console.log(rewardsString);
-        return (rewards, rewardsString) ;
-    }
 
-/*
     function updateAccountStakingRewards( address _sourceKey , uint _accountType )
         public view {
         AccountStruct storage account = accountMap[_sourceKey];
