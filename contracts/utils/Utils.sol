@@ -7,7 +7,7 @@ import "./Security.sol";
 import "./TimeUtils.sol";
 import "./StringUtils.sol";
 
-contract Utils is Security, TimeUtils, StringUtils {
+contract Utils is Security, TimeUtils {
     constructor() {
     }
   

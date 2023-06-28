@@ -4,7 +4,7 @@ pragma solidity ^0.8.18;
 import "./Transactions.sol";
 import "./JUNK_BackDateRateTest.sol";
 
-contract UnSubscribe is JUNK_BackDateRateTest {
+contract UnSubscribe is Transactions {
     constructor() { }
 
     /// @notice Remove all recipientship relationships for Sponsor and Recipient accounts

@@ -15,6 +15,7 @@ const week = day * 7;
 const year = day * 365.25;
 const month = year/12;
 const millennium = year * 1000;
+const burnAddress = "0x0000000000000000000000000000000000000000";
 
 class SpCoinStakingMethods {
 

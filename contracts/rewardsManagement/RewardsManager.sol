@@ -8,45 +8,75 @@ contract RewardsManager is StakingManager{
     constructor() {
     }
 
-    function updateAccountRewards( address _sourceKey )
-    public view {
+    function updateAccountStakingRewards( address _sourceKey )
+    public view returns (string memory rewardsString){
+        console.log("updateAccountStakingRewards(", toString(_sourceKey), ")");
         AccountStruct storage account = accountMap[_sourceKey];
         address[] storage recipientKeys = account.recipientAccountList;             // If Sponsor List of Recipient Accounts
         mapping(address => RecipientStruct) storage recipientMap = account.recipientMap;
+        // console.log("recipientKeys.length = ",recipientKeys.length);
+        rewardsString = concat("recipientKeys.length = ", toString(recipientKeys.length));
         for (uint idx = 0; idx < recipientKeys.length; idx++) {
+            rewardsString = concat(rewardsString, "\nrecipientKeys[", toString(idx), "] = ");
+            rewardsString = concat(rewardsString, toString(recipientKeys[idx]));
             address recipientKey = recipientKeys[idx];
-            updateRecipientRateListRewards(recipientMap[recipientKey]);
+            string memory tmpRewards;
+            uint256 rewards;
+            (rewards, tmpRewards) =  updateRecipientRateListRewards(recipientMap[recipientKey]);
+            rewardsString = concat(rewardsString, "\n", tmpRewards);
         }
+        return rewardsString ;
     }
 
     function updateRecipientRateListRewards( RecipientStruct storage recipientRecord )
-    internal view {
+    internal view returns (uint rewards, string memory rewardsString) {
+        // console.log("updateRecipientRateListRewards(recipientRecord)");
         uint256[] storage recipientRateList = recipientRecord.recipientRateList;
         mapping(uint256 => RecipientRateStruct) storage recipientRateMap = recipientRecord.recipientRateMap;
-
+        rewardsString = concat("recipientRateList.length = ", toString(recipientRateList.length));
         for (uint idx = 0; idx < recipientRateList.length; idx++) {
+            rewardsString = concat(rewardsString, "\nrecipientRateList[", toString(idx), "] = ");
             uint256 recipientMapIdx = recipientRateList[idx];
-            updateRecipientRateRewards(recipientRateMap[recipientMapIdx]);
+            string memory tmpRewards;
+            (rewards, tmpRewards) =  updateRecipientRateRewards(recipientRateMap[recipientMapIdx]);
+            rewardsString = concat(rewardsString, "\n", tmpRewards);
         }
+        return (rewards, rewardsString) ;
     }
 
-    function updateRecipientRateRewards( RecipientRateStruct storage recipientRateRecord )
-    internal view {
+    function updateRecipientRateRewards( RecipientRateStruct storage _recipientRateRecord )
+    internal view returns (uint rewards, string memory rewardsString) {
+        console.log("updateRecipientRateListRewards(_recipientRateRecord)");
         uint256 currentTimeStamp = block.timestamp;
-        uint256 stakedSPCoins  = recipientRateRecord.stakedSPCoins;
-        uint256 lastUpdateTime = recipientRateRecord.lastUpdateTime;
-        calculatrRewards( stakedSPCoins, lastUpdateTime, currentTimeStamp );
+        uint256 stakedSPCoins    = _recipientRateRecord.stakedSPCoins;
+        uint256 lastUpdateTime   = _recipientRateRecord.lastUpdateTime;
+        (rewards, rewardsString) = calculateStakingRewards( stakedSPCoins, lastUpdateTime, currentTimeStamp );
+        return (rewards, rewardsString) ;
     }
 
-    function calculatrRewards( uint256 stakedSPCoins, uint256 lastUpdate, uint256 currentTimeStamp)
-    public pure returns (uint256 rewards) {
-        rewards = currentTimeStamp - lastUpdate;
-        return rewards;
-    }
+    function calculateStakingRewards( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 currentTimeStamp)
+    public view returns (uint rewards, string memory rewardsString) {
+        // console.log("updateRecipientRateListRewards(_stakedSPCoins, lastUpdate, currentTimeStamp)");
+        uint256 timeDiff = currentTimeStamp - _lastUpdateTime;
+        uint256 timeMultiplier = timeDiff * _stakedSPCoins;
+        rewards = timeMultiplier/year;
 
+        // uint timeMultiplier = getAnnualTimeMultiplier(currentTimeStamp*decimals, lastUpdate);
+
+        rewardsString;
+        rewardsString = concat(rewardsString, "\ncurrentTimeStamp                     = ", toString(currentTimeStamp));
+        rewardsString = concat(rewardsString, "\nSOL==>1.1 _lastUpdateTime            = ", toString(_lastUpdateTime));
+        rewardsString = concat(rewardsString, "\nSOL==>1.2 timeDiff                   = ", toString(timeDiff));
+        rewardsString = concat(rewardsString, "\nSOL==>1.3 _stakedSPCoins             = ", toString(_stakedSPCoins));
+        rewardsString = concat(rewardsString, "\nSOL==>1.3 timeMultiplier             = ", toString(timeMultiplier));
+        rewardsString = concat(rewardsString, "\nSOL==>1.4 year                       = ", toString(year));
+        rewardsString = concat(rewardsString, "\nSOL==>1.5 Calculated Staking Rewards = ", toString(rewards));
+        console.log(rewardsString);
+        return (rewards, rewardsString) ;
+    }
 
 /*
-    function updateAccountRewards( address _sourceKey , uint _accountType )
+    function updateAccountStakingRewards( address _sourceKey , uint _accountType )
         public view {
         AccountStruct storage account = accountMap[_sourceKey];
         RewardTypeStruct storage rewardsRecord = account.rewardsMap[getAccountTypeString(_accountType)];

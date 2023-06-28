@@ -2,44 +2,34 @@
 pragma solidity ^0.8.18;
 
 import "hardhat/console.sol";
+import "./StringUtils.sol";
 
 
-contract TimeUtils {
+contract TimeUtils is StringUtils{
     constructor() {
     }
 
     uint8 constant second = 1;
-    uint8 constant minute = second * 60;
-    uint8 constant hour = minute * 60;
-    uint8 constant day = hour * 24;
-    uint8 constant week = day * 7;
-    uint16 constant year = day * (365 + hour * 8);
-    uint16 constant month = year/12;
+    uint16 constant minute = second * 60;
+    uint32 constant hour = minute * 60;
+    uint32 constant day = hour * 24;
+    uint32 constant week = day * 7;
+    uint32 constant year = day * (365 + hour * 8);
+    uint32 constant month = year/12;
 
-    function getStakingRewards(uint lastUpdateTime, uint interestRate, uint quantity)
-    internal view returns(uint rewards) {
-        uint accountTimeInSecondeSinceUpdate = getTimeMultiplier(lastUpdateTime);
-        rewards = (quantity * accountTimeInSecondeSinceUpdate * interestRate) /100;
-        return rewards;
-    }
 
-    function getTimeMultiplier(uint lastUpdateTime)
-    internal view returns(uint timeMultiplier) {
-        uint accountTimeInSecondeSinceUpdate = getAccountTimeInSecondeSinceUpdate(lastUpdateTime);
-        timeMultiplier = getAnnualizedPercentageForGivenTimeInterval(accountTimeInSecondeSinceUpdate);
-        return timeMultiplier;
-    }
-
-   function getAccountTimeInSecondeSinceUpdate(uint TokenLastUpdate)
-   internal view returns(uint) {
-        uint accountTimeInSecondeSinceUpdate = block.timestamp - TokenLastUpdate;
-        return accountTimeInSecondeSinceUpdate;
-    }
-
-    function getAnnualizedPercentageForGivenTimeInterval(uint timeInSeconds)
-    internal pure returns(uint) {
-        return year/timeInSeconds;
-    }
+    // function getAnnualTimeMultiplier(uint currentTime, uint lastUpdateTime)
+    // internal view returns(uint timeMultiplier) {
+    //     uint256 timeDiff = currentTime - lastUpdateTime;
+    //     timeMultiplier = (currentTime - lastUpdateTime)/year;
+    //     console.log("currentTime =",toString(currentTime));
+    //     console.log("lastUpdateTime =",toString(lastUpdateTime));
+    //     console.log("timeDiff =",toString(timeDiff));
+    //     console.log("year =",toString(year));
+    //     console.log("timeMultiplier =",toString(timeMultiplier));
+    //     return timeMultiplier;
+    // //   return year;
+    // }
 }
 
 /*
