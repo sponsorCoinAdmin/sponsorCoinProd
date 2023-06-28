@@ -17,12 +17,14 @@ contract Transactions is AgentRates {
     // validateSufficientAccountBalance(sponsorAmount)
     {
         // console.log("msg.sender     ", msg.sender);
-        // console.log("addSponsorship(", _recipientKey, ",");
-        // console.log("               ", _recipientRateKey, ",");
-        // console.log("               ", _agentKey, ",");
-        // console.log("               ", _agentRateKey, ",");
-        // console.log("               ", _strWholeAmount, ",");
-        // console.log("               ", _strDecimalAmount, ")");
+        console.log("addSponsorship(");
+        console.log("_recipientKey      = ", _recipientKey, ",");
+        console.log("_recipientRateKey  = ", _recipientRateKey, ",");
+        console.log("_agentKey          = ", _agentKey, ",");
+        console.log("_agentRateKey      = ", _agentRateKey, ",");
+        console.log("strWholeAmount     = ", _strWholeAmount, ",");
+        console.log("_strDecimalAmount  = ", _strDecimalAmount, ",");
+        console.log("_backDate          = ", _backDate, ")");
         
         // console.log("balanceOf[", msg.sender, "] = ",balanceOf[msg.sender]);
         uint256 sponsorAmount;

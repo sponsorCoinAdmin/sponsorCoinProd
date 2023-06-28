@@ -109,7 +109,7 @@ constructor(_spCoinContractDeployed) {
     _recipientRateKey,
     _transactionQty,
     _transactionBackDate) => {
-    spCoinLogger.logFunctionHeader(
+    console.log(
       "addSponsorship = async(" +
       _sponsorSigner + ", " +
       _recipientKey + ", " +
@@ -117,7 +117,7 @@ constructor(_spCoinContractDeployed) {
       _transactionQty + ", " +
       _transactionBackDate + ")"
     );
-    await this.addAgentSponsorship (
+    await this.addBackDatedAgentSponsorship (
       _sponsorSigner,
       _recipientKey,
       _recipientRateKey,
