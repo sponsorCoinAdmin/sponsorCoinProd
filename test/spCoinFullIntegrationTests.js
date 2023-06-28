@@ -275,9 +275,9 @@ describe("spCoinContract", function () {
   await spCoinAddMethods.addBackDatedSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
     RECIPIENT_ACCOUNT_KEYS[1], 
-    RECIPIENT_RATES[4],
-    "5", 
-    year*5
+    RECIPIENT_RATES[10],
+    "100", 
+    year
   );  
   
   // await spCoinAddMethods.addSponsorship(

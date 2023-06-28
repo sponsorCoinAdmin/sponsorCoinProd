@@ -263,7 +263,6 @@ class SpCoinSerialize {
       default:
       break;
     }
-
   }
   
   deserializedSPRewards = (stakingRewards) => {
