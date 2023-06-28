@@ -141,39 +141,6 @@ class SpCoinStakingMethods {
     );
     spCoinLogger.logExitFunction();
   };
-
-  backDateAgentRateRecord = async (
-    _sponsorAccount,
-    _recipientAccount,
-    _recipientRate,
-    _agentAccount, 
-    _agentRate,
-    _backDateInSecs
-  ) => {
-    await this.spCoinContractDeployed.connect(this.signer).backDateAgentRateRecord (
-      _sponsorAccount,
-      _recipientAccount,
-      _recipientRate,
-      _agentAccount,
-      _agentRate,
-      _backDateInSecs
-    );
-  }
-
-  backDateRecipientRateRecord = async (
-    _sponsorAccount,
-    _recipientAccount,
-    _recipientRate,
-    _backDateInSecs
-  ) => {
-    await this.spCoinContractDeployed.connect(this.signer).backDateRecipientRateRecord (
-      _sponsorAccount,
-      _recipientAccount,
-      _recipientRate,
-      _backDateInSecs
-    );
-  }
-
 };
 
 /////////////////////// EXPORT MODULE FUNCTIONS ///////////////////////

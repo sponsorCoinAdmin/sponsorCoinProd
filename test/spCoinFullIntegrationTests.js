@@ -246,24 +246,6 @@ describe("spCoinContract", function () {
   //   10
   // );
 
-  // await spCoinStakingMethods.backDateAgentRateRecord (
-  //   SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
-  //   RECIPIENT_ACCOUNT_KEYS[1],
-  //   RECIPIENT_RATES[10],
-  //   AGENT_ACCOUNT_KEYS[2],
-  //   AGENT_RATES[10],
-  //   year
-  // );
-
-  /*
-  await spCoinStakingMethods.backDateRecipientRateRecord(
-    SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
-    RECIPIENT_ACCOUNT_KEYS[1], 
-    RECIPIENT_RATES[4],
-    year*5
-  );
-*/
-
  // await spCoinStakingMethods.depositAgentStakingRewards(
   //   SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
   //   RECIPIENT_ACCOUNT_KEYS[1],
