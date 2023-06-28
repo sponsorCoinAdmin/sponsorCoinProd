@@ -206,6 +206,7 @@ class SpCoinSerialize {
     let sponsorCoinHeader = new SponsorCoinHeader();
     let headerData = await this.spCoinContractDeployed.connect(this.signer).getSerializedSPCoinHeader();
     let elements = headerData.split(",");
+    // console.log("headerData", headerData);
     // console.log("elements.length", elements.length);
     for (let i = 0; i < elements.length; i++) {
       let element = elements[i].trim();
@@ -258,6 +259,77 @@ class SpCoinSerialize {
       break;
       case "VERSION":
         spCoinHeaderRecord.version = _value;
+      break;
+      default:
+      break;
+    }
+  }
+  
+  deserializedSPRewards = (stakingRewards) => {
+    console.log("JS==>1.0 deserializedSPCoinHeader(\n" + stakingRewards + ")");
+    spCoinLogger.logFunctionHeader("getAccountRecords()");
+    let sponsorCoinRewards = {};
+    let rewardElements = stakingRewards.split("\n");
+    console.log("JS==>1.1 rewardElements.length", rewardElements.length);
+    for (let i = 0; i < rewardElements.length; i++) {
+      let rewardElement = rewardElements[i].trim();
+      let keyValue = rewardElement.split(":");
+      spCoinLogger.logDetail("JS => keyValue = " + keyValue);
+      // console.log("JS =>1.2 keyValue = " + keyValue);
+
+      let key = keyValue[0].trim();
+      let value = keyValue[1].trim();
+      // spCoinLogger.log("JS =>1.3 key     = " + key);
+      // spCoinLogger.log("JS =>1.4 value   = " + value);
+      this.addSPCoinRewardField(key, value, sponsorCoinRewards);
+    }
+    // console.log("JS =>1.3 sponsorCoinRewards = " + spCoinLogger.logJSON(sponsorCoinRewards));
+    return sponsorCoinRewards;
+  }
+
+  addSPCoinRewardField = ( _key, _value, spCoinHeaderRecord ) => {
+    // console.log("JS =>2.1 _key   = " + _key);
+    // console.log("JS =>2.2 _value = " + _value);
+    // console.log("JS =>2.3 spCoinHeaderRecord = " + spCoinLogger.logJSON(spCoinHeaderRecord));
+    switch (_key.trim()) {
+      case "RECIPIENT_KEYS_LENGTH":
+        spCoinHeaderRecord.RECIPIENT_KEYS_LENGTH = bigIntToDecString(_value);
+      break;
+      case "RECIPIENT_IDX":
+        spCoinHeaderRecord.RECIPIENT_IDX = bigIntToDecString(_value);
+      break;
+      case "RECIPIENT_KEY":
+        spCoinHeaderRecord.RECIPIENT_KEY = _value;
+      break;
+      case "RECIPIENT_RATE_LIST_LENGTH":
+        spCoinHeaderRecord.RECIPIENT_RATE_LIST_LENGTH = bigIntToDecString(_value);
+      break;
+      case "RECIPIENT_RATE":
+        spCoinHeaderRecord.RECIPIENT_RATE = bigIntToDecString(_value);
+      break;
+      case "CURRENT_TIME_STAMP":
+        spCoinHeaderRecord.CURRENT_TIME_STAMP = bigIntToDateTimeString(_value);
+      break;
+      case "LAST_UPDATE_TIME":
+        spCoinHeaderRecord.LAST_UPDATE_TIME = bigIntToDateTimeString(_value);
+      break;
+      case "LAST_UPDATE_TIME":
+        spCoinHeaderRecord.LAST_UPDATE_TIME = bigIntToDateTimeString(_value);
+      break;
+      case "TIME_DIFFERENCE":
+        spCoinHeaderRecord.TIME_DIFFERENCE = bigIntToDecString(_value);
+      break;
+      case "STAKED_SPONSOR_COINS":
+        spCoinHeaderRecord.STAKED_SPONSOR_COINS = bigIntToDecString(_value);
+      break;
+      case "TIME_MULTIPLIER":
+        spCoinHeaderRecord.TIME_MULTIPLIER = bigIntToDecString(_value);
+      break;
+      case "YEAR_IN_SECONDS":
+        spCoinHeaderRecord.YEAR_IN_SECONDS = bigIntToDecString(_value);
+      break;
+      case "CALCULATED_STAKING_REWARDS":
+        spCoinHeaderRecord.CALCULATED_STAKING_REWARDS = bigIntToDecString(_value);
       break;
       default:
       break;
