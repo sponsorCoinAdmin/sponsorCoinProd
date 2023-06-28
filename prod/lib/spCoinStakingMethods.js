@@ -15,15 +15,7 @@ const week = day * 7;
 const year = day * 365.25;
 const month = year/12;
 const millennium = year * 1000;
-
-// console.log("JS=> SpCoinStakingMethods:second     = ", second);
-// console.log("JS=> SpCoinStakingMethods:minute     = ", minute);
-// console.log("JS=> SpCoinStakingMethods:hour       = ", hour);
-// console.log("JS=> SpCoinStakingMethods:day        = ", day);
-// console.log("JS=> SpCoinStakingMethods:week       = ", week);
-// console.log("JS=> SpCoinStakingMethods:year       = ", year);
-// console.log("JS=> SpCoinStakingMethods:month      = ", month);
-// console.log("JS=> SpCoinStakingMethods:millennium = ", millennium);
+const burnAddress = "0x0000000000000000000000000000000000000000";
 
 class SpCoinStakingMethods {
 
@@ -31,13 +23,12 @@ class SpCoinStakingMethods {
     this.spCoinContractDeployed = _spCoinContractDeployed;
     spCoinLogger = new SpCoinLogger(_spCoinContractDeployed)
     this.setSigner(_spCoinContractDeployed.signer);
-
   }
 
   setSigner(_signer) {
     this.signer = _signer;
   }
-testStakingRewards
+
   testStakingRewards = async(lastUpdateTime, testUpdateTime, interestRate, quantity) => {
     // spCoinLogger.logFunctionHeader("getStakingRewards(lastUpdateTime,  interestRate,  quantity)");
     let stakingRewards = await this.spCoinContractDeployed.connect(this.signer).testStakingRewards(lastUpdateTime, testUpdateTime, interestRate, quantity);
@@ -150,39 +141,6 @@ testStakingRewards
     );
     spCoinLogger.logExitFunction();
   };
-
-  backDateAgentRateRecord = async (
-    _sponsorAccount,
-    _recipientAccount,
-    _recipientRate,
-    _agentAccount, 
-    _agentRate,
-    _backDateInSecs
-  ) => {
-    await this.spCoinContractDeployed.connect(this.signer).backDateAgentRateRecord (
-      _sponsorAccount,
-      _recipientAccount,
-      _recipientRate,
-      _agentAccount,
-      _agentRate,
-      _backDateInSecs
-    );
-  }
-
-  backDateRecipientRateRecord = async (
-    _sponsorAccount,
-    _recipientAccount,
-    _recipientRate,
-    _backDateInSecs
-  ) => {
-    await this.spCoinContractDeployed.connect(this.signer).backDateRecipientRateRecord (
-      _sponsorAccount,
-      _recipientAccount,
-      _recipientRate,
-      _backDateInSecs
-    );
-  }
-
 };
 
 /////////////////////// EXPORT MODULE FUNCTIONS ///////////////////////

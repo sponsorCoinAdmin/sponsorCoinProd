@@ -21,7 +21,7 @@ class SpCoinERC20Methods {
     await this.spCoinContractDeployed.transfer(_to, _value.toString());
   }
 }
-  
+
 //////////////////// MODULE EXPORTS //////////////////////
 
 module.exports = {

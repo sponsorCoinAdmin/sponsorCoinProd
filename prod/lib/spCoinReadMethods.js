@@ -225,6 +225,7 @@ class SpCoinReadMethods {
     // console.log("JS==>1 getAccountRecords()");
     spCoinLogger.logFunctionHeader("getAccountRecords()");
     let sponsorCoinHeader = await spCoinSerialize.deserializedSPCoinHeader();
+    sponsorCoinHeader.location = Intl.DateTimeFormat().resolvedOptions().timeZone;
     if (getBody)
       sponsorCoinHeader.accountRecords = await spCoinReadMethods.getAccountRecords()
     return sponsorCoinHeader;

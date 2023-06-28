@@ -49,7 +49,7 @@ contract StakingManager is UnSubscribe{
             depositKey = _sponsorKey;
             rate = _recipientRate;
          } else if (_accountType == RECIPIENT) { 
-             errMsg = buildErrString(_accountType,  _sponsorKey, " NOT FOUND FOR RECIPIENT ACCOUNT ",  _recipientKey);
+             errMsg = buildErrString(_accountType, _recipientKey, " NOT FOUND FOR SPONSOR ACCOUNT ", _sponsorKey);
              require (recipientHasSponsor( _sponsorKey, _recipientKey ), errMsg);
             uint sponsorAmount = ((_amount * decimalMultiplier)/_recipientRate) / percentDiviser;
 // console.log("RECIPIENT BEFORE _amount",toString( _amount ));
@@ -78,7 +78,7 @@ contract StakingManager is UnSubscribe{
 
     function buildErrString( uint _accountType, address _key1, string memory str1, address _key2)
     internal view returns(string memory errMsg) {
-        errMsg = concat(getAccountTypeString(_accountType), " ACCOUNT", toString(_key1), str1,  toString(_key2));
+        errMsg = concat(getAccountTypeString(_accountType), " ACCOUNT ", toString(_key1), str1,  toString(_key2));
         return errMsg;
     }
 
@@ -99,6 +99,7 @@ contract StakingManager is UnSubscribe{
 
         RewardTypeStruct storage rewardsRecord = depositAccount.rewardsMap[getAccountTypeString(_accountType)];
 
+        totalStakingRewards += _amount;
         depositAccount.stakingRewards += _amount;
         rewardsRecord.stakingRewards += _amount;
         // mapping(address => RewardAccountStruct) storage rewardsMap = rewardsRecord.rewardsMap;

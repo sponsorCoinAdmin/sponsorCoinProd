@@ -5,7 +5,7 @@ pragma solidity ^0.8.18;
 import "./rewardsManagement/StakingManager.sol";
 import "./rewardsManagement/RewardsManager.sol";
 
-contract Token is StakingManager{
+contract Token is RewardsManager{
 
 /*
     constructor(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) {

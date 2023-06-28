@@ -238,8 +238,11 @@ class SpCoinSerialize {
       case "TOTAL_SUPPLY":
         spCoinHeaderRecord.totalSupply = bigIntToDecString(_value);
       break;
-      case "TOTAL_BALANCE_OF":
-        spCoinHeaderRecord.totalBalanceOf = bigIntToDecString(_value);
+      // case "TOTAL_BALANCE_OF":
+      //   spCoinHeaderRecord.totalBalanceOf = bigIntToDecString(_value);
+      // break;
+      case "INITIAL_TOTAL_SUPPLY":
+        spCoinHeaderRecord.initialTotalSupply = bigIntToDecString(_value);
       break;
       case "ANNUAL_INFLATION":
         spCoinHeaderRecord.annualInflation = bigIntToDecString(_value);

@@ -1,5 +1,7 @@
 const { LOG_MODE } = require("./hardhatSetup/hhConnectSetup");
 const { second, minute, hour, day, week, year, month , millennium } = require("../prod/lib/spCoinStakingMethods"); 
+const { SpCoinRewardsMethods } = require("../prod/lib/spCoinRewardsMethods"); 
+const { SpCoinAddMethods } = require("../prod/lib/spCoinRewardsMethods"); 
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
@@ -198,27 +200,21 @@ describe("spCoinContract", function () {
   );
   END THIS WORKS */
   
-  await spCoinAddMethods.addAgentSponsorship(
-    SPONSOR_ACCOUNT_SIGNERS[0],
-    RECIPIENT_ACCOUNT_KEYS[1],
-    RECIPIENT_RATES[5],
-    AGENT_ACCOUNT_KEYS[2],
-    AGENT_RATES[9],
-    "1.000000000000000008"
-  );
+
+
 
 // FIX TRANSFER so UNITS are in SPCOIN, not WEI
-  await spCoinERC20Methods.transfer(
-     RECIPIENT_ACCOUNT_KEYS[1],
-     100000000000000000000
-   )
+  // await spCoinERC20Methods.transfer(
+  //    RECIPIENT_ACCOUNT_KEYS[1],
+  //    100000000000000000000
+  //  )
     
-  await spCoinAddMethods.addSponsorship(
-    SPONSOR_ACCOUNT_SIGNERS[1],
-    RECIPIENT_ACCOUNT_KEYS[0],
-    RECIPIENT_RATES[4],
-    "1.000000000000000008"
-  );
+  // await spCoinAddMethods.addSponsorship(
+  //   SPONSOR_ACCOUNT_SIGNERS[0],
+  //   RECIPIENT_ACCOUNT_KEYS[1],
+  //   RECIPIENT_RATES[4],
+  //   "3.000000000000000008"
+  // );
 
   // await spCoinStakingMethods.depositSponsorStakingRewards(
   //   SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
@@ -241,42 +237,16 @@ describe("spCoinContract", function () {
   //   999
   // );
 
-  // await spCoinStakingMethods.depositRecipientStakingRewards(
-  //   SPONSOR_ACCOUNT_KEYS[1],    // SOURCE ACCOUNT
-  //   RECIPIENT_ACCOUNT_KEYS[0],  // DEPOSIT ACCOUNT
-  //   RECIPIENT_RATES[4],
-  //   333
+  // await spCoinStakingMethods.depositAgentStakingRewards (
+  //   SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[1],
+  //   RECIPIENT_RATES[10],
+  //   AGENT_ACCOUNT_KEYS[2],
+  //   AGENT_RATES[10],
+  //   10
   // );
 
-  await spCoinStakingMethods.depositAgentStakingRewards (
-    SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
-    RECIPIENT_ACCOUNT_KEYS[1],
-    RECIPIENT_RATES[10],
-    AGENT_ACCOUNT_KEYS[2],
-    AGENT_RATES[10],
-    10
-  );
-
-  // console.log("year = ", year);
-
-  await spCoinStakingMethods.backDateAgentRateRecord (
-    SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
-    RECIPIENT_ACCOUNT_KEYS[1],
-    RECIPIENT_RATES[10],
-    AGENT_ACCOUNT_KEYS[2],
-    AGENT_RATES[10],
-    year
-  );
-
-  await spCoinStakingMethods.backDateRecipientRateRecord(
-    SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
-    RECIPIENT_ACCOUNT_KEYS[1], 
-    RECIPIENT_RATES[10],
-    year*5
-  );
-
-
-  // await spCoinStakingMethods.depositAgentStakingRewards(
+ // await spCoinStakingMethods.depositAgentStakingRewards(
   //   SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
   //   RECIPIENT_ACCOUNT_KEYS[1],
   //   RECIPIENT_RATES[10],
@@ -284,6 +254,33 @@ describe("spCoinContract", function () {
   //   AGENT_RATES[10],
   //   100
   // );
+
+  // await spCoinAddMethods.addBackDatedAgentSponsorship(
+  //   SPONSOR_ACCOUNT_SIGNERS[0],
+  //   RECIPIENT_ACCOUNT_KEYS[1],
+  //   RECIPIENT_RATES[5],
+  //   AGENT_ACCOUNT_KEYS[2],
+  //   AGENT_RATES[9],
+  //   "1.000000000000000008", 
+  //   year*10
+  // );
+
+  // await spCoinStakingMethods.depositRecipientStakingRewards(
+  //   SPONSOR_ACCOUNT_KEYS[0],    // SOURCE ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[1],  // DEPOSIT ACCOUNT
+  //   RECIPIENT_RATES[4],
+  //   333
+  // );
+
+  await spCoinAddMethods.addBackDatedSponsorship(
+    SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
+    RECIPIENT_ACCOUNT_KEYS[1], 
+    RECIPIENT_RATES[4],
+    "1.000000000000000008", 
+    year*5
+  );
+
+  // await spCoinRewardsMethods.updateAccountStakingRewards( SPONSOR_ACCOUNT_KEYS[0] );
 
   // console.log("********************************************************************************");
   console.log("\n\n*** AFTER CREATE ******************************************************************************************************\n\n");

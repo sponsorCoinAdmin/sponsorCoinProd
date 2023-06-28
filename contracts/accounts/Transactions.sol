@@ -11,18 +11,20 @@ contract Transactions is AgentRates {
                                  address _agentKey,
                                  uint _agentRateKey,
                                  string memory _strWholeAmount,
-                                 string memory _strDecimalAmount)
-                                // uint256 _sponsorAmount)
+                                 string memory _strDecimalAmount,
+                                 uint _backDate)
     public onlyOwnerOrRootAdmin("addSponsorship", msg.sender)
     // validateSufficientAccountBalance(sponsorAmount)
     {
         // console.log("msg.sender     ", msg.sender);
-        // console.log("addSponsorship(", _recipientKey, ",");
-        // console.log("               ", _recipientRateKey, ",");
-        // console.log("               ", _agentKey, ",");
-        // console.log("               ", _agentRateKey, ",");
-        // console.log("               ", _strWholeAmount, ",");
-        // console.log("               ", _strDecimalAmount, ")");
+        // console.log("addSponsorship(");
+        // console.log("_recipientKey      = ", _recipientKey, ",");
+        // console.log("_recipientRateKey  = ", _recipientRateKey, ",");
+        // console.log("_agentKey          = ", _agentKey, ",");
+        // console.log("_agentRateKey      = ", _agentRateKey, ",");
+        // console.log("strWholeAmount     = ", _strWholeAmount, ",");
+        // console.log("_strDecimalAmount  = ", _strDecimalAmount, ",");
+        // console.log("_backDate          = ", _backDate, ")");
         
         // console.log("balanceOf[", msg.sender, "] = ",balanceOf[msg.sender]);
         uint256 sponsorAmount;
@@ -37,15 +39,15 @@ contract Transactions is AgentRates {
 
         getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
 
-        uint256 transactionTimeStamp = block.timestamp;
+        uint256 transactionTimeStamp = block.timestamp - _backDate;
         // StakingTransactionStruct memory transRec = StakingTransactionStruct(
         //    {insertionTime: transactionTimeStamp, quantity: sponsorAmount}
         // );
 
         StakingTransactionStruct memory transRec;
         transRec.insertionTime = transactionTimeStamp;
-        transRec.stakingRewards = sponsorAmount; 
-
+        transRec.stakingRewards = sponsorAmount;
+        totalStakedSPCoins += sponsorAmount;
 
         //////////////////////////////////////
 
@@ -109,7 +111,8 @@ contract Transactions is AgentRates {
         return sponsorRec;
     }
 
-    function getRecipientRateTransactionList(address _sponsorKey, address _recipientKey, uint _recipientRateKey) public view returns (string memory) {
+    function getRecipientRateTransactionList(address _sponsorKey, address _recipientKey, uint _recipientRateKey)
+    public view returns (string memory) {
         RecipientStruct storage recipientRec = getRecipientRecordByKeys(_sponsorKey, _recipientKey);
         string memory strTransactionList = "";
         RecipientRateStruct storage recipientRateRecord = recipientRec.recipientRateMap[_recipientRateKey];
@@ -120,7 +123,8 @@ contract Transactions is AgentRates {
         return strTransactionList;
     }
 
-    function getSerializedRateTransactionList(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _agentRateKey) public view returns (string memory) {
+    function getSerializedRateTransactionList(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _agentRateKey)
+    public view returns (string memory) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
         string memory strTransactionList = "";
         AgentRateStruct storage agentRateRecord= agentRec.agentRateMap[_agentRateKey];
@@ -131,7 +135,8 @@ contract Transactions is AgentRates {
         return strTransactionList;
     }
 
-    function getRateTransactionStr(StakingTransactionStruct[] memory transactionList) public pure returns (string memory) {
+    function getRateTransactionStr(StakingTransactionStruct[] memory transactionList)
+    public pure returns (string memory) {
         string memory strTransactionList = "";
         for (uint idx; idx < transactionList.length; idx++) {
 

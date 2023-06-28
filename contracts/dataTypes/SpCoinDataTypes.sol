@@ -6,31 +6,30 @@ pragma solidity ^0.8.18;
 contract SpCoinDataTypes {
 
     uint256 internal defaultTSPCoinSupply = 1000000000;
-    string  internal defaultName           = "sponsorCoin002";
-    string  internal defaultSymbol         = "SPCT002";
+    string  internal defaultName          = "sponsorCoin002";
+    string  internal defaultSymbol        = "SPCT002";
     uint256 internal defaultDecimals      = 18;
     uint256 internal decimalMultiplier    = 10**defaultDecimals;
     uint256 internal defaultTotalSupply   = defaultTSPCoinSupply * decimalMultiplier;
 
+    address[] public masterAccountList;
+    address burnAddress = 0x0000000000000000000000000000000000000000;
+    mapping(address => uint256) public balanceOf;
+    mapping(address => mapping(address => uint256)) public allowance;
+    
     // **Standard ERC20 contract Variables
     string  public name;
     string  public symbol;
     string  public version = "002";
     uint256 public decimals;
+    uint256 public initialTotalSupply = defaultTSPCoinSupply * (10 ** defaultDecimals);
     uint256 public totalSupply;
     uint    public annualInflation = 10;
     uint    public creationTime = block.timestamp;
-
-    uint256 public totalBalanceOf = 111;
-    uint256 public totalStakedSPCoins = 222; // Coins Owned but steaked to recipients
-    uint256 public totalStakingRewards = 333; // Coins not owned but Recipiented
-    
-
+    uint256 public totalStakedSPCoins = 0; // Coins Owned but steaked to recipients
+    uint256 public totalStakingRewards = 0; // Coins not owned but Recipiented
 
     // Keep track balances and allowances approved
-    mapping(address => uint256) public balanceOf;
-    mapping(address => mapping(address => uint256)) public allowance;
-    
     // Events - fire events on state changes etc
     event Transfer(address indexed from, address indexed to, uint256 value);
     event Approval(address indexed owner, address indexed spender, uint256 value);
@@ -38,8 +37,6 @@ contract SpCoinDataTypes {
     // Recipiented Coins
     uint256 stakedSPCoins;
 
-    address burnAddress = 0x0000000000000000000000000000000000000000;
-    address[] public masterAccountList;
 
     mapping(address => AccountStruct) accountMap;
 
@@ -47,22 +44,6 @@ contract SpCoinDataTypes {
     uint SPONSOR = 0;
     uint RECIPIENT = 1;
     uint AGENT = 2;
-
-    struct SponsorCoinHeader {
-        string  name;
-        string  symbol;
-        uint256 decimals;
-        uint    annualInflation;
-        uint256 totalSupply;
-        uint256 totalBalanceOf;
-        uint256 totalStakedSPCoins; // Coins Owned but steaked to recipients
-        uint256 totalStakingRewards; // Coins not owned but Recipiented
-
-        address[] masterAccountList;
-        // mapping(address => AccountStruct) accountMap;
-    } 
-
-    SponsorCoinHeader internal sponsorCoinHeader;
 
     struct AccountStruct {
         address accountKey;
