@@ -16,6 +16,18 @@ contract Transactions is AgentRates {
     public onlyOwnerOrRootAdmin("addSponsorship", msg.sender)
     // validateSufficientAccountBalance(sponsorAmount)
     {
+        // string memory parms; // = concat("msg.sender     ", toString(msg.sender));
+        // parms = concat(parms, "addSponsorship(");
+        // parms = concat(parms, "\naddSponsorship(");
+        // parms = concat(parms, "_recipientKey        = ", toString(_recipientKey), ",");
+        // parms = concat(parms, "_recipientRateKey    = ", toString(_recipientRateKey), ",");
+        // parms = concat(parms, "_agentKey            = ", toString(_agentKey), ",");
+        // parms = concat(parms, "_agentRateKey        = ", toString(_agentRateKey), ",");
+        // parms = concat(parms, "strWholeAmount       = ", _strWholeAmount, ",");
+        // parms = concat(parms, "_strDecimalAmount    = ", _strDecimalAmount, ",");
+        // parms = concat(parms, "_backDate            = ", toString(_backDate), ")");
+        // console.log("parms");
+
         // console.log("msg.sender     ", msg.sender);
         // console.log("addSponsorship(");
         // console.log("_recipientKey      = ", _recipientKey, ",");

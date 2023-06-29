@@ -1,12 +1,13 @@
 // const {  spCoinContractDeployed } = require("../contracts/spCoin");
 // const { BigNumber, ethers, utils } = require("ethers");
 const { SpCoinLogger } = require("./logging");
+const { formatTimeSeconds } = require("./dateTime");
 const { bigIntToDateTimeString,
         bigIntToDecString,
         bigIntToHexString,
         bigIntToString,
         getLocation
-       } = require("./dateTime");
+      } = require("./dateTime");
 const {
   SponsorCoinHeader,
   AccountStruct,
@@ -317,13 +318,14 @@ class SpCoinSerialize {
         spCoinHeaderRecord.LAST_UPDATE_TIME = bigIntToDateTimeString(_value);
       break;
       case "TIME_DIFFERENCE":
-        spCoinHeaderRecord.TIME_DIFFERENCE = bigIntToDecString(_value);
+        spCoinHeaderRecord.SECOND_TIME_DIFFERENCE = bigIntToDecString(_value);
+        spCoinHeaderRecord.FORMATTED_TIME_DIFFERENCE = formatTimeSeconds(_value);
       break;
       case "STAKED_SPONSOR_COINS":
         spCoinHeaderRecord.STAKED_SPONSOR_COINS = bigIntToDecString(_value);
       break;
-      case "TIME_MULTIPLIER":
-        spCoinHeaderRecord.TIME_MULTIPLIER = bigIntToDecString(_value);
+      case "TIME_RATE_MULTIPLIER":
+        spCoinHeaderRecord.TIME_RATE_MULTIPLIER = bigIntToDecString(_value);
       break;
       case "YEAR_IN_SECONDS":
         spCoinHeaderRecord.YEAR_IN_SECONDS = bigIntToDecString(_value);

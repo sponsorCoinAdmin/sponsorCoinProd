@@ -208,6 +208,7 @@ constructor(_spCoinContractDeployed) {
       _transactionBackDate + ")"
     );
 
+    _transactionBackDate = Math.trunc(_transactionBackDate);
     let components = _transactionQty.toString().split(".");
     let wholePart = components[0].length > 0 ? components[0] : "0";
     let fractionalPart = components.length > 1 ? components[1] : "0";

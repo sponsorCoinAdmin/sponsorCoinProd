@@ -10,7 +10,7 @@ contract RewardsManager is StakingManager{
 
     function updateAccountStakingRewards( address _sourceKey )
     public view returns (string memory rewardsString){
-        console.log("updateAccountStakingRewards(", toString(_sourceKey), ")");
+        // console.log("updateAccountStakingRewards(", toString(_sourceKey), ")");
         AccountStruct storage account = accountMap[_sourceKey];
         address[] storage recipientKeys = account.recipientAccountList;             // If Sponsor List of Recipient Accounts
         mapping(address => RecipientStruct) storage recipientMap = account.recipientMap;
@@ -46,35 +46,35 @@ contract RewardsManager is StakingManager{
 
     function updateRecipientRateRewards( RecipientRateStruct storage _recipientRateRecord )
     internal view returns (uint rewards, string memory rewardsString) {
-        console.log("updateRecipientRateListRewards(_recipientRateRecord)");
+        // console.log("updateRecipientRateListRewards(_recipientRateRecord)");
         uint256 currentTimeStamp = block.timestamp;
         uint256 stakedSPCoins    = _recipientRateRecord.stakedSPCoins;
         uint256 lastUpdateTime   = _recipientRateRecord.lastUpdateTime;
-        (rewards, rewardsString) = calculateStakingRewards( stakedSPCoins, lastUpdateTime, currentTimeStamp );
+        uint256 recipientRate    = _recipientRateRecord.recipientRate;
+        (rewards, rewardsString) = calculateStakingRewards( stakedSPCoins, lastUpdateTime, currentTimeStamp, recipientRate );
         return (rewards, rewardsString) ;
     }
 
-    function calculateStakingRewards( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 currentTimeStamp)
+    function calculateStakingRewards( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 currentTimeStamp, uint256 recipientRate )
     public pure returns (uint rewards, string memory rewardsString) {
         // console.log("updateRecipientRateListRewards(_stakedSPCoins, lastUpdate, currentTimeStamp)");
         uint256 timeDiff = currentTimeStamp - _lastUpdateTime;
-        uint256 timeMultiplier = timeDiff * _stakedSPCoins;
-        rewards = timeMultiplier/year;
+        uint256 timeRateMultiplier = ( timeDiff * _stakedSPCoins * recipientRate ) / 100;
+        rewards = timeRateMultiplier/year;
 
-        // uint timeMultiplier = getAnnualTimeMultiplier(currentTimeStamp*decimals, lastUpdate);
+        // uint timeRateMultiplier = getAnnualTimeMultiplier(currentTimeStamp*decimals, lastUpdate);
 
-        rewardsString = concat(rewardsString, "CURRENT_TIME_STAMP:", toString(currentTimeStamp));
-        rewardsString = concat(rewardsString, "\nLAST_UPDATE_TIME:", toString(_lastUpdateTime));
-        rewardsString = concat(rewardsString, "\nTIME_DIFFERENCE:", toString(timeDiff));
-        rewardsString = concat(rewardsString, "\nSTAKED_SPONSOR_COINS:", toString(_stakedSPCoins));
-        rewardsString = concat(rewardsString, "\nTIME_MULTIPLIER:", toString(timeMultiplier));
-        rewardsString = concat(rewardsString, "\nYEAR_IN_SECONDS:", toString(year));
+        rewardsString = concat(rewardsString, "CURRENT_TIME_STAMP:",           toString(currentTimeStamp));
+        rewardsString = concat(rewardsString, "\nLAST_UPDATE_TIME:",           toString(_lastUpdateTime));
+        rewardsString = concat(rewardsString, "\nRECIPIENT_RATE:",             toString(recipientRate));
+        rewardsString = concat(rewardsString, "\nTIME_DIFFERENCE:",            toString(timeDiff));
+        rewardsString = concat(rewardsString, "\nSTAKED_SPONSOR_COINS:",       toString(_stakedSPCoins));
+        rewardsString = concat(rewardsString, "\nTIME_RATE_MULTIPLIER:",       toString(timeRateMultiplier));
+        rewardsString = concat(rewardsString, "\nYEAR_IN_SECONDS:",            toString(year));
         rewardsString = concat(rewardsString, "\nCALCULATED_STAKING_REWARDS:", toString(rewards));
         // console.log(rewardsString);
         return (rewards, rewardsString) ;
     }
-
-
 
 /*
 
@@ -82,7 +82,7 @@ contract RewardsManager is StakingManager{
         rewardsString = concat(rewardsString, "\nSOL==>1.1 _lastUpdateTime            = ", toString(_lastUpdateTime));
         rewardsString = concat(rewardsString, "\nSOL==>1.2 timeDiff                   = ", toString(timeDiff));
         rewardsString = concat(rewardsString, "\nSOL==>1.3 _stakedSPCoins             = ", toString(_stakedSPCoins));
-        rewardsString = concat(rewardsString, "\nSOL==>1.3 timeMultiplier             = ", toString(timeMultiplier));
+        rewardsString = concat(rewardsString, "\nSOL==>1.3 timeRateMultiplier             = ", toString(timeRateMultiplier));
         rewardsString = concat(rewardsString, "\nSOL==>1.4 year                       = ", toString(year));
         rewardsString = concat(rewardsString, "\nSOL==>1.5 Calculated Staking Rewards = ", toString(rewards));
 

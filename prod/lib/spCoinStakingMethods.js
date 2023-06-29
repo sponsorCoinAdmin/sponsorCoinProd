@@ -12,7 +12,7 @@ const minute = second * 60;
 const hour = minute * 60;
 const day = hour * 24;
 const week = day * 7;
-const year = day * 365.25;
+const year = day * 365.242199; // Actual time in year considering leap year
 const month = year/12;
 const millennium = year * 1000;
 const burnAddress = "0x0000000000000000000000000000000000000000";
@@ -45,12 +45,12 @@ class SpCoinStakingMethods {
     return stakingRewards;
   }
 
-  getTimeMultiplier = async(_timeMultiplier) => {
-    // spCoinLogger.getTimeMultiplier("getTimeMultiplier(_timeMultiplier)");
-    let timeMultiplier = await this.spCoinContractDeployed.connect(this.signer).getTimeMultiplier(_timeMultiplier);
+  getTimeMultiplier = async(_timeRateMultiplier) => {
+    // spCoinLogger.getTimeMultiplier("getTimeMultiplier(_timeRateMultiplier)");
+    let timeRateMultiplier = await this.spCoinContractDeployed.connect(this.signer).getTimeMultiplier(_timeRateMultiplier);
     
     spCoinLogger.logExitFunction();
-    return timeMultiplier;
+    return timeRateMultiplier;
   }
 
   getAccountTimeInSecondeSinceUpdate = async(_tokenLastUpdate) => {

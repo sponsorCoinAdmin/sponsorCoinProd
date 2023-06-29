@@ -9,27 +9,16 @@ contract TimeUtils is StringUtils{
     constructor() {
     }
 
-    uint8 constant second = 1;
-    uint16 constant minute = second * 60;
-    uint32 constant hour = minute * 60;
-    uint32 constant day = hour * 24;
-    uint32 constant week = day * 7;
-    uint32 constant year = day * (365 + hour * 8);
-    uint32 constant month = year/12;
+    uint constant second = 1;
+    uint constant minute = second * 60;
+    uint constant hour = minute * 60;
+    uint constant day = hour * 24;
+    uint constant week = day * 7;
+    // uint constant year = (day * 36525)/100;
+    uint constant year = (day * 365242199)/1000000;
+    
+    uint constant month = year/12;
 
-
-    // function getAnnualTimeMultiplier(uint currentTime, uint lastUpdateTime)
-    // internal view returns(uint timeMultiplier) {
-    //     uint256 timeDiff = currentTime - lastUpdateTime;
-    //     timeMultiplier = (currentTime - lastUpdateTime)/year;
-    //     console.log("currentTime =",toString(currentTime));
-    //     console.log("lastUpdateTime =",toString(lastUpdateTime));
-    //     console.log("timeDiff =",toString(timeDiff));
-    //     console.log("year =",toString(year));
-    //     console.log("timeMultiplier =",toString(timeMultiplier));
-    //     return timeMultiplier;
-    // //   return year;
-    // }
 }
 
 /*
