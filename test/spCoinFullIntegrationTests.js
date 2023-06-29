@@ -275,8 +275,16 @@ describe("spCoinContract", function () {
   await spCoinAddMethods.addBackDatedSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
     RECIPIENT_ACCOUNT_KEYS[1], 
-    RECIPIENT_RATES[2],
+    RECIPIENT_RATES[10],
     "100", 
+    year
+  );  
+  
+  await spCoinAddMethods.addBackDatedSponsorship(
+    SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
+    RECIPIENT_ACCOUNT_KEYS[1], 
+    RECIPIENT_RATES[10],
+    "1", 
     year
   );  
   
@@ -293,10 +301,10 @@ describe("spCoinContract", function () {
   console.log("\n\n*** AFTER CREATE ******************************************************************************************************\n\n");
   // console.log("********************************************************************************");
 
-  let getBody = true;
-  let spCoinRecords = await spCoinReadMethods.getSPCoinHeaderRecord(getBody);
+  // let getBody = true;
+  // let spCoinRecords = await spCoinReadMethods.getSPCoinHeaderRecord(getBody);
 
-  spCoinLogger.logJSONTree(spCoinRecords);
+  // spCoinLogger.logJSONTree(spCoinRecords);
 
   // let accountRecords = await spCoinReadMethods.getAccountRecords()
   // spCoinLogger.logJSONTree(accountRecords);

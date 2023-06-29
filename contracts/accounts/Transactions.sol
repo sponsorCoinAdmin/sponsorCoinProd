@@ -13,7 +13,9 @@ contract Transactions is AgentRates {
                                  string memory _strWholeAmount,
                                  string memory _strDecimalAmount,
                                  uint _backDate)
-    public onlyOwnerOrRootAdmin("addSponsorship", msg.sender)
+    // ToDo Replace this Removed to Save Memory
+    // onlyOwnerOrRootAdmin("addSponsorship", msg.sender)
+    public 
     // validateSufficientAccountBalance(sponsorAmount)
     {
         // string memory parms; // = concat("msg.sender     ", toString(msg.sender));
@@ -43,7 +45,7 @@ contract Transactions is AgentRates {
         bool result;
         (sponsorAmount, result) = decimalStringToUint(_strWholeAmount, _strDecimalAmount, decimals);
 
-        require(result,concat("Unparsable Sponsor Amount ", _strWholeAmount));
+        require(result, concat("Unparsable Sponsor Amount ", _strWholeAmount));
         // string memory errString =
         require(balanceOf[msg.sender] >= sponsorAmount, 
             concat("Insufficient Balance balanceOf[",toString(msg.sender),"] >= ", 

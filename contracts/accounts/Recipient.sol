@@ -42,17 +42,6 @@ contract Recipient is Sponsor {
         return recipientRecord;
     }
 
-    /*
-    /// @notice determines if agent address is inserted in account.recipient.agent.map
-    /// @param _sponsorKey public account key validate Insertion
-    /// @param _recipientKey public recipient account key validate Insertion
-    /// @param _recipientRateKey public agent account key validate Insertion
-    function isAgentRateInserted(address _sponsorKey,address _recipientKey, uint _recipientRateKey, address _agentKey) 
-    public onlyOwnerOrRootAdmin("isAgentRateInserted", _sponsorKey) view returns (bool) {
-        return getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey).inserted;
-    }
-    */
-
     function getRecipientRecordByKeys(address _sponsorKey, address _recipientKey)
     internal view  returns (RecipientStruct storage) {
     ///////////////// **** WORKING HERE ****

@@ -11,15 +11,15 @@ contract Security is SpCoinDataTypes {
         rootAdmin = msg.sender;
     }
 
-    modifier onlyRootAdmin () {
-        require (msg.sender == rootAdmin, "Root Admin Security Access Violation");
-        _;
-    }
+    // modifier onlyRootAdmin () {
+    //     require (msg.sender == rootAdmin, "Root Admin Security Access Violation");
+    //     _;
+    // }
 
-    modifier onlyOwner (address _account) {
-        require (msg.sender == _account, "Owner Security Access Violation");
-        _;
-    }
+    // modifier onlyOwner (address _account) {
+    //     require (msg.sender == _account, "Owner Security Access Violation");
+    //     _;
+    // }
 
     modifier onlyOwnerOrRootAdmin (string memory callingMethod, address _account) {
         // console.log(callingMethod, " => onlyOwnerOrRootAdmin (", _account, msg.sender);

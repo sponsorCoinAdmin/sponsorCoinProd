@@ -267,9 +267,36 @@ class SpCoinSerialize {
   }
   
   deserializedSPRewards = (stakingRewards) => {
-    console.log("JS==>1.0 deserializedSPCoinHeader(\n" + stakingRewards + ")");
+    // console.log("JS==>1.0 deserializedSPCoinHeader(\n" + stakingRewards + ")");
     spCoinLogger.logFunctionHeader("getAccountRecords()");
+    let rewardRecords = stakingRewards.split("RECORD_BREAK\n");
     let sponsorCoinRewards = {};
+    let recordArray = [];
+
+    console.log("JS==>1.1 rewardRecords.length", rewardRecords.length);
+    for (let i = 0; i < rewardRecords.length; i++) {
+      let rewardRecord = rewardRecords[i].trim();
+      if (i == 0) {
+        sponsorCoinRewards.Header = this.addSPCoinRewardRecord(rewardRecord);
+        // sponsorCoinRewards.Header = rewardRecord;
+        sponsorCoinRewards.Body = recordArray;
+      } else {
+        let newRewardBody = {};
+        newRewardBody.recordIndex = i;
+        newRewardBody.rewardRecord = this.addSPCoinRewardRecord(rewardRecord);
+        // newRewardBody.rewardRecord = rewardRecord;
+        recordArray[i-1] = newRewardBody;
+      }
+    }
+    // console.log("JS =>1.3 sponsorCoinRewards = " + spCoinLogger.logJSON(sponsorCoinRewards));
+    return sponsorCoinRewards;
+  }
+
+  addSPCoinRewardRecord = (stakingRewards) => {
+    console.log("JS==>1.0 addSPCoinRewardRecord(\n" + stakingRewards + ")");
+    spCoinLogger.logFunctionHeader("getAccountRecords()");
+
+    let sponsorCoinRecord = {};
     let rewardElements = stakingRewards.split("\n");
     console.log("JS==>1.1 rewardElements.length", rewardElements.length);
     for (let i = 0; i < rewardElements.length; i++) {
@@ -282,11 +309,12 @@ class SpCoinSerialize {
       let value = keyValue[1].trim();
       // spCoinLogger.log("JS =>1.3 key     = " + key);
       // spCoinLogger.log("JS =>1.4 value   = " + value);
-      this.addSPCoinRewardField(key, value, sponsorCoinRewards);
+      this.addSPCoinRewardField(key, value, sponsorCoinRecord);
     }
-    // console.log("JS =>1.3 sponsorCoinRewards = " + spCoinLogger.logJSON(sponsorCoinRewards));
-    return sponsorCoinRewards;
+    console.log("JS =>1.3 sponsorCoinRecord = " + spCoinLogger.logJSON(sponsorCoinRecord));
+    return sponsorCoinRecord;
   }
+
 
   addSPCoinRewardField = ( _key, _value, spCoinHeaderRecord ) => {
     // console.log("JS =>2.1 _key   = " + _key);

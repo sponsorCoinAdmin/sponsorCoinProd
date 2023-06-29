@@ -86,7 +86,8 @@ contract StakingManager is UnSubscribe{
 
     function depositAccountStakingRewards( uint _accountType, address _sourceKey, address _depositKey, uint _rate, uint _amount )
         internal returns ( uint ) {
-        require (_amount > 0, "AMOUNT BALANCE MUST BE LARGER THAN 0");
+            // ToDo Robin Replace this
+        // require (_amount > 0, "AMOUNT BALANCE MUST BE LARGER THAN 0");
         // console.log("SOL=>2.0 depositAccountStakingRewards(_accountType)", getAccountTypeString(_accountType));
         // console.log("SOL=>2.1 _sourceKey  = ", _sourceKey);
         // console.log("SOL=>2.2 _depositKey = ", _depositKey);
