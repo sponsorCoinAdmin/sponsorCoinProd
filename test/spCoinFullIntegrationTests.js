@@ -1,5 +1,5 @@
 const { LOG_MODE } = require("./hardhatSetup/hhConnectSetup");
-const { second, minute, hour, day, week, year, month , millennium } = require("../prod/lib/spCoinStakingMethods"); 
+const { second, minute, hour, day, week, year, month , millennium } = require("../prod/lib/utils/dateTime"); 
 const { SpCoinRewardsMethods } = require("../prod/lib/spCoinRewardsMethods"); 
 const { SpCoinAddMethods } = require("../prod/lib/spCoinRewardsMethods"); 
 
@@ -272,28 +272,92 @@ describe("spCoinContract", function () {
   //   333
   // );
 
-  await spCoinAddMethods.addBackDatedSponsorship(
-    SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
-    RECIPIENT_ACCOUNT_KEYS[1], 
-    RECIPIENT_RATES[10],
-    "100", 
-    year
-  );  
+  // await spCoinAddMethods.addBackDatedSponsorship(
+  //   SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[1], 
+  //   RECIPIENT_RATES[1],
+  //   "100", 
+  //   year
+  // );  
   
-  await spCoinAddMethods.addBackDatedSponsorship(
-    SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
-    RECIPIENT_ACCOUNT_KEYS[1], 
-    RECIPIENT_RATES[10],
-    "1", 
-    year
-  );  
-  
-  // await spCoinAddMethods.addSponsorship(
+  // await spCoinAddMethods.addBackDatedSponsorship(
+  //   SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[1], 
+  //   RECIPIENT_RATES[2],
+  //   "100", 
+  //   year
+  // );  
+
+  // await spCoinAddMethods.addBackDatedSponsorship(
+  //   SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[1], 
+  //   RECIPIENT_RATES[3],
+  //   "100", 
+  //   year
+  // );  
+
+  // await spCoinAddMethods.addBackDatedSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
   //   RECIPIENT_ACCOUNT_KEYS[1], 
   //   RECIPIENT_RATES[4],
-  //   "1.000000000000000008", 
+  //   "100", 
+  //   year
+  // );  
+
+  // await spCoinAddMethods.addBackDatedSponsorship(
+  //   SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[1], 
+  //   RECIPIENT_RATES[5],
+  //   "100", 
+  //   year
+  // );  
+
+  // await spCoinAddMethods.addBackDatedSponsorship(
+  //   SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[1], 
+  //   RECIPIENT_RATES[6],
+  //   "100", 
+  //   year
+  // );  
+
+  // await spCoinAddMethods.addBackDatedSponsorship(
+  //   SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[1], 
+  //   RECIPIENT_RATES[7],
+  //   "100", 
+  //   year
   // );
+
+  // await spCoinAddMethods.addBackDatedSponsorship(
+  //   SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[1], 
+  //   RECIPIENT_RATES[8],
+  //   "100", 
+  //   year
+  // );
+
+  // await spCoinAddMethods.addBackDatedSponsorship(
+  //   SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[1], 
+  //   RECIPIENT_RATES[9],
+  //   "100", 
+  //   year
+  // );  
+
+  // await spCoinAddMethods.addBackDatedSponsorship(
+  //   SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[1], 
+  //   RECIPIENT_RATES[10],
+  //   "1", 
+  //   year
+  // );  
+  
+  await spCoinAddMethods.addSponsorship(
+    SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
+    RECIPIENT_ACCOUNT_KEYS[1], 
+    RECIPIENT_RATES[4],
+    "1.000000000000000008", 
+  );
 
   await spCoinRewardsMethods.updateAccountStakingRewards( SPONSOR_ACCOUNT_KEYS[0] );
 
@@ -320,11 +384,11 @@ describe("spCoinContract", function () {
   // await spCoinDeleteMethods.unSponsorRecipient(SPONSOR_ACCOUNT_SIGNERS[0],
   //   RECIPIENT_ACCOUNT_KEYS[2]);
  
-  // console.log("********************************************************************************");
-  // console.log("*** AFTER DELETE ***************************************************************");
-  // console.log("********************************************************************************");
+  console.log("********************************************************************************");
+  console.log("*** AFTER DELETE ***************************************************************");
+  console.log("********************************************************************************");
  
-    //  spCoinLogger.logJSONTree(await spCoinReadMethods.getAccountRecords());
+     spCoinLogger.logJSONTree(await spCoinReadMethods.getAccountRecords());
 
 
     // AccountListSize = (await getAccountListSize()).toNumber();
