@@ -11,15 +11,33 @@ contract Transactions is AgentRates {
                                  address _agentKey,
                                  uint _agentRateKey,
                                  string memory _strWholeAmount,
+                                 string memory _strDecimalAmount ) public 
+    {
+        uint256 transactionTimeStamp = block.timestamp;
+        addBackDatedSponsorship( _recipientKey, 
+                                    _recipientRateKey,
+                                    _agentKey,
+                                    _agentRateKey,
+                                    _strWholeAmount,
+                                    _strDecimalAmount,
+                                    transactionTimeStamp );
+    }
+
+
+    function addBackDatedSponsorship(address _recipientKey, 
+                                 uint _recipientRateKey,
+                                 address _agentKey,
+                                 uint _agentRateKey,
+                                 string memory _strWholeAmount,
                                  string memory _strDecimalAmount,
-                                 uint _backDate)
+                                 uint _transactionTimeStamp)
     // ToDo Replace this Removed to Save Memory
-    // onlyOwnerOrRootAdmin("addSponsorship", msg.sender)
+    // onlyOwnerOrRootAdmin("addBackDatedSponsorship", msg.sender)
     public 
     // validateSufficientAccountBalance(sponsorAmount)
     {
         // string memory parms; // = concat("msg.sender     ", toString(msg.sender));
-        // parms = concat(parms, "addSponsorship(");
+        // parms = concat(parms, "addBackDatedSponsorship(");
         // parms = concat(parms, "\naddSponsorship(");
         // parms = concat(parms, "_recipientKey        = ", toString(_recipientKey), ",");
         // parms = concat(parms, "_recipientRateKey    = ", toString(_recipientRateKey), ",");
@@ -27,18 +45,21 @@ contract Transactions is AgentRates {
         // parms = concat(parms, "_agentRateKey        = ", toString(_agentRateKey), ",");
         // parms = concat(parms, "strWholeAmount       = ", _strWholeAmount, ",");
         // parms = concat(parms, "_strDecimalAmount    = ", _strDecimalAmount, ",");
-        // parms = concat(parms, "_backDate            = ", toString(_backDate), ")");
+        // parms = concat(parms, "_transactionTimeStamp            = ", toString(_transactionTimeStamp), ")");
         // console.log("parms");
 
         // console.log("msg.sender     ", msg.sender);
-        // console.log("addSponsorship(");
-        // console.log("_recipientKey      = ", _recipientKey, ",");
-        // console.log("_recipientRateKey  = ", _recipientRateKey, ",");
-        // console.log("_agentKey          = ", _agentKey, ",");
-        // console.log("_agentRateKey      = ", _agentRateKey, ",");
-        // console.log("strWholeAmount     = ", _strWholeAmount, ",");
-        // console.log("_strDecimalAmount  = ", _strDecimalAmount, ",");
-        // console.log("_backDate          = ", _backDate, ")");
+        // console.log("addBackDatedSponsorship(");
+        // console.log("_recipientKey         = ", _recipientKey, ",");
+        // console.log("_recipientRateKey     = ", _recipientRateKey, ",");
+        // console.log("_agentKey             = ", _agentKey, ",");
+        // console.log("_agentRateKey         = ", _agentRateKey, ",");
+        // console.log("strWholeAmount        = ", _strWholeAmount, ",");
+        // console.log("_strDecimalAmount     = ", _strDecimalAmount, ",");
+        // console.log("_transactionTimeStamp = ", _transactionTimeStamp, ")");
+        // uint256 blockTimeStamp = block.timestamp;
+        // console.log("block.timestamp       = ", blockTimeStamp);
+
         
         // console.log("balanceOf[", msg.sender, "] = ",balanceOf[msg.sender]);
         uint256 sponsorAmount;
@@ -52,14 +73,12 @@ contract Transactions is AgentRates {
             toString(sponsorAmount)));
 
         getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
-
-        uint256 transactionTimeStamp = block.timestamp - _backDate;
         // StakingTransactionStruct memory transRec = StakingTransactionStruct(
-        //    {insertionTime: transactionTimeStamp, quantity: sponsorAmount}
+        //    {insertionTime: _transactionTimeStamp, quantity: sponsorAmount}
         // );
 
         StakingTransactionStruct memory transRec;
-        transRec.insertionTime = transactionTimeStamp;
+        transRec.insertionTime = _transactionTimeStamp;
         transRec.stakingRewards = sponsorAmount;
         totalStakedSPCoins += sponsorAmount;
 
@@ -69,13 +88,13 @@ contract Transactions is AgentRates {
         if(_agentKey == burnAddress) {
             RecipientRateStruct storage recipientRateRecord = getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
             updateRecipientRateSponsorship(_recipientKey, _recipientRateKey, sponsorAmount);
-            recipientRateRecord.lastUpdateTime = transactionTimeStamp;
+            recipientRateRecord.lastUpdateTime = _transactionTimeStamp;
             recipientRateRecord.transactionList.push(transRec);    
         }
         else { 
             AgentRateStruct storage agentRateRecord = getAgentRateRecord(msg.sender, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
             updateAgentRateSponsorship(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey, sponsorAmount);
-            agentRateRecord.lastUpdateTime = transactionTimeStamp;
+            agentRateRecord.lastUpdateTime = _transactionTimeStamp;
             agentRateRecord.transactionList.push(transRec);
         }
 

@@ -1,5 +1,5 @@
 const { LOG_MODE } = require("./hardhatSetup/hhConnectSetup");
-const { second, minute, hour, day, week, year, month , millennium } = require("../prod/lib/utils/dateTime"); 
+const { dateInSeconds, second, minute, hour, day, week, year, month , millennium } = require("../prod/lib/utils/dateTime"); 
 const { SpCoinRewardsMethods } = require("../prod/lib/spCoinRewardsMethods"); 
 const { SpCoinAddMethods } = require("../prod/lib/spCoinRewardsMethods"); 
 
@@ -344,20 +344,22 @@ describe("spCoinContract", function () {
   //   year
   // );  
 
-  // await spCoinAddMethods.addBackDatedSponsorship(
-  //   SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
-  //   RECIPIENT_ACCOUNT_KEYS[1], 
-  //   RECIPIENT_RATES[10],
-  //   "1", 
-  //   year
-  // );  
-  
-  await spCoinAddMethods.addSponsorship(
+  let backDate = dateInSeconds();
+  console.log("AAAAA  dateInSeconds =", backDate);
+  await spCoinAddMethods.addBackDatedSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
     RECIPIENT_ACCOUNT_KEYS[1], 
-    RECIPIENT_RATES[4],
-    "1.000000000000000008", 
-  );
+    RECIPIENT_RATES[10],
+    "1", 
+    backDate //dateInSeconds
+  );  
+  
+  // await spCoinAddMethods.addSponsorship(
+  //   SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[1], 
+  //   RECIPIENT_RATES[4],
+  //   "1.000000000000000008", 
+  // );
 
   await spCoinRewardsMethods.updateAccountStakingRewards( SPONSOR_ACCOUNT_KEYS[0] );
 

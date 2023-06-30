@@ -61,10 +61,11 @@ contract RewardsManager is StakingManager{
     function calculateStakingRewards( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 currentTimeStamp, uint256 recipientRate )
     public pure returns (uint rewards, string memory rewardsString) {
         // console.log("updateRecipientRateListRewards(_stakedSPCoins, lastUpdate, currentTimeStamp)");
-        uint256 timeDiff = currentTimeStamp - _lastUpdateTime;
+        uint256 timeDiff = 0;
+        if (_lastUpdateTime < currentTimeStamp)
+           timeDiff = currentTimeStamp - _lastUpdateTime;
         uint256 timeRateMultiplier = ( timeDiff * _stakedSPCoins * recipientRate ) / 100;
         rewards = timeRateMultiplier/year;
-
         // uint timeRateMultiplier = getAnnualTimeMultiplier(currentTimeStamp*decimals, lastUpdate);
 
         rewardsString = "RECORD_BREAK\n";
