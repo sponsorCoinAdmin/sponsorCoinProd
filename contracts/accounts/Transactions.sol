@@ -23,7 +23,6 @@ contract Transactions is AgentRates {
                                     transactionTimeStamp );
     }
 
-
     function addBackDatedSponsorship(address _recipientKey, 
                                  uint _recipientRateKey,
                                  address _agentKey,
@@ -72,7 +71,7 @@ contract Transactions is AgentRates {
             concat("Insufficient Balance balanceOf[",toString(msg.sender),"] >= ", 
             toString(sponsorAmount)));
 
-        getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
+        // getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
         // StakingTransactionStruct memory transRec = StakingTransactionStruct(
         //    {insertionTime: _transactionTimeStamp, quantity: sponsorAmount}
         // );
