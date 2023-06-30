@@ -54,11 +54,11 @@ contract RewardsManager is StakingManager{
         uint256 stakedSPCoins    = _recipientRateRecord.stakedSPCoins;
         uint256 lastUpdateTime   = _recipientRateRecord.lastUpdateTime;
         uint256 recipientRate    = _recipientRateRecord.recipientRate;
-        (rewards, rewardsString) = calculateStakingRewards( stakedSPCoins, lastUpdateTime, currentTimeStamp, recipientRate );
+        (rewards, rewardsString) = calculateStakingRewardsResponseString( stakedSPCoins, lastUpdateTime, currentTimeStamp, recipientRate );
         return (rewards, rewardsString) ;
     }
 
-    function calculateStakingRewards( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 currentTimeStamp, uint256 recipientRate )
+    function calculateStakingRewardsResponseString( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 currentTimeStamp, uint256 recipientRate )
     public pure returns (uint rewards, string memory rewardsString) {
         // console.log("updateRecipientRateListRewards(_stakedSPCoins, lastUpdate, currentTimeStamp)");
         uint256 timeDiff = _lastUpdateTime > currentTimeStamp ? 0 : currentTimeStamp - _lastUpdateTime;
