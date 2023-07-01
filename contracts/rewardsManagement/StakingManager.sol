@@ -2,7 +2,7 @@
 pragma solidity ^0.8.18;
 /// @title ERC20 Contract
 import "../accounts/UnSubscribe.sol";
-import "../accounts/Transactions.sol";
+import "../accounts/AgentRates.sol";
 
 contract StakingManager is UnSubscribe{
     constructor() {
