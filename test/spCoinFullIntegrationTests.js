@@ -354,12 +354,12 @@ describe("spCoinContract", function () {
     dateInSeconds() - year//dateInSeconds
   );  
   
-  // await spCoinAddMethods.addSponsorship(
-  //   SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
-  //   RECIPIENT_ACCOUNT_KEYS[1], 
-  //   RECIPIENT_RATES[4],
-  //   "1.000000000000000008", 
-  // );
+  await spCoinAddMethods.addSponsorship(
+    SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
+    RECIPIENT_ACCOUNT_KEYS[1], 
+    RECIPIENT_RATES[10],
+    "2"
+  );
 
   await spCoinRewardsMethods.updateAccountStakingRewards( SPONSOR_ACCOUNT_KEYS[0] );
 

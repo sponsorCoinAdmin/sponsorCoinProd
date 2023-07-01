@@ -23,16 +23,41 @@ contract Transactions is AgentRates {
                                     transactionTimeStamp );
     }
 
-    function addBackDatedSponsorship(address _recipientKey, 
+        function addBackDatedSponsorship(address _recipientKey, 
                                  uint _recipientRateKey,
                                  address _agentKey,
                                  uint _agentRateKey,
                                  string memory _strWholeAmount,
                                  string memory _strDecimalAmount,
+                                 uint _transactionTimeStamp) public {
+        // console.log("balanceOf[", msg.sender, "] = ",balanceOf[msg.sender]);
+        uint256 sponsorAmount;
+        bool result;
+        (sponsorAmount, result) = decimalStringToUint(_strWholeAmount, _strDecimalAmount, decimals);
+
+        require(result, concat("Unparsable Sponsor Amount ", _strWholeAmount));
+        // string memory errString =
+        require(balanceOf[msg.sender] >= sponsorAmount, 
+            concat("Insufficient Balance balanceOf[",toString(msg.sender),"] >= ", 
+            toString(sponsorAmount)));
+
+        addBackDatedSponsorship2( _recipientKey, 
+                                    _recipientRateKey,
+                                    _agentKey,
+                                    _agentRateKey,
+                                    sponsorAmount,
+                                    _transactionTimeStamp );
+    }
+
+    function addBackDatedSponsorship2(address _recipientKey, 
+                                 uint _recipientRateKey,
+                                 address _agentKey,
+                                 uint _agentRateKey,
+                                 uint sponsorAmount,
                                  uint _transactionTimeStamp)
     // ToDo Replace this Removed to Save Memory
     // onlyOwnerOrRootAdmin("addBackDatedSponsorship", msg.sender)
-    public 
+    internal 
     // validateSufficientAccountBalance(sponsorAmount)
     {
         // string memory parms; // = concat("msg.sender     ", toString(msg.sender));
@@ -60,18 +85,7 @@ contract Transactions is AgentRates {
         // console.log("block.timestamp       = ", blockTimeStamp);
 
         
-        // console.log("balanceOf[", msg.sender, "] = ",balanceOf[msg.sender]);
-        uint256 sponsorAmount;
-        bool result;
-        (sponsorAmount, result) = decimalStringToUint(_strWholeAmount, _strDecimalAmount, decimals);
-
-        require(result, concat("Unparsable Sponsor Amount ", _strWholeAmount));
-        // string memory errString =
-        require(balanceOf[msg.sender] >= sponsorAmount, 
-            concat("Insufficient Balance balanceOf[",toString(msg.sender),"] >= ", 
-            toString(sponsorAmount)));
-
-        // getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
+         // getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
         // StakingTransactionStruct memory transRec = StakingTransactionStruct(
         //    {insertionTime: _transactionTimeStamp, quantity: sponsorAmount}
         // );
@@ -134,15 +148,19 @@ contract Transactions is AgentRates {
         RecipientStruct storage recipientRecord = updateRecipientSponsorship(_recipientKey, _transAmount);
         RecipientRateStruct storage recipientRateRecord = recipientRecord.recipientRateMap[_recipientRateKey];
         uint lastUpdateTime = recipientRateRecord.lastUpdateTime;
-        if ( lastUpdateTime < _transactionTimeStamp) {
-            recipientRateRecord.lastUpdateTime = _transactionTimeStamp;
-            uint agentRewards = calculateStakingRewards( _transAmount, lastUpdateTime, _transactionTimeStamp, _recipientRateKey );
             console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _transAmount                   = ", _transAmount);
             console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR agentRateRecord.lastUpdateTime = ", lastUpdateTime);
             console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _transactionTimeStamp          = ", _transactionTimeStamp);
             console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _recipientRateKey              = ", _recipientRateKey);
+        if ( recipientRateRecord.inserted && lastUpdateTime < _transactionTimeStamp) {
+            uint agentRewards = calculateStakingRewards( recipientRateRecord.stakedSPCoins, lastUpdateTime, _transactionTimeStamp, _recipientRateKey );
             console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR Recipient Calculated Rewards   = ", agentRewards);
-        }
+
+
+
+
+        } else recipientRateRecord.inserted = true;
+        recipientRateRecord.lastUpdateTime = _transactionTimeStamp;
         recipientRateRecord.stakedSPCoins += _transAmount;
         return recipientRateRecord;
     }

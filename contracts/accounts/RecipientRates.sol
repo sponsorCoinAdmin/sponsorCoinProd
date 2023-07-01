@@ -18,8 +18,8 @@ contract RecipientRates is Recipient {
         if (!recipientRateRecord.inserted) {
             // console.log(JUNK_COUNTER,"Recipient.sol:recipientRateRecord.inserted = ", recipientRecord.inserted); 
             recipientRateRecord.recipientRate = _recipientRateKey;
-            recipientRateRecord.inserted = true;
-            recipientRateRecord.creationTime = recipientRateRecord.lastUpdateTime = block.timestamp;
+            // recipientRateRecord.inserted = true;
+            // recipientRateRecord.creationTime = recipientRateRecord.lastUpdateTime = block.timestamp;
             recipientRateRecord.stakedSPCoins = 0;
             recipientRecord.recipientRateList.push(_recipientRateKey);
         }
