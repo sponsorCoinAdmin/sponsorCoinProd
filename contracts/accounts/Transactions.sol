@@ -4,7 +4,7 @@ pragma solidity ^0.8.18;
 import "./AgentRates.sol";
 import "../rewardsManagement/RewardsManager.sol";
 
-contract Transactions is AgentRates {
+contract Transactions is RewardsManager {
     constructor() { }
 
     function addSponsorship(address _recipientKey, 
@@ -240,7 +240,7 @@ contract Transactions is AgentRates {
 
 
 
-
+/*
     /////////////// REWARDS //////////////////
        function updateAccountStakingRewards( address _sourceKey )
     public view returns (string memory rewardsString){
@@ -311,5 +311,5 @@ contract Transactions is AgentRates {
         rewardsString = concat(rewardsString, "\nCALCULATED_STAKING_REWARDS:", toString(rewards));
         return (rewards, rewardsString) ;
     }
-
+*/
 }

@@ -2,13 +2,15 @@
 pragma solidity ^0.8.18;
 /// @title ERC20 Contract
 import "./StakingManager.sol";
+import "../accounts/AgentRates.sol";
 
-contract RewardsManager {
+
+contract RewardsManager is AgentRates{
 
     constructor() {
     }
 
-/*
+
     function updateAccountStakingRewards( address _sourceKey )
     public view returns (string memory rewardsString){
         // console.log("updateAccountStakingRewards(", toString(_sourceKey), ")");
@@ -78,6 +80,5 @@ contract RewardsManager {
         rewardsString = concat(rewardsString, "\nCALCULATED_STAKING_REWARDS:", toString(rewards));
         return (rewards, rewardsString) ;
     }
-*/
 
 }
