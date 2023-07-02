@@ -1,5 +1,5 @@
 const { LOG_MODE } = require("./hardhatSetup/hhConnectSetup");
-const { dateInSeconds, second, minute, hour, day, week, year, month , millennium } = require("../prod/lib/utils/dateTime"); 
+const { dateInMilliseconds, dateInSeconds, second, minute, hour, day, week, year, month , millennium } = require("../prod/lib/utils/dateTime"); 
 const { SpCoinRewardsMethods } = require("../prod/lib/spCoinRewardsMethods"); 
 const { SpCoinAddMethods } = require("../prod/lib/spCoinRewardsMethods"); 
 
@@ -237,23 +237,6 @@ describe("spCoinContract", function () {
   //   999
   // );
 
-  // await spCoinStakingMethods.depositAgentStakingRewards (
-  //   SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
-  //   RECIPIENT_ACCOUNT_KEYS[1],
-  //   RECIPIENT_RATES[10],
-  //   AGENT_ACCOUNT_KEYS[2],
-  //   AGENT_RATES[10],
-  //   10
-  // );
-
- // await spCoinStakingMethods.depositAgentStakingRewards(
-  //   SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
-  //   RECIPIENT_ACCOUNT_KEYS[1],
-  //   RECIPIENT_RATES[10],
-  //   AGENT_ACCOUNT_KEYS[2],
-  //   AGENT_RATES[10],
-  //   100
-  // );
 
   // await spCoinAddMethods.addBackDatedAgentSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[0],
@@ -342,14 +325,18 @@ describe("spCoinContract", function () {
   //   RECIPIENT_RATES[9],
   //   "100", 
   //   backdate - year
-  // );  
+  // );
 
-  let backDate = dateInSeconds();
-  console.log("AAAAA  dateInSeconds =", backDate);
+  let dateInSecs = dateInSeconds();
+  let dateInMilliSecs = dateInMilliseconds();
+  console.log("AAAAA dateInMilliSeconds     =", dateInMilliSecs);
+  console.log("AAAAA dateInSeconds          =", dateInSecs);
+  console.log("BBBBB year                   =", year);
+  console.log("CCCCC dateInSeconds() - year =", dateInSecs - year);
   await spCoinAddMethods.addBackDatedSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
     RECIPIENT_ACCOUNT_KEYS[1],
-    RECIPIENT_RATES[10],
+    RECIPIENT_RATES[5],
     "1",
     dateInSeconds() - year//dateInSeconds
   );  
@@ -357,9 +344,36 @@ describe("spCoinContract", function () {
   await spCoinAddMethods.addSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
     RECIPIENT_ACCOUNT_KEYS[1], 
-    RECIPIENT_RATES[10],
+    RECIPIENT_RATES[5],
     "2"
   );
+
+  await spCoinStakingMethods.depositRecipientStakingRewards(
+    SPONSOR_ACCOUNT_KEYS[0],
+    RECIPIENT_ACCOUNT_KEYS[1], 
+    RECIPIENT_RATES[5],
+    123
+  );
+  
+/*
+  await spCoinStakingMethods.depositAgentStakingRewards (
+    SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
+    RECIPIENT_ACCOUNT_KEYS[1],
+    RECIPIENT_RATES[10],
+    AGENT_ACCOUNT_KEYS[2],
+    AGENT_RATES[10],
+    10
+  );
+
+  await spCoinStakingMethods.depositAgentStakingRewards(
+    SPONSOR_ACCOUNT_KEYS[0],   // DEPOSIT ACCOUNT
+    RECIPIENT_ACCOUNT_KEYS[1],
+    RECIPIENT_RATES[10],
+    AGENT_ACCOUNT_KEYS[2],
+    AGENT_RATES[10],
+    100
+  );
+*/
 
   await spCoinRewardsMethods.updateAccountStakingRewards( SPONSOR_ACCOUNT_KEYS[0] );
 

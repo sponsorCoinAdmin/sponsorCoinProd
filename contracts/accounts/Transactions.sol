@@ -149,15 +149,17 @@ contract Transactions is RewardsManager {
         RecipientStruct storage recipientRecord = updateRecipientSponsorship(_recipientKey, _transAmount);
         RecipientRateStruct storage recipientRateRecord = recipientRecord.recipientRateMap[_recipientRateKey];
         uint lastUpdateTime = recipientRateRecord.lastUpdateTime;
+        recipientRateRecord.lastUpdateTime = _transactionTimeStamp;
+        if ( recipientRateRecord.inserted && lastUpdateTime < _transactionTimeStamp) {
             console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _transAmount                   = ", _transAmount);
             console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR agentRateRecord.lastUpdateTime = ", lastUpdateTime);
             console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _transactionTimeStamp          = ", _transactionTimeStamp);
             console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _recipientRateKey              = ", _recipientRateKey);
-        if ( recipientRateRecord.inserted && lastUpdateTime < _transactionTimeStamp) {
             uint recipientRewards = calculateStakingRewards( recipientRateRecord.stakedSPCoins, lastUpdateTime, _transactionTimeStamp, _recipientRateKey );
             console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR Recipient Calculated Rewards   = ", recipientRewards);
-            recipientRateRecord.lastUpdateTime = _transactionTimeStamp;
 
+            // depositStakingRewards( RECIPIENT, _sponsorKey, _recipientKey, _recipientRate, _agentKey, _agentRate, recipientRewards);
+            /**/
             addBackDatedSponsorship2(
                                     _recipientKey, 
                                     _recipientRateKey,
@@ -165,7 +167,7 @@ contract Transactions is RewardsManager {
                                     0,
                                     recipientRewards,
                                     _transactionTimeStamp); 
-
+            /**/
         } else recipientRateRecord.inserted = true;
         recipientRateRecord.stakedSPCoins += _transAmount;
         return recipientRateRecord;

@@ -9,7 +9,6 @@ contract StructSerialization is Utils {
 
     string constant delimiter = "\\,";
 
-
     function serializeAccount(AccountStruct storage _accountRec)
         internal view returns (string memory)
     {
