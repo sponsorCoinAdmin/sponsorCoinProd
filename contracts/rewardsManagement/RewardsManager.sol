@@ -11,6 +11,7 @@ contract RewardsManager is AgentRates{
     function updateAccountStakingRewards( address _sourceKey )
     public view returns (string memory rewardsString){
         // console.log("updateAccountStakingRewards(", toString(_sourceKey), ")");
+        uint256 currentTimeStamp = block.timestamp;
         AccountStruct storage account = accountMap[_sourceKey];
         address[] storage recipientKeys = account.recipientAccountList;             // If Sponsor List of Recipient Accounts
         mapping(address => RecipientStruct) storage recipientMap = account.recipientMap;
@@ -22,7 +23,7 @@ contract RewardsManager is AgentRates{
             address recipientKey = recipientKeys[idx];
             string memory tmpRewards;
             uint256 rewards;
-            (rewards, tmpRewards) =  updateRecipientRateListRewards(recipientMap[recipientKey]);
+            (rewards, tmpRewards) =  updateRecipientRateListRewards(recipientMap[recipientKey], currentTimeStamp );
             rewardsString = concat(rewardsString, "\n", tmpRewards);
         }
         // console.log("SOL 1.0 -------------------------------------------");
@@ -31,7 +32,7 @@ contract RewardsManager is AgentRates{
         return rewardsString ;
     }
 
-    function updateRecipientRateListRewards( RecipientStruct storage recipientRecord )
+    function updateRecipientRateListRewards( RecipientStruct storage recipientRecord, uint256 _transactionTimeStamp )
     internal view returns (uint rewards, string memory rewardsString) {
         // console.log("updateRecipientRateListRewards(recipientRecord)");
         uint256[] storage recipientRateList = recipientRecord.recipientRateList;
@@ -41,21 +42,20 @@ contract RewardsManager is AgentRates{
             // rewardsString = concat(rewardsString, "\nRECIPIENT_RATE:", toString(idx));
             uint256 recipientMapIdx = recipientRateList[idx];
             string memory tmpRewards;
-            (rewards, tmpRewards) =  updateRecipientRateRewards(recipientRateMap[recipientMapIdx]);
+            (rewards, tmpRewards) =  updateRecipientRateRewards(recipientRateMap[recipientMapIdx], _transactionTimeStamp);
             rewardsString = concat(rewardsString, "\n", tmpRewards);
         }
         return (rewards, rewardsString) ;
     }
 
-    function updateRecipientRateRewards( RecipientRateStruct storage _recipientRateRecord )
+    function updateRecipientRateRewards( RecipientRateStruct storage _recipientRateRecord, uint256 _transactionTimeStamp )
     internal view returns (uint rewards, string memory rewardsString) {
         // console.log("updateRecipientRateListRewards(_recipientRateRecord)");
-        uint256 currentTimeStamp = block.timestamp;
         uint256 stakedSPCoins    = _recipientRateRecord.stakedSPCoins;
         uint256 lastUpdateTime   = _recipientRateRecord.lastUpdateTime;
         uint256 recipientRate    = _recipientRateRecord.recipientRate;
-        rewards = calculateStakingRewards( stakedSPCoins, lastUpdateTime, currentTimeStamp, recipientRate );
-        rewardsString = getStakingRewardsRateDataString( stakedSPCoins, lastUpdateTime, currentTimeStamp, recipientRate );
+        rewards = calculateStakingRewards( stakedSPCoins, lastUpdateTime, _transactionTimeStamp, recipientRate );
+        rewardsString = getStakingRewardsRateDataString( stakedSPCoins, lastUpdateTime, _transactionTimeStamp, recipientRate );
         return (rewards, rewardsString) ;
     }
 
