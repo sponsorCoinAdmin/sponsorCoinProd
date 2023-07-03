@@ -55,16 +55,8 @@ contract RewardsManager is AgentRates{
         uint256 stakedSPCoins    = _recipientRateRecord.stakedSPCoins;
         uint256 lastUpdateTime   = _recipientRateRecord.lastUpdateTime;
         uint256 recipientRate    = _recipientRateRecord.recipientRate;
-        (rewards, rewardsString) = calculateStakingRewardsResponseString( stakedSPCoins, lastUpdateTime, currentTimeStamp, recipientRate );
-        return (rewards, rewardsString) ;
-    }
-
-    function calculateStakingRewardsResponseString( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 _transactionTimeStamp, uint256 _rate )
-    public view returns (uint rewards, string memory rewardsString) {
-        // console.log("calculateStakingRewardsResponseString(_stakedSPCoins, _lastUpdateTime, _transactionTimeStamp, _rate)");
-        rewards = calculateStakingRewards( _stakedSPCoins, _lastUpdateTime, _transactionTimeStamp, _rate );
-
-        rewardsString = getStakingRewardsRateDataString( _stakedSPCoins, _lastUpdateTime, _transactionTimeStamp, _rate );
+        rewards = calculateStakingRewards( stakedSPCoins, lastUpdateTime, currentTimeStamp, recipientRate );
+        rewardsString = getStakingRewardsRateDataString( stakedSPCoins, lastUpdateTime, currentTimeStamp, recipientRate );
         return (rewards, rewardsString) ;
     }
 
@@ -88,7 +80,7 @@ contract RewardsManager is AgentRates{
     }
 
     function calculateStakingRewards( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 _transactionTimeStamp, uint256 _rate )
-    public view returns (uint rewards) {
+    public pure returns (uint rewards) {
         uint256 timeDiff = _lastUpdateTime > _transactionTimeStamp ? 0 : _transactionTimeStamp - _lastUpdateTime;
         uint256 timeRateMultiplier = ( timeDiff * _stakedSPCoins * _rate ) / 100;
         rewards = timeRateMultiplier/year;
