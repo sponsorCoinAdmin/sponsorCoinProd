@@ -327,12 +327,6 @@ describe("spCoinContract", function () {
   //   backdate - year
   // );
 
-  let dateInSecs = dateInSeconds();
-  let dateInMilliSecs = dateInMilliseconds();
-  console.log("AAAAA dateInMilliSeconds     =", dateInMilliSecs);
-  console.log("AAAAA dateInSeconds          =", dateInSecs);
-  console.log("BBBBB year                   =", year);
-  console.log("CCCCC dateInSeconds() - year =", dateInSecs - year);
   await spCoinAddMethods.addBackDatedSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
     RECIPIENT_ACCOUNT_KEYS[1],
@@ -348,12 +342,12 @@ describe("spCoinContract", function () {
     "2"
   );
 
-  await spCoinStakingMethods.depositRecipientStakingRewards(
-    SPONSOR_ACCOUNT_KEYS[0],
-    RECIPIENT_ACCOUNT_KEYS[1], 
-    RECIPIENT_RATES[5],
-    123
-  );
+  // await spCoinStakingMethods.depositRecipientStakingRewards(
+  //   SPONSOR_ACCOUNT_KEYS[0],
+  //   RECIPIENT_ACCOUNT_KEYS[1], 
+  //   RECIPIENT_RATES[5],
+  //   123
+  // );
   
 /*
   await spCoinStakingMethods.depositAgentStakingRewards (

@@ -269,7 +269,7 @@ class SpCoinSerialize {
   deserializedSPRewards = (stakingRewards) => {
     // console.log("JS==>1.0 deserializedSPCoinHeader(\n" + stakingRewards + ")");
     spCoinLogger.logFunctionHeader("getAccountRecords()");
-    let rewardRecords = stakingRewards.split("RECORD_BREAK\n");
+    let rewardRecords = stakingRewards.split("RECORD_RATE_DATA\n");
     let sponsorCoinRewards = {};
     let recordArray = [];
 
@@ -303,7 +303,7 @@ class SpCoinSerialize {
       let rewardElement = rewardElements[i].trim();
       let keyValue = rewardElement.split(":");
       spCoinLogger.logDetail("JS => keyValue = " + keyValue);
-      // console.log("JS =>1.2 keyValue = " + keyValue);
+      console.log("JS =>1.2 keyValue = " + keyValue);
 
       let key = keyValue[0].trim();
       let value = keyValue[1].trim();
@@ -317,9 +317,9 @@ class SpCoinSerialize {
 
 
   addSPCoinRewardField = ( _key, _value, spCoinHeaderRecord ) => {
-    // console.log("JS =>2.1 _key   = " + _key);
-    // console.log("JS =>2.2 _value = " + _value);
-    // console.log("JS =>2.3 spCoinHeaderRecord = " + spCoinLogger.logJSON(spCoinHeaderRecord));
+    console.log("JS =>2.1 _key   = " + _key);
+    console.log("JS =>2.2 _value = " + _value);
+    console.log("JS =>2.3 spCoinHeaderRecord = " + spCoinLogger.logJSON(spCoinHeaderRecord));
     switch (_key.trim()) {
       case "RECIPIENT_KEYS_LENGTH":
         spCoinHeaderRecord.RECIPIENT_KEYS_LENGTH = bigIntToDecString(_value);

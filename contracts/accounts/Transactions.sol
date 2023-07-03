@@ -61,18 +61,6 @@ contract Transactions is RewardsManager {
     internal 
     // validateSufficientAccountBalance(_sponsorAmount)
     {
-        // string memory parms; // = concat("msg.sender     ", toString(msg.sender));
-        // parms = concat(parms, "addBackDatedSponsorship(");
-        // parms = concat(parms, "\naddSponsorship(");
-        // parms = concat(parms, "_recipientKey        = ", toString(_recipientKey), ",");
-        // parms = concat(parms, "_recipientRateKey    = ", toString(_recipientRateKey), ",");
-        // parms = concat(parms, "_agentKey            = ", toString(_agentKey), ",");
-        // parms = concat(parms, "_agentRateKey        = ", toString(_agentRateKey), ",");
-        // parms = concat(parms, "strWholeAmount       = ", _strWholeAmount, ",");
-        // parms = concat(parms, "_strDecimalAmount    = ", _strDecimalAmount, ",");
-        // parms = concat(parms, "_transactionTimeStamp            = ", toString(_transactionTimeStamp), ")");
-        // console.log("parms");
-
         // console.log("msg.sender     ", msg.sender);
         // console.log("addBackDatedSponsorship(");
         // console.log("_recipientKey         = ", _recipientKey, ",");
@@ -85,18 +73,10 @@ contract Transactions is RewardsManager {
         // uint256 blockTimeStamp = block.timestamp;
         // console.log("block.timestamp       = ", blockTimeStamp);
 
-        
-         // getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
-        // StakingTransactionStruct memory transRec = StakingTransactionStruct(
-        //    {insertionTime: _transactionTimeStamp, quantity: _sponsorAmount}
-        // );
-
         StakingTransactionStruct memory transRec;
         transRec.insertionTime = _transactionTimeStamp;
         transRec.stakingRewards = _sponsorAmount;
         totalStakedSPCoins += _sponsorAmount;
-
-        //////////////////////////////////////
 
         // console.log(JUNK_COUNTER++, "**** Transaction.sol:ADDING RATE REC = ",_agentRateKey, "ADDING TRANSACTION = ",_transAmount);
         if(_agentKey == burnAddress) {
@@ -151,12 +131,12 @@ contract Transactions is RewardsManager {
         uint lastUpdateTime = recipientRateRecord.lastUpdateTime;
         recipientRateRecord.lastUpdateTime = _transactionTimeStamp;
         if ( recipientRateRecord.inserted && lastUpdateTime < _transactionTimeStamp) {
-            console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _transAmount                   = ", _transAmount);
-            console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR agentRateRecord.lastUpdateTime = ", lastUpdateTime);
-            console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _transactionTimeStamp          = ", _transactionTimeStamp);
-            console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _recipientRateKey              = ", _recipientRateKey);
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _transAmount                   = ", _transAmount);
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR agentRateRecord.lastUpdateTime = ", lastUpdateTime);
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _transactionTimeStamp          = ", _transactionTimeStamp);
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _recipientRateKey              = ", _recipientRateKey);
             uint recipientRewards = calculateStakingRewards( recipientRateRecord.stakedSPCoins, lastUpdateTime, _transactionTimeStamp, _recipientRateKey );
-            console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR Recipient Calculated Rewards   = ", recipientRewards);
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR Recipient Calculated Rewards   = ", recipientRewards);
 
             // depositStakingRewards( RECIPIENT, _sponsorKey, _recipientKey, _recipientRate, _agentKey, _agentRate, recipientRewards);
             /**/

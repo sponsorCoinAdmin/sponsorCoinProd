@@ -10,7 +10,6 @@ contract RewardsManager is AgentRates{
     constructor() {
     }
 
-
     function updateAccountStakingRewards( address _sourceKey )
     public view returns (string memory rewardsString){
         // console.log("updateAccountStakingRewards(", toString(_sourceKey), ")");
@@ -61,24 +60,47 @@ contract RewardsManager is AgentRates{
         return (rewards, rewardsString) ;
     }
 
-    function calculateStakingRewardsResponseString( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 currentTimeStamp, uint256 recipientRate )
+    function calculateStakingRewardsResponseString( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 _transactionTimeStamp, uint256 rate )
     public pure returns (uint rewards, string memory rewardsString) {
-        // console.log("updateRecipientRateListRewards(_stakedSPCoins, lastUpdate, currentTimeStamp)");
-        uint256 timeDiff = _lastUpdateTime > currentTimeStamp ? 0 : currentTimeStamp - _lastUpdateTime;
-        uint256 timeRateMultiplier = ( timeDiff * _stakedSPCoins * recipientRate ) / 100;
+        // console.log("updaterateListRewards(_stakedSPCoins, lastUpdate, _transactionTimeStamp)");
+        uint256 timeDiff = _lastUpdateTime > _transactionTimeStamp ? 0 : _transactionTimeStamp - _lastUpdateTime;
+        uint256 timeRateMultiplier = ( timeDiff * _stakedSPCoins * rate ) / 100;
         rewards = timeRateMultiplier/year;
-        // uint timeRateMultiplier = getAnnualTimeMultiplier(currentTimeStamp*decimals, lastUpdate);
+        // uint timeRateMultiplier = getAnnualTimeMultiplier(_transactionTimeStamp*decimals, lastUpdate);
 
-        rewardsString = "RECORD_BREAK\n";
-        rewardsString = concat(rewardsString, "CURRENT_TIME_STAMP:",           toString(currentTimeStamp));
+        rewardsString = "RECORD_RATE_DATA\n";
+        rewardsString = concat(rewardsString, "TRANSACTION_TIME_STAMP:",       toString(_transactionTimeStamp));
         rewardsString = concat(rewardsString, "\nLAST_UPDATE_TIME:",           toString(_lastUpdateTime));
-        rewardsString = concat(rewardsString, "\nRECIPIENT_RATE:",             toString(recipientRate));
+        rewardsString = concat(rewardsString, "\nRECIPIENT_RATE:",             toString(rate));
         rewardsString = concat(rewardsString, "\nTIME_DIFFERENCE:",            toString(timeDiff));
         rewardsString = concat(rewardsString, "\nSTAKED_SPONSOR_COINS:",       toString(_stakedSPCoins));
         rewardsString = concat(rewardsString, "\nTIME_RATE_MULTIPLIER:",       toString(timeRateMultiplier));
         rewardsString = concat(rewardsString, "\nYEAR_IN_SECONDS:",            toString(year));
         rewardsString = concat(rewardsString, "\nCALCULATED_STAKING_REWARDS:", toString(rewards));
         return (rewards, rewardsString) ;
+    }
+
+
+    function calculateStakingRewards( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 _transactionTimeStamp, uint256 _rate )
+    public view returns (uint rewards) {
+
+        string memory rewardsString = "RECORD_DATA\n";
+        rewardsString = concat(rewardsString, "\nSTAKED_SPONSOR_COINS:",       toString(_stakedSPCoins));
+        rewardsString = concat(rewardsString, "\nLAST_UPDATE_TIME:",           toString(_lastUpdateTime));
+        rewardsString = concat(rewardsString, "TRANSACTION_TIME_STAMP:",       toString(_transactionTimeStamp));
+        rewardsString = concat(rewardsString, "\nRECIPIENT_RATE:",             toString(_rate));
+        rewardsString = concat(rewardsString, "\nYEAR_IN_SECONDS:",            toString(year));
+
+       uint256 timeDiff = _lastUpdateTime > _transactionTimeStamp ? 0 : _transactionTimeStamp - _lastUpdateTime;
+        uint256 timeRateMultiplier = ( timeDiff * _stakedSPCoins * _rate ) / 100;
+        rewards = timeRateMultiplier/year;
+
+        rewardsString = concat(rewardsString, "\nTIME_DIFFERENCE:",            toString(timeDiff));
+        rewardsString = concat(rewardsString, "\nTIME_RATE_MULTIPLIER:",       toString(timeRateMultiplier));
+        rewardsString = concat(rewardsString, "\nCALCULATED_STAKING_REWARDS:", toString(rewards));
+
+        console.log("rewardsString =",rewardsString);
+        return rewards;
     }
 
 }
