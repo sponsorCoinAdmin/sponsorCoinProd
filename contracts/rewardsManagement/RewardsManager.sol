@@ -4,7 +4,6 @@ pragma solidity ^0.8.18;
 import "./StakingManager.sol";
 import "../accounts/AgentRates.sol";
 
-
 contract RewardsManager is AgentRates{
 
     constructor() {
@@ -60,46 +59,39 @@ contract RewardsManager is AgentRates{
         return (rewards, rewardsString) ;
     }
 
-    function calculateStakingRewardsResponseString( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 _transactionTimeStamp, uint256 rate )
-    public pure returns (uint rewards, string memory rewardsString) {
-        // console.log("updaterateListRewards(_stakedSPCoins, lastUpdate, _transactionTimeStamp)");
+    function calculateStakingRewardsResponseString( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 _transactionTimeStamp, uint256 _rate )
+    public view returns (uint rewards, string memory rewardsString) {
+        // console.log("calculateStakingRewardsResponseString(_stakedSPCoins, _lastUpdateTime, _transactionTimeStamp, _rate)");
+        rewards = calculateStakingRewards( _stakedSPCoins, _lastUpdateTime, _transactionTimeStamp, _rate );
+
+        rewardsString = getStakingRewardsRateDataString( _stakedSPCoins, _lastUpdateTime, _transactionTimeStamp, _rate );
+        return (rewards, rewardsString) ;
+    }
+
+    function getStakingRewardsRateDataString( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 _transactionTimeStamp, uint256 _rate )
+    public view returns ( string memory rewardsString ) {
+        // console.log("getStakingRewardsRateDataString(_stakedSPCoins, _lastUpdateTime, _transactionTimeStamp, _rate)");
         uint256 timeDiff = _lastUpdateTime > _transactionTimeStamp ? 0 : _transactionTimeStamp - _lastUpdateTime;
-        uint256 timeRateMultiplier = ( timeDiff * _stakedSPCoins * rate ) / 100;
-        rewards = timeRateMultiplier/year;
-        // uint timeRateMultiplier = getAnnualTimeMultiplier(_transactionTimeStamp*decimals, lastUpdate);
+        uint256 timeRateMultiplier = ( timeDiff * _stakedSPCoins * _rate ) / 100;
+        uint256 rewards = calculateStakingRewards( _stakedSPCoins, _lastUpdateTime, _transactionTimeStamp, _rate );
 
         rewardsString = "RECORD_RATE_DATA\n";
         rewardsString = concat(rewardsString, "TRANSACTION_TIME_STAMP:",       toString(_transactionTimeStamp));
         rewardsString = concat(rewardsString, "\nLAST_UPDATE_TIME:",           toString(_lastUpdateTime));
-        rewardsString = concat(rewardsString, "\nRECIPIENT_RATE:",             toString(rate));
+        rewardsString = concat(rewardsString, "\nRECIPIENT_RATE:",             toString(_rate));
         rewardsString = concat(rewardsString, "\nTIME_DIFFERENCE:",            toString(timeDiff));
         rewardsString = concat(rewardsString, "\nSTAKED_SPONSOR_COINS:",       toString(_stakedSPCoins));
         rewardsString = concat(rewardsString, "\nTIME_RATE_MULTIPLIER:",       toString(timeRateMultiplier));
         rewardsString = concat(rewardsString, "\nYEAR_IN_SECONDS:",            toString(year));
         rewardsString = concat(rewardsString, "\nCALCULATED_STAKING_REWARDS:", toString(rewards));
-        return (rewards, rewardsString) ;
+        return rewardsString ;
     }
-
 
     function calculateStakingRewards( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 _transactionTimeStamp, uint256 _rate )
     public view returns (uint rewards) {
-
-        string memory rewardsString = "RECORD_DATA\n";
-        rewardsString = concat(rewardsString, "\nSTAKED_SPONSOR_COINS:",       toString(_stakedSPCoins));
-        rewardsString = concat(rewardsString, "\nLAST_UPDATE_TIME:",           toString(_lastUpdateTime));
-        rewardsString = concat(rewardsString, "TRANSACTION_TIME_STAMP:",       toString(_transactionTimeStamp));
-        rewardsString = concat(rewardsString, "\nRECIPIENT_RATE:",             toString(_rate));
-        rewardsString = concat(rewardsString, "\nYEAR_IN_SECONDS:",            toString(year));
-
-       uint256 timeDiff = _lastUpdateTime > _transactionTimeStamp ? 0 : _transactionTimeStamp - _lastUpdateTime;
+        uint256 timeDiff = _lastUpdateTime > _transactionTimeStamp ? 0 : _transactionTimeStamp - _lastUpdateTime;
         uint256 timeRateMultiplier = ( timeDiff * _stakedSPCoins * _rate ) / 100;
         rewards = timeRateMultiplier/year;
-
-        rewardsString = concat(rewardsString, "\nTIME_DIFFERENCE:",            toString(timeDiff));
-        rewardsString = concat(rewardsString, "\nTIME_RATE_MULTIPLIER:",       toString(timeRateMultiplier));
-        rewardsString = concat(rewardsString, "\nCALCULATED_STAKING_REWARDS:", toString(rewards));
-
-        console.log("rewardsString =",rewardsString);
         return rewards;
     }
 
