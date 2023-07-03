@@ -221,21 +221,6 @@ contract StakingManager is RewardsManager{
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     function depositRewardTransaction(  RewardsTransactionStruct[] storage rewardTransactionList,
                                         uint _amount )  internal {
         // console.log("SOL=>9 depositRewardTransaction("); 
@@ -249,6 +234,5 @@ contract StakingManager is RewardsManager{
         rewardTransactionList.push(rewardsTransactionRecord);
         // console.log("SOL=>14 AFTER rewardTransactionList.length = ", rewardTransactionList.length);
     }
-
 
 }
