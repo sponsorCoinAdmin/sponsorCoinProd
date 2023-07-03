@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 /// @title ERC20 Contract
-import "./StakingManager.sol";
 import "../accounts/AgentRates.sol";
 
 contract RewardsManager is AgentRates{
@@ -61,7 +60,7 @@ contract RewardsManager is AgentRates{
     }
 
     function getStakingRewardsRateDataString( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 _transactionTimeStamp, uint256 _rate )
-    public view returns ( string memory rewardsString ) {
+    public pure returns ( string memory rewardsString ) {
         // console.log("getStakingRewardsRateDataString(_stakedSPCoins, _lastUpdateTime, _transactionTimeStamp, _rate)");
         uint256 timeDiff = _lastUpdateTime > _transactionTimeStamp ? 0 : _transactionTimeStamp - _lastUpdateTime;
         uint256 timeRateMultiplier = ( timeDiff * _stakedSPCoins * _rate ) / 100;
@@ -88,3 +87,4 @@ contract RewardsManager is AgentRates{
     }
 
 }
+

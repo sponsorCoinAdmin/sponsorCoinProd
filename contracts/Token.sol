@@ -6,7 +6,7 @@ import "./rewardsManagement/StakingManager.sol";
 import "./rewardsManagement/RewardsManager.sol";
 import "./accounts/UnSubscribe.sol";
 
-contract Token is StakingManager{
+contract Token is UnSubscribe{
 
 /*
     constructor(string memory _name, string memory _symbol, uint _decimals, uint _totalSupply) {

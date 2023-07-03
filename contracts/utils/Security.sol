@@ -39,6 +39,17 @@ contract Security is SpCoinDataTypes {
         _;
     }
 
+    /// @notice determines if address Record is inserted in accountKey array
+    /// @param _accountKey public accountKey validate Insertion
+    function isAccountInserted(address _accountKey)
+        public view returns (bool) {
+        if (accountMap[_accountKey].inserted) 
+            return true;
+        else
+            return false;
+    }
+
+
 /*
     modifier validateSufficientAccountBalance (uint256 _amount) {
        require(balanceOf[msg.sender] >= _amount, "Insufficient Balance");
