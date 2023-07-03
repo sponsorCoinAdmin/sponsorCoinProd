@@ -1,6 +1,7 @@
 */artifacts/
 /.contracts.OLD
 /.deps
+/.vscode/
 hhtest.out
 hhtest\.out
 node_modules

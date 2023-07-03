@@ -9,7 +9,6 @@ contract StructSerialization is Utils {
 
     string constant delimiter = "\\,";
 
-
     function serializeAccount(AccountStruct storage _accountRec)
         internal view returns (string memory)
     {
@@ -117,6 +116,31 @@ contract StructSerialization is Utils {
         return seralized;
     }
 
+        function serializeRewardsTransactionList(RewardsTransactionStruct[] storage _rewardTransactionList)
+        internal  view returns (string memory memoryRewards) {
+        for (uint idx = 0; idx < _rewardTransactionList.length; idx++) {
+            RewardsTransactionStruct storage rewardTransaction = _rewardTransactionList[idx];
+            // console.log("SOL6=> rewardTransaction.updateTime     = ", rewardTransaction.updateTime);
+            // console.log("SOL7=> rewardTransaction.stakingRewards = ", rewardTransaction.stakingRewards);
+
+            memoryRewards = concat(memoryRewards, toString(rewardTransaction.updateTime));
+            memoryRewards = concat(memoryRewards, ",", toString(rewardTransaction.stakingRewards));
+            if (idx < _rewardTransactionList.length - 1) {
+                memoryRewards = concat(memoryRewards , "\n" );
+            }
+           // console.log("SOL=>21 getRewardAccounts:Transaction =", memoryRewards);
+           // console.log("rewardsRecordList", memoryRewards);
+           // console.log("*** END SOL ******************************************************************************");
+        }
+        return memoryRewards;
+    }
+
+    function getSerializedAccountRewards(address _accountKey)
+        public view returns (string memory) {
+        require(isAccountInserted(_accountKey));
+        return serializeRewards(accountMap[_accountKey]);
+    }
+
 /*
     function serializeRewards(AccountStruct storage _accountRec)
         internal view returns (string memory)
@@ -150,4 +174,5 @@ contract StructSerialization is Utils {
         return seralized;
     }
 */
+
 }

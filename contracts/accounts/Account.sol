@@ -62,16 +62,6 @@ contract Account is StructSerialization {
     }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    /// @notice determines if address Record is inserted in accountKey array
-    /// @param _accountKey public accountKey validate Insertion
-    function isAccountInserted(address _accountKey)
-        public view returns (bool) {
-        if (accountMap[_accountKey].inserted) 
-            return true;
-        else
-            return false;
-    }
-
     /// @notice retreives array list masterAccountList.
     function getAccountList() public view returns (address[] memory) {
         return masterAccountList;

@@ -115,7 +115,6 @@ constructor(_spCoinContractDeployed) {
       _recipientRateKey + ", " +
       _transactionQty + ")"
     );
-    let transactionBackDate = 0;
 
     await this.addAgentSponsorship (
       _sponsorSigner,
@@ -123,8 +122,7 @@ constructor(_spCoinContractDeployed) {
       _recipientRateKey,
         BURN_ACCOUNT,
         0,
-      _transactionQty,
-      transactionBackDate);
+      _transactionQty);
 
     spCoinLogger.logExitFunction();
   };
@@ -149,7 +147,6 @@ constructor(_spCoinContractDeployed) {
     let components = _transactionQty.toString().split(".");
     let wholePart = components[0].length > 0 ? components[0] : "0";
     let fractionalPart = components.length > 1 ? components[1] : "0";
-    let transactionBackDate = 0;
 
     await this.spCoinContractDeployed.connect(_sponsorSigner).addSponsorship(
       _recipientKey,
@@ -157,8 +154,7 @@ constructor(_spCoinContractDeployed) {
       _accountAgentKey,
       _agentRateKey,
       wholePart,
-      fractionalPart,
-      transactionBackDate
+      fractionalPart
     );
     spCoinLogger.logExitFunction();
   };
@@ -185,7 +181,6 @@ constructor(_spCoinContractDeployed) {
         0,
       _transactionQty,
       _transactionBackDate);
-
     spCoinLogger.logExitFunction();
   };
 
@@ -208,11 +203,12 @@ constructor(_spCoinContractDeployed) {
       _transactionBackDate + ")"
     );
 
+    _transactionBackDate = Math.trunc(_transactionBackDate);
     let components = _transactionQty.toString().split(".");
     let wholePart = components[0].length > 0 ? components[0] : "0";
     let fractionalPart = components.length > 1 ? components[1] : "0";
 
-    await this.spCoinContractDeployed.connect(_sponsorSigner).addSponsorship(
+    await this.spCoinContractDeployed.connect(_sponsorSigner).addBackDatedSponsorship(
       _recipientKey,
       _recipientRateKey,
       _accountAgentKey,

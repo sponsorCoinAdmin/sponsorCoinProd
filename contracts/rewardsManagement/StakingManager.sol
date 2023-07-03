@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 /// @title ERC20 Contract
-import "../accounts/UnSubscribe.sol";
-import "../accounts/Transactions.sol";
+import "./RewardsManager.sol";
 
-contract StakingManager is UnSubscribe{
+
+contract StakingManager is RewardsManager{
     constructor() {
     }
 
@@ -86,7 +86,8 @@ contract StakingManager is UnSubscribe{
 
     function depositAccountStakingRewards( uint _accountType, address _sourceKey, address _depositKey, uint _rate, uint _amount )
         internal returns ( uint ) {
-        require (_amount > 0, "AMOUNT BALANCE MUST BE LARGER THAN 0");
+            // ToDo Robin Replace this
+        // require (_amount > 0, "AMOUNT BALANCE MUST BE LARGER THAN 0");
         // console.log("SOL=>2.0 depositAccountStakingRewards(_accountType)", getAccountTypeString(_accountType));
         // console.log("SOL=>2.1 _sourceKey  = ", _sourceKey);
         // console.log("SOL=>2.2 _depositKey = ", _depositKey);
@@ -249,30 +250,5 @@ contract StakingManager is UnSubscribe{
         // console.log("SOL=>14 AFTER rewardTransactionList.length = ", rewardTransactionList.length);
     }
 
-//////////////// RETREIVE STAKING REWARDS /////////////////////////////////////////////////////////////////////
 
-    function serializeRewardsTransactionList(RewardsTransactionStruct[] storage _rewardTransactionList)
-        internal  view returns (string memory memoryRewards) {
-        for (uint idx = 0; idx < _rewardTransactionList.length; idx++) {
-            RewardsTransactionStruct storage rewardTransaction = _rewardTransactionList[idx];
-            // console.log("SOL6=> rewardTransaction.updateTime     = ", rewardTransaction.updateTime);
-            // console.log("SOL7=> rewardTransaction.stakingRewards = ", rewardTransaction.stakingRewards);
-
-            memoryRewards = concat(memoryRewards, toString(rewardTransaction.updateTime));
-            memoryRewards = concat(memoryRewards, ",", toString(rewardTransaction.stakingRewards));
-            if (idx < _rewardTransactionList.length - 1) {
-                memoryRewards = concat(memoryRewards , "\n" );
-            }
-           // console.log("SOL=>21 getRewardAccounts:Transaction =", memoryRewards);
-           // console.log("rewardsRecordList", memoryRewards);
-           // console.log("*** END SOL ******************************************************************************");
-        }
-        return memoryRewards;
-    }
-
-    function getSerializedAccountRewards(address _accountKey)
-        public view returns (string memory) {
-        require(isAccountInserted(_accountKey));
-        return serializeRewards(accountMap[_accountKey]);
-    }
 }

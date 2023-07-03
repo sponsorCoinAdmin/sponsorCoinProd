@@ -19,8 +19,8 @@ contract AgentRates is Agent {
         AgentRateStruct storage agentRateRecord= getAgentRateRecordByKeys(_sponsor, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
         if (!agentRateRecord.inserted) {
             agentRateRecord.agentRate = _agentRateKey;
-            agentRateRecord.inserted = true;
-            agentRateRecord.creationTime = agentRateRecord.lastUpdateTime = block.timestamp;
+            // agentRateRecord.inserted = true;
+            // agentRateRecord.creationTime = agentRateRecord.lastUpdateTime = block.timestamp;
             agentRateRecord.stakedSPCoins = 0;
             agentRecord.agentRateList.push(_agentRateKey);
         }

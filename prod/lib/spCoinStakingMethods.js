@@ -1,4 +1,14 @@
-const { bigIntToDecString } = require("./utils/dateTime");
+const { 
+  bigIntToDecString,
+  second,
+  minute,
+  hour,
+  day,
+  week,
+  year,
+  month,
+  millennium
+ } = require("./utils/dateTime");
 const { SpCoinLogger } = require("./utils/logging");
 
 let spCoinLogger;
@@ -7,14 +17,6 @@ const SPONSOR = 0;
 const RECIPIENT = 1;
 const AGENT = 2;
 
-const second = 1;
-const minute = second * 60;
-const hour = minute * 60;
-const day = hour * 24;
-const week = day * 7;
-const year = day * 365.25;
-const month = year/12;
-const millennium = year * 1000;
 const burnAddress = "0x0000000000000000000000000000000000000000";
 
 class SpCoinStakingMethods {
@@ -45,12 +47,12 @@ class SpCoinStakingMethods {
     return stakingRewards;
   }
 
-  getTimeMultiplier = async(_timeMultiplier) => {
-    // spCoinLogger.getTimeMultiplier("getTimeMultiplier(_timeMultiplier)");
-    let timeMultiplier = await this.spCoinContractDeployed.connect(this.signer).getTimeMultiplier(_timeMultiplier);
+  getTimeMultiplier = async(_timeRateMultiplier) => {
+    // spCoinLogger.getTimeMultiplier("getTimeMultiplier(_timeRateMultiplier)");
+    let timeRateMultiplier = await this.spCoinContractDeployed.connect(this.signer).getTimeMultiplier(_timeRateMultiplier);
     
     spCoinLogger.logExitFunction();
-    return timeMultiplier;
+    return timeRateMultiplier;
   }
 
   getAccountTimeInSecondeSinceUpdate = async(_tokenLastUpdate) => {

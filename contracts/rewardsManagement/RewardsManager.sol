@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 /// @title ERC20 Contract
-import "./StakingManager.sol";
+import "../accounts/AgentRates.sol";
 
-contract RewardsManager is StakingManager{
+contract RewardsManager is AgentRates{
 
     constructor() {
     }
 
     function updateAccountStakingRewards( address _sourceKey )
     public view returns (string memory rewardsString){
-        console.log("updateAccountStakingRewards(", toString(_sourceKey), ")");
+        // console.log("updateAccountStakingRewards(", toString(_sourceKey), ")");
         AccountStruct storage account = accountMap[_sourceKey];
         address[] storage recipientKeys = account.recipientAccountList;             // If Sponsor List of Recipient Accounts
         mapping(address => RecipientStruct) storage recipientMap = account.recipientMap;
@@ -25,6 +25,9 @@ contract RewardsManager is StakingManager{
             (rewards, tmpRewards) =  updateRecipientRateListRewards(recipientMap[recipientKey]);
             rewardsString = concat(rewardsString, "\n", tmpRewards);
         }
+        // console.log("SOL 1.0 -------------------------------------------");
+        // console.log(rewardsString);
+        // console.log("SOL 1.1 -------------------------------------------");
         return rewardsString ;
     }
 
@@ -35,7 +38,7 @@ contract RewardsManager is StakingManager{
         mapping(uint256 => RecipientRateStruct) storage recipientRateMap = recipientRecord.recipientRateMap;
         rewardsString = concat("RECIPIENT_RATE_LIST_LENGTH:", toString(recipientRateList.length));
         for (uint idx = 0; idx < recipientRateList.length; idx++) {
-            rewardsString = concat(rewardsString, "\nRECIPIENT_RATE:", toString(idx));
+            // rewardsString = concat(rewardsString, "\nRECIPIENT_RATE:", toString(idx));
             uint256 recipientMapIdx = recipientRateList[idx];
             string memory tmpRewards;
             (rewards, tmpRewards) =  updateRecipientRateRewards(recipientRateMap[recipientMapIdx]);
@@ -46,101 +49,42 @@ contract RewardsManager is StakingManager{
 
     function updateRecipientRateRewards( RecipientRateStruct storage _recipientRateRecord )
     internal view returns (uint rewards, string memory rewardsString) {
-        console.log("updateRecipientRateListRewards(_recipientRateRecord)");
+        // console.log("updateRecipientRateListRewards(_recipientRateRecord)");
         uint256 currentTimeStamp = block.timestamp;
         uint256 stakedSPCoins    = _recipientRateRecord.stakedSPCoins;
         uint256 lastUpdateTime   = _recipientRateRecord.lastUpdateTime;
-        (rewards, rewardsString) = calculateStakingRewards( stakedSPCoins, lastUpdateTime, currentTimeStamp );
+        uint256 recipientRate    = _recipientRateRecord.recipientRate;
+        rewards = calculateStakingRewards( stakedSPCoins, lastUpdateTime, currentTimeStamp, recipientRate );
+        rewardsString = getStakingRewardsRateDataString( stakedSPCoins, lastUpdateTime, currentTimeStamp, recipientRate );
         return (rewards, rewardsString) ;
     }
 
-    function calculateStakingRewards( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 currentTimeStamp)
-    public pure returns (uint rewards, string memory rewardsString) {
-        // console.log("updateRecipientRateListRewards(_stakedSPCoins, lastUpdate, currentTimeStamp)");
-        uint256 timeDiff = currentTimeStamp - _lastUpdateTime;
-        uint256 timeMultiplier = timeDiff * _stakedSPCoins;
-        rewards = timeMultiplier/year;
+    function getStakingRewardsRateDataString( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 _transactionTimeStamp, uint256 _rate )
+    public pure returns ( string memory rewardsString ) {
+        // console.log("getStakingRewardsRateDataString(_stakedSPCoins, _lastUpdateTime, _transactionTimeStamp, _rate)");
+        uint256 timeDiff = _lastUpdateTime > _transactionTimeStamp ? 0 : _transactionTimeStamp - _lastUpdateTime;
+        uint256 timeRateMultiplier = ( timeDiff * _stakedSPCoins * _rate ) / 100;
+        uint256 rewards = calculateStakingRewards( _stakedSPCoins, _lastUpdateTime, _transactionTimeStamp, _rate );
 
-        // uint timeMultiplier = getAnnualTimeMultiplier(currentTimeStamp*decimals, lastUpdate);
-
-        rewardsString = concat(rewardsString, "CURRENT_TIME_STAMP:", toString(currentTimeStamp));
-        rewardsString = concat(rewardsString, "\nLAST_UPDATE_TIME:", toString(_lastUpdateTime));
-        rewardsString = concat(rewardsString, "\nTIME_DIFFERENCE:", toString(timeDiff));
-        rewardsString = concat(rewardsString, "\nSTAKED_SPONSOR_COINS:", toString(_stakedSPCoins));
-        rewardsString = concat(rewardsString, "\nTIME_MULTIPLIER:", toString(timeMultiplier));
-        rewardsString = concat(rewardsString, "\nYEAR_IN_SECONDS:", toString(year));
+        rewardsString = "RECORD_RATE_DATA\n";
+        rewardsString = concat(rewardsString, "TRANSACTION_TIME_STAMP:",       toString(_transactionTimeStamp));
+        rewardsString = concat(rewardsString, "\nLAST_UPDATE_TIME:",           toString(_lastUpdateTime));
+        rewardsString = concat(rewardsString, "\nRECIPIENT_RATE:",             toString(_rate));
+        rewardsString = concat(rewardsString, "\nTIME_DIFFERENCE:",            toString(timeDiff));
+        rewardsString = concat(rewardsString, "\nSTAKED_SPONSOR_COINS:",       toString(_stakedSPCoins));
+        rewardsString = concat(rewardsString, "\nTIME_RATE_MULTIPLIER:",       toString(timeRateMultiplier));
+        rewardsString = concat(rewardsString, "\nYEAR_IN_SECONDS:",            toString(year));
         rewardsString = concat(rewardsString, "\nCALCULATED_STAKING_REWARDS:", toString(rewards));
-        // console.log(rewardsString);
-        return (rewards, rewardsString) ;
+        return rewardsString ;
     }
 
-
-
-/*
-
-        rewardsString = concat(rewardsString, "\ncurrentTimeStamp                     = ", toString(currentTimeStamp));
-        rewardsString = concat(rewardsString, "\nSOL==>1.1 _lastUpdateTime            = ", toString(_lastUpdateTime));
-        rewardsString = concat(rewardsString, "\nSOL==>1.2 timeDiff                   = ", toString(timeDiff));
-        rewardsString = concat(rewardsString, "\nSOL==>1.3 _stakedSPCoins             = ", toString(_stakedSPCoins));
-        rewardsString = concat(rewardsString, "\nSOL==>1.3 timeMultiplier             = ", toString(timeMultiplier));
-        rewardsString = concat(rewardsString, "\nSOL==>1.4 year                       = ", toString(year));
-        rewardsString = concat(rewardsString, "\nSOL==>1.5 Calculated Staking Rewards = ", toString(rewards));
-
-    function updateAccountStakingRewards( address _sourceKey , uint _accountType )
-        public view {
-        AccountStruct storage account = accountMap[_sourceKey];
-        RewardTypeStruct storage rewardsRecord = account.rewardsMap[getAccountTypeString(_accountType)];
-        RewardAccountStruct storage rewardAccountRecord;
-        rewardAccountRecord = rewardsRecord.rewardsMap[_sourceKey];
-        updateSponsorRewardRecords(rewardAccountRecord);
-    }
-
-    function updateSponsorRewardRecords( RewardAccountStruct storage rewardAccountRecord )
-        internal view returns (uint  rewards) {
-        rewards = updateRewardRecords( rewardAccountRecord );
+    function calculateStakingRewards( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 _transactionTimeStamp, uint256 _rate )
+    public pure returns (uint rewards) {
+        uint256 timeDiff = _lastUpdateTime > _transactionTimeStamp ? 0 : _transactionTimeStamp - _lastUpdateTime;
+        uint256 timeRateMultiplier = ( timeDiff * _stakedSPCoins * _rate ) / 100;
+        rewards = timeRateMultiplier/year;
         return rewards;
     }
 
-    function updateRecipientRewardRecords( RewardAccountStruct storage rewardAccountRecord )
-        internal  view returns (uint  rewards) {
-
-        rewards = updateRewardRecords( rewardAccountRecord );
-        return rewards;
-    }
-
-    function updateAgentRewardRecords( RewardAccountStruct storage rewardAccountRecord )
-        internal view returns (uint  rewards) {
-
-        rewards = updateRewardRecords( rewardAccountRecord );
-        return rewards;
-    }
-
-    function updateRewardRecords( RewardAccountStruct storage rewardAccountRecord )
-        internal view returns (uint  rewards) {
-
-        uint256[] storage rewardRateList = rewardAccountRecord.rewardRateList;
-        mapping(uint256 => RewardRateStruct) storage rewardRateMap = rewardAccountRecord.rewardRateMap;
-        // mapping(uint256 => RewardRateStruct) storagerewardRateMap;
-
-        for (uint idx = 0; idx < rewardRateList.length; idx++) {
-            uint rateIdx = rewardRateList[idx];
-            RewardRateStruct memory rewardRateRecord = rewardRateMap[rateIdx];
-            rewards += calculatedRateRewards(rewardRateRecord);
-        }
-        return rewards;
-   }
-
-    function calculatedRateRewards(RewardRateStruct memory rewardRateRecord)
-     public view returns(uint rewards) {
-        rewards += getCalculatedRewards(year, rewardRateRecord.rate, rewardRateRecord.stakingRewards);
-        return rewards;
-    }
-
-    function getCalculatedRewards(uint lastUpdateTime, uint interestRate, uint quantity)
-     public view returns(uint rewards) {
-        uint accountTimeInSecondeSinceUpdate = getTimeMultiplier(lastUpdateTime);
-        rewards = (quantity * accountTimeInSecondeSinceUpdate * interestRate) / 100;
-        return rewards;
-    }
-    */
 }
+

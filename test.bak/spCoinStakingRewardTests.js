@@ -1,13 +1,13 @@
 const { LOG_MODE } = require("../test/hardhatSetup/hhConnectSetup");
-
-const second = 1;
-const minute = second * 60;
-const hour = minute * 60;
-const day = hour * 24;
-const week = day * 7;
-const year = day * (365 + hour * 8);
-const month = year/12;
-const millennium = year * 1000;
+const { dateInSeconds,
+  second,
+  minute,
+  hour,
+  day,
+  week,
+  year,
+  month ,
+  millennium } = require("../prod/lib/utils/dateTime");
 
 spCoinConnectMethods
 // let spCoinAddMethods;

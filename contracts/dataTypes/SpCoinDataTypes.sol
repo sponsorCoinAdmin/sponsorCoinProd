@@ -4,7 +4,6 @@ pragma solidity ^0.8.18;
 // import "./KYC.sol";
 
 contract SpCoinDataTypes {
-
     uint256 internal defaultTSPCoinSupply = 1000000000;
     string  internal defaultName          = "sponsorCoin002";
     string  internal defaultSymbol        = "SPCT002";

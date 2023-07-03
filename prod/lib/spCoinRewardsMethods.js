@@ -19,7 +19,7 @@ class SpCoinRewardsMethods {
   }
 
   updateAccountStakingRewards = async(accountKey) => {
-    // spCoinLogger.logFunctionHeader("getStakingRewards(lastUpdateTime,  interestRate,  quantity)");
+    spCoinLogger.logFunctionHeader("getStakingRewards(lastUpdateTime,  interestRate,  quantity)");
     let stakingRewards = await this.spCoinContractDeployed.connect(this.signer).updateAccountStakingRewards(accountKey);
     console.log("=================================================================================================");
     // console.log("stakingRewards = ", stakingRewards);

@@ -11,15 +11,15 @@ contract Security is SpCoinDataTypes {
         rootAdmin = msg.sender;
     }
 
-    modifier onlyRootAdmin () {
-        require (msg.sender == rootAdmin, "Root Admin Security Access Violation");
-        _;
-    }
+    // modifier onlyRootAdmin () {
+    //     require (msg.sender == rootAdmin, "Root Admin Security Access Violation");
+    //     _;
+    // }
 
-    modifier onlyOwner (address _account) {
-        require (msg.sender == _account, "Owner Security Access Violation");
-        _;
-    }
+    // modifier onlyOwner (address _account) {
+    //     require (msg.sender == _account, "Owner Security Access Violation");
+    //     _;
+    // }
 
     modifier onlyOwnerOrRootAdmin (string memory callingMethod, address _account) {
         // console.log(callingMethod, " => onlyOwnerOrRootAdmin (", _account, msg.sender);
@@ -38,6 +38,17 @@ contract Security is SpCoinDataTypes {
                  msg.sender != _agentKey , "_accountKey, _recipientKey and _agentKey must be Mutually Exclusive)");
         _;
     }
+
+    /// @notice determines if address Record is inserted in accountKey array
+    /// @param _accountKey public accountKey validate Insertion
+    function isAccountInserted(address _accountKey)
+        public view returns (bool) {
+        if (accountMap[_accountKey].inserted) 
+            return true;
+        else
+            return false;
+    }
+
 
 /*
     modifier validateSufficientAccountBalance (uint256 _amount) {
