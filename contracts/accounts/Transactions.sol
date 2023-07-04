@@ -98,7 +98,7 @@ contract Transactions is RewardsManager {
         uint lastUpdateTime = agentRateRecord.lastUpdateTime;
         if ( lastUpdateTime != _transactionTimeStamp) {
             agentRateRecord.lastUpdateTime = _transactionTimeStamp;
-            uint agentRewards = calculateStakingRewards( _transAmount, lastUpdateTime, _transactionTimeStamp, _recipientRateKey );
+            // uint agentRewards = calculateStakingRewards( _transAmount, lastUpdateTime, _transactionTimeStamp, _recipientRateKey );
             // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA _transAmount                   = ", _transAmount);
             // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA agentRateRecord.lastUpdateTime = ", lastUpdateTime);
             // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA _transactionTimeStamp          = ", _transactionTimeStamp);
