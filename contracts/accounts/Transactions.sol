@@ -41,25 +41,11 @@ contract Transactions is StakingManager {
             concat("Insufficient Balance balanceOf[",toString(msg.sender),"] >= ", 
             toString(sponsorAmount)));
 
-        addBackDatedSponsorship2( _recipientKey, 
-                                    _recipientRateKey,
-                                    _agentKey,
-                                    _agentRateKey,
-                                    sponsorAmount,
-                                    _transactionTimeStamp );
-    }
-
-    function addBackDatedSponsorship2(address _recipientKey, 
-                                 uint _recipientRateKey,
-                                 address _agentKey,
-                                 uint _agentRateKey,
-                                 uint _sponsorAmount,
-                                 uint _transactionTimeStamp)
     // ToDo Replace this Removed to Save Memory
     // onlyOwnerOrRootAdmin("addBackDatedSponsorship", msg.sender)
-    internal 
+
     // validateSufficientAccountBalance(_sponsorAmount)
-    {
+    
         // console.log("msg.sender     ", msg.sender);
         // console.log("addBackDatedSponsorship(");
         // console.log("_recipientKey         = ", _recipientKey, ",");
@@ -72,66 +58,64 @@ contract Transactions is StakingManager {
         // uint256 blockTimeStamp = block.timestamp;
         // console.log("block.timestamp       = ", blockTimeStamp);
 
+        // AccountStruct storage sponsorRec = accountMap[msg.sender];
         StakingTransactionStruct memory transRec;
         transRec.insertionTime = _transactionTimeStamp;
-        transRec.stakingRewards = _sponsorAmount;
-        totalStakedSPCoins += _sponsorAmount;
+        transRec.stakingRewards = sponsorAmount;
+        totalStakedSPCoins += sponsorAmount;
 
         // console.log(JUNK_COUNTER++, "**** Transaction.sol:ADDING RATE REC = ",_agentRateKey, "ADDING TRANSACTION = ",_transAmount);
         if(_agentKey == burnAddress) {
-            RecipientRateStruct storage recipientRateRecord = getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
-            updateRecipientRateSponsorship(_recipientKey, _recipientRateKey, _sponsorAmount, _transactionTimeStamp);
-            recipientRateRecord.transactionList.push(transRec);    
+            RecipientRateStruct storage recipientRateRecord = updateRecipientRateSponsorship(_recipientKey, _recipientRateKey, sponsorAmount);
+            updateRecipientRateRewards2( recipientRateRecord, _recipientKey, _transactionTimeStamp);
+            recipientRateRecord.transactionList.push(transRec);
         }
         else { 
-            AgentRateStruct storage agentRateRecord = getAgentRateRecord(msg.sender, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
-            updateAgentRateSponsorship(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey, _sponsorAmount, _transactionTimeStamp);
+            AgentRateStruct storage agentRateRecord = updateAgentRateSponsorship(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey, sponsorAmount, _transactionTimeStamp);
             agentRateRecord.transactionList.push(transRec);
         }
 
         // console.log("BEFORE balanceOf     =", balanceOf[msg.sender]);
         // console.log("BEFORE _sponsorAmount ",_sponsorAmount);
-        balanceOf[msg.sender] -= _sponsorAmount;
+        balanceOf[msg.sender] -= sponsorAmount;
         // console.log("AFTER balanceOf     =", balanceOf[msg.sender]);
         // console.log("AFTER _sponsorAmount ",_sponsorAmount);
     }
 
-        function updateRecipientRateSponsorship(address _recipientKey, uint _recipientRateKey, uint256 _transAmount, uint _transactionTimeStamp)
-       internal returns (RecipientRateStruct storage) {
-        RecipientStruct storage recipientRecord = updateRecipientSponsorship(_recipientKey, _transAmount);
-        RecipientRateStruct storage recipientRateRecord = recipientRecord.recipientRateMap[_recipientRateKey];
-        uint lastUpdateTime = recipientRateRecord.lastUpdateTime;
-        recipientRateRecord.lastUpdateTime = _transactionTimeStamp;
-        if ( recipientRateRecord.inserted && lastUpdateTime < _transactionTimeStamp) {
-            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _transAmount                   = ", _transAmount);
-            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR agentRateRecord.lastUpdateTime = ", lastUpdateTime);
-            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _transactionTimeStamp          = ", _transactionTimeStamp);
-            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _recipientRateKey              = ", _recipientRateKey);
-            uint recipientRewards = calculateStakingRewards( recipientRateRecord.stakedSPCoins, lastUpdateTime, _transactionTimeStamp, _recipientRateKey );
-            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR Recipient Calculated Rewards   = ", recipientRewards);
-
-            // depositStakingRewards( RECIPIENT, _sponsorKey, _recipientKey, _recipientRate, _agentKey, _agentRate, recipientRewards);
-            /**/
-            addBackDatedSponsorship2(
-                                    _recipientKey, 
-                                    _recipientRateKey,
-                                    burnAddress,
-                                    0,
-                                    recipientRewards,
-                                    _transactionTimeStamp); 
-            /**/
-        } else recipientRateRecord.inserted = true;
+    function updateRecipientRateSponsorship(address _recipientKey, uint _recipientRateKey, uint256 _transAmount )
+        internal returns (RecipientRateStruct storage) {
+        updateRecipientSponsorship(_recipientKey, _transAmount);
+        RecipientRateStruct storage recipientRateRecord = getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
+        // updateRecipientRateRewards( recipientRateRecord, _transactionTimeStamp);
         recipientRateRecord.stakedSPCoins += _transAmount;
         return recipientRateRecord;
     }
 
+    function updateRecipientRateRewards2(RecipientRateStruct storage recipientRateRecord, address _recipientKey, uint _transactionTimeStamp)
+        internal returns (RecipientRateStruct storage) {
 
-    
+        uint lastUpdateTime = recipientRateRecord.lastUpdateTime;
+        uint recipientRate = recipientRateRecord.recipientRate;
+        recipientRateRecord.lastUpdateTime = _transactionTimeStamp;
+        if ( recipientRateRecord.inserted && lastUpdateTime < _transactionTimeStamp) {
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR agentRateRecord.lastUpdateTime       = ", lastUpdateTime);
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _transactionTimeStamp                = ", _transactionTimeStamp);
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR recipientRateRecord.recipientRateKey = ",recipientRateRecord.recipientRateKey);
+            uint recipientRewards = calculateStakingRewards( recipientRateRecord.stakedSPCoins, lastUpdateTime, _transactionTimeStamp, recipientRateRecord.recipientRate );
+           // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR Recipient Calculated Rewards         = ", recipientRewards);
+
+            depositStakingRewards( RECIPIENT, msg.sender, _recipientKey, recipientRate, burnAddress, 0, recipientRewards);
+        } else recipientRateRecord.inserted = true;
+        return recipientRateRecord;
+    }
+
+
+
     function updateAgentRateSponsorship(address _recipientKey,
     uint _recipientRateKey, address _agentKey, uint _agentRateKey, uint256 _transAmount, uint _transactionTimeStamp)
        internal returns (AgentRateStruct storage) {
-        AgentStruct storage agentRecord = updateAgentSponsorship(_recipientKey, _recipientRateKey, _agentKey, _transAmount, _transactionTimeStamp);
-        AgentRateStruct storage agentRateRecord = agentRecord.agentRateMap[_agentRateKey];
+       AgentRateStruct storage agentRateRecord = getAgentRateRecord(msg.sender, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
+       updateAgentSponsorship(_recipientKey, _recipientRateKey, _agentKey, _transAmount);
         uint lastUpdateTime = agentRateRecord.lastUpdateTime;
         if ( lastUpdateTime != _transactionTimeStamp) {
             agentRateRecord.lastUpdateTime = _transactionTimeStamp;
@@ -146,9 +130,9 @@ contract Transactions is StakingManager {
         return agentRateRecord;
     }
 
-    function updateAgentSponsorship(address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _transAmount, uint _transactionTimeStamp)
+    function updateAgentSponsorship(address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _transAmount )
        internal returns (AgentStruct storage) {
-        RecipientRateStruct storage recipientRateRecord = updateRecipientRateSponsorship(_recipientKey, _recipientRateKey, _transAmount, _transactionTimeStamp);
+        RecipientRateStruct storage recipientRateRecord = updateRecipientRateSponsorship(_recipientKey, _recipientRateKey, _transAmount);
         AgentStruct storage agentRecord = recipientRateRecord.agentMap[_agentKey];
         agentRecord.stakedSPCoins += _transAmount;
         return agentRecord;
@@ -158,6 +142,7 @@ contract Transactions is StakingManager {
        internal returns (RecipientStruct storage) {
         AccountStruct storage sponsorRec = updateSponsorTransaction(_transAmount);
         RecipientStruct storage recipientRecord = sponsorRec.recipientMap[_recipientKey];
+        // RecipientStruct storage recipientRecord = getRecipientRecord(msg.sender, _recipientKey);
         recipientRecord.stakedSPCoins += _transAmount;
         return recipientRecord;
     }
