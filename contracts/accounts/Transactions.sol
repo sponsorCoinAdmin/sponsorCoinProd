@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 /// @title ERC20 Contract
-import "../rewardsManagement/StakingManager.sol";
+import "../rewardsManagement/RewardsManager.sol";
 
-contract Transactions is StakingManager {
+contract Transactions is RewardsManager {
     constructor() { }
 
     function addSponsorship(address _recipientKey, 
@@ -87,24 +87,6 @@ contract Transactions is StakingManager {
         updateRecipientSponsorship(_recipientKey, _transAmount);
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
         recipientRateRecord.stakedSPCoins += _transAmount;
-        return recipientRateRecord;
-    }
-
-    function updateRecipientRateRewards(RecipientRateStruct storage recipientRateRecord, address _recipientKey, uint _transactionTimeStamp)
-        internal returns (RecipientRateStruct storage) {
-
-        uint lastUpdateTime = recipientRateRecord.lastUpdateTime;
-        uint recipientRate = recipientRateRecord.recipientRate;
-        recipientRateRecord.lastUpdateTime = _transactionTimeStamp;
-        if ( recipientRateRecord.inserted && lastUpdateTime < _transactionTimeStamp) {
-            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR agentRateRecord.lastUpdateTime       = ", lastUpdateTime);
-            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _transactionTimeStamp                = ", _transactionTimeStamp);
-            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR recipientRateRecord.recipientRateKey = ",recipientRateRecord.recipientRateKey);
-            uint recipientRewards = calculateStakingRewards( recipientRateRecord.stakedSPCoins, lastUpdateTime, _transactionTimeStamp, recipientRateRecord.recipientRate );
-           // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR Recipient Calculated Rewards         = ", recipientRewards);
-
-            depositStakingRewards( RECIPIENT, msg.sender, _recipientKey, recipientRate, burnAddress, 0, recipientRewards);
-        } else recipientRateRecord.inserted = true;
         return recipientRateRecord;
     }
 

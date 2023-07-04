@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 /// @title ERC20 Contract
-import "../accounts/AgentRates.sol";
+// import "../accounts/AgentRates.sol";
+import "./StakingManager.sol";
 
-contract RewardsManager is AgentRates{
+contract RewardsManager is StakingManager{
 
     constructor() {
     }
@@ -79,6 +80,25 @@ contract RewardsManager is AgentRates{
     }
 
 ///////////////////////////////////////////////////////////////////////////////////
+
+    function updateRecipientRateRewards(RecipientRateStruct storage recipientRateRecord, address _recipientKey, uint _transactionTimeStamp)
+        internal returns (RecipientRateStruct storage) {
+
+        uint lastUpdateTime = recipientRateRecord.lastUpdateTime;
+        uint recipientRate = recipientRateRecord.recipientRate;
+        recipientRateRecord.lastUpdateTime = _transactionTimeStamp;
+        if ( recipientRateRecord.inserted && lastUpdateTime < _transactionTimeStamp) {
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR agentRateRecord.lastUpdateTime       = ", lastUpdateTime);
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _transactionTimeStamp                = ", _transactionTimeStamp);
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR recipientRateRecord.recipientRateKey = ",recipientRateRecord.recipientRateKey);
+            uint recipientRewards = calculateStakingRewards( recipientRateRecord.stakedSPCoins, lastUpdateTime, _transactionTimeStamp, recipientRateRecord.recipientRate );
+           // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR Recipient Calculated Rewards         = ", recipientRewards);
+
+            depositStakingRewards( RECIPIENT, msg.sender, _recipientKey, recipientRate, burnAddress, 0, recipientRewards);
+        } else recipientRateRecord.inserted = true;
+        return recipientRateRecord;
+    }
+
     function calculateStakingRewards( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 _transactionTimeStamp, uint256 _rate )
     public pure returns (uint rewards) {
         uint256 timeDiff = _lastUpdateTime > _transactionTimeStamp ? 0 : _transactionTimeStamp - _lastUpdateTime;

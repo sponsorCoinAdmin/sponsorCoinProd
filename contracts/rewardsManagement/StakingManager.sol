@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 /// @title ERC20 Contract
-import "./RewardsManager.sol";
+// import "./RewardsManager.sol";
+import "../accounts/AgentRates.sol";
 
-
-contract StakingManager is RewardsManager{
+contract StakingManager is AgentRates{
     constructor() {
     }
 
