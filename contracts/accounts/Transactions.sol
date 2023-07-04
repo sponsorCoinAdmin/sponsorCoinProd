@@ -67,7 +67,7 @@ contract Transactions is StakingManager {
         // console.log(JUNK_COUNTER++, "**** Transaction.sol:ADDING RATE REC = ",_agentRateKey, "ADDING TRANSACTION = ",_transAmount);
         if(_agentKey == burnAddress) {
             RecipientRateStruct storage recipientRateRecord = updateRecipientRateSponsorship(_recipientKey, _recipientRateKey, sponsorAmount);
-            updateRecipientRateRewards2( recipientRateRecord, _recipientKey, _transactionTimeStamp);
+            updateRecipientRateRewards( recipientRateRecord, _recipientKey, _transactionTimeStamp);
             recipientRateRecord.transactionList.push(transRec);
         }
         else { 
@@ -86,12 +86,11 @@ contract Transactions is StakingManager {
         internal returns (RecipientRateStruct storage) {
         updateRecipientSponsorship(_recipientKey, _transAmount);
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
-        // updateRecipientRateRewards( recipientRateRecord, _transactionTimeStamp);
         recipientRateRecord.stakedSPCoins += _transAmount;
         return recipientRateRecord;
     }
 
-    function updateRecipientRateRewards2(RecipientRateStruct storage recipientRateRecord, address _recipientKey, uint _transactionTimeStamp)
+    function updateRecipientRateRewards(RecipientRateStruct storage recipientRateRecord, address _recipientKey, uint _transactionTimeStamp)
         internal returns (RecipientRateStruct storage) {
 
         uint lastUpdateTime = recipientRateRecord.lastUpdateTime;
@@ -109,8 +108,6 @@ contract Transactions is StakingManager {
         return recipientRateRecord;
     }
 
-
-
     function updateAgentRateSponsorship(address _recipientKey,
     uint _recipientRateKey, address _agentKey, uint _agentRateKey, uint256 _transAmount, uint _transactionTimeStamp)
        internal returns (AgentRateStruct storage) {
@@ -124,7 +121,7 @@ contract Transactions is StakingManager {
             // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA agentRateRecord.lastUpdateTime = ", lastUpdateTime);
             // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA _transactionTimeStamp          = ", _transactionTimeStamp);
             // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA _recipientRateKey              = ", _recipientRateKey);
-            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA Agent Calculated Rewards       = ", agentRewards);
+            // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA Agent Calculated Rewards       = ", agentRewards);
         }
         agentRateRecord.stakedSPCoins += _transAmount;
         return agentRateRecord;

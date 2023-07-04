@@ -78,6 +78,7 @@ contract RewardsManager is AgentRates{
         return rewardsString ;
     }
 
+///////////////////////////////////////////////////////////////////////////////////
     function calculateStakingRewards( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 _transactionTimeStamp, uint256 _rate )
     public pure returns (uint rewards) {
         uint256 timeDiff = _lastUpdateTime > _transactionTimeStamp ? 0 : _transactionTimeStamp - _lastUpdateTime;
