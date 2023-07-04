@@ -38,6 +38,7 @@ contract RewardsManager is StakingManager{
         // console.log("updateRecipientRateListRewards(recipientRecord)");
         uint256[] storage recipientRateList = recipientRecord.recipientRateList;
         mapping(uint256 => RecipientRateStruct) storage recipientRateMap = recipientRecord.recipientRateMap;
+        address recipientKey = recipientRecord.recipientKey;
         rewardsString = concat("RECIPIENT_RATE_LIST_LENGTH:", toString(recipientRateList.length));
         for (uint idx = 0; idx < recipientRateList.length; idx++) {
 
@@ -51,6 +52,7 @@ contract RewardsManager is StakingManager{
             string memory tmpRewards;
             (rewards, tmpRewards) =  updateRecipientRateRewards(recipientRateMap[recipientMapIdx], _transactionTimeStamp);
             tmpRewards = getStakingRewardsRateDataString( stakedSPCoins, lastUpdateTime, _transactionTimeStamp, recipientRate );
+            // rewards = updateRecipientRateRewards(recipientRateRecord, recipientKey, _transactionTimeStamp);
             rewardsString = concat(rewardsString, "\n", tmpRewards);
         }
         return (rewards, rewardsString) ;
