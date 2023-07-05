@@ -11,7 +11,7 @@ contract RewardsManager is StakingManager{
 
     function updateAccountStakingRewards( address _sourceKey )
     public view returns (uint256 totalRewards){
-        console.log("SOL 1.0 -------------------------------------------");
+        // console.log("SOL 1.0 -------------------------------------------");
         console.log("SOL 1.1 updateAccountStakingRewards(", toString(_sourceKey), ")");
         uint256 currentTimeStamp = block.timestamp;
         AccountStruct storage account = accountMap[_sourceKey];
@@ -29,13 +29,13 @@ contract RewardsManager is StakingManager{
             // rewardsString = concat(rewardsString, "\n", tmpRewards);
         }
         console.log("SOL 1.3 totalRewards = ", totalRewards);
-        console.log("SOL 1.4 -------------------------------------------");
+        // console.log("SOL 1.4 -------------------------------------------");
         return totalRewards ;
     }
 
     function updateRecipientRateListRewards( RecipientStruct storage recipientRecord, uint256 _transactionTimeStamp )
     internal view returns ( uint rewards ) {
-        // console.log("updateRecipientRateListRewards(recipientRecord)");
+        console.log("updateRecipientRateListRewards(recipientRecord)");
         uint256[] storage recipientRateList = recipientRecord.recipientRateList;
         mapping(uint256 => RecipientRateStruct) storage recipientRateMap = recipientRecord.recipientRateMap;
         for (uint idx = 0; idx < recipientRateList.length; idx++) {
@@ -48,7 +48,7 @@ contract RewardsManager is StakingManager{
 /*
     function getStakingRewardsRateDataString( RecipientStruct storage recipientRecord, uint256 _transactionTimeStamp )
     internal view returns (string memory rewardsString) {
-        console.log("SOL=> 2.0updateRecipientRateListRewards(recipientRecord)");
+        // console.log("SOL=> 2.0updateRecipientRateListRewards(recipientRecord)");
         uint256[] storage recipientRateList = recipientRecord.recipientRateList;
         mapping(uint256 => RecipientRateStruct) storage recipientRateMap = recipientRecord.recipientRateMap;
         rewardsString = concat("RECIPIENT_RATE_LIST_LENGTH:", toString(recipientRateList.length));
@@ -69,7 +69,7 @@ contract RewardsManager is StakingManager{
 
     function getStakingRewardsRateRecordString( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 _transactionTimeStamp, uint256 _rate )
     public view returns ( string memory rewardsString ) {
-        console.log("SOL=>3.0 getStakingRewardsRateRecordString(_stakedSPCoins, _lastUpdateTime, _transactionTimeStamp, _rate)");
+        // console.log("SOL=>3.0 getStakingRewardsRateRecordString(_stakedSPCoins, _lastUpdateTime, _transactionTimeStamp, _rate)");
         uint256 timeDiff = _lastUpdateTime > _transactionTimeStamp ? 0 : _transactionTimeStamp - _lastUpdateTime;
         uint256 timeRateMultiplier = ( timeDiff * _stakedSPCoins * _rate ) / 100;
         uint256 rewards = calculateStakingRewards( _stakedSPCoins, _lastUpdateTime, _transactionTimeStamp, _rate );
@@ -83,7 +83,7 @@ contract RewardsManager is StakingManager{
         rewardsString = concat(rewardsString, "\nTIME_RATE_MULTIPLIER:",       toString(timeRateMultiplier));
         rewardsString = concat(rewardsString, "\nYEAR_IN_SECONDS:",            toString(year));
         rewardsString = concat(rewardsString, "\nCALCULATED_STAKING_REWARDS:", toString(rewards));
-        console.log("SOL=>3.1 rewardsString = ", rewardsString); 
+        // console.log("SOL=>3.1 rewardsString = ", rewardsString); 
         return rewardsString ;
     }
 */
@@ -108,12 +108,12 @@ contract RewardsManager is StakingManager{
         uint recipientRate = recipientRateRecord.recipientRate;
         recipientRateRecord.lastUpdateTime = _transactionTimeStamp;
         if ( recipientRateRecord.inserted && lastUpdateTime < _transactionTimeStamp) {
-            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR agentRateRecord.lastUpdateTime       = ", lastUpdateTime);
-            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _transactionTimeStamp                = ", _transactionTimeStamp);
-            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR recipientRateRecord.recipientRateKey = ",recipientRateRecord.recipientRateKey);
+            console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR agentRateRecord.lastUpdateTime  = ", lastUpdateTime);
+            console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _transactionTimeStamp           = ", _transactionTimeStamp);
+            console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR recipientRate                   = ", recipientRate);
             uint recipientRewards = calculateStakingRewards( recipientRateRecord.stakedSPCoins, lastUpdateTime, _transactionTimeStamp, recipientRateRecord.recipientRate );
             totalRewards += recipientRewards;
-           // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR Recipient Calculated Rewards         = ", recipientRewards);
+           console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR Recipient Calculated Rewards     = ", recipientRewards);
 
             depositStakingRewards( RECIPIENT, msg.sender, _recipientKey, recipientRate, burnAddress, 0, recipientRewards);
         } else recipientRateRecord.inserted = true;
@@ -131,7 +131,7 @@ contract RewardsManager is StakingManager{
         console.log("SOL=>4.5 timeDiff = ", timeDiff); 
         uint256 timeRateMultiplier = ( timeDiff * _stakedSPCoins * _rate ) / 100;
         rewards = timeRateMultiplier/year;
-        console.log("SOL=>4.5 rewardsString = ", rewards); 
+        console.log("SOL=>4.6 rewardsString = ", rewards); 
 
         return rewards;
     }

@@ -369,7 +369,7 @@ describe("spCoinContract", function () {
   );
 */
 
-  await spCoinRewardsMethods.updateAccountStakingRewards( SPONSOR_ACCOUNT_KEYS[0] );
+  // await spCoinRewardsMethods.updateAccountStakingRewards( SPONSOR_ACCOUNT_KEYS[0] );
 
   // console.log("********************************************************************************");
   console.log("\n\n*** AFTER CREATE ******************************************************************************************************\n\n");
