@@ -45,7 +45,59 @@ contract RewardsManager is StakingManager{
         return rewards ;
     }
 
-/*
+    function updateRecipientRateRewards( RecipientRateStruct storage _recipientRateRecord, uint256 _transactionTimeStamp )
+    internal view returns ( uint rewards ) {
+        // console.log("updateRecipientRateListRewards(_recipientRateRecord)");
+        uint256 stakedSPCoins    = _recipientRateRecord.stakedSPCoins;
+        uint256 recipientRate    = _recipientRateRecord.recipientRate;
+        uint256 lastUpdateTime   = _recipientRateRecord.lastUpdateTime;
+        rewards = calculateStakingRewards( stakedSPCoins, lastUpdateTime, _transactionTimeStamp, recipientRate );
+        // console.log("SOL=>4.1 rewardsString = ", rewards); 
+        return rewards ;
+    }
+
+///////////////////////////////////////////////////////////////////////////////////
+
+    function updateRecipientRateRewards(RecipientRateStruct storage recipientRateRecord, address _recipientKey, uint _transactionTimeStamp)
+        internal returns (uint totalRewards) {
+            console.log("updateRecipientRateRewards(recipientRateRecord, address _recipientKey, uint _transactionTimeStamp");
+
+        uint lastUpdateTime = recipientRateRecord.lastUpdateTime;
+        uint recipientRate = recipientRateRecord.recipientRate;
+        recipientRateRecord.lastUpdateTime = _transactionTimeStamp;
+        if ( recipientRateRecord.inserted && lastUpdateTime < _transactionTimeStamp) {
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR agentRateRecord.lastUpdateTime  = ", lastUpdateTime);
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _transactionTimeStamp           = ", _transactionTimeStamp);
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR recipientRate                   = ", recipientRate);
+            uint recipientRewards = calculateStakingRewards( recipientRateRecord.stakedSPCoins, lastUpdateTime, _transactionTimeStamp, recipientRateRecord.recipientRate );
+            totalRewards += recipientRewards;
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR Recipient Calculated Rewards     = ", recipientRewards);
+
+            depositStakingRewards( RECIPIENT, msg.sender, _recipientKey, recipientRate, burnAddress, 0, recipientRewards);
+        } else recipientRateRecord.inserted = true;
+        return totalRewards;
+    }
+
+    function calculateStakingRewards( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 _transactionTimeStamp, uint256 _rate )
+    public view returns (uint rewards) {
+        // console.log("SOL=>4.0 calculateStakingRewards:_stakedSPCoins = ", _stakedSPCoins); 
+        // console.log("SOL=>4.1 calculateStakingRewards:_lastUpdateTime = ", _lastUpdateTime); 
+        // console.log("SOL=>4.2 _transactionTimeStamp = ", _transactionTimeStamp); 
+        // console.log("SOL=>4.3 calculateStakingRewards:_rate = ", _rate); 
+        // console.log("SOL=>4.4 calculateStakingRewards:year = ", year); 
+        uint256 timeDiff = _lastUpdateTime > _transactionTimeStamp ? 0 : _transactionTimeStamp - _lastUpdateTime;
+        // console.log("SOL=>4.5 calculateStakingRewards:timeDiff = ", timeDiff); 
+        uint256 timeRateMultiplier = ( timeDiff * _stakedSPCoins * _rate ) / 100;
+        rewards = timeRateMultiplier/year;
+        // console.log("SOL=>4.5 calculateStakingRewards:timeRateMultiplier = ", timeRateMultiplier); 
+        // console.log("SOL=>4.6 calculateStakingRewards:rewardsString = ", rewards); 
+
+        return rewards;
+    }
+
+    //////////////////////////////////////////////////////////////////////////////
+
+    /*
     function getStakingRewardsRateDataString( RecipientStruct storage recipientRecord, uint256 _transactionTimeStamp )
     internal view returns (string memory rewardsString) {
         // console.log("SOL=> 2.0updateRecipientRateListRewards(recipientRecord)");
@@ -88,54 +140,6 @@ contract RewardsManager is StakingManager{
     }
 */
 
-    function updateRecipientRateRewards( RecipientRateStruct storage _recipientRateRecord, uint256 _transactionTimeStamp )
-    internal view returns ( uint rewards ) {
-        // console.log("updateRecipientRateListRewards(_recipientRateRecord)");
-        uint256 stakedSPCoins    = _recipientRateRecord.stakedSPCoins;
-        uint256 recipientRate    = _recipientRateRecord.recipientRate;
-        uint256 lastUpdateTime   = _recipientRateRecord.lastUpdateTime;
-        rewards = calculateStakingRewards( stakedSPCoins, lastUpdateTime, _transactionTimeStamp, recipientRate );
-        // console.log("SOL=>4.1 rewardsString = ", rewards); 
-        return rewards ;
-    }
 
-///////////////////////////////////////////////////////////////////////////////////
-
-    function updateRecipientRateRewards(RecipientRateStruct storage recipientRateRecord, address _recipientKey, uint _transactionTimeStamp)
-        internal returns (uint totalRewards) {
-            console.log("updateRecipientRateRewards(recipientRateRecord, address _recipientKey, uint _transactionTimeStamp");
-
-        uint lastUpdateTime = recipientRateRecord.lastUpdateTime;
-        uint recipientRate = recipientRateRecord.recipientRate;
-        recipientRateRecord.lastUpdateTime = _transactionTimeStamp;
-        if ( recipientRateRecord.inserted && lastUpdateTime < _transactionTimeStamp) {
-            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR agentRateRecord.lastUpdateTime  = ", lastUpdateTime);
-            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _transactionTimeStamp           = ", _transactionTimeStamp);
-            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR recipientRate                   = ", recipientRate);
-            uint recipientRewards = calculateStakingRewards( recipientRateRecord.stakedSPCoins, lastUpdateTime, _transactionTimeStamp, recipientRateRecord.recipientRate );
-            totalRewards += recipientRewards;
-        //    console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR Recipient Calculated Rewards     = ", recipientRewards);
-
-            depositStakingRewards( RECIPIENT, msg.sender, _recipientKey, recipientRate, burnAddress, 0, recipientRewards);
-        } else recipientRateRecord.inserted = true;
-        return totalRewards;
-    }
-
-    function calculateStakingRewards( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 _transactionTimeStamp, uint256 _rate )
-    public view returns (uint rewards) {
-        console.log("SOL=>4.0 calculateStakingRewards:_stakedSPCoins = ", _stakedSPCoins); 
-        console.log("SOL=>4.1 calculateStakingRewards:_lastUpdateTime = ", _lastUpdateTime); 
-        console.log("SOL=>4.2 _transactionTimeStamp = ", _transactionTimeStamp); 
-        console.log("SOL=>4.3 calculateStakingRewards:_rate = ", _rate); 
-        console.log("SOL=>4.4 calculateStakingRewards:year = ", year); 
-        uint256 timeDiff = _lastUpdateTime > _transactionTimeStamp ? 0 : _transactionTimeStamp - _lastUpdateTime;
-        console.log("SOL=>4.5 calculateStakingRewards:timeDiff = ", timeDiff); 
-        uint256 timeRateMultiplier = ( timeDiff * _stakedSPCoins * _rate ) / 100;
-        rewards = timeRateMultiplier/year;
-        console.log("SOL=>4.6 calculateStakingRewards:rewardsString = ", rewards); 
-
-        return rewards;
-    }
 
 }
-
