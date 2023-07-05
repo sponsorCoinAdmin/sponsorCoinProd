@@ -22,29 +22,29 @@ contract StakingManager is AgentRates{
                                     address _recipientKey, uint _recipientRate,
                                     address _agentKey, uint _agentRate, uint _amount)
         public returns ( uint ) {
-        // console.log(" _accountType, address _sponsorKey, _recipientKey, _recipientRate, _agentKey, _agentRate, _amount");
+        console.log(" _accountType, address _sponsorKey, _recipientKey, _recipientRate, _agentKey, _agentRate, _amount");
         // console.log("SOL=>2.1 _accountType   = ", getAccountTypeString(_accountType));
         // console.log("SOL=>2.1 _sponsorKey    = ", _sponsorKey);
         // console.log("SOL=>2.2 _recipientKey  = ", _recipientKey);
         // console.log("SOL=>2.3 _recipientRate = ", _recipientRate);
         // console.log("SOL=>2.4 _agentKey      = ", _agentKey);
         // console.log("SOL=>2.4 _agentRate     = ", _agentRate);
-        // console.log("SOL=>2.4 _amount        = ", _amount);
+        console.log("SOL=>2.4 _amount        = ", _amount);
 
         address sourceKey = _recipientKey;
         address depositKey = _agentKey;
         uint rate = 0;
         uint percentDiviser = decimalMultiplier/100;
-        // console.log("decimalMultiplier",toString(decimalMultiplier));
+        // console.log("decimalMultiplier", decimalMultiplier);
         string memory errMsg = "";
 
         if (_accountType == SPONSOR) { 
             _recipientRate  = annualInflation;
             errMsg = buildErrString(_accountType, _recipientKey, " NOT FOUND FOR SPONSOR ACCOUNT ",  _sponsorKey);
             require (sponsorHasRecipient( _recipientKey, _sponsorKey ), errMsg);
-// console.log("SPONSOR BEFORE _amount",toString( _amount ));
+// console.log("SPONSOR BEFORE _amount",  _amount );
             _amount -= (_amount * annualInflation) / 100;
-// console.log("SPONSOR AFTER _amount",toString( _amount ));
+// console.log("SPONSOR AFTER _amount",  _amount );
             sourceKey = _recipientKey;
             depositKey = _sponsorKey;
             rate = _recipientRate;
@@ -52,9 +52,9 @@ contract StakingManager is AgentRates{
              errMsg = buildErrString(_accountType, _recipientKey, " NOT FOUND FOR SPONSOR ACCOUNT ", _sponsorKey);
              require (recipientHasSponsor( _sponsorKey, _recipientKey ), errMsg);
             uint sponsorAmount = ((_amount * decimalMultiplier)/_recipientRate) / percentDiviser;
-// console.log("RECIPIENT BEFORE _amount",toString( _amount ));
-            _amount -= (_amount * decimalMultiplier) / ( _recipientRate * decimalMultiplier );
-// console.log("RECIPIENT AFTER _amount",toString(_amount));
+// console.log("RECIPIENT BEFORE _amount", _amount );
+//             _amount -= (_amount * decimalMultiplier) / ( _recipientRate * decimalMultiplier );
+// console.log("RECIPIENT AFTER _amount", _amount );
             depositStakingRewards(SPONSOR, _sponsorKey,
                                 _recipientKey, _recipientRate,
                                 _agentKey, _agentRate, sponsorAmount);
@@ -65,7 +65,7 @@ contract StakingManager is AgentRates{
              errMsg = buildErrString(_accountType,  _recipientKey, " NOT FOUND FOR AGENT ACCOUNT ",  _agentKey);
              require (agentHasRecipient( _recipientKey, _agentKey ), errMsg);
             uint recipientAmount = ((_amount * decimalMultiplier)/_agentRate) / percentDiviser;
-// console.log("AGENT _amount",toString(_amount));
+console.log("AGENT _amount", _amount );
             depositStakingRewards(RECIPIENT, _sponsorKey,
                                 _recipientKey, _recipientRate,
                                 _agentKey, _agentRate, recipientAmount);
@@ -188,7 +188,7 @@ contract StakingManager is AgentRates{
     function getRewardRateRecords(RewardAccountStruct storage _rewardAccountRecord)
         internal  view returns (string memory memoryRewards) {
 // console.log("SOL=>18 getRewardRateRecords(RewardAccountStruct storage _rewardAccountRecord)");
-        
+
         uint256[] storage rewardRateList = _rewardAccountRecord.rewardRateList;
 // console.log("SOL=>18.1 BEFORE memoryRewards", memoryRewards);
 // console.log("*** ISSUE HERE SOL=>18.2 rewardRateList.length", rewardRateList.length);
@@ -201,8 +201,8 @@ contract StakingManager is AgentRates{
             RewardsTransactionStruct[] storage rewardTransactionList = rewardRateRecord.rewardTransactionList;
 
             memoryRewards = concat(memoryRewards, ",", toString(_rewardAccountRecord.stakingRewards));
-                // console.log("SOL=> _rewardAccountRecord.rewardTransactionList.length         = ", _rewardAccountRecord.rewardTransactionList.length);
-                // console.log("SOL=> _rewardAccountRecord.rewardTransactionList.stakingRewards = ", _rewardAccountRecord.stakingRewards);
+            // console.log("SOL=> _rewardAccountRecord.rewardTransactionList.length         = ", _rewardAccountRecord.rewardTransactionList.length);
+            // console.log("SOL=> _rewardAccountRecord.rewardTransactionList.stakingRewards = ", _rewardAccountRecord.stakingRewards);
             memoryRewards = concat(memoryRewards, "\nRATE:", toString(rate));
             memoryRewards = concat(memoryRewards, ",", toString(rewardRateRecord.stakingRewards));
 
@@ -215,7 +215,7 @@ contract StakingManager is AgentRates{
         }
         // console.log("SOL=>21 AFTER memoryRewards", memoryRewards);
         // console.log("*** END SOL ******************************************************************************");
-// console.log("SOL=>18.6 stringRewards", memoryRewards);
+        // console.log("SOL=>18.6 stringRewards", memoryRewards);
         return memoryRewards;
     }
 
@@ -235,6 +235,5 @@ contract StakingManager is AgentRates{
         rewardTransactionList.push(rewardsTransactionRecord);
         // console.log("SOL=>14 AFTER rewardTransactionList.length = ", rewardTransactionList.length);
     }
-
 
 }

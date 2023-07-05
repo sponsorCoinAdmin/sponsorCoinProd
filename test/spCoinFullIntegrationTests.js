@@ -375,10 +375,10 @@ describe("spCoinContract", function () {
   console.log("\n\n*** AFTER CREATE ******************************************************************************************************\n\n");
   // console.log("********************************************************************************");
 
-  // let getBody = true;
-  // let spCoinRecords = await spCoinReadMethods.getSPCoinHeaderRecord(getBody);
+  let getBody = true;
+  let spCoinRecords = await spCoinReadMethods.getSPCoinHeaderRecord(getBody);
 
-  // spCoinLogger.logJSONTree(spCoinRecords);
+  spCoinLogger.logJSONTree(spCoinRecords);
 
   // let accountRecords = await spCoinReadMethods.getAccountRecords()
   // spCoinLogger.logJSONTree(accountRecords);
@@ -398,7 +398,7 @@ describe("spCoinContract", function () {
   console.log("*** AFTER DELETE ***************************************************************");
   console.log("********************************************************************************");
  
-    spCoinLogger.logJSONTree(await spCoinReadMethods.getAccountRecords());
+    // spCoinLogger.logJSONTree(await spCoinReadMethods.getAccountRecords());
 
 
     // AccountListSize = (await getAccountListSize()).toNumber();
