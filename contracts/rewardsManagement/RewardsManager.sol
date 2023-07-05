@@ -11,13 +11,13 @@ contract RewardsManager is StakingManager{
 
     function updateAccountStakingRewards( address _sourceKey )
     public view returns (uint256 totalRewards){
-        // console.log("SOL 1.0 -------------------------------------------");
-        // console.log("SOL 1.1 updateAccountStakingRewards(", toString(_sourceKey), ")");
+        console.log("SOL 1.0 -------------------------------------------");
+        console.log("SOL 1.1 updateAccountStakingRewards(", toString(_sourceKey), ")");
         uint256 currentTimeStamp = block.timestamp;
         AccountStruct storage account = accountMap[_sourceKey];
         address[] storage recipientKeys = account.recipientAccountList;             // If Sponsor List of Recipient Accounts
         mapping(address => RecipientStruct) storage recipientMap = account.recipientMap;
-        // console.log("SOL 1.2 recipientKeys.length = ",recipientKeys.length);
+        console.log("SOL 1.2 recipientKeys.length = ",recipientKeys.length);
         // rewardsString = concat("SOL 1.2 RECIPIENT_KEYS_LENGTH:", toString(recipientKeys.length));
         for (uint idx = 0; idx < recipientKeys.length; idx++) {
             // rewardsString = concat(rewardsString, "\nRECIPIENT_IDX:", toString(idx));
@@ -28,8 +28,8 @@ contract RewardsManager is StakingManager{
             
             // rewardsString = concat(rewardsString, "\n", tmpRewards);
         }
-        // console.log("SOL 1.3 totalRewards = ", totalRewards);
-        // console.log("SOL 1.4 -------------------------------------------");
+        console.log("SOL 1.3 totalRewards = ", totalRewards);
+        console.log("SOL 1.4 -------------------------------------------");
         return totalRewards ;
     }
 
@@ -122,16 +122,16 @@ contract RewardsManager is StakingManager{
 
     function calculateStakingRewards( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 _transactionTimeStamp, uint256 _rate )
     public view returns (uint rewards) {
-        // console.log("SOL=>4.0 _stakedSPCoins = ", _stakedSPCoins); 
-        // console.log("SOL=>4.1 _lastUpdateTime = ", _lastUpdateTime); 
-        // console.log("SOL=>4.2 _transactionTimeStamp = ", _transactionTimeStamp); 
-        // console.log("SOL=>4.3 _rate = ", _rate); 
-        // console.log("SOL=>4.4 year = ", year); 
+        console.log("SOL=>4.0 _stakedSPCoins = ", _stakedSPCoins); 
+        console.log("SOL=>4.1 _lastUpdateTime = ", _lastUpdateTime); 
+        console.log("SOL=>4.2 _transactionTimeStamp = ", _transactionTimeStamp); 
+        console.log("SOL=>4.3 _rate = ", _rate); 
+        console.log("SOL=>4.4 year = ", year); 
         uint256 timeDiff = _lastUpdateTime > _transactionTimeStamp ? 0 : _transactionTimeStamp - _lastUpdateTime;
-        // console.log("SOL=>4.5 timeDiff = ", timeDiff); 
+        console.log("SOL=>4.5 timeDiff = ", timeDiff); 
         uint256 timeRateMultiplier = ( timeDiff * _stakedSPCoins * _rate ) / 100;
         rewards = timeRateMultiplier/year;
-        // console.log("SOL=>4.5 rewardsString = ", rewards); 
+        console.log("SOL=>4.5 rewardsString = ", rewards); 
 
         return rewards;
     }

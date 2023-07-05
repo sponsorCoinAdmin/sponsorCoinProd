@@ -1,6 +1,12 @@
-const { bigIntToDecString } = require("./utils/dateTime");
+const { bigIntToDateTimeString,
+  bigIntToDecString,
+  bigIntToHexString,
+  bigIntToString,
+  getLocation
+} = require("./utils/dateTime");
 const { SpCoinLogger } = require("./utils/logging");
 const { SpCoinSerialize } = require("./utils/serialize");
+
 
 let spCoinLogger;
 let spCoinSerialize;
@@ -19,10 +25,11 @@ class SpCoinRewardsMethods {
   }
 
   updateAccountStakingRewards = async(accountKey) => {
-    spCoinLogger.logFunctionHeader("getStakingRewards(lastUpdateTime,  interestRate,  quantity)");
-    let stakingRewards = await this.spCoinContractDeployed.connect(this.signer).updateAccountStakingRewards(accountKey);
+    spCoinLogger.logFunctionHeader("updateAccountStakingRewards(accountKey)");
     console.log("=================================================================================================");
-    console.log("stakingRewards = ", stakingRewards);
+    console.log("SpCoinRewardsMethods:updateAccountStakingRewards");
+    let stakingRewards = await this.spCoinContractDeployed.connect(this.signer).updateAccountStakingRewards(accountKey);
+    console.log("stakingRewards = ", bigIntToDecString(stakingRewards));
     // console.log("*************************************************************************************************");
     // let rewardsRec = spCoinSerialize.deserializedSPRewards(stakingRewards);
     // console.log(spCoinLogger.logJSON(rewardsRec));
