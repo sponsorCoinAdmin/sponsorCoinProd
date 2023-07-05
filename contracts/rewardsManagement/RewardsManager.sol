@@ -25,7 +25,7 @@ contract RewardsManager is StakingManager{
             string memory tmpRewards;
             uint256 rewards;
             rewards =  updateRecipientRateListRewards(recipientMap[recipientKey], currentTimeStamp );
-            tmpRewards = getStakingRewardsRateDataString2(recipientMap[recipientKey], currentTimeStamp );
+            tmpRewards = getStakingRewardsRateDataString(recipientMap[recipientKey], currentTimeStamp );
             rewardsString = concat(rewardsString, "\n", tmpRewards);
         }
         // console.log("SOL 1.0 -------------------------------------------");
@@ -46,7 +46,7 @@ contract RewardsManager is StakingManager{
         return rewards ;
     }
 
-    function getStakingRewardsRateDataString2( RecipientStruct storage recipientRecord, uint256 _transactionTimeStamp )
+    function getStakingRewardsRateDataString( RecipientStruct storage recipientRecord, uint256 _transactionTimeStamp )
     internal view returns (string memory rewardsString) {
         // console.log("updateRecipientRateListRewards(recipientRecord)");
         uint256[] storage recipientRateList = recipientRecord.recipientRateList;
@@ -61,15 +61,15 @@ contract RewardsManager is StakingManager{
             uint256 lastUpdateTime   = recipientRateRecord.lastUpdateTime;
             uint256 recipientRate    = recipientRateRecord.recipientRate;
 
-            string memory tmpRewards= getStakingRewardsRateDataString( stakedSPCoins, lastUpdateTime, _transactionTimeStamp, recipientRate );
+            string memory tmpRewards= getStakingRewardsRateRecordString( stakedSPCoins, lastUpdateTime, _transactionTimeStamp, recipientRate );
             rewardsString = concat(rewardsString, "\n", tmpRewards);
         }
         return rewardsString ;
     }
 
-    function getStakingRewardsRateDataString( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 _transactionTimeStamp, uint256 _rate )
+    function getStakingRewardsRateRecordString( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 _transactionTimeStamp, uint256 _rate )
     public pure returns ( string memory rewardsString ) {
-        // console.log("getStakingRewardsRateDataString(_stakedSPCoins, _lastUpdateTime, _transactionTimeStamp, _rate)");
+        // console.log("getStakingRewardsRateRecordString(_stakedSPCoins, _lastUpdateTime, _transactionTimeStamp, _rate)");
         uint256 timeDiff = _lastUpdateTime > _transactionTimeStamp ? 0 : _transactionTimeStamp - _lastUpdateTime;
         uint256 timeRateMultiplier = ( timeDiff * _stakedSPCoins * _rate ) / 100;
         uint256 rewards = calculateStakingRewards( _stakedSPCoins, _lastUpdateTime, _transactionTimeStamp, _rate );
