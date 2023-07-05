@@ -266,6 +266,7 @@ class SpCoinSerialize {
     }
   }
   
+  /*
   deserializedSPRewards = (stakingRewards) => {
     // console.log("JS==>1.0 deserializedSPCoinHeader(\n" + stakingRewards + ")");
     spCoinLogger.logFunctionHeader("getAccountRecords()");
@@ -365,6 +366,7 @@ class SpCoinSerialize {
       break;
     }
   }
+  */
 }
 
 module.exports = {

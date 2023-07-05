@@ -22,10 +22,10 @@ class SpCoinRewardsMethods {
     spCoinLogger.logFunctionHeader("getStakingRewards(lastUpdateTime,  interestRate,  quantity)");
     let stakingRewards = await this.spCoinContractDeployed.connect(this.signer).updateAccountStakingRewards(accountKey);
     console.log("=================================================================================================");
-    // console.log("stakingRewards = ", stakingRewards);
+    console.log("stakingRewards = ", stakingRewards);
     // console.log("*************************************************************************************************");
-    let rewardsRec = spCoinSerialize.deserializedSPRewards(stakingRewards);
-    console.log(spCoinLogger.logJSON(rewardsRec));
+    // let rewardsRec = spCoinSerialize.deserializedSPRewards(stakingRewards);
+    // console.log(spCoinLogger.logJSON(rewardsRec));
     console.log("=================================================================================================");
     
     spCoinLogger.logExitFunction();
