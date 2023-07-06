@@ -47,7 +47,7 @@ contract Transactions is RewardsManager {
         // validateSufficientAccountBalance(_sponsorCoinQty)
     
         // console.log("msg.sender     ", msg.sender);
-        console.log("addBackDatedSponsorship(");
+        // console.log("addBackDatedSponsorship(");
         // console.log("_recipientKey         = ", _recipientKey, ",");
         // console.log("_recipientRateKey     = ", _recipientRateKey, ",");
         // console.log("_agentKey             = ", _agentKey, ",");
@@ -55,7 +55,7 @@ contract Transactions is RewardsManager {
         // console.log("strWholeAmount        = ", _strWholeAmount, ",");
         // console.log("_strDecimalAmount     = ", _strDecimalAmount, ",");
         // console.log("_transactionTimeStamp = ", _transactionTimeStamp, ")");
-        // uint256 blockTimeStamp = block.timestamp;
+        uint256 blockTimeStamp = block.timestamp;
         // console.log("block.timestamp       = ", blockTimeStamp);
 
         // AccountStruct storage sponsorRec = accountMap[msg.sender];
@@ -64,7 +64,7 @@ contract Transactions is RewardsManager {
         transRec.stakingRewards = sponsorAmount;
         totalStakedSPCoins += sponsorAmount;
 
-        console.log( "**** Transaction.sol:ADDING RATE REC = ", _agentRateKey, "ADDING TRANSACTION = ", sponsorAmount);
+        // console.log( "**** Transaction.sol:ADDING RATE REC = ", _agentRateKey, "ADDING TRANSACTION = ", sponsorAmount);
         if(_agentKey == burnAddress) {
             RecipientRateStruct storage recipientRateRecord = getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
             updateRecipientRateRewards( recipientRateRecord, _recipientKey, _transactionTimeStamp);
@@ -76,11 +76,11 @@ contract Transactions is RewardsManager {
             agentRateRecord.transactionList.push(transRec);
         }
 
-        console.log("BEFORE balanceOf     =", balanceOf[msg.sender]);
+        // console.log("BEFORE balanceOf     =", balanceOf[msg.sender]);
         // console.log("BEFORE _sponsorCoinQty ", sponsorAmount);
         balanceOf[msg.sender] -= sponsorAmount;
         totalBalanceOf -= sponsorAmount;
-        console.log("AFTER balanceOf     =", balanceOf[msg.sender]);
+        // console.log("AFTER balanceOf     =", balanceOf[msg.sender]);
         // console.log("AFTER _sponsorCoinQty ", sponsorAmount);
     }
 
@@ -121,15 +121,15 @@ contract Transactions is RewardsManager {
     }
 
     function updateRecipientSponsorship(address _recipientKey, uint256 _sponsorCoinQty)
-       internal returns (RecipientStruct storage) {
-       console.log("updateRecipientSponsorship(", _sponsorCoinQty, ")");
+        internal returns (RecipientStruct storage) {
+        // console.log("updateRecipientSponsorship(", _sponsorCoinQty, ")");
 
-       AccountStruct storage sponsorRec = updateSponsorTransaction(_sponsorCoinQty);
-       RecipientStruct storage recipientRecord = sponsorRec.recipientMap[_recipientKey];
-       // RecipientStruct storage recipientRecord = getRecipientRecord(msg.sender, _recipientKey);
-       console.log("BEFORE updateRecipientSponsorship:recipientRecord.stakedSPCoins", recipientRecord.stakedSPCoins );
+        AccountStruct storage sponsorRec = updateSponsorTransaction(_sponsorCoinQty);
+        RecipientStruct storage recipientRecord = sponsorRec.recipientMap[_recipientKey];
+        // RecipientStruct storage recipientRecord = getRecipientRecord(msg.sender, _recipientKey);
+        // console.log("BEFORE updateRecipientSponsorship:recipientRecord.stakedSPCoins", recipientRecord.stakedSPCoins );
         recipientRecord.stakedSPCoins += _sponsorCoinQty;
-       console.log("AFTER updateRecipientSponsorship:recipientRecord.stakedSPCoins", recipientRecord.stakedSPCoins );
+        // console.log("AFTER updateRecipientSponsorship:recipientRecord.stakedSPCoins", recipientRecord.stakedSPCoins );
         return recipientRecord;
     }
 

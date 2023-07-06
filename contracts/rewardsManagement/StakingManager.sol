@@ -22,14 +22,14 @@ contract StakingManager is AgentRates{
                                     address _recipientKey, uint _recipientRate,
                                     address _agentKey, uint _agentRate, uint _amount)
         public returns ( uint ) {
-        console.log(" _accountType, address _sponsorKey, _recipientKey, _recipientRate, _agentKey, _agentRate, _amount");
-        console.log("SOL=>2.1 _accountType   = ", getAccountTypeString(_accountType));
-        console.log("SOL=>2.1 _sponsorKey    = ", _sponsorKey);
-        console.log("SOL=>2.2 _recipientKey  = ", _recipientKey);
-        console.log("SOL=>2.3 _recipientRate = ", _recipientRate);
-        console.log("SOL=>2.4 _agentKey      = ", _agentKey);
-        console.log("SOL=>2.4 _agentRate     = ", _agentRate);
-        console.log("SOL=>2.4 _amount        = ", _amount);
+        // console.log(" _accountType, address _sponsorKey, _recipientKey, _recipientRate, _agentKey, _agentRate, _amount");
+        // console.log("SOL=>2.1 _accountType   = ", getAccountTypeString(_accountType));
+        // console.log("SOL=>2.1 _sponsorKey    = ", _sponsorKey);
+        // console.log("SOL=>2.2 _recipientKey  = ", _recipientKey);
+        // console.log("SOL=>2.3 _recipientRate = ", _recipientRate);
+        // console.log("SOL=>2.4 _agentKey      = ", _agentKey);
+        // console.log("SOL=>2.4 _agentRate     = ", _agentRate);
+        // console.log("SOL=>2.4 _amount        = ", _amount);
 
         address sourceKey = _recipientKey;
         address depositKey = _agentKey;

@@ -12,12 +12,12 @@ contract RewardsManager is StakingManager{
     function updateAccountStakingRewards( address _sourceKey )
     public view returns (uint256 totalRewards){
         // console.log("SOL 1.0 -------------------------------------------");
-        console.log("SOL 1.1 updateAccountStakingRewards(", toString(_sourceKey), ")");
+        // console.log("SOL 1.1 updateAccountStakingRewards(", toString(_sourceKey), ")");
         uint256 currentTimeStamp = block.timestamp;
         AccountStruct storage account = accountMap[_sourceKey];
         address[] storage recipientKeys = account.recipientAccountList;             // If Sponsor List of Recipient Accounts
         mapping(address => RecipientStruct) storage recipientMap = account.recipientMap;
-        console.log("SOL 1.2 recipientKeys.length = ",recipientKeys.length);
+        // console.log("SOL 1.2 recipientKeys.length = ",recipientKeys.length);
         // rewardsString = concat("SOL 1.2 RECIPIENT_KEYS_LENGTH:", toString(recipientKeys.length));
         for (uint idx = 0; idx < recipientKeys.length; idx++) {
             // rewardsString = concat(rewardsString, "\nRECIPIENT_IDX:", toString(idx));
@@ -28,14 +28,14 @@ contract RewardsManager is StakingManager{
             
             // rewardsString = concat(rewardsString, "\n", tmpRewards);
         }
-        console.log("SOL 1.3 totalRewards = ", totalRewards);
+        // console.log("SOL 1.3 totalRewards = ", totalRewards);
         // console.log("SOL 1.4 -------------------------------------------");
         return totalRewards ;
     }
 
     function updateRecipientRateListRewards( RecipientStruct storage recipientRecord, uint256 _transactionTimeStamp )
     internal view returns ( uint rewards ) {
-        console.log("updateRecipientRateListRewards(recipientRecord)");
+        // console.log("updateRecipientRateListRewards(recipientRecord)");
         uint256[] storage recipientRateList = recipientRecord.recipientRateList;
         mapping(uint256 => RecipientRateStruct) storage recipientRateMap = recipientRecord.recipientRateMap;
         for (uint idx = 0; idx < recipientRateList.length; idx++) {
@@ -60,7 +60,7 @@ contract RewardsManager is StakingManager{
 
     function updateRecipientRateRewards(RecipientRateStruct storage recipientRateRecord, address _recipientKey, uint _transactionTimeStamp)
         internal returns (uint totalRewards) {
-            console.log("updateRecipientRateRewards(recipientRateRecord, address _recipientKey, uint _transactionTimeStamp");
+        // console.log("updateRecipientRateRewards(recipientRateRecord, address _recipientKey, uint _transactionTimeStamp");
 
         uint lastUpdateTime = recipientRateRecord.lastUpdateTime;
         uint recipientRate = recipientRateRecord.recipientRate;
