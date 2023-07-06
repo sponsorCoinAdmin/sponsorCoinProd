@@ -55,8 +55,6 @@ contract Transactions is RewardsManager {
         // console.log("strWholeAmount        = ", _strWholeAmount, ",");
         // console.log("_strDecimalAmount     = ", _strDecimalAmount, ",");
         // console.log("_transactionTimeStamp = ", _transactionTimeStamp, ")");
-        uint256 blockTimeStamp = block.timestamp;
-        // console.log("block.timestamp       = ", blockTimeStamp);
 
         // AccountStruct storage sponsorRec = accountMap[msg.sender];
         StakingTransactionStruct memory transRec;
