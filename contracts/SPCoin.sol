@@ -10,8 +10,8 @@ contract SPCoin is Token{
 //        logDetail("JS => MESSAGE.SENDER: ", msg.sender);
 // initToken(defaultName,  defaultSymbol, defaultDecimals, defaultTotalSupply);
 
-        name = defaultName;
-        symbol = defaultSymbol;
+        name = concat(defaultName, version);
+        symbol = concat(defaultSymbol, version);
         decimals = defaultDecimals;
         balanceOf[msg.sender] = totalSupply = totalBalanceOf = defaultTotalSupply;
         stakedSPCoins = 0;
