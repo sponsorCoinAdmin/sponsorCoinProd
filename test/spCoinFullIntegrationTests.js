@@ -342,12 +342,12 @@ describe("spCoinContract", function () {
     "2"
   );
 
-  await spCoinStakingMethods.depositRecipientStakingRewards(
-    SPONSOR_ACCOUNT_KEYS[0],
-    RECIPIENT_ACCOUNT_KEYS[1], 
-    RECIPIENT_RATES[5],
-    123
-  );
+  // await spCoinStakingMethods.depositRecipientStakingRewards(
+  //   SPONSOR_ACCOUNT_KEYS[0],
+  //   RECIPIENT_ACCOUNT_KEYS[1], 
+  //   RECIPIENT_RATES[5],
+  //   123
+  // );
   
 /*
   await spCoinStakingMethods.depositAgentStakingRewards (
@@ -369,16 +369,16 @@ describe("spCoinContract", function () {
   );
 */
 
-  await spCoinRewardsMethods.updateAccountStakingRewards( SPONSOR_ACCOUNT_KEYS[0] );
+  // await spCoinRewardsMethods.updateAccountStakingRewards( SPONSOR_ACCOUNT_KEYS[0] );
 
   // console.log("********************************************************************************");
   console.log("\n\n*** AFTER CREATE ******************************************************************************************************\n\n");
   // console.log("********************************************************************************");
 
-  // let getBody = true;
-  // let spCoinRecords = await spCoinReadMethods.getSPCoinHeaderRecord(getBody);
+  let getBody = true;
+  let spCoinRecords = await spCoinReadMethods.getSPCoinHeaderRecord(getBody);
 
-  // spCoinLogger.logJSONTree(spCoinRecords);
+  spCoinLogger.logJSONTree(spCoinRecords);
 
   // let accountRecords = await spCoinReadMethods.getAccountRecords()
   // spCoinLogger.logJSONTree(accountRecords);
@@ -398,7 +398,7 @@ describe("spCoinContract", function () {
   console.log("*** AFTER DELETE ***************************************************************");
   console.log("********************************************************************************");
  
-    spCoinLogger.logJSONTree(await spCoinReadMethods.getAccountRecords());
+    // spCoinLogger.logJSONTree(await spCoinReadMethods.getAccountRecords());
 
 
     // AccountListSize = (await getAccountListSize()).toNumber();

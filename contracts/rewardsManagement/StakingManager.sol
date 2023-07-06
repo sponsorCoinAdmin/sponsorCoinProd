@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 /// @title ERC20 Contract
-import "./RewardsManager.sol";
+// import "./RewardsManager.sol";
+import "../accounts/AgentRates.sol";
 
-
-contract StakingManager is RewardsManager{
+contract StakingManager is AgentRates{
     constructor() {
     }
 
@@ -35,16 +35,16 @@ contract StakingManager is RewardsManager{
         address depositKey = _agentKey;
         uint rate = 0;
         uint percentDiviser = decimalMultiplier/100;
-        // console.log("decimalMultiplier",toString(decimalMultiplier));
+        // console.log("decimalMultiplier", decimalMultiplier);
         string memory errMsg = "";
 
         if (_accountType == SPONSOR) { 
             _recipientRate  = annualInflation;
             errMsg = buildErrString(_accountType, _recipientKey, " NOT FOUND FOR SPONSOR ACCOUNT ",  _sponsorKey);
             require (sponsorHasRecipient( _recipientKey, _sponsorKey ), errMsg);
-// console.log("SPONSOR BEFORE _amount",toString( _amount ));
+// console.log("SPONSOR BEFORE _amount",  _amount );
             _amount -= (_amount * annualInflation) / 100;
-// console.log("SPONSOR AFTER _amount",toString( _amount ));
+// console.log("SPONSOR AFTER _amount",  _amount );
             sourceKey = _recipientKey;
             depositKey = _sponsorKey;
             rate = _recipientRate;
@@ -52,9 +52,9 @@ contract StakingManager is RewardsManager{
              errMsg = buildErrString(_accountType, _recipientKey, " NOT FOUND FOR SPONSOR ACCOUNT ", _sponsorKey);
              require (recipientHasSponsor( _sponsorKey, _recipientKey ), errMsg);
             uint sponsorAmount = ((_amount * decimalMultiplier)/_recipientRate) / percentDiviser;
-// console.log("RECIPIENT BEFORE _amount",toString( _amount ));
-            _amount -= (_amount * decimalMultiplier) / ( _recipientRate * decimalMultiplier );
-// console.log("RECIPIENT AFTER _amount",toString(_amount));
+// console.log("RECIPIENT BEFORE _amount", _amount );
+//             _amount -= (_amount * decimalMultiplier) / ( _recipientRate * decimalMultiplier );
+// console.log("RECIPIENT AFTER _amount", _amount );
             depositStakingRewards(SPONSOR, _sponsorKey,
                                 _recipientKey, _recipientRate,
                                 _agentKey, _agentRate, sponsorAmount);
@@ -65,7 +65,7 @@ contract StakingManager is RewardsManager{
              errMsg = buildErrString(_accountType,  _recipientKey, " NOT FOUND FOR AGENT ACCOUNT ",  _agentKey);
              require (agentHasRecipient( _recipientKey, _agentKey ), errMsg);
             uint recipientAmount = ((_amount * decimalMultiplier)/_agentRate) / percentDiviser;
-// console.log("AGENT _amount",toString(_amount));
+console.log("AGENT _amount", _amount );
             depositStakingRewards(RECIPIENT, _sponsorKey,
                                 _recipientKey, _recipientRate,
                                 _agentKey, _agentRate, recipientAmount);
@@ -93,13 +93,14 @@ contract StakingManager is RewardsManager{
         // console.log("SOL=>2.2 _depositKey = ", _depositKey);
         // console.log("SOL=>2.3 _rate       = ", _rate);
         // console.log("SOL=>2.4 _amount     = ", _amount);
-        totalSupply += _amount;
 
         // console.log("SOL=>4 FETCHING depositAccount = accountMap[", _depositKey, "]");
         AccountStruct storage depositAccount = accountMap[_depositKey];
-
         RewardTypeStruct storage rewardsRecord = depositAccount.rewardsMap[getAccountTypeString(_accountType)];
 
+        balanceOf[_depositKey] += _amount;
+        totalBalanceOf += _amount;
+        totalSupply += _amount;
         totalStakingRewards += _amount;
         depositAccount.stakingRewards += _amount;
         rewardsRecord.stakingRewards += _amount;
@@ -128,15 +129,21 @@ contract StakingManager is RewardsManager{
         depositRewardTransaction( rewardTransactionList, _amount );
         // console.log("SOL=>2.12 rewardTransactionList[0].stakingRewards = ", rewardTransactionList[0].stakingRewards);
 
-        // TESTING REMOVE LATER
-        // console.log("===================================================================================================================");
-        // uint rewardSourceType = getRewardSourceType(_accountType);
-        // console.log("SOL=>2.13 rewardSourceType = ", getAccountTypeString(rewardSourceType));
-        getRewardAccounts(_depositKey, _accountType);
-        // console.log("===================================================================================================================");
-        //END TESTION
+       return rewardAccountRecord.stakingRewards;
+    }
 
-        return rewardAccountRecord.stakingRewards;
+    function depositRewardTransaction(  RewardsTransactionStruct[] storage rewardTransactionList,
+                                        uint _amount )  internal {
+        // console.log("SOL=>9 depositRewardTransaction("); 
+        // console.log("SOL=>10 stakingAccountRecord.stakingRewards = ", stakingAccountRecord.stakingRewards);
+        // console.log("SOL=>12               _amount               = ", _amount, ")" );
+        // console.log("SOL=>13 BEFORE rewardTransactionList.length = ", rewardTransactionList.length);
+
+        RewardsTransactionStruct memory  rewardsTransactionRecord;
+        rewardsTransactionRecord.stakingRewards = _amount;
+        rewardsTransactionRecord.updateTime = block.timestamp;
+        rewardTransactionList.push(rewardsTransactionRecord);
+        // console.log("SOL=>14 AFTER rewardTransactionList.length = ", rewardTransactionList.length);
     }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -188,7 +195,7 @@ contract StakingManager is RewardsManager{
     function getRewardRateRecords(RewardAccountStruct storage _rewardAccountRecord)
         internal  view returns (string memory memoryRewards) {
 // console.log("SOL=>18 getRewardRateRecords(RewardAccountStruct storage _rewardAccountRecord)");
-        
+
         uint256[] storage rewardRateList = _rewardAccountRecord.rewardRateList;
 // console.log("SOL=>18.1 BEFORE memoryRewards", memoryRewards);
 // console.log("*** ISSUE HERE SOL=>18.2 rewardRateList.length", rewardRateList.length);
@@ -201,8 +208,8 @@ contract StakingManager is RewardsManager{
             RewardsTransactionStruct[] storage rewardTransactionList = rewardRateRecord.rewardTransactionList;
 
             memoryRewards = concat(memoryRewards, ",", toString(_rewardAccountRecord.stakingRewards));
-                // console.log("SOL=> _rewardAccountRecord.rewardTransactionList.length         = ", _rewardAccountRecord.rewardTransactionList.length);
-                // console.log("SOL=> _rewardAccountRecord.rewardTransactionList.stakingRewards = ", _rewardAccountRecord.stakingRewards);
+            // console.log("SOL=> _rewardAccountRecord.rewardTransactionList.length         = ", _rewardAccountRecord.rewardTransactionList.length);
+            // console.log("SOL=> _rewardAccountRecord.rewardTransactionList.stakingRewards = ", _rewardAccountRecord.stakingRewards);
             memoryRewards = concat(memoryRewards, "\nRATE:", toString(rate));
             memoryRewards = concat(memoryRewards, ",", toString(rewardRateRecord.stakingRewards));
 
@@ -215,24 +222,10 @@ contract StakingManager is RewardsManager{
         }
         // console.log("SOL=>21 AFTER memoryRewards", memoryRewards);
         // console.log("*** END SOL ******************************************************************************");
-// console.log("SOL=>18.6 stringRewards", memoryRewards);
+        // console.log("SOL=>18.6 stringRewards", memoryRewards);
         return memoryRewards;
     }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    function depositRewardTransaction(  RewardsTransactionStruct[] storage rewardTransactionList,
-                                        uint _amount )  internal {
-        // console.log("SOL=>9 depositRewardTransaction("); 
-        // console.log("SOL=>10 stakingAccountRecord.stakingRewards = ", stakingAccountRecord.stakingRewards);
-        // console.log("SOL=>12               _amount               = ", _amount, ")" );
-        // console.log("SOL=>13 BEFORE rewardTransactionList.length = ", rewardTransactionList.length);
-
-        RewardsTransactionStruct memory  rewardsTransactionRecord;
-        rewardsTransactionRecord.stakingRewards = _amount;
-        rewardsTransactionRecord.updateTime = block.timestamp;
-        rewardTransactionList.push(rewardsTransactionRecord);
-        // console.log("SOL=>14 AFTER rewardTransactionList.length = ", rewardTransactionList.length);
-    }
 
 }

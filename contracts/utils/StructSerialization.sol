@@ -28,6 +28,10 @@ contract StructSerialization is Utils {
             "balanceOf: ",
             toString(balanceOf[_accountRec.accountKey])
         );
+        // string memory totalBalanceOf = concat(
+        //     "totalBalanceOf: ",
+        //     toString(totalBalanceOf) 
+        // );
         // string memory decimals = concat(
         //     "decimals: ",
         //     toString(_accountRec.decimals)
@@ -51,7 +55,7 @@ contract StructSerialization is Utils {
             )
         );
         seralized = concat(seralized, delimiter, balanceOf);
-        // seralized = concat(seralized, delimiter, decimals); 
+        // seralized = concat(seralized, delimiter, totalBalanceOf); 
 
         seralized = concat(seralized, delimiter, stakedSPCoins);
 
@@ -91,16 +95,6 @@ contract StructSerialization is Utils {
 
     function getSerializedSPCoinHeader()
         public view returns (string memory seralized) {
-        /*
-        string  name;
-        string  symbol;
-        uint256 decimals;
-        uint256 totalSupply;
-        uint256 totalBalanceOf;
-        uint    annualInflation;
-        uint256 totalStakedSPCoins; // Coins Owned but steaked to recipients
-        uint256 totalStakingRewards; // Coins not owned but Recipiented
-        */
 
         seralized = concat(seralized, "NAME:", name);
         seralized = concat(seralized, ",CREATION_TIME:", toString(creationTime));
@@ -108,7 +102,7 @@ contract StructSerialization is Utils {
         seralized = concat(seralized, ",TOTAL_SUPPLY:", toString(totalSupply));
         seralized = concat(seralized, ",INITIAL_TOTAL_SUPPLY:", toString(initialTotalSupply));
         seralized = concat(seralized, ",ANNUAL_INFLATION:", toString(annualInflation));
-        // seralized = concat(seralized, ",TOTAL_BALANCE_OF:", toString(totalBalanceOf));
+        seralized = concat(seralized, ",TOTAL_BALANCE_OF:", toString(totalBalanceOf));
         seralized = concat(seralized, ",TOTAL_STAKED_REWARDS:", toString(totalStakingRewards));
         seralized = concat(seralized, ",TOTAL_STAKED_SP_COINS:", toString(totalStakedSPCoins));
         seralized = concat(seralized, ",SYMBOL:", symbol);

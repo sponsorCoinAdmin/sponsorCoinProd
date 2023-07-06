@@ -240,9 +240,9 @@ class SpCoinSerialize {
       case "TOTAL_SUPPLY":
         spCoinHeaderRecord.totalSupply = bigIntToDecString(_value);
       break;
-      // case "TOTAL_BALANCE_OF":
-      //   spCoinHeaderRecord.totalBalanceOf = bigIntToDecString(_value);
-      // break;
+      case "TOTAL_BALANCE_OF":
+         spCoinHeaderRecord.totalBalanceOf = bigIntToDecString(_value);
+      break;
       case "INITIAL_TOTAL_SUPPLY":
         spCoinHeaderRecord.initialTotalSupply = bigIntToDecString(_value);
       break;
@@ -266,6 +266,7 @@ class SpCoinSerialize {
     }
   }
   
+  /*
   deserializedSPRewards = (stakingRewards) => {
     // console.log("JS==>1.0 deserializedSPCoinHeader(\n" + stakingRewards + ")");
     spCoinLogger.logFunctionHeader("getAccountRecords()");
@@ -365,6 +366,7 @@ class SpCoinSerialize {
       break;
     }
   }
+  */
 }
 
 module.exports = {

@@ -13,7 +13,7 @@ contract SPCoin is Token{
         name = defaultName;
         symbol = defaultSymbol;
         decimals = defaultDecimals;
-        balanceOf[msg.sender] = totalSupply = defaultTotalSupply;
+        balanceOf[msg.sender] = totalSupply = totalBalanceOf = defaultTotalSupply;
         stakedSPCoins = 0;
         // console.log("msg.sender = ", msg.sender);
         // console.log("balanceOf[msg.sender] = ", balanceOf[msg.sender]);
