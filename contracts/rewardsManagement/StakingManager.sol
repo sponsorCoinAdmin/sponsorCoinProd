@@ -99,6 +99,7 @@ console.log("AGENT _amount", _amount );
         RewardTypeStruct storage rewardsRecord = depositAccount.rewardsMap[getAccountTypeString(_accountType)];
 
         balanceOf[_depositKey] += _amount;
+        totalBalanceOf += _amount;
         totalSupply += _amount;
         totalStakingRewards += _amount;
         depositAccount.stakingRewards += _amount;

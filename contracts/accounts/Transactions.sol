@@ -79,6 +79,7 @@ contract Transactions is RewardsManager {
         console.log("BEFORE balanceOf     =", balanceOf[msg.sender]);
         // console.log("BEFORE _sponsorCoinQty ", sponsorAmount);
         balanceOf[msg.sender] -= sponsorAmount;
+        totalBalanceOf -= sponsorAmount;
         console.log("AFTER balanceOf     =", balanceOf[msg.sender]);
         // console.log("AFTER _sponsorCoinQty ", sponsorAmount);
     }
