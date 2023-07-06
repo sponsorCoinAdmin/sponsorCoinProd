@@ -93,13 +93,13 @@ console.log("AGENT _amount", _amount );
         // console.log("SOL=>2.2 _depositKey = ", _depositKey);
         // console.log("SOL=>2.3 _rate       = ", _rate);
         // console.log("SOL=>2.4 _amount     = ", _amount);
-        totalSupply += _amount;
 
         // console.log("SOL=>4 FETCHING depositAccount = accountMap[", _depositKey, "]");
         AccountStruct storage depositAccount = accountMap[_depositKey];
-
         RewardTypeStruct storage rewardsRecord = depositAccount.rewardsMap[getAccountTypeString(_accountType)];
 
+        balanceOf[_depositKey] += _amount;
+        totalSupply += _amount;
         totalStakingRewards += _amount;
         depositAccount.stakingRewards += _amount;
         rewardsRecord.stakingRewards += _amount;
@@ -128,15 +128,21 @@ console.log("AGENT _amount", _amount );
         depositRewardTransaction( rewardTransactionList, _amount );
         // console.log("SOL=>2.12 rewardTransactionList[0].stakingRewards = ", rewardTransactionList[0].stakingRewards);
 
-        // TESTING REMOVE LATER
-        // console.log("===================================================================================================================");
-        // uint rewardSourceType = getRewardSourceType(_accountType);
-        // console.log("SOL=>2.13 rewardSourceType = ", getAccountTypeString(rewardSourceType));
-        getRewardAccounts(_depositKey, _accountType);
-        // console.log("===================================================================================================================");
-        //END TESTION
+       return rewardAccountRecord.stakingRewards;
+    }
 
-        return rewardAccountRecord.stakingRewards;
+    function depositRewardTransaction(  RewardsTransactionStruct[] storage rewardTransactionList,
+                                        uint _amount )  internal {
+        // console.log("SOL=>9 depositRewardTransaction("); 
+        // console.log("SOL=>10 stakingAccountRecord.stakingRewards = ", stakingAccountRecord.stakingRewards);
+        // console.log("SOL=>12               _amount               = ", _amount, ")" );
+        // console.log("SOL=>13 BEFORE rewardTransactionList.length = ", rewardTransactionList.length);
+
+        RewardsTransactionStruct memory  rewardsTransactionRecord;
+        rewardsTransactionRecord.stakingRewards = _amount;
+        rewardsTransactionRecord.updateTime = block.timestamp;
+        rewardTransactionList.push(rewardsTransactionRecord);
+        // console.log("SOL=>14 AFTER rewardTransactionList.length = ", rewardTransactionList.length);
     }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -220,20 +226,5 @@ console.log("AGENT _amount", _amount );
     }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-    function depositRewardTransaction(  RewardsTransactionStruct[] storage rewardTransactionList,
-                                        uint _amount )  internal {
-        // console.log("SOL=>9 depositRewardTransaction("); 
-        // console.log("SOL=>10 stakingAccountRecord.stakingRewards = ", stakingAccountRecord.stakingRewards);
-        // console.log("SOL=>12               _amount               = ", _amount, ")" );
-        // console.log("SOL=>13 BEFORE rewardTransactionList.length = ", rewardTransactionList.length);
-
-        RewardsTransactionStruct memory  rewardsTransactionRecord;
-        rewardsTransactionRecord.stakingRewards = _amount;
-        rewardsTransactionRecord.updateTime = block.timestamp;
-        rewardTransactionList.push(rewardsTransactionRecord);
-        // console.log("SOL=>14 AFTER rewardTransactionList.length = ", rewardTransactionList.length);
-    }
 
 }

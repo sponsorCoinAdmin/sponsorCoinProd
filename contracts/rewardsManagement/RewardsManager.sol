@@ -56,7 +56,7 @@ contract RewardsManager is StakingManager{
         return rewards ;
     }
 
-///////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     function updateRecipientRateRewards(RecipientRateStruct storage recipientRateRecord, address _recipientKey, uint _transactionTimeStamp)
         internal returns (uint totalRewards) {
@@ -79,7 +79,7 @@ contract RewardsManager is StakingManager{
     }
 
     function calculateStakingRewards( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 _transactionTimeStamp, uint256 _rate )
-    public view returns (uint rewards) {
+    public pure returns (uint rewards) {
         // console.log("SOL=>4.0 calculateStakingRewards:_stakedSPCoins = ", _stakedSPCoins); 
         // console.log("SOL=>4.1 calculateStakingRewards:_lastUpdateTime = ", _lastUpdateTime); 
         // console.log("SOL=>4.2 _transactionTimeStamp = ", _transactionTimeStamp); 
