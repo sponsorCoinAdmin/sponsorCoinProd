@@ -5,19 +5,19 @@ Warning: Unused function parameter. Remove or comment out the variable name to s
    |                               ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-Compiled 4 Solidity files successfully
+Compiled 6 Solidity files successfully
  ·------------------------|---------------------------|----------------·
  |  Solc version: 0.8.18  ·  Optimizer enabled: true  ·  Runs: 2000    │
  ·························|···························|·················
  |  Contract Name         ·  Size (KiB)               ·  Change (KiB)  │
  ·························|···························|·················
- |  SPCoin                ·                   22.948  ·         0.000  │
+ |  SPCoin                ·                   23.484  ·        +0.536  │
  ·------------------------|---------------------------|----------------·
 test.js
 
 
   spCoinContract
-addBackDatedSponsorship = async([object Object], 0x70997970c51812dc3a010c7d01b50e0d17dc79c8, 5, 1, 1657064435.0064)
+addBackDatedSponsorship = async([object Object], 0x70997970c51812dc3a010c7d01b50e0d17dc79c8, 5, 1, 1657065408.0064)
 addBackDatedSponsorship(
 **** Transaction.sol:ADDING RATE REC =  0 ADDING TRANSACTION =  1000000000000000000
 updateRecipientRateRewards(recipientRateRecord, address _recipientKey, uint _transactionTimeStamp
@@ -30,14 +30,26 @@ addBackDatedSponsorship(
 **** Transaction.sol:ADDING RATE REC =  0 ADDING TRANSACTION =  2000000000000000000
 updateRecipientRateRewards(recipientRateRecord, address _recipientKey, uint _transactionTimeStamp
  _accountType, address _sponsorKey, _recipientKey, _recipientRate, _agentKey, _agentRate, _amount
-SOL=>2.4 _amount        =  49999977817864066
+SOL=>2.1 _accountType   =  RECIPIENT
+SOL=>2.1 _sponsorKey    =  0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+SOL=>2.2 _recipientKey  =  0x70997970c51812dc3a010c7d01b50e0d17dc79c8
+SOL=>2.3 _recipientRate =  5
+SOL=>2.4 _agentKey      =  0x0000000000000000000000000000000000000000
+SOL=>2.4 _agentRate     =  0
+SOL=>2.4 _amount        =  49999976233425785
  _accountType, address _sponsorKey, _recipientKey, _recipientRate, _agentKey, _agentRate, _amount
-SOL=>2.4 _amount        =  999999556357281320
+SOL=>2.1 _accountType   =  SPONSOR
+SOL=>2.1 _sponsorKey    =  0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+SOL=>2.2 _recipientKey  =  0x70997970c51812dc3a010c7d01b50e0d17dc79c8
+SOL=>2.3 _recipientRate =  5
+SOL=>2.4 _agentKey      =  0x0000000000000000000000000000000000000000
+SOL=>2.4 _agentRate     =  0
+SOL=>2.4 _amount        =  999999524668515700
 updateRecipientSponsorship( 2000000000000000000 )
 BEFORE updateRecipientSponsorship:recipientRecord.stakedSPCoins 1000000000000000000
 AFTER updateRecipientSponsorship:recipientRecord.stakedSPCoins 3000000000000000000
-BEFORE balanceOf     = 999999999899999600721553188
-AFTER balanceOf     = 999999997899999600721553188
+BEFORE balanceOf     = 999999999899999572201664130
+AFTER balanceOf     = 999999997899999572201664130
 
 
 *** AFTER CREATE ******************************************************************************************************
@@ -50,22 +62,22 @@ DUMP JSON OBJECT
   "name": "sponsorCoin002",
   "symbol": "SPCT002",
   "version": "002",
-  "creationTime": "July 6, 2023 at 01:29:04 AM EDT",
+  "creationTime": "July 6, 2023 at 01:45:16 AM EDT",
   "location": "America/Toronto",
   "initialTotalSupply": "1000000000000000000000000000",
-  "totalSupply": "1000000000949999578539417254",
+  "totalSupply": "1000000000949999548435089915",
   "decimals": "18",
   "annualInflation": "10",
   "totalBalanceOf": "ToDo",
   "totalStakedSPCoins": "3000000000000000000",
-  "totalStakingRewards": "949999578539417254",
+  "totalStakingRewards": "949999548435089915",
   "accountRecords": [
     {
       "TYPE": "--ACCOUNT--",
       "accountKey": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-      "balanceOf": "999999997899999600721553188",
+      "balanceOf": "999999997899999572201664130",
       "stakedSPCoins": "3000000000000000000",
-      "creationTime": "July 6, 2023 at 01:29:05 AM EDT",
+      "creationTime": "July 6, 2023 at 01:45:17 AM EDT",
       "verified": "false",
       "sponsorAccountList": [],
       "recipientAccountList": [
@@ -77,26 +89,26 @@ DUMP JSON OBJECT
         {
           "TYPE": "--RECIPIENT_RECORD--",
           "recipientKey": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
-          "creationTime": "July 6, 2023 at 01:29:05 AM EDT",
+          "creationTime": "July 6, 2023 at 01:45:17 AM EDT",
           "stakedSPCoins": "3000000000000000000",
           "recipientRateList": [
             {
               "TYPE": "--RECIPIENT_RATE--",
               "recipientRate": 5,
               "creationTime": "December 31, 1969 at 07:00:00 PM EST",
-              "lastUpdateTime": "July 6, 2023 at 01:29:06 AM EDT",
+              "lastUpdateTime": "July 6, 2023 at 01:45:18 AM EDT",
               "stakedSPCoins": "3000000000000000000",
               "transactions": [
                 {
                   "TYPE": "--STAKING TRANSACTION RECORD--",
                   "location": "America/Toronto",
-                  "insertionTime": "July 6, 2023 at 01:29:06 AM EDT",
+                  "insertionTime": "July 6, 2023 at 01:45:18 AM EDT",
                   "quantity": "2000000000000000000"
                 },
                 {
                   "TYPE": "--STAKING TRANSACTION RECORD--",
                   "location": "America/Toronto",
-                  "insertionTime": "July 5, 2022 at 07:40:35 PM EDT",
+                  "insertionTime": "July 5, 2022 at 07:56:48 PM EDT",
                   "quantity": "1000000000000000000"
                 }
               ],
@@ -105,27 +117,27 @@ DUMP JSON OBJECT
           ]
         }
       ],
-      "stakingRewards": "899999600721553188",
+      "stakingRewards": "899999572201664130",
       "stakingRewardList": {
         "TYPE": "--REWARDS STRUCTURE--",
         "sponsorRewardsList": {
           "TYPE": "SPONSOR REWARDS",
-          "stakingRewards": "899999600721553188",
+          "stakingRewards": "899999572201664130",
           "rewardAccountList": [
             {
               "TYPE": "--REWARD ACCOUNT--",
               "sourceKey": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
-              "stakingRewards": "899999600721553188",
+              "stakingRewards": "899999572201664130",
               "rateList": [
                 {
                   "TYPE": "--REWARD RATE--",
                   "rate": "10",
-                  "stakingRewards": "899999600721553188",
+                  "stakingRewards": "899999572201664130",
                   "rewardTransactionList": [
                     {
                       "TYPE": "--REWARD TRANSACTION--",
-                      "updateTime": "July 6, 2023 at 01:29:06 AM EDT",
-                      "stakingRewards": "899999600721553188"
+                      "updateTime": "July 6, 2023 at 01:45:18 AM EDT",
+                      "stakingRewards": "899999572201664130"
                     }
                   ]
                 }
@@ -147,9 +159,9 @@ DUMP JSON OBJECT
     {
       "TYPE": "--ACCOUNT--",
       "accountKey": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
-      "balanceOf": "49999977817864066",
+      "balanceOf": "49999976233425785",
       "stakedSPCoins": "0",
-      "creationTime": "July 6, 2023 at 01:29:05 AM EDT",
+      "creationTime": "July 6, 2023 at 01:45:17 AM EDT",
       "verified": "false",
       "sponsorAccountList": [
         "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
@@ -158,7 +170,7 @@ DUMP JSON OBJECT
       "agentAccountList": [],
       "agentsParentRecipientAccountList": [],
       "recipientRecordList": [],
-      "stakingRewards": "49999977817864066",
+      "stakingRewards": "49999976233425785",
       "stakingRewardList": {
         "TYPE": "--REWARDS STRUCTURE--",
         "sponsorRewardsList": {
@@ -167,22 +179,22 @@ DUMP JSON OBJECT
         },
         "recipientRewardsList": {
           "TYPE": "RECIPIENT REWARDS",
-          "stakingRewards": "49999977817864066",
+          "stakingRewards": "49999976233425785",
           "rewardAccountList": [
             {
               "TYPE": "--REWARD ACCOUNT--",
               "sourceKey": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
-              "stakingRewards": "49999977817864066",
+              "stakingRewards": "49999976233425785",
               "rateList": [
                 {
                   "TYPE": "--REWARD RATE--",
                   "rate": "5",
-                  "stakingRewards": "49999977817864066",
+                  "stakingRewards": "49999976233425785",
                   "rewardTransactionList": [
                     {
                       "TYPE": "--REWARD TRANSACTION--",
-                      "updateTime": "July 6, 2023 at 01:29:06 AM EDT",
-                      "stakingRewards": "49999977817864066"
+                      "updateTime": "July 6, 2023 at 01:45:18 AM EDT",
+                      "stakingRewards": "49999976233425785"
                     }
                   ]
                 }
@@ -202,7 +214,7 @@ DUMP JSON OBJECT
 ********************************************************************************
 *** AFTER DELETE ***************************************************************
 ********************************************************************************
-    √ 2. VALIDATE ADD TRANSACTION RATES (1987ms)
+    √ 2. VALIDATE ADD TRANSACTION RATES (1941ms)
 
 
   1 passing (6s)
