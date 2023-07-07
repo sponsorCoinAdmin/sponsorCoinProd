@@ -73,12 +73,12 @@ contract RewardsManager is StakingManager{
         uint lastUpdateTime = agentRateRecord.lastUpdateTime;
         uint agentRate = agentRateRecord.agentRate;
         if ( lastUpdateTime != 0 && lastUpdateTime < _transactionTimeStamp) {
-            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR agentRateRecord.lastUpdateTime  = ", lastUpdateTime);
-            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _transactionTimeStamp           = ", _transactionTimeStamp);
-            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR recipientRate                   = ", recipientRate);
+            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA agentRateRecord.lastUpdateTime = ", lastUpdateTime);
+            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA _transactionTimeStamp          = ", _transactionTimeStamp);
+            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA agentRate                      = ", agentRate);
             uint recipientRewards = calculateStakingRewards( agentRateRecord.stakedSPCoins, lastUpdateTime, _transactionTimeStamp, agentRateRecord.agentRate );
             totalRewards += recipientRewards;
-            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR Recipient Calculated Rewards     = ", recipientRewards);
+            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA Agent Calculated Rewards          = ", recipientRewards);
 
             depositStakingRewards( AGENT, msg.sender, _recipientKey, _recipientRate, _agentKey,  agentRate, recipientRewards);
         } 
