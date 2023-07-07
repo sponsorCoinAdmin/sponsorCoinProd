@@ -64,13 +64,14 @@ contract Transactions is RewardsManager {
 
         // console.log( "**** Transaction.sol:ADDING RATE REC = ", _agentRateKey, "ADDING TRANSACTION = ", sponsorAmount);
         if(_agentKey == burnAddress) {
-            RecipientRateStruct storage recipientRateRecord = getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
+            RecipientRateStruct storage recipientRateRecord = getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey, _transactionTimeStamp);
             updateRecipientRateRewards( recipientRateRecord, _recipientKey, _transactionTimeStamp);
             updateRecipientRateSponsorship(recipientRateRecord, _recipientKey, sponsorAmount);
             recipientRateRecord.transactionList.push(transRec);
         }
         else {
-            AgentRateStruct storage agentRateRecord = updateAgentRateSponsorship(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey, sponsorAmount, _transactionTimeStamp);
+            AgentRateStruct storage agentRateRecord = getAgentRateRecord(msg.sender, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
+            updateAgentRateSponsorship(_recipientKey, _recipientRateKey, _agentKey, _agentRateKey, sponsorAmount, _transactionTimeStamp);
             agentRateRecord.transactionList.push(transRec);
         }
 
@@ -111,7 +112,7 @@ contract Transactions is RewardsManager {
 
     function updateAgentSponsorship(address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _sponsorCoinQty )
        internal returns (AgentStruct storage) {
-        RecipientRateStruct storage recipientRateRecord = getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey);
+        RecipientRateStruct storage recipientRateRecord = getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey, block.timestamp);
         updateRecipientRateSponsorship(recipientRateRecord, _recipientKey, _sponsorCoinQty);
         AgentStruct storage agentRecord = recipientRateRecord.agentMap[_agentKey];
         agentRecord.stakedSPCoins += _sponsorCoinQty;

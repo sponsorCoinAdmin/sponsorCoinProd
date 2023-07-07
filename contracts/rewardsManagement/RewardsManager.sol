@@ -52,7 +52,7 @@ contract RewardsManager is StakingManager{
 
         uint lastUpdateTime = recipientRateRecord.lastUpdateTime;
         uint recipientRate = recipientRateRecord.recipientRate;
-        if ( recipientRateRecord.inserted && lastUpdateTime < _transactionTimeStamp) {
+        if ( lastUpdateTime != 0 && lastUpdateTime < _transactionTimeStamp) {
             // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR agentRateRecord.lastUpdateTime  = ", lastUpdateTime);
             // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _transactionTimeStamp           = ", _transactionTimeStamp);
             // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR recipientRate                   = ", recipientRate);
@@ -61,10 +61,7 @@ contract RewardsManager is StakingManager{
             // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR Recipient Calculated Rewards     = ", recipientRewards);
 
             depositStakingRewards( RECIPIENT, msg.sender, _recipientKey, recipientRate, burnAddress, 0, recipientRewards);
-        } else {
-            recipientRateRecord.inserted = true;
-            recipientRateRecord.creationTime = _transactionTimeStamp;
-        }
+        } 
         recipientRateRecord.lastUpdateTime = _transactionTimeStamp;
         return totalRewards;
     }

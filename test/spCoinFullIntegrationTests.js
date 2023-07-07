@@ -319,13 +319,13 @@ describe("spCoinContract", function () {
   //   dateInSeconds() - year
   // );
 
-  // await spCoinAddMethods.addBackDatedSponsorship(
-  //   SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
-  //   RECIPIENT_ACCOUNT_KEYS[1],
-  //   RECIPIENT_RATES[5],
-  //   "1",
-  //   dateInSeconds() - year//dateInSeconds
-  // );  
+  await spCoinAddMethods.addBackDatedSponsorship(
+    SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
+    RECIPIENT_ACCOUNT_KEYS[1],
+    RECIPIENT_RATES[5],
+    "1",
+    dateInSeconds() - year//dateInSeconds
+  );  
   
   await spCoinAddMethods.addSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
