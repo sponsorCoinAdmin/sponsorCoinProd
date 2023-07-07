@@ -319,39 +319,39 @@ describe("spCoinContract", function () {
   //   dateInSeconds() - year
   // );
 
-  await spCoinAddMethods.addBackDatedSponsorship(
-    SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
-    RECIPIENT_ACCOUNT_KEYS[1],
-    RECIPIENT_RATES[5],
-    "1",
-    dateInSeconds() - year//dateInSeconds
-  );  
+  // await spCoinAddMethods.addBackDatedSponsorship(
+  //   SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[1],
+  //   RECIPIENT_RATES[5],
+  //   "1",
+  //   dateInSeconds() - year//dateInSeconds
+  // );  
   
-  await spCoinAddMethods.addSponsorship(
-    SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
-    RECIPIENT_ACCOUNT_KEYS[1], 
-    RECIPIENT_RATES[5],
-    "2"
-  );
-
-  // await spCoinAddMethods.addBackDatedAgentSponsorship(
-  //   SPONSOR_ACCOUNT_SIGNERS[0],
-  //   RECIPIENT_ACCOUNT_KEYS[1],
-  //   RECIPIENT_RATES[10],
-  //   AGENT_ACCOUNT_KEYS[2],
-  //   AGENT_RATES[10],
-  //   "1", 
-  //   dateInSeconds() - year
-  // );
-
-  // await spCoinAddMethods.addAgentSponsorship(
-  //   SPONSOR_ACCOUNT_SIGNERS[0],
-  //   RECIPIENT_ACCOUNT_KEYS[1],
-  //   RECIPIENT_RATES[10],
-  //   AGENT_ACCOUNT_KEYS[2],
-  //   AGENT_RATES[10],
+  // await spCoinAddMethods.addSponsorship(
+  //   SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
+  //   RECIPIENT_ACCOUNT_KEYS[1], 
+  //   RECIPIENT_RATES[5],
   //   "2"
   // );
+
+  await spCoinAddMethods.addBackDatedAgentSponsorship(
+    SPONSOR_ACCOUNT_SIGNERS[0],
+    RECIPIENT_ACCOUNT_KEYS[1],
+    RECIPIENT_RATES[10],
+    AGENT_ACCOUNT_KEYS[2],
+    AGENT_RATES[10],
+    "1", 
+    dateInSeconds() - year
+  );
+
+  await spCoinAddMethods.addAgentSponsorship(
+    SPONSOR_ACCOUNT_SIGNERS[0],
+    RECIPIENT_ACCOUNT_KEYS[1],
+    RECIPIENT_RATES[10],
+    AGENT_ACCOUNT_KEYS[2],
+    AGENT_RATES[10],
+    "2"
+  );
 
   // await spCoinRewardsMethods.updateAccountStakingRewards( SPONSOR_ACCOUNT_KEYS[0] );
 

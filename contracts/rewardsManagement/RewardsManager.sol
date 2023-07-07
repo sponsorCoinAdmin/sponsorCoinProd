@@ -66,6 +66,26 @@ contract RewardsManager is StakingManager{
         return totalRewards;
     }
 
+    function updateAgentRateRewards(AgentRateStruct storage agentRateRecord, address _agentKey, address _recipientKey,  uint _recipientRate, uint _transactionTimeStamp)
+        internal returns (uint totalRewards) {
+        // console.log("updateRecipientRateRewards(agentRateRecord, address _recipientKey, uint _transactionTimeStamp");
+
+        uint lastUpdateTime = agentRateRecord.lastUpdateTime;
+        uint agentRate = agentRateRecord.agentRate;
+        if ( lastUpdateTime != 0 && lastUpdateTime < _transactionTimeStamp) {
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR agentRateRecord.lastUpdateTime  = ", lastUpdateTime);
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _transactionTimeStamp           = ", _transactionTimeStamp);
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR recipientRate                   = ", recipientRate);
+            uint recipientRewards = calculateStakingRewards( agentRateRecord.stakedSPCoins, lastUpdateTime, _transactionTimeStamp, agentRateRecord.agentRate );
+            totalRewards += recipientRewards;
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR Recipient Calculated Rewards     = ", recipientRewards);
+
+            depositStakingRewards( AGENT, msg.sender, _recipientKey, _recipientRate, _agentKey,  agentRate, recipientRewards);
+        } 
+        agentRateRecord.lastUpdateTime = _transactionTimeStamp;
+        return totalRewards;
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     function calculateRecipientRateRewards( RecipientRateStruct storage _recipientRateRecord, uint256 _transactionTimeStamp )
