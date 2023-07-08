@@ -101,7 +101,7 @@ contract Transactions is RewardsManager {
         if ( lastUpdateTime != _transactionTimeStamp) {
             agentRateRecord.lastUpdateTime = _transactionTimeStamp;
             // uint agentRewards = calculateStakingRewards( _sponsorCoinQty, lastUpdateTime, _transactionTimeStamp, _recipientRateKey );
-            // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA _sponsorCoinQty                   = ", _sponsorCoinQty);
+            // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA _sponsorCoinQty                = ", _sponsorCoinQty);
             // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA agentRateRecord.lastUpdateTime = ", lastUpdateTime);
             // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA _transactionTimeStamp          = ", _transactionTimeStamp);
             // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA _recipientRateKey              = ", _recipientRateKey);

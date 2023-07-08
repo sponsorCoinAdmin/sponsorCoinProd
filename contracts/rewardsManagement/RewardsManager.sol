@@ -73,12 +73,12 @@ contract RewardsManager is StakingManager{
         uint lastUpdateTime = agentRateRecord.lastUpdateTime;
         uint agentRate = agentRateRecord.agentRate;
         if ( lastUpdateTime != 0 && lastUpdateTime < _transactionTimeStamp) {
-            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA agentRateRecord.lastUpdateTime = ", lastUpdateTime);
-            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA _transactionTimeStamp          = ", _transactionTimeStamp);
-            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA agentRate                      = ", agentRate);
+            console.log("SOL=>3.0 updateAgentRateRewards:agentRateRecord.lastUpdateTime = ", lastUpdateTime);
+            console.log("SOL=>3.1 updateAgentRateRewards:_transactionTimeStamp          = ", _transactionTimeStamp);
+            console.log("SOL=>3.2 updateAgentRateRewards:agentRate                      = ", agentRate);
             uint recipientRewards = calculateStakingRewards( agentRateRecord.stakedSPCoins, lastUpdateTime, _transactionTimeStamp, agentRateRecord.agentRate );
             totalRewards += recipientRewards;
-            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA Agent Calculated Rewards          = ", recipientRewards);
+            console.log("SOL=>3.3 updateAgentRateRewards:recipientRewards               = ", recipientRewards);
 
             depositStakingRewards( AGENT, msg.sender, _recipientKey, _recipientRate, _agentKey,  agentRate, recipientRewards);
         } 
@@ -98,18 +98,18 @@ contract RewardsManager is StakingManager{
     }
 
     function calculateStakingRewards( uint256 _stakedSPCoins, uint256 _lastUpdateTime, uint256 _transactionTimeStamp, uint256 _rate )
-    public pure returns (uint rewards) {
-        // console.log("SOL=>4.0 calculateStakingRewards:_stakedSPCoins = ", _stakedSPCoins); 
-        // console.log("SOL=>4.1 calculateStakingRewards:_lastUpdateTime = ", _lastUpdateTime); 
-        // console.log("SOL=>4.2 _transactionTimeStamp = ", _transactionTimeStamp); 
-        // console.log("SOL=>4.3 calculateStakingRewards:_rate = ", _rate); 
-        // console.log("SOL=>4.4 calculateStakingRewards:year = ", year); 
+    public view returns (uint rewards) {
+        console.log("SOL=>4.0 calculateStakingRewards:_stakedSPCoins        = ", _stakedSPCoins); 
+        console.log("SOL=>4.1 calculateStakingRewards:_lastUpdateTime       = ", _lastUpdateTime); 
+        console.log("SOL=>4.2 calculateStakingRewards:_transactionTimeStamp = ", _transactionTimeStamp); 
+        console.log("SOL=>4.3 calculateStakingRewards:_rate                 = ", _rate); 
+        console.log("SOL=>4.4 calculateStakingRewards:year                  = ", year); 
         uint256 timeDiff = _lastUpdateTime > _transactionTimeStamp ? 0 : _transactionTimeStamp - _lastUpdateTime;
-        // console.log("SOL=>4.5 calculateStakingRewards:timeDiff = ", timeDiff); 
+        console.log("SOL=>4.5 calculateStakingRewards:timeDiff              = ", timeDiff); 
         uint256 timeRateMultiplier = ( timeDiff * _stakedSPCoins * _rate ) / 100;
         rewards = timeRateMultiplier/year;
-        // console.log("SOL=>4.5 calculateStakingRewards:timeRateMultiplier = ", timeRateMultiplier); 
-        // console.log("SOL=>4.6 calculateStakingRewards:rewardsString = ", rewards); 
+        // console.log("SOL=>4.5 calculateStakingRewards:timeRateMultiplier    = ", timeRateMultiplier); 
+        // console.log("SOL=>4.6 calculateStakingRewards:rewardsString         = ", rewards); 
 
         return rewards;
     }
