@@ -351,7 +351,17 @@ describe("spCoinContract", function () {
     AGENT_ACCOUNT_KEYS[2],
     AGENT_RATES[10],
     "2", 
-    dateInSeconds() - year
+    dateInSeconds()
+  );
+
+  await spCoinAddMethods.addBackDatedAgentSponsorship(
+    SPONSOR_ACCOUNT_SIGNERS[0],
+    RECIPIENT_ACCOUNT_KEYS[1],
+    RECIPIENT_RATES[10],
+    AGENT_ACCOUNT_KEYS[2],
+    AGENT_RATES[10],
+    "3", 
+    dateInSeconds()
   );
 
   // await spCoinAddMethods.addAgentSponsorship(

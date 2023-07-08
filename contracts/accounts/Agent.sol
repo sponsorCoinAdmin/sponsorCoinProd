@@ -83,8 +83,8 @@ contract Agent is RecipientRates {
     public view returns (uint[] memory) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
         uint[] memory agentRateList = agentRec.agentRateList;
-        // console.log("AGENTS.SOL:addAgent:agentRec.agentKey = " , agentRec.agentKey);
-        // console.log("AGENTS.SOL:getAgentRateList:agentRateList.length = ",agentRateList.length);
+console.log("AGENTS.SOL:addAgent:agentRec.agentKey = " , agentRec.agentKey);
+console.log("AGENTS.SOL:getAgentRateList:agentRateList.length = ",agentRateList.length);
         return agentRateList;
     }
 }

@@ -11,7 +11,7 @@ contract AgentRates is Agent {
     /// @param _recipientKey public account key to get recipient array
     /// @param _recipientRateKey public account key to get recipient Rate for a given recipient
     /// @param _agentKey new recipient to add to account list 
-    function getAgentRateRecord(address _sponsor, address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey)
+    function getAgentRateRecord(address _sponsor, address _recipientKey, uint _recipientRateKey, address _agentKey, uint _agentRateKey, uint _creationDate)
      internal returns (AgentRateStruct storage) 
     {
         AgentStruct storage agentRecord = getAgentRecord(_sponsor, _recipientKey, _recipientRateKey, _agentKey);
@@ -19,8 +19,8 @@ contract AgentRates is Agent {
         AgentRateStruct storage agentRateRecord= getAgentRateRecordByKeys(_sponsor, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
         if (!agentRateRecord.inserted) {
             agentRateRecord.agentRate = _agentRateKey;
-            // agentRateRecord.inserted = true;
-            // agentRateRecord.creationTime = agentRateRecord.lastUpdateTime = block.timestamp;
+            agentRateRecord.inserted = true;
+            agentRateRecord.creationTime = _creationDate;
             agentRateRecord.stakedSPCoins = 0;
             agentRecord.agentRateList.push(_agentRateKey);
         }
