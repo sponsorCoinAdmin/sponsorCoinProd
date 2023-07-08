@@ -19,7 +19,7 @@ contract RecipientRates is Recipient {
             recipientRateRecord.recipientRate = _recipientRateKey;
             recipientRateRecord.inserted = true;
             recipientRateRecord.creationTime = _creationDate;
-            recipientRateRecord.stakedSPCoins = 0;
+            // recipientRateRecord.stakedSPCoins = 0;
             recipientRecord.recipientRateList.push(_recipientRateKey);
         }
         return recipientRateRecord; 

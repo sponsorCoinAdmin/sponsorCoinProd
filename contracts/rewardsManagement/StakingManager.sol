@@ -65,7 +65,7 @@ contract StakingManager is AgentRates{
              errMsg = buildErrString(_accountType,  _recipientKey, " NOT FOUND FOR AGENT ACCOUNT ",  _agentKey);
              require (agentHasRecipient( _recipientKey, _agentKey ), errMsg);
             uint recipientAmount = ((_amount * decimalMultiplier)/_agentRate) / percentDiviser;
-console.log("AGENT _amount", _amount );
+// console.log("AGENT _amount", _amount );
             depositStakingRewards(RECIPIENT, _sponsorKey,
                                 _recipientKey, _recipientRate,
                                 _agentKey, _agentRate, recipientAmount);

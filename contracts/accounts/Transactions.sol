@@ -73,7 +73,7 @@ contract Transactions is RewardsManager {
             AgentRateStruct storage agentRateRecord = getAgentRateRecord(msg.sender, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey, _transactionTimeStamp);
             updateAgentRateRewards(agentRateRecord, _agentKey, _recipientKey,  _recipientRateKey, _transactionTimeStamp);
 
-            updateAgentRateSponsorship(agentRateRecord, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey, sponsorAmount, _transactionTimeStamp);
+            updateAgentRateSponsorship(agentRateRecord, _recipientKey, _recipientRateKey, _agentKey, sponsorAmount, _transactionTimeStamp);
             agentRateRecord.transactionList.push(transRec);
         }
 
@@ -94,7 +94,7 @@ contract Transactions is RewardsManager {
     }
 
     function updateAgentRateSponsorship(AgentRateStruct storage agentRateRecord, address _recipientKey,
-    uint _recipientRateKey, address _agentKey, uint _agentRateKey, uint256 _sponsorCoinQty, uint _transactionTimeStamp)
+    uint _recipientRateKey, address _agentKey, uint256 _sponsorCoinQty, uint _transactionTimeStamp)
        internal returns (AgentRateStruct storage) {
        updateAgentSponsorship(_recipientKey, _recipientRateKey, _agentKey, _sponsorCoinQty);
         uint lastUpdateTime = agentRateRecord.lastUpdateTime;
