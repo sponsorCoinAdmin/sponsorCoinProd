@@ -37,7 +37,6 @@ contract SpCoinDataTypes {
     // Recipiented Coins
     uint256 stakedSPCoins;
 
-
     mapping(address => AccountStruct) accountMap;
 
     uint JUNK_COUNTER = 0;

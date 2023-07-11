@@ -66,7 +66,7 @@ contract Transactions is RewardsManager {
         if(_agentKey == burnAddress) {
             RecipientRateStruct storage recipientRateRecord = getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey, _transactionTimeStamp);
             updateRecipientRateRewards( recipientRateRecord, _recipientKey, _transactionTimeStamp);
-            updateRecipientRateSponsorship(recipientRateRecord, _recipientKey, sponsorAmount);
+            updateRecipientRateSponsorship(recipientRateRecord, _recipientKey, sponsorAmount, _transactionTimeStamp);
             recipientRateRecord.transactionList.push(transRec);
         }
         else {
@@ -85,10 +85,21 @@ contract Transactions is RewardsManager {
         // console.log("AFTER _sponsorCoinQty ", sponsorAmount);
     }
 
-    function updateRecipientRateSponsorship(RecipientRateStruct storage recipientRateRecord, address _recipientKey, uint256 _sponsorCoinQty )
+    function updateRecipientRateSponsorship(RecipientRateStruct storage recipientRateRecord, address _recipientKey, 
+    uint256 _sponsorCoinQty , uint _transactionTimeStamp)
         internal returns (RecipientRateStruct storage) {
-        // console.log("updateRecipientRateSponsorship:_sponsorCoinQty = ", _sponsorCoinQty);
+        // console.log("updateRecipientRateSponsorship:_sponsorCoinQty = ", _sponsorCoinQty, _transactionTimeStamp);
         updateRecipientSponsorship(_recipientKey, _sponsorCoinQty);
+        uint lastUpdateTime = recipientRateRecord.lastUpdateTime;
+        if ( lastUpdateTime != _transactionTimeStamp) {
+            recipientRateRecord.lastUpdateTime = _transactionTimeStamp;
+            // uint agentRewards = calculateStakingRewards( _sponsorCoinQty, lastUpdateTime, _transactionTimeStamp, _recipientRateKey );
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _sponsorCoinQty                = ", _sponsorCoinQty);
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR agentRateRecord.lastUpdateTime = ", lastUpdateTime);
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _transactionTimeStamp          = ", _transactionTimeStamp);
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR _recipientRateKey              = ", _recipientRateKey);
+            // console.log("RRRRRRRRRRRRRRRRRRRRRRRRRRR Agent Calculated Rewards       = ", agentRewards);
+        }
         recipientRateRecord.stakedSPCoins += _sponsorCoinQty;
         return recipientRateRecord;
     }
@@ -96,7 +107,7 @@ contract Transactions is RewardsManager {
     function updateAgentRateSponsorship(AgentRateStruct storage agentRateRecord, address _recipientKey,
     uint _recipientRateKey, address _agentKey, uint256 _sponsorCoinQty, uint _transactionTimeStamp)
        internal returns (AgentRateStruct storage) {
-       updateAgentSponsorship(_recipientKey, _recipientRateKey, _agentKey, _sponsorCoinQty);
+       updateAgentSponsorship(_recipientKey, _recipientRateKey, _agentKey, _sponsorCoinQty, _transactionTimeStamp);
         uint lastUpdateTime = agentRateRecord.lastUpdateTime;
         if ( lastUpdateTime != _transactionTimeStamp) {
             agentRateRecord.lastUpdateTime = _transactionTimeStamp;
@@ -111,10 +122,10 @@ contract Transactions is RewardsManager {
         return agentRateRecord;
     }
 
-    function updateAgentSponsorship(address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _sponsorCoinQty )
+    function updateAgentSponsorship(address _recipientKey, uint _recipientRateKey, address _agentKey, uint256 _sponsorCoinQty, uint _transactionTimeStamp)
        internal returns (AgentStruct storage) {
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecord(msg.sender, _recipientKey, _recipientRateKey, block.timestamp);
-        updateRecipientRateSponsorship(recipientRateRecord, _recipientKey, _sponsorCoinQty);
+        updateRecipientRateSponsorship(recipientRateRecord, _recipientKey, _sponsorCoinQty, _transactionTimeStamp);
         AgentStruct storage agentRecord = recipientRateRecord.agentMap[_agentKey];
         agentRecord.stakedSPCoins += _sponsorCoinQty;
         return agentRecord;
