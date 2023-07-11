@@ -356,15 +356,15 @@ describe("spCoinContract", function () {
   //   dateInSeconds() - month*6
   // );
 
-  await spCoinAddMethods.addBackDatedAgentSponsorship(
-    SPONSOR_ACCOUNT_SIGNERS[0],
-    RECIPIENT_ACCOUNT_KEYS[1],
-    RECIPIENT_RATES[10],
-    AGENT_ACCOUNT_KEYS[2],
-    AGENT_RATES[10],
-    "2", 
-    currDateInSecs
-  );
+  // await spCoinAddMethods.addBackDatedAgentSponsorship(
+  //   SPONSOR_ACCOUNT_SIGNERS[0],
+  //   RECIPIENT_ACCOUNT_KEYS[1],
+  //   RECIPIENT_RATES[10],
+  //   AGENT_ACCOUNT_KEYS[2],
+  //   AGENT_RATES[10],
+  //   "2", 
+  //   currDateInSecs
+  // );
 
   // await spCoinAddMethods.addBackDatedAgentSponsorship(
   //   SPONSOR_ACCOUNT_SIGNERS[0],
@@ -385,7 +385,7 @@ describe("spCoinContract", function () {
   //   "2"
   // );
 
-  // await spCoinRewardsMethods.updateAccountStakingRewards( SPONSOR_ACCOUNT_KEYS[0] );
+  await spCoinRewardsMethods.updateAccountStakingRewards( SPONSOR_ACCOUNT_KEYS[0] );
 
   // console.log("********************************************************************************");
   console.log("\n\n*** AFTER CREATE ******************************************************************************************************\n\n");

@@ -26,17 +26,12 @@ class SpCoinRewardsMethods {
 
   updateAccountStakingRewards = async(accountKey) => {
     spCoinLogger.logFunctionHeader("updateAccountStakingRewards(accountKey)");
-    console.log("=================================================================================================");
-    console.log("SpCoinRewardsMethods:updateAccountStakingRewards");
-    let stakingRewards = await this.spCoinContractDeployed.connect(this.signer).updateAccountStakingRewards(accountKey);
-    console.log("stakingRewards = ", bigIntToDecString(stakingRewards));
-    // console.log("*************************************************************************************************");
-    // let rewardsRec = spCoinSerialize.deserializedSPRewards(stakingRewards);
-    // console.log(spCoinLogger.logJSON(rewardsRec));
-    console.log("=================================================================================================");
+    // console.log("=================================================================================================");
+    // console.log("SpCoinRewardsMethods:updateAccountStakingRewards");
+    this.spCoinContractDeployed.connect(this.signer).updateAccountStakingRewards(accountKey);
+    // console.log("=================================================================================================");
     
     spCoinLogger.logExitFunction();
-    return stakingRewards;
   }
 
 };

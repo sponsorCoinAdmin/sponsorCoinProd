@@ -4,43 +4,149 @@ pragma solidity ^0.8.18;
 // import "../accounts/AgentRates.sol";
 import "./StakingManager.sol";
 
+     // To Calculate and Update an Agent's Rewards
+    //    1. Get a List of Recipients (_recipientKeys) from agentsParentRecipientAccountList
+    //    2.   For Each Recipient (_recipientKey)
+    //    3.     Get the RecipientRecord (recipientRec) from the recipientMap
+    //    4.       Get a list of RecipientRateRecords (recipientRateRecords) from RecipientStruct recipientRec
+    //    5.         For each recipientRate call function **ToDo**
+    //    6.           Get AgentStruct from agentMap using agentKey
+    //    7.              For each agentRateRecord call 
+    //    8.                updateAgentRateRewards( agentRateRecord, _agentKey, _recipientKey,  _recipientRate, _transactionTimeStamp);
+
+    // To Calculate and Update a Recipient's Rewards
+    //    1. Get a List of Sponsors (_recipientKeys) from agentsParentRecipientAccountList
+    //    2.   For Each Sponsor (_sponsorKey)
+    //    3.    Get the RecipientRecord (recipientRec) from the recipientMap
+    //    4.      Get a list of RecipientRateRecords (recipientRateRecords) from RecipientStruct recipientRec
+    //    5.        For each recipientRate call function
+    //    6.          updateRecipientRateRewards(recipientRateRecord, _recipientKey, _transactionTimeStamp);
+
 contract RewardsManager is StakingManager{
 
     constructor() {
     }
 
     function updateAccountStakingRewards( address _sourceKey )
-    public view returns (uint256 totalRewards){
-        console.log("SOL 1.0 -------------------------------------------");
-        console.log("SOL 1.1 updateAccountStakingRewards(", toString(_sourceKey), ")");
+    public returns (uint256 totalRewards) {
+        // console.log("SOL 1.0 -------------------------------------------");
+        // console.log("SOL 1.1 updateAccountStakingRewards(", toString(_sourceKey), ")");
+        AccountStruct storage accountRec = accountMap[_sourceKey];
         uint256 currentTimeStamp = block.timestamp;
-        AccountStruct storage account = accountMap[_sourceKey];
-        address[] storage recipientKeys = account.recipientAccountList;             // If Sponsor List of Recipient Accounts
-        mapping(address => RecipientStruct) storage recipientMap = account.recipientMap;
+
+        totalRewards += updateAccountRecipientRewards( accountRec, currentTimeStamp);
+        // updateAccountAgentRewards( accountRec, currentTimeStamp);
+        console.log("SOL=>1.0 totalRewards = ",totalRewards );
+        return totalRewards;
+    }
+    
+   // To Calculate and update a Sopnsor's Reward
+    // As a Sponsor account, to get sponsor rewards
+    //    1. Get a List of Recipients (_recipientKeys) from recipientAccountList
+    //    2.  For Each Recipient (_recipientKey)
+    //    3.    Get the RecipientRecord (recipientRec) from the recipientMap
+    //    4.      Get a list of RecipientRateRecords (recipientRateRecords) from RecipientStruct recipientRec
+    //    5.        For each recipientRate call function
+    //    6.          updateRecipientRateRewards(recipientRateRecord, _recipientKey, _transactionTimeStamp);
+    
+    function updateAccountRecipientRewards( AccountStruct storage accountRec, uint _transactionTimeStamp )
+    internal returns (uint256 totalRewards) {
+        mapping(address => RecipientStruct) storage recipientMap = accountRec.recipientMap;
+        address[] storage recipientKeys = accountRec.recipientAccountList;             // If Sponsor List of Recipient Accounts
         for (uint idx = 0; idx < recipientKeys.length; idx++) {
             address recipientKey = recipientKeys[idx];
-            RecipientStruct storage recipientRecord = recipientMap[recipientKey];
-            totalRewards += updateRecipientRateListRewards(recipientRecord, currentTimeStamp );
+            RecipientStruct storage recipientRec = recipientMap[recipientKey];
+            mapping(uint256 => RecipientRateStruct) storage recipientRateMap = recipientRec.recipientRateMap;
+            uint256[] storage recipientRateList = recipientRec.recipientRateList;
+            for (uint rateIdx = 0; rateIdx < recipientRateList.length; rateIdx++) {
+                uint recipientRate = recipientRateList[rateIdx];
+                RecipientRateStruct storage recipientRateRecord = recipientRateMap[recipientRate];
+                totalRewards += updateRecipientRateRewards(recipientRateRecord, recipientKey, _transactionTimeStamp);
+            }
+        }
+        return totalRewards;
+    }
+
+/*
+    function updateAccountAgentRewards( AccountStruct storage accountRec, uint _transactionTimeStamp )
+    internal view returns (uint256 totalRewards){
+
+        mapping(string  => RewardTypeStruct) storage rewardsMap = accountRec.rewardsMap;
+
+        RewardTypeStruct storage rewards = rewardsMap["RECIPIENT"];
+        address[] storage agentKeys = accountRec.agentAccountList;             // If Sponsor List of Recipient Accounts
+
+        updateRewardAccounts( rewardsMap, agentKeys );
+
+    }
+
+    function updateRewardType(uint _accountType,  AccountStruct storage accountRec, uint _transactionTimeStamp) 
+    internal view {
+        string memory accountType = getAccountTypeString(_accountType );
+
+        address[] storage accountKeys = _accountType == RECIPIENT ? accountRec.recipientAccountList : accountRec.agentAccountList;             // If Sponsor List of Recipient Accounts
+
+        mapping(string  => RewardTypeStruct) storage rewardsMap = accountRec.rewardsMap;
+        RewardTypeStruct storage rewardTypeStruct = rewardsMap[accountType];
+
+
+
+        for (uint idx = 0; idx < accountKeys.length; idx++) {
+            // rewardsString = concat(rewardsString, "\nRECIPIENT_IDX:", toString(idx));
+            // rewardsString = concat(rewardsString, "\nRECIPIENT_KEY:", toString(recipientKeys[idx]));
+            address accountKey = accountKeys[idx];
+            // string memory tmpRewards = getStakingRewardsRateDataString(rewardsMap[accountKey], _transactionTimeStamp );
+            // totalRewards += updateRecipientRateListRewards(rewardsMap[recipientKey], _transactionTimeStamp );
+            
+            // rewardsString = concat(rewardsString, "\n", tmpRewards);
+        }
+
+
+        // RewardTypeStruct storage rewardTypeRec = rewardsMap[accountType];
+
+        updateRewardAccounts( rewardsMap, accountKeys );
+
+    }
+ */
+    // RECIPIENT REWARDS ///////////////////////////////////////////////////////////////////////////////////////
+
+    function updateRewardAccounts( mapping( string  => RewardTypeStruct) storage recipientMap, address[] storage recipientKeys )
+    internal returns (uint256 totalRewards){
+        // console.log("SOL 1.0 -------------------------------------------");
+        // console.log("SOL 1.1 updateRecipientListRewards(", toString(_sourceKey), ")");
+ 
+        console.log("SOL 1.2 recipientKeys.length = ",recipientKeys.length);
+        // rewardsString = concat("SOL 1.2 RECIPIENT_KEYS_LENGTH:", toString(recipientKeys.length));
+        for (uint idx = 0; idx < recipientKeys.length; idx++) {
+            // rewardsString = concat(rewardsString, "\nRECIPIENT_IDX:", toString(idx));
+            // rewardsString = concat(rewardsString, "\nRECIPIENT_KEY:", toString(recipientKeys[idx]));
+            // address recipientKey = recipientKeys[idx];
+            // string memory tmpRewards = getStakingRewardsRateDataString(recipientMap[recipientKey], currentTimeStamp );
+            // totalRewards += updateRecipientRateListRewards(recipientMap[recipientKey], currentTimeStamp );
+            
+            // rewardsString = concat(rewardsString, "\n", tmpRewards);
         }
         console.log("SOL 1.3 totalRewards = ", totalRewards);
         console.log("SOL 1.4 -------------------------------------------");
         return totalRewards ;
     }
 
+/*
     function updateRecipientRateListRewards( RecipientStruct storage recipientRecord, uint256 _transactionTimeStamp )
     internal view returns ( uint rewards ) {
-        console.log("SOL=>7.0 updateRecipientRateListRewards(recipientRecord)");
+        // console.log("updateRecipientRateListRewards(recipientRecord)");
         uint256[] storage recipientRateList = recipientRecord.recipientRateList;
         mapping(uint256 => RecipientRateStruct) storage recipientRateMap = recipientRecord.recipientRateMap;
-        console.log("SOL=>7.1 recipientRateList.length = ",recipientRateList.length);
         for (uint idx = 0; idx < recipientRateList.length; idx++) {
             uint256 recipientMapIdx = recipientRateList[idx];
             rewards =  calculateRecipientRateRewards(recipientRateMap[recipientMapIdx], _transactionTimeStamp);
         }
         return rewards ;
     }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+*/
+
+//////////////////////////////////////// ALL GOOD BELOW THIS POINT  ///////////////////////////////////////////
     function updateRecipientRateRewards(RecipientRateStruct storage recipientRateRecord, address _recipientKey, uint _transactionTimeStamp)
         internal returns (uint totalRewards) {
         // console.log("updateRecipientRateRewards(recipientRateRecord, address _recipientKey, uint _transactionTimeStamp");
@@ -84,7 +190,7 @@ contract RewardsManager is StakingManager{
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     function calculateRecipientRateRewards( RecipientRateStruct storage _recipientRateRecord, uint256 _transactionTimeStamp )
-    internal view returns ( uint rewards ) {
+    internal returns ( uint rewards ) {
         // console.log("calculateRecipientRateRewards( RecipientRateStruct storage _recipientRateRecord, uint256 _transactionTimeStamp )");
        return calculateStakingRewards(_recipientRateRecord.stakedSPCoins,
                                       _recipientRateRecord.lastUpdateTime,
