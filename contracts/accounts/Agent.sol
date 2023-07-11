@@ -20,11 +20,12 @@ contract Agent is RecipientRates {
     /// @param _agentKey new recipient to add to account list
     function getAgentRecord(address _sponsorKey, address _recipientKey, uint _recipientRateKey, address _agentKey)
         internal returns (AgentStruct storage) {
+        uint currentTimeStamp = block.timestamp;
         AgentStruct storage  agentRecord = getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
         if (!agentRecord.inserted) {
-            RecipientRateStruct storage recipientRateRecord = getRecipientRateRecord(_sponsorKey, _recipientKey, _recipientRateKey);
+            RecipientRateStruct storage recipientRateRecord = getRecipientRateRecord(_sponsorKey, _recipientKey, _recipientRateKey, currentTimeStamp);
             addAccountRecord("Agent", _agentKey);
-            agentRecord.creationTime = block.timestamp;
+            agentRecord.creationTime = currentTimeStamp;
             agentRecord.sponsorKey = _sponsorKey;
             agentRecord.recipientKey = _recipientKey;
             agentRecord.agentKey = _agentKey;
@@ -82,8 +83,8 @@ contract Agent is RecipientRates {
     public view returns (uint[] memory) {
         AgentStruct storage agentRec = getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
         uint[] memory agentRateList = agentRec.agentRateList;
-        // console.log("AGENTS.SOL:addAgent:agentRec.agentKey = " , agentRec.agentKey);
-        // console.log("AGENTS.SOL:getAgentRateList:agentRateList.length = ",agentRateList.length);
+// console.log("AGENTS.SOL:addAgent:agentRec.agentKey = " , agentRec.agentKey);
+// console.log("AGENTS.SOL:getAgentRateList:agentRateList.length = ",agentRateList.length);
         return agentRateList;
     }
 }

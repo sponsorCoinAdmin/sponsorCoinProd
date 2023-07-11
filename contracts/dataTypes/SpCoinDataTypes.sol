@@ -5,8 +5,8 @@ pragma solidity ^0.8.18;
 
 contract SpCoinDataTypes {
     uint256 internal defaultTSPCoinSupply = 1000000000;
-    string  internal defaultName          = "sponsorCoin002";
-    string  internal defaultSymbol        = "SPCT002";
+    string  internal defaultName          = "sponsorCoin";
+    string  internal defaultSymbol        = "SPCT";
     uint256 internal defaultDecimals      = 18;
     uint256 internal decimalMultiplier    = 10**defaultDecimals;
     uint256 internal defaultTotalSupply   = defaultTSPCoinSupply * decimalMultiplier;
@@ -19,7 +19,7 @@ contract SpCoinDataTypes {
     // **Standard ERC20 contract Variables
     string  public name;
     string  public symbol;
-    string  public version = "002";
+    string  public version = "_V001";
     uint256 public decimals;
     uint256 public initialTotalSupply = defaultTSPCoinSupply * (10 ** defaultDecimals);
     uint256 public totalSupply;
@@ -36,7 +36,6 @@ contract SpCoinDataTypes {
 
     // Recipiented Coins
     uint256 stakedSPCoins;
-
 
     mapping(address => AccountStruct) accountMap;
 

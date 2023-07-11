@@ -10,21 +10,40 @@ contract RecipientRates is Recipient {
     /// @notice insert recipients Agent
     /// @param _recipientKey public account key to get recipient array
     /// @param _recipientRateKey public account key to get recipient Rate for a given recipient
-    function getRecipientRateRecord(address _sponsorKey, address _recipientKey, uint _recipientRateKey) 
+    function getRecipientRateRecord(address _sponsorKey, address _recipientKey, uint _recipientRateKey, uint _creationDate) 
     internal returns (RecipientRateStruct storage) {
         RecipientStruct storage recipientRecord = getRecipientRecord(_sponsorKey, _recipientKey);
-// console.log(JUNK_COUNTER++,"Recipient.sol:getRecipientRateRecord", _recipientKey, _recipientRateKey); 
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey);
         if (!recipientRateRecord.inserted) {
             // console.log(JUNK_COUNTER,"Recipient.sol:recipientRateRecord.inserted = ", recipientRecord.inserted); 
             recipientRateRecord.recipientRate = _recipientRateKey;
-            // recipientRateRecord.inserted = true;
-            // recipientRateRecord.creationTime = recipientRateRecord.lastUpdateTime = block.timestamp;
+            recipientRateRecord.inserted = true;
+            recipientRateRecord.creationTime = _creationDate;
+            // recipientRateRecord.stakedSPCoins = 0;
+            recipientRecord.recipientRateList.push(_recipientRateKey);
+        }
+        return recipientRateRecord; 
+    }
+
+/*
+    /// @notice insert recipients Agent
+    /// @param _recipientKey public account key to get recipient array
+    /// @param _recipientRateKey public account key to get recipient Rate for a given recipient
+    function getRecipientRateRecord(address _sponsorKey, address _recipientKey, uint _recipientRateKey) 
+    internal returns (RecipientRateStruct storage) {
+        RecipientStruct storage recipientRecord = getRecipientRecord(_sponsorKey, _recipientKey);
+        RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey);
+        if (!recipientRateRecord.inserted) {
+            // console.log(JUNK_COUNTER,"Recipient.sol:recipientRateRecord.inserted = ", recipientRecord.inserted); 
+            recipientRateRecord.recipientRate = _recipientRateKey;
+            recipientRateRecord.inserted = true;
+            recipientRateRecord.creationTime = block.timestamp;
             recipientRateRecord.stakedSPCoins = 0;
             recipientRecord.recipientRateList.push(_recipientRateKey);
         }
         return recipientRateRecord; 
     }
+*/
 
     function getRecipientRateRecordByKeys(address _sponsorKey, address _recipientKey, uint _recipientRateKey)
     internal view  returns (RecipientRateStruct storage) {
