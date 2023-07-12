@@ -15,7 +15,6 @@ contract RecipientRates is Recipient {
         RecipientStruct storage recipientRecord = getRecipientRecord(_sponsorKey, _recipientKey);
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey);
         if (!recipientRateRecord.inserted) {
-            // console.log(JUNK_COUNTER,"Recipient.sol:recipientRateRecord.inserted = ", recipientRecord.inserted); 
             recipientRateRecord.recipientRate = _recipientRateKey;
             recipientRateRecord.inserted = true;
             recipientRateRecord.creationTime = _creationDate;
@@ -34,7 +33,6 @@ contract RecipientRates is Recipient {
         RecipientStruct storage recipientRecord = getRecipientRecord(_sponsorKey, _recipientKey);
         RecipientRateStruct storage recipientRateRecord = getRecipientRateRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey);
         if (!recipientRateRecord.inserted) {
-            // console.log(JUNK_COUNTER,"Recipient.sol:recipientRateRecord.inserted = ", recipientRecord.inserted); 
             recipientRateRecord.recipientRate = _recipientRateKey;
             recipientRateRecord.inserted = true;
             recipientRateRecord.creationTime = block.timestamp;

@@ -126,7 +126,7 @@ contract RewardsManager is StakingManager{
  *     The rewards is divided umongst the Recipient And Sponsor.
  *  3. Calculate the recipients portion of the reward
  *  4. When the Recipients rewards are allocated, allocate the remaining reward balance to the Sponsor
- *  5. Note: Updating the recipients rewards will allocte the remaining balance to the Sponsor
+ *  Note: Updating the recipients rewards will allocte the remaining balance to the Sponsor
  *  Algorithm:
  *  Calculate and update an Account Sopnsor's Reward
  *  As a Sponsor account, to get sponsor rewards
@@ -187,7 +187,8 @@ contract RewardsManager is StakingManager{
         return totalRewards ;
     }
 
-/**ToDo** To Calculate and Update an Account Recipient's Rewards
+/**
+* ToDo** To Calculate and Update an Account Recipient's Rewards
 *    1. Get a List of Sponsors (_recipientKeys) from agentParentRecipientAccountList
 *    2.   For Each Sponsor (_sponsorKey)
 *    3.    Get the RecipientRecord (recipientRec) from the recipientMap
@@ -197,15 +198,20 @@ contract RewardsManager is StakingManager{
 **/
     function updateRecipientAccountRewards( address _recipientKey, uint256 _transactionTimeStamp )
     internal returns (uint256 totalRewards) {
-        // console.log("SOL 1.1 updateRecipientAccountRewards(AccountStruct storage accountRec, uint256 _transactionTimeStamp)");
-        AccountStruct storage accountRec = accountMap[_recipientKey];
-        mapping(address => RecipientStruct) storage recipientMap = accountRec.recipientMap;
-        address[] storage recipientKeys = accountRec.recipientAccountList;             // If Sponsor List of Recipient Accounts
-        for (uint idx = 0; idx < recipientKeys.length; idx++) {
-            address recipientKey = recipientKeys[idx];
-            RecipientStruct storage recipientRecord = recipientMap[recipientKey];
-            totalRewards += updateRecipientRateListRewards(recipientRecord, _transactionTimeStamp );
-        }
+        // console.log("SOL 1.1 updateRecipientAccountipientRewards(AccountStruct storage recipientAccount, uint256 _transactionTimeStamp)");
+        AccountStruct storage recipientAccount = accountMap[_recipientKey];
+
+            // have agentKey and parentRecipientKey, ToDo: NEED!!! sponsorAccount to get recipientRecord
+            // traverse recipients sponsorships, (sponsorAccountList)
+            address[] storage sponsorKeys = recipientAccount.sponsorAccountList;
+            for (uint idx = 0; idx < sponsorKeys.length; idx++) {
+                address sponsorKey = sponsorKeys[idx];
+                AccountStruct storage sponsorAccount = accountMap[sponsorKey];
+                RecipientStruct storage recipientRecord = sponsorAccount.recipientMap[_recipientKey];
+                if (recipientRecord.inserted){
+                    totalRewards += updateRecipientRateListRewards(  recipientRecord, _transactionTimeStamp );
+                }
+            }
         // console.log("SOL 1.3 totalRewards = ", totalRewards);
         return totalRewards ;
     }

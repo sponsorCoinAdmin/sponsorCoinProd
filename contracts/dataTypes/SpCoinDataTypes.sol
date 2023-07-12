@@ -39,7 +39,6 @@ contract SpCoinDataTypes {
 
     mapping(address => AccountStruct) accountMap;
 
-    uint JUNK_COUNTER = 0;
     uint SPONSOR = 0;
     uint RECIPIENT = 1;
     uint AGENT = 2;
