@@ -66,16 +66,59 @@ contract RewardsManager is StakingManager{
     public returns (uint256 totalRewards) {
         // console.log("SOL 1.0 -------------------------------------------");
         // console.log("SOL 1.1 updateAccountStakingRewards(", toString(_sourceKey), ")");
-        AccountStruct storage accountRec = accountMap[_sourceKey];
         uint256 currentTimeStamp = block.timestamp;
 
-        totalRewards += updateSponsorAccountRewards( accountRec, currentTimeStamp);
-        totalRewards += updateAgentAccountRewards( _sourceKey, currentTimeStamp);
+        totalRewards += updateSponsorAccountRewards( _sourceKey, currentTimeStamp);
+        totalRewards += updateAgentAccountRewards( _sourceKey,   currentTimeStamp);
+        totalRewards += updateRecipientAccountRewards( _sourceKey, currentTimeStamp);
+        // console.log("SOL=>1.0 totalRewards = ",totalRewards );
+        // console.log("SOL 1.4 -------------------------------------------");
+        return totalRewards;
+    }
+
+    function updateSponsorAccountRewards( address _sourceKey )
+    public returns (uint256 totalRewards) {
+        // console.log("SOL 1.0 -------------------------------------------");
+        // console.log("SOL 1.1 updateAccountStakingRewards(", toString(_sourceKey), ")");
+        uint256 currentTimeStamp = block.timestamp;
+
+        totalRewards += updateSponsorAccountRewards( _sourceKey, currentTimeStamp);
+        // totalRewards += updateAgentAccountRewards( _sourceKey,   currentTimeStamp);
         // totalRewards += updateRecipientAccountRewards( accountRec, currentTimeStamp);
         // console.log("SOL=>1.0 totalRewards = ",totalRewards );
         // console.log("SOL 1.4 -------------------------------------------");
         return totalRewards;
     }
+
+    function updateAgentAccountRewards( address _sourceKey )
+    public returns (uint256 totalRewards) {
+        // console.log("SOL 1.0 -------------------------------------------");
+        // console.log("SOL 1.1 updateAccountStakingRewards(", toString(_sourceKey), ")");
+        uint256 currentTimeStamp = block.timestamp;
+
+        totalRewards += updateAgentAccountRewards( _sourceKey, currentTimeStamp);
+        // totalRewards += updateAgentAccountRewards( _sourceKey,   currentTimeStamp);
+        // totalRewards += updateRecipientAccountRewards( accountRec, currentTimeStamp);
+        // console.log("SOL=>1.0 totalRewards = ",totalRewards );
+        // console.log("SOL 1.4 -------------------------------------------");
+        return totalRewards;
+    }
+
+    function updateRecipietAccountRewards( address _sourceKey )
+    public returns (uint256 totalRewards) {
+        // console.log("SOL 1.0 -------------------------------------------");
+        // console.log("SOL 1.1 updateAccountStakingRewards(", toString(_sourceKey), ")");
+        uint256 currentTimeStamp = block.timestamp;
+
+        totalRewards += updateRecipientAccountRewards( _sourceKey, currentTimeStamp);
+        // totalRewards += updateAgentAccountRewards( _sourceKey,   currentTimeStamp);
+        // totalRewards += updateRecipientAccountRewards( accountRec, currentTimeStamp);
+        // console.log("SOL=>1.0 totalRewards = ",totalRewards );
+        // console.log("SOL 1.4 -------------------------------------------");
+        return totalRewards;
+    }
+
+
 
 /** To Update a Sponsors Account we must complete the following:
  *  1. Get the Recipient Recipients
@@ -93,9 +136,10 @@ contract RewardsManager is StakingManager{
  *  5.        For each recipientRate call function
  *  6.          updateRecipientRateRewards(recipientRateRecord, _recipientKey, _transactionTimeStamp);
 **/
-    function updateSponsorAccountRewards( AccountStruct storage accountRec, uint256 _transactionTimeStamp )
+    function updateSponsorAccountRewards( address _sponsorKey, uint256 _transactionTimeStamp )
     internal returns (uint256 totalRewards) {
         // console.log("SOL 1.1 updateRecipientAccountRewards(AccountStruct storage accountRec, uint256 _transactionTimeStamp)");
+       AccountStruct storage accountRec = accountMap[_sponsorKey];
         mapping(address => RecipientStruct) storage recipientMap = accountRec.recipientMap;
         address[] storage recipientKeys = accountRec.recipientAccountList;             // If Sponsor List of Recipient Accounts
         for (uint idx = 0; idx < recipientKeys.length; idx++) {
@@ -151,9 +195,10 @@ contract RewardsManager is StakingManager{
 *    5.        For each recipientRate call function
 *    6.          updateRecipientRateRewards(recipientRateRecord, _recipientKey, _transactionTimeStamp);
 **/
-    function updateRecipientAccountRewards( AccountStruct storage accountRec, uint256 _transactionTimeStamp )
+    function updateRecipientAccountRewards( address _recipientKey, uint256 _transactionTimeStamp )
     internal returns (uint256 totalRewards) {
         // console.log("SOL 1.1 updateRecipientAccountRewards(AccountStruct storage accountRec, uint256 _transactionTimeStamp)");
+        AccountStruct storage accountRec = accountMap[_recipientKey];
         mapping(address => RecipientStruct) storage recipientMap = accountRec.recipientMap;
         address[] storage recipientKeys = accountRec.recipientAccountList;             // If Sponsor List of Recipient Accounts
         for (uint idx = 0; idx < recipientKeys.length; idx++) {
