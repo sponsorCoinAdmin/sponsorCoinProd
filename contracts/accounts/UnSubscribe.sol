@@ -105,15 +105,15 @@ contract UnSubscribe is Transactions {
         deleteAgentRateRecord (_agentRecord);
 
         // console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
-        // console.log("DELETING from agentAccount.agentsParentRecipientAccountList recipientKey", _agentRecord.recipientKey);
+        // console.log("DELETING from agentAccount.agentParentRecipientAccountList recipientKey", _agentRecord.recipientKey);
         // console.log("SPONSOR   =" , _agentRecord.sponsorKey);
         // console.log("RECIPIENT =" , _agentRecord.recipientKey);
         // console.log("AGENT     =" , agentKey);
         // console.log("-------------------------------------------------------------------------------------------------------------------");
-        // for (uint j = 0; j < agentAccount.agentsParentRecipientAccountList.length ; j++)
-        // console.log("*** BEFORE DELETE agentAccount.agentsParentRecipientAccountList[", j, "] = ",agentAccount.agentsParentRecipientAccountList[j]); 
+        // for (uint j = 0; j < agentAccount.agentParentRecipientAccountList.length ; j++)
+        // console.log("*** BEFORE DELETE agentAccount.agentParentRecipientAccountList[", j, "] = ",agentAccount.agentParentRecipientAccountList[j]); 
         // console.log("deleteAccountRecordFromSearchKeys(",_agentRecord.recipientKey, agentAccount.accountKey,")");
-        deleteAccountRecordFromSearchKeys(_agentRecord.recipientKey, agentAccount.agentsParentRecipientAccountList);
+        deleteAccountRecordFromSearchKeys(_agentRecord.recipientKey, agentAccount.agentParentRecipientAccountList);
 
         // Delete Reference Agent Key From Recipient.agentAccountList
         deleteAccountRecordFromSearchKeys(agentKey, recipientAccount.agentAccountList );
@@ -121,8 +121,8 @@ contract UnSubscribe is Transactions {
 
         // console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
 
-        // for (uint j = 0; j < agentAccount.agentsParentRecipientAccountList.length ; j++)
-        // console.log("*** AFTER DELETE agentAccount.agentsParentRecipientAccountList[", j, "] = ",agentAccount.agentsParentRecipientAccountList[j]);
+        // for (uint j = 0; j < agentAccount.agentParentRecipientAccountList.length ; j++)
+        // console.log("*** AFTER DELETE agentAccount.agentParentRecipientAccountList[", j, "] = ",agentAccount.agentParentRecipientAccountList[j]);
          deleteAccountFromMaster(agentKey);
     }
 
@@ -192,13 +192,13 @@ contract UnSubscribe is Transactions {
         // console.log("accountMap[",_accountKey,"].sponsorAccountList.length =", accountMap[_accountKey].sponsorAccountList.length);
         // console.log("accountMap[",_accountKey,"].recipientAccountList.length =", accountMap[_accountKey].recipientAccountList.length);
         // console.log("accountMap[",_accountKey,"].agentAccountList.length =", accountMap[_accountKey].agentAccountList.length);
-        // console.log("accountMap[",_accountKey,"].agentsParentRecipientAccountList.length =", accountMap[_accountKey].agentsParentRecipientAccountList.length);
+        // console.log("accountMap[",_accountKey,"].agentParentRecipientAccountList.length =", accountMap[_accountKey].agentParentRecipientAccountList.length);
         // console.log("****balanceOf[",accountMap[_accountKey].accountKey,"] =", balanceOf[accountMap[_accountKey].accountKey]);
 
         if(accountMap[_accountKey].sponsorAccountList.length == 0 &&
             accountMap[_accountKey].recipientAccountList.length == 0 &&
             accountMap[_accountKey].agentAccountList.length == 0 &&
-            accountMap[_accountKey].agentsParentRecipientAccountList.length == 0 &&
+            accountMap[_accountKey].agentParentRecipientAccountList.length == 0 &&
             balanceOf[accountMap[_accountKey].accountKey] == 0) {
             // console.log("*** DELETING ACCOUNT ", _accountKey);
             if (deleteAccountRecordFromSearchKeys(_accountKey,  masterAccountList)) {
@@ -239,7 +239,7 @@ contract UnSubscribe is Transactions {
     }
 
     modifier parentRecipientDoesNotExist(address _accountKey) {
-        require (accountMap[_accountKey].agentsParentRecipientAccountList.length == 0, "Agent Account has a Parent Recipient, (Sponsor must Un-recipient Recipiented Account)");
+        require (accountMap[_accountKey].agentParentRecipientAccountList.length == 0, "Agent Account has a Parent Recipient, (Sponsor must Un-recipient Recipiented Account)");
         _;
     }
 

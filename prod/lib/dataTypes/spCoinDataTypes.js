@@ -30,7 +30,7 @@ class AccountStruct {
     this.sponsorAccountList = 0;
     this.recipientAccountList = 0;
     this.agentAccountList = 0;
-    this.agentsParentRecipientAccountList = 0;
+    this.agentParentRecipientAccountList = 0;
     this.recipientRecordList = 0;
     this.stakingRewards = 0;
     this.stakingRewardList = 0;

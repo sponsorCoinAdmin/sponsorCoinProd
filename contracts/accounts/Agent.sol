@@ -31,7 +31,7 @@ contract Agent is RecipientRates {
             agentRecord.agentKey = _agentKey;
             agentRecord.inserted = true;
             accountMap[_recipientKey].agentAccountList.push(_agentKey);
-            accountMap[_agentKey].agentsParentRecipientAccountList.push(_recipientKey);
+            accountMap[_agentKey].agentParentRecipientAccountList.push(_recipientKey);
             recipientRateRecord.agentAccountList.push(_agentKey);
         }
         return agentRecord;

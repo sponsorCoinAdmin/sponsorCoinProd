@@ -62,12 +62,12 @@ contract StructSerialization is Utils {
         string memory sponsorAccountList = toString(_accountRec.sponsorAccountList);
         string memory recipientAccountList = toString(_accountRec.recipientAccountList);
         string memory agentAccountList = toString(_accountRec.agentAccountList);
-        string memory agentsParentRecipientAccountList = toString(_accountRec.agentsParentRecipientAccountList);
+        string memory agentParentRecipientAccountList = toString(_accountRec.agentParentRecipientAccountList);
 
         seralized = concat(seralized, delimiter, "sponsorAccountList:",sponsorAccountList);
         seralized = concat(seralized, delimiter, "recipientAccountList:",recipientAccountList);
         seralized = concat(seralized, delimiter, "agentAccountList:", agentAccountList);
-        seralized = concat(seralized, delimiter, "agentsParentRecipientAccountList:", agentsParentRecipientAccountList);
+        seralized = concat(seralized, delimiter, "agentParentRecipientAccountList:", agentParentRecipientAccountList);
         seralized = concat(seralized, delimiter, stakingRewards);
 
         return seralized;

@@ -165,7 +165,7 @@ contract StakingManager is AgentRates{
            ACCOUNT_TYPE_DELIMITER = "SPONSOR_ACCOUNT:";
         }
         else if ( _rewardType == AGENT ) {
-            accountSearchList = depositAccount.agentsParentRecipientAccountList;
+            accountSearchList = depositAccount.agentParentRecipientAccountList;
             ACCOUNT_TYPE_DELIMITER = "RECIPIENT_ACCOUNT:";
         }
         else return memoryRewards;
