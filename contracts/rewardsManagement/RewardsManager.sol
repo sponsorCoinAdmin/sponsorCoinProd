@@ -201,7 +201,6 @@ contract RewardsManager is StakingManager{
         // console.log("SOL 1.1 updateRecipientAccountipientRewards(AccountStruct storage recipientAccount, uint256 _transactionTimeStamp)");
         AccountStruct storage recipientAccount = accountMap[_recipientKey];
 
-            // have agentKey and parentRecipientKey, ToDo: NEED!!! sponsorAccount to get recipientRecord
             // traverse recipients sponsorships, (sponsorAccountList)
             address[] storage sponsorKeys = recipientAccount.sponsorAccountList;
             for (uint idx = 0; idx < sponsorKeys.length; idx++) {

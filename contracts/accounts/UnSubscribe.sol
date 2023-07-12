@@ -215,7 +215,7 @@ contract UnSubscribe is Transactions {
     function deleteAccountRecord(address _accountKey) public
         accountExists(_accountKey) 
         // ToDo Replace this Removed for space
-        // onlyOwnerOrRootAdmin("deleteAccountRecord", _accountKey)
+        onlyOwnerOrRootAdmin("deleteAccountRecord", _accountKey)
         sponsorDoesNotExist(_accountKey)
         parentRecipientDoesNotExist(_accountKey)
         recipientDoesNotExist(_accountKey) 
