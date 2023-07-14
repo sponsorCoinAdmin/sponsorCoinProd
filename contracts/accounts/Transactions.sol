@@ -29,7 +29,10 @@ contract Transactions is RewardsManager {
                                  uint _agentRateKey,
                                  string memory _strWholeAmount,
                                  string memory _strDecimalAmount,
-                                 uint _transactionTimeStamp) public {
+                                 uint _transactionTimeStamp) 
+    // ToDo Replace this Removed to Save Memory
+    onlyOwnerOrRootAdmin("addBackDatedSponsorship", msg.sender)
+    public {
         // console.log("balanceOf[", msg.sender, "] = ",balanceOf[msg.sender]);
         uint256 sponsorAmount;
         bool result;
@@ -41,8 +44,6 @@ contract Transactions is RewardsManager {
             concat("Insufficient Balance balanceOf[",toString(msg.sender),"] >= ", 
             toString(sponsorAmount)));
 
-        // ToDo Replace this Removed to Save Memory
-        // onlyOwnerOrRootAdmin("addBackDatedSponsorship", msg.sender)
 
         // validateSufficientAccountBalance(_sponsorCoinQty)
     
