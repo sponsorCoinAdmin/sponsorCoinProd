@@ -107,8 +107,8 @@ class SpCoinSerialize {
       case "agentAccountList":
            accountRecord.agentAccountList = this.parseAddressStrRecord(_value);
         break;
-      case "agentsParentRecipientAccountList":
-        accountRecord.agentsParentRecipientAccountList = this.parseAddressStrRecord(_value);
+      case "agentParentRecipientAccountList":
+        accountRecord.agentParentRecipientAccountList = this.parseAddressStrRecord(_value);
       break;
       case "recipientRecordList":
         accountRecord.recipientRecordList = _value;

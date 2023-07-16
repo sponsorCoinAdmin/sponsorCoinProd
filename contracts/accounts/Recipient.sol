@@ -13,7 +13,6 @@ contract Recipient is Sponsor {
     function addRecipient(address _recipientKey) 
     public nonRedundantRecipient (msg.sender, _recipientKey) {
         getRecipientRecord(msg.sender, _recipientKey);
-        // console.log(JUNK_COUNTER++, "addRecipient", _recipientKey); 
     }
 
     function getRecipientRecord(address _sponsor, address _recipientKey)

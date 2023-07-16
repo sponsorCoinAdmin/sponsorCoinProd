@@ -15,7 +15,6 @@ contract AgentRates is Agent {
      internal returns (AgentRateStruct storage) 
     {
         AgentStruct storage agentRecord = getAgentRecord(_sponsor, _recipientKey, _recipientRateKey, _agentKey);
-        // console.log(JUNK_COUNTER++,"getAgentRateRecord"); 
         AgentRateStruct storage agentRateRecord= getAgentRateRecordByKeys(_sponsor, _recipientKey, _recipientRateKey, _agentKey, _agentRateKey);
         if (!agentRateRecord.inserted) {
             agentRateRecord.agentRate = _agentRateKey;

@@ -12,7 +12,6 @@ contract Account is StructSerialization {
         internal {
         if (!isAccountInserted(_accountKey)) {
             // console.log("addAccountRecord(", accountType, _accountKey, ")");
-            // console.log(JUNK_COUNTER++, "addAccountRecord(", accountType, _accountKey, ")"); 
             AccountStruct storage accountRec = accountMap[_accountKey];
             accountRec.accountKey = _accountKey;
             accountRec.creationTime = block.timestamp;

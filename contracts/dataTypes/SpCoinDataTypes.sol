@@ -39,7 +39,6 @@ contract SpCoinDataTypes {
 
     mapping(address => AccountStruct) accountMap;
 
-    uint JUNK_COUNTER = 0;
     uint SPONSOR = 0;
     uint RECIPIENT = 1;
     uint AGENT = 2;
@@ -47,15 +46,14 @@ contract SpCoinDataTypes {
     struct AccountStruct {
         address accountKey;
         uint256 balanceOf;
-        // uint256 decimals;
         uint256 creationTime;
         uint256 stakedSPCoins; // Coins Owned but steaked to recipients
         bool inserted;
         bool verified;
-        address[] recipientAccountList;             // If Sponsor List of Recipient Accounts
-        address[] sponsorAccountList;               // If Recipient ? List of Sponsor Accounts
-        address[] agentAccountList;                 // If Recipient? List of Agent Accounts
-        address[] agentsParentRecipientAccountList; // If Agent? List of Agents Recipient Account
+        address[] recipientAccountList;           // If Sponsor List of Recipient Accounts
+        address[] sponsorAccountList;             // If Recipient ? List of Sponsor Accounts
+        address[] agentAccountList;               // If Recipient? List of Agent Accounts
+        address[] agentParentRecipientAccountList; // If Agent? List of Agents Sponsor Accounts
         mapping(address => RecipientStruct) recipientMap;
         // STAKING REWARDS MAPPINGS
         uint256 stakingRewards; // Coins not owned but Recipiented

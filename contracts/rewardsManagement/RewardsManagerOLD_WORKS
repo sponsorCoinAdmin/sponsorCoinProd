@@ -19,7 +19,7 @@ contract RewardsManager is StakingManager{
     //    6.          updateRecipientRateRewards(recipientRateRecord, _recipientKey, _transactionTimeStamp);
 
     // To Calculate and Update an Account Agent's Rewards
-    //    1. Get a List of Recipients (_recipientKeys) from agentsParentRecipientAccountList
+    //    1. Get a List of Recipients (_recipientKeys) from agentParentRecipientAccountList
     //    2.   For Each Recipient (_recipientKey)
     //    3.     Get the RecipientRecord (recipientRec) from the recipientMap
     //    4.       Get a list of RecipientRateRecords (recipientRateRecords) from RecipientStruct recipientRec
@@ -29,7 +29,7 @@ contract RewardsManager is StakingManager{
     //    8.                updateAgentRateRewards( agentRateRecord, _agentKey, _recipientKey,  _recipientRate, _transactionTimeStamp);
 
     // To Calculate and Update an Account Recipient's Rewards
-    //    1. Get a List of Sponsors (_recipientKeys) from agentsParentRecipientAccountList
+    //    1. Get a List of Sponsors (_recipientKeys) from agentParentRecipientAccountList
     //    2.   For Each Sponsor (_sponsorKey)
     //    3.    Get the RecipientRecord (recipientRec) from the recipientMap
     //    4.      Get a list of RecipientRateRecords (recipientRateRecords) from RecipientStruct recipientRec

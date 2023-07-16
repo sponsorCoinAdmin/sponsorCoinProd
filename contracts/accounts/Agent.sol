@@ -12,7 +12,6 @@ contract Agent is RecipientRates {
     function addAgent(address _recipientKey, uint _recipientRateKey, address _agentKey)
             public nonRedundantAgent (_recipientKey, _agentKey) {
         getAgentRecord(msg.sender, _recipientKey, _recipientRateKey, _agentKey);
-        // console.log(JUNK_COUNTER++,"addAgent"); 
     }
 
     /// @notice insert recipients Agent
@@ -31,7 +30,7 @@ contract Agent is RecipientRates {
             agentRecord.agentKey = _agentKey;
             agentRecord.inserted = true;
             accountMap[_recipientKey].agentAccountList.push(_agentKey);
-            accountMap[_agentKey].agentsParentRecipientAccountList.push(_recipientKey);
+            accountMap[_agentKey].agentParentRecipientAccountList.push(_recipientKey);
             recipientRateRecord.agentAccountList.push(_agentKey);
         }
         return agentRecord;
