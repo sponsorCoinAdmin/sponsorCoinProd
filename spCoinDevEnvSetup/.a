@@ -1,5 +1,5 @@
-alias a=". ~/.a"
-alias m=". ~/.m"
+alias a=". $SPONSOR_COIN_ENV/.a"
+alias m=". $SPONSOR_COIN_ENV/.m"
 alias mkar="ssh -i ~/.ssh/keys/mkaran-privateKey.pem mkaran@www.sponsorcoin.org"
 alias rmel="ssh -i ~/.ssh/keys/rmelanson-privateKey.pem rmelanson@www.sponsorcoin.org"
 alias skal="ssh -i ~/.ssh/keys/skaleis-privateKey.pem skaleis@www.sponsorcoin.org"
@@ -20,8 +20,8 @@ alias cdwallet="cdgetrepo; cd ./sponsorcoinRepo/Learning-Centre/eth_Wallet"
 alias cddev="cdsc; cd .DEV"
 alias startremix="cddev; remixd -s . &"
 alias vbrc="vi ~/.bashrc"
-alias va="vi ~/.a;a"
-alias vm="vi ~/.m;m"
+alias va="vi $SPONSOR_COIN_ENV/.a;a"
+alias vm="vi $SPONSOR_COIN_ENV/.m;m"
 alias vs="code"
 
 #alias cdcurr="cdtest; cd ./uniswapTrader"
@@ -47,3 +47,4 @@ alias testsc='hhtest ./test/spCoinTest.js'
 alias vtest="cdcurr; | tee ./test.out/hhtest.out"
 
 alias cdjunk="cdwip; cd JUNK; cd h*"
+SPONSOR_COIN_ENV
