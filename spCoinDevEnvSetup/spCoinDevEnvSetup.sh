@@ -1,6 +1,6 @@
 # Requires git setup
-#git clone git@github.com:sponsorCoinAdmin/dev-contracts-SpCoin.git
-#cp ../../dev-contracts-SpCoin/.env .
+git clone git@github.com:sponsorCoinAdmin/dev-contracts-SpCoin.git
+cp ../../dev-contracts-SpCoin/.env .
 
 // NOTE: This shell script must be run from this directory ./SPCoinDevSetup
 
