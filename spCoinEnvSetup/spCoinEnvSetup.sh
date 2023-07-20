@@ -11,3 +11,4 @@ echo "export SPONSOR_COIN_ENV=$SPONSOR_COIN_ENV" | tee -a ~/.bashrc
 
 echo ". "$SPONSOR_COIN_ENV"/.e" | tee -a ~/.bashrc
 . $SPONSOR_COIN_ENV/.e
+echo "***IMPORTANT *** Please wnsure the '.env' file is configured for proper operations"
