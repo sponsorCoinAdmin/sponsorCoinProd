@@ -29,7 +29,8 @@ alias vs="code"
 #alias cdcurr="cdtest; cd ./uniswap-v3-frontend"
 #alias cdcurr="cdprod; cd ./decode-multicode"
 #alias cdcurr="cdwip; cd ./swapEthForToken"
-alias  cdcurr="cdwip; cd ./dev-contracts-SpCoin"
+
+alias  cdcurr="cdwip; cd ./dev-contracts-spCoin"
 
 alias scshare="cdwip; remixd -s ./dev-solidity-contracts-sponsorCoin -u https://remix.ethereum.org"
 
@@ -43,7 +44,8 @@ alias hhdeploygoerli="npx hardhat run scripts/deploy.js --network goerli"
 alias hhsize="npx hardhat size-contracts"
 alias hhtest="reset;clear; npx hardhat test 2>&1 | tee ./test.out/hhtest.out"
 alias testbasic='hhtest ./test/basicSetupTests.js'
-alias testsc='hhtest ./test/SPCoinTest.js'
+
+alias testsc='hhtest ./test/spCoinTest.js'
 alias vtest="cdcurr; | tee ./test.out/hhtest.out"
 
 alias cdjunk="cdwip; cd JUNK; cd h*"
