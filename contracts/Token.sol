@@ -24,7 +24,7 @@ contract Token is UnSubscribe{
     public virtual returns (bool success) {
         // console.log("transfer:msg.sender =", msg.sender, "_value =", _value);
         require(balanceOf[msg.sender] >= _value, concat("ACCOUNT ", toString(msg.sender), " *** INSUFFICIENT BALANCE ***"));
-        addAccountRecord("Transfer", _to);
+        addAccountRecord(UNDEFINED, _to);
         balanceOf[msg.sender] = balanceOf[msg.sender] - (_value);
         balanceOf[_to] = balanceOf[_to] + (_value);
         return true;

@@ -1,13 +1,11 @@
 alias a=". $SPONSOR_COIN_ENV/.a"
 alias m=". $SPONSOR_COIN_ENV/.m"
+alias va="vi $SPONSOR_COIN_ENV/.a;a"
+alias vm="vi $SPONSOR_COIN_ENV/.m;m"
 
 alias cdsc="cd sponsorcoin $SPONSOR_COIN_HOME"
 
 alias vbrc="vi ~/.bashrc"
-alias va="vi $SPONSOR_COIN_ENV/.a;a"
-alias vm="vi $SPONSOR_COIN_ENV/.m;m"
-
-alias startremix="cddev; remixd -s . &"
 
 alias vs="code"
 

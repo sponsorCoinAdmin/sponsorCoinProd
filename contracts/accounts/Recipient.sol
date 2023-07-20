@@ -29,7 +29,7 @@ contract Recipient is Sponsor {
 
         RecipientStruct storage recipientRecord = accountMap[_sponsor].recipientMap[_recipientKey];
         if (!recipientRecord.inserted) {
-            addAccountRecord("Recipient", _recipientKey);
+            addAccountRecord(RECIPIENT, _recipientKey);
             recipientRecord.creationTime = block.timestamp;
             recipientRecord.sponsorKey = _sponsor;
             recipientRecord.recipientKey = _recipientKey;

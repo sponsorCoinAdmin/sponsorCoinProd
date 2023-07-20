@@ -39,15 +39,17 @@ contract SpCoinDataTypes {
 
     mapping(address => AccountStruct) accountMap;
 
-    uint SPONSOR = 0;
-    uint RECIPIENT = 1;
-    uint AGENT = 2;
+    uint UNDEFINED = 0;
+    uint SPONSOR = 2;
+    uint RECIPIENT = 3;
+    uint AGENT = 4;
 
     struct AccountStruct {
         address accountKey;
         uint256 balanceOf;
         uint256 creationTime;
         uint256 stakedSPCoins; // Coins Owned but steaked to recipients
+        uint256 accountTypes;  // Coins Owned but steaked to recipients
         bool inserted;
         bool verified;
         address[] recipientAccountList;           // If Sponsor List of Recipient Accounts
@@ -162,6 +164,11 @@ contract SpCoinDataTypes {
         if (_accountType == AGENT)
             return RECIPIENT;
         return 99; 
+    }
+
+    function ifAccountOfType(uint _accountType, uint _accountTypes)
+    internal pure returns (bool) {
+        return (_accountType & _accountTypes) != 0; 
     }
 
     // function getRewardSourceTypeString(uint _accountType) internal view returns (string memory rewardSourceTypeString) {

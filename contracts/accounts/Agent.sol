@@ -23,7 +23,7 @@ contract Agent is RecipientRates {
         AgentStruct storage  agentRecord = getAgentRecordByKeys(_sponsorKey, _recipientKey, _recipientRateKey, _agentKey);
         if (!agentRecord.inserted) {
             RecipientRateStruct storage recipientRateRecord = getRecipientRateRecord(_sponsorKey, _recipientKey, _recipientRateKey, currentTimeStamp);
-            addAccountRecord("Agent", _agentKey);
+            addAccountRecord(AGENT, _agentKey);
             agentRecord.creationTime = currentTimeStamp;
             agentRecord.sponsorKey = _sponsorKey;
             agentRecord.recipientKey = _recipientKey;

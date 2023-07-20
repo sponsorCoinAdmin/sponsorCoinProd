@@ -9,11 +9,11 @@ contract Sponsor is Account {
     /// @notice insert block chain network address for spCoin Management
     function addSponsor(address sponsor)
         public {
-            addAccountRecord("Sponsor", sponsor);
+            addAccountRecord(SPONSOR, sponsor);
     }
 
     function getSponsorAccountRecord(address sponsor)
         internal returns (AccountStruct storage accountRecord) {
-        return getAccountRecord("Sponsor", sponsor);
+        return getAccountRecord(SPONSOR, sponsor);
     }
 }

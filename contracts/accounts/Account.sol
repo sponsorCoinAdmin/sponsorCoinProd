@@ -8,11 +8,11 @@ contract Account is StructSerialization {
 
     /// @notice insert block chain network address for spCoin Management
     /// @param _accountKey public accountKey to set new balance
-    function addAccountRecord(string memory accountType, address _accountKey)
+    function addAccountRecord(uint accountType, address _accountKey)
         internal {
-        if (!isAccountInserted(_accountKey)) {
+        AccountStruct storage accountRec = accountMap[_accountKey];
+        if (!accountRec.inserted) {
             // console.log("addAccountRecord(", accountType, _accountKey, ")");
-            AccountStruct storage accountRec = accountMap[_accountKey];
             accountRec.accountKey = _accountKey;
             accountRec.creationTime = block.timestamp;
             // accountRec.decimals = decimals;
@@ -20,9 +20,10 @@ contract Account is StructSerialization {
             accountRec.inserted = true;
             masterAccountList.push(_accountKey);
         }
+        accountRec.accountTypes |= accountType;
     }
 
-    function getAccountRecord(string memory accountType, address account)
+    function getAccountRecord(uint accountType, address account)
         internal returns (AccountStruct storage accountRecord) {
             addAccountRecord(accountType, account);
             return accountMap[account];

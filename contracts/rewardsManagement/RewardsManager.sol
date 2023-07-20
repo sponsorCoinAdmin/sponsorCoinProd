@@ -172,12 +172,12 @@ contract RewardsManager is StakingManager{
             // have agentKey and parentRecipientKey, ToDo: NEED!!! sponsorAccount to get recipientRecord
             // traverse recipients sponsorships, (sponsorAccountList)
             address[] storage sponsorKeys = parentRecipientAccount.sponsorAccountList;
-            for (uint idx = 0; idx < sponsorKeys.length; idx++) {
-                address sponsorKey = sponsorKeys[idx];
+            for (uint keyIdx = 0; keyIdx < sponsorKeys.length; keyIdx++) {
+                address sponsorKey = sponsorKeys[keyIdx];
                 AccountStruct storage sponsorAccount = accountMap[sponsorKey];
                 RecipientStruct storage recipientRecord = sponsorAccount.recipientMap[parentRecipientKey];
                 if (recipientRecord.inserted){
-                   totalRewards += updateRecipientAgentRewards( recipientRecord, agentKey, _transactionTimeStamp );
+                   totalRewards += updateRecipientAgentRewards( recipientRecord, _transactionTimeStamp );
                 }
 
                 // totalRewards += updateRecipientRateListRewards(recipientRecord, _transactionTimeStamp );
@@ -203,8 +203,8 @@ contract RewardsManager is StakingManager{
 
             // traverse recipients sponsorships, (sponsorAccountList)
             address[] storage sponsorKeys = recipientAccount.sponsorAccountList;
-            for (uint idx = 0; idx < sponsorKeys.length; idx++) {
-                address sponsorKey = sponsorKeys[idx];
+            for (uint keyIdx = 0; keyIdx < sponsorKeys.length; keyIdx++) {
+                address sponsorKey = sponsorKeys[keyIdx];
                 AccountStruct storage sponsorAccount = accountMap[sponsorKey];
                 RecipientStruct storage recipientRecord = sponsorAccount.recipientMap[_recipientKey];
                 if (recipientRecord.inserted){
@@ -215,7 +215,7 @@ contract RewardsManager is StakingManager{
         return totalRewards ;
     }
 
-    function updateRecipientAgentRewards( RecipientStruct storage recipientRecord, address agentKey, uint256 _transactionTimeStamp )
+    function updateRecipientAgentRewards( RecipientStruct storage recipientRecord, uint256 _transactionTimeStamp )
     internal returns ( uint rewards ) {
         // console.log("SOL=>7.0 updateRecipientRateListRewards(recipientRecord)");
         uint256[] storage recipientRateList = recipientRecord.recipientRateList;
