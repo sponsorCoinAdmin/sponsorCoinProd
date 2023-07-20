@@ -7,4 +7,3 @@ if [ "$PS1" ]; then
 #   ssh-add /c/Users/robin/.ssh/gitHub.pvt
    ssh-add /c/Users/robin/.ssh/sponsorCoin.pvt
 fi
-

@@ -1,5 +1,5 @@
-alias a=". ~/.a"
-alias m=". ~/.m"
+alias a=". $SPONSOR_COIN_ENV/.a"
+alias m=". $SPONSOR_COIN_ENV/.m"
 alias mkar="ssh -i ~/.ssh/keys/mkaran-privateKey.pem mkaran@www.sponsorcoin.org"
 alias rmel="ssh -i ~/.ssh/keys/rmelanson-privateKey.pem rmelanson@www.sponsorcoin.org"
 alias skal="ssh -i ~/.ssh/keys/skaleis-privateKey.pem skaleis@www.sponsorcoin.org"
@@ -20,8 +20,8 @@ alias cdwallet="cdgetrepo; cd ./sponsorcoinRepo/Learning-Centre/eth_Wallet"
 alias cddev="cdsc; cd .DEV"
 alias startremix="cddev; remixd -s . &"
 alias vbrc="vi ~/.bashrc"
-alias va="vi ~/.a;a"
-alias vm="vi ~/.m;m"
+alias va="vi $SPONSOR_COIN_ENV/.a;a"
+alias vm="vi $SPONSOR_COIN_ENV/.m;m"
 alias vs="code"
 
 #alias cdcurr="cdtest; cd ./uniswapTrader"
@@ -29,7 +29,7 @@ alias vs="code"
 #alias cdcurr="cdtest; cd ./uniswap-v3-frontend"
 #alias cdcurr="cdprod; cd ./decode-multicode"
 #alias cdcurr="cdwip; cd ./swapEthForToken"
-alias  cdcurr="cdwip; cd ./dev-contracts-spCoin"
+alias  cdcurr="cdwip; cd ./dev-contracts-SpCoin"
 
 alias scshare="cdwip; remixd -s ./dev-solidity-contracts-sponsorCoin -u https://remix.ethereum.org"
 
@@ -43,7 +43,7 @@ alias hhdeploygoerli="npx hardhat run scripts/deploy.js --network goerli"
 alias hhsize="npx hardhat size-contracts"
 alias hhtest="reset;clear; npx hardhat test 2>&1 | tee ./test.out/hhtest.out"
 alias testbasic='hhtest ./test/basicSetupTests.js'
-alias testsc='hhtest ./test/spCoinTest.js'
+alias testsc='hhtest ./test/SPCoinTest.js'
 alias vtest="cdcurr; | tee ./test.out/hhtest.out"
 
 alias cdjunk="cdwip; cd JUNK; cd h*"
