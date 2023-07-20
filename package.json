@@ -18,6 +18,7 @@
     "hardhat-contract-sizer": "^2.10.0"
   },
   "dependencies": {
-    "@nomiclabs/hardhat-etherscan": "^3.1.7"
+    "@nomiclabs/hardhat-etherscan": "^3.1.7",
+    "@remix-project/remixd": "^0.6.16"
   }
 }

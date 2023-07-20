@@ -1,6 +1,8 @@
 alias a=". $SPONSOR_COIN_ENV/.a"
+alias e=". $SPONSOR_COIN_ENV/.e"
 alias m=". $SPONSOR_COIN_ENV/.m"
 alias va="vi $SPONSOR_COIN_ENV/.a;a"
+alias ve="vi $SPONSOR_COIN_ENV/.e;e"
 alias vm="vi $SPONSOR_COIN_ENV/.m;m"
 
 alias cdsc="cd $SPONSOR_COIN_HOME"
@@ -9,8 +11,10 @@ alias vbrc="vi ~/.bashrc"
 
 alias vs="code"
 
-alias hhnode="clear; npx hardhat node"
+alias hhnode="clear; npx hardhat node  2>&1 > $SPONSOR_COIN_LOGS/hhnode.out"
 alias hhcompile="clear;npx hardhat compile"
+
+alias remixd="nohup node $SPONSOR_COIN_HOME/node_modules/@remix-project/remixd/src/bin/remixd.js 2>&1 > $SPONSOR_COIN_LOGS/remixd.out"
 
 # TESTING
 alias hhdeploy="npx hardhat run scripts/deploy.js --network sepolia"
