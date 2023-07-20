@@ -1,7 +1,7 @@
 # Requires git setup
 export SPONSOR_COIN_ROOT_DIR=$PWD
 export SPONSOR_COIN_DIR=dev-contracts-spcoin;
-export SPONSOR_COIN_DEV_DIR=spCoinDevEnv;
+export SPONSOR_COIN_DEV_DIR=spCoinEnvSetup;
 git clone git@github.com:sponsorCoinAdmin/$SPONSOR_COIN_DIR.git
 export SPONSOR_COIN_HOME=$SPONSOR_COIN_ROOT_DIR/$SPONSOR_COIN_DIR
 export SPONSOR_COIN_ENV=$SPONSOR_COIN_HOME/$SPONSOR_COIN_DEV_DIR
