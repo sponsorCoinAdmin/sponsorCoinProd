@@ -2,7 +2,7 @@
 export SPONSOR_COIN_ROOT_DIR=$PWD
 export SPONSOR_COIN_DIR=dev-contracts-spcoin;
 export SPONSOR_COIN_DEV_DIR=spCoinEnvSetup;
-echo "DownLoading Sponsor Coin from gitHub"
+echo "DownLoading Sponsor Coin Development Envirement from gitHub"
 git clone git@github.com:sponsorCoinAdmin/$SPONSOR_COIN_DIR.git
 cd $SPONSOR_COIN_DIR
 echo "Installing the Node Libraries"
@@ -24,4 +24,4 @@ echo "export SPONSOR_COIN_LOGX=$SPONSOR_COIN_LOGS" | tee -a $SPONSOR_COIN_ENV/.e
 
 echo ". "$SPONSOR_COIN_ENV"/.e" | tee -a ~/.bashrc
 . $SPONSOR_COIN_ENV/.e
-echo "***IMPORTANT *** Please wnsure the '.env' file is configured for proper operations"
+echo "***IMPORTANT *** Please ensure the '.env' file is configured for proper operations"
