@@ -14,7 +14,7 @@ alias vs="code"
 alias hhnode="clear; npx hardhat node  2>&1 > $SPONSOR_COIN_LOGS/hhnode.out"
 alias hhcompile="clear;npx hardhat compile"
 
-alias remixd="nohup node $SPONSOR_COIN_HOME/node_modules/@remix-project/remixd/src/bin/remixd.js 2>&1 > $SPONSOR_COIN_LOGS/remixd.out"
+alias remixd="nohup node $SPONSOR_COIN_HOME/node_modules/@remix-project/remixd/src/bin/remixd.js 2>&1 > $SPONSOR_COIN_LOGS/remixd.out &"
 
 # TESTING
 alias hhdeploy="npx hardhat run scripts/deploy.js --network sepolia"
