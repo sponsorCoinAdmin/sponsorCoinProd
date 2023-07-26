@@ -1,7 +1,7 @@
 const { LOG_MODE } = require("./hardhatSetup/hhConnectSetup");
-const { dateInMilliseconds, dateInSeconds, second, minute, hour, day, week, year, month , millennium } = require("../prod/lib/utils/dateTime"); 
-const { SpCoinRewardsMethods } = require("../prod/lib/spCoinRewardsMethods"); 
-const { SpCoinAddMethods } = require("../prod/lib/spCoinRewardsMethods"); 
+const { dateInMilliseconds, dateInSeconds, second, minute, hour, day, week, year, month , millennium } = require("../spCoinProdModule/lib/utils/dateTime"); 
+const { SpCoinRewardsMethods } = require("../spCoinProdModule/lib/spCoinRewardsMethods"); 
+const { SpCoinAddMethods } = require("../spCoinProdModule/lib/spCoinRewardsMethods"); 
 
 describe("spCoinContract", function () {
   beforeEach(async () => {

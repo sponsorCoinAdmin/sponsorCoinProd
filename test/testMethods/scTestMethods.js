@@ -1,7 +1,7 @@
 const { TEST_HH_ACCOUNT_LIST } = require("../hardhatSetup/hhTestAccounts");
-const {} = require("../../prod/lib/spCoinAddMethods");
-const {} = require("../../prod/lib/spCoinReadMethods");
-const {} = require("../../prod/lib/utils/logging");
+const {} = require("../../spCoinProdModule/lib/spCoinAddMethods");
+const {} = require("../../spCoinProdModule/lib/spCoinReadMethods");
+const {} = require("../../spCoinProdModule/lib/utils/logging");
 let hhTestElements = undefined;
 
 getTestHHAccountKey = async (idx) => {

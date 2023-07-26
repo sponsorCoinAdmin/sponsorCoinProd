@@ -7,7 +7,7 @@ const { dateInSeconds,
   week,
   year,
   month ,
-  millennium } = require("../prod/lib/utils/dateTime");
+  millennium } = require("../spCoinProdModule/lib/utils/dateTime");
 
 spCoinConnectMethods
 // let spCoinAddMethods;
