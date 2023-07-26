@@ -1,0 +1,3 @@
+[submodule "prod"]
+	path = prod
+	url = git@github.com:sponsorCoinAdmin/spCoinProdModule.git
