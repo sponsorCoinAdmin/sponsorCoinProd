@@ -10,6 +10,7 @@ alias cdsc="cd $SPONSOR_COIN_HOME"
 alias vbrc="vi ~/.bashrc"
 
 alias vs="code"
+alias sctestclove="git clone --recurse-submodules git@github.com:sponsorCoinAdmin/sponsorCoinTest.git"
 
 alias hhnode="clear; npx hardhat node  2>&1 > $SPONSOR_COIN_LOGS/hhnode.out"
 alias hhcompile="clear;npx hardhat compile"
