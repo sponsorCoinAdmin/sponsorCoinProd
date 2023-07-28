@@ -1,12 +1,9 @@
-// const {  } = require("../spCoinTestModule");
+const {  } = require("../spCoinTestModule");
+const {  } = require("../spCoinProdModule");
+// const { spcoin_prod } = require("spcoin-prod");
 // const { LOG_MODE } = require("../spCoinTestModule/hardhatSetup/hhConnectSetup");
 const { dateInMilliseconds, dateInSeconds, second, minute, hour, day, week, year, month , millennium } = require("../spCoinProdModule/lib/utils/dateTime"); 
-const { spcointestmodule } = require("spcointestmodule");
-// const { spcoin_prod } = require("spcoin-prod");
-// const { spcoinprodmodule } = require("spcoinprodmodule");
-// const { SpCoinRewardsMethods } = require("../spCoinProdModule/lib/spCoinRewardsMethods"); 
-// const { SpCoinAddMethods } = require("../spCoinProdModule/lib/spCoinRewardsMethods");
-
+// const { dateInMilliseconds, dateInSeconds, second, minute, hour, day, week, year, month , millennium } = require("../spCoinProdModule/lib/utils/dateTime"); 
 
 describe("spCoinContract", function () {
   beforeEach(async () => {

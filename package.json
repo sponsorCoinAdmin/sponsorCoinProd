@@ -20,8 +20,6 @@
   "dependencies": {
     "@nomiclabs/hardhat-etherscan": "^3.1.7",
     "@remix-project/remixd": "^0.6.16",
-    "spcoin-prod": "^1.0.0",
-    "spcoinprodmodule": "^1.0.0",
-    "spcointestmodule": "^1.0.0"
+    "spcoin-prod": "^1.0.0"
   }
 }
