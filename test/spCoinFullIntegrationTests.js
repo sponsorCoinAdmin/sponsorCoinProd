@@ -1,8 +1,8 @@
 const {  } = require("../spCoinTestModule");
-const {  } = require("../spCoinProdModule");
+const { } = require("../spCoinProdModule");
 // const { spcoin_prod } = require("spcoin-prod");
 // const { LOG_MODE } = require("../spCoinTestModule/hardhatSetup/hhConnectSetup");
-const { dateInMilliseconds, dateInSeconds, second, minute, hour, day, week, year, month , millennium } = require("../spCoinProdModule/lib/utils/dateTime"); 
+// const { dateInMilliseconds, dateInSeconds, second, minute, hour, day, week, year, month , millennium } = require("../spCoinProdModule/lib/utils/dateTime"); 
 // const { dateInMilliseconds, dateInSeconds, second, minute, hour, day, week, year, month , millennium } = require("../spCoinProdModule/lib/utils/dateTime"); 
 
 describe("spCoinContract", function () {
@@ -313,14 +313,14 @@ describe("spCoinContract", function () {
   //   dateInSeconds() - year
   // );
 
-  let currDateInSecs = dateInSeconds();
+  let currDateInSeconds = dateInSeconds();
   
   await spCoinAddMethods.addBackDatedSponsorship(
     SPONSOR_ACCOUNT_SIGNERS[0],   // DEPOSIT ACCOUNT
     RECIPIENT_ACCOUNT_KEYS[1], 
     RECIPIENT_RATES[9],
     "100", 
-    dateInSeconds() - year
+    currDateInSeconds - year
   );
 
 

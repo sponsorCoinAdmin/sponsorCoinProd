@@ -8,146 +8,16 @@
 
 
   spCoinContract
-addBackDatedSponsorship = async([object Object], 0x70997970c51812dc3a010c7d01b50e0d17dc79c8, 9, 100, 1659024439.0064)
+    1) 2. VALIDATE ADD TRANSACTION RATES
 
 
-*** AFTER CREATE ******************************************************************************************************
+  0 passing (5s)
+  1 failing
+
+  1) spCoinContract
+       2. VALIDATE ADD TRANSACTION RATES:
+     ReferenceError: dateInSeconds is not defined
+      at Context.<anonymous> (test\spCoinFullIntegrationTests.js:316:27)
 
 
-
-DUMP JSON OBJECT
-{
-  "TYPE": "--SPONSOR COIN HEADER--",
-  "name": "sponsorCoin_V001",
-  "symbol": "SPCT_V001",
-  "version": "_V001",
-  "creationTime": "July 28, 2023 at 05:56:01 PM EDT",
-  "location": "America/Toronto",
-  "initialTotalSupply": "1000000000000000000000000000",
-  "totalSupply": "1000000098999996862812203653",
-  "decimals": "18",
-  "annualInflation": "10",
-  "totalBalanceOf": "999999998999996862812203653",
-  "totalStakedSPCoins": "100000000000000000000",
-  "totalStakingRewards": "98999996862812203653",
-  "accountRecords": [
-    {
-      "TYPE": "--ACCOUNT--",
-      "accountKey": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-      "balanceOf": "999999989999997148011094230",
-      "stakedSPCoins": "100000000000000000000",
-      "creationTime": "July 28, 2023 at 05:56:02 PM EDT",
-      "verified": "false",
-      "sponsorAccountList": [],
-      "recipientAccountList": [
-        "0x70997970c51812dc3a010c7d01b50e0d17dc79c8"
-      ],
-      "agentAccountList": [],
-      "agentParentRecipientAccountList": [],
-      "recipientRecordList": [
-        {
-          "TYPE": "--RECIPIENT_RECORD--",
-          "recipientKey": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
-          "creationTime": "July 28, 2023 at 05:56:02 PM EDT",
-          "stakedSPCoins": "100000000000000000000",
-          "recipientRateList": [
-            {
-              "TYPE": "--RECIPIENT_RATE--",
-              "recipientRate": 9,
-              "creationTime": "July 28, 2022 at 12:07:19 PM EDT",
-              "lastUpdateTime": "July 28, 2023 at 05:56:03 PM EDT",
-              "stakedSPCoins": "100000000000000000000",
-              "transactions": [
-                {
-                  "TYPE": "--STAKING TRANSACTION RECORD--",
-                  "location": "America/Toronto",
-                  "insertionTime": "July 28, 2022 at 12:07:19 PM EDT",
-                  "quantity": "100000000000000000000"
-                }
-              ],
-              "agentRecordList": []
-            }
-          ]
-        }
-      ],
-      "stakingRewards": "89999997148011094230",
-      "stakingRewardList": {
-        "TYPE": "--REWARDS STRUCTURE--",
-        "sponsorRewardsList": {
-          "TYPE": "SPONSOR REWARDS",
-          "stakingRewards": "89999997148011094230"
-        },
-        "recipientRewardsList": {
-          "TYPE": "RECIPIENT REWARDS",
-          "stakingRewards": "0"
-        },
-        "agentRewardsList": {
-          "TYPE": "AGENT REWARDS",
-          "stakingRewards": "0",
-          "rewardAccountList": [
-            {
-              "TYPE": "--REWARD ACCOUNT--",
-              "sourceKey": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
-              "stakingRewards": "89999997148011094230",
-              "rateList": [
-                {
-                  "TYPE": "--REWARD RATE--",
-                  "rate": "10",
-                  "stakingRewards": "89999997148011094230",
-                  "rewardTransactionList": [
-                    {
-                      "TYPE": "--REWARD TRANSACTION--",
-                      "updateTime": "July 28, 2023 at 05:56:03 PM EDT",
-                      "stakingRewards": "89999997148011094230"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      },
-      "location": "America/Toronto"
-    },
-    {
-      "TYPE": "--ACCOUNT--",
-      "accountKey": "0x70997970C51812dc3A010C7d01b50e0d17dc79C8",
-      "balanceOf": "8999999714801109423",
-      "stakedSPCoins": "0",
-      "creationTime": "July 28, 2023 at 05:56:02 PM EDT",
-      "verified": "false",
-      "sponsorAccountList": [
-        "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
-      ],
-      "recipientAccountList": [],
-      "agentAccountList": [],
-      "agentParentRecipientAccountList": [],
-      "recipientRecordList": [],
-      "stakingRewards": "8999999714801109423",
-      "stakingRewardList": {
-        "TYPE": "--REWARDS STRUCTURE--",
-        "sponsorRewardsList": {
-          "TYPE": "SPONSOR REWARDS",
-          "stakingRewards": "0"
-        },
-        "recipientRewardsList": {
-          "TYPE": "RECIPIENT REWARDS",
-          "stakingRewards": "8999999714801109423"
-        },
-        "agentRewardsList": {
-          "TYPE": "AGENT REWARDS",
-          "stakingRewards": "0"
-        }
-      },
-      "location": "America/Toronto"
-    }
-  ]
-}
-********************************************************************************
-*** AFTER DELETE ***************************************************************
-********************************************************************************
-    √ 2. VALIDATE ADD TRANSACTION RATES (3034ms)
-
-
-  1 passing (7s)
 

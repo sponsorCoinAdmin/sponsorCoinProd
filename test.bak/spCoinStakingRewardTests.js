@@ -9,15 +9,6 @@ const { dateInSeconds,
   month ,
   millennium } = require("../spCoinProdModule/lib/utils/dateTime");
 
-spCoinConnectMethods
-// let spCoinAddMethods;
-// let spCoinDeleteMethods;
-// let spCoinERC20Methods;
-// let spCoinReadMethods;
-// let spCoinStakingMethods;
-// let spCoinLogger;
-
-
 describe("spCoinContract", function () {
   beforeEach(async () => {
     await initSPCoinTestConnect();
