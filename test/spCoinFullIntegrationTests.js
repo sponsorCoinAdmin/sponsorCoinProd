@@ -1,5 +1,5 @@
-const { } = require("../spCoinTestModule");
-// const { } = require("@sponsorcoin/spcoin-test");
+// const { } = require("../spCoinTestModule");
+const { } = require("@sponsorcoin/spcoin-test");
 
 
 describe("spCoinContract", function () {
