@@ -1,13 +1,15 @@
 const { LOG_MODE } = require("../test/hardhatSetup/hhConnectSetup");
-const { dateInSeconds,
-  second,
-  minute,
-  hour,
-  day,
-  week,
-  year,
-  month ,
-  millennium } = require("../spCoinProdModule/lib/utils/dateTime");
+// const { dateInSeconds,
+//   second,
+//   minute,
+//   hour,
+//   day,
+//   week,
+//   year,
+//   month ,
+//   millennium } = require("../spCoinProdModule");
+  const { } = require("@sponsorcoin/spcoin-prod");
+
 
 describe("spCoinContract", function () {
   beforeEach(async () => {
