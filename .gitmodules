@@ -1,9 +1,3 @@
-[submodule "spCoinProdModule"]
-	path = spCoinProdModule
-	url = git@github.com:sponsorCoinAdmin/spCoinProdModule.git
 [submodule "contracts"]
 	path = contracts
 	url = git@github.com:sponsorCoinAdmin/contracts.git
-[submodule "spCoinTestModule"]
-	path = spCoinTestModule
-	url = git@github.com:sponsorCoinAdmin/spCoinTestModule.git
