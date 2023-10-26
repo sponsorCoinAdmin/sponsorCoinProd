@@ -7,6 +7,7 @@ hhtest\.out
 /hhtest*
 /*.out
 node_modules
+.env
 
 # Hardhat files
 cache
